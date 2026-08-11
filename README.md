@@ -29,7 +29,7 @@
 ```
 .
 ├── index.html        # 안내 페이지 — 내용 수정은 이 파일만 고치면 됨
-├── ai_app.py         # Streamlit 진입점 (index.html을 읽어 렌더링)
+├── app.py            # Streamlit 진입점 (index.html을 읽어 렌더링)
 ├── requirements.txt
 └── README.md
 ```
@@ -60,7 +60,7 @@ iframe 없이 브라우저가 문서를 직접 렌더링해서 모바일에서�
 ### Streamlit Community Cloud
 
 1. [share.streamlit.io](https://share.streamlit.io) 에 GitHub 계정으로 로그인합니다.
-2. **New app** → 저장소 선택 → Branch `main` → Main file path `ai_app.py` → **Deploy**.
+2. **New app** → 저장소 선택 → Branch `main` → Main file path `app.py` → **Deploy**.
 3. 몇 분 뒤 `https://<앱이름>.streamlit.app` 주소가 생성됩니다.
 
 이후 `index.html` 을 수정해 push하면 배포된 페이지에 자동 반영됩니다.
@@ -74,14 +74,14 @@ pip install -r requirements.txt
 ```
 
 ```bash
-streamlit run ai_app.py
+streamlit run app.py
 ```
 
 브라우저에서 `http://localhost:8501` 로 열립니다.
 
 ## 안내문을 수정할 때
 
-`index.html` 하나만 고치면 됩니다. `ai_app.py` 는 건드릴 필요가 없습니다.
+`index.html` 하나만 고치면 됩니다. `app.py` 는 건드릴 필요가 없습니다.
 
 - 날짜가 바뀌었다면 → `#months`(월별 카드)와 `#class`(분반별 표) **두 곳 모두** 수정
 - 배점이 바뀌었다면 → `#grade` 막대(`.bar`)와 `#pa1`·`#pa2` 채점표(`.crit`) **모두** 수정
