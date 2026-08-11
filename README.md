@@ -23,6 +23,7 @@
 .
 ├── app.py            # Streamlit 진입점 (page.html을 읽어 렌더링)
 ├── page.html         # 안내 페이지 본문 — 내용 수정은 이 파일만 고치면 됨
+├── sync.ps1          # 원본 HTML 복사 → 커밋 → 푸시를 한 번에 실행
 ├── requirements.txt
 └── README.md
 ```
@@ -50,7 +51,14 @@ streamlit run app.py
 
 ## 안내문을 수정할 때
 
-`page.html` 만 고치면 됩니다. `app.py` 는 건드릴 필요가 없습니다.
+바깥 폴더의 `수행평가_안내_비선형구조-알고리즘.html` 을 고친 뒤 **`sync.ps1` 을 실행**하면
+복사 → 커밋 → 푸시가 한 번에 처리되고, Streamlit이 1~2분 안에 자동으로 다시 배포합니다.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File sync.ps1
+```
+
+이 저장소의 `page.html` 을 직접 고쳐도 됩니다. `app.py` 는 건드릴 필요가 없습니다.
 
 - 채점기준 배점을 바꿨다면 → 표(`<table>`)와 막대그래프(`.weights`) **두 곳 모두** 수정
 - 프롬프트를 바꿨다면 → 해당 `<pre>` 블록의 내용만 교체 (복사 버튼은 자동 동작)
