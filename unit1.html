@@ -190,6 +190,8 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .four b{display:block; font-family:var(--disp); font-weight:400; font-size:19px; color:var(--blue-d); margin-bottom:5px}
 .four span{font-size:14px; color:var(--ink2); line-height:1.6}
 figure{margin:16px 0; text-align:center}
+figure img{max-width:100%; height:auto; border-radius:14px; background:var(--tint);
+  min-height:60px; font-size:13px; color:var(--muted)}
 figure svg{max-width:100%; height:auto}
 figcaption{font-size:13px; color:var(--muted); margin-top:8px}
 .stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
@@ -348,6 +350,94 @@ details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
   border-radius:14px; padding:13px 15px; resize:vertical}
 .wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
 .wsheet textarea::placeholder{color:var(--muted)}
+
+/* ── 튜링 테스트 진행판 ─────────────────── */
+.wiz{display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0 0 20px; padding:0; counter-reset:wz}
+.wiz li{flex:1 1 110px; position:relative; font-size:13px; font-weight:700; color:var(--ink2);
+  background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:9px 10px 9px 32px; counter-increment:wz; transition:.15s}
+.wiz li::before{content:counter(wz); position:absolute; left:9px; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; border-radius:50%; background:var(--line); color:var(--ink2);
+  font-size:11px; display:flex; align-items:center; justify-content:center}
+.wiz li.done{color:var(--good); border-color:var(--good); background:var(--good-bg)}
+.wiz li.done::before{content:'✓'; background:var(--good); color:#fff}
+.wiz li.on{color:var(--on-fill); background:var(--fill); border-color:var(--fill); box-shadow:var(--sh)}
+.wiz li.on::before{background:var(--on-fill); color:var(--fill-d)}
+.wiz li{cursor:pointer}
+.wiz li:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.step-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:20px; color:var(--blue-d); margin:0 0 14px}
+.rcount{font-family:var(--sans); font-size:12.5px; font-weight:800; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:4px 13px}
+.frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.fld{flex:0 1 220px; display:block}
+.fld.grow{flex:1 1 260px}
+.fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:16px;
+  color:var(--blue-d); margin-bottom:6px}
+.fld input, .fld textarea{width:100%; font-family:var(--sans); font-size:15px; line-height:1.6;
+  color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:11px 14px; resize:vertical}
+.fld input:focus, .fld textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
+.secretbox{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px;
+  background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px; padding:14px 18px}
+.secretbox .slabel{font-size:12.5px; font-weight:800; letter-spacing:.04em; color:var(--blue-d)}
+.secretbox .sval{font-family:var(--disp); font-weight:400; font-size:21px; color:var(--blue-d);
+  filter:blur(9px); user-select:none; transition:filter .2s}
+.secretbox.open .sval{filter:none; user-select:auto}
+.dotrow{display:flex; gap:7px; margin-bottom:14px}
+.dotrow i{width:11px; height:11px; border-radius:50%; background:var(--line); transition:.15s}
+.dotrow i.fill{background:var(--fill)}
+.dotrow i.cur{background:var(--fill); box-shadow:0 0 0 4px var(--blue-xl)}
+.timer{font-family:var(--mono); font-size:17px; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:11px; padding:6px 13px; min-width:74px; text-align:center}
+.timer.low{color:#fff; background:#C63B3B}
+table.tlog{min-width:520px; font-size:14px}
+table.tlog td.q{font-weight:700; color:var(--blue-d); white-space:normal; min-width:150px}
+table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-nums; color:var(--muted)}
+.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0}
+.vbtn{display:block; text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:16px; padding:16px 18px; cursor:pointer; transition:.15s}
+.vbtn:hover{border-color:var(--blue-l); background:var(--white)}
+.vbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.vbtn b{font-family:var(--disp); font-weight:400; font-size:21px; color:var(--blue-d)}
+.vbtn span{font-size:14px; color:var(--ink2); margin-left:5px}
+.vbtn .bar{display:block; height:12px; border-radius:99px; background:var(--line);
+  margin:12px 0 7px; overflow:hidden}
+.vbtn .bar i{display:block; height:100%; width:0; background:var(--fill);
+  border-radius:99px; transition:width .35s ease}
+.vbtn em{font-style:normal; font-size:13.5px; font-weight:800; color:var(--ink2);
+  font-variant-numeric:tabular-nums}
+.vbtn.win{border-color:var(--good); background:var(--good-bg)}
+.vbtn.win .bar i{background:var(--good)}
+.reveal{margin-top:16px; border-radius:16px; padding:22px; text-align:center;
+  font-family:var(--disp); font-weight:400; font-size:clamp(19px,3vw,25px); line-height:1.5;
+  background:var(--good-bg); border:2px solid var(--good); color:var(--ink);
+  animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.reveal .rsub{display:block; font-family:var(--sans); font-size:15px; font-weight:600;
+  color:var(--ink2); margin-top:9px}
+@keyframes pop{from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none} .vbtn .bar i{transition:none}}
+.rubric{display:grid; gap:9px}
+.rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
+.rubric .rq{flex:1 1 260px; font-size:14.5px; color:var(--ink2)}
+.ttnav{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:24px;
+  padding-top:18px; border-top:1px solid var(--line)}
+.ttnav .saved{flex:1 1 auto; font-size:13px; color:var(--muted)}
+.ttnav .saved.flash{color:var(--good); font-weight:700}
+.report{font-family:var(--mono); font-size:12.5px; line-height:1.75; white-space:pre-wrap;
+  word-break:break-word; background:var(--tint); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; max-height:420px; overflow:auto; margin:0 0 16px; color:var(--ink)}
+.missing{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:14px 18px; font-size:14.5px; color:var(--ink2); margin-bottom:14px}
+.missing b{color:var(--warm)}
+@media print{
+  nav, footer, .actbar, .wiz, .ttnav, .simctl, header, section:not(#act){display:none!important}
+  .actbox{border:none; box-shadow:none; padding:0}
+  .tstep[hidden]{display:none!important}
+  .report{max-height:none; border:none; background:none; font-size:11pt}
+}
 
 /* ── 시뮬레이터 ─────────────────────────── */
 .sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
@@ -586,7 +676,7 @@ footer a{font-weight:700}
 
   <div class="actbar" role="tablist" aria-label="활동 선택">
     <button class="atab" role="tab" data-act="0" aria-selected="true"><i>Ⅰ-01 · 도입 5분</i>이건 AI일까?</button>
-    <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트</button>
+    <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트 진행판</button>
     <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01 · 10분</i>네 가지 특성 찾기</button>
     <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 10분</i>어느 분야일까?</button>
     <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-02 · 20분</i>AI 해결안 설계</button>
@@ -606,49 +696,142 @@ footer a{font-weight:700}
     <p class="ask" style="margin-top:14px"><b>정리 질문</b> 「자동으로 움직이는 것」과 「스스로 판단하는 것」의 차이는 무엇일까요?</p>
   </div>
 
-  <!-- ② 튜링 테스트 -->
+  <!-- ② 튜링 테스트 · 5단계 모둠 진행판 -->
   <div class="actbox" data-panel="1" hidden>
     <h3>② 튜링 테스트 해 보기 <span class="tm">20분 · 4~6명 모둠</span></h3>
-    <p class="desc">교과서 14~15쪽 활동입니다. <b>컴퓨터 역할</b>은 챗봇으로 답을 미리 만들고,
-      <b>사람 역할</b>은 짧고 정직하게 답합니다. 관객이 누가 컴퓨터인지 맞힙니다.</p>
+    <p class="desc">교과서 14~15쪽 활동입니다. 아래 <b>1 → 5 단계</b>를 순서대로 따라가면 됩니다.
+      적은 내용은 <b>자동으로 저장</b>되고, 마지막에 <b>제출용 활동지</b>가 만들어집니다.</p>
 
-    <div class="steps3">
-      <div><b>1단계</b><span>역할을 정하고 A·B에 이름을 적는다. 관객은 누가 컴퓨터인지 모른다</span></div>
-      <div><b>2단계</b><span>관객이 질문을 고르면 전달자가 A·B에게 전달하고 답을 듣는다 (4~5회)</span></div>
-      <div><b>3단계</b><span>관객이 토의해 «컴퓨터로 예측되는 쪽»을 정하고 이유를 말한다</span></div>
+    <ol class="wiz" id="ttWiz">
+      <li data-s="1" class="on">모둠 준비</li>
+      <li data-s="2">질문과 답변</li>
+      <li data-s="3">투표와 정답</li>
+      <li data-s="4">토의 정리</li>
+      <li data-s="5">제출</li>
+    </ol>
+
+    <!-- ── 1단계 ── -->
+    <div class="tstep" data-step="1">
+      <h4 class="step-h">1단계 · 모둠을 만들고 역할을 정합니다</h4>
+      <div class="frow">
+        <label class="fld"><span>모둠 이름</span>
+          <input type="text" id="tGroup" placeholder="예) 3모둠 · 튜링파" autocomplete="off"></label>
+        <label class="fld grow"><span>모둠원 이름 (쉼표로 구분, 4명 이상 권장)</span>
+          <input type="text" id="tNames" placeholder="예) 민준, 서준, 도윤, 하준, 지호" autocomplete="off"></label>
+      </div>
+      <div class="simctl">
+        <button type="button" class="mini" id="tRoll">역할 배정하기</button>
+        <button type="button" class="mini gh" id="tReveal" hidden>비밀 확인 (전달자만)</button>
+      </div>
+      <div class="roles" id="tRoles"><span class="hint">이름을 넣고 «역할 배정하기»를 누르세요.</span></div>
+      <div class="secretbox" id="tSecret" hidden>
+        <span class="slabel">전달자만 보세요</span>
+        <span class="sval" id="tSecretVal">?</span>
+      </div>
+      <div class="note"><b>수업 전 준비</b> 컴퓨터 역할을 맡은 학생은 <b>챗봇으로 답변을 미리 만들어</b> 옵니다.
+        사람 역할을 맡은 학생은 <b>짧지만 정확하고 정직하게</b> 답변을 미리 적어 둡니다.
+        <b>관객</b>은 누가 컴퓨터인지 모릅니다.</div>
+      <div class="ask"><b>이기는 요령</b> 컴퓨터 쪽은 <b>너무 완벽하지 않게</b>,
+        사람 쪽은 <b>너무 기계처럼 정확하지 않게</b>. 그래야 어렵습니다.</div>
     </div>
 
-    <div class="gridwrap" style="margin-top:18px">
-      <div class="gside" style="flex:1 1 260px">
-        <h4 class="mini-h">역할 뽑기</h4>
-        <div class="simctl" style="margin-bottom:10px">
-          <input type="text" id="names" placeholder="이름을 쉼표로 (예: 민준, 서준, 도윤, 하준, 지호)"
-                 style="flex:1 1 200px; min-width:180px; font-family:var(--sans); font-size:14px;
-                        padding:10px 13px; border-radius:11px; border:2px solid var(--line);
-                        background:var(--tint); color:var(--ink)">
-          <button type="button" class="mini" id="rollRole">역할 배정</button>
-        </div>
-        <div class="roles" id="roleOut"><span class="hint">이름을 넣고 «역할 배정»을 누르세요.
-          컴퓨터·사람이 누구인지는 <b>전달자만</b> 보도록 «가리기»로 숨길 수 있습니다.</span></div>
-        <div class="simctl" style="margin-top:8px"><button type="button" class="mini gh" id="hideRole" hidden>가리기 / 보이기</button></div>
+    <!-- ── 2단계 ── -->
+    <div class="tstep" data-step="2" hidden>
+      <h4 class="step-h">2단계 · 질문하고 답변을 기록합니다 <span class="rcount" id="tRound">라운드 1</span></h4>
+      <div class="dotrow" id="tDots"></div>
+
+      <div class="qbig" id="tQ">질문을 뽑거나 직접 적어 주세요</div>
+      <div class="simctl">
+        <button type="button" class="mini" id="tRollQ">질문 뽑기</button>
+        <button type="button" class="mini gh" id="tOwnQ">직접 입력</button>
+        <button type="button" class="mini gh" id="tQList">질문지 전체 보기</button>
+        <span class="timer" id="tTimer">01:00</span>
+        <button type="button" class="mini gh" id="tTimeBtn">타이머 시작</button>
       </div>
-      <div class="gside" style="flex:1 1 280px">
-        <h4 class="mini-h">질문 뽑기</h4>
-        <div class="qbig" id="qBig">질문을 뽑아 주세요</div>
-        <div class="simctl">
-          <button type="button" class="mini" id="rollQ">질문 뽑기</button>
-          <button type="button" class="mini gh" id="qList">전체 질문 보기</button>
-        </div>
-        <ol class="qall" id="qAll" hidden></ol>
+      <ol class="qall" id="tQAll" hidden></ol>
+
+      <div class="frow">
+        <label class="fld grow"><span id="tLabA">학생 A 의 답변</span>
+          <textarea id="tAnsA" rows="3" placeholder="전달자가 들은 대로 적습니다"></textarea></label>
+        <label class="fld grow"><span id="tLabB">학생 B 의 답변</span>
+          <textarea id="tAnsB" rows="3" placeholder="전달자가 들은 대로 적습니다"></textarea></label>
+      </div>
+      <div class="simctl">
+        <button type="button" class="mini" id="tSaveR">이 라운드 저장</button>
+        <button type="button" class="mini gh" id="tUndoR">마지막 라운드 취소</button>
+        <span class="scorepill" id="tRSaved">0 라운드 기록됨</span>
+      </div>
+      <div class="tw" id="tLogWrap" hidden><table class="tlog" id="tLog"></table></div>
+      <div class="note"><b>4~5번</b> 반복하면 충분합니다. 질문은 <b>계산 문제 · 감정을 묻는 질문 ·
+        실시간 정보를 묻는 질문</b>을 섞으면 훨씬 재미있어집니다.</div>
+    </div>
+
+    <!-- ── 3단계 ── -->
+    <div class="tstep" data-step="3" hidden>
+      <h4 class="step-h">3단계 · 누가 컴퓨터인지 투표합니다</h4>
+      <p class="desc">기록한 답변을 다시 읽고, <b>관객이 한 명씩</b> 눌러 투표하세요.
+        모두 투표한 뒤 «정답 공개»를 누릅니다.</p>
+      <div class="tw" id="tLogWrap2" hidden><table class="tlog" id="tLog2"></table></div>
+
+      <div class="votes">
+        <button type="button" class="vbtn" data-v="A">
+          <b id="tVLabA">학생 A</b><span>가 컴퓨터다</span>
+          <i class="bar"><i id="tBarA"></i></i><em id="tCntA">0표</em></button>
+        <button type="button" class="vbtn" data-v="B">
+          <b id="tVLabB">학생 B</b><span>가 컴퓨터다</span>
+          <i class="bar"><i id="tBarB"></i></i><em id="tCntB">0표</em></button>
+      </div>
+      <div class="simctl">
+        <button type="button" class="mini" id="tShowAns">정답 공개</button>
+        <button type="button" class="mini gh" id="tResetVote">투표 다시</button>
+      </div>
+      <div class="reveal" id="tRevealBox" hidden></div>
+    </div>
+
+    <!-- ── 4단계 ── -->
+    <div class="tstep" data-step="4" hidden>
+      <h4 class="step-h">4단계 · 결과를 정리하고 토의합니다</h4>
+      <div class="frow">
+        <label class="fld"><span>모둠이 예측한 «컴퓨터»</span>
+          <span class="pick" id="tGuess">
+            <button type="button" data-g="A" aria-pressed="false">학생 A</button>
+            <button type="button" data-g="B" aria-pressed="false">학생 B</button>
+          </span></label>
+      </div>
+      <div class="wsheet">
+        <label>그렇게 생각한 이유
+          <textarea id="tWhy" rows="3" placeholder="예) 계산 문제에 0.5초 만에 정확히 답했고, 장래 희망을 물었을 때 너무 반듯한 문장으로 답했다"></textarea></label>
+        <label>➊ 컴퓨터 역할을 한 친구를 맞히거나 맞히지 못한 이유는 무엇일까요?
+          <textarea id="tD1" rows="3" placeholder="교과서 15쪽 3단계 ➊"></textarea></label>
+        <label>➋ 컴퓨터가 «지능을 가진다»는 것은 무엇을 의미할까요?
+          <textarea id="tD2" rows="3" placeholder="교과서 15쪽 3단계 ➋ · 모둠원과 토의한 내용을 적습니다"></textarea></label>
+      </div>
+      <h4 class="step-h" style="margin-top:24px">스스로 평가하기</h4>
+      <div class="rubric" id="tRubric"></div>
+      <div class="note"><b>잊지 말 것</b> 튜링 테스트를 통과했다고 해서 인공지능이 사람과 <b>동등하다</b>고
+        말할 수는 없습니다. 사람과 인공지능의 <b>경계를 탐구하는 지표</b>로 이용할 뿐입니다.</div>
+    </div>
+
+    <!-- ── 5단계 ── -->
+    <div class="tstep" data-step="5" hidden>
+      <h4 class="step-h">5단계 · 활동지를 제출합니다</h4>
+      <p class="desc">아래 내용이 자동으로 만들어졌습니다. <b>복사</b>하거나 <b>파일로 저장</b>해서
+        선생님이 안내한 곳에 올리세요.</p>
+      <div class="missing" id="tMissing" hidden></div>
+      <pre class="report" id="tReport"></pre>
+      <div class="simctl">
+        <button type="button" class="mini" id="tCopy">제출용 내용 복사</button>
+        <button type="button" class="mini gh" id="tFile">파일로 저장 (.txt)</button>
+        <button type="button" class="mini gh" id="tPrint">인쇄 · PDF 저장</button>
+        <button type="button" class="mini gh" id="tWipe">전부 지우기</button>
       </div>
     </div>
 
-    <p class="note" style="margin-top:16px"><b>왜 이런 질문일까.</b>
-      계산 문제(2x+1=5)는 컴퓨터가 <b>너무 빠르고 정확</b>해서 티가 납니다.
-      「사랑은 무엇인가」 같은 질문은 <b>사람다운 머뭇거림</b>이 드러납니다.
-      «이번 주말 날씨»는 <b>실시간 정보</b>가 필요해서 또 다릅니다.</p>
-    <p class="ask"><b>마무리 토의</b> 컴퓨터를 맞혔나요? 맞히거나 못 맞힌 이유는 무엇일까요?<br>
-      «컴퓨터가 지능을 가진다»는 것은 무슨 뜻일까요?</p>
+    <div class="ttnav">
+      <button type="button" class="mini gh" id="tPrev">← 이전 단계</button>
+      <span class="saved" id="tSaved">입력한 내용은 이 기기에 자동 저장됩니다</span>
+      <button type="button" class="mini" id="tNext">다음 단계 →</button>
+    </div>
   </div>
 
   <!-- ③ 네 가지 특성 찾기 -->
@@ -1079,7 +1262,7 @@ path = astar(grid, start, goal)
   var DECKS=[
    {name:'Ⅰ-01 인공지능의 개념과 특성', slides:[
     '<p class="kicker">Ⅰ-01 · 1차시</p><h4>인공지능이란 무엇일까?</h4>'+
-    '<figure><img src="img/u1/life.jpg" alt="일상 속 인공지능" loading="lazy">'+
+    '<figure><img src="img/u1/life.jpg" alt="일상 속 인공지능">'+
     '<figcaption>집 안 곳곳에 인공지능이 들어 있다</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
 
@@ -1097,10 +1280,10 @@ path = astar(grid, start, goal)
 
     '<p class="kicker">Ⅰ-01 · 특성</p><h4>인공지능의 네 가지 특성</h4>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/perceive.jpg" alt="인식과 이해" loading="lazy"><figcaption>인식과 이해</figcaption></figure>'+
-    '<figure><img src="img/u1/learn.jpg" alt="학습" loading="lazy"><figcaption>학습</figcaption></figure>'+
-    '<figure><img src="img/u1/infer.jpg" alt="추론" loading="lazy"><figcaption>추론</figcaption></figure>'+
-    '<figure><img src="img/u1/auto.jpg" alt="자율성" loading="lazy"><figcaption>자율성</figcaption></figure>'+
+    '<figure><img src="img/u1/perceive.jpg" alt="인식과 이해"><figcaption>인식과 이해</figcaption></figure>'+
+    '<figure><img src="img/u1/learn.jpg" alt="학습"><figcaption>학습</figcaption></figure>'+
+    '<figure><img src="img/u1/infer.jpg" alt="추론"><figcaption>추론</figcaption></figure>'+
+    '<figure><img src="img/u1/auto.jpg" alt="자율성"><figcaption>자율성</figcaption></figure>'+
     '</div>'+
     '<div class="four">'+
     '<div><b>인식과 이해</b><span>센서로 외부 정보를 받아들이고 상황을 이해<br><i>예) 스피커가 목소리를 알아듣는다</i></span></div>'+
@@ -1133,8 +1316,8 @@ path = astar(grid, start, goal)
     '<text '+C+'="dlab" x="230" y="160">구별하지 못하면 → 그 컴퓨터는 지능이 있다고 본다</text>'+
     '</svg><figcaption>튜링 테스트 (앨런 튜링, 1950)</figcaption></figure>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/turing.jpg" alt="앨런 튜링" loading="lazy"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
-    '<figure><img src="img/u1/turingtest.jpg" alt="튜링 테스트 장면" loading="lazy"><figcaption>교과서 13쪽</figcaption></figure>'+
+    '<figure><img src="img/u1/turing.jpg" alt="앨런 튜링"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
+    '<figure><img src="img/u1/turingtest.jpg" alt="튜링 테스트 장면"><figcaption>교과서 13쪽</figcaption></figure>'+
     '</div>'+
     '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
 
@@ -1186,7 +1369,7 @@ path = astar(grid, start, goal)
     '<div><b>법학</b><span>판례 검색, 문서 분석</span></div>'+
     '<div><b>생명공학</b><span>단백질 구조 예측</span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/fields.jpg" alt="학문 분야별 인공지능" loading="lazy">'+
+    '<figure><img src="img/u1/fields.jpg" alt="학문 분야별 인공지능">'+
     '<figcaption>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</figcaption></figure>'+
     '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결하고 도움을 줍니다.</p>',
 
@@ -1241,7 +1424,7 @@ path = astar(grid, start, goal)
     '<div><b>정보 검색</b><span>검색어에 맞는 문서를 추천한다</span></div>'+
     '<div><b>의료 활동</b><span>진단 정보를 제공해 의사 결정을 돕는다</span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/route.jpg" alt="자율주행차의 경로 탐색" loading="lazy">'+
+    '<figure><img src="img/u1/route.jpg" alt="자율주행차의 경로 탐색">'+
     '<figcaption>자율주행차도 경로 탐색 알고리즘을 쓴다</figcaption></figure>'+
     '<p>모두 <b>«수많은 후보 중에서 좋은 답을 고르는»</b> 문제입니다.</p>',
 
@@ -1344,7 +1527,7 @@ path = astar(grid, start, goal)
     '<div><b>경로 발견 문제</b><span>길 찾기 · 미로 찾기 · 8-퍼즐<br><i>목적: 최단 경로 구하기</i></span></div>'+
     '<div><b>게임 문제</b><span>틱택토 · 바둑 · 체스<br><i>목적: 상대방 이기기</i></span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/problems.jpg" alt="지능적 탐색이 필요한 문제들" loading="lazy">'+
+    '<figure><img src="img/u1/problems.jpg" alt="지능적 탐색이 필요한 문제들">'+
     '<figcaption>미로 · 8-퍼즐 · 바둑 · 체스</figcaption></figure>'+
     '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
 
@@ -1388,7 +1571,7 @@ path = astar(grid, start, goal)
     '<text '+C+'="dlab" x="56" y="98">사실·관찰의 기록</text><text '+C+'="dlab" x="174" y="98">가공해 의미를 가진 것</text>'+
     '<text '+C+'="dlab" x="292" y="98">체계화해 판단에 쓰는 것</text><text '+C+'="dlab" x="410" y="98">통찰</text>'+
     '</svg><figcaption>데이터 → 정보 → 지식 → 지혜</figcaption></figure>'+
-    '<figure><img src="img/u1/dikw.jpg" alt="DIKW 피라미드" loading="lazy">'+
+    '<figure><img src="img/u1/dikw.jpg" alt="DIKW 피라미드">'+
     '<figcaption>교과서 47쪽</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까 정보일까 지식일까?</div>',
 
@@ -1754,8 +1937,8 @@ path = astar(grid, start, goal)
   if(aiResetBtn) aiResetBtn.addEventListener('click', aiBuild);
   aiBuild();
 
-  /* ② 튜링 테스트 */
-  var QS = [
+  /* ══ ② 튜링 테스트 진행판 ═══════════════════════════════ */
+  var TQ = [
     '2x + 1 = 5 일 때, x 의 값은 무엇인가요?',
     '양치하는 법을 순서대로 알려 주세요.',
     '당신의 장래 희망은 무엇인가요?',
@@ -1765,56 +1948,393 @@ path = astar(grid, start, goal)
     '이번 주말 서울의 날씨는 어떤가요?',
     '어제 저녁으로 무엇을 먹었나요?',
     '지금 기분이 어떤지 한 문장으로 말해 주세요.',
-    '가장 최근에 웃었던 일은 무엇인가요?'
+    '가장 최근에 웃었던 일은 무엇인가요?',
+    '오늘 학교 오는 길에 본 것 중 기억나는 것은?',
+    '가장 싫어하는 음식과 그 이유는 무엇인가요?'
   ];
-  var qUsed = [];
-  var qBig = document.getElementById('qBig');
-  var rollQ = document.getElementById('rollQ');
-  if(rollQ) rollQ.addEventListener('click', function(){
-    if(qUsed.length >= QS.length) qUsed = [];
-    var i; do { i = Math.floor(Math.random() * QS.length); } while(qUsed.indexOf(i) >= 0);
-    qUsed.push(i);
-    qBig.textContent = (i + 1) + '. ' + QS[i];
-  });
-  var qListBtn = document.getElementById('qList');
-  if(qListBtn) qListBtn.addEventListener('click', function(){
-    var ol = document.getElementById('qAll');
-    if(!ol.children.length) QS.forEach(function(q){
-      var li = document.createElement('li'); li.textContent = q; ol.appendChild(li);
+  var RUBQ = [
+    '튜링 테스트에서 컴퓨터 역할을 한 친구를 찾는 토의 과정에 적극적으로 참여했는가?',
+    '튜링 테스트 결과 컴퓨터와 인간을 구분할 수 있는지 토의하는 과정에 적극적으로 참여했는가?'
+  ];
+  var TKEY = 'ai_u1_turing_v1';
+  var T = { step:1, group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
+            q:'', rounds:[], vA:0, vB:0, shown:false, guess:'', why:'', d1:'', d2:'',
+            rub:['',''], qUsed:[] };
+
+  function tEl(id){ return document.getElementById(id); }
+  var ttRoot = document.querySelector('[data-panel="1"]');
+
+  function tLoad(){
+    try{
+      var raw = localStorage.getItem(TKEY);
+      if(raw){ var o = JSON.parse(raw); for(var k in o) if(k in T) T[k] = o[k]; }
+    }catch(e){}
+  }
+  var tSaveTimer = null;
+  function tSave(){
+    try{ localStorage.setItem(TKEY, JSON.stringify(T)); }catch(e){}
+    var s = tEl('tSaved'); if(!s) return;
+    s.textContent = '저장했습니다'; s.classList.add('flash');
+    clearTimeout(tSaveTimer);
+    tSaveTimer = setTimeout(function(){
+      s.textContent = '입력한 내용은 이 기기에 자동 저장됩니다'; s.classList.remove('flash');
+    }, 1400);
+  }
+  function esc(x){ return String(x == null ? '' : x)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ── 단계 이동 ── */
+  function tGo(n){
+    T.step = Math.max(1, Math.min(5, n));
+    [].slice.call(ttRoot.querySelectorAll('.tstep')).forEach(function(d){
+      d.hidden = +d.getAttribute('data-step') !== T.step;
     });
-    ol.hidden = !ol.hidden;
+    [].slice.call(ttRoot.querySelectorAll('.wiz li')).forEach(function(li){
+      var s = +li.getAttribute('data-s');
+      li.className = s === T.step ? 'on' : (s < T.step ? 'done' : '');
+    });
+    tEl('tPrev').disabled = T.step === 1;
+    tEl('tNext').disabled = T.step === 5;
+    if(T.step === 3){ tRenderLog('tLog2', 'tLogWrap2'); tVoteDraw(); }
+    if(T.step === 5) tReport();
+    tSave();
+  }
+  ttRoot.querySelector('#tPrev').addEventListener('click', function(){ tGo(T.step - 1); });
+  ttRoot.querySelector('#tNext').addEventListener('click', function(){ tGo(T.step + 1); });
+  [].slice.call(ttRoot.querySelectorAll('.wiz li')).forEach(function(li){
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    li.addEventListener('click', function(){ tGo(+li.getAttribute('data-s')); });
+    li.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); tGo(+li.getAttribute('data-s')); }
+    });
   });
 
-  var ROLES = ['컴퓨터 A', '사람 B', '전달자', '관객'];
-  var rollRole = document.getElementById('rollRole');
-  if(rollRole) rollRole.addEventListener('click', function(){
-    var raw = (document.getElementById('names').value || '').split(/[,，\s]+/)
+  /* ── 1단계 : 역할 배정 ── */
+  function tRolesDraw(){
+    var box = tEl('tRoles');
+    if(!T.A){
+      box.innerHTML = '<span class="hint">이름을 넣고 «역할 배정하기»를 누르세요.</span>';
+      tEl('tSecret').hidden = true; tEl('tReveal').hidden = true;
+      return;
+    }
+    box.innerHTML =
+      '<div class="rrow"><b>학생 A</b><span>' + esc(T.A) + '</span></div>' +
+      '<div class="rrow"><b>학생 B</b><span>' + esc(T.B) + '</span></div>' +
+      '<div class="rrow"><b>전달자</b><span>' + esc(T.deliver) + '</span></div>' +
+      '<div class="rrow"><b>관객</b><span>' + (T.crowd.length ? esc(T.crowd.join(', ')) : '없음 — 전달자가 겸합니다') + '</span></div>';
+    tEl('tSecret').hidden = false;
+    tEl('tReveal').hidden = false;
+    tEl('tSecretVal').textContent = '컴퓨터 역할은 «학생 ' + T.cpu + '» 입니다';
+    tEl('tSecret').classList.remove('open');
+    tEl('tLabA').textContent = '학생 A (' + T.A + ') 의 답변';
+    tEl('tLabB').textContent = '학생 B (' + T.B + ') 의 답변';
+    tEl('tVLabA').textContent = '학생 A';
+    tEl('tVLabB').textContent = '학생 B';
+  }
+  ttRoot.querySelector('#tRoll').addEventListener('click', function(){
+    var raw = (tEl('tNames').value || '').split(/[,，、\s]+/)
       .map(function(s){ return s.trim(); }).filter(Boolean);
-    var out = document.getElementById('roleOut');
     if(raw.length < 3){
-      out.innerHTML = '<span class="hint">이름을 <b>3명 이상</b> 넣어 주세요. (컴퓨터·사람·전달자가 필요합니다)</span>';
-      document.getElementById('hideRole').hidden = true;
+      tEl('tRoles').innerHTML = '<span class="hint">이름을 <b>3명 이상</b> 넣어 주세요. ' +
+        '학생 A · 학생 B · 전달자가 필요합니다.</span>';
+      tEl('tSecret').hidden = true; tEl('tReveal').hidden = true;
       return;
     }
     for(var i = raw.length - 1; i > 0; i--){
       var j = Math.floor(Math.random() * (i + 1)), t = raw[i]; raw[i] = raw[j]; raw[j] = t;
     }
-    out.innerHTML = '';
-    raw.forEach(function(nm, i){
-      var role = i < 3 ? ROLES[i] : ROLES[3];
+    T.group = tEl('tGroup').value.trim();
+    T.names = raw.slice();
+    T.A = raw[0]; T.B = raw[1]; T.deliver = raw[2]; T.crowd = raw.slice(3);
+    T.cpu = Math.random() < 0.5 ? 'A' : 'B';
+    tRolesDraw(); tSave();
+  });
+  ttRoot.querySelector('#tReveal').addEventListener('click', function(){
+    tEl('tSecret').classList.toggle('open');
+  });
+  ['tGroup','tNames'].forEach(function(id){
+    tEl(id).addEventListener('input', function(){
+      if(id === 'tGroup') T.group = this.value; tSave();
+    });
+  });
+
+  /* ── 2단계 : 라운드 ── */
+  function tDots(){
+    var d = tEl('tDots'), n = Math.max(5, T.rounds.length + 1), h = '';
+    for(var i = 0; i < n; i++)
+      h += '<i class="' + (i < T.rounds.length ? 'fill' : (i === T.rounds.length ? 'cur' : '')) + '"></i>';
+    d.innerHTML = h;
+    tEl('tRound').textContent = '라운드 ' + (T.rounds.length + 1);
+    tEl('tRSaved').textContent = T.rounds.length + ' 라운드 기록됨';
+  }
+  function tRenderLog(tid, wid){
+    var tb = tEl(tid), wrap = tEl(wid);
+    if(!T.rounds.length){ wrap.hidden = true; return; }
+    wrap.hidden = false;
+    var h = '<tr><th class="rn">라운드</th><th>질문</th><th>학생 A' +
+      (T.A ? ' (' + esc(T.A) + ')' : '') + '</th><th>학생 B' +
+      (T.B ? ' (' + esc(T.B) + ')' : '') + '</th></tr>';
+    T.rounds.forEach(function(r, i){
+      h += '<tr><td class="rn">' + (i + 1) + '</td><td class="q">' + esc(r.q) +
+           '</td><td>' + esc(r.a) + '</td><td>' + esc(r.b) + '</td></tr>';
+    });
+    tb.innerHTML = h;
+  }
+  ttRoot.querySelector('#tRollQ').addEventListener('click', function(){
+    if(T.qUsed.length >= TQ.length) T.qUsed = [];
+    var i; do { i = Math.floor(Math.random() * TQ.length); } while(T.qUsed.indexOf(i) >= 0);
+    T.qUsed.push(i); T.q = TQ[i];
+    tEl('tQ').textContent = T.q; tEl('tQ').contentEditable = 'false'; tSave();
+  });
+  ttRoot.querySelector('#tOwnQ').addEventListener('click', function(){
+    var q = tEl('tQ');
+    q.contentEditable = 'true'; q.textContent = ''; q.focus();
+  });
+  tEl('tQ').addEventListener('input', function(){ T.q = this.textContent.trim(); });
+  tEl('tQ').addEventListener('blur', function(){ this.contentEditable = 'false'; tSave(); });
+  ttRoot.querySelector('#tQList').addEventListener('click', function(){
+    var ol = tEl('tQAll');
+    if(!ol.children.length) TQ.forEach(function(q){
+      var li = document.createElement('li'); li.textContent = q; ol.appendChild(li);
+    });
+    ol.hidden = !ol.hidden;
+  });
+  ttRoot.querySelector('#tSaveR').addEventListener('click', function(){
+    var q = (T.q || tEl('tQ').textContent).trim();
+    var a = tEl('tAnsA').value.trim(), b = tEl('tAnsB').value.trim();
+    if(!q || q.indexOf('질문을 뽑거나') === 0){ tEl('tQ').focus(); return; }
+    if(!a && !b){ tEl('tAnsA').focus(); return; }
+    T.rounds.push({ q:q, a:a, b:b });
+    tEl('tAnsA').value = ''; tEl('tAnsB').value = '';
+    T.q = ''; tEl('tQ').textContent = '질문을 뽑거나 직접 적어 주세요';
+    tDots(); tRenderLog('tLog', 'tLogWrap'); tSave();
+  });
+  ttRoot.querySelector('#tUndoR').addEventListener('click', function(){
+    if(!T.rounds.length) return;
+    var r = T.rounds.pop();
+    tEl('tQ').textContent = r.q; T.q = r.q;
+    tEl('tAnsA').value = r.a; tEl('tAnsB').value = r.b;
+    tDots(); tRenderLog('tLog', 'tLogWrap'); tSave();
+  });
+
+  /* 라운드 타이머 */
+  var tSec = 60, tTick = null;
+  function tShowTime(){
+    var m = Math.floor(tSec / 60), s = tSec % 60;
+    var el = tEl('tTimer');
+    el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    el.classList.toggle('low', tSec <= 10);
+  }
+  ttRoot.querySelector('#tTimeBtn').addEventListener('click', function(){
+    var btn = this;
+    if(tTick){ clearInterval(tTick); tTick = null; btn.textContent = '타이머 시작'; return; }
+    if(tSec <= 0) tSec = 60;
+    btn.textContent = '멈춤 · 되감기';
+    tTick = setInterval(function(){
+      tSec--; tShowTime();
+      if(tSec <= 0){ clearInterval(tTick); tTick = null; tSec = 60;
+        btn.textContent = '타이머 시작'; setTimeout(tShowTime, 900); }
+    }, 1000);
+  });
+
+  /* ── 3단계 : 투표 ── */
+  function tVoteDraw(){
+    var tot = Math.max(1, T.vA + T.vB);
+    tEl('tBarA').style.width = (T.vA / tot * 100) + '%';
+    tEl('tBarB').style.width = (T.vB / tot * 100) + '%';
+    tEl('tCntA').textContent = T.vA + '표';
+    tEl('tCntB').textContent = T.vB + '표';
+    tEl('tVLabA').textContent = '학생 A' + (T.A ? ' (' + T.A + ')' : '');
+    tEl('tVLabB').textContent = '학생 B' + (T.B ? ' (' + T.B + ')' : '');
+    if(!T.shown){ tEl('tRevealBox').hidden = true;
+      [].slice.call(ttRoot.querySelectorAll('.vbtn')).forEach(function(b){ b.classList.remove('win'); }); }
+  }
+  [].slice.call(ttRoot.querySelectorAll('.vbtn')).forEach(function(b){
+    b.addEventListener('click', function(){
+      if(T.shown) return;
+      if(b.getAttribute('data-v') === 'A') T.vA++; else T.vB++;
+      tVoteDraw(); tSave();
+    });
+  });
+  ttRoot.querySelector('#tResetVote').addEventListener('click', function(){
+    T.vA = 0; T.vB = 0; T.shown = false; tVoteDraw(); tSave();
+  });
+  ttRoot.querySelector('#tShowAns').addEventListener('click', function(){
+    if(!T.cpu){ return; }
+    T.shown = true;
+    var box = tEl('tRevealBox'), hit = T.cpu === 'A' ? T.vA : T.vB, tot = T.vA + T.vB;
+    var name = T.cpu === 'A' ? T.A : T.B;
+    var rate = tot ? Math.round(hit / tot * 100) : 0;
+    box.hidden = false;
+    box.innerHTML = '컴퓨터 역할을 맡은 사람은 <b>학생 ' + T.cpu + ' · ' + esc(name) + '</b> 입니다' +
+      '<span class="rsub">' + (tot
+        ? '<b>' + tot + '표</b> 중 <b>' + hit + '표</b>가 정답을 맞혔습니다 (' + rate + '%)'
+        : '투표 기록이 없습니다') + '</span>' +
+      '<span class="rsub">' + (rate >= 70
+        ? '컴퓨터 역할이 티가 났군요. 어떤 답변에서 들켰을까요?'
+        : (rate <= 30 ? '거의 속았습니다! 사람 같은 답변은 어떤 점이 달랐나요?'
+                      : '반반으로 갈렸습니다. 판단이 갈린 질문은 무엇이었나요?')) + '</span>';
+    var win = ttRoot.querySelector('.vbtn[data-v="' + T.cpu + '"]');
+    if(win) win.classList.add('win');
+    tSave();
+  });
+
+  /* ── 4단계 ── */
+  ttRoot.querySelector('#tGuess').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-g]'); if(!b) return;
+    T.guess = b.getAttribute('data-g');
+    [].slice.call(this.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+    tSave();
+  });
+  [['tWhy','why'],['tD1','d1'],['tD2','d2']].forEach(function(p){
+    tEl(p[0]).addEventListener('input', function(){ T[p[1]] = this.value; tSave(); });
+  });
+  function tRubricDraw(){
+    var box = tEl('tRubric'); box.innerHTML = '';
+    RUBQ.forEach(function(q, i){
       var d = document.createElement('div');
-      d.className = 'rrow' + (i < 2 ? ' secret masked' : '');
-      d.innerHTML = '<b>' + role + '</b><span>' + nm + '</span>';
-      out.appendChild(d);
+      d.className = 'rrow2';
+      d.innerHTML = '<span class="rq">' + esc(q) + '</span><span class="pick" data-r="' + i + '">' +
+        ['상','중','하'].map(function(g){
+          return '<button type="button" data-g="' + g + '" aria-pressed="' +
+            (T.rub[i] === g ? 'true' : 'false') + '">' + g + '</button>';
+        }).join('') + '</span>';
+      d.querySelector('.pick').addEventListener('click', function(e){
+        var b = e.target.closest('button[data-g]'); if(!b) return;
+        T.rub[i] = b.getAttribute('data-g');
+        [].slice.call(this.children).forEach(function(o){
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+        });
+        tSave();
+      });
+      box.appendChild(d);
     });
-    document.getElementById('hideRole').hidden = false;
-  });
-  var hideRole = document.getElementById('hideRole');
-  if(hideRole) hideRole.addEventListener('click', function(){
-    [].slice.call(document.querySelectorAll('#roleOut .secret')).forEach(function(r){
-      r.classList.toggle('masked');
+  }
+
+  /* ── 5단계 : 제출문 ── */
+  function tReport(){
+    var L = [], miss = [];
+    L.push('════════ 튜링 테스트 활동지 ════════');
+    L.push('교과서 Ⅰ-01 인공지능의 개념과 특성 (14~15쪽)');
+    L.push('');
+    L.push('모둠 이름 : ' + (T.group || '(미입력)'));
+    if(!T.group) miss.push('모둠 이름');
+    L.push('모둠원    : ' + (T.names.length ? T.names.join(', ') : '(미입력)'));
+    if(!T.names.length) miss.push('역할 배정');
+    L.push('');
+    L.push('── 1단계 · 역할 ──');
+    L.push('학생 A : ' + (T.A || '-'));
+    L.push('학생 B : ' + (T.B || '-'));
+    L.push('전달자 : ' + (T.deliver || '-'));
+    L.push('관객   : ' + (T.crowd.length ? T.crowd.join(', ') : '-'));
+    L.push('');
+    L.push('── 2단계 · 질문과 답변 ──');
+    if(!T.rounds.length){ L.push('(기록 없음)'); miss.push('라운드 기록'); }
+    else if(T.rounds.length < 4) miss.push('라운드 4회 이상 (현재 ' + T.rounds.length + '회)');
+    T.rounds.forEach(function(r, i){
+      L.push('[' + (i + 1) + '] ' + r.q);
+      L.push('    학생 A : ' + (r.a || '-'));
+      L.push('    학생 B : ' + (r.b || '-'));
     });
+    L.push('');
+    L.push('── 3단계 · 투표 결과 ──');
+    L.push('학생 A 가 컴퓨터다 : ' + T.vA + '표');
+    L.push('학생 B 가 컴퓨터다 : ' + T.vB + '표');
+    if(T.shown){
+      var hit = T.cpu === 'A' ? T.vA : T.vB, tot = T.vA + T.vB;
+      L.push('정답 : 컴퓨터 역할은 «학생 ' + T.cpu + ' · ' + (T.cpu === 'A' ? T.A : T.B) + '»');
+      L.push('맞힌 사람 : ' + hit + ' / ' + tot + (tot ? ' (' + Math.round(hit / tot * 100) + '%)' : ''));
+    }else{ L.push('(아직 정답을 공개하지 않았습니다)'); miss.push('정답 공개'); }
+    L.push('');
+    L.push('── 4단계 · 결과 정리 ──');
+    L.push('모둠이 예측한 컴퓨터 : ' + (T.guess ? '학생 ' + T.guess : '(미선택)'));
+    if(!T.guess) miss.push('모둠 예측');
+    L.push('그렇게 생각한 이유 :');
+    L.push('  ' + (T.why || '(미작성)'));
+    if(!T.why.trim()) miss.push('판단 이유');
+    L.push('');
+    L.push('➊ 맞히거나 맞히지 못한 이유 :');
+    L.push('  ' + (T.d1 || '(미작성)'));
+    if(!T.d1.trim()) miss.push('토의 ➊');
+    L.push('➋ 컴퓨터가 지능을 가진다는 것의 의미 :');
+    L.push('  ' + (T.d2 || '(미작성)'));
+    if(!T.d2.trim()) miss.push('토의 ➋');
+    L.push('');
+    L.push('── 스스로 평가하기 ──');
+    RUBQ.forEach(function(q, i){
+      L.push((i + 1) + '. ' + q);
+      L.push('   → ' + (T.rub[i] || '(미선택)'));
+      if(!T.rub[i]) miss.push('자기평가 ' + (i + 1));
+    });
+    L.push('');
+    L.push('══════════════════════════════════');
+    tEl('tReport').textContent = L.join('\n');
+    var mb = tEl('tMissing');
+    if(miss.length){
+      mb.hidden = false;
+      mb.innerHTML = '<b>아직 비어 있는 칸 ' + miss.length + '개</b> — ' + esc(miss.join(' · ')) +
+        '<br>그대로 제출해도 되지만, 채우고 내면 더 좋습니다.';
+    }else{
+      mb.hidden = false;
+      mb.innerHTML = '<b>모두 작성했습니다.</b> 이제 복사하거나 파일로 저장해서 제출하세요.';
+    }
+  }
+  function tFileName(){
+    return '튜링테스트_' + (T.group ? T.group.replace(/[\\/:*?"<>|]/g, '') : '활동지') + '.txt';
+  }
+  ttRoot.querySelector('#tCopy').addEventListener('click', function(){
+    var btn = this, txt = tEl('tReport').textContent;
+    var done = function(){ btn.textContent = '복사했어요';
+      setTimeout(function(){ btn.textContent = '제출용 내용 복사'; }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){});
+    }else{
+      var ta = document.createElement('textarea'); ta.value = txt;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
   });
+  ttRoot.querySelector('#tFile').addEventListener('click', function(){
+    var blob = new Blob(['﻿' + tEl('tReport').textContent], { type:'text/plain;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = tFileName();
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+  ttRoot.querySelector('#tPrint').addEventListener('click', function(){ window.print(); });
+  ttRoot.querySelector('#tWipe').addEventListener('click', function(){
+    if(!window.confirm('입력한 내용을 모두 지웁니다. 계속할까요?')) return;
+    try{ localStorage.removeItem(TKEY); }catch(e){}
+    T = { step:1, group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
+          q:'', rounds:[], vA:0, vB:0, shown:false, guess:'', why:'', d1:'', d2:'',
+          rub:['',''], qUsed:[] };
+    tEl('tGroup').value = ''; tEl('tNames').value = '';
+    tEl('tAnsA').value = ''; tEl('tAnsB').value = '';
+    tEl('tWhy').value = ''; tEl('tD1').value = ''; tEl('tD2').value = '';
+    tEl('tQ').textContent = '질문을 뽑거나 직접 적어 주세요';
+    [].slice.call(ttRoot.querySelectorAll('#tGuess button')).forEach(function(o){
+      o.setAttribute('aria-pressed', 'false');
+    });
+    tRolesDraw(); tDots(); tRenderLog('tLog','tLogWrap'); tRenderLog('tLog2','tLogWrap2');
+    tVoteDraw(); tRubricDraw(); tGo(1);
+  });
+
+  /* ── 초기화 ── */
+  tLoad();
+  tEl('tGroup').value = T.group || '';
+  tEl('tNames').value = T.names.join(', ');
+  tEl('tWhy').value = T.why || ''; tEl('tD1').value = T.d1 || ''; tEl('tD2').value = T.d2 || '';
+  if(T.q) tEl('tQ').textContent = T.q;
+  if(T.guess){
+    var gb = ttRoot.querySelector('#tGuess button[data-g="' + T.guess + '"]');
+    if(gb) gb.setAttribute('aria-pressed', 'true');
+  }
+  tRolesDraw(); tDots(); tRenderLog('tLog','tLogWrap'); tVoteDraw(); tRubricDraw(); tShowTime();
+  tGo(T.step || 1);
 
   /* ③ 네 가지 특성 */
   var DEVS = [
@@ -1976,6 +2496,16 @@ path = astar(grid, start, goal)
       document.body.removeChild(ta);
     }
   });
+
+
+  /* 슬라이드 삽화 미리 받아 두기 — 넘길 때마다 다시 받지 않도록 */
+  (function(){
+    var NAMES = ['life','perceive','learn','infer','auto','turing','turingtest','fields',
+                 'route','problems','game','dikw','chatbot','medical'];
+    var go = function(){ NAMES.forEach(function(nm){ (new Image()).src = 'img/u1/' + nm + '.jpg'; }); };
+    if(document.readyState === 'complete') go();
+    else window.addEventListener('load', go);
+  })();
 
   render();
 })();
