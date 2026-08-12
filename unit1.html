@@ -237,6 +237,86 @@ details[open] summary::after{content:"닫기"}
 summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
 details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
 
+
+/* ── 시뮬레이터 ─────────────────────────── */
+.sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh); margin-bottom:20px}
+.sim h3{display:flex; align-items:center; gap:9px; font-family:var(--disp); font-weight:400;
+  font-size:21px; color:var(--blue-d); margin:0 0 6px}
+.sim .desc{font-size:14.5px; color:var(--ink2); margin:0 0 16px}
+.simctl{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
+.pick button{font-family:var(--sans); font-size:13.5px; font-weight:700; padding:7px 15px; border-radius:99px;
+  border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
+.pick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.pick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mini{font-family:var(--sans); font-size:13.5px; font-weight:700; padding:9px 17px; border-radius:99px;
+  border:1px solid var(--fill); background:var(--fill); color:var(--on-fill); cursor:pointer; transition:.15s}
+.mini:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.mini.gh{background:var(--white); color:var(--blue); border-color:var(--line)}
+.mini.gh:hover{background:var(--blue-xl); color:var(--blue-d)}
+.mini:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.mini[disabled]{opacity:.35; cursor:default}
+.gridwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.gsvg{flex:1 1 320px; min-width:280px}
+.gside{flex:1 1 230px; min-width:220px}
+.stat{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:14px; margin-bottom:14px}
+.stat dt{color:var(--muted); font-weight:600}
+.stat dd{margin:0; font-family:var(--mono); font-weight:700; color:var(--ink)}
+.lst{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:11px 14px;
+  font-family:var(--mono); font-size:12px; line-height:1.6; color:var(--ink2);
+  max-height:120px; overflow:auto; word-break:break-all; margin-bottom:10px}
+.lst b{color:var(--blue-d); display:block; margin-bottom:3px; font-family:var(--sans); font-size:11.5px}
+.cellg rect{stroke:var(--line); stroke-width:1.5}
+.cellg .wall{fill:#7d8ba0}
+.cellg .free{fill:var(--tint)}
+.cellg .open{fill:#BFE3B4}
+.cellg .closed{fill:#F6C7A8}
+.cellg .path{fill:var(--fill)}
+.cellg .se{fill:var(--blue-d)}
+.cellg text{font-family:var(--mono); font-size:9px; fill:var(--ink2); text-anchor:middle}
+.cellg text.on{fill:#fff; font-weight:700}
+.legend2{display:flex; gap:12px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); margin-top:10px}
+.legend2 span{display:inline-flex; align-items:center; gap:5px}
+.legend2 i{width:13px; height:13px; border-radius:4px; display:block; border:1px solid var(--line)}
+.puz{display:grid; grid-template-columns:repeat(3,60px); gap:6px; justify-content:center; margin:6px 0 14px}
+.puz button{width:60px; height:60px; border-radius:12px; border:1px solid var(--line);
+  background:var(--tint); font-family:var(--mono); font-size:22px; font-weight:700; color:var(--ink);
+  cursor:pointer; transition:.12s}
+.puz button.ok{background:var(--good-bg); border-color:var(--good); color:var(--good)}
+.puz button.empty{background:transparent; border-style:dashed; cursor:default}
+.puz button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 코드 ───────────────────────────────── */
+.codebox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:18px}
+.codetop{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:13px 20px; background:var(--tint); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.codetop b{font-size:15px; color:var(--blue-d)}
+.codetop span{font-family:var(--mono); font-size:12px; color:var(--muted)}
+pre{margin:0; padding:20px; overflow-x:auto; background:var(--white);
+  font-family:var(--mono); font-size:12.5px; line-height:1.7; color:var(--ink)}
+pre .c{color:var(--muted)}
+pre .k{color:var(--blue-d); font-weight:700}
+pre .s{color:var(--good)}
+
+/* ── 영상 ───────────────────────────────── */
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.vid{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+  box-shadow:var(--sh); display:flex; gap:12px; align-items:flex-start}
+.vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
+  display:grid; place-items:center}
+.vid .pl svg{width:14px; height:14px; fill:var(--blue-d); margin-left:2px}
+.vid b{display:block; font-size:14.5px; font-weight:700}
+.vid span{display:block; font-size:12.5px; color:var(--muted); margin-top:3px}
+
+/* 슬라이드 안 이미지 */
+.slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:14px 0}
+.imgrow figure{margin:0}
+.imgrow img{width:100%}
+.imgrow figcaption{font-size:12.5px; margin-top:6px}
+
 footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
 footer a{font-weight:700}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
@@ -250,6 +330,11 @@ footer a{font-weight:700}
   <a href="#" class="soon">Ⅱ. 인공지능과 학습</a>
   <a href="#" class="soon">Ⅲ. 사회적 영향</a>
   <a href="#" class="soon">Ⅳ. 프로젝트</a>
+  <span class="sep"></span>
+  <a href="#slides">슬라이드</a>
+  <a href="#sim">시뮬레이터</a>
+  <a href="#code">코드</a>
+  <a href="#check">확인 문제</a>
 </div></div></nav>
 
 <div class="hero"><div class="wrap">
@@ -261,7 +346,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>1<span style="font-size:16px"> 차</span></b><span>정기고사 범위</span></div>
+    <div class="fact"><b>3<span style="font-size:16px"> 개</span></b><span>시뮬레이터 · 코드 2종</span></div>
   </div>
 </div></div>
 
@@ -348,6 +433,276 @@ footer a{font-weight:700}
       <button type="button" class="go" id="nextS">다음 &#8594;</button>
       <div class="dots" id="dots"></div>
     </div>
+  </div>
+</div></section>
+
+<section id="sim"><div class="wrap">
+  <p class="eyebrow">직접 해 보기</p>
+  <h2>탐색 시뮬레이터</h2>
+  <p class="sub">교과서에 나온 문제를 그대로 움직여 봅니다.
+    <b>한 단계씩</b> 눌러 가며 OPEN·CLOSED 리스트가 어떻게 변하는지 보세요.</p>
+
+  <!-- ① 격자 길찾기 -->
+  <div class="sim">
+    <h3>① 길 찾기 ― 세 알고리즘 비교</h3>
+    <p class="desc">교과서 43~47쪽과 <b>똑같은 5×7 격자</b>입니다. 출발 (0,0) → 목표 (3,6),
+      회색은 장애물. 알고리즘을 바꿔 가며 <b>방문한 칸 수</b>를 비교해 보세요.</p>
+    <div class="simctl">
+      <span class="pick" id="algPick">
+        <button type="button" data-alg="bfs" aria-pressed="true">너비 우선</button>
+        <button type="button" data-alg="best" aria-pressed="false">최상 우선</button>
+        <button type="button" data-alg="astar" aria-pressed="false">A*</button>
+      </span>
+      <button type="button" class="mini" id="gStep">한 단계</button>
+      <button type="button" class="mini" id="gRun">자동 실행</button>
+      <button type="button" class="mini gh" id="gReset">처음부터</button>
+    </div>
+    <div class="gridwrap">
+      <div class="gsvg"><svg id="gridSvg" class="cellg" viewBox="0 0 350 250" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="legend2">
+          <span><i style="background:var(--tint)"></i>빈 칸</span>
+          <span><i style="background:#7d8ba0"></i>장애물</span>
+          <span><i style="background:#BFE3B4"></i>OPEN</span>
+          <span><i style="background:#F6C7A8"></i>CLOSED</span>
+          <span><i style="background:var(--fill)"></i>최종 경로</span>
+        </div>
+      </div>
+      <div class="gside">
+        <dl class="stat">
+          <dt>단계</dt><dd id="gStepN">0</dd>
+          <dt>방문(CLOSED)</dt><dd id="gVisit">0</dd>
+          <dt>경로 길이</dt><dd id="gLen">—</dd>
+          <dt>상태</dt><dd id="gState">대기</dd>
+        </dl>
+        <div class="lst"><b>OPEN — 아직 탐색 안 한 칸</b><span id="gOpen">(0,0)</span></div>
+        <div class="lst"><b>CLOSED — 탐색이 끝난 칸</b><span id="gClosed">(비어 있음)</span></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:16px"><b>무엇을 볼까.</b>
+      셋 다 경로는 찾습니다. 하지만 <b>몇 칸이나 헤맸는지</b>가 다릅니다.
+      너비 우선은 가까운 데부터 전부 훑고, 최상 우선은 목표 쪽으로만 달려가고,
+      A*는 «온 거리 + 남은 거리»를 함께 봅니다.</p>
+  </div>
+
+  <!-- ② 트리 순회 -->
+  <div class="sim">
+    <h3>② 트리 순회 ― 깊이 우선 vs 너비 우선</h3>
+    <p class="desc">교과서 30쪽의 A~G 트리입니다. 방문 순서를 한 칸씩 확인해 보세요.</p>
+    <div class="simctl">
+      <span class="pick" id="tPick">
+        <button type="button" data-t="dfs" aria-pressed="true">깊이 우선 (DFS)</button>
+        <button type="button" data-t="bfs" aria-pressed="false">너비 우선 (BFS)</button>
+      </span>
+      <button type="button" class="mini" id="tStep">한 단계</button>
+      <button type="button" class="mini gh" id="tReset">처음부터</button>
+    </div>
+    <figure style="margin:0"><svg id="treeSvg" viewBox="0 0 480 210" xmlns="http://www.w3.org/2000/svg"></svg>
+      <figcaption id="tOrder">방문 순서 —</figcaption></figure>
+  </div>
+
+  <!-- ③ 8-퍼즐 -->
+  <div class="sim">
+    <h3>③ 8-퍼즐 ― 평가 함숫값 체험</h3>
+    <p class="desc">빈칸 옆의 숫자를 눌러 옮깁니다. 목표와 <b>일치하는 칸 수</b>가 곧
+      최상 우선 탐색의 <b>평가 함숫값</b>입니다. 값이 커지는 쪽으로 움직여 보세요.</p>
+    <div class="gridwrap">
+      <div style="flex:0 0 auto"><div class="puz" id="puz"></div></div>
+      <div class="gside">
+        <dl class="stat">
+          <dt>평가 함숫값</dt><dd><span id="pScore">0</span> / 9</dd>
+          <dt>움직인 횟수</dt><dd id="pMove">0</dd>
+        </dl>
+        <p style="font-size:13.5px; color:var(--ink2); margin:0 0 12px">
+          목표 상태 — 1 2 3 / 4 5 6 / 7 8 <span style="color:var(--muted)">(빈칸)</span></p>
+        <div class="simctl" style="margin:0">
+          <button type="button" class="mini gh" id="pReset">처음 상태</button>
+          <button type="button" class="mini gh" id="pShuffle">섞기</button>
+        </div>
+      </div>
+    </div>
+    <p class="ask" id="pMsg" style="margin-top:16px"><b>해 보기</b> 몇 번 만에 9점을 만들 수 있을까요?</p>
+  </div>
+</div></section>
+
+
+<section id="code"><div class="wrap">
+  <p class="eyebrow">교과서 코드</p>
+  <h2>직접 돌려 보는 탐색 알고리즘</h2>
+  <p class="sub">교과서 43~47쪽 소스입니다. 코랩에 붙여 넣으면 바로 돌아갑니다.
+    격자는 위 시뮬레이터와 <b>같은 문제</b>라서 결과를 맞춰 볼 수 있습니다.</p>
+
+  <div class="codebox">
+    <div class="codetop"><b>최상 우선 탐색 (Best-First Search)</b><span>교과서 43~44쪽</span></div>
+    <pre id="code1"><span class="k">import</span> heapq
+
+<span class="k">def</span> heuristic(node, goal):
+  <span class="c"># 맨하탄 거리 공식을 이용하여 현재 노드에서 목표 노드까지의 예상 거리 계산</span>
+  x1, y1 = node
+  x2, y2 = goal
+  <span class="k">return</span> abs(x1 - x2) + abs(y1 - y2)
+
+<span class="k">def</span> get_neighbors(grid, current_node):
+  neighbors = []
+  <span class="c"># 상, 하, 좌, 우로 이동하는 변위 좌표 (dx, dy)를 정의</span>
+  <span class="k">for</span> dx, dy <span class="k">in</span> [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+    x, y = current_node[0] + dx, current_node[1] + dy <span class="c"># 이웃 노드 좌표 계산</span>
+    <span class="c"># 그리드 범위 내에 있고 장애물이 없는 경우에만 이웃 노드로 추가</span>
+    <span class="k">if</span> (0 &lt;= x &lt; len(grid) <span class="k">and</span> 0 &lt;= y &lt; len(grid[0]) <span class="k">and</span> grid[x][y] == 0):
+      neighbors.append((x,y)) <span class="c"># 이웃 노드 좌표 저장</span>
+  <span class="k">return</span> neighbors
+
+<span class="k">def</span> reconstruct_path(came_from, current_node):
+  path = [] <span class="c">#최적 경로 리스트</span>
+  <span class="k">while</span> current_node <span class="k">is</span> <span class="k">not</span> <span class="k">None</span>:
+    path.append(current_node) <span class="c">#현재 노드를 최적 경로에 추가</span>
+    current_node = came_from[current_node] <span class="c">#이전 노드를 현재 노드로 저장</span>
+  path.reverse() <span class="c">#최적 경로 역순으로 정렬</span>
+  <span class="k">return</span> path
+
+<span class="k">def</span> best_first_search(grid, start, goal):
+  open_list = [] <span class="c">#open리스트 초기화</span>
+  heapq.heappush(open_list, (0, start)) <span class="c">#시작 노드를 open리스트에 추가</span>
+  came_from = {} <span class="c">#경로 저장 딕셔너리 초기화</span>
+  came_from[start] = <span class="k">None</span> <span class="c">#시작노드는 이전 노드가 없으므로 None로 초기화</span>
+
+  <span class="k">while</span> open_list:
+    _, current_node = heapq.heappop(open_list)  <span class="c">#open리스트에서 우선순위가 가장 높은 노드 꺼내오기</span>
+
+    <span class="k">if</span> current_node == goal: <span class="c"># 현재노드가 목표노드인 경우</span>
+      path = reconstruct_path(came_from, current_node) <span class="c"># 최적 경로 재구성 함수 호출</span>
+      <span class="k">return</span> path
+    neighbors=get_neighbors(grid, current_node) <span class="c">#이웃 노드 탐색 함수 호출</span>
+    <span class="k">for</span> x,y <span class="k">in</span> neighbors: <span class="c"># 현재 노드의 이웃 노드 탐색</span>
+      neighbor=x,y
+      <span class="k">if</span> neighbor <span class="k">not</span> <span class="k">in</span> came_from: <span class="c"># 이웃 노드가 이전에 방문한 적이 없는 경우</span>
+        came_from[neighbor] = current_node <span class="c"># 이웃 노드의 이전 노드를 현재 노드로 설정</span>
+        priority = heuristic(neighbor, goal)<span class="c"># 이웃 노드의 평가 함숫값 계산</span>
+        heapq.heappush(open_list, (priority, neighbor)) <span class="c"># 이웃 노드를 open리스트에 추가</span>
+  <span class="k">return</span> <span class="k">None</span> <span class="c">#경로가 없을 경우 None 값 반환</span>
+
+grid = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+start = (0, 0)
+goal = (3, 6)
+path = best_first_search(grid, start, goal)
+
+<span class="k">if</span> path:
+  print(<span class="s">"최적 경로:"</span>, path)
+<span class="k">else</span>:
+  print(<span class="s">"경로를 찾을 수 없음"</span>)</pre>
+  </div>
+  <div class="simctl" style="margin:-6px 0 24px">
+    <button class="mini" data-copy="code1">코드 복사</button>
+    <a class="mini gh" href="https://colab.research.google.com" target="_blank" rel="noopener noreferrer">코랩 열기</a>
+  </div>
+
+  <div class="codebox">
+    <div class="codetop"><b>A* 알고리즘</b><span>교과서 45~47쪽</span></div>
+    <pre id="code2"><span class="k">def</span> heuristic(node, goal):
+  <span class="c"># 맨하튼 거리공식을 이용하여 현재 노드에서 목표 노드까지의 예상 거리 계산</span>
+  x1, y1 = node
+  x2, y2 = goal
+  <span class="k">return</span> abs(x1 - x2) + abs(y1 - y2)
+
+<span class="k">def</span> astar_search(current_node, g_score):
+  neighbors = []
+  <span class="c"># 상, 하, 좌, 우로 이동하는 변위 좌표 (dx, dy)를 정의</span>
+  <span class="k">for</span> dx, dy <span class="k">in</span> [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+    x, y = current_node[0] + dx, current_node[1] + dy <span class="c">#이웃 노드 좌표 계산</span>
+    <span class="c"># 그리드 범위 내에 있고 장애물이 없는 경우에만 이웃 노드로 추가</span>
+    <span class="k">if</span> (0 &lt;= x &lt; len(grid) <span class="k">and</span> 0 &lt;= y &lt; len(grid[0]) <span class="k">and</span> grid[x][y] == 0):
+      neighbors.append((x, y, g_score[current_node] + 1)) <span class="c"># 이웃 노드 좌표와 경로 비용 저장</span>
+  <span class="k">return</span> neighbors
+
+<span class="k">def</span> reconstruct_path(came_from, current_node):
+  path = [] <span class="c">#최적 경로 리스트</span>
+  <span class="k">while</span> current_node <span class="k">in</span> came_from: <span class="c"># 현재 노드가 경로 노드에 있는 동안 반복</span>
+    path.insert(0, current_node) <span class="c"># 현재 노드를 최적경로(path) 맨 앞에 추가</span>
+    current_node = came_from[current_node] <span class="c">#이전 노드를 현재노드로 저장</span>
+  path.insert(0, start) <span class="c">#시작노드를 최적경로에 추가</span>
+  <span class="k">return</span> path <span class="c">#방문 경로 리스트 반환</span>
+
+<span class="k">def</span> astar(grid, start, goal):
+  open_list = [(0, start)]  <span class="c"># 방문할 노드와 비용 저장</span>
+  came_from = {}  <span class="c"># 방문 경로를 저장하기 위한 딕셔너리</span>
+  g_score = {start: 0}  <span class="c"># 시작 노드부터 현재 노드까지의 비용</span>
+  f_score = {start: heuristic(start, goal)}  <span class="c"># 시작 노드부터 목표까지의 평가 함숫값</span>
+
+  <span class="k">while</span> open_list:
+    current_cost, current_node = min(open_list) <span class="c"># 평가함숫값이 가장 작은 것 선택</span>
+
+    <span class="k">if</span> current_node == goal: <span class="c"># 목표 노드에 도착한 경우</span>
+      path = reconstruct_path(came_from, current_node) <span class="c"># 최적 경로 재구성 함수 호출</span>
+      <span class="k">return</span> path
+
+    open_list.remove((current_cost, current_node)) <span class="c"># open 리스트에서 현재 노드 삭제(현재노드 방문)</span>
+
+    neighbors = astar_search(current_node, g_score) <span class="c"># 이웃 노드 탐색 함수 호출</span>
+
+    <span class="k">for</span> x, y, tentative_g_score <span class="k">in</span> neighbors: <span class="c"># 현재 노드의 이웃 노드 탐색</span>
+      neighbor = x, y
+      <span class="k">if</span> neighbor <span class="k">not</span> <span class="k">in</span> g_score <span class="k">or</span> tentative_g_score &lt; g_score[neighbor]:
+        <span class="c"># 만약 이웃노드가 이전에 방문한 적이 없거나 경로비용(g_score)이 작은 경우</span>
+        came_from[neighbor] = current_node <span class="c"># 이웃의 이전노드는 현재 노드로 저장</span>
+        g_score[neighbor] = tentative_g_score <span class="c"># 이웃의 g_score를 변경</span>
+        f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal) <span class="c"># 이웃 노드의 평가 함숫값 계산</span>
+        <span class="k">if</span> (f_score[neighbor], neighbor) <span class="k">not</span> <span class="k">in</span> open_list: <span class="c"># open 리스트에 이웃노드가 없는 경우</span>
+          open_list.append((f_score[neighbor], neighbor)) <span class="c"># open 리스트에 추가</span>
+  <span class="k">return</span> <span class="k">None</span>  <span class="c"># 경로가 없을 경우 None 반환</span>
+
+grid = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+start = (0, 0) <span class="c">#시작노드</span>
+goal = (3, 6) <span class="c">#목표노드</span>
+
+path = astar(grid, start, goal)
+
+<span class="k">if</span> path:
+  print(<span class="s">"최적 경로:"</span>, path)
+<span class="k">else</span>:
+  print(<span class="s">"경로를 찾을 수 없음"</span>)</pre>
+  </div>
+  <div class="simctl" style="margin:-6px 0 0">
+    <button class="mini" data-copy="code2">코드 복사</button>
+    <a class="mini gh" href="https://colab.research.google.com" target="_blank" rel="noopener noreferrer">코랩 열기</a>
+  </div>
+
+  <p class="note" style="margin-top:22px"><b>두 코드의 결정적 차이.</b>
+    최상 우선 탐색은 <code>priority = heuristic(neighbor, goal)</code> — <b>남은 거리만</b> 봅니다.<br>
+    A*는 <code>f_score = g_score + heuristic(...)</code> — <b>온 거리 + 남은 거리</b>를 함께 봅니다.
+    이 한 줄 차이가 «최단 경로를 보장하느냐»를 가릅니다.</p>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <p class="eyebrow">수업 영상</p>
+  <h2>소단원별 강의 영상</h2>
+  <p class="sub">교과서 출판사가 제공하는 영상입니다. 파일이 커서 이 페이지에 올리지 않았고,
+    <b>수업 시간에 함께 봅니다.</b> 복습이 필요하면 선생님께 말하세요.</p>
+  <div class="vids">
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-01 인공지능의 개념과 특성</b><span>34.5 MB</span></span></div>
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-02 인공지능과 문제 해결</b><span>28.4 MB</span></span></div>
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-03 인공지능과 탐색</b><span>37.6 MB</span></span></div>
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-04 지능적 탐색의 종류</b><span>36.7 MB</span></span></div>
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-05 지능적 탐색 과정의 적용</b><span>38.1 MB</span></span></div>
+    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+      <span><b>Ⅰ-06 컴퓨터가 처리하는 지식의 표현</b><span>36.4 MB</span></span></div>
   </div>
 </div></section>
 
@@ -452,7 +807,8 @@ footer a{font-weight:700}
   var DECKS=[
    {name:'Ⅰ-01 인공지능의 개념과 특성', slides:[
     '<p class="kicker">Ⅰ-01 · 1차시</p><h4>인공지능이란 무엇일까?</h4>'+
-    '<p class="big">집 안에서 인공지능이 들어간 물건,<br>몇 개나 찾을 수 있을까?</p>'+
+    '<figure><img src="img/u1/life.jpg" alt="일상 속 인공지능" loading="lazy">'+
+    '<figcaption>집 안 곳곳에 인공지능이 들어 있다</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
 
     '<p class="kicker">Ⅰ-01 · 개념</p><h4>인공지능의 정의</h4>'+
@@ -462,6 +818,12 @@ footer a{font-weight:700}
     '<div class="note"><b>지능이란?</b> 새로운 대상이나 상황을 만났을 때 그 의미를 이해하고 합리적인 적응 방법을 알아내는 지적 활동 능력.</div>',
 
     '<p class="kicker">Ⅰ-01 · 특성</p><h4>인공지능의 네 가지 특성</h4>'+
+    '<div class="imgrow">'+
+    '<figure><img src="img/u1/perceive.jpg" alt="인식과 이해" loading="lazy"><figcaption>인식과 이해</figcaption></figure>'+
+    '<figure><img src="img/u1/learn.jpg" alt="학습" loading="lazy"><figcaption>학습</figcaption></figure>'+
+    '<figure><img src="img/u1/infer.jpg" alt="추론" loading="lazy"><figcaption>추론</figcaption></figure>'+
+    '<figure><img src="img/u1/auto.jpg" alt="자율성" loading="lazy"><figcaption>자율성</figcaption></figure>'+
+    '</div>'+
     '<div class="four">'+
     '<div><b>인식과 이해</b><span>센서로 외부 정보를 받아들이고 상황을 이해<br><i>예) 스피커가 목소리를 알아듣는다</i></span></div>'+
     '<div><b>학습</b><span>미리 배워 둔 상태여야 판단할 수 있음<br><i>예) 기계학습·딥러닝으로 배운다</i></span></div>'+
@@ -483,6 +845,10 @@ footer a{font-weight:700}
     '<text '+C+'="dlab" x="230" y="140">대화만으로 어느 쪽이 사람인지 맞힐 수 있을까?</text>'+
     '<text '+C+'="dlab" x="230" y="160">구별하지 못하면 → 그 컴퓨터는 지능이 있다고 본다</text>'+
     '</svg><figcaption>튜링 테스트 (앨런 튜링, 1950)</figcaption></figure>'+
+    '<div class="imgrow">'+
+    '<figure><img src="img/u1/turing.jpg" alt="앨런 튜링" loading="lazy"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
+    '<figure><img src="img/u1/turingtest.jpg" alt="튜링 테스트 장면" loading="lazy"><figcaption>교과서 13쪽</figcaption></figure>'+
+    '</div>'+
     '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
 
     '<p class="kicker">Ⅰ-01 · 정리</p><h4>오늘 배운 것</h4>'+
@@ -518,6 +884,8 @@ footer a{font-weight:700}
     '<div><b>법학</b><span>판례 검색, 문서 분석</span></div>'+
     '<div><b>생명공학</b><span>단백질 구조 예측</span></div>'+
     '</div>'+
+    '<figure><img src="img/u1/fields.jpg" alt="학문 분야별 인공지능" loading="lazy">'+
+    '<figcaption>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</figcaption></figure>'+
     '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결하고 도움을 줍니다.</p>',
 
     '<p class="kicker">Ⅰ-02 · 활동</p><h4>내가 찾은 문제, 내가 만든 해결안</h4>'+
@@ -552,6 +920,8 @@ footer a{font-weight:700}
     '<div><b>정보 검색</b><span>검색어에 맞는 문서를 추천한다</span></div>'+
     '<div><b>의료 활동</b><span>진단 정보를 제공해 의사 결정을 돕는다</span></div>'+
     '</div>'+
+    '<figure><img src="img/u1/route.jpg" alt="자율주행차의 경로 탐색" loading="lazy">'+
+    '<figcaption>자율주행차도 경로 탐색 알고리즘을 쓴다</figcaption></figure>'+
     '<p>모두 <b>«수많은 후보 중에서 좋은 답을 고르는»</b> 문제입니다.</p>',
 
     '<p class="kicker">Ⅰ-03 · 설계</p><h4>탐색 과정 설계 4단계</h4>'+
@@ -653,6 +1023,8 @@ footer a{font-weight:700}
     '<div><b>경로 발견 문제</b><span>길 찾기 · 미로 찾기 · 8-퍼즐<br><i>목적: 최단 경로 구하기</i></span></div>'+
     '<div><b>게임 문제</b><span>틱택토 · 바둑 · 체스<br><i>목적: 상대방 이기기</i></span></div>'+
     '</div>'+
+    '<figure><img src="img/u1/problems.jpg" alt="지능적 탐색이 필요한 문제들" loading="lazy">'+
+    '<figcaption>미로 · 8-퍼즐 · 바둑 · 체스</figcaption></figure>'+
     '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
 
     '<p class="kicker">Ⅰ-05 · 실습</p><h4>최단 경로 챌린지</h4>'+
@@ -663,7 +1035,8 @@ footer a{font-weight:700}
     '<div><b>기록할 것</b><span>① 찾은 경로의 길이<br>② 방문한 노드 수<br>③ 걸린 시간</span></div>'+
     '<div><b>리더보드</b><span>방문 노드 수가 <b>적을수록</b> 좋은 알고리즘</span></div>'+
     '</div>'+
-    '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?</div>',
+    '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?<br>'+
+    '아래 <b>시뮬레이터</b>에서 직접 세어 볼 수 있습니다.</div>',
 
     '<p class="kicker">Ⅰ-05 · 코드</p><h4>A* 알고리즘의 뼈대</h4>'+
     '<ul>'+
@@ -694,6 +1067,8 @@ footer a{font-weight:700}
     '<text '+C+'="dlab" x="56" y="98">사실·관찰의 기록</text><text '+C+'="dlab" x="174" y="98">가공해 의미를 가진 것</text>'+
     '<text '+C+'="dlab" x="292" y="98">체계화해 판단에 쓰는 것</text><text '+C+'="dlab" x="410" y="98">통찰</text>'+
     '</svg><figcaption>데이터 → 정보 → 지식 → 지혜</figcaption></figure>'+
+    '<figure><img src="img/u1/dikw.jpg" alt="DIKW 피라미드" loading="lazy">'+
+    '<figcaption>교과서 47쪽</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까 정보일까 지식일까?</div>',
 
     '<p class="kicker">Ⅰ-06 · 표현</p><h4>지식을 컴퓨터에 담는 세 가지 방법</h4>'+
@@ -776,6 +1151,212 @@ footer a{font-weight:700}
     if(ev.key==='ArrowRight'){ ev.preventDefault(); if(idx<DECKS[deck].slides.length-1){ idx++; render(); } }
     else if(ev.key==='ArrowLeft'){ ev.preventDefault(); if(idx>0){ idx--; render(); } }
   });
+  /* ═══════════ ① 격자 길찾기 시뮬레이터 ═══════════
+     교과서 43~47쪽과 동일한 격자 · 출발 (0,0) · 목표 (3,6) */
+  var GRID=[[0,0,0,0,0,0,0],[1,1,0,0,1,0,0],[1,0,0,0,0,0,0],[0,1,1,0,0,1,0],[0,0,0,0,0,0,0]];
+  var ROWS=GRID.length, COLS=GRID[0].length, START=[0,0], GOAL=[3,6];
+  var CS=46, PAD=6;
+  var alg='bfs', G=null, timer=null;
+
+  function key(r,c){ return r+','+c; }
+  function hman(r,c){ return Math.abs(r-GOAL[0])+Math.abs(c-GOAL[1]); }
+
+  function gInit(){
+    if(timer){ clearInterval(timer); timer=null; }
+    G={open:[[START[0],START[1]]], closed:[], came:{}, g:{}, step:0, done:false, path:null};
+    G.g[key(START[0],START[1])]=0;
+    G.came[key(START[0],START[1])]=null;
+    setState('대기');
+    gDraw();
+  }
+  function inOpen(r,c){ return G.open.some(function(n){ return n[0]===r&&n[1]===c; }); }
+  function inClosed(r,c){ return G.closed.some(function(n){ return n[0]===r&&n[1]===c; }); }
+
+  function pickIdx(){
+    /* 알고리즘별로 OPEN에서 꺼낼 노드 고르기 */
+    if(alg==='bfs') return 0;                       // 먼저 들어온 것부터
+    var best=0, bv=Infinity;
+    for(var i=0;i<G.open.length;i++){
+      var n=G.open[i], v;
+      if(alg==='best') v=hman(n[0],n[1]);           // 남은 거리만
+      else v=(G.g[key(n[0],n[1])]||0)+hman(n[0],n[1]); // f = g + h
+      if(v<bv){ bv=v; best=i; }
+    }
+    return best;
+  }
+  function gStepOnce(){
+    if(!G||G.done) return;
+    if(!G.open.length){ G.done=true; setState('경로 없음'); return; }
+    var i=pickIdx(), cur=G.open.splice(i,1)[0];
+    G.closed.push(cur); G.step++;
+    if(cur[0]===GOAL[0]&&cur[1]===GOAL[1]){
+      var p=[], k=key(cur[0],cur[1]);
+      while(k!==null&&k!==undefined){ p.unshift(k); k=G.came[k]; }
+      G.path=p; G.done=true; setState('경로 찾음!');
+      if(timer){ clearInterval(timer); timer=null; }
+      gDraw(); return;
+    }
+    [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
+      var r=cur[0]+d[0], c=cur[1]+d[1];
+      if(r<0||c<0||r>=ROWS||c>=COLS||GRID[r][c]===1) return;
+      if(inClosed(r,c)||inOpen(r,c)) return;
+      G.came[key(r,c)]=key(cur[0],cur[1]);
+      G.g[key(r,c)]=(G.g[key(cur[0],cur[1])]||0)+1;
+      G.open.push([r,c]);
+    });
+    setState('탐색 중');
+    gDraw();
+  }
+  function setState(t){ var e=document.getElementById('gState'); if(e) e.textContent=t; }
+
+  function gDraw(){
+    var svg=document.getElementById('gridSvg'); if(!svg||!G) return;
+    var s='';
+    for(var r=0;r<ROWS;r++) for(var c=0;c<COLS;c++){
+      var x=PAD+c*CS, y=PAD+r*CS, cls='free', lab='';
+      if(GRID[r][c]===1) cls='wall';
+      else if(G.path&&G.path.indexOf(key(r,c))>=0) cls='path';
+      else if(inClosed(r,c)) cls='closed';
+      else if(inOpen(r,c)) cls='open';
+      if(r===START[0]&&c===START[1]) { cls='se'; lab='출발'; }
+      if(r===GOAL[0]&&c===GOAL[1]) { cls=(G.path?'path':'se'); lab='목표'; }
+      s+='<rect class="'+cls+'" x="'+x+'" y="'+y+'" width="'+(CS-4)+'" height="'+(CS-4)+'" rx="7"/>';
+      var on=(cls==='se'||cls==='path'||cls==='wall')?' on':'';
+      if(lab) s+='<text class="on" x="'+(x+(CS-4)/2)+'" y="'+(y+26)+'">'+lab+'</text>';
+      else if(GRID[r][c]===0 && alg!=='bfs' && !G.path)
+        s+='<text class="'+on.trim()+'" x="'+(x+(CS-4)/2)+'" y="'+(y+26)+'">'+hman(r,c)+'</text>';
+    }
+    svg.setAttribute('viewBox','0 0 '+(PAD*2+COLS*CS-4)+' '+(PAD*2+ROWS*CS-4));
+    svg.innerHTML=s;
+    document.getElementById('gStepN').textContent=G.step;
+    document.getElementById('gVisit').textContent=G.closed.length;
+    document.getElementById('gLen').textContent=G.path?(G.path.length+'칸'):'—';
+    document.getElementById('gOpen').textContent=
+      G.open.length?G.open.map(function(n){return '('+n[0]+','+n[1]+')';}).join(' '):'(비어 있음)';
+    document.getElementById('gClosed').textContent=
+      G.closed.length?G.closed.map(function(n){return '('+n[0]+','+n[1]+')';}).join(' '):'(비어 있음)';
+  }
+  [].forEach.call(document.querySelectorAll('#algPick button'), function(b){
+    b.addEventListener('click', function(){
+      alg=b.dataset.alg;
+      [].forEach.call(document.querySelectorAll('#algPick button'), function(x){
+        x.setAttribute('aria-pressed', x===b ? 'true':'false'); });
+      gInit();
+    });
+  });
+  document.getElementById('gStep').addEventListener('click', gStepOnce);
+  document.getElementById('gReset').addEventListener('click', gInit);
+  document.getElementById('gRun').addEventListener('click', function(){
+    if(timer){ clearInterval(timer); timer=null; this.textContent='자동 실행'; return; }
+    this.textContent='멈춤';
+    var btn=this;
+    timer=setInterval(function(){
+      gStepOnce();
+      if(!G||G.done){ clearInterval(timer); timer=null; btn.textContent='자동 실행'; }
+    }, 320);
+  });
+  gInit();
+
+  /* ═══════════ ② 트리 순회 ═══════════ */
+  var TPOS={A:[240,32],B:[140,100],C:[340,100],D:[86,168],E:[194,168],F:[286,168],G:[394,168]};
+  var TEDGE=[['A','B'],['A','C'],['B','D'],['B','E'],['C','F'],['C','G']];
+  var TORD={dfs:['A','B','D','E','C','F','G'], bfs:['A','B','C','D','E','F','G']};
+  var tMode='dfs', tN=0;
+  function tDraw(){
+    var svg=document.getElementById('treeSvg'); if(!svg) return;
+    var ord=TORD[tMode], shown=ord.slice(0,tN), s='';
+    TEDGE.forEach(function(e){
+      s+='<line class="dg" x1="'+TPOS[e[0]][0]+'" y1="'+TPOS[e[0]][1]+'" x2="'+TPOS[e[1]][0]+'" y2="'+TPOS[e[1]][1]+'"/>';
+    });
+    Object.keys(TPOS).forEach(function(k){
+      var p=TPOS[k], i=shown.indexOf(k);
+      s+='<circle class="dnode'+(i>=0?' hit':'')+'" cx="'+p[0]+'" cy="'+p[1]+'" r="20"/>';
+      s+='<text class="dtxt'+(i>=0?' on':'')+'" x="'+p[0]+'" y="'+(p[1]+5)+'">'+k+'</text>';
+      if(i>=0) s+='<text class="dnum" x="'+(p[0]+28)+'" y="'+(p[1]-14)+'">'+(i+1)+'</text>';
+    });
+    svg.innerHTML=s;
+    document.getElementById('tOrder').textContent=
+      '방문 순서 — '+(shown.length?shown.join(' → '):'(아직 없음)')+
+      (tN>=ord.length?'   ✓ 완료':'');
+  }
+  [].forEach.call(document.querySelectorAll('#tPick button'), function(b){
+    b.addEventListener('click', function(){
+      tMode=b.dataset.t; tN=0;
+      [].forEach.call(document.querySelectorAll('#tPick button'), function(x){
+        x.setAttribute('aria-pressed', x===b?'true':'false'); });
+      tDraw();
+    });
+  });
+  document.getElementById('tStep').addEventListener('click', function(){
+    if(tN<TORD[tMode].length){ tN++; tDraw(); }
+  });
+  document.getElementById('tReset').addEventListener('click', function(){ tN=0; tDraw(); });
+  tDraw();
+
+  /* ═══════════ ③ 8-퍼즐 ═══════════ */
+  var GOALP=['1','2','3','4','5','6','7','8',''];
+  /* 목표에서 빈칸을 네 번 되짚어 만든 배치 → 반드시 4번 만에 풀 수 있고 평가 함숫값은 4 */
+  var BOOK =['','1','3','4','2','5','7','8','6'];
+  var P=BOOK.slice(), pMoves=0;
+  function pScore(){ var n=0; for(var i=0;i<9;i++) if(P[i]===GOALP[i]) n++; return n; }
+  function pDraw(){
+    var box=document.getElementById('puz'); if(!box) return;
+    box.innerHTML='';
+    P.forEach(function(v,i){
+      var b=document.createElement('button');
+      b.type='button';
+      b.textContent=v||'';
+      b.className=(v==='')?'empty':((v===GOALP[i])?'ok':'');
+      b.setAttribute('aria-label', v?(v+'번 조각'):'빈칸');
+      if(v) b.addEventListener('click', function(){ pMove(i); });
+      box.appendChild(b);
+    });
+    document.getElementById('pScore').textContent=pScore();
+    document.getElementById('pMove').textContent=pMoves;
+    var msg=document.getElementById('pMsg');
+    if(P.join(',')===GOALP.join(',')) msg.innerHTML='<b>완성!</b> '+pMoves+'번 만에 목표 상태에 도달했습니다. 평가 함숫값 9점.';
+    else msg.innerHTML='<b>해 보기</b> 몇 번 만에 9점을 만들 수 있을까요?';
+  }
+  function pMove(i){
+    var e=P.indexOf(''), r1=Math.floor(i/3), c1=i%3, r2=Math.floor(e/3), c2=e%3;
+    if(Math.abs(r1-r2)+Math.abs(c1-c2)!==1) return;
+    P[e]=P[i]; P[i]=''; pMoves++; pDraw();
+  }
+  document.getElementById('pReset').addEventListener('click', function(){ P=BOOK.slice(); pMoves=0; pDraw(); });
+  document.getElementById('pShuffle').addEventListener('click', function(){
+    /* 목표에서 무작위로 되짚어 섞으면 항상 풀 수 있는 상태가 된다 */
+    P=GOALP.slice();
+    for(var k=0;k<120;k++){
+      var e=P.indexOf(''), r=Math.floor(e/3), c=e%3, cand=[];
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
+        var nr=r+d[0], nc=c+d[1];
+        if(nr>=0&&nr<3&&nc>=0&&nc<3) cand.push(nr*3+nc);
+      });
+      var pick=cand[k%cand.length];
+      P[e]=P[pick]; P[pick]='';
+    }
+    pMoves=0; pDraw();
+  });
+  pDraw();
+
+  /* ═══════════ 코드 복사 ═══════════ */
+  [].forEach.call(document.querySelectorAll('[data-copy]'), function(b){
+    b.addEventListener('click', function(){
+      var el=document.getElementById(b.dataset.copy);
+      var txt=el.innerText;
+      var done=function(){ var o=b.textContent; b.textContent='복사됨';
+        setTimeout(function(){ b.textContent=o; },1500); };
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done,fb);
+      else fb();
+      function fb(){
+        var ta=document.createElement('textarea'); ta.value=txt;
+        ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+        ta.select(); try{ document.execCommand('copy'); done(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
   render();
 })();
 </script>
