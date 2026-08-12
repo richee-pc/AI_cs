@@ -314,31 +314,57 @@ details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
 .tcell[data-on="n"]{border-color:var(--warm); background:var(--warm-bg)}
 .tcell[data-on="n"] em{color:var(--warm)}
 
-/* ④ 분야 매칭 */
-.matchbox{margin-bottom:16px}
-.mcase{font-family:var(--disp); font-weight:400; font-size:clamp(18px,2.8vw,23px); line-height:1.5;
-  background:var(--blue-xl); border-radius:16px; padding:22px; text-align:center;
-  min-height:96px; display:flex; align-items:center; justify-content:center; margin-bottom:14px}
-.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px}
-.mopts button{font-family:var(--sans); font-size:15px; font-weight:700; padding:13px 10px;
-  border-radius:13px; border:2px solid var(--line); background:var(--tint);
-  color:var(--ink); cursor:pointer; transition:.15s}
-.mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
-.mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
-.mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
-.mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
-@media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
-:root[data-theme="dark"] .mopts button.no{background:#3A1616; color:#FFAFAF}
-:root[data-theme="light"] .mopts button.no{background:#FDE9E9; color:#A62727}
-
-/* ⑤ 학습지 */
-.wsheet{display:grid; gap:14px; margin-bottom:16px}
-.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d)}
-.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:15px;
-  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
-  border-radius:14px; padding:13px 15px; resize:vertical}
-.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
-.wsheet textarea::placeholder{color:var(--muted)}
+/* ── AI 해결안 설계 ─────────────────────── */
+.gauge{position:relative; height:30px; border-radius:99px; background:var(--tint);
+  border:1px solid var(--line); overflow:hidden; margin-bottom:16px}
+.gauge>i{display:block; height:100%; width:0; border-radius:99px;
+  background:var(--fill); transition:width .3s ease}
+.gauge>i.full{background:var(--good)}
+.gauge>b{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums;
+  mix-blend-mode:normal}
+.canvas{display:grid; gap:13px}
+.cell{display:block; background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:15px 18px; transition:.15s}
+.cell:focus-within{border-color:var(--blue); background:var(--white)}
+.cell.key{background:var(--blue-xl); border-color:var(--blue-l)}
+.cell.warn{background:var(--warm-bg); border-color:var(--warm)}
+.cell>span{display:flex; align-items:center; gap:9px;
+  font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d)}
+.cell.warn>span{color:var(--warm)}
+.cell>span>i{flex:none; width:24px; height:24px; border-radius:50%;
+  background:var(--fill); color:var(--on-fill); font-style:normal;
+  font-family:var(--sans); font-size:12.5px; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.cell.warn>span>i{background:var(--warm); color:var(--sky-bg)}
+.cell>em{display:block; font-style:normal; font-size:13px; color:var(--ink2);
+  line-height:1.55; margin:5px 0 9px}
+.cell textarea{width:100%; font-family:var(--sans); font-size:15px; line-height:1.65;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:11px 13px; resize:vertical}
+.cell textarea:focus{outline:none; border-color:var(--blue)}
+.cell textarea::placeholder{color:var(--muted)}
+.dcards{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
+.dcard{display:inline-flex; align-items:center; gap:6px; font-family:var(--sans);
+  font-size:13.5px; font-weight:700; padding:8px 14px; border-radius:99px;
+  border:2px solid var(--line); background:var(--white); color:var(--ink2);
+  cursor:pointer; transition:.15s}
+.dcard:hover{border-color:var(--blue-l)}
+.dcard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.dcard[data-on]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.verdict{margin-top:16px; border-radius:16px; padding:20px 22px; border:2px solid var(--line);
+  background:var(--tint); animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+.verdict b{display:block; font-family:var(--disp); font-weight:400;
+  font-size:clamp(18px,2.6vw,22px); margin-bottom:7px}
+.verdict span{display:block; font-size:15px; line-height:1.7; color:var(--ink2)}
+.verdict ul{margin:12px 0 0; padding-left:20px; font-size:14px; color:var(--ink2); line-height:1.8}
+.verdict.ok{background:var(--good-bg); border-color:var(--good)}
+.verdict.ok b{color:var(--good)}
+.verdict.mid{background:var(--blue-xl); border-color:var(--blue-l)}
+.verdict.mid b{color:var(--blue-d)}
+.verdict.no{background:var(--warm-bg); border-color:var(--warm)}
+.verdict.no b{color:var(--warm)}
+@media (prefers-reduced-motion:reduce){.verdict{animation:none} .gauge>i{transition:none}}
 
 /* ── 튜링 테스트 진행판 ─────────────────── */
 .wiz{display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0 0 20px; padding:0; counter-reset:wz}
@@ -407,6 +433,14 @@ table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-num
   color:var(--ink2); margin-top:9px}
 @keyframes pop{from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1}}
 @media (prefers-reduced-motion:reduce){.reveal{animation:none} .vbtn .bar i{transition:none}}
+/* 튜링 4단계 토의 칸 */
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:15px;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
 .rubric{display:grid; gap:9px}
 .rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
@@ -566,7 +600,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>수업 활동 · 시뮬레이터 3</span></div>
+    <div class="fact"><b>4<span style="font-size:16px"> 개</span></b><span>수업 활동 · 시뮬레이터 3</span></div>
   </div>
 </div></div>
 
@@ -667,8 +701,7 @@ footer a{font-weight:700}
     <button class="atab" role="tab" data-act="0" aria-selected="true"><i>Ⅰ-01 · 도입 5분</i>이건 AI일까?</button>
     <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트 진행판</button>
     <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01 · 10분</i>네 가지 특성 찾기</button>
-    <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 10분</i>어느 분야일까?</button>
-    <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-02 · 20분</i>AI 해결안 설계</button>
+    <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 22분</i>AI 해결안 설계</button>
   </div>
 
   <!-- ① AI 판별 게임 -->
@@ -877,43 +910,65 @@ footer a{font-weight:700}
     <p class="ask" id="traitMsg" style="margin-top:14px"><b>해 보기</b> 네 칸을 눌러 «있다/없다»를 정해 보세요.</p>
   </div>
 
-  <!-- ④ 학문 분야 매칭 -->
+  <!-- ④ AI 해결안 설계 -->
   <div class="actbox" data-panel="3" hidden>
-    <h3>④ 어느 분야일까? <span class="tm">10분 · 모둠 대항</span></h3>
-    <p class="desc">사례를 읽고 <b>어느 학문 분야</b>인지 고르세요. 모둠별로 점수를 매겨도 좋습니다.</p>
-    <div class="matchbox">
-      <div class="mcase" id="mCase">사례를 불러오는 중…</div>
-      <div class="mopts" id="mOpts"></div>
-    </div>
-    <div class="simctl">
-      <span id="mScore" class="scorepill">0 / 0</span>
-      <button type="button" class="mini gh" id="mReset">처음부터</button>
-    </div>
-  </div>
+    <h3>④ AI 해결안 설계 <span class="tm">22분 · 모둠 → 발표</span></h3>
+    <p class="desc">교과서 20~21쪽 활동입니다. 칸을 차례로 채우면 <b>설계 카드</b>가 완성됩니다.
+      다 채우면 <b>«AI다움 진단»</b>으로 진짜 인공지능다운 아이디어인지 확인해 보세요.</p>
 
-  <!-- ⑤ AI 해결안 설계 -->
-  <div class="actbox" data-panel="4" hidden>
-    <h3>⑤ AI 해결안 설계 <span class="tm">20분 · 모둠 → 발표</span></h3>
-    <p class="desc">교과서 21쪽 활동입니다. <b>불편한 점 → AI 해결 방안 → 필요한 데이터</b>
-      순서로 적고 모둠에서 발표합니다.</p>
-    <div class="wsheet">
-      <label>① 내가 겪은 불편한 점
-        <textarea id="w1" rows="3" placeholder="예) 보고 싶은 영상이 너무 길어서 필요한 부분만 보기 어렵다"></textarea></label>
-      <label>② 인공지능으로 어떻게 해결할까
-        <textarea id="w2" rows="3" placeholder="예) 인공지능이 영상을 분석해 핵심 구간만 요약해 준다"></textarea></label>
-      <label>③ 필요한 데이터는
-        <textarea id="w3" rows="2" placeholder="예) 영상 자막, 사람들이 많이 돌려 본 구간 기록"></textarea></label>
-    </div>
+    <div class="gauge"><i id="dBar"></i><b id="dNum">0 / 7</b></div>
+
     <div class="simctl">
-      <button type="button" class="mini" id="wSample">예시 채우기</button>
-      <button type="button" class="mini gh" id="wCopy">내용 복사</button>
-      <button type="button" class="mini gh" id="wClear">지우기</button>
+      <button type="button" class="mini" id="dSeed">문제 씨앗 뽑기</button>
+      <button type="button" class="mini gh" id="dSample">예시 보기</button>
+      <button type="button" class="mini gh" id="dClear">지우기</button>
     </div>
-    <p class="note" style="margin-top:14px"><b>좋은 해결안의 조건.</b>
-      ① 문제가 <b>구체적</b>일 것 ② 해결 방안이 <b>AI다울</b> 것(그냥 자동화가 아니라 판단이 필요할 것)
-      ③ 필요한 데이터를 <b>실제로 구할 수 있을</b> 것.</p>
-    <p class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 발표하고,
-      다른 모둠 것 중 인상 깊었던 것과 그 이유를 적어 봅시다.</p>
+
+    <div class="canvas">
+      <label class="cell"><span><i>1</i>어떤 문제인가</span>
+        <em>「불편하다」가 아니라 «언제 · 어디서 · 무엇이» 불편한지 구체적으로</em>
+        <textarea id="d1" rows="2" data-d placeholder="예) 급식 줄이 길어서 점심시간의 절반을 서서 보낸다"></textarea></label>
+
+      <label class="cell"><span><i>2</i>누가 불편한가</span>
+        <em>대상이 좁을수록 좋은 설계가 나옵니다</em>
+        <textarea id="d2" rows="1" data-d placeholder="예) 4교시가 끝나고 가장 늦게 도착하는 3층 교실 학생들"></textarea></label>
+
+      <label class="cell key"><span><i>3</i>인공지능이 무엇을 «판단»해 주나</span>
+        <em>여기가 핵심입니다. 그냥 자동으로 되는 것이 아니라, 무언가를 <b>보고 판단</b>해야 합니다</em>
+        <textarea id="d3" rows="2" data-d placeholder="예) 지금 줄 사진을 보고 몇 분 걸릴지 예측하고, 언제 내려가면 가장 짧을지 알려 준다"></textarea></label>
+
+      <label class="cell"><span><i>4</i>어떤 데이터가 필요한가</span>
+        <em>필요한 종류를 눌러서 고르고, 어디서 구할지 적으세요</em>
+        <div class="dcards" id="dCards"></div>
+        <textarea id="d4" rows="2" data-d placeholder="예) 급식실 천장 카메라 사진, 요일·날짜별 배식 시간 기록, 그날 메뉴"></textarea></label>
+
+      <label class="cell"><span><i>5</i>잘 됐는지 어떻게 아나</span>
+        <em>숫자로 말할 수 있으면 가장 좋습니다</em>
+        <textarea id="d5" rows="1" data-d placeholder="예) 평균 대기 시간이 12분에서 6분으로 줄면 성공"></textarea></label>
+
+      <label class="cell warn"><span><i>6</i>잘못되면 어떤 일이 생기나</span>
+        <em>인공지능도 틀립니다. 틀렸을 때 <b>누가 손해</b>를 보는지 생각해 보세요</em>
+        <textarea id="d6" rows="2" data-d placeholder="예) 예측이 틀리면 오히려 한꺼번에 몰린다. 사진에 얼굴이 찍히면 누가 언제 밥을 먹었는지 알게 된다"></textarea></label>
+
+      <label class="cell"><span><i>7</i>다른 모둠에서 인상 깊었던 것</span>
+        <em>발표를 듣고 적습니다 (교과서 21쪽)</em>
+        <textarea id="d7" rows="2" data-d placeholder="어느 모둠의 어떤 아이디어가 좋았고, 왜 그렇게 생각했는지"></textarea></label>
+    </div>
+
+    <div class="simctl" style="margin-top:18px">
+      <button type="button" class="mini" id="dJudge">AI다움 진단하기</button>
+      <button type="button" class="mini gh" id="dCopy">설계 카드 복사</button>
+      <button type="button" class="mini gh" id="dFile">파일로 저장 (.txt)</button>
+      <button type="button" class="mini gh" id="dPrint">인쇄 · PDF</button>
+    </div>
+    <div class="verdict" id="dVerdict" hidden></div>
+
+    <div class="note" style="margin-top:16px"><b>흔한 실수</b>
+      「버튼을 누르면 자동으로 켜진다」 — 이것은 <b>자동화</b>이지 인공지능이 아닙니다.
+      「몇 명이 있는지 <b>보고</b> 켤지 <b>판단</b>한다」가 되어야 인공지능입니다.
+      3번 칸을 쓸 때 <b>«무엇을 보고, 무엇을 정하는지»</b> 두 가지가 다 들어갔는지 확인하세요.</div>
+    <p class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 <b>1분</b> 안에 발표합니다.
+      3번(무엇을 판단하나)과 4번(어떤 데이터로)은 꼭 말해 주세요.</p>
   </div>
 </div></section>
 
@@ -1387,44 +1442,77 @@ path = astar(grid, start, goal)
     '<div class="note"><b>공통점</b> 모두 <b>데이터를 보고 스스로 판단</b>합니다. 정해진 규칙만 따르는 기계와는 다릅니다.</div>',
 
     '<p class="kicker">Ⅰ-02 · 학문</p><h4>학문 분야에서의 인공지능</h4>'+
-    '<div class="four">'+
-    '<div><b>의학</b><span>영상 판독 보조, 질병 예측</span></div>'+
-    '<div><b>교육학</b><span>학습자 이해도 진단, 맞춤 콘텐츠 제공</span></div>'+
-    '<div><b>농업</b><span>작황 예측, 병해충 탐지</span></div>'+
-    '<div><b>예술</b><span>이미지·음악 생성</span></div>'+
-    '<div><b>법학</b><span>판례 검색, 문서 분석</span></div>'+
-    '<div><b>생명공학</b><span>단백질 구조 예측</span></div>'+
-    '</div>'+
     '<figure><img src="img/u1/fields.jpg" alt="학문 분야별 인공지능">'+
-    '<figcaption>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</figcaption></figure>'+
-    '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결하고 도움을 줍니다.</p>',
-
-    '<p class="kicker">Ⅰ-02 · 활동 ④</p><h4>어느 분야일까?</h4>'+
-    '<p class="big">「X-선 사진에서 폐렴이<br>의심되는 부위를 표시한다」</p>'+
-    '<div class="def"><b>10분 · 모둠 대항</b>사례 10개를 읽고 '+
-    '<b>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</b> 중 어디인지 맞혀 보세요.<br>'+
-    '모둠별로 점수를 세어 겨뤄도 좋습니다.</div>'+
-    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ④ 어느 분야일까?</b></div>',
-
-    '<p class="kicker">Ⅰ-02 · 활동</p><h4>내가 찾은 문제, 내가 만든 해결안</h4>'+
-    '<div class="def"><b>활동지</b>'+
-    '① 내 주변의 <b>불편한 점</b>을 하나 고른다<br>'+
-    '② 그 문제를 <b>인공지능으로 어떻게</b> 해결할 수 있을지 쓴다<br>'+
-    '③ 필요한 <b>데이터</b>는 무엇일지 적는다</div>'+
-    '<div class="note"><b>예시</b> 「보고 싶은 영상이 너무 길다」 → 인공지능이 <b>핵심 구간만 요약</b>해 준다 → 필요한 데이터: 영상 자막, 시청 구간 기록</div>'+
-    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑤ AI 해결안 설계</b> 에 '+
-    '바로 적고 «내용 복사»로 가져갈 수 있습니다.</div>',
-
-    '<p class="kicker">Ⅰ-02 · 활동 ⑤</p><h4>좋은 해결안의 조건</h4>'+
-    '<div class="four">'+
-    '<div><b>구체적인가</b><span>«불편하다»가 아니라 «언제·어디서·무엇이» 불편한지</span></div>'+
-    '<div><b>AI다운가</b><span>그냥 자동화가 아니라 <b>판단</b>이 필요한 일인가</span></div>'+
-    '<div><b>데이터가 있나</b><span>실제로 모을 수 있는 데이터인가</span></div>'+
+    '<figcaption>교과서 18~19쪽</figcaption></figure>'+
+    '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결합니다.</p>'+
+    '<div class="chips">'+
+    '<span class="chip on">의학</span><span class="chip on">법학</span><span class="chip on">공학</span>'+
+    '<span class="chip on">교육학</span><span class="chip on">농업</span><span class="chip on">사회 과학</span>'+
+    '<span class="chip on">예술</span><span class="chip on">생명 공학</span><span class="chip on">인문 과학</span>'+
     '</div>'+
-    '<div class="note"><b>흔한 실수</b> 「버튼을 누르면 자동으로 켜진다」 — 이것은 <b>자동화</b>이지 인공지능이 아닙니다. '+
-    '무언가를 <b>보고 판단</b>하는 부분이 있어야 합니다.</div>'+
-    '<div class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 발표하고,<br>'+
-    '다른 모둠 것 중 인상 깊었던 것과 그 이유를 적어 봅시다.</div>',
+    '<div class="def"><b>공통점</b>'+
+    '어느 분야든 인공지능이 하는 일은 같습니다. '+
+    '<b>문제가 생길 요인을 예측하고 제어</b>하며, <b>문제 해결에 필요한 최적의 환경</b>을 제공합니다.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 학문 ①</p><h4>의학 · 생명 공학 · 농업</h4>'+
+    '<div class="four">'+
+    '<div><b>의학</b><span>질병을 진단하고 병에 걸릴 확률을 예측합니다.<br>'+
+    '<i>유럽호흡기학회에서 «목소리만 듣고» 코로나 감염 여부를 진단하는 앱을 선보였습니다</i></span></div>'+
+    '<div><b>생명 공학</b><span>유전자 데이터를 분석해 유전적 변이와 질병의 연관성을 찾습니다.<br>'+
+    '<i>화학적 특성을 바탕으로 새 화합물을 설계해 시간과 비용을 줄입니다</i></span></div>'+
+    '<div><b>농업</b><span>스마트팜이 방대한 데이터로 농작물을 정밀하게 관리합니다.<br>'+
+    '<i>«인공지능 허수아비»는 반경 30 m 안의 동물을 감지해, 새라고 판단되면 레이저를 쏘거나 싫어하는 주파수를 냅니다</i></span></div>'+
+    '</div>'+
+    '<div class="ask"><b>생각해 보기</b> 허수아비가 «새인지 아닌지» 판단하지 못한다면?<br>'+
+    '지나가는 사람에게도 레이저를 쏘게 됩니다. <b>판단</b>이 왜 중요할까요?</div>',
+
+    '<p class="kicker">Ⅰ-02 · 학문 ②</p><h4>법학 · 사회 과학 · 공학</h4>'+
+    '<div class="four">'+
+    '<div><b>법학</b><span>수많은 판례를 데이터로 정리해 판결을 내리는 «인공지능 판사»가 등장했습니다.<br>'+
+    '<i>에스토니아는 주차 위반, 자녀 수당처럼 증거가 많이 필요 없는 사건에 인공지능 판결을 씁니다</i></span></div>'+
+    '<div><b>사회 과학</b><span>과거 경제 데이터를 분석해 미래 경제 상황을 예측합니다.<br>'+
+    '<i>거래 기록과 부동산 자료로 앞으로의 가격 변동을 예측합니다</i></span></div>'+
+    '<div><b>공학</b><span>기계 공학에서는 제조·생산 과정을 최적화합니다.<br>'+
+    '<i>교통 공학에서는 센서와 환경 정보로 자율 주행을 실현하고, 교통 상황을 예측해 도로 네트워크를 최적화합니다</i></span></div>'+
+    '</div>'+
+    '<div class="note"><b>토론거리</b> 인공지능 판사에게 «내 재판»을 맡길 수 있을까요? '+
+    '어떤 사건은 되고 어떤 사건은 안 될까요? — 이 물음은 <b>Ⅲ단원</b>에서 본격적으로 다룹니다.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 학문 ③</p><h4>교육학 · 인문 과학 · 예술</h4>'+
+    '<div class="four">'+
+    '<div><b>교육학</b><span>학습자 개개인의 이해도를 진단하고 그에 맞는 콘텐츠를 제공하려는 시도가 이어지고 있습니다</span></div>'+
+    '<div><b>인문 과학</b><span>자동 요약으로 긴 문서를 줄이고 문장을 자연스럽게 완성합니다.<br>'+
+    '<i>이미지 분석과 컴퓨터 비전으로 문서·미술품·유물의 디지털 아카이브를 만들어 문화유산을 보존합니다</i></span></div>'+
+    '<div><b>예술</b><span>일본 «호시신이치상» 공모전에서 인공지능이 쓴 소설이 1,450편 중 1차 예심을 통과했습니다.<br>'+
+    '<i>딥러닝으로 그림을 그리는 «딥드림»도 개발되었습니다</i></span></div>'+
+    '</div>'+
+    '<div class="ask"><b>30초 개념 확인</b> ① 생명 공학·의학에는 인공지능을 쓰지만 '+
+    '법학에서는 인공지능으로 문제를 해결하기 어렵다. (O / X)<br>'+
+    '② 인공지능은 개인의 삶뿐 아니라 다양한 학문 분야에서 중요한 역할을 한다. (O / X)</div>',
+
+    '<p class="kicker">Ⅰ-02 · 활동 ④</p><h4>내가 찾은 문제, 내가 만든 해결안</h4>'+
+    '<p class="big">내 주변의 불편함 하나를<br>인공지능으로 풀어 봅시다</p>'+
+    '<div class="def"><b>설계 카드 7칸</b>'+
+    '① 어떤 문제인가 · ② 누가 불편한가 · <b>③ 인공지능이 무엇을 «판단»하나</b><br>'+
+    '④ 어떤 데이터가 필요한가 · ⑤ 잘 됐는지 어떻게 아나<br>'+
+    '⑥ 잘못되면 어떤 일이 생기나 · ⑦ 다른 모둠에서 인상 깊었던 것</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ④ AI 해결안 설계</b><br>'+
+    '문제가 안 떠오르면 <b>«문제 씨앗 뽑기»</b>를 누르세요.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 활동 ④</p><h4>3번 칸이 전부입니다</h4>'+
+    '<div class="g2">'+
+    '<div class="card"><h4 style="color:var(--warm)">이건 자동화</h4>'+
+    '<p style="font-size:15px">「사람이 오면 <b>자동으로</b> 불이 켜진다」<br>'+
+    '「6시가 되면 <b>알람이</b> 울린다」</p>'+
+    '<p style="font-size:14px; color:var(--muted)">정해진 대로 움직일 뿐, 판단이 없습니다</p></div>'+
+    '<div class="card"><h4 style="color:var(--good)">이건 인공지능</h4>'+
+    '<p style="font-size:15px">「<b>몇 명이 있는지 보고</b> 밝기를 <b>얼마로 할지 정한다</b>」<br>'+
+    '「<b>어제 잔 시간을 보고</b> 몇 시에 깨울지 <b>정한다</b>」</p>'+
+    '<p style="font-size:14px; color:var(--muted)">무엇을 «보고», 무엇을 «정하는지»가 있습니다</p></div>'+
+    '</div>'+
+    '<div class="note"><b>3번 칸 쓰는 법</b> 「◯◯을 <b>보고</b> △△을 <b>정한다</b>」 '+
+    '이 두 조각이 다 들어갔는지 확인하세요. 아래 «AI다움 진단»이 대신 확인해 줍니다.</div>'+
+    '<div class="ask"><b>발표</b> 1분씩. <b>3번(무엇을 판단하나)</b>과 <b>4번(어떤 데이터로)</b>은 꼭 말하기.</div>',
 
     '<p class="kicker">Ⅰ-02 · 정리</p><h4>오늘 배운 것</h4>'+
     '<ul>'+
@@ -2567,126 +2655,216 @@ path = astar(grid, start, goal)
   });
   tBuild();
 
-  /* ④ 어느 분야일까? */
-  var FIELDS = ['의학','교육학','법학','농업','사회과학','인문과학'];
-  var MCASES = [
-    {q:'X-선 사진을 보고 폐렴이 의심되는 부위를 표시해 준다', f:0},
-    {q:'학생마다 틀린 문제를 분석해 다음에 풀 문제를 골라 준다', f:1},
-    {q:'수만 건의 판례를 찾아 비슷한 사건의 판결을 정리해 준다', f:2},
-    {q:'드론이 찍은 사진으로 병든 작물만 골라 약을 뿌린다', f:3},
-    {q:'설문 응답을 분석해 지역별 여론의 흐름을 예측한다', f:4},
-    {q:'훼손된 옛 문서의 지워진 글자를 복원한다', f:5},
-    {q:'환자의 유전 정보로 잘 맞는 항암제를 추천한다', f:0},
-    {q:'토양 수분과 날씨를 보고 물 주는 시기를 정해 준다', f:3},
-    {q:'계약서에서 불리한 조항을 찾아 표시해 준다', f:2},
-    {q:'말하기 발음을 듣고 어디를 고쳐야 할지 알려 준다', f:1}
+  /* ══ ④ AI 해결안 설계 ═══════════════════════════════════ */
+  var DKEY = 'ai_u1_design_v1';
+  var DFIELDS = ['d1','d2','d3','d4','d5','d6','d7'];
+  var DLABEL = ['어떤 문제인가', '누가 불편한가', '인공지능이 무엇을 «판단»해 주나',
+                '어떤 데이터가 필요한가', '잘 됐는지 어떻게 아나',
+                '잘못되면 어떤 일이 생기나', '다른 모둠에서 인상 깊었던 것'];
+  var DTYPES = [
+    { k:'사진·영상',  e:'📷' }, { k:'소리·음성', e:'🎤' }, { k:'글·텍스트', e:'📝' },
+    { k:'숫자·기록',  e:'📊' }, { k:'센서',      e:'🌡' }, { k:'위치·시간', e:'📍' }
   ];
-  var mOrder = [], mIdx = 0, mGot = 0, mDone = 0;
-  function mShuffle(){
-    mOrder = MCASES.map(function(_, i){ return i; });
-    for(var i = mOrder.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random() * (i + 1)), t = mOrder[i]; mOrder[i] = mOrder[j]; mOrder[j] = t;
-    }
-    mIdx = 0; mGot = 0; mDone = 0;
+  var D = { v:{}, data:[] };
+
+  var SEEDS = [
+    '급식 줄이 너무 길어서 점심시간의 절반을 서서 보낸다',
+    '야간 자율학습 때 집중이 안 되는데 왜 그런지 모르겠다',
+    '버스가 언제 올지 몰라 정류장에서 하염없이 기다린다',
+    '시험 범위에 해당하는 필기를 다시 찾는 데 시간이 오래 걸린다',
+    '교실이 더운지 추운지 사람마다 달라서 늘 다툰다',
+    '분리수거함에 무엇을 넣어야 할지 헷갈려서 그냥 아무 데나 넣는다',
+    '학교 앞 횡단보도에서 차가 잘 안 서서 위험하다',
+    '도서관에서 읽을 만한 책을 고르는 데만 20분이 걸린다',
+    '급식 잔반이 너무 많이 나와서 그냥 버려진다',
+    '분실물 보관함에 교복이 쌓이는데 주인을 못 찾는다',
+    '수행평가 마감이 여러 과목 겹치는 걸 뒤늦게 안다',
+    '체육 시간에 다치는 친구가 자꾸 생긴다',
+    '동아리 발표회 때 어느 부스가 붐비는지 몰라 헛걸음한다',
+    '자습실 자리가 남았는지 올라가 봐야만 알 수 있다'
+  ];
+  var DSAMPLE = [
+    { t:'교과서 21쪽 예시 ①',
+      v:{ d1:'보고 싶은 영상의 길이가 길어서 불필요한 내용까지 긴 시간 동안 시청해야 한다',
+          d2:'시험 기간에 인터넷 강의를 몰아서 듣는 학생',
+          d3:'인공지능이 영상의 내용을 분석해 어느 구간이 핵심인지 판단하고, 그 부분만 이어 붙인 요약본을 만들어 준다',
+          d4:'영상 자막, 사람들이 많이 되돌려 본 구간 기록, 장면이 바뀌는 지점',
+          d5:'같은 내용을 이해하는 데 걸리는 시간이 60분에서 20분으로 줄면 성공',
+          d6:'중요한 부분을 잘못 빼면 오히려 시험에서 틀린다. 요약만 믿고 원본을 안 보게 될 수 있다',
+          d7:'' },
+      data:['사진·영상','글·텍스트','숫자·기록'] },
+    { t:'교과서 21쪽 예시 ②',
+      v:{ d1:'수질 오염이 생겨도 사람이 직접 가서 검사해야만 알 수 있어 대응이 늦다',
+          d2:'하천 근처 주민과 환경 관리 담당자',
+          d3:'공공 데이터와 기상 데이터를 학습해 언제 어디서 오염이 생길지 예측하고, 위험하다고 판단되면 주변 정화 로봇에 신호를 보낸다',
+          d4:'수질 측정소 기록, 강수량과 기온, 주변 공장 배출 자료',
+          d5:'오염을 사람이 발견하기 하루 전에 미리 알려 주면 성공',
+          d6:'틀린 경보가 잦으면 아무도 믿지 않게 된다. 특정 공장을 원인으로 잘못 지목하면 억울한 피해가 생긴다',
+          d7:'' },
+      data:['숫자·기록','센서','위치·시간'] },
+    { t:'학교 예시 · 급식 잔반',
+      v:{ d1:'좋아하지 않는 반찬이 나오는 날은 잔반이 평소의 두 배로 나와 그대로 버려진다',
+          d2:'급식실 조리 담당 선생님과 영양 교사',
+          d3:'날짜·요일·날씨·메뉴에 따라 얼마나 남을지 예측해서, 다음 주 식단의 조리량을 얼마로 할지 판단해 준다',
+          d4:'날짜별 잔반 무게 기록, 식단표, 그날 날씨, 학교 행사 일정',
+          d5:'한 달 잔반 총량이 20% 줄고, 모자라서 배식이 끊긴 날이 없으면 성공',
+          d6:'적게 예측해서 음식이 모자라면 늦게 온 학생이 못 먹는다. 특정 반찬이 계속 줄어 편식이 굳어질 수 있다',
+          d7:'' },
+      data:['숫자·기록','글·텍스트','위치·시간'] }
+  ];
+  var dSampleI = 0;
+
+  function dEl(id){ return document.getElementById(id); }
+  var dRoot = document.querySelector('[data-panel="3"]');
+
+  function dLoad(){
+    try{ var raw = localStorage.getItem(DKEY);
+      if(raw){ var o = JSON.parse(raw); D.v = o.v || {}; D.data = o.data || []; } }catch(e){}
   }
-  function mBuild(){
-    var opts = document.getElementById('mOpts');
-    if(!opts) return;
-    opts.innerHTML = '';
-    FIELDS.forEach(function(f, i){
+  function dSave(){ try{ localStorage.setItem(DKEY, JSON.stringify(D)); }catch(e){} }
+
+  function dCardsDraw(){
+    var box = dEl('dCards'); if(!box) return;
+    box.innerHTML = '';
+    DTYPES.forEach(function(t){
       var b = document.createElement('button');
-      b.type = 'button'; b.textContent = f;
-      b.addEventListener('click', function(){ mAnswer(i, b); });
-      opts.appendChild(b);
+      b.type = 'button'; b.className = 'dcard';
+      if(D.data.indexOf(t.k) >= 0) b.setAttribute('data-on', '1');
+      b.innerHTML = '<span aria-hidden="true">' + t.e + '</span>' + t.k;
+      b.addEventListener('click', function(e){
+        e.preventDefault();
+        var i = D.data.indexOf(t.k);
+        if(i >= 0){ D.data.splice(i, 1); b.removeAttribute('data-on'); }
+        else { D.data.push(t.k); b.setAttribute('data-on', '1'); }
+        dGauge(); dSave();
+      });
+      box.appendChild(b);
     });
   }
-  function mShow(){
-    var box = document.getElementById('mCase');
-    if(!box) return;
-    [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){
-      b.classList.remove('ok','no'); b.disabled = false;
+  function dGauge(){
+    var n = 0;
+    DFIELDS.forEach(function(f, i){
+      var v = (dEl(f).value || '').trim();
+      if(i === 3) { if(v || D.data.length) n++; }
+      else if(v) n++;
     });
-    if(mIdx >= mOrder.length){
-      box.textContent = '끝! ' + mGot + ' / ' + mDone + ' 맞혔습니다';
-      [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){ b.disabled = true; });
-      return;
-    }
-    box.textContent = MCASES[mOrder[mIdx]].q;
+    var bar = dEl('dBar');
+    if(bar){ bar.style.width = (n / 7 * 100) + '%';
+      bar.className = n >= 6 ? 'full' : ''; }
+    dEl('dNum').textContent = n + ' / 7';
+    return n;
   }
-  function mAnswer(pick, btn){
-    if(mIdx >= mOrder.length) return;
-    var ans = MCASES[mOrder[mIdx]].f;
-    mDone++;
-    if(pick === ans){ mGot++; btn.classList.add('ok'); }
-    else{
-      btn.classList.add('no');
-      document.querySelectorAll('#mOpts button')[ans].classList.add('ok');
-    }
-    document.getElementById('mScore').textContent = mGot + ' / ' + mDone;
-    [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){ b.disabled = true; });
-    setTimeout(function(){ mIdx++; mShow(); }, 950);
-  }
-  var mResetBtn = document.getElementById('mReset');
-  if(mResetBtn) mResetBtn.addEventListener('click', function(){
-    mShuffle(); mShow(); document.getElementById('mScore').textContent = '0 / 0';
+  DFIELDS.forEach(function(f){
+    var el = dEl(f); if(!el) return;
+    el.addEventListener('input', function(){ D.v[f] = this.value; dGauge(); dSave(); });
   });
-  if(document.getElementById('mOpts')){ mBuild(); mShuffle(); mShow(); }
 
-  /* ⑤ AI 해결안 설계 */
-  var WSAMPLE = [
-    ['보고 싶은 영상이 너무 길어서 필요한 부분만 찾아보기 어렵다',
-     '인공지능이 영상의 내용을 분석해 핵심 구간만 골라 요약본을 만들어 준다',
-     '영상 자막, 사람들이 많이 되돌려 본 구간 기록, 장면 전환 지점'],
-    ['강물이 오염되어도 사람이 직접 가서 검사해야 알 수 있다',
-     '공공 데이터와 기상 데이터를 학습해 오염을 미리 예측하고 정화 로봇에 신호를 보낸다',
-     '수질 측정소 기록, 강수량·기온, 주변 공장 배출 자료'],
-    ['급식에 좋아하지 않는 반찬이 나오면 많이 남아서 버려진다',
-     '학년·요일·날씨별 잔반량을 학습해 다음 주 식단의 양을 미리 조절한다',
-     '날짜별 잔반 무게, 식단표, 그날 날씨와 행사 일정'],
-    ['교실이 더운지 추운지 사람마다 달라서 늘 다툰다',
-     '온도·습도와 «덥다/춥다» 의견을 함께 학습해 가장 불만이 적은 설정을 찾아 준다',
-     '교실 온습도 기록, 학생들이 누른 «덥다/춥다» 버튼 기록, 창문 개폐 여부']
-  ];
-  var wI = 0;
-  var wSampleBtn = document.getElementById('wSample');
-  if(wSampleBtn) wSampleBtn.addEventListener('click', function(){
-    var s = WSAMPLE[wI % WSAMPLE.length]; wI++;
-    document.getElementById('w1').value = s[0];
-    document.getElementById('w2').value = s[1];
-    document.getElementById('w3').value = s[2];
+  /* 문제 씨앗 */
+  var dSeedUsed = [];
+  var seedBtn = dEl('dSeed');
+  if(seedBtn) seedBtn.addEventListener('click', function(){
+    if(dSeedUsed.length >= SEEDS.length) dSeedUsed = [];
+    var i; do { i = Math.floor(Math.random() * SEEDS.length); } while(dSeedUsed.indexOf(i) >= 0);
+    dSeedUsed.push(i);
+    dEl('d1').value = SEEDS[i]; D.v.d1 = SEEDS[i];
+    dEl('d1').focus(); dGauge(); dSave();
   });
-  var wClearBtn = document.getElementById('wClear');
-  if(wClearBtn) wClearBtn.addEventListener('click', function(){
-    ['w1','w2','w3'].forEach(function(id){ document.getElementById(id).value = ''; });
+
+  /* 예시 */
+  var dSampBtn = dEl('dSample');
+  if(dSampBtn) dSampBtn.addEventListener('click', function(){
+    var s = DSAMPLE[dSampleI % DSAMPLE.length]; dSampleI++;
+    DFIELDS.forEach(function(f){ dEl(f).value = s.v[f] || ''; D.v[f] = s.v[f] || ''; });
+    D.data = s.data.slice();
+    dCardsDraw(); dGauge(); dSave();
+    dSampBtn.textContent = s.t;
+    setTimeout(function(){ dSampBtn.textContent = '예시 보기'; }, 2200);
   });
-  var wCopyBtn = document.getElementById('wCopy');
-  if(wCopyBtn) wCopyBtn.addEventListener('click', function(){
-    var t = '① 불편한 점\n' + document.getElementById('w1').value +
-            '\n\n② 인공지능 해결 방안\n' + document.getElementById('w2').value +
-            '\n\n③ 필요한 데이터\n' + document.getElementById('w3').value;
-    var done = function(){
-      wCopyBtn.textContent = '복사했어요';
-      setTimeout(function(){ wCopyBtn.textContent = '내용 복사'; }, 1600);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(t).then(done, function(){});
+  var dClearBtn = dEl('dClear');
+  if(dClearBtn) dClearBtn.addEventListener('click', function(){
+    DFIELDS.forEach(function(f){ dEl(f).value = ''; });
+    D = { v:{}, data:[] };
+    dCardsDraw(); dGauge(); dSave();
+    dEl('dVerdict').hidden = true;
+  });
+
+  /* AI다움 진단 */
+  var JUDGE_WORD = ['판단','예측','구분','분류','추천','골라','고른','찾아','찾는','알아내',
+                    '평가','분석','인식','감지','파악','맞춰','예상','비교','우선순위','추정'];
+  var AUTO_WORD  = ['자동으로 켜','자동으로 꺼','자동으로 열','자동으로 닫','시간이 되면',
+                    '버튼을 누르면','정해진 시간','알람을 울려','타이머'];
+  var dJudgeBtn = dEl('dJudge');
+  if(dJudgeBtn) dJudgeBtn.addEventListener('click', function(){
+    var v3 = (dEl('d3').value || '').trim();
+    var v6 = (dEl('d6').value || '').trim();
+    var box = dEl('dVerdict');
+    var hasJudge = JUDGE_WORD.some(function(w){ return v3.indexOf(w) >= 0; });
+    var hasAuto  = AUTO_WORD.some(function(w){ return v3.indexOf(w) >= 0; });
+    var hasData  = D.data.length > 0 || (dEl('d4').value || '').trim().length > 0;
+    var n = dGauge();
+    var tips = [];
+
+    if(!v3){
+      box.className = 'verdict no';
+      box.innerHTML = '<b>3번 칸이 비어 있습니다</b>' +
+        '<span>인공지능이 <b>무엇을 보고 무엇을 정하는지</b>부터 적어 보세요. ' +
+        '거기가 이 설계의 심장입니다.</span>';
+      box.hidden = false; return;
+    }
+    if(v3.length < 20) tips.push('3번을 한 문장 더 늘려 보세요. «무엇을 보고» + «무엇을 정하는지» 둘 다 필요합니다');
+    if(!hasData) tips.push('4번에서 데이터 종류를 고르거나, 어디서 구할지 적어 주세요');
+    if(!v6) tips.push('6번(잘못되면?)이 비어 있습니다. 인공지능도 틀립니다');
+    if(n < 6) tips.push('아직 채우지 않은 칸이 있습니다 (' + n + ' / 7)');
+
+    var lvl, head, msg;
+    if(hasAuto && !hasJudge){
+      lvl = 'no'; head = '이건 «자동화»에 가깝습니다';
+      msg = '정해진 대로 움직이기만 하고, <b>스스로 판단하는 부분</b>이 안 보입니다. ' +
+            '엘리베이터와 같은 상태예요. 「무엇을 <b>보고</b> 달라지는지」를 넣으면 인공지능이 됩니다.';
+    }else if(hasJudge && hasData && v3.length >= 20){
+      lvl = 'ok'; head = '인공지능다운 설계입니다';
+      msg = '무엇을 보고(데이터) 무엇을 정하는지(판단)가 모두 들어 있습니다. ' +
+            (v6 ? '틀렸을 때까지 생각해 둔 점이 특히 좋습니다.'
+                : '여기에 «틀렸을 때 누가 손해 보는지»까지 넣으면 완성입니다.');
     }else{
-      var ta = document.createElement('textarea');
-      ta.value = t; document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); done(); }catch(e){}
-      document.body.removeChild(ta);
+      lvl = 'mid'; head = '거의 다 왔습니다';
+      msg = '판단하는 부분은 보이는데 아직 흐릿합니다. 아래를 채워 보세요.';
     }
+    box.className = 'verdict ' + lvl;
+    box.innerHTML = '<b>' + head + '</b><span>' + msg + '</span>' +
+      (tips.length ? '<ul>' + tips.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul>' : '');
+    box.hidden = false;
   });
 
+  /* 설계 카드 내보내기 */
+  function dReport(){
+    var L = ['════════ AI 해결안 설계 카드 ════════',
+             '교과서 Ⅰ-02 인공지능과 문제 해결 (20~21쪽)', ''];
+    DFIELDS.forEach(function(f, i){
+      L.push((i + 1) + '. ' + DLABEL[i]);
+      if(i === 3 && D.data.length) L.push('   [데이터 종류] ' + D.data.join(' · '));
+      L.push('   ' + ((dEl(f).value || '').trim() || '(미작성)'));
+      L.push('');
+    });
+    L.push('══════════════════════════════════');
+    return L.join('\n');
+  }
+  var dCopyBtn = dEl('dCopy');
+  if(dCopyBtn) dCopyBtn.addEventListener('click', function(){ tClip(dReport(), dCopyBtn); });
+  var dFileBtn = dEl('dFile');
+  if(dFileBtn) dFileBtn.addEventListener('click', function(){
+    var blob = new Blob(['﻿' + dReport()], { type:'text/plain;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'AI해결안설계.txt';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+  var dPrintBtn = dEl('dPrint');
+  if(dPrintBtn) dPrintBtn.addEventListener('click', function(){ window.print(); });
 
-  /* 슬라이드 삽화 미리 받아 두기 — 넘길 때마다 다시 받지 않도록 */
-  (function(){
-    var NAMES = ['life','perceive','learn','infer','auto','turing','turingtest','fields',
-                 'route','problems','game','dikw','chatbot','medical'];
-    var go = function(){ NAMES.forEach(function(nm){ (new Image()).src = 'img/u1/' + nm + '.jpg'; }); };
-    if(document.readyState === 'complete') go();
-    else window.addEventListener('load', go);
-  })();
+  dLoad();
+  DFIELDS.forEach(function(f){ if(D.v[f]) dEl(f).value = D.v[f]; });
+  dCardsDraw(); dGauge();
 
   render();
 })();
