@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v3
+ * 인공지능 기초 활동지 수집기  v4
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -8,6 +8,8 @@
  *   · 탐색과정설계      ← Ⅰ-03 활동 ⑥
  *   · 유럽길찾기        ← Ⅰ-03 활동 ⑦
  *   · 우리동네등굣길    ← Ⅰ-04 활동 ⑧
+ *   · 학교안길찾기      ← Ⅰ-05 활동 ⑨
+ *   · 추론게임          ← Ⅰ-06 활동 ⑪
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
  */
@@ -16,7 +18,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 3;
+var VER = 4;
 
 var SHEETS = {
 
@@ -94,6 +96,33 @@ var SHEETS = {
               d.why || '', d.when || '',
               d.rub1 || '', d.rub2 || '', d.rub3 || ''];
     }
+  },
+
+  school: {
+    name: '학교안길찾기',
+    head: ['제출 시각', '분반', '모둠',
+           '급식실 · 최상 우선', '급식실 · A*',
+           '매점 · 최상 우선', '매점 · A*',
+           '대피 · 최상 우선', '대피 · A*',
+           '살펴본 칸 수가 다른 이유', '불이 났을 때 길이 달라진 이유',
+           '자기평가 1 · 탐색 과정 설명', '자기평가 2 · 효과 판단'],
+    width: [140, 70, 130, 130, 130, 130, 130, 130, 130, 320, 320, 130, 130],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.m0b || '', d.m0a || '', d.m1b || '', d.m1a || '', d.m2b || '', d.m2a || '',
+              d.why || '', d.fire || '', d.rub1 || '', d.rub2 || ''];
+    }
+  },
+
+  infer: {
+    name: '추론게임',
+    head: ['제출 시각', '분반', '모둠', '추론 퍼즐 점수',
+           '내가 만든 규칙', '새로 알 수 있는 사실', '이 규칙이 틀릴 수 있는 경우'],
+    width: [140, 70, 130, 110, 380, 340, 340],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '', d.score || '',
+              d.rule || '', d.fresh || '', d.weak || ''];
+    }
   }
 };
 
@@ -156,10 +185,11 @@ function out(obj) {
 /** 연동이 잘 되는지 시험할 때 이 함수를 한 번 실행해 보세요. 탭마다 한 줄씩 들어갑니다. */
 function 테스트한줄넣기() {
   var note = '(연결 확인용 한 줄입니다. 확인 후 지우세요.)';
-  ['turing', 'design', 'puzzle', 'europe', 'town'].forEach(function (t) {
+  ['turing', 'design', 'puzzle', 'europe', 'town', 'school', 'infer'].forEach(function (t) {
     doPost({ postData: { contents: JSON.stringify({
       key: SUBMIT_KEY, type: t, cls: '점검', group: '연결 확인용',
-      members: note, why: note, f1: note, ans: note, keys: note, bfsPath: note
+      members: note, why: note, f1: note, ans: note, keys: note, bfsPath: note,
+      m0b: note, rule: note
     }) } });
   });
 }

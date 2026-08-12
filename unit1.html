@@ -710,6 +710,94 @@ table.ftab tr.pick td b{color:var(--good)}
   background:var(--blue-xl); border-radius:14px; padding:15px 18px; text-align:center;
   color:var(--blue-d); margin:14px 0}
 
+/* ── 학교 격자 ─────────────────────────── */
+.gsv{min-width:380px}
+.gc{stroke:var(--line); stroke-width:2}
+.gc.free{fill:var(--tint)}
+.gc.wall{fill:#8595AB; stroke:#6D7C90}
+.gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+.gc.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.gc.closed{fill:var(--blue-l); stroke:var(--blue-d)}
+.gc.path{fill:var(--good); stroke:var(--good)}
+.gc.cur{fill:var(--fill); stroke:var(--fill-d)}
+.gc.se{stroke:var(--ink); stroke-width:3.5}
+.gt{font-family:var(--mono); font-size:13px; fill:var(--ink2); text-anchor:middle}
+.gt.big{font-family:var(--sans); font-size:12px; font-weight:800; fill:var(--ink)}
+@media (prefers-color-scheme:dark){.gc.fire{fill:#5A3418; stroke:#C97A3E}}
+:root[data-theme="dark"] .gc.fire{fill:#5A3418; stroke:#C97A3E}
+:root[data-theme="light"] .gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+
+/* ── 알고리즘 카드 ─────────────────────── */
+.cardsort{display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px}
+.csleft, .csright{flex:1 1 280px; min-width:250px}
+.csbank{display:grid; gap:8px}
+.cscard{text-align:left; font-family:var(--sans); font-size:15px; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:13px 16px; color:var(--ink); cursor:pointer; transition:.15s}
+.cscard:hover{border-color:var(--blue-l); background:var(--white)}
+.cscard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cscard.no{border-color:#C63B3B; animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.cscard.no{animation:none}}
+.csout{margin:0; padding-left:24px; display:grid; gap:8px; counter-reset:none}
+.csout li{background:var(--good-bg); border:2px solid var(--good); border-radius:13px;
+  padding:11px 14px; font-size:15px; line-height:1.5}
+.csout li.ph{background:var(--tint); border-color:var(--line); border-style:dashed;
+  color:var(--ink2); list-style:none; margin-left:-24px}
+.codeeasy{margin-top:22px; padding-top:20px; border-top:2px dashed var(--line)}
+.ecode{font-family:var(--mono); font-size:13px; line-height:1.9; white-space:pre;
+  overflow-x:auto; background:var(--tint); border:1px solid var(--line);
+  border-radius:14px; padding:18px 20px; margin:0 0 14px; color:var(--ink)}
+.ecode em{font-style:normal; color:var(--ink2)}
+.cbody code{font-family:var(--mono); font-size:13px; background:var(--tint);
+  border-radius:5px; padding:1px 5px}
+
+/* 보기 버튼 (추론 게임) */
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px}
+.mopts button{font-family:var(--sans); font-size:15px; font-weight:700; line-height:1.45;
+  padding:13px 12px; border-radius:13px; border:2px solid var(--line); background:var(--tint);
+  color:var(--ink); cursor:pointer; transition:.15s}
+.mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mopts button[disabled]{cursor:default; opacity:1; color:var(--ink2)}
+.mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
+@media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
+:root[data-theme="dark"] .mopts button.no{background:#3A1616; color:#FFAFAF}
+:root[data-theme="light"] .mopts button.no{background:#FDE9E9; color:#A62727}
+/* ── 추론 게임 ─────────────────────────── */
+.qhead{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+.ifcard{background:var(--tint); border:2px solid var(--line); border-radius:18px; padding:20px 22px}
+.ifq{font-family:var(--disp); font-weight:400; font-size:clamp(18px,3vw,23px);
+  color:var(--blue-d); margin:0 0 14px}
+.iffacts{display:grid; gap:7px; margin-bottom:16px}
+.ffact{background:var(--white); border-left:4px solid var(--blue-l); border-radius:0 11px 11px 0;
+  padding:10px 14px; font-size:15px; line-height:1.6; color:var(--ink)}
+.ifask{font-family:var(--disp); font-weight:400; font-size:clamp(17px,2.6vw,21px);
+  color:var(--ink); margin:0 0 14px}
+.ifcard .mopts button{background:var(--white)}
+
+/* ── 내가 만드는 규칙 ──────────────────── */
+.rulemake{display:grid; gap:11px; margin-bottom:14px}
+.rl{display:block}
+.rl>span{display:block; font-family:var(--disp); font-weight:400; font-size:16px;
+  color:var(--blue-d); margin-bottom:5px}
+.rl input{width:100%; font-family:var(--sans); font-size:15px; color:var(--ink);
+  background:var(--tint); border:2px solid var(--line); border-radius:13px; padding:11px 14px}
+.rl input:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.rl input::placeholder{color:var(--muted)}
+.rulebox{font-family:var(--disp); font-weight:400; font-size:clamp(16px,2.6vw,20px);
+  line-height:1.6; background:var(--good-bg); border:2px solid var(--good);
+  border-radius:16px; padding:18px 20px; color:var(--ink); margin-bottom:16px}
+.rulebox b{color:var(--good)}
+
+/* ── 용어 사전 ─────────────────────────── */
+.tgroup{font-family:var(--disp); font-weight:400; font-size:20px; color:var(--blue-d);
+  margin:26px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line)}
+.tgroup:first-of-type{margin-top:0}
+.term i{display:block; font-style:normal; font-size:13.5px; color:var(--muted);
+  line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
+
 footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
 footer a{font-weight:700}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
@@ -740,7 +828,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>8<span style="font-size:16px"> 개</span></b><span>수업 활동 · 탐색 시뮬레이터 4</span></div>
+    <div class="fact"><b>11<span style="font-size:16px"> 개</span></b><span>수업 활동 · 탐색 시뮬레이터 4</span></div>
   </div>
 </div></div>
 
@@ -846,6 +934,9 @@ footer a{font-weight:700}
     <button class="atab" role="tab" data-act="5" aria-selected="false"><i>Ⅰ-03 · 20분</i>탐색 과정 설계</button>
     <button class="atab" role="tab" data-act="6" aria-selected="false"><i>Ⅰ-03 · 25분</i>유럽 여행 길찾기</button>
     <button class="atab" role="tab" data-act="7" aria-selected="false"><i>Ⅰ-04 · 25분</i>우리 동네 등굣길</button>
+    <button class="atab" role="tab" data-act="8" aria-selected="false"><i>Ⅰ-05 · 25분</i>학교 안 길찾기</button>
+    <button class="atab" role="tab" data-act="9" aria-selected="false"><i>Ⅰ-05 · 15분</i>알고리즘 카드</button>
+    <button class="atab" role="tab" data-act="10" aria-selected="false"><i>Ⅰ-06 · 25분</i>추론 게임</button>
   </div>
 
   <!-- ① AI 판별 게임 -->
@@ -1441,6 +1532,188 @@ footer a{font-weight:700}
       <button type="button" class="mini" id="rbNext">다음 →</button>
     </div>
   </div>
+  <!-- ⑨ 학교 안 길찾기 -->
+  <div class="actbox" data-panel="8" hidden>
+    <h3>⑨ 학교 안 길찾기 <span class="tm">25분 · 모둠</span></h3>
+    <p class="desc">교과서 42쪽의 <b>바로 그 격자</b>를 우리 학교 복도로 바꿨습니다.
+      <b>회색은 벽</b>이라 지나갈 수 없고, 상하좌우로 <b>한 칸씩</b>만 움직입니다.</p>
+
+    <div class="simctl">
+      <span class="pick" id="scPick">
+        <button type="button" data-s="0" aria-pressed="true">급식실 가기</button>
+        <button type="button" data-s="1" aria-pressed="false">매점 가기</button>
+        <button type="button" data-s="2" aria-pressed="false">불이 났다! 대피</button>
+      </span>
+      <span class="pick" id="scAlg">
+        <button type="button" data-a="best" aria-pressed="true">최상 우선</button>
+        <button type="button" data-a="astar" aria-pressed="false">A*</button>
+      </span>
+    </div>
+    <p class="desc" id="scStory"></p>
+
+    <div class="canvasarea" id="scGrid"></div>
+    <div class="narr" id="scNarr">«한 걸음 더»를 눌러 시작하세요.</div>
+    <div class="simctl">
+      <button type="button" class="mini" id="scStep">한 걸음 더 →</button>
+      <button type="button" class="mini gh" id="scAll">끝까지 보기</button>
+      <button type="button" class="mini gh" id="scRe">처음으로</button>
+      <span class="scorepill" id="scCnt">0 칸</span>
+    </div>
+    <div class="lists"><div class="lst" id="scList"></div></div>
+
+    <div class="tw" style="margin-top:16px"><table id="scCmp"></table></div>
+
+    <div class="ask" style="margin-top:16px"><b>꼭 비교해 보세요 · 매점 가기</b>
+      최상 우선은 <b>12칸만 보고</b> 끝내지만 길은 <b>10칸짜리 길</b>을 찾습니다.
+      A*는 <b>15칸을 보지만</b> 가장 짧은 <b>8칸짜리 길</b>을 찾아요.<br>
+      «빨리 찾는 것»과 «짧은 길을 찾는 것»은 <b>다른 이야기</b>입니다.</div>
+    <div class="note" style="margin-top:16px"><b>h(n) 은 어떻게 구할까?</b>
+      지금 칸에서 목표 칸까지 <b>가로 칸수 + 세로 칸수</b>를 더합니다. 벽은 못 본 척하고 그냥 셉니다.
+      «대충 이만큼 남았겠다»는 <b>어림짐작</b>이에요. 이걸 <b>맨해튼 거리</b>라고 합니다.</div>
+
+    <div class="wsheet" style="margin-top:18px">
+      <label>두 방법을 모두 돌려 보고 — 살펴본 칸 수가 왜 다를까요?
+        <textarea id="scWhy" rows="2" placeholder="예) A*는 지금까지 온 거리까지 세서 엉뚱한 방향으로 덜 갔다"></textarea></label>
+      <label>불이 났을 때 길이 달라진 이유는 무엇인가요?
+        <textarea id="scFire" rows="2" placeholder="예) 불난 칸을 지날 수 없게 되어서 멀리 돌아가야 했다"></textarea></label>
+    </div>
+    <h4 class="step-h" style="margin-top:22px">스스로 평가하기</h4>
+    <div class="rubric" id="scRub"></div>
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="scCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 (또는 이름)</span>
+        <input type="text" id="scGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="scSend">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="scCopy">내용 복사</button>
+      <span class="sendmsg" id="scSendMsg"></span>
+    </div>
+  </div>
+
+  <!-- ⑩ 알고리즘 카드 맞추기 -->
+  <div class="actbox" data-panel="9" hidden>
+    <h3>⑩ 알고리즘 카드 맞추기 <span class="tm">15분 · 짝 활동</span></h3>
+    <p class="desc"><b>코드를 몰라도 괜찮습니다.</b> 컴퓨터가 길을 찾는 순서를 카드로 만들어 놨어요.
+      <b>순서대로 눌러서</b> 알고리즘을 완성해 보세요. 틀리면 알려 줍니다.</p>
+
+    <div class="cardsort">
+      <div class="csleft">
+        <h4 class="mini-h">섞인 카드 · 순서대로 누르세요</h4>
+        <div class="csbank" id="csBank"></div>
+      </div>
+      <div class="csright">
+        <h4 class="mini-h">내가 만든 순서</h4>
+        <ol class="csout" id="csOut"></ol>
+      </div>
+    </div>
+    <div class="simctl">
+      <button type="button" class="mini gh" id="csUndo">한 장 빼기</button>
+      <button type="button" class="mini gh" id="csRe">처음부터</button>
+      <span class="scorepill" id="csMsg">첫 번째 카드를 골라 보세요</span>
+    </div>
+
+    <div class="codeeasy" id="csCode" hidden>
+      <h4 class="mini-h">완성! 이걸 코드로 쓰면 이렇게 됩니다</h4>
+      <p class="desc">한글로 쓴 <b>진짜 파이썬 코드</b>입니다. 카드 번호와 나란히 읽어 보세요.</p>
+      <pre class="ecode"><code>열린칸 = [출발]                        <em># ① 출발을 넣는다</em>
+닫힌칸 = []
+
+while 열린칸:                          <em># ⑦ 빌 때까지 되풀이</em>
+    지금 = 가장작은칸(열린칸)           <em># ② f 가 제일 작은 칸을 꺼낸다</em>
+    if 지금 == 목표:                    <em># ③ 목표면 끝!</em>
+        break
+    닫힌칸.append(지금)                 <em># ⑥ 살펴본 칸으로 옮긴다</em>
+    for 이웃 in 갈수있는칸(지금):        <em># ④ 이웃의 f 를 구해서</em>
+        열린칸.append(이웃)             <em># ⑤ 열린칸에 넣는다</em></code></pre>
+      <div class="ask"><b>놀랍지 않나요?</b> 여러분이 방금 맞춘 카드 순서가 <b>그대로 코드</b>입니다.
+        프로그래밍은 «순서를 정확히 적는 일»이에요.</div>
+      <details class="cbox" style="margin-top:16px">
+        <summary>더 알고 싶은 사람만 · 교과서 43~46쪽 진짜 코드 <i>안 봐도 됩니다</i></summary>
+        <div class="cbody">
+          <p class="desc">교과서는 <code>heapq</code> 라는 도구를 씁니다. 「가장 작은 것을 알아서 꺼내 주는 상자」예요.
+            위 코드의 <b>가장작은칸()</b> 을 대신해 주는 것뿐입니다. 지금은 몰라도 괜찮고,
+            <b>Ⅱ단원에서 코랩</b>으로 직접 다뤄 봅니다.</p>
+          <pre class="ecode"><code>import heapq
+open_list = [(0, start)]
+while open_list:
+    f, current = heapq.heappop(open_list)   <em># 가장 작은 f 를 꺼낸다</em>
+    if current == goal:
+        break
+    for nb in neighbors(current):
+        heapq.heappush(open_list, (g + h, nb))</code></pre>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ⑪ 추론 게임 -->
+  <div class="actbox" data-panel="10" hidden>
+    <h3>⑪ 추론 게임 <span class="tm">25분 · 모둠 대항</span></h3>
+    <p class="desc"><b>사실</b>과 <b>규칙</b>만 있으면 컴퓨터는 <b>새로운 사실</b>을 만들어 냅니다.
+      여러분도 할 수 있어요. 여섯 문제를 풀어 보세요!</p>
+
+    <div class="qhead">
+      <span class="dotrow" id="ifDots"></span>
+      <span class="scorepill" id="ifScore">0 / 0</span>
+    </div>
+
+    <div class="ifcard">
+      <h4 class="ifq" id="ifTitle"></h4>
+      <div class="iffacts" id="ifFacts"></div>
+      <p class="ifask" id="ifAsk"></p>
+      <div class="mopts" id="ifOpts"></div>
+      <div class="verdict" id="ifWhy" hidden></div>
+    </div>
+    <div class="simctl">
+      <button type="button" class="mini gh" id="ifPrev">← 이전 문제</button>
+      <button type="button" class="mini" id="ifNext">다음 문제 →</button>
+      <button type="button" class="mini gh" id="ifRe">처음부터</button>
+    </div>
+
+    <h4 class="step-h" style="margin-top:26px">내가 만드는 규칙</h4>
+    <p class="desc">이번엔 여러분이 규칙을 만들 차례입니다. 우리 반, 우리 학교, 우리 집 —
+      무엇이든 좋아요. <b>엉뚱할수록 재미있습니다.</b></p>
+    <div class="rulemake">
+      <label class="rl"><span>IF · 만약</span>
+        <input type="text" id="ifA" placeholder="예) 급식에 돈가스가 나오면" autocomplete="off"></label>
+      <label class="rl"><span>AND · 그리고 (안 써도 됨)</span>
+        <input type="text" id="ifB" placeholder="예) 4교시가 체육이면" autocomplete="off"></label>
+      <label class="rl"><span>THEN · 그러면</span>
+        <input type="text" id="ifC" placeholder="예) 급식 줄이 평소보다 두 배로 길어진다" autocomplete="off"></label>
+    </div>
+    <div class="rulebox" id="ifShow">규칙을 적으면 여기에 나타납니다</div>
+    <div class="wsheet">
+      <label>이 규칙에 <b>딱 맞는 사실</b>이 오늘 생겼다고 하면, 어떤 <b>새로운 사실</b>을 알 수 있나요?
+        <textarea id="ifNew" rows="2" placeholder="예) 오늘 돈가스가 나왔고 4교시가 체육이었으니, 줄이 길 것이다 → 미리 뛰어간다"></textarea></label>
+      <label>이 규칙이 <b>틀릴 수도 있는 경우</b>는 언제일까요?
+        <textarea id="ifBad" rows="2" placeholder="예) 비가 와서 체육을 교실에서 하면 줄이 안 길어진다"></textarea></label>
+    </div>
+    <div class="note"><b>여기가 중요합니다</b> 규칙은 <b>항상 맞지는 않습니다.</b>
+      전문가 시스템이 어려운 이유가 바로 이것이에요. 그래서 요즘은 <b>데이터에서 스스로 배우는</b>
+      인공지능을 더 많이 씁니다. — <b>Ⅱ단원</b>에서 이어집니다.</div>
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="ifCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 (또는 이름)</span>
+        <input type="text" id="ifGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="ifSend">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="ifCopy">내용 복사</button>
+      <span class="sendmsg" id="ifSendMsg"></span>
+    </div>
+  </div>
 </div></section>
 
 <section id="sim"><div class="wrap">
@@ -1679,20 +1952,89 @@ path = astar(grid, start, goal)
 <section id="terms"><div class="wrap">
   <p class="eyebrow">핵심 용어</p>
   <h2>이것만은 외우자</h2>
-  <p class="sub">1차 정기고사에 나올 용어입니다.</p>
+  <p class="sub">1차 정기고사에 나올 용어입니다. <i>기울인 글씨</i>는 <b>왜 그런지 · 어떻게 쓰는지</b>입니다.</p>
+
+  <h3 class="tgroup">Ⅰ-01 · Ⅰ-02 인공지능이란</h3>
   <div class="terms">
-    <div class="term"><b>인공지능</b><span>인간의 지적 능력(인식·학습·추론·문제 해결)의 일부 또는 전체를 컴퓨팅 시스템으로 구현한 것</span></div>
-    <div class="term"><b>튜링 테스트</b><span>판정관이 대화만으로 사람과 컴퓨터를 구별하지 못하면 그 컴퓨터가 지능을 가졌다고 보는 판정법 (앨런 튜링, 1950)</span></div>
+    <div class="term"><b>인공지능</b><span>인간의 지적 능력(인식·학습·추론·문제 해결)의 일부 또는 전체를 컴퓨팅 시스템으로 구현한 «인공적인 지능»</span></div>
+    <div class="term"><b>지능</b><span>새로운 대상이나 상황을 만났을 때 그 의미를 이해하고 합리적인 적응 방법을 알아내는 지적 활동 능력</span>
+      <i>«알고 있는 것을 꺼내 쓰는 것»이 아니라 «처음 보는 것에 대처하는 것»이 핵심</i></div>
+    <div class="term"><b>인공지능의 네 가지 특성</b><span>인식과 이해 · 학습 · 추론 · 자율성</span>
+      <i>자동화와 갈리는 지점은 «자율성». 사람 개입 없이 스스로 판단해 행동하는가</i></div>
+    <div class="term"><b>튜링 테스트</b><span>판정관이 대화만으로 사람과 컴퓨터를 구별하지 못하면 그 컴퓨터가 지능을 가졌다고 보는 판정법 (앨런 튜링, 1950)</span>
+      <i>통과했다고 사람과 동등한 것은 아니다. 경계를 탐구하는 «지표»일 뿐</i></div>
+    <div class="term"><b>다트머스 학회</b><span>1956년, 존 매카시·마빈 민스키·클로드 섀넌 등이 모여 «인공지능»이라는 용어를 만든 자리</span></div>
+  </div>
+
+  <h3 class="tgroup">Ⅰ-03 · Ⅰ-04 · Ⅰ-05 탐색</h3>
+  <div class="terms">
     <div class="term"><b>탐색</b><span>해결책을 찾기 위해 가능한 상태들의 공간을 체계적으로 검토하는 과정</span></div>
-    <div class="term"><b>초기 상태 / 목표 상태</b><span>문제가 주어진 시점의 상태 / 문제가 해결된 상태. 둘이 일치하면 해결</span></div>
-    <div class="term"><b>맹목적 탐색</b><span>정보나 경험 없이 규칙대로 모든 상태를 훑는 방법. 깊이 우선 탐색, 너비 우선 탐색</span></div>
-    <div class="term"><b>정보 이용 탐색</b><span>경험·지식을 활용해 불필요한 탐색을 줄이는 방법. 최상 우선 탐색, A* 알고리즘</span></div>
+    <div class="term"><b>초기 상태 / 목표 상태</b><span>문제가 주어진 시점의 상태 / 문제가 해결된 상태</span>
+      <i>둘이 일치하면 «해결». 그래서 이 둘을 먼저 정해야 «가까워졌는지»를 잴 수 있다</i></div>
+    <div class="term"><b>수행 작업</b><span>어떤 상태에서 다음 상태로 넘어가기 위한 한 번의 조작</span>
+      <i>8-퍼즐에서는 «숫자 하나를 빈칸으로 옮기기»</i></div>
+    <div class="term"><b>상태 공간</b><span>문제 해결 과정에서 나타날 수 있는 상태를 모아 놓은 공간</span></div>
+    <div class="term"><b>탐색 트리</b><span>초기 상태에서 목표 상태로 탐색해 나가는 구조를 나뭇가지 모양으로 나타낸 것</span></div>
+    <div class="term"><b>노드 · 간선 · 깊이</b><span>트리에서 데이터를 담는 단위 / 노드를 잇는 선 / 루트에서 그 노드까지의 거리</span></div>
+    <div class="term"><b>추상화</b><span>복잡한 문제를 한눈에 보기 쉬운 간결한 형태로 표현한 것</span>
+      <i>유럽 지도를 «점과 선»으로 줄인 것, 학교 복도를 «0과 1의 격자»로 바꾼 것</i></div>
+    <div class="term"><b>그래프</b><span>데이터와 데이터의 관계를 선으로 연결해 표현한 구조</span></div>
+    <div class="term"><b>맹목적 탐색</b><span>정보나 경험을 쓰지 않고 정해진 규칙대로 상태 공간 전체를 훑는 방법. <b>깊이 우선 · 너비 우선</b></span>
+      <i>최악의 경우 모든 상태를 다 방문해야 한다</i></div>
+    <div class="term"><b>깊이 우선 탐색</b><span>연결된 노드가 있는 한 계속 내려가고, 막히면 이전 노드로 돌아가 다른 길로 간다</span></div>
+    <div class="term"><b>너비 우선 탐색</b><span>같은 깊이의 노드를 모두 탐색한 뒤에 다음 깊이로 내려간다</span>
+      <i>«정거장 수»가 가장 적은 길을 찾는다. 시간이 가장 짧은 길과는 다를 수 있다</i></div>
+    <div class="term"><b>백트래킹</b><span>깊이 우선 탐색에서 더 갈 곳이 없을 때 이전 단계로 되돌아가 다른 경로를 탐색하는 것</span></div>
+    <div class="term"><b>정보 이용 탐색</b><span>경험·지식을 활용해 불필요한 탐색을 줄이는 방법. <b>최상 우선 · A*</b></span></div>
     <div class="term"><b>평가 함수</b><span>어떤 노드에서 출발할 때 목표 상태에 도달할 가능성을 계산해 주는 함수</span></div>
-    <div class="term"><b>OPEN / CLOSED 리스트</b><span>확장은 됐지만 아직 탐색 안 한 노드 / 탐색이 끝난 노드</span></div>
-    <div class="term"><b>백트래킹</b><span>깊이 우선 탐색에서 더 갈 곳이 없으면 이전 노드로 되돌아가 다른 경로를 탐색하는 것</span></div>
-    <div class="term"><b>DIKW</b><span>데이터 → 정보 → 지식 → 지혜. 사실의 기록이 가공을 거쳐 판단의 근거가 되는 단계</span></div>
-    <div class="term"><b>규칙(IF-THEN)</b><span>조건이 주어지면 결과를 도출하는 지식 표현 방법. 추론으로 새 사실을 찾아냄</span></div>
-    <div class="term"><b>전문가 시스템</b><span>특정 분야 전문가의 지식을 저장해 문제를 해결하는 인공지능</span></div>
+    <div class="term"><b>최상 우선 탐색</b><span>남은 거리가 가장 짧거나 가장 좋아 보이는 곳을 골라 가는 방법</span>
+      <i>8-퍼즐에서는 «목표와 맞은 숫자 칸의 수»가 클수록 우선</i></div>
+    <div class="term"><b>A* 알고리즘</b><span><b>f(n) = g(n) + h(n)</b> · g는 시작부터 여기까지 온 거리, h는 여기서 목표까지의 추정 거리</span>
+      <i>«앞»만 보는 최상 우선과 달리 «뒤»도 함께 본다. f가 작을수록 우선</i></div>
+    <div class="term"><b>맨해튼 거리</b><span>가로로 몇 칸 + 세로로 몇 칸. 벽을 무시하고 대충 재는 거리</span>
+      <i>격자 문제에서 h를 구하는 가장 흔한 방법</i></div>
+    <div class="term"><b>OPEN / CLOSED 리스트</b><span>확장은 됐지만 아직 탐색하지 않은 노드 / 탐색이 끝난 노드</span></div>
+    <div class="term"><b>지능적 탐색이 필요한 문제</b><span>① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</span>
+      <i>경로 발견 문제(길 찾기·미로·8-퍼즐)와 게임 문제(틱택토·바둑·체스)</i></div>
+  </div>
+
+  <h3 class="tgroup">Ⅰ-06 지식의 표현과 추론</h3>
+  <div class="terms">
+    <div class="term"><b>데이터 (Data)</b><span>사실이나 관찰에 대한 기록</span>
+      <i>예) 오늘 ◯◯지역의 기온은 영상 9도이다</i></div>
+    <div class="term"><b>정보 (Information)</b><span>데이터를 목적에 따라 정제·가공하여 의미를 갖게 된 것</span>
+      <i>예) 평균 기온이 1도이므로 오늘은 평년보다 높다</i></div>
+    <div class="term"><b>지식 (Knowledge)</b><span>정보를 일반화·체계화하여 적용·활용할 수 있게 만든 것. 연결된 정보의 패턴으로 예측한 결과물</span>
+      <i>예) 평년보다 따뜻하니 가벼운 외투를 입어야겠다</i></div>
+    <div class="term"><b>지혜 (Wisdom)</b><span>지식을 종합해 상황과 맥락에 맞는 규칙을 적용하는 것. 원리에 대한 깊은 이해에서 나오는 창의적 아이디어</span>
+      <i>예) 앞으로 다른 지역에 갈 때도 미리 기온을 확인해야겠다</i></div>
+    <div class="term"><b>지식 피라미드 (DIKW)</b><span>데이터 → 정보 → 지식 → 지혜의 네 계층 (Ackoff, 1989)</span></div>
+    <div class="term"><b>지식 표현 방법 4가지</b><span><b>규칙 · 의미망 · 프레임 · 술어 논리</b></span>
+      <i>컴퓨터는 사람의 추상적인 지식을 그대로 이해하지 못해서 이런 형식이 필요하다</i></div>
+    <div class="term"><b>규칙</b><span><b>IF-THEN</b> 구조. IF 부분은 사실·조건·전제·상황을, THEN 부분은 행동·결과·결론을 표현</span>
+      <i>조건이 둘 이상이면 AND 또는 OR 로 잇는다</i></div>
+    <div class="term"><b>의미망</b><span>정보를 «망» 구조로 나타내는 방법. <b>노드</b>와 <b>간선</b>으로 개념 사이의 관계를 표현</span>
+      <i>예) 신호등 —종류→ 교통 흐름 조절 장치, 신호등 —속성→ 색</i></div>
+    <div class="term"><b>프레임</b><span>개념·사물의 정보를 구조화해 표현. 상하 관계로 묶어 사람이 사고하는 방식과 비슷하게 나타낸다</span>
+      <i><b>슬롯</b> = 프레임의 속성. 예) 사람 프레임의 슬롯은 이름·나이·성별</i></div>
+    <div class="term"><b>술어 논리</b><span>수학 기호를 사용해 인과 관계를 표현</span>
+      <i>예) 신호등 색(X, 빨강) → 자동차 반응(Y, 멈춘다)</i></div>
+    <div class="term"><b>지식 기반 시스템</b><span>지식을 기반으로 활용하고 추론 규칙을 이용해 복잡한 문제를 푸는 컴퓨터 프로그램</span></div>
+    <div class="term"><b>전문가 시스템</b><span>특정 분야에서 전문가의 의사 결정 능력을 모방한 프로그램</span>
+      <i>세 요소 = <b>사용자 인터페이스 · 지식 베이스 · 추론 엔진</b></i></div>
+    <div class="term"><b>사용자 인터페이스 (UI)</b><span>사용자와 정보 기기가 정보를 주고받도록 돕는 매개체</span></div>
+    <div class="term"><b>지식 베이스</b><span>전문가의 지식을 저장해 두는 곳</span></div>
+    <div class="term"><b>추론 엔진</b><span>지식 베이스를 이용해 새로운 사실을 추론하는 부분</span>
+      <i>IF A THEN B 와 IF B THEN C 가 있으면 «A이면 C»를 이끌어 낸다</i></div>
+    <div class="term"><b>에이전트 시스템</b><span>환경 변화를 스스로 지각하고 목적에 따라 자율적으로 행동하는 시스템</span></div>
+    <div class="term"><b>전건 긍정</b><span>규칙 A→B 이고 사실이 A 이면 → 결론은 B</span>
+      <i>식물은 광합성을 한다 + 이것은 식물이다 → 광합성을 한다</i></div>
+    <div class="term"><b>후건 부정</b><span>규칙 A→B 이고 사실이 B가 아니면 → 결론은 A가 아니다</span>
+      <i>광합성을 하지 않는다 → 식물이 아니다</i></div>
+    <div class="term"><b>삼단 논법</b><span>규칙 A→B 이고 C→A 이면 → 결론은 C→B</span>
+      <i>식물은 광합성을 한다 + 장미는 식물이다 → 장미는 광합성을 한다</i></div>
+    <div class="term"><b>전문가 시스템의 한계</b><span>충분한 양의 전문가 지식을 구하기 어렵고 지식 베이스를 관리하기도 어렵다</span>
+      <i>그래서 «데이터에서 스스로 배우는» 인공지능이 인기를 얻었다 → Ⅱ단원</i></div>
   </div>
 </div></section>
 
@@ -2079,6 +2421,14 @@ path = astar(grid, start, goal)
     '<figcaption>미로 · 8-퍼즐 · 바둑 · 체스</figcaption></figure>'+
     '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
 
+    '<p class="kicker">Ⅰ-05 · 활용</p><h4>급식실까지 가장 빠른 길</h4>'+
+    '<p class="big">점심 종이 쳤다!<br>어느 복도로 가야 제일 빠를까?</p>'+
+    '<div class="def"><b>학교를 격자로 바꾸기</b>'+
+    '복도는 <b>0</b>(지날 수 있음), 벽은 <b>1</b>(막힘). 상하좌우로 한 칸씩만 움직입니다.<br>'+
+    '교과서 42쪽이 바로 이 방법이에요.</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑨ 학교 안 길찾기</b><br>'+
+    '<b>불이 났을 때</b> 대피 경로도 찾아볼 수 있습니다.</div>',
+
     '<p class="kicker">Ⅰ-05 · 실습</p><h4>최단 경로 챌린지</h4>'+
     '<div class="def"><b>오늘의 미션</b>'+
     '격자 지도에서 출발점 → 도착점까지 <b>가장 짧은 길</b>을 찾아라.<br>'+
@@ -2089,6 +2439,16 @@ path = astar(grid, start, goal)
     '</div>'+
     '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?<br>'+
     '위 <b>탐색 시뮬레이터</b>에서 한 걸음씩 눌러 세어 볼 수 있습니다.</div>',
+
+    '<p class="kicker">Ⅰ-05 · 알고리즘</p><h4>코드는 «순서를 적는 일»</h4>'+
+    '<div class="g2">'+
+    '<div class="card"><h4>사람이 하는 말</h4>'+
+    '<p style="font-size:15px">「제일 좋아 보이는 칸을 꺼내서, 목표인지 보고, 아니면 이웃을 넣는다」</p></div>'+
+    '<div class="card"><h4>컴퓨터에게 하는 말</h4>'+
+    '<p style="font-size:15px">같은 말을 <b>순서대로 빠짐없이</b> 적으면 그게 코드입니다</p></div>'+
+    '</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑩ 알고리즘 카드</b><br>'+
+    '카드 7장을 순서대로 맞추면 <b>그게 그대로 코드</b>가 됩니다. 문법은 몰라도 됩니다.</div>',
 
     '<p class="kicker">Ⅰ-05 · 코드</p><h4>A* 알고리즘의 뼈대</h4>'+
     '<ul>'+
@@ -2131,6 +2491,15 @@ path = astar(grid, start, goal)
     '</div>'+
     '<p>이 중 <b>규칙</b>이 가장 널리 쓰이며, <b>추론</b>을 통해 새로운 사실을 찾아낼 수 있습니다.</p>',
 
+    '<p class="kicker">Ⅰ-06 · 생각 열기</p><h4>4번 의자에는 누가 앉았을까?</h4>'+
+    '<ul>'+
+    '<li>동동일은 동동이보다 <b>낮은</b> 의자에 앉았다</li>'+
+    '<li>동동사는 동동삼보다 <b>낮은</b> 의자에 앉았다</li>'+
+    '<li>동동삼은 동동일보다 <b>낮은</b> 의자에 앉았다</li>'+
+    '<li>동동이는 동동오보다 <b>낮은</b> 의자에 앉았다</li></ul>'+
+    '<div class="ask"><b>누가 어디 앉았는지 아무도 안 알려 줬는데</b>, 우리는 알아냈습니다.<br>'+
+    '이렇게 <b>알고 있는 것으로 모르던 것을 알아내는 일</b>이 «추론»입니다.</div>',
+
     '<p class="kicker">Ⅰ-06 · 규칙</p><h4>IF-THEN 규칙과 추론</h4>'+
     '<div class="def"><b>규칙 예시</b>'+
     'IF 열이 나고 기침을 한다 THEN 감기일 수 있다<br>'+
@@ -2149,6 +2518,14 @@ path = astar(grid, start, goal)
     '<text '+C+'="dlab" x="100" y="148">날 수 있다</text><text '+C+'="dlab" x="340" y="148">짖는다</text>'+
     '</svg><figcaption>노드(개념)와 간선(관계)으로 지식을 표현</figcaption></figure>'+
     '<p>사물·개념·사건과 그 <b>관계</b>를 그물처럼 연결해 나타냅니다.</p>',
+
+    '<p class="kicker">Ⅰ-06 · 활동</p><h4>추론은 사슬처럼 이어진다</h4>'+
+    '<div class="def"><b>규칙 1</b> IF 체온이 38도 이상이다 → THEN 열이 있다<br>'+
+    '<b>규칙 2</b> IF 마른기침을 한다 AND 열이 있다 → THEN 감염이 의심된다</div>'+
+    '<p>사실 「체온 39도」가 들어오면 규칙 1이 <b>«열이 있다»</b>를 새 사실로 만들고,<br>'+
+    '그 새 사실이 다시 <b>규칙 2</b>를 깨워 «감염이 의심된다»까지 갑니다.</p>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑪ 추론 게임</b><br>'+
+    '의자 문제 · 삼단 논법 · 간식 도둑까지 여섯 문제가 기다립니다.</div>',
 
     '<p class="kicker">Ⅰ-06 · 전문가 시스템</p><h4>지식으로 판단하는 인공지능</h4>'+
     '<div class="def"><b>전문가 시스템</b>'+
@@ -4171,6 +4548,402 @@ path = astar(grid, start, goal)
     if(dcb) dcb.setAttribute('aria-pressed', 'true');
   }
   dCardsDraw(); dGauge();
+
+  /* ══ ⑨ 학교 안 길찾기 ═══════════════════════════════════ */
+  /* 격자는 교과서 42쪽과 같다 (0 = 지날 수 있음, 1 = 벽) */
+  var SCH = [[0,0,0,0,0,0,0],[1,1,0,0,1,0,0],[1,0,0,0,0,0,0],[0,1,1,0,0,1,0],[0,0,0,0,0,0,0]];
+  var SCEN = [
+    { name:'급식실 가기', start:[0,0], goal:[3,6], fire:[], mark:'🚧',
+      s:'우리 교실', g:'급식실',
+      story:'점심 종이 쳤습니다! 우리 교실에서 <b>급식실</b>까지 가장 빨리 가는 길을 찾아보세요. ' +
+            '(교과서 42쪽 · 47쪽과 같은 격자라 답을 대조해 볼 수 있습니다)' },
+    { name:'매점 가기', start:[4,5], goal:[0,5], fire:[[1,5],[1,6]], mark:'🚧',
+      s:'우리 교실', g:'매점',
+      story:'쉬는 시간 10분! 우리 교실에서 <b>매점</b>까지 뛰어야 합니다. ' +
+            '그런데 🚧 칸은 <b>공사 중</b>이라 못 지나가요. ' +
+            '<b>두 방법을 모두 돌려 보세요.</b> 결과가 다릅니다!' },
+    { name:'대피하기', start:[0,0], goal:[4,0], fire:[[1,2],[1,3]], mark:'🔥',
+      s:'우리 교실', g:'비상구',
+      story:'<b>가운데 복도에 불이 났습니다!</b> 🔥 칸은 지나갈 수 없어요. ' +
+            '우리 교실에서 <b>비상구</b>까지 안전한 길을 찾으세요. ' +
+            '«불이 어디 났는지 아는 것»도 하나의 <b>정보</b>입니다.' }
+  ];
+  function scBlocked(sc, r, c){
+    if(SCH[r][c] === 1) return true;
+    for(var i = 0; i < sc.fire.length; i++) if(sc.fire[i][0] === r && sc.fire[i][1] === c) return true;
+    return false;
+  }
+  function scH(sc, r, c){ return Math.abs(sc.goal[0] - r) + Math.abs(sc.goal[1] - c); }
+  function scSteps(si, alg){
+    var sc = SCEN[si], out = [], key = function(r, c){ return r + ',' + c; };
+    var g = {}, from = {}, open = [sc.start], closed = [];
+    g[key(sc.start[0], sc.start[1])] = 0;
+    var seen = {}; seen[key(sc.start[0], sc.start[1])] = 1;
+    var guard = 0;
+    while(open.length && guard++ < 200){
+      var bi = 0;
+      for(var i = 1; i < open.length; i++){
+        var a = open[i], b = open[bi];
+        var fa = scH(sc, a[0], a[1]) + (alg === 'astar' ? g[key(a[0], a[1])] : 0);
+        var fb = scH(sc, b[0], b[1]) + (alg === 'astar' ? g[key(b[0], b[1])] : 0);
+        if(fa < fb) bi = i;
+      }
+      var cur = open.splice(bi, 1)[0];
+      closed.push(cur);
+      if(cur[0] === sc.goal[0] && cur[1] === sc.goal[1]){
+        var path = [cur], p = key(cur[0], cur[1]);
+        while(from[p]){ path.unshift(from[p]); p = key(from[p][0], from[p][1]); }
+        out.push({ open:open.slice(), closed:closed.slice(), cur:cur, path:path, done:true, si:si, alg:alg,
+          say: '<b>' + sc.g + '</b> 도착! 살펴본 칸은 <b>' + closed.length + '칸</b>, ' +
+               '걸어간 거리는 <b>' + (path.length - 1) + '칸</b> 입니다.' });
+        break;
+      }
+      var add = [];
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
+        var nr = cur[0] + d[0], nc = cur[1] + d[1];
+        if(nr < 0 || nr > 4 || nc < 0 || nc > 6) return;
+        if(scBlocked(sc, nr, nc)) return;
+        var k = key(nr, nc);
+        var ng = g[key(cur[0], cur[1])] + 1;
+        if(seen[k] && !(alg === 'astar' && ng < g[k])) return;
+        seen[k] = 1; g[k] = ng; from[k] = cur;
+        open.push([nr, nc]); add.push('(' + nr + ',' + nc + ')');
+      });
+      out.push({ open:open.slice(), closed:closed.slice(), cur:cur, si:si, alg:alg,
+        say: '<b>(' + cur[0] + ',' + cur[1] + ')</b> 칸을 살펴봤습니다. ' +
+          (alg === 'astar'
+            ? 'f = g ' + g[key(cur[0], cur[1])] + ' + h ' + scH(sc, cur[0], cur[1]) +
+              ' = <b>' + (g[key(cur[0], cur[1])] + scH(sc, cur[0], cur[1])) + '</b>'
+            : 'h = <b>' + scH(sc, cur[0], cur[1]) + '</b> (남은 거리 어림)') +
+          (add.length ? ' · 새 이웃 ' + add.join(' ') : ' · 새 이웃 없음') });
+    }
+    return out;
+  }
+  function scDraw(st, si, alg){
+    var sc = SCEN[si], CS = 52, W = 7 * CS, H = 5 * CS;
+    var inList = function(a, r, c){ for(var i = 0; i < a.length; i++) if(a[i][0] === r && a[i][1] === c) return true; return false; };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + (H + 4) + '" class="tsvg gsv" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="학교 복도 격자">';
+    for(var r = 0; r < 5; r++) for(var c = 0; c < 7; c++){
+      var cls = 'gc free';
+      if(SCH[r][c] === 1) cls = 'gc wall';
+      else if(scBlocked(sc, r, c)) cls = 'gc fire';
+      else if(st.path && inList(st.path, r, c)) cls = 'gc path';
+      else if(inList(st.closed, r, c)) cls = 'gc closed';
+      else if(inList(st.open, r, c)) cls = 'gc open';
+      if(st.cur && st.cur[0] === r && st.cur[1] === c) cls = 'gc cur';
+      if(r === sc.start[0] && c === sc.start[1]) cls += ' se';
+      if(r === sc.goal[0] && c === sc.goal[1]) cls += ' se';
+      s += '<rect x="' + (c * CS + 2) + '" y="' + (r * CS + 2) + '" width="' + (CS - 4) +
+           '" height="' + (CS - 4) + '" rx="8" class="' + cls + '"/>';
+      var lab = '';
+      if(r === sc.start[0] && c === sc.start[1]) lab = '출발';
+      else if(r === sc.goal[0] && c === sc.goal[1]) lab = '도착';
+      else if(scBlocked(sc, r, c) && SCH[r][c] !== 1) lab = sc.mark;
+      else if(SCH[r][c] !== 1) lab = String(scH(sc, r, c));
+      if(lab) s += '<text x="' + (c * CS + CS / 2) + '" y="' + (r * CS + CS / 2 + 5) +
+        '" class="gt' + (lab === '출발' || lab === '도착' ? ' big' : '') + '">' + lab + '</text>';
+    }
+    return s + '</svg>';
+  }
+  var SCKEY = 'ai_u1_school_v1';
+  var SC = { why:'', fire:'', rub:['',''], cls:'', group:'', best:{}, astar:{} };
+  try{ var _sc = JSON.parse(localStorage.getItem(SCKEY)); if(_sc) for(var k4 in _sc) if(k4 in SC) SC[k4] = _sc[k4]; }catch(e){}
+  function scSave(){ try{ localStorage.setItem(SCKEY, JSON.stringify(SC)); }catch(e){} }
+
+  if(document.getElementById('scGrid')){
+    var scSi = 0, scAlg = 'best', scSt = [], scAt = -1;
+    function scRun(){
+      scSt = scSteps(scSi, scAlg); scAt = -1; scPaint();
+      document.getElementById('scStory').innerHTML = SCEN[scSi].story;
+    }
+    function scPaint(){
+      var st = scAt >= 0 ? scSt[scAt] : { open:[SCEN[scSi].start], closed:[], cur:null };
+      document.getElementById('scGrid').innerHTML = scDraw(st, scSi, scAlg);
+      document.getElementById('scNarr').innerHTML = scAt >= 0 ? st.say : '«한 걸음 더»를 눌러 시작하세요. 칸 안의 숫자가 <b>h</b> 입니다.';
+      document.getElementById('scNarr').classList.toggle('fin', !!st.done);
+      document.getElementById('scCnt').textContent = st.closed.length + ' 칸';
+      document.getElementById('scStep').disabled = scAt >= scSt.length - 1;
+      document.getElementById('scAll').disabled = scAt >= scSt.length - 1;
+      document.getElementById('scList').innerHTML = '<b>다음에 볼 칸 (OPEN)</b>' +
+        (st.open.length ? st.open.map(function(a){ return '(' + a[0] + ',' + a[1] + ')'; }).join(' ') : '없음');
+      if(st.done){
+        SC[scAlg][scSi] = { seen:st.closed.length, len:st.path.length - 1 };
+        scSave(); scTable();
+      }
+    }
+    function scTable(){
+      var rows = '<tr><th>시나리오</th><th>방법</th><th>살펴본 칸</th><th>걸어간 거리</th></tr>';
+      var any = false;
+      [0,1,2].forEach(function(i){
+        ['best','astar'].forEach(function(a){
+          var v = SC[a][i]; if(!v) return; any = true;
+          rows += '<tr><td class="d">' + SCEN[i].name + '</td><td class="d">' +
+            (a === 'best' ? '최상 우선' : 'A*') + '</td><td><b>' + v.seen + '칸</b></td><td>' + v.len + '칸</td></tr>';
+        });
+      });
+      document.getElementById('scCmp').innerHTML = any ? rows :
+        '<tr><td class="d">아직 결과가 없습니다. 네 가지를 모두 «끝까지 보기»로 돌려 보세요.</td></tr>';
+    }
+    document.getElementById('scPick').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-s]'); if(!b) return;
+      scSi = +b.getAttribute('data-s');
+      [].slice.call(this.children).forEach(function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      scRun();
+    });
+    document.getElementById('scAlg').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-a]'); if(!b) return;
+      scAlg = b.getAttribute('data-a');
+      [].slice.call(this.children).forEach(function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      scRun();
+    });
+    document.getElementById('scStep').addEventListener('click', function(){ if(scAt < scSt.length - 1){ scAt++; scPaint(); } });
+    document.getElementById('scAll').addEventListener('click', function(){ scAt = scSt.length - 1; scPaint(); });
+    document.getElementById('scRe').addEventListener('click', function(){ scAt = -1; scPaint(); });
+    ['why','fire'].forEach(function(f){
+      var el = document.getElementById('sc' + f.charAt(0).toUpperCase() + f.slice(1));
+      el.value = SC[f] || '';
+      el.addEventListener('input', function(){ SC[f] = this.value; scSave(); });
+    });
+    rubricWire('scRub', [
+      '최상 우선 탐색 알고리즘을 적용한 탐색 과정을 설명할 수 있는가?',
+      '어떤 알고리즘이 문제를 해결하는 데 효과적이었는지 까닭과 함께 설명할 수 있는가?'
+    ], function(){ return SC.rub; }, function(v){ SC.rub = v; scSave(); });
+    document.getElementById('scGroup').value = SC.group || '';
+    document.getElementById('scGroup').addEventListener('input', function(){ SC.group = this.value; scSave(); });
+    clsPickWire('scCls', function(v){ SC.cls = v; scSave(); });
+    if(SC.cls){ var scb = document.querySelector('#scCls button[data-c="' + SC.cls + '"]'); if(scb) scb.setAttribute('aria-pressed','true'); }
+    function scReport(){
+      var L = ['════════ 학교 안 길찾기 ════════',
+        '교과서 Ⅰ-05 지능적 탐색 과정의 적용 (42~47쪽)', '',
+        '분반 : ' + (SC.cls || '(미선택)'), '모둠 : ' + (SC.group || '(미입력)'), ''];
+      [0,1,2].forEach(function(i){
+        ['best','astar'].forEach(function(a){
+          var v = SC[a][i];
+          L.push(SCEN[i].name + ' · ' + (a === 'best' ? '최상 우선' : 'A*') + ' : ' +
+            (v ? v.seen + '칸 살펴봄 · ' + v.len + '칸 이동' : '(안 돌려 봄)'));
+        });
+      });
+      L.push('', '살펴본 칸 수가 다른 이유 : ' + (SC.why || '(미작성)'));
+      L.push('불이 났을 때 길이 달라진 이유 : ' + (SC.fire || '(미작성)'), '');
+      L.push('자기평가 1 : ' + (SC.rub[0] || '(미선택)'));
+      L.push('자기평가 2 : ' + (SC.rub[1] || '(미선택)'));
+      L.push('══════════════════════════════════');
+      return L.join('\n');
+    }
+    document.getElementById('scCopy').addEventListener('click', function(){ tClip(scReport(), this); });
+    document.getElementById('scSend').addEventListener('click', function(){
+      var btn = this, msg = document.getElementById('scSendMsg');
+      if(!SC.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!(SC.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+      var f = function(a, i){ var v = SC[a][i]; return v ? v.seen + '칸 / ' + v.len + '칸' : ''; };
+      postSheet({
+        key:SUBMIT_KEY, type:'school', cls:SC.cls, group:SC.group,
+        m0b:f('best',0), m0a:f('astar',0), m1b:f('best',1), m1a:f('astar',1),
+        m2b:f('best',2), m2a:f('astar',2),
+        why:SC.why, fire:SC.fire, rub1:SC.rub[0], rub2:SC.rub[1]
+      }, btn, msg, 4);
+    });
+    scRun(); scTable();
+  }
+
+  /* ══ ⑩ 알고리즘 카드 맞추기 ═════════════════════════════ */
+  var CARDS = [
+    '출발 칸을 <b>열린칸</b>에 넣는다',
+    '열린칸에서 <b>f 가 가장 작은</b> 칸을 꺼낸다',
+    '꺼낸 칸이 <b>목표</b>인지 확인한다',
+    '목표가 아니면 <b>이웃 칸들의 f</b> 를 계산한다',
+    '계산한 이웃 칸을 <b>열린칸</b>에 넣는다',
+    '꺼낸 칸은 <b>닫힌칸</b>으로 옮긴다',
+    '열린칸이 빌 때까지 <b>2번으로 되돌아간다</b>'
+  ];
+  if(document.getElementById('csBank')){
+    var csAt = 0, csOrder = [0,1,2,3,4,5,6];
+    for(var ci = csOrder.length - 1; ci > 0; ci--){
+      var cj = Math.floor(Math.random() * (ci + 1)), ct = csOrder[ci]; csOrder[ci] = csOrder[cj]; csOrder[cj] = ct;
+    }
+    function csDraw(){
+      var bank = document.getElementById('csBank');
+      bank.innerHTML = '';
+      csOrder.forEach(function(i){
+        if(i < csAt) return;
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'cscard';
+        b.innerHTML = CARDS[i];
+        b.addEventListener('click', function(){
+          if(i === csAt){
+            csAt++; csDraw();
+            document.getElementById('csMsg').textContent = csAt === 7 ? '완성했습니다!' : csAt + ' / 7 · 좋아요!';
+            if(csAt === 7) document.getElementById('csCode').hidden = false;
+          }else{
+            b.classList.add('no');
+            document.getElementById('csMsg').textContent = '아직 아니에요. ' + (csAt + 1) + '번째 카드를 찾아보세요';
+            setTimeout(function(){ b.classList.remove('no'); }, 700);
+          }
+        });
+        bank.appendChild(b);
+      });
+      var out = document.getElementById('csOut');
+      out.innerHTML = '';
+      for(var k = 0; k < csAt; k++){
+        var li = document.createElement('li'); li.innerHTML = CARDS[k]; out.appendChild(li);
+      }
+      if(!csAt) out.innerHTML = '<li class="ph">아직 없습니다</li>';
+    }
+    document.getElementById('csUndo').addEventListener('click', function(){
+      if(csAt > 0){ csAt--; document.getElementById('csCode').hidden = true; csDraw();
+        document.getElementById('csMsg').textContent = csAt + ' / 7'; } });
+    document.getElementById('csRe').addEventListener('click', function(){
+      csAt = 0; document.getElementById('csCode').hidden = true; csDraw();
+      document.getElementById('csMsg').textContent = '첫 번째 카드를 골라 보세요'; });
+    csDraw();
+  }
+
+  /* ══ ⑪ 추론 게임 ════════════════════════════════════════ */
+  var INFER = [
+    { t:'① 누가 어디에 앉았을까?  (교과서 48쪽)',
+      f:['동동일은 동동이보다 <b>낮은</b> 의자에 앉았다',
+         '동동사는 동동삼보다 <b>낮은</b> 의자에 앉았다',
+         '동동삼은 동동일보다 <b>낮은</b> 의자에 앉았다',
+         '동동이는 동동오보다 <b>낮은</b> 의자에 앉았다'],
+      q:'가장 낮은 의자가 1번일 때, <b>4번 의자</b>에 앉은 사람은?',
+      o:['동동사','동동일','동동이','동동오'], a:2,
+      w:'낮은 순서대로 이으면 <b>동동사 → 동동삼 → 동동일 → 동동이 → 동동오</b> 입니다. 4번째는 동동이!' },
+    { t:'② 참새도 알을 낳을까?  (삼단 논법)',
+      f:['<b>규칙</b> 새는 알을 낳는다', '<b>사실</b> 참새는 새다'],
+      q:'새로 알아낸 사실은?',
+      o:['참새는 알을 낳는다','참새는 알을 낳지 않는다','알 수 없다','참새는 새가 아니다'], a:0,
+      w:'「새 → 알을 낳는다」 이고 「참새 → 새」 이므로 <b>「참새 → 알을 낳는다」</b>. 이것을 <b>삼단 논법</b>이라 합니다.' },
+    { t:'③ 이건 식물일까?  (후건 부정)',
+      f:['<b>규칙</b> 식물은 광합성을 한다', '<b>사실</b> 이것은 광합성을 하지 않는다'],
+      q:'새로 알아낸 사실은?',
+      o:['식물이다','식물이 아니다','광합성을 한다','알 수 없다'], a:1,
+      w:'결과가 아니면 원인도 아닙니다. 「광합성 안 함 → 식물 아님」. 이것을 <b>후건 부정</b>이라 합니다.' },
+    { t:'④ 우리는 무슨 사이?  (교과서 53쪽)',
+      f:['동동일은 동동삼의 아버지', '동동삼은 동동이의 아버지', '동동삼은 동동사의 아버지',
+         '<b>규칙</b> X가 Y의 부모이고 X가 Z의 부모이면 → Y와 Z는 형제자매',
+         '<b>규칙</b> X가 Y의 아버지이고 Y가 Z의 아버지이면 → X는 Z의 할아버지'],
+      q:'<b>동동사</b>의 할아버지는 누구일까요?',
+      o:['동동삼','동동이','동동일','없다'], a:2,
+      w:'동동일 → 동동삼 → 동동사 로 이어지므로 <b>동동일이 동동사의 할아버지</b>. ' +
+        '덤으로 동동이와 동동사는 <b>형제자매</b>입니다.' },
+    { t:'⑤ 급식 로봇의 판단  (실생활 규칙)',
+      f:['<b>규칙 1</b> IF 잔반이 많다 → THEN 다음엔 조금만 담는다',
+         '<b>규칙 2</b> IF 비가 온다 AND 국수가 나온다 → THEN 잔반이 많다',
+         '<b>사실</b> 오늘은 비가 오고, 급식은 국수다'],
+      q:'로봇은 내일 어떻게 할까요?',
+      o:['평소대로 담는다','조금만 담는다','더 많이 담는다','아무것도 알 수 없다'], a:1,
+      w:'규칙 2로 «잔반이 많다»가 새 사실이 되고, 그게 다시 규칙 1의 조건이 됩니다. ' +
+        '<b>새 사실이 또 다른 규칙을 깨우는 것</b> — 이게 추론 엔진이 하는 일이에요.' },
+    { t:'⑥ 간식 도둑은 누구?  (추리)',
+      f:['간식이 <b>식탁 위</b>에서 사라졌다', '강아지는 <b>높은 곳에 오르지 못한다</b>',
+         '고양이는 <b>높은 곳에 오를 수 있다</b>', '창문은 <b>열려 있었다</b>',
+         '<b>규칙</b> 높은 곳에 오를 수 있으면 → 식탁에 올라갈 수 있다'],
+      q:'범인으로 <b>추론</b>되는 것은?',
+      o:['강아지','고양이','바람','알 수 없다'], a:1,
+      w:'강아지는 규칙의 조건을 만족하지 못합니다. 고양이만 «식탁에 올라갈 수 있다»가 됩니다.<br>' +
+        '다만 — <b>이것은 «추론»이지 «증거»가 아닙니다.</b> 인공지능의 판단도 마찬가지예요.' }
+  ];
+  var IFKEY = 'ai_u1_infer_v1';
+  var IF = { at:0, ans:[], a:'', b:'', c:'', nw:'', bad:'', cls:'', group:'' };
+  try{ var _if = JSON.parse(localStorage.getItem(IFKEY)); if(_if) for(var k5 in _if) if(k5 in IF) IF[k5] = _if[k5]; }catch(e){}
+  function ifSave(){ try{ localStorage.setItem(IFKEY, JSON.stringify(IF)); }catch(e){} }
+
+  if(document.getElementById('ifOpts')){
+    function ifDraw(){
+      var q = INFER[IF.at];
+      document.getElementById('ifTitle').textContent = q.t;
+      document.getElementById('ifFacts').innerHTML = q.f.map(function(x){ return '<div class="ffact">' + x + '</div>'; }).join('');
+      document.getElementById('ifAsk').innerHTML = q.q;
+      var box = document.getElementById('ifOpts');
+      box.innerHTML = '';
+      q.o.forEach(function(t, i){
+        var b = document.createElement('button');
+        b.type = 'button'; b.textContent = t;
+        var given = IF.ans[IF.at];
+        if(given !== undefined && given !== null){
+          b.disabled = true;
+          if(i === q.a) b.className = 'ok';
+          else if(i === given) b.className = 'no';
+        }
+        b.addEventListener('click', function(){
+          if(IF.ans[IF.at] !== undefined && IF.ans[IF.at] !== null) return;
+          IF.ans[IF.at] = i; ifSave(); ifDraw();
+        });
+        box.appendChild(b);
+      });
+      var w = document.getElementById('ifWhy');
+      var g2 = IF.ans[IF.at];
+      if(g2 === undefined || g2 === null){ w.hidden = true; }
+      else{
+        w.hidden = false;
+        w.className = 'verdict ' + (g2 === q.a ? 'ok' : 'no');
+        w.innerHTML = '<b>' + (g2 === q.a ? '정답입니다!' : '아쉬워요 — 정답은 «' + q.o[q.a] + '»') + '</b><span>' + q.w + '</span>';
+      }
+      var d = document.getElementById('ifDots'), h = '';
+      INFER.forEach(function(_, i){
+        h += '<i class="' + (IF.ans[i] === INFER[i].a ? 'fill' : (i === IF.at ? 'cur' : '')) + '"></i>';
+      });
+      d.innerHTML = h;
+      var got = 0, done = 0;
+      INFER.forEach(function(x, i){ if(IF.ans[i] !== undefined && IF.ans[i] !== null){ done++; if(IF.ans[i] === x.a) got++; } });
+      document.getElementById('ifScore').textContent = got + ' / ' + done;
+      document.getElementById('ifPrev').disabled = IF.at === 0;
+      document.getElementById('ifNext').disabled = IF.at >= INFER.length - 1;
+    }
+    document.getElementById('ifPrev').addEventListener('click', function(){ if(IF.at > 0){ IF.at--; ifSave(); ifDraw(); } });
+    document.getElementById('ifNext').addEventListener('click', function(){ if(IF.at < INFER.length - 1){ IF.at++; ifSave(); ifDraw(); } });
+    document.getElementById('ifRe').addEventListener('click', function(){ IF.at = 0; IF.ans = []; ifSave(); ifDraw(); });
+
+    function ifRule(){
+      var a = (IF.a || '').trim(), b = (IF.b || '').trim(), c = (IF.c || '').trim();
+      if(!a && !c) return '규칙을 적으면 여기에 나타납니다';
+      return '<b>IF</b> ' + (a || '____') + (b ? ' <b>AND</b> ' + b : '') + ' <b>THEN</b> ' + (c || '____');
+    }
+    ['a','b','c'].forEach(function(f){
+      var el = document.getElementById('if' + f.toUpperCase());
+      el.value = IF[f] || '';
+      el.addEventListener('input', function(){ IF[f] = this.value; ifSave();
+        document.getElementById('ifShow').innerHTML = ifRule(); });
+    });
+    document.getElementById('ifShow').innerHTML = ifRule();
+    ['nw','bad'].forEach(function(f){
+      var el = document.getElementById('if' + (f === 'nw' ? 'New' : 'Bad'));
+      el.value = IF[f] || '';
+      el.addEventListener('input', function(){ IF[f] = this.value; ifSave(); });
+    });
+    document.getElementById('ifGroup').value = IF.group || '';
+    document.getElementById('ifGroup').addEventListener('input', function(){ IF.group = this.value; ifSave(); });
+    clsPickWire('ifCls', function(v){ IF.cls = v; ifSave(); });
+    if(IF.cls){ var icb = document.querySelector('#ifCls button[data-c="' + IF.cls + '"]'); if(icb) icb.setAttribute('aria-pressed','true'); }
+    function ifPlain(){
+      return (IF.a ? 'IF ' + IF.a : 'IF ____') + (IF.b ? ' AND ' + IF.b : '') + (IF.c ? ' THEN ' + IF.c : ' THEN ____');
+    }
+    function ifReport(){
+      var got = 0, done = 0;
+      INFER.forEach(function(x, i){ if(IF.ans[i] !== undefined && IF.ans[i] !== null){ done++; if(IF.ans[i] === x.a) got++; } });
+      return ['════════ 추론 게임 ════════',
+        '교과서 Ⅰ-06 컴퓨터가 처리하는 지식의 표현 (48~53쪽)', '',
+        '분반 : ' + (IF.cls || '(미선택)'), '모둠 : ' + (IF.group || '(미입력)'), '',
+        '추론 퍼즐 : ' + got + ' / ' + done + ' 정답', '',
+        '내가 만든 규칙 : ' + ifPlain(),
+        '새로 알 수 있는 사실 : ' + (IF.nw || '(미작성)'),
+        '이 규칙이 틀릴 수 있는 경우 : ' + (IF.bad || '(미작성)'),
+        '══════════════════════════════════'].join('\n');
+    }
+    document.getElementById('ifCopy').addEventListener('click', function(){ tClip(ifReport(), this); });
+    document.getElementById('ifSend').addEventListener('click', function(){
+      var btn = this, msg = document.getElementById('ifSendMsg');
+      if(!IF.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!(IF.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+      var got = 0, done = 0;
+      INFER.forEach(function(x, i){ if(IF.ans[i] !== undefined && IF.ans[i] !== null){ done++; if(IF.ans[i] === x.a) got++; } });
+      postSheet({
+        key:SUBMIT_KEY, type:'infer', cls:IF.cls, group:IF.group,
+        score: got + ' / ' + done, rule: ifPlain(), fresh: IF.nw, weak: IF.bad
+      }, btn, msg, 4);
+    });
+    ifDraw();
+  }
 
   render();
 })();
