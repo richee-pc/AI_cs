@@ -10,17 +10,31 @@
 <meta property="og:title" content="Ⅰ. 인공지능의 이해 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="font/body-reg.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
 </head>
 <body>
 <style>
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+/* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
+   제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
+   본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
+   강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
+   코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2') format('woff2');
+  font-weight:400 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
   --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
@@ -31,10 +45,11 @@
   --good:#11734C; --good-bg:#DDF6EB;
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
-  --mono:ui-monospace,"SFMono-Regular",Consolas,"D2Coding",Menlo,monospace;
-  --disp:"Jua","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-  --sans:"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic",
-    system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
+    system-ui,-apple-system,'Segoe UI',sans-serif;
   --r:20px;
 }
 @media (prefers-color-scheme:dark){:root{
@@ -798,6 +813,86 @@ table.ftab tr.pick td b{color:var(--good)}
 .term i{display:block; font-style:normal; font-size:13.5px; color:var(--muted);
   line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
 
+/* ── 차시별 수업 흐름 ─────────────────── */
+.flowlist{display:grid; gap:12px}
+.fcard{display:flex; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px; box-shadow:var(--sh)}
+.fnum{flex:none; width:64px; text-align:center; font-family:var(--disp); font-weight:700;
+  font-size:26px; line-height:1.1; color:var(--on-fill); background:var(--fill);
+  border-radius:14px; padding:12px 4px; align-self:flex-start}
+.fnum>span{display:block; font-family:var(--sans); font-size:11px; font-weight:700; opacity:.85}
+.fbody{flex:1 1 auto; min-width:0}
+.fbody>b{display:block; font-family:var(--disp); font-weight:700; font-size:19px; color:var(--blue-d)}
+.fbody>i{display:block; font-style:normal; font-size:13px; color:var(--muted); margin-top:2px}
+.fdays{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0}
+.fdays span{display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  font-variant-numeric:tabular-nums}
+.fdays em{font-style:normal; font-size:11.5px; font-weight:800; color:var(--blue-d)}
+.fgo{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px}
+.fgo a{font-size:13.5px; font-weight:700; color:var(--blue-d); background:var(--blue-xl);
+  border:1px solid var(--blue-l); border-radius:99px; padding:5px 13px; text-decoration:none;
+  transition:.15s}
+.fgo a:hover{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.ftip{font-size:13.5px; color:var(--ink2); line-height:1.6; margin:0}
+.ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+/* ── 헷갈리는 것 O/X ──────────────────── */
+.oxwrap{display:grid; gap:11px}
+.oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
+  transition:.15s}
+.oxc.right{border-color:var(--good); background:var(--good-bg)}
+.oxc.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxq{display:flex; gap:11px; font-size:15.5px; line-height:1.6; color:var(--ink); margin:0 0 11px}
+.oxn{flex:none; width:24px; height:24px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--sans); font-size:12.5px; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.oxb{display:flex; gap:9px}
+.oxb button{width:58px; height:42px; font-family:var(--disp); font-weight:700; font-size:20px;
+  border-radius:12px; border:2px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.oxb button:hover:not([disabled]){border-color:var(--blue); color:var(--blue-d)}
+.oxb button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oxb button[disabled]{cursor:default}
+.oxb button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.oxw{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); font-size:14.5px;
+  line-height:1.7; color:var(--ink2)}
+.oxw>b{display:block; font-family:var(--disp); font-weight:700; font-size:16px; margin-bottom:4px}
+.oxc.right .oxw>b{color:var(--good)}
+.oxc.wrong .oxw>b{color:var(--warm)}
+
+/* ── 확인 문제 ────────────────────────── */
+.extag{display:inline-block; font-size:12px; font-weight:800; letter-spacing:.03em;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:4px 12px; margin-bottom:11px}
+.onum{display:inline-block; width:20px; font-weight:800; color:var(--blue-d)}
+.mopts button.ok .onum, .mopts button.no .onum{color:inherit}
+#exOpts{grid-template-columns:1fr}
+#exOpts button{text-align:left}
+
+/* ── 다음 단원 다리 ───────────────────── */
+.bridge{display:grid; gap:14px}
+.br{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:20px 24px; box-shadow:var(--sh)}
+.br:nth-child(2){border-left-color:var(--warm)}
+.br:nth-child(3){border-left-color:var(--good)}
+.brtag{display:inline-block; font-size:12.5px; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px}
+.br:nth-child(2) .brtag{color:var(--warm); background:var(--warm-bg)}
+.br:nth-child(3) .brtag{color:var(--good); background:var(--good-bg)}
+.br>h4{font-family:var(--disp); font-weight:700; font-size:clamp(17px,2.6vw,21px);
+  color:var(--ink); margin:10px 0 8px; line-height:1.45}
+.br>p{font-size:15px; line-height:1.75; color:var(--ink2); margin:0 0 10px}
+.br ul{margin:0 0 10px; padding-left:20px; font-size:14.5px; line-height:1.85; color:var(--ink2)}
+.brtool{font-size:13.5px; color:var(--muted); margin:0; padding-top:9px;
+  border-top:1px dashed var(--line)}
+
+
+/* ── 강조 글꼴을 쓰는 자리 (한 화면에 하나씩만) ─────────── */
+.hero h1, .big, .narr, .reveal, .rulebox, .pathbar, .qbig, .mcase,
+.fnum, .pc, .oxb button, .scorepill{font-family:var(--pop)}
+.narr, .reveal, .rulebox, .pathbar, .qbig, .mcase{font-weight:700}
+.big{font-weight:800}
+
 footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
 footer a{font-weight:700}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
@@ -812,10 +907,11 @@ footer a{font-weight:700}
   <a href="#" class="soon">Ⅲ. 사회적 영향</a>
   <a href="#" class="soon">Ⅳ. 프로젝트</a>
   <span class="sep"></span>
+  <a href="#flow">차시별 순서</a>
   <a href="#slides">슬라이드</a>
   <a href="#act">수업 활동</a>
   <a href="#sim">탐색 시뮬레이터</a>
-  <a href="#code">코드</a>
+  <a href="#terms">핵심 용어</a>
   <a href="#check">확인 문제</a>
 </div></div></nav>
 
@@ -828,7 +924,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>11<span style="font-size:16px"> 개</span></b><span>수업 활동 · 탐색 시뮬레이터 4</span></div>
+    <div class="fact"><b>11<span style="font-size:16px"> 개</span></b><span>수업 활동 · 시뮬레이터 4</span></div>
   </div>
 </div></div>
 
@@ -888,6 +984,20 @@ footer a{font-weight:700}
     <tr><td class="d">8</td><td class="d">9/1 (화)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
   </table></div></div>
 
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <p class="eyebrow">수업 순서</p>
+  <h2>차시별로 무엇을 하나</h2>
+  <p class="sub">진도표 순서 그대로입니다. <b>카드를 누르면</b> 그 차시에 쓸 자료로 바로 넘어갑니다.
+    선생님은 이 순서대로 따라오시면 되고, 학생은 <b>오늘이 몇 차시인지</b>만 확인하면 됩니다.</p>
+
+  <div class="flowlist" id="flowList"></div>
+
+  <div class="note" style="margin-top:18px"><b>수업 준비물</b>
+    전 차시 공통 — <b>교과서 · 개인 노트북 · 이 웹페이지</b>.
+    Ⅰ-01 튜링 테스트 차시에는 <b>챗봇(제미나이·챗지피티)</b>이 필요합니다.
+    Ⅰ-05 이후에는 <b>모둠당 노트북 한 대</b>로 기록 담당을 정해 주세요.</div>
 </div></section>
 
 <section id="slides"><div class="wrap">
@@ -1768,166 +1878,6 @@ while open_list:
     걸음 수를 적어 두고 비교해 보세요.</div>
 </div></section>
 
-<section id="code"><div class="wrap">
-  <p class="eyebrow">교과서 코드</p>
-  <h2>직접 돌려 보는 탐색 알고리즘</h2>
-  <p class="sub">교과서 43~47쪽 소스입니다. 코랩에 붙여 넣으면 바로 돌아갑니다.
-    격자는 위 시뮬레이터와 <b>같은 문제</b>라서 결과를 맞춰 볼 수 있습니다.</p>
-
-  <div class="codebox">
-    <div class="codetop"><b>최상 우선 탐색 (Best-First Search)</b><span>교과서 43~44쪽</span></div>
-    <pre id="code1"><span class="k">import</span> heapq
-
-<span class="k">def</span> heuristic(node, goal):
-  <span class="c"># 맨하탄 거리 공식을 이용하여 현재 노드에서 목표 노드까지의 예상 거리 계산</span>
-  x1, y1 = node
-  x2, y2 = goal
-  <span class="k">return</span> abs(x1 - x2) + abs(y1 - y2)
-
-<span class="k">def</span> get_neighbors(grid, current_node):
-  neighbors = []
-  <span class="c"># 상, 하, 좌, 우로 이동하는 변위 좌표 (dx, dy)를 정의</span>
-  <span class="k">for</span> dx, dy <span class="k">in</span> [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-    x, y = current_node[0] + dx, current_node[1] + dy <span class="c"># 이웃 노드 좌표 계산</span>
-    <span class="c"># 그리드 범위 내에 있고 장애물이 없는 경우에만 이웃 노드로 추가</span>
-    <span class="k">if</span> (0 &lt;= x &lt; len(grid) <span class="k">and</span> 0 &lt;= y &lt; len(grid[0]) <span class="k">and</span> grid[x][y] == 0):
-      neighbors.append((x,y)) <span class="c"># 이웃 노드 좌표 저장</span>
-  <span class="k">return</span> neighbors
-
-<span class="k">def</span> reconstruct_path(came_from, current_node):
-  path = [] <span class="c">#최적 경로 리스트</span>
-  <span class="k">while</span> current_node <span class="k">is</span> <span class="k">not</span> <span class="k">None</span>:
-    path.append(current_node) <span class="c">#현재 노드를 최적 경로에 추가</span>
-    current_node = came_from[current_node] <span class="c">#이전 노드를 현재 노드로 저장</span>
-  path.reverse() <span class="c">#최적 경로 역순으로 정렬</span>
-  <span class="k">return</span> path
-
-<span class="k">def</span> best_first_search(grid, start, goal):
-  open_list = [] <span class="c">#open리스트 초기화</span>
-  heapq.heappush(open_list, (0, start)) <span class="c">#시작 노드를 open리스트에 추가</span>
-  came_from = {} <span class="c">#경로 저장 딕셔너리 초기화</span>
-  came_from[start] = <span class="k">None</span> <span class="c">#시작노드는 이전 노드가 없으므로 None로 초기화</span>
-
-  <span class="k">while</span> open_list:
-    _, current_node = heapq.heappop(open_list)  <span class="c">#open리스트에서 우선순위가 가장 높은 노드 꺼내오기</span>
-
-    <span class="k">if</span> current_node == goal: <span class="c"># 현재노드가 목표노드인 경우</span>
-      path = reconstruct_path(came_from, current_node) <span class="c"># 최적 경로 재구성 함수 호출</span>
-      <span class="k">return</span> path
-    neighbors=get_neighbors(grid, current_node) <span class="c">#이웃 노드 탐색 함수 호출</span>
-    <span class="k">for</span> x,y <span class="k">in</span> neighbors: <span class="c"># 현재 노드의 이웃 노드 탐색</span>
-      neighbor=x,y
-      <span class="k">if</span> neighbor <span class="k">not</span> <span class="k">in</span> came_from: <span class="c"># 이웃 노드가 이전에 방문한 적이 없는 경우</span>
-        came_from[neighbor] = current_node <span class="c"># 이웃 노드의 이전 노드를 현재 노드로 설정</span>
-        priority = heuristic(neighbor, goal)<span class="c"># 이웃 노드의 평가 함숫값 계산</span>
-        heapq.heappush(open_list, (priority, neighbor)) <span class="c"># 이웃 노드를 open리스트에 추가</span>
-  <span class="k">return</span> <span class="k">None</span> <span class="c">#경로가 없을 경우 None 값 반환</span>
-
-grid = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-]
-
-start = (0, 0)
-goal = (3, 6)
-path = best_first_search(grid, start, goal)
-
-<span class="k">if</span> path:
-  print(<span class="s">"최적 경로:"</span>, path)
-<span class="k">else</span>:
-  print(<span class="s">"경로를 찾을 수 없음"</span>)</pre>
-  </div>
-  <div class="simctl" style="margin:-6px 0 24px">
-    <button class="mini" data-copy="code1">코드 복사</button>
-    <a class="mini gh" href="https://colab.research.google.com" target="_blank" rel="noopener noreferrer">코랩 열기</a>
-  </div>
-
-  <div class="codebox">
-    <div class="codetop"><b>A* 알고리즘</b><span>교과서 45~47쪽</span></div>
-    <pre id="code2"><span class="k">def</span> heuristic(node, goal):
-  <span class="c"># 맨하튼 거리공식을 이용하여 현재 노드에서 목표 노드까지의 예상 거리 계산</span>
-  x1, y1 = node
-  x2, y2 = goal
-  <span class="k">return</span> abs(x1 - x2) + abs(y1 - y2)
-
-<span class="k">def</span> astar_search(current_node, g_score):
-  neighbors = []
-  <span class="c"># 상, 하, 좌, 우로 이동하는 변위 좌표 (dx, dy)를 정의</span>
-  <span class="k">for</span> dx, dy <span class="k">in</span> [(0, -1), (0, 1), (-1, 0), (1, 0)]:
-    x, y = current_node[0] + dx, current_node[1] + dy <span class="c">#이웃 노드 좌표 계산</span>
-    <span class="c"># 그리드 범위 내에 있고 장애물이 없는 경우에만 이웃 노드로 추가</span>
-    <span class="k">if</span> (0 &lt;= x &lt; len(grid) <span class="k">and</span> 0 &lt;= y &lt; len(grid[0]) <span class="k">and</span> grid[x][y] == 0):
-      neighbors.append((x, y, g_score[current_node] + 1)) <span class="c"># 이웃 노드 좌표와 경로 비용 저장</span>
-  <span class="k">return</span> neighbors
-
-<span class="k">def</span> reconstruct_path(came_from, current_node):
-  path = [] <span class="c">#최적 경로 리스트</span>
-  <span class="k">while</span> current_node <span class="k">in</span> came_from: <span class="c"># 현재 노드가 경로 노드에 있는 동안 반복</span>
-    path.insert(0, current_node) <span class="c"># 현재 노드를 최적경로(path) 맨 앞에 추가</span>
-    current_node = came_from[current_node] <span class="c">#이전 노드를 현재노드로 저장</span>
-  path.insert(0, start) <span class="c">#시작노드를 최적경로에 추가</span>
-  <span class="k">return</span> path <span class="c">#방문 경로 리스트 반환</span>
-
-<span class="k">def</span> astar(grid, start, goal):
-  open_list = [(0, start)]  <span class="c"># 방문할 노드와 비용 저장</span>
-  came_from = {}  <span class="c"># 방문 경로를 저장하기 위한 딕셔너리</span>
-  g_score = {start: 0}  <span class="c"># 시작 노드부터 현재 노드까지의 비용</span>
-  f_score = {start: heuristic(start, goal)}  <span class="c"># 시작 노드부터 목표까지의 평가 함숫값</span>
-
-  <span class="k">while</span> open_list:
-    current_cost, current_node = min(open_list) <span class="c"># 평가함숫값이 가장 작은 것 선택</span>
-
-    <span class="k">if</span> current_node == goal: <span class="c"># 목표 노드에 도착한 경우</span>
-      path = reconstruct_path(came_from, current_node) <span class="c"># 최적 경로 재구성 함수 호출</span>
-      <span class="k">return</span> path
-
-    open_list.remove((current_cost, current_node)) <span class="c"># open 리스트에서 현재 노드 삭제(현재노드 방문)</span>
-
-    neighbors = astar_search(current_node, g_score) <span class="c"># 이웃 노드 탐색 함수 호출</span>
-
-    <span class="k">for</span> x, y, tentative_g_score <span class="k">in</span> neighbors: <span class="c"># 현재 노드의 이웃 노드 탐색</span>
-      neighbor = x, y
-      <span class="k">if</span> neighbor <span class="k">not</span> <span class="k">in</span> g_score <span class="k">or</span> tentative_g_score &lt; g_score[neighbor]:
-        <span class="c"># 만약 이웃노드가 이전에 방문한 적이 없거나 경로비용(g_score)이 작은 경우</span>
-        came_from[neighbor] = current_node <span class="c"># 이웃의 이전노드는 현재 노드로 저장</span>
-        g_score[neighbor] = tentative_g_score <span class="c"># 이웃의 g_score를 변경</span>
-        f_score[neighbor] = g_score[neighbor] + heuristic(neighbor, goal) <span class="c"># 이웃 노드의 평가 함숫값 계산</span>
-        <span class="k">if</span> (f_score[neighbor], neighbor) <span class="k">not</span> <span class="k">in</span> open_list: <span class="c"># open 리스트에 이웃노드가 없는 경우</span>
-          open_list.append((f_score[neighbor], neighbor)) <span class="c"># open 리스트에 추가</span>
-  <span class="k">return</span> <span class="k">None</span>  <span class="c"># 경로가 없을 경우 None 반환</span>
-
-grid = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-]
-
-start = (0, 0) <span class="c">#시작노드</span>
-goal = (3, 6) <span class="c">#목표노드</span>
-
-path = astar(grid, start, goal)
-
-<span class="k">if</span> path:
-  print(<span class="s">"최적 경로:"</span>, path)
-<span class="k">else</span>:
-  print(<span class="s">"경로를 찾을 수 없음"</span>)</pre>
-  </div>
-  <div class="simctl" style="margin:-6px 0 0">
-    <button class="mini" data-copy="code2">코드 복사</button>
-    <a class="mini gh" href="https://colab.research.google.com" target="_blank" rel="noopener noreferrer">코랩 열기</a>
-  </div>
-
-  <p class="note" style="margin-top:22px"><b>두 코드의 결정적 차이.</b>
-    최상 우선 탐색은 <code>priority = heuristic(neighbor, goal)</code> — <b>남은 거리만</b> 봅니다.<br>
-    A*는 <code>f_score = g_score + heuristic(...)</code> — <b>온 거리 + 남은 거리</b>를 함께 봅니다.
-    이 한 줄 차이가 «최단 경로를 보장하느냐»를 가릅니다.</p>
-</div></section>
-
 <section id="video"><div class="wrap">
   <p class="eyebrow">수업 영상</p>
   <h2>소단원별 강의 영상</h2>
@@ -2038,17 +1988,57 @@ path = astar(grid, start, goal)
   </div>
 </div></section>
 
+<section id="miscon"><div class="wrap">
+  <p class="eyebrow">여기서 꼭 틀립니다</p>
+  <h2>헷갈리는 것 8가지</h2>
+  <p class="sub">선생님용 지도서가 «여기를 특히 짚어 주라»고 적어 둔 곳,
+    그리고 <b>시험에 오답 선택지로 실제로 나온</b> 문장들입니다.
+    맞다고 생각하면 <b>O</b>, 틀리다고 생각하면 <b>X</b>를 눌러 보세요.</p>
+
+  <div class="oxwrap" id="oxWrap"></div>
+  <div class="simctl" style="margin-top:16px">
+    <button type="button" class="mini gh" id="oxRe">처음부터</button>
+    <span class="scorepill" id="oxScore">0 / 8</span>
+  </div>
+</div></section>
+
 <section id="check"><div class="wrap">
   <p class="eyebrow">스스로 점검</p>
   <h2>확인 문제</h2>
-  <p class="sub">답을 먼저 생각하고 눌러 보세요.</p>
+  <p class="sub">정기고사에 나올 유형입니다. <b>골라 보고</b> 바로 답을 확인하세요.</p>
+
+  <div class="qhead">
+    <span class="dotrow" id="exDots"></span>
+    <span class="scorepill" id="exScore">0 / 0</span>
+  </div>
+  <div class="ifcard">
+    <span class="extag" id="exTag"></span>
+    <h4 class="ifq" id="exQ"></h4>
+    <div class="iffacts" id="exBox"></div>
+    <div class="mopts" id="exOpts"></div>
+    <div class="verdict" id="exWhy" hidden></div>
+  </div>
+  <div class="simctl">
+    <button type="button" class="mini gh" id="exPrev">← 이전</button>
+    <button type="button" class="mini" id="exNext">다음 →</button>
+    <button type="button" class="mini gh" id="exRe">처음부터</button>
+  </div>
+
+  <h3 class="tgroup" style="margin-top:32px">말로 설명해 보기</h3>
+  <p class="sub">서술형 대비입니다. 답을 <b>소리 내어 말해 본 뒤</b> 펼쳐 보세요.</p>
   <details><summary>인공지능의 네 가지 특성은?</summary>
     <p><b>인식과 이해 · 학습 · 추론 · 자율성.</b>
       센서로 외부를 인식하고(인식과 이해), 기계학습으로 배우고(학습), 배운 것으로 결론을 내고(추론),
       사람 개입 없이 스스로 판단해 행동합니다(자율성).</p></details>
+  <details><summary>문제 해결을 위한 탐색 과정을 순서대로 설명하시오. <i>서술형 기출</i></summary>
+    <p><b>① 문제 정의하기</b> — 문제를 분석해 핵심 요소를 뽑아낸다.<br>
+      <b>② 초기 상태와 목표 상태 설정하기</b> — 어디서 출발해 어디로 갈지 정한다.<br>
+      <b>③ 수행 작업 선택하기</b> — 다음 상태로 가는 한 수를 고른다. 목표에 가까워지는 쪽으로.<br>
+      <b>④ 수행 작업 적용 및 문제 해결하기</b> — 적용해서 목표 상태에 도달한다. 이 과정을 <b>탐색 트리</b>로 나타낸다.</p></details>
   <details><summary>튜링 테스트를 통과했다는 건 무슨 뜻일까?</summary>
     <p>판정관이 <b>대화만으로 사람과 컴퓨터를 구별하지 못했다</b>는 뜻입니다.
-      컴퓨터가 실제로 «생각»하는지를 따지는 게 아니라, <b>사람처럼 보이는지</b>를 봅니다.</p></details>
+      컴퓨터가 실제로 «생각»하는지를 따지는 게 아니라, <b>사람처럼 보이는지</b>를 봅니다.
+      통과했다고 사람과 <b>동등한 것은 아닙니다.</b></p></details>
   <details><summary>맹목적 탐색과 정보 이용 탐색을 가르는 기준은?</summary>
     <p><b>탐색에 대한 정보나 경험을 활용하는가.</b>
       쓰지 않으면 맹목적 탐색(깊이 우선·너비 우선), 쓰면 정보 이용 탐색(최상 우선·A*)입니다.</p></details>
@@ -2058,10 +2048,78 @@ path = astar(grid, start, goal)
   <details><summary>A* 알고리즘의 f(n)은 무엇으로 이루어지나?</summary>
     <p><b>f(n) = g(n) + h(n)</b>.
       g(n)은 출발점에서 지금 노드까지 <b>실제로 온 거리</b>, h(n)은 지금 노드에서 목표까지 <b>예상 거리</b>입니다.
-      온 길과 갈 길을 함께 보기 때문에 최상 우선 탐색보다 낫습니다.</p></details>
-  <details><summary>데이터·정보·지식은 어떻게 다를까?</summary>
-    <p><b>데이터</b>는 사실이나 관찰의 기록, <b>정보</b>는 목적에 맞게 가공해 의미를 갖게 된 것,
-      <b>지식</b>은 정보를 체계화해 판단에 쓸 수 있게 된 것입니다.</p></details>
+      온 길과 갈 길을 함께 보기 때문에 <b>최단 경로를 보장</b>합니다.</p></details>
+  <details><summary>최상 우선 탐색과 A*의 차이를 한 문장으로. <i>서술형 기출</i></summary>
+    <p>최상 우선 탐색은 <b>앞으로 남은 거리(h)만</b> 보고, A*는 <b>지금까지 온 거리(g)까지 함께</b> 봅니다.
+      그래서 최상 우선은 빨리 찾지만 <b>먼 길일 수 있고</b>, A*는 더 많이 살펴보지만 <b>가장 짧은 길</b>을 찾습니다.
+      — 활동 ⑨ 「매점 가기」에서 이 차이가 숫자로 드러납니다.</p></details>
+  <details><summary>데이터·정보·지식·지혜는 어떻게 다를까?</summary>
+    <p><b>데이터</b> 오늘 기온은 9도이다 (사실의 기록) →
+      <b>정보</b> 평년보다 높다 (가공해서 의미가 생김) →
+      <b>지식</b> 가벼운 외투를 입어야겠다 (판단에 쓸 수 있게 됨) →
+      <b>지혜</b> 앞으로도 미리 기온을 확인해야겠다 (원리를 깨달음).</p></details>
+  <details><summary>전문가 시스템의 세 요소와 각각의 역할은?</summary>
+    <p><b>사용자 인터페이스</b> 사람과 시스템이 정보를 주고받는 통로 ·
+      <b>지식 베이스</b> 전문가의 지식을 <b>저장</b> ·
+      <b>추론 엔진</b> 지식 베이스를 이용해 <b>새로운 사실을 추론</b>.<br>
+      «지식 베이스가 추론한다»고 쓰면 <b>틀립니다.</b> 추론은 추론 엔진의 일입니다.</p></details>
+  <details><summary>실생활에서 인공지능이 활용된 사례를 하나 들고 설명하시오. <i>서술형 기출</i></summary>
+    <p>답이 하나가 아닙니다. <b>「무엇을 보고 → 무엇을 판단하는지」</b>가 들어가야 점수를 받습니다.<br>
+      예) 스팸 메일 분류 — 메일의 <b>제목·보낸 사람·본문 특징을 보고</b> 스팸일 <b>확률을 판단</b>해 자동으로 분류한다.<br>
+      «자동으로 분류된다»만 쓰면 자동화 설명이라 부족합니다.</p></details>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <p class="eyebrow">앞으로</p>
+  <h2>Ⅰ단원이 어디로 이어질까</h2>
+  <p class="sub">지금 배운 것이 <b>남은 세 단원에서 어떻게 쓰이는지</b> 미리 알아 두면
+    훨씬 수월합니다. 지금 이해가 덜 된 것도 여기서 다시 만납니다.</p>
+
+  <div class="bridge">
+    <div class="br">
+      <span class="brtag">Ⅱ단원 · 인공지능과 학습</span>
+      <h4>규칙을 사람이 적어 주는 대신, 데이터에서 스스로 찾게 한다</h4>
+      <p>Ⅰ-06에서 «규칙은 항상 맞지 않는다», «전문가 지식을 다 모으기 어렵다»를 봤지요?
+        <b>그 한계 때문에</b> 기계학습이 나왔습니다. Ⅱ단원은 그 이야기로 시작합니다.</p>
+      <ul>
+        <li><b>탐색 → 학습</b> 모델을 «학습»시키는 것도 사실은 가장 좋은 값을 찾아가는 <b>탐색</b>입니다</li>
+        <li><b>h(n) → 손실 함수</b> «지금 얼마나 목표에 가까운가»를 재는 숫자가 또 나옵니다</li>
+        <li><b>데이터 카드</b> 활동 ④에서 골랐던 사진·소리·글·숫자 — 그게 그대로 <b>학습 데이터의 종류</b>입니다</li>
+      </ul>
+      <p class="brtool">쓰는 도구 · <b>오렌지3</b>(설치 필요) · <b>구글 코랩</b>(설치 불필요)</p>
+    </div>
+
+    <div class="br">
+      <span class="brtag">Ⅲ단원 · 인공지능의 사회적 영향</span>
+      <h4>«잘못되면 누가 손해를 보는가»를 본격적으로 따진다</h4>
+      <p>활동 ④의 <b>6번 칸</b>과 활동 ⑪의 <b>«이 규칙이 틀릴 수 있는 경우»</b> — 그 질문이
+        Ⅲ단원의 전부입니다. 미리 연습해 둔 셈이에요.</p>
+      <ul>
+        <li><b>에스토니아 인공지능 판결</b>(Ⅰ-02) → 「AI에게 재판을 맡겨도 될까」로 이어집니다</li>
+        <li><b>간식 도둑 문제</b>(활동 ⑪) → 「추론은 증거가 아니다」 → 편향과 오판</li>
+        <li><b>인공지능 허수아비</b>(Ⅰ-02) → 잘못 판단하면 사람에게 레이저를 쏜다</li>
+      </ul>
+      <p class="brtool">이어지는 평가 · <b>인공지능 윤리 수행평가 20%</b></p>
+    </div>
+
+    <div class="br">
+      <span class="brtag">Ⅳ단원 · 인공지능 프로젝트</span>
+      <h4>활동 ④에서 쓴 설계 카드가 프로젝트 기획서가 된다</h4>
+      <p>Ⅳ단원에서 여러분은 <b>진짜 인공지능 모델</b>을 만듭니다.
+        그때 필요한 것이 활동 ④의 7칸과 똑같습니다.</p>
+      <ul>
+        <li><b>① 문제 · ② 대상 · ③ 무엇을 판단 · ④ 데이터</b> → 프로젝트 기획</li>
+        <li><b>⑤ 잘 됐는지 어떻게 아나</b> → 모델의 <b>정확도 평가</b></li>
+        <li><b>⑥ 잘못되면?</b> → 프로젝트 발표에서 반드시 물어보는 질문</li>
+      </ul>
+      <p class="brtool">이어지는 평가 · <b>인공지능 모델 제작 프로젝트 30%</b></p>
+    </div>
+  </div>
+
+  <div class="ask" style="margin-top:20px"><b>지금 해 두면 좋은 것</b>
+    ① 활동 ④의 설계 카드를 <b>지우지 말고 저장</b>해 두기 (Ⅳ단원에서 다시 씁니다)<br>
+    ② 「무엇을 <b>보고</b>, 무엇을 <b>정하는지</b>」로 말하는 버릇 들이기<br>
+    ③ 코드는 몰라도 됩니다. <b>순서를 정확히 적는 연습</b>만 해 두세요 (활동 ⑩)</div>
 </div></section>
 
 <footer><div class="wrap">
@@ -4944,6 +5002,242 @@ path = astar(grid, start, goal)
     });
     ifDraw();
   }
+
+  /* ══ 차시별 수업 흐름 ═══════════════════════════════════ */
+  var FLOW = [
+    { n:'1',    sub:'오리엔테이션', t:'AI 활용 규칙 · 평가 안내',
+      d:['8/12 (수)','8/14 (금)','8/13 (목)'],
+      go:[['#goal','이 단원에서 배울 것']],
+      tip:'2학기 안내 페이지를 함께 봅니다.' },
+    { n:'2',    sub:'Ⅰ-01 인공지능의 개념과 특성', t:'교과서 10~15쪽',
+      d:['8/13 (목)','8/18 (화)','8/18 (화)'],
+      go:[['#slides','슬라이드 Ⅰ-01 (8장)'],['#act','활동 ① 이건 AI일까'],
+          ['#act','활동 ③ 네 가지 특성 찾기'],['#act','활동 ② 튜링 테스트 진행판']],
+      tip:'컴퓨터 역할 학생은 챗봇으로 답변을 미리 만들어 옵니다. 역할부터 배정하세요.' },
+    { n:'3',    sub:'Ⅰ-02 인공지능과 문제 해결', t:'교과서 16~21쪽',
+      d:['8/14 (금)','8/21 (금)','8/20 (목)'],
+      go:[['#slides','슬라이드 Ⅰ-02 (9장)'],['#act','활동 ④ AI 해결안 설계']],
+      tip:'학문 분야 9개는 사례가 생명입니다. 목소리로 코로나 진단·인공지능 허수아비를 꼭 짚어 주세요.' },
+    { n:'4~5',  sub:'Ⅰ-03 인공지능과 탐색', t:'교과서 22~27쪽',
+      d:['8/19 · 8/20','8/24 · 8/25','8/24 · 8/25'],
+      go:[['#slides','슬라이드 Ⅰ-03 (6장)'],['#act','활동 ⑤ 8-퍼즐 도전'],
+          ['#act','활동 ⑥ 탐색 과정 설계 4단계'],['#act','활동 ⑦ 유럽 여행 길찾기']],
+      tip:'상태 공간 · 탐색 트리 같은 용어의 뜻을 정확히 잡고 넘어가야 Ⅰ-04가 편합니다.' },
+    { n:'6~7',  sub:'Ⅰ-04 지능적 탐색의 종류', t:'교과서 28~39쪽',
+      d:['8/21 · 8/26','8/28 (금)','8/27 (목)'],
+      go:[['#sim','탐색 시뮬레이터 4종'],['#slides','슬라이드 Ⅰ-04 (6장)'],
+          ['#act','활동 ⑧ 우리 동네 등굣길']],
+      tip:'시뮬레이터를 «한 걸음씩» 눌러 가며 진행하세요. 한 번에 돌리면 남는 게 없습니다.' },
+    { n:'8~9',  sub:'Ⅰ-05 지능적 탐색 과정의 적용', t:'교과서 40~47쪽',
+      d:['8/27 · 8/28','8/31 (월)','8/31 (월)'],
+      go:[['#slides','슬라이드 Ⅰ-05 (5장)'],['#act','활동 ⑨ 학교 안 길찾기'],
+          ['#act','활동 ⑩ 알고리즘 카드']],
+      tip:'교과서 코드는 안 다뤄도 됩니다. 카드 7장으로 «순서가 곧 코드»만 잡아 주세요.' },
+    { n:'10',   sub:'Ⅰ-06 컴퓨터가 처리하는 지식의 표현', t:'교과서 48~55쪽',
+      d:['9/3 (목)','9/1 (화)','9/1 (화)'],
+      go:[['#slides','슬라이드 Ⅰ-06 (8장)'],['#act','활동 ⑪ 추론 게임'],
+          ['#terms','핵심 용어 44개'],['#miscon','헷갈리는 것 8가지'],['#check','확인 문제']],
+      tip:'단원 마무리입니다. 용어 정리 → 오개념 점검 → 확인 문제 순으로 닫으세요.' }
+  ];
+  (function(){
+    var box = document.getElementById('flowList'); if(!box) return;
+    var CLS = ['인기A','인기D','인기E'];
+    box.innerHTML = FLOW.map(function(f){
+      return '<div class="fcard">' +
+        '<div class="fnum">' + f.n + '<span>차시</span></div>' +
+        '<div class="fbody">' +
+          '<b>' + f.sub + '</b><i>' + f.t + '</i>' +
+          '<div class="fdays">' + f.d.map(function(d, i){
+            return '<span><em>' + CLS[i] + '</em>' + d + '</span>'; }).join('') + '</div>' +
+          '<div class="fgo">' + f.go.map(function(g){
+            return '<a href="' + g[0] + '">' + g[1] + '</a>'; }).join('') + '</div>' +
+          '<p class="ftip">' + f.tip + '</p>' +
+        '</div></div>';
+    }).join('');
+  })();
+
+  /* ══ 헷갈리는 것 8가지 (O / X) ══════════════════════════ */
+  var OX = [
+    { q:'깊이 우선 탐색은 «깊이»라는 정보를 이용하므로 정보 이용 탐색이다.', a:false,
+      w:'깊이 우선·너비 우선은 <b>둘 다 맹목적 탐색</b>입니다. 여기서 말하는 «정보»는 ' +
+        '<b>목표에 얼마나 가까운지</b>를 알려 주는 정보(h)를 뜻해요. 트리를 훑는 순서 규칙은 정보가 아닙니다.' },
+    { q:'튜링 테스트를 통과한 인공지능은 사람과 동등한 지능을 가졌다고 볼 수 있다.', a:false,
+      w:'교과서가 직접 못 박은 문장입니다. 튜링 테스트는 <b>사람과 인공지능의 경계를 탐구하는 지표</b>일 뿐이에요.' },
+    { q:'탐색 과정에서 정보를 이용하면 모든 노드를 빠짐없이 볼 수 있어 효율이 높아진다.', a:false,
+      w:'거꾸로입니다. 정보를 이용하면 <b>안 봐도 되는 곳을 건너뛰어서</b> 효율이 높아집니다. ' +
+        '«모든 노드를 다 본다»는 오히려 맹목적 탐색의 특징이에요.' },
+    { q:'최상 우선 탐색은 언제나 가장 짧은 길을 찾아 준다.', a:false,
+      w:'아닙니다. 남은 거리(h)만 보기 때문에 <b>먼 길로 갈 수 있습니다.</b> ' +
+        '활동 ⑨ «매점 가기»에서 최상 우선은 10칸, A*는 8칸짜리 길을 찾았지요.' },
+    { q:'A* 알고리즘의 f(n)이 작을수록 먼저 탐색한다.', a:true,
+      w:'맞습니다. 다만 <b>8-퍼즐의 최상 우선 탐색</b>에서는 평가 함숫값이 <b>클수록</b> 먼저였지요. ' +
+        '「크다 / 작다」는 <b>평가 함수를 어떻게 정했느냐</b>에 달렸습니다. 문제를 꼭 읽으세요.' },
+    { q:'의미망은 지식을 표로 정리해 나타내는 방법이다.', a:false,
+      w:'의미망은 <b>노드와 간선</b>으로 잇는 <b>그래프(망)</b> 구조입니다. ' +
+        '표처럼 속성을 묶는 것은 <b>프레임</b>이에요.' },
+    { q:'전문가 시스템에서 새로운 사실을 추론하는 일은 지식 베이스가 담당한다.', a:false,
+      w:'추론은 <b>추론 엔진</b>의 일입니다. 지식 베이스는 <b>저장</b>만 합니다. 시험에 자주 나오는 함정이에요.' },
+    { q:'8-퍼즐에서 목표 상태와 일치하는 칸이 많아질수록 목표에 가까워진 것이다.', a:true,
+      w:'맞습니다. 그래서 그 개수를 <b>평가 함숫값</b>으로 씁니다. ' +
+        '다만 «맞은 칸이 늘었다 = 반드시 최선의 수»는 아니에요. 잠깐 줄었다가 훨씬 빨라지는 길도 있습니다.' }
+  ];
+  (function(){
+    var box = document.getElementById('oxWrap'); if(!box) return;
+    var got = [];
+    function draw(){
+      box.innerHTML = '';
+      OX.forEach(function(o, i){
+        var d = document.createElement('div');
+        d.className = 'oxc' + (got[i] === undefined ? '' : (got[i] ? ' right' : ' wrong'));
+        d.innerHTML = '<p class="oxq"><span class="oxn">' + (i + 1) + '</span>' + o.q + '</p>' +
+          '<div class="oxb"><button type="button" data-v="1">O</button>' +
+          '<button type="button" data-v="0">X</button></div>' +
+          (got[i] === undefined ? '' :
+            '<div class="oxw"><b>' + (got[i] ? '맞았습니다' : '틀렸습니다 — 정답은 ' + (o.a ? 'O' : 'X')) +
+            '</b><span>' + o.w + '</span></div>');
+        [].slice.call(d.querySelectorAll('.oxb button')).forEach(function(b){
+          if(got[i] !== undefined){ b.disabled = true;
+            if((b.getAttribute('data-v') === '1') === o.a) b.classList.add('ok'); }
+          b.addEventListener('click', function(){
+            if(got[i] !== undefined) return;
+            got[i] = ((b.getAttribute('data-v') === '1') === o.a);
+            draw();
+          });
+        });
+        box.appendChild(d);
+      });
+      var n = got.filter(function(x){ return x === true; }).length;
+      document.getElementById('oxScore').textContent = n + ' / ' + OX.length;
+    }
+    document.getElementById('oxRe').addEventListener('click', function(){ got = []; draw(); });
+    draw();
+  })();
+
+  /* ══ 확인 문제 (문제은행 유형) ══════════════════════════ */
+  var EXAM = [
+    { tag:'Ⅰ-01 개념', q:'빈칸에 들어갈 용어로 옳은 것은?',
+      box:['(&nbsp;&nbsp;&nbsp;&nbsp;)은 인간이 가진 지적 능력의 일부 또는 전체를 ' +
+           '컴퓨팅 시스템을 이용해 구현한 «인공적인 지능»을 뜻한다.'],
+      o:['인공지능','인식지능','학습지능','추론지능','문제해결지능'], a:0,
+      w:'교과서 정의 그대로입니다. <b>지적 능력 = 인식·학습·추론·문제 해결</b> 능력을 말합니다.' },
+    { tag:'Ⅰ-01 특성', q:'㉠ ㉡ 에 해당하는 인공지능의 특성을 옳게 짝지은 것은?',
+      box:['<b>㉠</b> 학습의 과정을 거친 후 주어진 정보를 조합하여 결론을 도출해 낸다.',
+           '<b>㉡</b> 주변 환경을 인식하고 판단해서 행동하는 의사 결정을 스스로 할 수 있다.'],
+      o:['인식과 이해 – 학습','추론 – 학습','추론 – 자율성','자율성 – 인식과 이해','학습 – 추론'], a:2,
+      w:'㉠ «정보를 조합해 결론» = <b>추론</b>, ㉡ «스스로 의사 결정» = <b>자율성</b>. ' +
+        '자율성이 자동화와 갈리는 지점이라는 걸 기억하세요.' },
+    { tag:'Ⅰ-02 학문 분야', q:'다양한 학문 분야의 인공지능 활용 사례로 <b>잘못</b> 설명한 것은?',
+      box:[],
+      o:['유명 화가의 작품을 모방해 명화를 복제 생성한다',
+         '방대한 데이터를 기반으로 농작물을 정밀하게 관리한다',
+         '유전 데이터를 분석해 유전적 변이·질병 연관성을 탐색한다',
+         '과거 경제 데이터를 분석해 미래 경제 상황을 예측한다',
+         '도로 센서와 환경 정보로 교통 상황을 예측해 도로망을 최적화한다'], a:0,
+      w:'예술 분야의 인공지능은 <b>새로운 것을 생성</b>합니다(딥드림, 소설 창작). ' +
+        '«명화를 복제»는 활용 사례가 아니라 <b>저작권 문제</b> 쪽 이야기예요 — Ⅲ단원에서 다룹니다.' },
+    { tag:'Ⅰ-03 용어', q:'㉠ ㉡ 에 들어갈 용어를 옳게 짝지은 것은?',
+      box:['<b>㉠</b> 해결책을 찾기 위해 가능한 상태들의 공간을 체계적으로 검토하는 과정',
+           '<b>㉡</b> 주어진 사실과 규칙을 바탕으로 새로운 사실이나 결론을 도출하는 과정'],
+      o:['탐색 – 추론','탐색 – 학습','추론 – 탐색','추론 – 학습','학습 – 탐색'], a:0,
+      w:'인공지능이 문제를 푸는 방법 세 가지 — <b>학습 · 탐색 · 추론</b>. ' +
+        '학습은 «훈련시키는 것», 탐색은 «찾는 것», 추론은 «이끌어 내는 것».' },
+    { tag:'Ⅰ-03 설계', q:'문제 해결을 위한 탐색 설계 과정을 순서대로 나열한 것은?',
+      box:['㉠ 문제 분석을 통해 핵심 요소를 추출하여 문제를 정의한다',
+           '㉡ 수행 작업을 적용하여 목표 상태에 도달해 문제를 해결한다',
+           '㉢ 정의한 문제를 바탕으로 초기 상태와 목표 상태를 설정한다',
+           '㉣ 초기 상태에서 다음 상태로 가기 위한 수행 작업을 선택한다'],
+      o:['㉠ → ㉢ → ㉣ → ㉡','㉠ → ㉣ → ㉢ → ㉡','㉢ → ㉠ → ㉣ → ㉡',
+         '㉢ → ㉣ → ㉠ → ㉡','㉠ → ㉢ → ㉡ → ㉣'], a:0,
+      w:'<b>정의 → 상태 설정 → 수행 작업 → 적용</b>. 활동 ⑥에서 직접 밟아 본 그 순서입니다.' },
+    { tag:'Ⅰ-04 탐색', q:'트리 탐색에 대한 설명으로 옳지 <b>않은</b> 것은?',
+      box:['A의 자식은 B·C, B의 자식은 D·E, C의 자식은 F·G 인 트리'],
+      o:['깊이 우선 탐색은 연결된 노드가 있는 한 계속 전진한다',
+         '너비 우선 탐색은 같은 깊이의 노드를 우선 탐색한다',
+         '깊이 우선 탐색의 순서는 A→B→D→E→C→F→G 이다',
+         '너비 우선 탐색의 순서는 A→B→C→D→E→F→G 이다',
+         '깊이 우선은 «깊이»라는 정보를 쓰므로 정보 이용 탐색이다'], a:4,
+      w:'⑤가 틀렸습니다. <b>깊이 우선·너비 우선은 둘 다 맹목적 탐색</b>입니다. ' +
+        '시험에 가장 자주 나오는 함정이에요.' },
+    { tag:'Ⅰ-04 정보 이용', q:'정보 이용 탐색에 대해 <b>잘못</b> 설명한 것은?',
+      box:[],
+      o:['최상 우선 탐색은 OPEN·CLOSED 리스트를 활용한다',
+         '최상 우선 탐색은 평가 함숫값이 가장 큰 노드를 선택하기도 한다',
+         '정보를 이용하면 모든 노드를 탐색할 수 있어 효율이 높아진다',
+         'A*는 f(n) = g(n) + h(n) 을 사용한다',
+         'A*는 목표 도달 가능성과 최단 경로를 함께 고려한다'], a:2,
+      w:'③이 틀렸습니다. 정보를 이용하는 이유는 <b>안 봐도 되는 곳을 건너뛰기</b> 위해서입니다. ' +
+        '«모든 노드를 다 본다»는 맹목적 탐색이에요.' },
+    { tag:'Ⅰ-06 지식', q:'다음 설명에 해당하는 용어는?',
+      box:['정보를 일반화하고 체계화하여 적용·활용할 수 있도록 만든 것으로, ' +
+           '서로 연결된 정보들의 패턴을 바탕으로 예측한 결과물'],
+      o:['데이터','정보','지식','지혜','자료'], a:2,
+      w:'<b>데이터</b>(기록) → <b>정보</b>(의미) → <b>지식</b>(활용) → <b>지혜</b>(원리). ' +
+        '«패턴으로 예측»이 나오면 지식입니다.' },
+    { tag:'Ⅰ-06 표현', q:'컴퓨터가 지식을 표현하는 방법으로 옳은 것은?',
+      box:[],
+      o:['의미망은 문장을 표로 표현한다','술어 논리는 문장으로 표현한다',
+         '규칙은 조건과 결과를 표현한다','규칙은 절차적인 지식을 표현한다',
+         '술어 논리는 기호를 사용하지 않는다'], a:2,
+      w:'규칙은 <b>IF(조건) – THEN(결과)</b> 구조입니다. ' +
+        '의미망은 <b>그래프</b>, 술어 논리는 <b>수학 기호</b>로 표현해요.' },
+    { tag:'Ⅰ-06 전문가 시스템', q:'전문가 시스템 설명 중 옳은 것은?',
+      box:[],
+      o:['사용자 인터페이스·지식 베이스·추론 엔진으로 구성된다',
+         '지식 베이스가 새로운 사실을 추론한다',
+         '추론 엔진이 전문가의 지식을 저장한다',
+         '전문가 지식은 쉽게 구할 수 있어 관리가 편하다',
+         '데이터만 있으면 지식 없이도 동작한다'], a:0,
+      w:'세 요소를 정확히 구분하세요. <b>저장은 지식 베이스, 추론은 추론 엔진.</b> ' +
+        '④는 반대입니다 — 지식을 구하기 <b>어렵다</b>는 것이 전문가 시스템의 한계고, ' +
+        '그래서 <b>Ⅱ단원의 기계학습</b>이 등장합니다.' }
+  ];
+  (function(){
+    var at = 0, ans = [];
+    var $ = function(id){ return document.getElementById(id); };
+    if(!$('exOpts')) return;
+    function draw(){
+      var q = EXAM[at];
+      $('exTag').textContent = q.tag;
+      $('exQ').innerHTML = q.q;
+      $('exBox').innerHTML = q.box.map(function(b){ return '<div class="ffact">' + b + '</div>'; }).join('');
+      $('exBox').hidden = !q.box.length;
+      var box = $('exOpts'); box.innerHTML = '';
+      q.o.forEach(function(t, i){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.innerHTML = '<span class="onum">' + '①②③④⑤'.charAt(i) + '</span>' + t;
+        if(ans[at] !== undefined){
+          b.disabled = true;
+          if(i === q.a) b.className = 'ok';
+          else if(i === ans[at]) b.className = 'no';
+        }
+        b.addEventListener('click', function(){
+          if(ans[at] !== undefined) return;
+          ans[at] = i; draw();
+        });
+        box.appendChild(b);
+      });
+      var w = $('exWhy');
+      if(ans[at] === undefined){ w.hidden = true; }
+      else{
+        w.hidden = false;
+        w.className = 'verdict ' + (ans[at] === q.a ? 'ok' : 'no');
+        w.innerHTML = '<b>' + (ans[at] === q.a ? '정답입니다!' :
+          '정답은 ' + '①②③④⑤'.charAt(q.a) + '번') + '</b><span>' + q.w + '</span>';
+      }
+      $('exDots').innerHTML = EXAM.map(function(_, i){
+        return '<i class="' + (ans[i] === EXAM[i].a ? 'fill' : (i === at ? 'cur' : '')) + '"></i>'; }).join('');
+      var g = 0, d = 0;
+      EXAM.forEach(function(x, i){ if(ans[i] !== undefined){ d++; if(ans[i] === x.a) g++; } });
+      $('exScore').textContent = g + ' / ' + d;
+      $('exPrev').disabled = at === 0;
+      $('exNext').disabled = at >= EXAM.length - 1;
+    }
+    $('exPrev').addEventListener('click', function(){ if(at > 0){ at--; draw(); } });
+    $('exNext').addEventListener('click', function(){ if(at < EXAM.length - 1){ at++; draw(); } });
+    $('exRe').addEventListener('click', function(){ at = 0; ans = []; draw(); });
+    draw();
+  })();
 
   render();
 })();
