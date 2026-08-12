@@ -152,10 +152,10 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .seg b{font-family:var(--disp); font-weight:400; font-size:23px; line-height:1}
 .seg i{font-style:normal; font-size:11.5px; opacity:.92; white-space:nowrap; overflow:hidden;
   text-overflow:ellipsis; padding:0 6px; font-weight:600}
-.s1{background:var(--fill-d); color:var(--on-fill); flex:15}
-.s2{background:var(--fill); color:var(--on-fill); flex:15}
-.s3{background:var(--b3); color:var(--ob3); flex:30}
-.s4{background:var(--b4); color:var(--ob4); flex:40}
+.s1{background:var(--fill-d); color:var(--on-fill); flex:25}
+.s2{background:var(--fill); color:var(--on-fill); flex:25}
+.s3{background:var(--b3); color:var(--ob3); flex:20}
+.s4{background:var(--b4); color:var(--ob4); flex:30}
 .key{display:flex; flex-wrap:wrap; gap:10px 22px; font-size:14px; color:var(--ink2); font-weight:500}
 .key div{display:flex; align-items:center; gap:9px}
 .kd{width:14px; height:14px; border-radius:50%; flex:0 0 auto; border:1px solid var(--line)}
@@ -204,8 +204,6 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
   padding:13px 0; border-bottom:1px dashed var(--line); font-size:15px}
 .crit:last-child{border-bottom:none}
 .crit b{font-family:var(--disp); font-weight:400; font-size:20px; color:var(--blue); flex:0 0 auto}
-.crit em{font-style:normal; font-size:11.5px; color:var(--on-fill); background:var(--fill);
-  padding:2px 10px; border-radius:99px; margin-left:8px; font-weight:700; vertical-align:2px}
 
 /* ── signal ──────────────────────────────── */
 .sig{border-radius:var(--r); padding:24px 26px; border:1px solid transparent}
@@ -341,7 +339,7 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:13.5px; border-top:1px
       한 학기 동안 필요한 건 전부 이 페이지에 있습니다. 궁금할 때마다 다시 열어 보세요.</p>
     <div class="stats">
       <div class="stat"><b>50<i>차시</i></b><span>주 3시간 · 3학점</span></div>
-      <div class="stat"><b>70<i>%</i></b><span>수행평가 반영 비율</span></div>
+      <div class="stat"><b>50<i>%</i></b><span>수행평가 반영 비율</span></div>
       <div class="stat"><b>2<i>+2</i></b><span>수행평가 · 정기고사</span></div>
       <div class="stat"><b>3<i>개</i></b><span>분반 A · D · E</span></div>
     </div>
@@ -367,17 +365,16 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:13.5px; border-top:1px
 <section id="grade"><div class="wrap">
   <p class="eyebrow">성적</p>
   <h2>성적은 이렇게 나옵니다</h2>
-  <p class="sub">수업 시간에 하는 활동이 성적의 70%. 시험만 잘 봐서는 안 되는 과목입니다.</p>
-  <div class="bar" role="img" aria-label="1차 지필 15퍼센트, 2차 지필 15퍼센트, 윤리 토론 30퍼센트, AI 프로젝트 40퍼센트">
-    <div class="seg s1"><b>15%</b><i>1차 지필</i></div>
-    <div class="seg s2"><b>15%</b><i>2차 지필</i></div>
-    <div class="seg s3"><b>30%</b><i>윤리 토론</i></div>
-    <div class="seg s4"><b>40%</b><i>AI 프로젝트</i></div>
+  <p class="sub">시험이 절반, 수업 시간에 하는 활동이 절반입니다. 어느 한쪽도 놓칠 수 없습니다.</p>
+  <div class="bar" role="img" aria-label="1차 지필 25퍼센트, 2차 지필 25퍼센트, 윤리 토론 20퍼센트, AI 프로젝트 30퍼센트">
+    <div class="seg s1"><b>25%</b><i>1차 지필</i></div>
+    <div class="seg s2"><b>25%</b><i>2차 지필</i></div>
+    <div class="seg s3"><b>20%</b><i>윤리 토론</i></div>
+    <div class="seg s4"><b>30%</b><i>AI 프로젝트</i></div>
   </div>
   <div class="key">
-    <div><span class="kd" style="background:var(--fill)"></span> 정기시험 <b class="n">30%</b></div>
-    <div><span class="kd" style="background:var(--b4)"></span> 수행평가 <b class="n">70%</b></div>
-    <div><span class="kd" style="background:var(--muted)"></span> 이 중 서술·논술형이 <b class="n">37%</b></div>
+    <div><span class="kd" style="background:var(--fill)"></span> 정기시험 <b class="n">50%</b></div>
+    <div><span class="kd" style="background:var(--b4)"></span> 수행평가 <b class="n">50%</b></div>
   </div>
 </div></section>
 
@@ -505,19 +502,19 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:13.5px; border-top:1px
   <h2>인공지능 윤리 쟁점 토론</h2>
   <p class="sub">9월 3주 · 팀 대항 토너먼트 · 점수는 개인별</p>
   <div class="mission">
-    <div class="mtop"><h3>채점은 이 네 가지</h3><span class="pct">30%</span></div>
+    <div class="mtop"><h3>채점은 이 네 가지</h3><span class="pct">20%</span></div>
     <div class="mbody">
-      <div class="crit"><span>논제 분석과 입론 <em>논술형</em></span><b>25</b></div>
+      <div class="crit"><span>논제 분석과 입론서 작성</span><b>25</b></div>
       <div class="crit"><span>반론·반박의 논리적 타당성</span><b>25</b></div>
       <div class="crit"><span>최종 발언 — 쟁점 정리와 설득</span><b>25</b></div>
-      <div class="crit"><span>윤리 분석과 공존 방안 <em>논술형</em></span><b>25</b></div>
+      <div class="crit"><span>윤리 분석과 공존 방안 도출</span><b>25</b></div>
     </div>
   </div>
   <div class="g2">
     <div class="card">
       <h4>어떻게 진행하나</h4>
       <ul class="tick">
-        <li>교사가 제시한 논제 중 하나를 골라 <b>논술형 입론서</b>를 씁니다.</li>
+        <li>교사가 제시한 논제 중 하나를 골라 <b>입론서</b>를 씁니다.</li>
         <li>모둠 대항 <b>토너먼트</b>(예선 → 결승)에 참여합니다.</li>
         <li>토론이 끝나면 인간-AI 공존 방안을 담은 <b>성찰문</b>을 씁니다.</li>
         <li>팀이 져도 <b>내 발언으로</b> 평가받습니다.</li>
@@ -540,12 +537,12 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:13.5px; border-top:1px
   <h2>SDGs 해결형 AI 프로젝트</h2>
   <p class="sub">11월 3주 발표 · 과정 점수는 10월부터 쌓입니다</p>
   <div class="mission">
-    <div class="mtop"><h3>채점은 이 네 가지</h3><span class="pct">40%</span></div>
+    <div class="mtop"><h3>채점은 이 네 가지</h3><span class="pct">30%</span></div>
     <div class="mbody">
       <div class="crit"><span>주제 도출과 계획 수립</span><b>25</b></div>
       <div class="crit"><span>오렌지3 → 코랩 재구현</span><b>25</b></div>
       <div class="crit"><span>두 모델 성능 비교·개선</span><b>25</b></div>
-      <div class="crit"><span>보고서와 구술 방어 <em>논술형</em></span><b>25</b></div>
+      <div class="crit"><span>보고서와 구술 방어</span><b>25</b></div>
     </div>
   </div>
   <div class="steps" style="margin-bottom:20px">
@@ -564,12 +561,12 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:13.5px; border-top:1px
 <section id="exam"><div class="wrap">
   <p class="eyebrow">정기고사</p>
   <h2>시험은 두 번</h2>
-  <p class="sub">각 100점 만점 · 선택형·단답형 60점 + 서술·논술형 40점</p>
+  <p class="sub">각 100점 만점 · 선택형과 단답형으로 출제합니다</p>
   <div class="tw"><table>
     <tr><th style="width:100px">구분</th><th style="width:210px">날짜</th><th>출제 범위</th></tr>
-    <tr><td><b>1차</b> <span class="n">15%</span></td><td class="d">10/2 (금)<br>10/6 (화) ~ 10/8 (목)</td>
+    <tr><td><b>1차</b> <span class="n">25%</span></td><td class="d">10/2 (금)<br>10/6 (화) ~ 10/8 (목)</td>
       <td><b>Ⅰ 인공지능의 이해</b> 전 영역<br><b>Ⅲ-01 · Ⅲ-02</b> 사회 변화 / 삶과 직업의 변화</td></tr>
-    <tr><td><b>2차</b> <span class="n">15%</span></td><td class="d">12/10 (목), 12/11 (금)<br>12/14 (월), 12/15 (화)</td>
+    <tr><td><b>2차</b> <span class="n">25%</span></td><td class="d">12/10 (목), 12/11 (금)<br>12/14 (월), 12/15 (화)</td>
       <td><b>Ⅱ 인공지능과 학습</b> 전 영역<br>데이터 수집·가공 → 알고리즘 → 모델 구현 → 딥러닝</td></tr>
   </table></div>
   <p class="note" style="margin-top:20px"><b>헷갈리기 쉬운 점 하나.</b>
