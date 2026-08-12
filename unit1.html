@@ -240,17 +240,6 @@ summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
 details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
 
 
-.flow-h{font-family:var(--disp); font-weight:400; font-size:22px; color:var(--blue-d); margin:34px 0 8px}
-.card>h4{font-family:var(--disp); font-weight:400; font-size:19px; color:var(--blue-d); margin:0 0 10px}
-.tl{margin:0; padding-left:0; list-style:none; counter-reset:tl}
-.tl li{position:relative; padding:9px 0 9px 30px; font-size:14.5px; color:var(--ink2);
-  border-bottom:1px dashed var(--line); counter-increment:tl}
-.tl li:last-child{border-bottom:none}
-.tl li::before{content:counter(tl); position:absolute; left:0; top:11px; width:20px; height:20px;
-  border-radius:50%; background:var(--blue-xl); color:var(--blue-d);
-  font-size:11.5px; font-weight:800; display:flex; align-items:center; justify-content:center}
-.tl b{color:var(--ink); font-variant-numeric:tabular-nums; margin-right:6px}
-.tl i{font-style:normal; font-size:12px; font-weight:700; color:var(--muted); margin-left:6px}
 /* ── 수업 활동 ─────────────────────────── */
 .actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
 .atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
@@ -439,6 +428,35 @@ table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-num
   .report{max-height:none; border:none; background:none; font-size:11pt}
 }
 
+/* 컴퓨터 역할 학생용 프롬프트 상자 */
+.cbox{margin:16px 0; border:2px dashed var(--blue-l); border-radius:16px;
+  background:var(--blue-xl); overflow:hidden}
+.cbox>summary{display:flex; align-items:center; gap:10px; flex-wrap:wrap; cursor:pointer;
+  list-style:none; font-family:var(--disp); font-weight:400; font-size:18px;
+  color:var(--blue-d); padding:15px 20px}
+.cbox>summary::-webkit-details-marker{display:none}
+.cbox>summary::before{content:'▸'; font-family:var(--sans); font-weight:700; color:var(--blue)}
+.cbox[open]>summary::before{content:'▾'}
+.cbox>summary i{font-style:normal; font-size:12px; font-weight:800; letter-spacing:.03em;
+  color:var(--sky-bg); background:var(--warm); border-radius:99px; padding:3px 11px}
+.cbox>summary:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+.cbody{padding:0 20px 20px}
+.cbody .desc{font-size:14.5px; color:var(--ink2); margin:0 0 14px}
+.prompt{font-family:var(--mono); font-size:12.5px; line-height:1.8; white-space:pre-wrap;
+  word-break:break-word; background:var(--white); border:1px solid var(--line);
+  border-radius:14px; padding:16px 18px; max-height:300px; overflow:auto;
+  margin:0 0 14px; color:var(--ink)}
+a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
+
+/* 제출 상태 */
+.sendmsg{flex:1 1 200px; font-size:14px; font-weight:700}
+.sendmsg.wait{color:var(--muted)}
+.sendmsg.ok{color:var(--good)}
+.sendmsg.bad{color:#A62727}
+@media (prefers-color-scheme:dark){.sendmsg.bad{color:#FF9B9B}}
+:root[data-theme="dark"] .sendmsg.bad{color:#FF9B9B}
+:root[data-theme="light"] .sendmsg.bad{color:#A62727}
+
 /* ── 시뮬레이터 ─────────────────────────── */
 .sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:24px; box-shadow:var(--sh); margin-bottom:20px}
@@ -608,35 +626,6 @@ footer a{font-weight:700}
     <tr><td class="d">8</td><td class="d">9/1 (화)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
   </table></div></div>
 
-  <h3 class="flow-h">Ⅰ-01 · Ⅰ-02 를 50분으로 어떻게 채울까</h3>
-  <p class="sub" style="margin-top:-6px">아래 <a href="#act" style="color:var(--blue-d); font-weight:700">수업 활동</a>을 화면에 띄워 놓고 그대로 진행하면 됩니다.</p>
-  <div class="g2">
-    <div class="card">
-      <h4>Ⅰ-01 인공지능의 개념과 특성</h4>
-      <ol class="tl">
-        <li><b>5분</b> 활동 ① 「이건 AI일까?」 카드 12장 분류 <i>도입</i></li>
-        <li><b>10분</b> 인공지능의 정의 · 지능이란 무엇인가 <i>슬라이드</i></li>
-        <li><b>8분</b> 네 가지 특성 <i>슬라이드</i></li>
-        <li><b>10분</b> 활동 ③ 「네 가지 특성 찾기」 짝 활동 <i>실습</i></li>
-        <li><b>15분</b> 활동 ② 「튜링 테스트」 모둠 체험 <i>교과서 14~15쪽</i></li>
-        <li><b>2분</b> 정리 · 다음 차시 예고</li>
-      </ol>
-    </div>
-    <div class="card">
-      <h4>Ⅰ-02 인공지능과 문제 해결</h4>
-      <ol class="tl">
-        <li><b>5분</b> 스피커가 사람을 살린 사례 <i>도입</i></li>
-        <li><b>8분</b> 하루 속의 인공지능 · 학문 분야 <i>슬라이드</i></li>
-        <li><b>10분</b> 활동 ④ 「어느 분야일까?」 모둠 대항 <i>퀴즈</i></li>
-        <li><b>17분</b> 활동 ⑤ 「AI 해결안 설계」 학습지 작성 <i>교과서 20~21쪽</i></li>
-        <li><b>8분</b> 모둠 발표 · 인상 깊은 사례 정리</li>
-        <li><b>2분</b> 정리 · 다음 차시 예고</li>
-      </ol>
-    </div>
-  </div>
-  <div class="note" style="margin-top:16px"><b>준비물</b>
-    Ⅰ-01 활동 ②는 컴퓨터 역할 학생이 <b>챗봇으로 답을 미리 만들어</b> 와야 합니다.
-    수업 시작 때 역할을 먼저 배정하고, 그동안 다른 활동을 진행하세요.</div>
 </div></section>
 
 <section id="slides"><div class="wrap">
@@ -761,6 +750,31 @@ footer a{font-weight:700}
         <button type="button" class="mini gh" id="tUndoR">마지막 라운드 취소</button>
         <span class="scorepill" id="tRSaved">0 라운드 기록됨</span>
       </div>
+      <details class="cbox">
+        <summary>컴퓨터 역할 학생 전용 · 생성형 AI 프롬프트
+          <i>관객은 보지 마세요</i></summary>
+        <div class="cbody">
+          <p class="desc">아래 <b>역할 설정 프롬프트</b>를 챗봇에 <b>한 번만</b> 붙여넣으세요.
+            그다음부터는 질문이 나올 때마다 <b>«이번 질문만 복사»</b>로 붙여넣으면 됩니다.</p>
+          <div class="simctl">
+            <span class="pick" id="tTone">
+              <button type="button" data-t="0" aria-pressed="true">자연스럽게</button>
+              <button type="button" data-t="1">아주 사람처럼</button>
+              <button type="button" data-t="2">일부러 티 나게</button>
+            </span>
+          </div>
+          <pre class="prompt" id="tPrompt"></pre>
+          <div class="simctl">
+            <button type="button" class="mini" id="tPCopy">역할 설정 프롬프트 복사</button>
+            <button type="button" class="mini gh" id="tQCopy">이번 질문만 복사</button>
+            <a class="mini gh lnk" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini 열기</a>
+            <a class="mini gh lnk" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT 열기</a>
+          </div>
+          <div class="note"><b>그대로 베끼지 않기</b> 챗봇이 준 답이 어색하면 <b>내 말투로 조금 고쳐서</b>
+            전달자에게 말하세요. 그게 이 활동의 실력입니다.
+            <b>«일부러 티 나게»</b>는 첫 라운드 연습용입니다.</div>
+        </div>
+      </details>
       <div class="tw" id="tLogWrap" hidden><table class="tlog" id="tLog"></table></div>
       <div class="note"><b>4~5번</b> 반복하면 충분합니다. 질문은 <b>계산 문제 · 감정을 묻는 질문 ·
         실시간 정보를 묻는 질문</b>을 섞으면 훨씬 재미있어집니다.</div>
@@ -817,10 +831,22 @@ footer a{font-weight:700}
       <h4 class="step-h">5단계 · 활동지를 제출합니다</h4>
       <p class="desc">아래 내용이 자동으로 만들어졌습니다. <b>복사</b>하거나 <b>파일로 저장</b>해서
         선생님이 안내한 곳에 올리세요.</p>
+      <div class="frow">
+        <label class="fld"><span>분반</span>
+          <span class="pick" id="tCls">
+            <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+            <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+            <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+          </span></label>
+      </div>
       <div class="missing" id="tMissing" hidden></div>
       <pre class="report" id="tReport"></pre>
       <div class="simctl">
-        <button type="button" class="mini" id="tCopy">제출용 내용 복사</button>
+        <button type="button" class="mini" id="tSend">선생님께 제출하기</button>
+        <span class="sendmsg" id="tSendMsg"></span>
+      </div>
+      <div class="simctl">
+        <button type="button" class="mini gh" id="tCopy">제출용 내용 복사</button>
         <button type="button" class="mini gh" id="tFile">파일로 저장 (.txt)</button>
         <button type="button" class="mini gh" id="tPrint">인쇄 · PDF 저장</button>
         <button type="button" class="mini gh" id="tWipe">전부 지우기</button>
@@ -1956,8 +1982,15 @@ path = astar(grid, start, goal)
     '튜링 테스트에서 컴퓨터 역할을 한 친구를 찾는 토의 과정에 적극적으로 참여했는가?',
     '튜링 테스트 결과 컴퓨터와 인간을 구분할 수 있는지 토의하는 과정에 적극적으로 참여했는가?'
   ];
+  /* ── 제출 연동 설정 ───────────────────────────────────────
+     SUBMIT_URL 에 구글 앱스 스크립트 웹앱 주소를 넣으면
+     «선생님께 제출하기» 가 켜지고 결과가 선생님 스프레드시트에 쌓인다.
+     넣는 방법은 저장소의 제출연동_안내.md 참고.                    */
+  var SUBMIT_URL = '';
+  var SUBMIT_KEY = 'chosun-ai-2026';
+
   var TKEY = 'ai_u1_turing_v1';
-  var T = { step:1, group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
+  var T = { step:1, cls:'', group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
             q:'', rounds:[], vA:0, vB:0, shown:false, guess:'', why:'', d1:'', d2:'',
             rub:['',''], qUsed:[] };
 
@@ -2220,6 +2253,8 @@ path = astar(grid, start, goal)
     L.push('════════ 튜링 테스트 활동지 ════════');
     L.push('교과서 Ⅰ-01 인공지능의 개념과 특성 (14~15쪽)');
     L.push('');
+    L.push('분반      : ' + (T.cls || '(미선택)'));
+    if(!T.cls) miss.push('분반');
     L.push('모둠 이름 : ' + (T.group || '(미입력)'));
     if(!T.group) miss.push('모둠 이름');
     L.push('모둠원    : ' + (T.names.length ? T.names.join(', ') : '(미입력)'));
@@ -2283,7 +2318,8 @@ path = astar(grid, start, goal)
     }
   }
   function tFileName(){
-    return '튜링테스트_' + (T.group ? T.group.replace(/[\\/:*?"<>|]/g, '') : '활동지') + '.txt';
+    var nm = [T.cls, T.group].filter(Boolean).join('_') || '활동지';
+    return '튜링테스트_' + nm.replace(/[\\/:*?"<>|]/g, '') + '.txt';
   }
   ttRoot.querySelector('#tCopy').addEventListener('click', function(){
     var btn = this, txt = tEl('tReport').textContent;
@@ -2309,19 +2345,160 @@ path = astar(grid, start, goal)
   ttRoot.querySelector('#tWipe').addEventListener('click', function(){
     if(!window.confirm('입력한 내용을 모두 지웁니다. 계속할까요?')) return;
     try{ localStorage.removeItem(TKEY); }catch(e){}
-    T = { step:1, group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
+    T = { step:1, cls:'', group:'', names:[], A:'', B:'', deliver:'', crowd:[], cpu:'',
           q:'', rounds:[], vA:0, vB:0, shown:false, guess:'', why:'', d1:'', d2:'',
           rub:['',''], qUsed:[] };
     tEl('tGroup').value = ''; tEl('tNames').value = '';
     tEl('tAnsA').value = ''; tEl('tAnsB').value = '';
     tEl('tWhy').value = ''; tEl('tD1').value = ''; tEl('tD2').value = '';
     tEl('tQ').textContent = '질문을 뽑거나 직접 적어 주세요';
-    [].slice.call(ttRoot.querySelectorAll('#tGuess button')).forEach(function(o){
+    [].slice.call(ttRoot.querySelectorAll('#tGuess button, #tCls button')).forEach(function(o){
       o.setAttribute('aria-pressed', 'false');
     });
+    if(sendBtn){ sendBtn.textContent = '선생님께 제출하기'; sendMsg.textContent = ''; tSendState(); }
     tRolesDraw(); tDots(); tRenderLog('tLog','tLogWrap'); tRenderLog('tLog2','tLogWrap2');
     tVoteDraw(); tRubricDraw(); tGo(1);
   });
+
+  /* ── 컴퓨터 역할 학생용 프롬프트 ─────────────────────── */
+  var TONE = [
+    { len:'두 문장', how:'고등학교 2학년이 친구에게 말하듯 편하게. 너무 완벽하거나 교과서 같은 말투는 쓰지 마.' },
+    { len:'한두 문장', how:'가끔 «음…», «아 그거» 같은 말을 섞고 완전한 문장이 아니어도 괜찮아. ' +
+        '개인적인 경험을 그럴듯하게 지어내서 구체적으로 말해도 좋아.' },
+    { len:'두세 문장', how:'아주 정확하고 격식 있게, 빈틈없이 답해. 계산 문제는 곧바로 정답만 말해.' }
+  ];
+  var toneI = 0;
+  function tPromptTxt(){
+    var t = TONE[toneI];
+    return [
+      '너는 지금 «튜링 테스트» 수업 활동에 참여하고 있어.',
+      '나는 고등학교 2학년 학생이고, 관객이 나와 다른 친구 중 누가 컴퓨터인지 맞히는 게임이야.',
+      '너는 내가 사람처럼 보이도록 도와주는 역할이야.',
+      '',
+      '앞으로 내가 질문을 하나씩 보낼게. 그때마다 아래 규칙대로 답변만 보내 줘.',
+      '',
+      '[규칙]',
+      '1. 한국어로, ' + t.len + ' 안으로 짧게.',
+      '2. ' + t.how,
+      '3. 「인공지능으로서」, 「저는 AI라」, 「도움이 되었길」 같은 말은 절대 쓰지 마.',
+      '4. 이모지 · 마크다운 · 번호 매기기 쓰지 마. 그냥 말하듯이.',
+      '5. 오늘 날씨처럼 실시간으로 알아야 하는 건 «모른다»고 하지 말고, 사람이 그러듯 대충 얼버무려.',
+      '6. 설명이나 사족 없이 «답변만» 보내 줘.',
+      '',
+      '준비됐으면 «준비 완료»라고만 답해.'
+    ].join('\n');
+  }
+  function tPromptDraw(){ var p = tEl('tPrompt'); if(p) p.textContent = tPromptTxt(); }
+  var tonePick = tEl('tTone');
+  if(tonePick) tonePick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-t]'); if(!b) return;
+    toneI = +b.getAttribute('data-t');
+    [].slice.call(this.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+    tPromptDraw();
+  });
+  function tClip(txt, btn, okTxt){
+    var back = btn.textContent;
+    var done = function(){ btn.textContent = okTxt || '복사했어요';
+      setTimeout(function(){ btn.textContent = back; }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){});
+    }else{
+      var ta = document.createElement('textarea'); ta.value = txt;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+  }
+  var pcBtn = tEl('tPCopy');
+  if(pcBtn) pcBtn.addEventListener('click', function(){ tClip(tPromptTxt(), pcBtn); });
+  var qcBtn = tEl('tQCopy');
+  if(qcBtn) qcBtn.addEventListener('click', function(){
+    var q = (T.q || tEl('tQ').textContent || '').trim();
+    if(!q || q.indexOf('질문을 뽑거나') === 0){
+      qcBtn.textContent = '질문을 먼저 뽑으세요';
+      setTimeout(function(){ qcBtn.textContent = '이번 질문만 복사'; }, 1600);
+      return;
+    }
+    tClip(q, qcBtn);
+  });
+  tPromptDraw();
+
+  /* ── 분반 · 선생님께 제출 ────────────────────────────── */
+  var clsPick = tEl('tCls');
+  if(clsPick) clsPick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-c]'); if(!b) return;
+    T.cls = b.getAttribute('data-c');
+    [].slice.call(this.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+    tReport(); tSave();
+  });
+
+  function tPayload(){
+    var tot = T.vA + T.vB, hit = T.cpu === 'A' ? T.vA : T.vB;
+    return {
+      key: SUBMIT_KEY,
+      cls: T.cls || '',
+      group: T.group || '',
+      members: T.names.join(', '),
+      A: T.A, B: T.B, deliver: T.deliver, crowd: T.crowd.join(', '),
+      cpu: T.cpu ? '학생 ' + T.cpu + ' · ' + (T.cpu === 'A' ? T.A : T.B) : '',
+      rounds: T.rounds.length,
+      voteA: T.vA, voteB: T.vB,
+      rate: tot ? Math.round(hit / tot * 100) : '',
+      guess: T.guess ? '학생 ' + T.guess : '',
+      correct: (T.guess && T.cpu) ? (T.guess === T.cpu ? '맞힘' : '틀림') : '',
+      why: T.why, d1: T.d1, d2: T.d2,
+      rub1: T.rub[0], rub2: T.rub[1],
+      log: T.rounds.map(function(r, i){
+        return '[' + (i + 1) + '] ' + r.q + '\n  A: ' + r.a + '\n  B: ' + r.b;
+      }).join('\n'),
+      report: tEl('tReport').textContent
+    };
+  }
+  var sendBtn = tEl('tSend'), sendMsg = tEl('tSendMsg');
+  function tSendState(){
+    if(!sendBtn) return;
+    if(!SUBMIT_URL){
+      sendBtn.disabled = true;
+      sendMsg.className = 'sendmsg wait';
+      sendMsg.textContent = '제출 주소가 아직 연결되지 않았습니다 — 아래 «내용 복사»나 «파일로 저장»으로 내세요';
+    }
+  }
+  if(sendBtn) sendBtn.addEventListener('click', function(){
+    if(!SUBMIT_URL) return;
+    if(!T.cls){ sendMsg.className = 'sendmsg wait'; sendMsg.textContent = '분반을 먼저 골라 주세요'; return; }
+    if(!T.group){ sendMsg.className = 'sendmsg wait'; sendMsg.textContent = '모둠 이름을 먼저 적어 주세요 (1단계)'; return; }
+    sendBtn.disabled = true;
+    sendMsg.className = 'sendmsg wait';
+    sendMsg.textContent = '보내는 중…';
+    var body = JSON.stringify(tPayload());
+    var ok = function(extra){
+      sendMsg.className = 'sendmsg ok';
+      sendMsg.textContent = '제출했습니다' + (extra || '');
+      sendBtn.textContent = '다시 제출하기';
+      sendBtn.disabled = false;
+    };
+    var fail = function(){
+      sendMsg.className = 'sendmsg bad';
+      sendMsg.textContent = '보내지 못했습니다. 인터넷을 확인하고 다시 눌러 보세요. ' +
+        '계속 안 되면 «파일로 저장»으로 내면 됩니다.';
+      sendBtn.disabled = false;
+    };
+    fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+      .then(function(res){ return res.json(); })
+      .then(function(j){ if(j && j.ok) ok(); else fail(); })
+      .catch(function(){
+        /* 크로스 도메인 응답을 못 읽는 경우 — 전송 자체는 되므로 한 번 더 시도 */
+        fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+              headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+          .then(function(){ ok(' (선생님 시트에서 확인해 주세요)'); })
+          .catch(fail);
+      });
+  });
+  tSendState();
 
   /* ── 초기화 ── */
   tLoad();
@@ -2332,6 +2509,10 @@ path = astar(grid, start, goal)
   if(T.guess){
     var gb = ttRoot.querySelector('#tGuess button[data-g="' + T.guess + '"]');
     if(gb) gb.setAttribute('aria-pressed', 'true');
+  }
+  if(T.cls){
+    var cb = ttRoot.querySelector('#tCls button[data-c="' + T.cls + '"]');
+    if(cb) cb.setAttribute('aria-pressed', 'true');
   }
   tRolesDraw(); tDots(); tRenderLog('tLog','tLogWrap'); tVoteDraw(); tRubricDraw(); tShowTime();
   tGo(T.step || 1);
