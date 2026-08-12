@@ -314,6 +314,16 @@ details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
 .tcell[data-on="n"]{border-color:var(--warm); background:var(--warm-bg)}
 .tcell[data-on="n"] em{color:var(--warm)}
 
+.copyfall{margin:14px 0 0; background:var(--warm-bg); border:2px solid var(--warm);
+  border-radius:16px; padding:16px 18px}
+.copyfall>b{display:block; font-family:var(--disp); font-weight:400; font-size:18px;
+  color:var(--warm); margin-bottom:5px}
+.copyfall>span{display:block; font-size:14.5px; color:var(--ink2); line-height:1.6; margin-bottom:10px}
+.copyfall textarea{width:100%; font-family:var(--mono); font-size:12.5px; line-height:1.7;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:12px 14px; resize:vertical}
+.copyfall textarea:focus{outline:2px solid var(--blue); outline-offset:1px}
+
 /* ── AI 해결안 설계 ─────────────────────── */
 .gauge{position:relative; height:30px; border-radius:99px; background:var(--tint);
   border:1px solid var(--line); overflow:hidden; margin-bottom:16px}
@@ -2424,17 +2434,7 @@ path = astar(grid, start, goal)
     return '튜링테스트_' + nm.replace(/[\\/:*?"<>|]/g, '') + '.txt';
   }
   ttRoot.querySelector('#tCopy').addEventListener('click', function(){
-    var btn = this, txt = tEl('tReport').textContent;
-    var done = function(){ btn.textContent = '복사했어요';
-      setTimeout(function(){ btn.textContent = '제출용 내용 복사'; }, 1600); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(done, function(){});
-    }else{
-      var ta = document.createElement('textarea'); ta.value = txt;
-      document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); done(); }catch(e){}
-      document.body.removeChild(ta);
-    }
+    tClip(tEl('tReport').textContent, this);
   });
   ttRoot.querySelector('#tFile').addEventListener('click', function(){
     var blob = new Blob(['﻿' + tEl('tReport').textContent], { type:'text/plain;charset=utf-8' });
@@ -2500,17 +2500,68 @@ path = astar(grid, start, goal)
     });
     tPromptDraw();
   });
+  /* ── 복사 : 세 단계로 반드시 되게 한다 ─────────────────
+     학교 노트북은 정책으로 clipboard 권한이 막혀 있기도 하다.
+     그럴 때도 버튼이 반응 없이 끝나지 않도록 «직접 복사» 칸을 연다. */
+  function copyLabel(btn){
+    if(!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent);
+    return btn.getAttribute('data-label');
+  }
+  function copyFlash(btn, msg){
+    var back = copyLabel(btn);
+    btn.textContent = msg;
+    clearTimeout(btn._ctid);
+    btn._ctid = setTimeout(function(){ btn.textContent = back; }, 1800);
+  }
+  function legacyCopy(txt){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed; top:0; left:0; width:1px; height:1px; ' +
+      'padding:0; border:none; outline:none; background:transparent; opacity:0';
+    document.body.appendChild(ta);
+    var sel = document.getSelection();
+    var prev = sel && sel.rangeCount ? sel.getRangeAt(0) : null;
+    ta.focus(); ta.select();
+    try{ ta.setSelectionRange(0, ta.value.length); }catch(e){}
+    var done = false;
+    try{ done = document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    if(prev && sel){ sel.removeAllRanges(); sel.addRange(prev); }
+    return done;
+  }
+  function copyManual(txt, btn){
+    var host = btn.closest('.actbox') || document.body;
+    var box = host.querySelector('.copyfall');
+    if(!box){
+      box = document.createElement('div');
+      box.className = 'copyfall';
+      box.innerHTML =
+        '<b>자동 복사가 막혀 있습니다</b>' +
+        '<span>아래 칸이 이미 선택돼 있습니다. <b>Ctrl + C</b> 를 눌러 복사하세요. ' +
+        '(맥은 <b>Command + C</b>)</span>' +
+        '<textarea readonly rows="7"></textarea>' +
+        '<div class="simctl" style="margin:10px 0 0">' +
+        '<button type="button" class="mini gh">닫기</button></div>';
+      box.querySelector('button').addEventListener('click', function(){ box.remove(); });
+      (btn.closest('.simctl') || host).insertAdjacentElement('afterend', box);
+    }
+    var ta = box.querySelector('textarea');
+    ta.value = txt;
+    ta.focus(); ta.select();
+    try{ ta.setSelectionRange(0, txt.length); }catch(e){}
+    try{ box.scrollIntoView({ block:'nearest' }); }catch(e){}
+  }
   function tClip(txt, btn, okTxt){
-    var back = btn.textContent;
-    var done = function(){ btn.textContent = okTxt || '복사했어요';
-      setTimeout(function(){ btn.textContent = back; }, 1600); };
+    if(!btn) return;
+    copyLabel(btn);
+    var ok = function(){ copyFlash(btn, okTxt || '복사했어요'); };
+    var manual = function(){ copyFlash(btn, '아래에서 직접 복사'); copyManual(txt, btn); };
+    if(legacyCopy(txt)){ ok(); return; }
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(done, function(){});
+      navigator.clipboard.writeText(txt).then(ok, manual);
     }else{
-      var ta = document.createElement('textarea'); ta.value = txt;
-      document.body.appendChild(ta); ta.select();
-      try{ document.execCommand('copy'); done(); }catch(e){}
-      document.body.removeChild(ta);
+      manual();
     }
   }
   var pcBtn = tEl('tPCopy');
@@ -2519,8 +2570,7 @@ path = astar(grid, start, goal)
   if(qcBtn) qcBtn.addEventListener('click', function(){
     var q = (T.q || tEl('tQ').textContent || '').trim();
     if(!q || q.indexOf('질문을 뽑거나') === 0){
-      qcBtn.textContent = '질문을 먼저 뽑으세요';
-      setTimeout(function(){ qcBtn.textContent = '이번 질문만 복사'; }, 1600);
+      copyFlash(qcBtn, '질문을 먼저 뽑으세요');
       return;
     }
     tClip(q, qcBtn);
@@ -2793,8 +2843,7 @@ path = astar(grid, start, goal)
     DFIELDS.forEach(function(f){ dEl(f).value = s.v[f] || ''; D.v[f] = s.v[f] || ''; });
     D.data = s.data.slice();
     dCardsDraw(); dGauge(); dSave();
-    dSampBtn.textContent = s.t;
-    setTimeout(function(){ dSampBtn.textContent = '예시 보기'; }, 2200);
+    copyFlash(dSampBtn, s.t);
   });
   var dClearBtn = dEl('dClear');
   if(dClearBtn) dClearBtn.addEventListener('click', function(){
