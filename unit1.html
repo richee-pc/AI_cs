@@ -955,7 +955,21 @@ footer a{font-weight:700}
         <textarea id="d7" rows="2" data-d placeholder="어느 모둠의 어떤 아이디어가 좋았고, 왜 그렇게 생각했는지"></textarea></label>
     </div>
 
-    <div class="simctl" style="margin-top:18px">
+    <div class="frow" style="margin-top:20px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="dCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 이름</span>
+        <input type="text" id="dGroup" placeholder="예) 3모둠 · 튜링파" autocomplete="off"></label>
+    </div>
+    <div class="simctl">
+      <button type="button" class="mini" id="dSend">선생님께 제출하기</button>
+      <span class="sendmsg" id="dSendMsg"></span>
+    </div>
+    <div class="simctl">
       <button type="button" class="mini" id="dJudge">AI다움 진단하기</button>
       <button type="button" class="mini gh" id="dCopy">설계 카드 복사</button>
       <button type="button" class="mini gh" id="dFile">파일로 저장 (.txt)</button>
@@ -2527,7 +2541,7 @@ path = astar(grid, start, goal)
   function tPayload(){
     var tot = T.vA + T.vB, hit = T.cpu === 'A' ? T.vA : T.vB;
     return {
-      key: SUBMIT_KEY,
+      key: SUBMIT_KEY, type: 'turing',
       cls: T.cls || '',
       group: T.group || '',
       members: T.names.join(', '),
@@ -2665,7 +2679,7 @@ path = astar(grid, start, goal)
     { k:'사진·영상',  e:'📷' }, { k:'소리·음성', e:'🎤' }, { k:'글·텍스트', e:'📝' },
     { k:'숫자·기록',  e:'📊' }, { k:'센서',      e:'🌡' }, { k:'위치·시간', e:'📍' }
   ];
-  var D = { v:{}, data:[] };
+  var D = { v:{}, data:[], cls:'', group:'' };
 
   var SEEDS = [
     '급식 줄이 너무 길어서 점심시간의 절반을 서서 보낸다',
@@ -2719,7 +2733,9 @@ path = astar(grid, start, goal)
 
   function dLoad(){
     try{ var raw = localStorage.getItem(DKEY);
-      if(raw){ var o = JSON.parse(raw); D.v = o.v || {}; D.data = o.data || []; } }catch(e){}
+      if(raw){ var o = JSON.parse(raw);
+        D.v = o.v || {}; D.data = o.data || []; D.cls = o.cls || ''; D.group = o.group || ''; }
+    }catch(e){}
   }
   function dSave(){ try{ localStorage.setItem(DKEY, JSON.stringify(D)); }catch(e){} }
 
@@ -2783,9 +2799,14 @@ path = astar(grid, start, goal)
   var dClearBtn = dEl('dClear');
   if(dClearBtn) dClearBtn.addEventListener('click', function(){
     DFIELDS.forEach(function(f){ dEl(f).value = ''; });
-    D = { v:{}, data:[] };
+    D = { v:{}, data:[], cls:'', group:'' };
+    dEl('dGroup').value = '';
+    [].slice.call(dRoot.querySelectorAll('#dCls button')).forEach(function(o){
+      o.setAttribute('aria-pressed', 'false');
+    });
     dCardsDraw(); dGauge(); dSave();
     dEl('dVerdict').hidden = true;
+    if(dSendBtn){ dSendBtn.textContent = '선생님께 제출하기'; dSendMsg.textContent = ''; dSendState(); }
   });
 
   /* AI다움 진단 */
@@ -2839,7 +2860,9 @@ path = astar(grid, start, goal)
   /* 설계 카드 내보내기 */
   function dReport(){
     var L = ['════════ AI 해결안 설계 카드 ════════',
-             '교과서 Ⅰ-02 인공지능과 문제 해결 (20~21쪽)', ''];
+             '교과서 Ⅰ-02 인공지능과 문제 해결 (20~21쪽)', '',
+             '분반      : ' + (D.cls || '(미선택)'),
+             '모둠 이름 : ' + (D.group || '(미입력)'), ''];
     DFIELDS.forEach(function(f, i){
       L.push((i + 1) + '. ' + DLABEL[i]);
       if(i === 3 && D.data.length) L.push('   [데이터 종류] ' + D.data.join(' · '));
@@ -2855,15 +2878,114 @@ path = astar(grid, start, goal)
   if(dFileBtn) dFileBtn.addEventListener('click', function(){
     var blob = new Blob(['﻿' + dReport()], { type:'text/plain;charset=utf-8' });
     var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'AI해결안설계.txt';
+    var nm = [D.cls, D.group].filter(Boolean).join('_') || '활동지';
+    a.href = URL.createObjectURL(blob);
+    a.download = 'AI해결안설계_' + nm.replace(/[\\/:*?"<>|]/g, '') + '.txt';
     document.body.appendChild(a); a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
   });
   var dPrintBtn = dEl('dPrint');
   if(dPrintBtn) dPrintBtn.addEventListener('click', function(){ window.print(); });
 
+  /* ── 설계 카드 제출 ── */
+  var dClsPick = dEl('dCls');
+  if(dClsPick) dClsPick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-c]'); if(!b) return;
+    D.cls = b.getAttribute('data-c');
+    [].slice.call(this.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+    dSave();
+  });
+  var dGroupEl = dEl('dGroup');
+  if(dGroupEl) dGroupEl.addEventListener('input', function(){ D.group = this.value; dSave(); });
+
+  /* 선생님이 수집기 코드를 갱신했는지 한 번만 확인한다.
+     예전 코드(v1)는 설계 카드를 튜링테스트 탭에 잘못 적기 때문에 미리 막는다. */
+  var SHEET_VER = null;
+  function dCheckVer(cb){
+    if(SHEET_VER !== null){ cb(SHEET_VER); return; }
+    fetch(SUBMIT_URL, { method:'GET' })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ SHEET_VER = (j && j.ver) || 1; cb(SHEET_VER); })
+      .catch(function(){ SHEET_VER = -1; cb(-1); });   // 확인 못 함 → 일단 보낸다
+  }
+
+  var dSendBtn = dEl('dSend'), dSendMsg = dEl('dSendMsg');
+  function dSendState(){
+    if(!dSendBtn) return;
+    if(!SUBMIT_URL){
+      dSendBtn.disabled = true;
+      dSendMsg.className = 'sendmsg wait';
+      dSendMsg.textContent = '제출 주소가 아직 연결되지 않았습니다 — «설계 카드 복사»나 «파일로 저장»으로 내세요';
+    }
+  }
+  function dPayload(){
+    var vb = dEl('dVerdict');
+    var lv = vb && !vb.hidden ? vb.className.replace('verdict ', '') : '';
+    return {
+      key: SUBMIT_KEY, type: 'design',
+      cls: D.cls || '', group: D.group || '',
+      filled: dGauge(),
+      verdict: { ok:'인공지능다움', mid:'거의 다 왔음', no:'자동화에 가까움' }[lv] || '',
+      f1: dEl('d1').value, f2: dEl('d2').value, f3: dEl('d3').value,
+      types: D.data.join(' · '), f4: dEl('d4').value,
+      f5: dEl('d5').value, f6: dEl('d6').value, f7: dEl('d7').value
+    };
+  }
+  if(dSendBtn) dSendBtn.addEventListener('click', function(){
+    if(!SUBMIT_URL) return;
+    if(!D.cls){ dSendMsg.className = 'sendmsg wait'; dSendMsg.textContent = '분반을 먼저 골라 주세요'; return; }
+    if(!(D.group || '').trim()){ dSendMsg.className = 'sendmsg wait'; dSendMsg.textContent = '모둠 이름을 적어 주세요'; return; }
+    if(!dEl('d3').value.trim()){ dSendMsg.className = 'sendmsg wait';
+      dSendMsg.textContent = '3번 칸(무엇을 판단하나)은 채우고 내 주세요'; dEl('d3').focus(); return; }
+
+    dSendBtn.disabled = true;
+    dSendMsg.className = 'sendmsg wait';
+    dSendMsg.textContent = '확인하는 중…';
+
+    dCheckVer(function(ver){
+      if(ver === 1){
+        dSendMsg.className = 'sendmsg bad';
+        dSendMsg.textContent = '선생님 수집기가 아직 설계 카드를 받을 수 없습니다. ' +
+          '«설계 카드 복사»나 «파일로 저장»으로 내고, 선생님께 알려 주세요.';
+        dSendBtn.disabled = false;
+        return;
+      }
+      dSendMsg.textContent = '보내는 중…';
+      var body = JSON.stringify(dPayload());
+      var ok = function(extra){
+        dSendMsg.className = 'sendmsg ok';
+        dSendMsg.textContent = '제출했습니다' + (extra || '');
+        dSendBtn.textContent = '다시 제출하기';
+        dSendBtn.disabled = false;
+      };
+      var fail = function(){
+        dSendMsg.className = 'sendmsg bad';
+        dSendMsg.textContent = '보내지 못했습니다. 다시 눌러 보세요. ' +
+          '계속 안 되면 «파일로 저장»으로 내면 됩니다.';
+        dSendBtn.disabled = false;
+      };
+      fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+        .then(function(res){ return res.json(); })
+        .then(function(j){ if(j && j.ok) ok(); else fail(); })
+        .catch(function(){
+          fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+                headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+            .then(function(){ ok(' (선생님 시트에서 확인해 주세요)'); })
+            .catch(fail);
+        });
+    });
+  });
+  dSendState();
+
   dLoad();
   DFIELDS.forEach(function(f){ if(D.v[f]) dEl(f).value = D.v[f]; });
+  if(D.group) dEl('dGroup').value = D.group;
+  if(D.cls){
+    var dcb = dRoot.querySelector('#dCls button[data-c="' + D.cls + '"]');
+    if(dcb) dcb.setAttribute('aria-pressed', 'true');
+  }
   dCardsDraw(); dGauge();
 
   render();
