@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Ⅰ. 인공지능의 이해 · 수업 자료">
+<meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
+</head>
+<body>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#B8620E; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:ui-monospace,"SFMono-Regular",Consolas,"D2Coding",Menlo,monospace;
+  --disp:"Jua","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --sans:"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic",
+    system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+:root[data-theme="dark"]{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}
+:root[data-theme="light"]{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#B8620E; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
+  font-size:16px; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px; margin:0 auto; padding:0 22px}
+.n{font-variant-numeric:tabular-nums}
+::selection{background:var(--blue); color:#fff}
+a{color:var(--blue)}
+
+/* ── 사이트 내비 ─────────────────────────── */
+nav{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--sky-bg) 82%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--line)}
+nav .row{display:flex; gap:4px; overflow-x:auto; padding:9px 0; scrollbar-width:none; align-items:center}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto; color:var(--ink2); text-decoration:none; font-size:13.5px; font-weight:600;
+  padding:7px 14px; border-radius:99px; white-space:nowrap; transition:.16s}
+nav a:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav a.here{background:var(--fill); color:var(--on-fill)}
+nav a.soon{opacity:.45; pointer-events:none}
+nav .sep{flex:0 0 auto; width:1px; height:20px; background:var(--line); margin:0 6px}
+
+/* ── 헤더 ────────────────────────────────── */
+.hero{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:radial-gradient(760px 340px at 8% -14%, var(--white) 0%, transparent 62%),
+             linear-gradient(180deg, var(--sky-bg2) 0%, var(--sky-bg) 100%)}
+.badge{display:inline-block; font-size:13px; font-weight:700; color:var(--blue-d);
+  background:var(--white); padding:7px 18px; border-radius:99px; margin:0 0 18px;
+  box-shadow:var(--sh); border:1px solid var(--line)}
+h1{font-family:var(--disp); font-weight:400; font-size:clamp(32px,6.5vw,56px); line-height:1.2;
+  margin:0 0 16px; color:var(--blue-d)}
+h1 em{font-style:normal; display:block; color:var(--ink)}
+.lede{font-size:clamp(15px,2.2vw,17.5px); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
+.fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
+  box-shadow:var(--sh)}
+.fact b{display:block; font-family:var(--disp); font-weight:400; font-size:29px; line-height:1; color:var(--blue)}
+.fact span{display:block; font-size:12.5px; color:var(--muted); margin-top:7px; font-weight:500}
+
+/* ── 섹션 ────────────────────────────────── */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{display:inline-block; font-size:12.5px; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:5px 15px; border-radius:99px; margin:0 0 13px}
+h2{font-family:var(--disp); font-weight:400; font-size:clamp(25px,4.3vw,36px); line-height:1.3;
+  margin:0 0 10px; color:var(--ink)}
+.sub{color:var(--muted); font-size:15px; margin:0 0 26px; max-width:60ch; font-weight:500}
+h3{font-size:17px; font-weight:700; margin:0 0 11px}
+p{margin:0 0 12px}
+b,strong{font-weight:700; color:var(--ink)}
+
+.card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh)}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
+table{border-collapse:collapse; width:100%; min-width:440px; font-size:14.5px}
+th,td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--tint); font-weight:700; font-size:13px; color:var(--blue-d); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
+
+.std{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--blue-l); border-radius:0 14px 14px 0; padding:15px 18px; box-shadow:var(--sh)}
+.std code{flex:0 0 auto; font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:3px 9px; border-radius:7px}
+.std span{font-size:14.5px; line-height:1.65}
+
+/* ── 탭 ──────────────────────────────────── */
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{font-family:var(--sans); font-size:14px; font-weight:700; padding:10px 19px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer;
+  transition:.16s; box-shadow:var(--sh)}
+.tab:hover{color:var(--blue); border-color:var(--blue-l)}
+.tab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.tab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 슬라이드 ────────────────────────────── */
+.deckbar{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px}
+.dtab{font-family:var(--sans); font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:12px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer; transition:.16s;
+  box-shadow:var(--sh); text-align:left; line-height:1.35}
+.dtab i{display:block; font-style:normal; font-family:var(--mono); font-size:11px; color:var(--muted); margin-bottom:2px}
+.dtab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.dtab[aria-selected="true"] i{color:var(--on-fill); opacity:.75}
+.dtab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.stage{background:var(--white); border:1px solid var(--line); border-radius:24px;
+  box-shadow:var(--sh2); overflow:hidden}
+.stage-top{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
+.stage-top .who{font-size:13px; font-weight:700; color:var(--blue-d)}
+.stage-top .cnt{font-family:var(--mono); font-size:13px; color:var(--muted)}
+.slidebox{padding:clamp(22px,4vw,42px); min-height:clamp(340px,52vh,520px);
+  display:flex; flex-direction:column; justify-content:center}
+.slide[hidden]{display:none!important}
+.slide h4{font-family:var(--disp); font-weight:400; font-size:clamp(23px,3.6vw,34px);
+  line-height:1.35; margin:0 0 8px; color:var(--blue-d)}
+.slide .kicker{font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--muted);
+  margin:0 0 14px; text-transform:uppercase}
+.slide p{font-size:clamp(15px,1.9vw,17.5px); line-height:1.8; margin:0 0 14px}
+.slide ul{margin:0 0 14px; padding-left:22px; font-size:clamp(15px,1.9vw,17px); line-height:1.85}
+.slide li{margin-bottom:7px}
+.slide li b{color:var(--blue-d)}
+.big{font-family:var(--disp); font-weight:400; font-size:clamp(26px,4.4vw,42px); line-height:1.35;
+  color:var(--ink); text-align:center; margin:14px 0}
+.def{background:var(--blue-xl); border-radius:16px; padding:20px 24px; margin:14px 0}
+.def b{display:block; font-family:var(--disp); font-weight:400; font-size:20px; color:var(--blue-d); margin-bottom:6px}
+.note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:15px; color:var(--ink2); margin:14px 0}
+.note b{color:var(--warm)}
+.ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:15.5px; margin:14px 0}
+.ask b{color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+.chip{font-size:13.5px; font-weight:600; padding:6px 14px; border-radius:99px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
+.chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:12px 0}
+.four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.four b{display:block; font-family:var(--disp); font-weight:400; font-size:19px; color:var(--blue-d); margin-bottom:5px}
+.four span{font-size:14px; color:var(--ink2); line-height:1.6}
+figure{margin:16px 0; text-align:center}
+figure svg{max-width:100%; height:auto}
+figcaption{font-size:13px; color:var(--muted); margin-top:8px}
+.stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
+  border-top:1px solid var(--line); background:var(--tint); flex-wrap:wrap}
+.dots{display:flex; gap:6px; margin-left:auto; align-items:center; flex-wrap:wrap}
+.dots i{width:9px; height:9px; border-radius:50%; background:var(--line); display:block; transition:.2s; cursor:pointer}
+.dots i.on{background:var(--fill); width:26px; border-radius:99px}
+button.go{font-family:var(--sans); font-size:14.5px; font-weight:700; padding:11px 22px;
+  border-radius:99px; border:1px solid var(--fill); background:var(--fill); color:var(--on-fill);
+  cursor:pointer; transition:.16s}
+button.go:hover{background:var(--fill-d); border-color:var(--fill-d)}
+button.go:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.ghost{background:var(--white); color:var(--blue); border-color:var(--line)}
+button.ghost:hover{background:var(--blue-xl); color:var(--blue-d)}
+button[disabled]{opacity:.3; cursor:default}
+button[disabled]:hover{background:var(--white); color:var(--blue); border-color:var(--line)}
+
+/* SVG 공통 */
+.dg{fill:none; stroke:var(--blue-l); stroke-width:2}
+.dnode{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.dnode.hit{fill:var(--fill); stroke:var(--fill)}
+.dtxt{font-family:var(--sans); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.dtxt.on{fill:var(--on-fill)}
+.dnum{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--warm); text-anchor:middle}
+.dlab{font-family:var(--sans); font-size:12px; fill:var(--muted); text-anchor:middle}
+.pz rect{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
+.pz rect.g{fill:var(--good-bg); stroke:var(--good)}
+.pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
+
+/* ── 용어 ────────────────────────────────── */
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
+.term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
+.term b{display:block; font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d); margin-bottom:5px}
+.term span{font-size:14px; color:var(--ink2); line-height:1.65}
+
+/* ── 확인 문제 ───────────────────────────── */
+details{border:1px solid var(--line); border-radius:16px; background:var(--white);
+  margin-bottom:10px; box-shadow:var(--sh); overflow:hidden}
+summary{padding:16px 20px; cursor:pointer; font-weight:700; font-size:15.5px; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"답"; font-family:var(--disp); color:var(--blue); font-size:15px; flex:0 0 auto}
+details[open] summary{color:var(--blue)}
+details[open] summary::after{content:"닫기"}
+summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
+
+footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
+footer a{font-weight:700}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+@media (max-width:560px){ .hero{padding:38px 0 34px} section{padding:40px 0} .slidebox{min-height:320px} }
+</style>
+
+<nav><div class="wrap"><div class="row">
+  <a href="index.html">2학기 안내</a>
+  <span class="sep"></span>
+  <a href="unit1.html" class="here">Ⅰ. 인공지능의 이해</a>
+  <a href="#" class="soon">Ⅱ. 인공지능과 학습</a>
+  <a href="#" class="soon">Ⅲ. 사회적 영향</a>
+  <a href="#" class="soon">Ⅳ. 프로젝트</a>
+</div></div></nav>
+
+<div class="hero"><div class="wrap">
+  <p class="badge">1단원 · 8월 ~ 9월 초</p>
+  <h1>Ⅰ. 인공지능의 이해<em>수업 자료</em></h1>
+  <p class="lede">인공지능이 무엇인지부터 시작해서, <b>컴퓨터가 길을 찾는 방법</b>까지 배웁니다.
+    수업에서 쓰는 슬라이드를 그대로 올려 두었으니 복습할 때 다시 넘겨 보세요.</p>
+  <div class="facts">
+    <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
+    <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
+    <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
+    <div class="fact"><b>1<span style="font-size:16px"> 차</span></b><span>정기고사 범위</span></div>
+  </div>
+</div></div>
+
+<section id="goal"><div class="wrap">
+  <p class="eyebrow">배우는 목표</p>
+  <h2>이 단원이 끝나면</h2>
+  <p class="sub">교육과정 성취기준 5개 — 1차 정기고사 출제 범위입니다.</p>
+  <div class="g2">
+    <div class="std"><code>01-01</code><span>인공지능의 <b>개념과 특성</b>을 이해하고 인공지능과 문제를 분석한다.</span></div>
+    <div class="std"><code>01-02</code><span>인공지능이 <b>문제를 해결하는 방법</b>을 이해하고 실생활 문제에 적용한다.</span></div>
+    <div class="std"><code>01-03</code><span>지능적 탐색이 필요한 문제를 이해하고 <b>탐색 과정을 구조화</b>한다.</span></div>
+    <div class="std"><code>01-04</code><span><b>지능적 탐색 기법</b>의 원리를 이해하고 문제 해결에 적용한다.</span></div>
+    <div class="std"><code>01-05</code><span><b>지식의 표현과 추론</b> 방법을 이해하고 문제 해결에 적용한다.</span></div>
+  </div>
+  <p class="note" style="margin-top:20px"><b>단원 흐름.</b>
+    「AI가 뭔지 안다」 → 「AI가 문제를 어떻게 푸는지 안다」 → <b>「직접 길을 찾아 본다」</b> → 「AI가 지식을 담는 방법을 안다」.
+    가운데 탐색 부분(Ⅰ-03~Ⅰ-05)이 가장 중요하고 시간도 제일 많이 씁니다.</p>
+</div></section>
+
+<section id="plan"><div class="wrap">
+  <p class="eyebrow">차시 배정</p>
+  <h2>우리 반은 언제 배우나</h2>
+  <p class="sub">분반마다 수업 요일이 달라 날짜가 다릅니다.</p>
+  <div class="tabs" role="tablist" aria-label="분반 선택">
+    <button class="tab" role="tab" id="uA" aria-controls="qA" aria-selected="true">인기A 수목금</button>
+    <button class="tab" role="tab" id="uD" aria-controls="qD" aria-selected="false">인기D 월화금</button>
+    <button class="tab" role="tab" id="uE" aria-controls="qE" aria-selected="false">인기E 월화목</button>
+  </div>
+  <div id="qA" role="tabpanel" aria-labelledby="uA"><div class="tw"><table>
+    <tr><th style="width:74px">차시</th><th style="width:96px">날짜</th><th>내용</th></tr>
+    <tr><td class="d">1</td><td class="d">8/12 (수)</td><td>오리엔테이션 · AI 활용 규칙</td></tr>
+    <tr><td class="d">2</td><td class="d">8/13 (목)</td><td><b>Ⅰ-01</b> 인공지능의 개념과 특성</td></tr>
+    <tr><td class="d">3</td><td class="d">8/14 (금)</td><td><b>Ⅰ-02</b> 인공지능과 문제 해결</td></tr>
+    <tr><td class="d">4~5</td><td class="d">8/19 · 8/20</td><td><b>Ⅰ-03</b> 인공지능과 탐색</td></tr>
+    <tr><td class="d">6~7</td><td class="d">8/21 · 8/26</td><td><b>Ⅰ-04</b> 지능적 탐색의 종류</td></tr>
+    <tr><td class="d">8~9</td><td class="d">8/27 · 8/28</td><td><b>Ⅰ-05</b> 지능적 탐색 과정의 적용</td></tr>
+    <tr><td class="d">10</td><td class="d">9/3 (목)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
+  </table></div></div>
+  <div id="qD" role="tabpanel" aria-labelledby="uD" hidden><div class="tw"><table>
+    <tr><th style="width:74px">차시</th><th style="width:96px">날짜</th><th>내용</th></tr>
+    <tr><td class="d">1</td><td class="d">8/14 (금)</td><td>오리엔테이션 · AI 활용 규칙</td></tr>
+    <tr><td class="d">2</td><td class="d">8/18 (화)</td><td><b>Ⅰ-01</b> 인공지능의 개념과 특성</td></tr>
+    <tr><td class="d">3</td><td class="d">8/21 (금)</td><td><b>Ⅰ-02</b> 인공지능과 문제 해결</td></tr>
+    <tr><td class="d">4~5</td><td class="d">8/24 · 8/25</td><td><b>Ⅰ-03</b> 인공지능과 탐색</td></tr>
+    <tr><td class="d">6</td><td class="d">8/28 (금)</td><td><b>Ⅰ-04</b> 지능적 탐색의 종류</td></tr>
+    <tr><td class="d">7</td><td class="d">8/31 (월)</td><td><b>Ⅰ-05</b> 지능적 탐색 과정의 적용</td></tr>
+    <tr><td class="d">8</td><td class="d">9/1 (화)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
+  </table></div></div>
+  <div id="qE" role="tabpanel" aria-labelledby="uE" hidden><div class="tw"><table>
+    <tr><th style="width:74px">차시</th><th style="width:96px">날짜</th><th>내용</th></tr>
+    <tr><td class="d">1</td><td class="d">8/13 (목)</td><td>오리엔테이션 · AI 활용 규칙</td></tr>
+    <tr><td class="d">2</td><td class="d">8/18 (화)</td><td><b>Ⅰ-01</b> 인공지능의 개념과 특성</td></tr>
+    <tr><td class="d">3</td><td class="d">8/20 (목)</td><td><b>Ⅰ-02</b> 인공지능과 문제 해결</td></tr>
+    <tr><td class="d">4~5</td><td class="d">8/24 · 8/25</td><td><b>Ⅰ-03</b> 인공지능과 탐색</td></tr>
+    <tr><td class="d">6</td><td class="d">8/27 (목)</td><td><b>Ⅰ-04</b> 지능적 탐색의 종류</td></tr>
+    <tr><td class="d">7</td><td class="d">8/31 (월)</td><td><b>Ⅰ-05</b> 지능적 탐색 과정의 적용</td></tr>
+    <tr><td class="d">8</td><td class="d">9/1 (화)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
+  </table></div></div>
+</div></section>
+
+<section id="slides"><div class="wrap">
+  <p class="eyebrow">수업 슬라이드</p>
+  <h2>소단원별 슬라이드</h2>
+  <p class="sub">수업에서 쓰는 슬라이드입니다. 소단원을 고르고 <b>← →</b> 로 넘기세요.
+    키보드 방향키로도 넘어갑니다.</p>
+
+  <div class="deckbar" role="tablist" aria-label="소단원 선택">
+    <button class="dtab" role="tab" data-deck="0" aria-selected="true"><i>Ⅰ-01</i>개념과 특성</button>
+    <button class="dtab" role="tab" data-deck="1" aria-selected="false"><i>Ⅰ-02</i>문제 해결</button>
+    <button class="dtab" role="tab" data-deck="2" aria-selected="false"><i>Ⅰ-03</i>인공지능과 탐색</button>
+    <button class="dtab" role="tab" data-deck="3" aria-selected="false"><i>Ⅰ-04</i>지능적 탐색의 종류</button>
+    <button class="dtab" role="tab" data-deck="4" aria-selected="false"><i>Ⅰ-05</i>탐색 과정의 적용</button>
+    <button class="dtab" role="tab" data-deck="5" aria-selected="false"><i>Ⅰ-06</i>지식의 표현</button>
+  </div>
+
+  <div class="stage">
+    <div class="stage-top">
+      <span class="who" id="deckName">Ⅰ-01 인공지능의 개념과 특성</span>
+      <span class="cnt"><b id="sNow">1</b> / <span id="sAll">5</span></span>
+    </div>
+    <div class="slidebox" id="slidebox"></div>
+    <div class="stage-nav">
+      <button type="button" class="go ghost" id="prevS">&#8592; 이전</button>
+      <button type="button" class="go" id="nextS">다음 &#8594;</button>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="terms"><div class="wrap">
+  <p class="eyebrow">핵심 용어</p>
+  <h2>이것만은 외우자</h2>
+  <p class="sub">1차 정기고사에 나올 용어입니다.</p>
+  <div class="terms">
+    <div class="term"><b>인공지능</b><span>인간의 지적 능력(인식·학습·추론·문제 해결)의 일부 또는 전체를 컴퓨팅 시스템으로 구현한 것</span></div>
+    <div class="term"><b>튜링 테스트</b><span>판정관이 대화만으로 사람과 컴퓨터를 구별하지 못하면 그 컴퓨터가 지능을 가졌다고 보는 판정법 (앨런 튜링, 1950)</span></div>
+    <div class="term"><b>탐색</b><span>해결책을 찾기 위해 가능한 상태들의 공간을 체계적으로 검토하는 과정</span></div>
+    <div class="term"><b>초기 상태 / 목표 상태</b><span>문제가 주어진 시점의 상태 / 문제가 해결된 상태. 둘이 일치하면 해결</span></div>
+    <div class="term"><b>맹목적 탐색</b><span>정보나 경험 없이 규칙대로 모든 상태를 훑는 방법. 깊이 우선 탐색, 너비 우선 탐색</span></div>
+    <div class="term"><b>정보 이용 탐색</b><span>경험·지식을 활용해 불필요한 탐색을 줄이는 방법. 최상 우선 탐색, A* 알고리즘</span></div>
+    <div class="term"><b>평가 함수</b><span>어떤 노드에서 출발할 때 목표 상태에 도달할 가능성을 계산해 주는 함수</span></div>
+    <div class="term"><b>OPEN / CLOSED 리스트</b><span>확장은 됐지만 아직 탐색 안 한 노드 / 탐색이 끝난 노드</span></div>
+    <div class="term"><b>백트래킹</b><span>깊이 우선 탐색에서 더 갈 곳이 없으면 이전 노드로 되돌아가 다른 경로를 탐색하는 것</span></div>
+    <div class="term"><b>DIKW</b><span>데이터 → 정보 → 지식 → 지혜. 사실의 기록이 가공을 거쳐 판단의 근거가 되는 단계</span></div>
+    <div class="term"><b>규칙(IF-THEN)</b><span>조건이 주어지면 결과를 도출하는 지식 표현 방법. 추론으로 새 사실을 찾아냄</span></div>
+    <div class="term"><b>전문가 시스템</b><span>특정 분야 전문가의 지식을 저장해 문제를 해결하는 인공지능</span></div>
+  </div>
+</div></section>
+
+<section id="check"><div class="wrap">
+  <p class="eyebrow">스스로 점검</p>
+  <h2>확인 문제</h2>
+  <p class="sub">답을 먼저 생각하고 눌러 보세요.</p>
+  <details><summary>인공지능의 네 가지 특성은?</summary>
+    <p><b>인식과 이해 · 학습 · 추론 · 자율성.</b>
+      센서로 외부를 인식하고(인식과 이해), 기계학습으로 배우고(학습), 배운 것으로 결론을 내고(추론),
+      사람 개입 없이 스스로 판단해 행동합니다(자율성).</p></details>
+  <details><summary>튜링 테스트를 통과했다는 건 무슨 뜻일까?</summary>
+    <p>판정관이 <b>대화만으로 사람과 컴퓨터를 구별하지 못했다</b>는 뜻입니다.
+      컴퓨터가 실제로 «생각»하는지를 따지는 게 아니라, <b>사람처럼 보이는지</b>를 봅니다.</p></details>
+  <details><summary>맹목적 탐색과 정보 이용 탐색을 가르는 기준은?</summary>
+    <p><b>탐색에 대한 정보나 경험을 활용하는가.</b>
+      쓰지 않으면 맹목적 탐색(깊이 우선·너비 우선), 쓰면 정보 이용 탐색(최상 우선·A*)입니다.</p></details>
+  <details><summary>깊이 우선 탐색에서 백트래킹은 언제 일어날까?</summary>
+    <p><b>더 이상 갈 수 있는 노드가 없을 때.</b>
+      이전 노드로 되돌아가서 아직 안 가 본 다른 경로로 탐색을 이어 갑니다.</p></details>
+  <details><summary>A* 알고리즘의 f(n)은 무엇으로 이루어지나?</summary>
+    <p><b>f(n) = g(n) + h(n)</b>.
+      g(n)은 출발점에서 지금 노드까지 <b>실제로 온 거리</b>, h(n)은 지금 노드에서 목표까지 <b>예상 거리</b>입니다.
+      온 길과 갈 길을 함께 보기 때문에 최상 우선 탐색보다 낫습니다.</p></details>
+  <details><summary>데이터·정보·지식은 어떻게 다를까?</summary>
+    <p><b>데이터</b>는 사실이나 관찰의 기록, <b>정보</b>는 목적에 맞게 가공해 의미를 갖게 된 것,
+      <b>지식</b>은 정보를 체계화해 판단에 쓸 수 있게 된 것입니다.</p></details>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px"><a href="index.html">← 2학기 안내로 돌아가기</a></p>
+  <p style="margin:0">2026학년도 2학기 「인공지능 기초」 · 조선대학교부속고등학교 2학년<br>
+    교과서 「인공지능 기초」(미래엔) Ⅰ단원을 바탕으로 만들었습니다.</p>
+</div></footer>
+
+<script>
+(function(){
+  /* ── 분반 탭 ─────────────────────────── */
+  var tabs=[['uA','qA'],['uD','qD'],['uE','qE']];
+  tabs.forEach(function(pair){
+    document.getElementById(pair[0]).addEventListener('click',function(){
+      tabs.forEach(function(p){
+        var on=(p[0]===pair[0]);
+        document.getElementById(p[0]).setAttribute('aria-selected',on?'true':'false');
+        document.getElementById(p[1]).hidden=!on;
+      });
+    });
+  });
+
+  /* ── 슬라이드 데이터 ─────────────────── */
+  var C='class';
+
+  function tree(order, label){
+    /* A~G 7노드 트리. order = 방문 순서 배열(노드명 순) */
+    var pos={A:[240,34],B:[140,96],C:[340,96],D:[86,158],E:[194,158],F:[286,158],G:[394,158]};
+    var edges=[['A','B'],['A','C'],['B','D'],['B','E'],['C','F'],['C','G']];
+    var s='<svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg">';
+    edges.forEach(function(e){
+      s+='<line '+C+'="dg" x1="'+pos[e[0]][0]+'" y1="'+pos[e[0]][1]+'" x2="'+pos[e[1]][0]+'" y2="'+pos[e[1]][1]+'"/>';
+    });
+    Object.keys(pos).forEach(function(k){
+      var p=pos[k], i=order.indexOf(k)+1;
+      s+='<circle '+C+'="dnode hit" cx="'+p[0]+'" cy="'+p[1]+'" r="19"/>';
+      s+='<text '+C+'="dtxt on" x="'+p[0]+'" y="'+(p[1]+5)+'">'+k+'</text>';
+      s+='<text '+C+'="dnum" x="'+(p[0]+26)+'" y="'+(p[1]-14)+'">'+i+'</text>';
+    });
+    s+='</svg>';
+    return '<figure>'+s+'<figcaption>'+label+'</figcaption></figure>';
+  }
+
+  function puzzle(rows, hit){
+    var s='<svg '+C+'="pz" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">';
+    for(var r=0;r<3;r++) for(var c=0;c<3;c++){
+      var v=rows[r*3+c], x=6+c*40, y=6+r*40;
+      var g=(hit&&hit.indexOf(r*3+c)>=0)?' '+C+'="g"':'';
+      s+='<rect x="'+x+'" y="'+y+'" width="36" height="36" rx="7"'+g+'/>';
+      if(v) s+='<text x="'+(x+18)+'" y="'+(y+24)+'">'+v+'</text>';
+    }
+    return s+'</svg>';
+  }
+
+  var DECKS=[
+   {name:'Ⅰ-01 인공지능의 개념과 특성', slides:[
+    '<p class="kicker">Ⅰ-01 · 1차시</p><h4>인공지능이란 무엇일까?</h4>'+
+    '<p class="big">집 안에서 인공지능이 들어간 물건,<br>몇 개나 찾을 수 있을까?</p>'+
+    '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
+
+    '<p class="kicker">Ⅰ-01 · 개념</p><h4>인공지능의 정의</h4>'+
+    '<div class="def"><b>인공지능 (Artificial Intelligence)</b>'+
+    '인간이 가진 <b>지적 능력의 일부 또는 전체</b>를 컴퓨팅 시스템을 이용해 구현한 «인공적인 지능»</div>'+
+    '<p>여기서 «지적 능력»이란 <b>인식 능력 · 학습 능력 · 추론 능력 · 문제 해결 능력</b>을 말합니다.</p>'+
+    '<div class="note"><b>지능이란?</b> 새로운 대상이나 상황을 만났을 때 그 의미를 이해하고 합리적인 적응 방법을 알아내는 지적 활동 능력.</div>',
+
+    '<p class="kicker">Ⅰ-01 · 특성</p><h4>인공지능의 네 가지 특성</h4>'+
+    '<div class="four">'+
+    '<div><b>인식과 이해</b><span>센서로 외부 정보를 받아들이고 상황을 이해<br><i>예) 스피커가 목소리를 알아듣는다</i></span></div>'+
+    '<div><b>학습</b><span>미리 배워 둔 상태여야 판단할 수 있음<br><i>예) 기계학습·딥러닝으로 배운다</i></span></div>'+
+    '<div><b>추론</b><span>배운 것을 조합해 결론을 도출<br><i>예) 표정·음성으로 감정을 추론</i></span></div>'+
+    '<div><b>자율성</b><span>사람 개입 없이 스스로 판단하고 행동<br><i>예) 자율주행차의 차선 변경</i></span></div>'+
+    '</div>'+
+    '<div class="ask"><b>물어보기</b> 자동으로 층에 멈추는 엘리베이터에는 이 중 몇 개가 있을까요?</div>',
+
+    '<p class="kicker">Ⅰ-01 · 튜링 테스트</p><h4>컴퓨터가 지능이 있는지 어떻게 판단할까?</h4>'+
+    '<figure><svg viewBox="0 0 460 176" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect x="14" y="24" width="126" height="86" rx="14" '+C+'="dnode"/>'+
+    '<text '+C+'="dtxt" x="77" y="60">사람</text><text '+C+'="dlab" x="77" y="82">A 방</text>'+
+    '<rect x="320" y="24" width="126" height="86" rx="14" '+C+'="dnode"/>'+
+    '<text '+C+'="dtxt" x="383" y="60">컴퓨터</text><text '+C+'="dlab" x="383" y="82">B 방</text>'+
+    '<rect x="170" y="42" width="120" height="52" rx="26" '+C+'="dnode hit"/>'+
+    '<text '+C+'="dtxt on" x="230" y="73">판정관</text>'+
+    '<line '+C+'="dg" x1="140" y1="68" x2="170" y2="68"/>'+
+    '<line '+C+'="dg" x1="290" y1="68" x2="320" y2="68"/>'+
+    '<text '+C+'="dlab" x="230" y="140">대화만으로 어느 쪽이 사람인지 맞힐 수 있을까?</text>'+
+    '<text '+C+'="dlab" x="230" y="160">구별하지 못하면 → 그 컴퓨터는 지능이 있다고 본다</text>'+
+    '</svg><figcaption>튜링 테스트 (앨런 튜링, 1950)</figcaption></figure>'+
+    '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
+
+    '<p class="kicker">Ⅰ-01 · 정리</p><h4>오늘 배운 것</h4>'+
+    '<ul>'+
+    '<li><b>인공지능</b> = 인간의 지적 능력을 컴퓨팅 시스템으로 구현한 것</li>'+
+    '<li>네 가지 특성 = <b>인식과 이해 · 학습 · 추론 · 자율성</b></li>'+
+    '<li><b>튜링 테스트</b> = 대화로 사람과 구별되지 않으면 지능이 있다고 판단</li>'+
+    '<li>«인공지능» 용어의 탄생 = <b>1956년 다트머스 학회</b></li></ul>'+
+    '<div class="ask"><b>다음 시간</b> 인공지능이 실제로 <b>어떤 문제를 어떻게</b> 해결하는지 봅니다.</div>'
+   ]},
+
+   {name:'Ⅰ-02 인공지능과 문제 해결', slides:[
+    '<p class="kicker">Ⅰ-02 · 1차시</p><h4>인공지능은 우리 삶을 어떻게 바꾸고 있을까?</h4>'+
+    '<div class="ask"><b>사례</b> 혼자 사시는 70대 할머니가 집 안 인공지능 스피커에 위급 상황을 알려 응급 치료를 받았습니다.<br>'+
+    '스피커가 즉시 SOS 신호를 보냈고 119 구급대가 출동했습니다.</div>'+
+    '<p class="big">인공지능이 <b>사람을 살린</b> 것일까?</p>',
+
+    '<p class="kicker">Ⅰ-02 · 일상</p><h4>하루 속의 인공지능</h4>'+
+    '<ul>'+
+    '<li>음성 인식 비서가 말을 알아듣고 <b>전화를 걸거나 식당을 예약</b></li>'+
+    '<li>메일함이 <b>스팸을 자동으로 분류</b></li>'+
+    '<li>카메라가 <b>얼굴을 인식</b>해 잠금을 해제</li>'+
+    '<li>지도 앱이 교통 상황을 반영해 <b>가장 빠른 길</b>을 안내</li>'+
+    '<li>영상 서비스가 <b>다음에 볼 것을 추천</b></li></ul>'+
+    '<div class="note"><b>공통점</b> 모두 <b>데이터를 보고 스스로 판단</b>합니다. 정해진 규칙만 따르는 기계와는 다릅니다.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 학문</p><h4>학문 분야에서의 인공지능</h4>'+
+    '<div class="four">'+
+    '<div><b>의학</b><span>영상 판독 보조, 질병 예측</span></div>'+
+    '<div><b>교육학</b><span>학습자 이해도 진단, 맞춤 콘텐츠 제공</span></div>'+
+    '<div><b>농업</b><span>작황 예측, 병해충 탐지</span></div>'+
+    '<div><b>예술</b><span>이미지·음악 생성</span></div>'+
+    '<div><b>법학</b><span>판례 검색, 문서 분석</span></div>'+
+    '<div><b>생명공학</b><span>단백질 구조 예측</span></div>'+
+    '</div>'+
+    '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결하고 도움을 줍니다.</p>',
+
+    '<p class="kicker">Ⅰ-02 · 활동</p><h4>내가 찾은 문제, 내가 만든 해결안</h4>'+
+    '<div class="def"><b>활동지</b>'+
+    '① 내 주변의 <b>불편한 점</b>을 하나 고른다<br>'+
+    '② 그 문제를 <b>인공지능으로 어떻게</b> 해결할 수 있을지 쓴다<br>'+
+    '③ 필요한 <b>데이터</b>는 무엇일지 적는다</div>'+
+    '<div class="note"><b>예시</b> 「보고 싶은 영상이 너무 길다」 → 인공지능이 <b>핵심 구간만 요약</b>해 준다 → 필요한 데이터: 영상 자막, 시청 구간 기록</div>'+
+    '<div class="ask"><b>발표</b> 모둠에서 가장 인상 깊었던 사례와 그 이유를 정리해 봅시다.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 정리</p><h4>오늘 배운 것</h4>'+
+    '<ul>'+
+    '<li>인공지능은 <b>일상과 학문 전반</b>에서 문제를 해결한다</li>'+
+    '<li>핵심은 «자동»이 아니라 <b>«데이터를 보고 스스로 판단»</b></li>'+
+    '<li>좋은 AI 활용안은 <b>문제 → 해결 방법 → 필요한 데이터</b>가 이어져야 한다</li></ul>'+
+    '<div class="ask"><b>다음 시간부터</b> 인공지능이 문제를 푸는 방법 중 <b>«탐색»</b>을 깊이 배웁니다.</div>'
+   ]},
+
+   {name:'Ⅰ-03 인공지능과 탐색', slides:[
+    '<p class="kicker">Ⅰ-03 · 1차시</p><h4>컴퓨터는 어떻게 문제를 풀까?</h4>'+
+    '<div class="four">'+
+    '<div><b>학습</b><span>정보를 주고 훈련시키는 것</span></div>'+
+    '<div><b>탐색</b><span>가능한 상태들의 공간을 체계적으로 검토해 해결책을 찾는 것</span></div>'+
+    '<div><b>추론</b><span>사실과 규칙으로 새로운 결론을 이끌어 내는 것</span></div>'+
+    '</div>'+
+    '<div class="ask"><b>이번 소단원</b> 세 가지 중 <b>탐색</b>을 자세히 봅니다.</div>',
+
+    '<p class="kicker">Ⅰ-03 · 활용</p><h4>탐색이 쓰이는 곳</h4>'+
+    '<div class="four">'+
+    '<div><b>알파고</b><span>어떤 수가 유리한지 찾는다</span></div>'+
+    '<div><b>내비게이션</b><span>가장 빠른 길을 찾는다</span></div>'+
+    '<div><b>정보 검색</b><span>검색어에 맞는 문서를 추천한다</span></div>'+
+    '<div><b>의료 활동</b><span>진단 정보를 제공해 의사 결정을 돕는다</span></div>'+
+    '</div>'+
+    '<p>모두 <b>«수많은 후보 중에서 좋은 답을 고르는»</b> 문제입니다.</p>',
+
+    '<p class="kicker">Ⅰ-03 · 설계</p><h4>탐색 과정 설계 4단계</h4>'+
+    '<ul>'+
+    '<li><b>① 문제 정의하기</b> — 핵심 요소를 뽑아낸다</li>'+
+    '<li><b>② 초기 상태와 목표 상태 설정</b> — 시작과 끝을 정한다</li>'+
+    '<li><b>③ 수행 작업 선택</b> — 다음 상태로 가는 동작을 고른다</li>'+
+    '<li><b>④ 적용 및 문제 해결</b> — 목표에 닿을 때까지 반복</li></ul>'+
+    '<div class="def"><b>초기 상태 / 목표 상태</b>'+
+    '초기 상태는 <b>문제가 주어진 시점</b>의 상태, 목표 상태는 <b>문제가 해결된</b> 상태.<br>둘이 일치하면 «해결»입니다.</div>',
+
+    '<p class="kicker">Ⅰ-03 · 8-퍼즐</p><h4>8-퍼즐로 연습하기</h4>'+
+    '<figure><div style="display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap">'+
+    '<div>'+puzzle(['2','3','','1','7','5','4','6','8'])+'<div class="dlab" style="font-size:13px; color:var(--muted); margin-top:6px">초기 상태</div></div>'+
+    '<div style="font-family:var(--disp); font-size:30px; color:var(--blue)">→</div>'+
+    '<div>'+puzzle(['1','2','3','4','5','6','7','8',''],[0,1,2,3,4,5,6,7])+'<div class="dlab" style="font-size:13px; color:var(--muted); margin-top:6px">목표 상태</div></div>'+
+    '</div><figcaption>빈칸을 이용해 숫자를 한 번에 하나씩 옮긴다</figcaption></figure>'+
+    '<div class="note"><b>수행 작업을 고르는 기준</b> 다음 상태가 <b>목표 상태에 가까워지도록</b> 고릅니다.<br>'+
+    '여기서는 «목표와 일치하는 칸의 수»가 많아지는 쪽이 유리합니다.</div>',
+
+    '<p class="kicker">Ⅰ-03 · 상태공간</p><h4>탐색 트리로 그려 보기</h4>'+
+    '<figure><svg viewBox="0 0 460 190" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect x="186" y="10" width="88" height="34" rx="10" '+C+'="dnode hit"/><text '+C+'="dtxt on" x="230" y="32">초기 상태</text>'+
+    '<line '+C+'="dg" x1="230" y1="44" x2="120" y2="84"/><line '+C+'="dg" x1="230" y1="44" x2="230" y2="84"/><line '+C+'="dg" x1="230" y1="44" x2="340" y2="84"/>'+
+    '<rect x="76" y="84" width="88" height="34" rx="10" '+C+'="dnode"/><text '+C+'="dtxt" x="120" y="106">상태 1</text>'+
+    '<rect x="186" y="84" width="88" height="34" rx="10" '+C+'="dnode"/><text '+C+'="dtxt" x="230" y="106">상태 2</text>'+
+    '<rect x="296" y="84" width="88" height="34" rx="10" '+C+'="dnode"/><text '+C+'="dtxt" x="340" y="106">상태 3</text>'+
+    '<line '+C+'="dg" x1="230" y1="118" x2="186" y2="150"/><line '+C+'="dg" x1="230" y1="118" x2="274" y2="150"/>'+
+    '<rect x="142" y="150" width="88" height="34" rx="10" '+C+'="dnode"/><text '+C+'="dtxt" x="186" y="172">…</text>'+
+    '<rect x="230" y="150" width="88" height="34" rx="10" '+C+'="dnode"/><text '+C+'="dtxt" x="274" y="172">목표!</text>'+
+    '</svg><figcaption>초기 상태에서 뻗어 나가는 상태들을 트리로 표현한다</figcaption></figure>'+
+    '<p>가능한 상태를 모두 펼치면 <b>트리</b>가 됩니다. 탐색이란 이 트리에서 <b>목표 상태를 찾아가는 과정</b>입니다.</p>',
+
+    '<p class="kicker">Ⅰ-03 · 정리</p><h4>오늘 배운 것</h4>'+
+    '<ul>'+
+    '<li>컴퓨터의 문제 해결 = <b>학습 · 탐색 · 추론</b></li>'+
+    '<li><b>탐색</b> = 가능한 상태 공간을 체계적으로 검토해 해결책을 찾는 과정</li>'+
+    '<li>설계 4단계 = <b>문제 정의 → 초기·목표 상태 → 수행 작업 → 적용</b></li>'+
+    '<li>상태들을 펼치면 <b>탐색 트리</b>가 만들어진다</li></ul>'+
+    '<div class="ask"><b>다음 시간</b> 트리를 <b>어떤 순서로</b> 훑을지 — 탐색 기법의 종류를 배웁니다.</div>'
+   ]},
+
+   {name:'Ⅰ-04 지능적 탐색의 종류', slides:[
+    '<p class="kicker">Ⅰ-04 · 분류</p><h4>탐색은 크게 둘로 나뉜다</h4>'+
+    '<figure><svg viewBox="0 0 470 176" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect x="176" y="8" width="118" height="36" rx="11" '+C+'="dnode hit"/><text '+C+'="dtxt on" x="235" y="31">탐색</text>'+
+    '<text '+C+'="dlab" x="235" y="62">탐색에 대한 정보나 경험을 활용하는가?</text>'+
+    '<line '+C+'="dg" x1="235" y1="44" x2="112" y2="84"/><line '+C+'="dg" x1="235" y1="44" x2="358" y2="84"/>'+
+    '<text '+C+'="dlab" x="150" y="80">아니요</text><text '+C+'="dlab" x="322" y="80">예</text>'+
+    '<rect x="34" y="84" width="156" height="36" rx="11" '+C+'="dnode"/><text '+C+'="dtxt" x="112" y="107">맹목적 탐색</text>'+
+    '<rect x="280" y="84" width="156" height="36" rx="11" '+C+'="dnode"/><text '+C+'="dtxt" x="358" y="107">정보 이용 탐색</text>'+
+    '<text '+C+'="dlab" x="112" y="142">깊이 우선 탐색</text><text '+C+'="dlab" x="112" y="162">너비 우선 탐색</text>'+
+    '<text '+C+'="dlab" x="358" y="142">최상 우선 탐색</text><text '+C+'="dlab" x="358" y="162">A* 알고리즘</text>'+
+    '</svg><figcaption>정보를 쓰느냐 마느냐가 갈림길</figcaption></figure>',
+
+    '<p class="kicker">Ⅰ-04 · 맹목적 탐색</p><h4>깊이 우선 탐색 (DFS)</h4>'+
+    tree(['A','B','D','E','C','F','G'],'A → B → D → E → C → F → G')+
+    '<p><b>갈 수 있는 데까지 내려간 뒤</b>, 막히면 되돌아와 다른 길로 갑니다.</p>'+
+    '<div class="note"><b>백트래킹</b> 더 갈 곳이 없을 때 <b>이전 노드로 되돌아가</b> 다른 경로를 탐색하는 것.</div>',
+
+    '<p class="kicker">Ⅰ-04 · 맹목적 탐색</p><h4>너비 우선 탐색 (BFS)</h4>'+
+    tree(['A','B','C','D','E','F','G'],'A → B → C → D → E → F → G')+
+    '<p><b>같은 깊이를 전부 훑고</b> 나서 한 단계 내려갑니다. 가로 방향으로 퍼져 나갑니다.</p>'+
+    '<div class="note"><b>차이</b> DFS는 «일단 끝까지 가 본다», BFS는 «가까운 것부터 차례로».<br>'+
+    '둘 다 정보를 쓰지 않으므로 최악의 경우 <b>모든 노드를 방문</b>해야 합니다.</div>',
+
+    '<p class="kicker">Ⅰ-04 · 정보 이용 탐색</p><h4>최상 우선 탐색</h4>'+
+    '<div class="def"><b>평가 함수</b>'+
+    '어떤 노드에서 출발할 때 <b>목표 상태에 도달할 가능성</b>을 계산해 주는 함수</div>'+
+    '<p>지나간 노드를 포함해 후보 중 <b>평가 함숫값이 가장 좋은 노드</b>로 이동합니다.</p>'+
+    '<div class="four">'+
+    '<div><b>OPEN 리스트</b><span>확장은 됐지만 <b>아직 탐색하지 않은</b> 노드</span></div>'+
+    '<div><b>CLOSED 리스트</b><span><b>탐색이 끝난</b> 노드</span></div>'+
+    '</div>'+
+    '<div class="note"><b>8-퍼즐에서는</b> 평가 함숫값 = <b>목표 상태와 일치하는 칸의 수</b>. 값이 클수록 우선순위가 높습니다.</div>',
+
+    '<p class="kicker">Ⅰ-04 · 정보 이용 탐색</p><h4>A* 알고리즘</h4>'+
+    '<p class="big">f(n) = g(n) + h(n)</p>'+
+    '<div class="four">'+
+    '<div><b>g(n)</b><span>출발점에서 지금 노드까지 <b>실제로 온 거리</b></span></div>'+
+    '<div><b>h(n)</b><span>지금 노드에서 목표까지 <b>예상 거리</b> (휴리스틱)</span></div>'+
+    '</div>'+
+    '<div class="note"><b>예</b> 스페인 → 프랑스(60) → 독일(100) 이라면 독일의 g(n) = <b>160</b>.<br>'+
+    'h(n)은 독일에서 목표까지의 예상 거리입니다.</div>'+
+    '<div class="ask"><b>왜 더 좋을까?</b> 최상 우선 탐색은 «갈 길»만 봅니다. A*는 <b>«온 길 + 갈 길»</b>을 함께 보기 때문에 더 나은 경로를 찾습니다.</div>',
+
+    '<p class="kicker">Ⅰ-04 · 비교</p><h4>네 가지 정리</h4>'+
+    '<ul>'+
+    '<li><b>깊이 우선</b> — 끝까지 내려갔다가 백트래킹. 메모리 적게 씀</li>'+
+    '<li><b>너비 우선</b> — 가까운 것부터. 최단 경로 보장(간선 비용이 같을 때)</li>'+
+    '<li><b>최상 우선</b> — 평가 함숫값이 좋은 쪽으로. 빠르지만 최적은 아닐 수 있음</li>'+
+    '<li><b>A*</b> — f = g + h. 온 길과 갈 길을 함께 고려</li></ul>'+
+    '<div class="ask"><b>다음 시간</b> 이 알고리즘들로 <b>직접 길을 찾아 봅니다.</b></div>'
+   ]},
+
+   {name:'Ⅰ-05 지능적 탐색 과정의 적용', slides:[
+    '<p class="kicker">Ⅰ-05 · 적용</p><h4>지능적 탐색이 필요한 문제</h4>'+
+    '<div class="four">'+
+    '<div><b>경로 발견 문제</b><span>길 찾기 · 미로 찾기 · 8-퍼즐<br><i>목적: 최단 경로 구하기</i></span></div>'+
+    '<div><b>게임 문제</b><span>틱택토 · 바둑 · 체스<br><i>목적: 상대방 이기기</i></span></div>'+
+    '</div>'+
+    '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
+
+    '<p class="kicker">Ⅰ-05 · 실습</p><h4>최단 경로 챌린지</h4>'+
+    '<div class="def"><b>오늘의 미션</b>'+
+    '격자 지도에서 출발점 → 도착점까지 <b>가장 짧은 길</b>을 찾아라.<br>'+
+    '같은 문제를 <b>너비 우선 탐색</b>과 <b>A*</b> 두 가지로 풀고, <b>방문한 노드 수</b>를 비교한다.</div>'+
+    '<div class="four">'+
+    '<div><b>기록할 것</b><span>① 찾은 경로의 길이<br>② 방문한 노드 수<br>③ 걸린 시간</span></div>'+
+    '<div><b>리더보드</b><span>방문 노드 수가 <b>적을수록</b> 좋은 알고리즘</span></div>'+
+    '</div>'+
+    '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?</div>',
+
+    '<p class="kicker">Ⅰ-05 · 코드</p><h4>A* 알고리즘의 뼈대</h4>'+
+    '<ul>'+
+    '<li><b>①</b> 우선순위 큐(heapq)를 준비한다 — 평가 함숫값이 가장 작은 노드를 먼저 꺼내기 위해</li>'+
+    '<li><b>②</b> OPEN 리스트에 <b>시작 노드</b>를 넣는다</li>'+
+    '<li><b>③</b> OPEN이 빌 때까지 반복 — 우선순위가 가장 높은 노드를 꺼낸다</li>'+
+    '<li><b>④</b> 꺼낸 노드가 <b>목표면 경로를 반환</b>하고 끝낸다</li>'+
+    '<li><b>⑤</b> 아니면 <b>이웃 노드</b>를 탐색해 g값을 갱신하고 OPEN에 넣는다</li></ul>'+
+    '<div class="note"><b>주의</b> 평가 함숫값이 같으면 어느 것을 고를지 <b>규칙을 정해 두어야</b> 결과가 일정합니다.<br>(예: 마지막에 추가한 이웃 노드를 선택)</div>',
+
+    '<p class="kicker">Ⅰ-05 · 정리</p><h4>오늘 배운 것</h4>'+
+    '<ul>'+
+    '<li>지능적 탐색이 필요한 문제 = <b>경로 발견</b>(최단 경로) · <b>게임</b>(상대 이기기)</li>'+
+    '<li>같은 문제라도 <b>알고리즘에 따라 방문 노드 수가 크게 다르다</b></li>'+
+    '<li>A*는 <b>우선순위 큐</b>로 «가장 유망한 노드»를 먼저 꺼낸다</li></ul>'+
+    '<div class="ask"><b>이 페이지 맨 위 배경</b>에서 움직이는 것도 바로 이 탐색입니다. 다시 한번 보세요.</div>'
+   ]},
+
+   {name:'Ⅰ-06 컴퓨터가 처리하는 지식의 표현', slides:[
+    '<p class="kicker">Ⅰ-06 · 1차시</p><h4>지식이란 무엇일까?</h4>'+
+    '<figure><svg viewBox="0 0 470 116" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect x="8" y="34" width="96" height="42" rx="12" '+C+'="dnode"/><text '+C+'="dtxt" x="56" y="60">데이터</text>'+
+    '<rect x="126" y="34" width="96" height="42" rx="12" '+C+'="dnode"/><text '+C+'="dtxt" x="174" y="60">정보</text>'+
+    '<rect x="244" y="34" width="96" height="42" rx="12" '+C+'="dnode hit"/><text '+C+'="dtxt on" x="292" y="60">지식</text>'+
+    '<rect x="362" y="34" width="96" height="42" rx="12" '+C+'="dnode"/><text '+C+'="dtxt" x="410" y="60">지혜</text>'+
+    '<line '+C+'="dg" x1="104" y1="55" x2="126" y2="55"/><line '+C+'="dg" x1="222" y1="55" x2="244" y2="55"/>'+
+    '<line '+C+'="dg" x1="340" y1="55" x2="362" y2="55"/>'+
+    '<text '+C+'="dlab" x="56" y="98">사실·관찰의 기록</text><text '+C+'="dlab" x="174" y="98">가공해 의미를 가진 것</text>'+
+    '<text '+C+'="dlab" x="292" y="98">체계화해 판단에 쓰는 것</text><text '+C+'="dlab" x="410" y="98">통찰</text>'+
+    '</svg><figcaption>데이터 → 정보 → 지식 → 지혜</figcaption></figure>'+
+    '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까 정보일까 지식일까?</div>',
+
+    '<p class="kicker">Ⅰ-06 · 표현</p><h4>지식을 컴퓨터에 담는 세 가지 방법</h4>'+
+    '<div class="four">'+
+    '<div><b>규칙</b><span>IF-THEN 구조로 조건과 결과를 표현</span></div>'+
+    '<div><b>의미망</b><span>노드와 간선으로 «망» 구조를 만들어 관계를 표현</span></div>'+
+    '<div><b>프레임</b><span>대상의 속성을 묶어서 표현</span></div>'+
+    '</div>'+
+    '<p>이 중 <b>규칙</b>이 가장 널리 쓰이며, <b>추론</b>을 통해 새로운 사실을 찾아낼 수 있습니다.</p>',
+
+    '<p class="kicker">Ⅰ-06 · 규칙</p><h4>IF-THEN 규칙과 추론</h4>'+
+    '<div class="def"><b>규칙 예시</b>'+
+    'IF 열이 나고 기침을 한다 THEN 감기일 수 있다<br>'+
+    'IF 감기일 수 있다 AND 열이 39도 이상이다 THEN 병원에 간다</div>'+
+    '<p>알고 있는 <b>사실(facts)</b>과 <b>규칙(rules)</b>을 결합하면 <b>새로운 사실</b>이 나옵니다. 이것이 <b>추론</b>입니다.</p>'+
+    '<div class="ask"><b>해 보기</b> 「비가 온다」와 「비가 오면 우산을 쓴다」로부터 무엇을 추론할 수 있나요?</div>',
+
+    '<p class="kicker">Ⅰ-06 · 의미망</p><h4>의미망으로 표현하기</h4>'+
+    '<figure><svg viewBox="0 0 440 170" xmlns="http://www.w3.org/2000/svg">'+
+    '<circle '+C+'="dnode hit" cx="220" cy="30" r="27"/><text '+C+'="dtxt on" x="220" y="35">동물</text>'+
+    '<circle '+C+'="dnode" cx="100" cy="104" r="27"/><text '+C+'="dtxt" x="100" y="109">새</text>'+
+    '<circle '+C+'="dnode" cx="340" cy="104" r="27"/><text '+C+'="dtxt" x="340" y="109">개</text>'+
+    '<circle '+C+'="dnode" cx="100" cy="160" r="0"/>'+
+    '<line '+C+'="dg" x1="200" y1="52" x2="120" y2="84"/><line '+C+'="dg" x1="240" y1="52" x2="320" y2="84"/>'+
+    '<text '+C+'="dlab" x="140" y="68">이다</text><text '+C+'="dlab" x="300" y="68">이다</text>'+
+    '<text '+C+'="dlab" x="100" y="148">날 수 있다</text><text '+C+'="dlab" x="340" y="148">짖는다</text>'+
+    '</svg><figcaption>노드(개념)와 간선(관계)으로 지식을 표현</figcaption></figure>'+
+    '<p>사물·개념·사건과 그 <b>관계</b>를 그물처럼 연결해 나타냅니다.</p>',
+
+    '<p class="kicker">Ⅰ-06 · 전문가 시스템</p><h4>지식으로 판단하는 인공지능</h4>'+
+    '<div class="def"><b>전문가 시스템</b>'+
+    '특정 분야 <b>전문가의 지식을 저장</b>해 두고, 그 지식으로 문제를 해결하는 인공지능</div>'+
+    '<p>의료 진단, 설비 고장 진단처럼 <b>전문 지식이 필요한 분야</b>에서 좋은 성과를 냈습니다.</p>'+
+    '<div class="note"><b>한계</b> 충분한 양의 전문가 지식을 <b>모으기 어렵고</b>, 지식 베이스를 <b>관리하기도 어렵습니다.</b><br>'+
+    '이 한계 때문에 «데이터로부터 스스로 배우는» 방향 — 즉 <b>기계학습</b>으로 옮겨 갑니다.</div>',
+
+    '<p class="kicker">Ⅰ-06 · 정리</p><h4>Ⅰ단원을 마치며</h4>'+
+    '<ul>'+
+    '<li><b>DIKW</b> = 데이터 → 정보 → 지식 → 지혜</li>'+
+    '<li>지식 표현 = <b>규칙(IF-THEN) · 의미망 · 프레임</b></li>'+
+    '<li><b>추론</b> = 사실 + 규칙 → 새로운 사실</li>'+
+    '<li><b>전문가 시스템</b>의 한계가 기계학습으로 이어진다</li></ul>'+
+    '<div class="ask"><b>다음 단원 예고</b> 사람이 지식을 넣어 주는 대신, <b>데이터에서 스스로 규칙을 찾아내는</b> 방법 — Ⅱ단원 「인공지능과 학습」으로 이어집니다.</div>'
+   ]}
+  ];
+
+  /* ── 슬라이드 뷰어 ───────────────────── */
+  var deck=0, idx=0;
+  var box=document.getElementById('slidebox'), dots=document.getElementById('dots'),
+      nm=document.getElementById('deckName'), sNow=document.getElementById('sNow'),
+      sAll=document.getElementById('sAll'),
+      bPrev=document.getElementById('prevS'), bNext=document.getElementById('nextS');
+  var dtabs=[].slice.call(document.querySelectorAll('.dtab'));
+
+  function render(){
+    var d=DECKS[deck];
+    nm.textContent=d.name;
+    sNow.textContent=idx+1; sAll.textContent=d.slides.length;
+    box.innerHTML='<div class="slide">'+d.slides[idx]+'</div>';
+    dots.innerHTML='';
+    d.slides.forEach(function(_,k){
+      var i=document.createElement('i');
+      if(k===idx) i.className='on';
+      i.title=(k+1)+'번 슬라이드';
+      i.addEventListener('click',function(){ idx=k; render(); });
+      dots.appendChild(i);
+    });
+    bPrev.disabled=(idx===0); bNext.disabled=(idx===d.slides.length-1);
+    dtabs.forEach(function(t,k){ t.setAttribute('aria-selected', k===deck?'true':'false'); });
+  }
+  dtabs.forEach(function(t,k){
+    t.addEventListener('click',function(){ deck=k; idx=0; render(); });
+  });
+  bPrev.addEventListener('click',function(){ if(idx>0){ idx--; render(); } });
+  bNext.addEventListener('click',function(){ if(idx<DECKS[deck].slides.length-1){ idx++; render(); } });
+  document.addEventListener('keydown',function(ev){
+    if(/^(INPUT|TEXTAREA|SELECT)$/.test(ev.target.tagName)) return;
+    var r=document.getElementById('slides').getBoundingClientRect();
+    if(r.bottom<0||r.top>window.innerHeight) return;
+    if(ev.key==='ArrowRight'){ ev.preventDefault(); if(idx<DECKS[deck].slides.length-1){ idx++; render(); } }
+    else if(ev.key==='ArrowLeft'){ ev.preventDefault(); if(idx>0){ idx--; render(); } }
+  });
+  render();
+})();
+</script>
+
+</body>
+</html>
