@@ -1,10 +1,13 @@
 /**
- * 인공지능 기초 활동지 수집기  v2
+ * 인공지능 기초 활동지 수집기  v3
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
  *   · 튜링테스트        ← Ⅰ-01 활동 ②
  *   · AI해결안설계      ← Ⅰ-02 활동 ④
+ *   · 탐색과정설계      ← Ⅰ-03 활동 ⑥
+ *   · 유럽길찾기        ← Ⅰ-03 활동 ⑦
+ *   · 우리동네등굣길    ← Ⅰ-04 활동 ⑧
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
  */
@@ -13,7 +16,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 2;
+var VER = 3;
 
 var SHEETS = {
 
@@ -50,6 +53,46 @@ var SHEETS = {
               (d.filled || 0) + ' / 7', d.verdict || '',
               d.f1 || '', d.f2 || '', d.f3 || '',
               d.types || '', d.f4 || '', d.f5 || '', d.f6 || '', d.f7 || ''];
+    }
+  },
+
+  puzzle: {
+    name: '탐색과정설계',
+    head: ['제출 시각', '분반', '모둠', '1단계 고른 핵심 요소', '2단계 맞은 칸 수',
+           '3단계 고른 수행 작업', '3단계 이유', '4단계 직접 풀기'],
+    width: [140, 70, 130, 320, 110, 190, 340, 170],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '', d.keys || '', d.cnt || '',
+              d.pick || '', d.why || '', d.solved || ''];
+    }
+  },
+
+  europe: {
+    name: '유럽길찾기',
+    head: ['제출 시각', '분반', '모둠', '1단계 그래프 빈칸', '3단계 갈 수 있는 나라',
+           '4단계 지도에서 만든 길', '내가 찾은 길', '고른 이유',
+           '자기평가 1 · 추상화', '자기평가 2 · 상태 설정'],
+    width: [140, 70, 130, 200, 200, 300, 280, 300, 110, 130],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '', d.blanks || '', d.ops || '',
+              d.path || '', d.ans || '', d.why || '', d.rub1 || '', d.rub2 || ''];
+    }
+  },
+
+  town: {
+    name: '우리동네등굣길',
+    head: ['제출 시각', '분반', '모둠',
+           '너비우선 살펴본 곳', '너비우선 경로', '너비우선 시간(분)',
+           'A* 살펴본 곳', 'A* 경로', 'A* 시간(분)',
+           '어느 쪽이 효율적인가', '너비 우선이 필요한 때',
+           '자기평가 1 · 정보 이용', '자기평가 2 · 맹목적', '자기평가 3 · 차이점'],
+    width: [140, 70, 130, 110, 300, 110, 100, 320, 100, 320, 300, 120, 120, 120],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.bfsSeen || '', d.bfsPath || '', d.bfsTime || '',
+              d.aSeen || '', d.aPath || '', d.aTime || '',
+              d.why || '', d.when || '',
+              d.rub1 || '', d.rub2 || '', d.rub3 || ''];
     }
   }
 };
@@ -110,18 +153,13 @@ function out(obj) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-/** 연동이 잘 되는지 시험할 때 이 함수를 한 번 실행해 보세요. 두 탭에 한 줄씩 들어갑니다. */
+/** 연동이 잘 되는지 시험할 때 이 함수를 한 번 실행해 보세요. 탭마다 한 줄씩 들어갑니다. */
 function 테스트한줄넣기() {
-  doPost({ postData: { contents: JSON.stringify({
-    key: SUBMIT_KEY, type: 'turing', cls: '점검', group: '연결 확인용',
-    members: '테스트', A: '테스트', B: '테스트', deliver: '테스트', crowd: '',
-    cpu: '학생 A · 테스트', rounds: 0, voteA: 0, voteB: 0, rate: '',
-    guess: '', correct: '', why: '', d1: '', d2: '', rub1: '', rub2: '',
-    log: '(연결 확인용 한 줄입니다. 확인 후 지우세요.)'
-  }) } });
-  doPost({ postData: { contents: JSON.stringify({
-    key: SUBMIT_KEY, type: 'design', cls: '점검', group: '연결 확인용',
-    filled: 0, verdict: '', f1: '(연결 확인용 한 줄입니다. 확인 후 지우세요.)',
-    f2: '', f3: '', types: '', f4: '', f5: '', f6: '', f7: ''
-  }) } });
+  var note = '(연결 확인용 한 줄입니다. 확인 후 지우세요.)';
+  ['turing', 'design', 'puzzle', 'europe', 'town'].forEach(function (t) {
+    doPost({ postData: { contents: JSON.stringify({
+      key: SUBMIT_KEY, type: t, cls: '점검', group: '연결 확인용',
+      members: note, why: note, f1: note, ans: note, keys: note, bfsPath: note
+    }) } });
+  });
 }

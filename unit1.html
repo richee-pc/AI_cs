@@ -580,6 +580,136 @@ pre .s{color:var(--good)}
 .imgrow img{width:100%}
 .imgrow figcaption{font-size:12.5px; margin-top:6px}
 
+/* ── 한 걸음씩 보는 탐색 ─────────────────── */
+.simbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px 24px; box-shadow:var(--sh); margin-bottom:14px}
+.simbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:23px; color:var(--blue-d); margin:0 0 7px}
+.simbox .desc{font-size:15.5px; color:var(--ink2); margin:0; line-height:1.7}
+.stage2{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:22px; box-shadow:var(--sh)}
+.canvasarea{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:16px}
+.tsvg{display:block; width:100%; min-width:460px; height:auto}
+.narr{font-family:var(--disp); font-weight:400; font-size:clamp(16px,2.5vw,20px); line-height:1.6;
+  background:var(--blue-xl); border-radius:16px; padding:18px 20px; color:var(--ink);
+  min-height:78px; display:flex; align-items:center; margin-bottom:14px}
+.narr.fin{background:var(--good-bg); box-shadow:inset 0 0 0 2px var(--good)}
+.narr b{color:var(--blue-d)}
+.narr.fin b{color:var(--good)}
+.lists{display:grid; gap:9px}
+.lists .lst{max-height:none; margin:0; font-family:var(--sans); font-size:13.5px}
+
+/* 트리 */
+.tl{stroke:var(--line); stroke-width:2.5}
+.tn{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.tn.seen{fill:var(--blue-xl); stroke:var(--blue-l)}
+.tn.cur{fill:var(--fill); stroke:var(--fill-d)}
+.tt{font-family:var(--disp); font-size:18px; fill:var(--ink2); text-anchor:middle}
+.tt.on{fill:var(--blue-d)}
+.tn.cur+.tt.on{fill:var(--on-fill)}
+.tnum{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--warm); text-anchor:middle}
+
+/* 미니 8-퍼즐 */
+.pz3{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; width:60px; margin:4px auto}
+.pz3 i{font-style:normal; font-family:var(--mono); font-size:11px; font-weight:700;
+  line-height:18px; text-align:center; background:#F2D9A8; color:#5A3A0A; border-radius:3px}
+.pz3 i.e{background:var(--white); box-shadow:inset 0 0 0 1px var(--line)}
+@media (prefers-color-scheme:dark){.pz3 i{background:#C9A365; color:#2A1A02} .pz3 i.e{background:#1B3550}}
+:root[data-theme="dark"] .pz3 i{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pz3 i.e{background:#1B3550}
+:root[data-theme="light"] .pz3 i{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pz3 i.e{background:#FFFFFF}
+
+.btree{display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:8px; min-width:560px}
+.bnode{background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:6px 4px; text-align:center; transition:.15s}
+.bnode>b{display:block; font-family:var(--disp); font-weight:400; font-size:15px; color:var(--ink2)}
+.bnode>em{display:block; font-style:normal; font-size:11.5px; font-weight:800; color:var(--muted)}
+.bnode.open{border-color:var(--blue-l); background:var(--blue-xl)}
+.bnode.open>b, .bnode.open>em{color:var(--blue-d)}
+.bnode.closed{border-color:var(--muted); opacity:.55}
+.bnode.cur{border-color:var(--good); background:var(--good-bg); box-shadow:0 0 0 3px var(--good-bg)}
+.bnode.cur>b, .bnode.cur>em{color:var(--good)}
+
+/* 유럽 지도 */
+.el{stroke:var(--line); stroke-width:2.5}
+.el.hit{stroke:var(--good); stroke-width:5}
+.ew{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.en{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.en.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.en.seen{fill:var(--blue-l); stroke:var(--blue-d)}
+.en.cur{fill:var(--fill); stroke:var(--fill-d)}
+.et{font-family:var(--sans); font-size:12.5px; font-weight:700; fill:var(--ink2); text-anchor:middle}
+.et.on{fill:var(--on-fill)}
+.eh{font-family:var(--mono); font-size:10.5px; fill:var(--muted); text-anchor:middle}
+table.ftab{min-width:420px; font-size:13.5px}
+table.ftab th span{display:block; font-size:10.5px; font-weight:600; color:var(--muted)}
+table.ftab tr.pick td{background:var(--good-bg)}
+table.ftab tr.pick td b{color:var(--good)}
+
+/* ── 8-퍼즐 · 탐색 활동 ───────────────────── */
+.pzwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.pzside{flex:1 1 250px; min-width:230px}
+.pzbig{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; max-width:250px; margin:0 auto}
+.pzbig.sm{max-width:190px; gap:5px}
+.pc{display:flex; align-items:center; justify-content:center; aspect-ratio:1;
+  font-family:var(--disp); font-weight:400; font-size:clamp(22px,5vw,32px);
+  background:#F2D9A8; color:#5A3A0A; border:2px solid transparent; border-radius:12px;
+  cursor:default; transition:.12s}
+.pc.e{background:var(--tint); box-shadow:inset 0 0 0 2px var(--line)}
+.pc.can{cursor:pointer; border-color:#C99A3C}
+.pc.can:hover{transform:scale(1.05); border-color:var(--blue)}
+.pc.can:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.pc.fit{box-shadow:inset 0 0 0 3px var(--good)}
+.pc.tip{border-color:var(--blue); box-shadow:0 0 0 4px var(--blue-xl)}
+.pc[disabled]{opacity:1}
+.pzbig.goal .pc{opacity:.85}
+@media (prefers-color-scheme:dark){.pc{background:#C9A365; color:#2A1A02} .pc.can{border-color:#8A6A28}}
+:root[data-theme="dark"] .pc{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pc.can{border-color:#8A6A28}
+:root[data-theme="light"] .pc{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pc.can{border-color:#C99A3C}
+.pzstat{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:12px;
+  font-size:14.5px; color:var(--ink2)}
+.pzstat b{font-family:var(--mono); font-size:17px; color:var(--blue-d)}
+.pzbar{height:10px; border-radius:99px; background:var(--line); overflow:hidden; margin-top:10px}
+.pzbar>i{display:block; height:100%; width:50%; background:var(--fill); border-radius:99px; transition:width .25s}
+.pzbar>i.full{background:var(--good)}
+
+/* 키워드 띠 */
+.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px; margin:0 0 20px}
+.kw{background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:14px; padding:11px 13px}
+.kw>b{display:block; font-family:var(--disp); font-weight:400; font-size:17px; color:var(--blue-d)}
+.kw>span{display:block; font-size:12.5px; color:var(--ink2); line-height:1.5; margin-top:2px}
+
+/* 수행 작업 비교 */
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.cmpc{font-family:var(--sans); background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:14px; cursor:pointer; transition:.15s}
+.cmpc:hover{border-color:var(--blue-l)}
+.cmpc:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cmpc>b{display:block; font-size:15px; font-weight:600; color:var(--ink2); margin-bottom:9px}
+.cmpc .pzbig{max-width:130px}
+.cmpc>em{display:block; font-style:normal; margin-top:9px; font-size:14px; font-weight:800; color:var(--blue-d)}
+.cmpc[data-on]{border-color:var(--good); background:var(--good-bg)}
+.cmpc[data-on]>em{color:var(--good)}
+
+/* 내가 만든 탐색 트리 */
+.dstrail{display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start}
+.dsnode{background:var(--tint); border:2px solid var(--line); border-radius:12px; padding:6px 5px; text-align:center}
+.dsnode>b{display:block; font-size:11.5px; font-weight:800; color:var(--ink2)}
+.dsnode>em{display:block; font-style:normal; font-size:11.5px; font-weight:800; color:var(--blue-d)}
+
+/* 그래프 빈칸 */
+.en.blank{fill:var(--warm-bg); stroke:var(--warm); stroke-dasharray:5 4}
+.blanks{display:grid; gap:9px; margin:14px 0}
+.blankrow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:11px 15px}
+.blankrow>b{font-family:var(--disp); font-weight:400; font-size:16px; color:var(--blue-d); min-width:74px}
+.pathbar{font-family:var(--disp); font-weight:400; font-size:clamp(17px,2.8vw,22px);
+  background:var(--blue-xl); border-radius:14px; padding:15px 18px; text-align:center;
+  color:var(--blue-d); margin:14px 0}
+
 footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
 footer a{font-weight:700}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
@@ -596,7 +726,7 @@ footer a{font-weight:700}
   <span class="sep"></span>
   <a href="#slides">슬라이드</a>
   <a href="#act">수업 활동</a>
-  <a href="#sim">시뮬레이터</a>
+  <a href="#sim">탐색 시뮬레이터</a>
   <a href="#code">코드</a>
   <a href="#check">확인 문제</a>
 </div></div></nav>
@@ -610,7 +740,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>4<span style="font-size:16px"> 개</span></b><span>수업 활동 · 시뮬레이터 3</span></div>
+    <div class="fact"><b>8<span style="font-size:16px"> 개</span></b><span>수업 활동 · 탐색 시뮬레이터 4</span></div>
   </div>
 </div></div>
 
@@ -712,6 +842,10 @@ footer a{font-weight:700}
     <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트 진행판</button>
     <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01 · 10분</i>네 가지 특성 찾기</button>
     <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 22분</i>AI 해결안 설계</button>
+    <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-03 · 10분</i>8-퍼즐 도전</button>
+    <button class="atab" role="tab" data-act="5" aria-selected="false"><i>Ⅰ-03 · 20분</i>탐색 과정 설계</button>
+    <button class="atab" role="tab" data-act="6" aria-selected="false"><i>Ⅰ-03 · 25분</i>유럽 여행 길찾기</button>
+    <button class="atab" role="tab" data-act="7" aria-selected="false"><i>Ⅰ-04 · 25분</i>우리 동네 등굣길</button>
   </div>
 
   <!-- ① AI 판별 게임 -->
@@ -994,96 +1128,372 @@ footer a{font-weight:700}
     <p class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 <b>1분</b> 안에 발표합니다.
       3번(무엇을 판단하나)과 4번(어떤 데이터로)은 꼭 말해 주세요.</p>
   </div>
+  <!-- ⑤ 8-퍼즐 도전 -->
+  <div class="actbox" data-panel="4" hidden>
+    <h3>⑤ 8-퍼즐 도전 <span class="tm">10분 · 개인 또는 짝</span></h3>
+    <p class="desc">교과서 24쪽에 나오는 <b>바로 그 숫자판</b>입니다.
+      빈칸 <b>옆에 있는 숫자</b>를 누르면 빈칸으로 미끄러져 들어갑니다.
+      목표 숫자판과 똑같이 만들어 보세요. <b>4번</b>이면 풀 수 있습니다!</p>
+
+    <div class="pzwrap">
+      <div class="pzside">
+        <h4 class="mini-h">지금 판</h4>
+        <div class="pzbig" id="pzBoard"></div>
+        <div class="pzstat">
+          <span>맞은 칸 <b id="pzFit">4</b> / 8</span>
+          <span>움직인 횟수 <b id="pzMoves">0</b></span>
+        </div>
+        <div class="pzbar"><i id="pzBar"></i></div>
+      </div>
+      <div class="pzside">
+        <h4 class="mini-h">목표 숫자판</h4>
+        <div class="pzbig goal" id="pzGoal"></div>
+        <p class="note" style="margin-top:12px; font-size:14px"><b>빈칸이 가운데</b>인 것에 주의하세요.
+          교과서 목표 숫자판은 <b>1 2 3 / 4 □ 5 / 6 7 8</b> 입니다.</p>
+      </div>
+    </div>
+    <div class="simctl" style="margin-top:16px">
+      <button type="button" class="mini gh" id="pzUndo">한 수 무르기</button>
+      <button type="button" class="mini gh" id="pzReset">처음으로</button>
+      <button type="button" class="mini" id="pzHint">힌트 (다음 한 수)</button>
+      <span class="scorepill" id="pzMsg">눌러서 시작하세요</span>
+    </div>
+    <p class="ask" style="margin-top:14px"><b>풀고 나서</b> 방금 여러분이 한 일이 바로 <b>탐색</b>입니다.
+      머릿속에서 «이걸 옮기면 가까워질까?»를 따져 봤지요? 컴퓨터도 똑같이 합니다.</p>
+  </div>
+
+  <!-- ⑥ 탐색 과정 설계 4단계 -->
+  <div class="actbox" data-panel="5" hidden>
+    <h3>⑥ 탐색 과정 설계 4단계 <span class="tm">20분 · 선생님과 함께</span></h3>
+    <p class="desc">교과서 24~25쪽입니다. <b>선생님이 왼쪽 낱말을 설명하면</b>
+      여러분은 <b>오른쪽 칸을 채우며</b> 따라옵니다.</p>
+
+    <div class="kwrow" id="kwRow">
+      <div class="kw" data-kw="1"><b>초기 상태</b><span>문제가 주어진 시점</span></div>
+      <div class="kw" data-kw="2"><b>목표 상태</b><span>문제가 해결된 시점</span></div>
+      <div class="kw" data-kw="3"><b>수행 작업</b><span>다음 상태로 가는 한 수</span></div>
+      <div class="kw" data-kw="4"><b>상태 공간</b><span>나올 수 있는 모든 상태</span></div>
+      <div class="kw" data-kw="4"><b>탐색 트리</b><span>상태를 가지처럼 이은 그림</span></div>
+    </div>
+
+    <ol class="wiz" id="dsWiz">
+      <li data-s="1" class="on">문제 정의</li>
+      <li data-s="2">상태 설정</li>
+      <li data-s="3">수행 작업</li>
+      <li data-s="4">직접 풀기</li>
+    </ol>
+
+    <div class="tstep" data-ds="1">
+      <h4 class="step-h">1단계 · 문제에서 <b>핵심 요소</b>만 뽑아내기</h4>
+      <p class="desc">문제 설명에서 <b>꼭 필요한 것</b>만 골라 보세요. 여러 개 고를 수 있습니다.</p>
+      <div class="cards" id="dsKey"></div>
+      <div class="simctl"><button type="button" class="mini" id="dsKeyChk">확인하기</button>
+        <span class="scorepill" id="dsKeyMsg" hidden></span></div>
+      <div class="ask" style="margin-top:14px"><b>정리</b> 우리가 풀 문제는 —
+        「<b>8개의 숫자</b>와 <b>1개의 빈칸</b>을 이용해 <b>한 번에 1개씩</b> 옮겨서
+        완성된 숫자판을 만드는 것」입니다.</div>
+    </div>
+
+    <div class="tstep" data-ds="2" hidden>
+      <h4 class="step-h">2단계 · <b>초기 상태</b>와 <b>목표 상태</b> 정하기</h4>
+      <div class="pzwrap">
+        <div class="pzside"><h4 class="mini-h">초기 상태 (주어진 숫자판)</h4>
+          <div class="pzbig sm" id="dsInit"></div></div>
+        <div class="pzside"><h4 class="mini-h">목표 상태 (완성된 숫자판)</h4>
+          <div class="pzbig sm goal" id="dsGoal"></div></div>
+      </div>
+      <label class="fld" style="margin-top:16px"><span>초기 상태에서 목표와 <b>맞은 숫자 칸</b>은 몇 개일까요?</span>
+        <span class="pick" id="dsCnt">
+          <button type="button" data-n="2" aria-pressed="false">2개</button>
+          <button type="button" data-n="3" aria-pressed="false">3개</button>
+          <button type="button" data-n="4" aria-pressed="false">4개</button>
+          <button type="button" data-n="5" aria-pressed="false">5개</button>
+        </span></label>
+      <div class="ask" id="dsCntMsg" hidden></div>
+    </div>
+
+    <div class="tstep" data-ds="3" hidden>
+      <h4 class="step-h">3단계 · 어느 <b>수행 작업</b>을 고를까?</h4>
+      <p class="desc">초기 상태에서 움직일 수 있는 숫자는 <b>2</b> 와 <b>1</b> 두 개입니다.
+        어느 쪽이 목표에 <b>가까워지는</b> 수일까요?</p>
+      <div class="cmp" id="dsCmp"></div>
+      <div class="ask" id="dsCmpMsg" hidden></div>
+      <label style="display:block; margin-top:16px"><span class="fld"><span>왜 그렇게 골랐나요?</span></span>
+        <textarea id="dsWhy" rows="2" placeholder="예) 1을 옮기면 맞은 칸이 4개에서 5개로 늘어나기 때문이다"
+          style="width:100%; font-family:var(--sans); font-size:15px; line-height:1.65; color:var(--ink);
+          background:var(--tint); border:2px solid var(--line); border-radius:13px; padding:11px 14px; resize:vertical"></textarea></label>
+    </div>
+
+    <div class="tstep" data-ds="4" hidden>
+      <h4 class="step-h">4단계 · <b>직접 풀어서</b> 탐색 트리 만들기</h4>
+      <p class="desc">이제 여러분이 컴퓨터입니다. <b>맞은 칸이 늘어나는 쪽</b>으로만 움직여
+        목표까지 가 보세요. 움직일 때마다 아래에 <b>탐색 트리</b>가 자라납니다.</p>
+      <div class="pzwrap">
+        <div class="pzside"><h4 class="mini-h">지금 판</h4>
+          <div class="pzbig sm" id="dsBoard"></div>
+          <div class="pzstat"><span>맞은 칸 <b id="dsFit">4</b> / 8</span></div></div>
+        <div class="pzside"><h4 class="mini-h">내가 만든 탐색 트리</h4>
+          <div class="dstrail" id="dsTrail"></div></div>
+      </div>
+      <div class="simctl" style="margin-top:14px">
+        <button type="button" class="mini gh" id="dsUndo">한 수 무르기</button>
+        <button type="button" class="mini gh" id="dsRe">처음으로</button>
+        <span class="scorepill" id="dsMsg">숫자를 눌러 보세요</span>
+      </div>
+    </div>
+
+    <div class="frow" style="margin-top:20px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="dsCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 (또는 이름)</span>
+        <input type="text" id="dsGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+    </div>
+    <div class="ttnav">
+      <button type="button" class="mini gh" id="dsPrev">← 이전</button>
+      <span class="sendmsg" id="dsSendMsg"></span>
+      <button type="button" class="mini gh" id="dsNext">다음 →</button>
+      <button type="button" class="mini" id="dsSend">선생님께 제출하기</button>
+    </div>
+  </div>
+
+  <!-- ⑦ 유럽 여행 길찾기 -->
+  <div class="actbox" data-panel="6" hidden>
+    <h3>⑦ 유럽 여행 길찾기 <span class="tm">25분 · 모둠</span></h3>
+    <p class="desc">교과서 26~27쪽 활동입니다. <b>스페인에서 오스트리아까지</b>,
+      거쳐 가는 나라가 <b>가장 적은</b> 길을 찾아봅시다. 파란 선으로 이어진 나라끼리만 갈 수 있어요.</p>
+
+    <ol class="wiz" id="euWiz">
+      <li data-s="1" class="on">문제 정의</li>
+      <li data-s="2">상태 설정</li>
+      <li data-s="3">수행 작업</li>
+      <li data-s="4">길 찾기</li>
+      <li data-s="5">정리·제출</li>
+    </ol>
+
+    <div class="tstep" data-eu="1">
+      <h4 class="step-h">1단계 · 지도를 <b>그래프</b>로 바꾸기</h4>
+      <p class="desc">복잡한 지도를 <b>점과 선</b>으로 간단히 그린 것을 <b>그래프</b>라고 합니다.
+        빈칸에 들어갈 나라를 골라 보세요.</p>
+      <div class="canvasarea" id="euGraph"></div>
+      <div class="blanks" id="euBlanks"></div>
+      <div class="simctl"><button type="button" class="mini" id="euChk">확인하기</button>
+        <span class="scorepill" id="euChkMsg" hidden></span></div>
+    </div>
+
+    <div class="tstep" data-eu="2" hidden>
+      <h4 class="step-h">2단계 · <b>초기 상태</b>와 <b>목표 상태</b> 정하기</h4>
+      <div class="g2">
+        <div class="card"><h4>초기 상태</h4>
+          <p class="big" style="margin:6px 0">스페인 🇪🇸</p>
+          <p style="font-size:14.5px; color:var(--ink2)">출발하는 곳. 문제가 주어진 시점입니다.</p></div>
+        <div class="card"><h4>목표 상태</h4>
+          <p class="big" style="margin:6px 0">오스트리아 🇦🇹</p>
+          <p style="font-size:14.5px; color:var(--ink2)">도착하는 곳. 여기 닿으면 문제가 풀린 것입니다.</p></div>
+      </div>
+      <div class="note" style="margin-top:14px"><b>왜 이걸 정할까?</b>
+        어디서 출발해서 어디로 가는지가 정해져야 «가까워졌는지»를 따질 수 있습니다.
+        8-퍼즐에서 «맞은 칸 수»를 셌던 것과 같은 이치예요.</div>
+    </div>
+
+    <div class="tstep" data-eu="3" hidden>
+      <h4 class="step-h">3단계 · 한 번에 갈 수 있는 <b>수행 작업</b> 찾기</h4>
+      <p class="desc">스페인에서 <b>한 번에</b> 갈 수 있는 나라를 모두 골라 보세요.</p>
+      <div class="cards" id="euOps"></div>
+      <div class="simctl"><button type="button" class="mini" id="euOpsChk">확인하기</button>
+        <span class="scorepill" id="euOpsMsg" hidden></span></div>
+    </div>
+
+    <div class="tstep" data-eu="4" hidden>
+      <h4 class="step-h">4단계 · 나라를 <b>순서대로 눌러</b> 길을 만들기</h4>
+      <p class="desc">스페인에서 시작해서 이어진 나라를 차례로 누르세요.
+        <b>가장 적은 나라</b>를 거쳐 오스트리아에 닿으면 성공입니다.</p>
+      <div class="canvasarea" id="euMap"></div>
+      <div class="pathbar" id="euPath">스페인</div>
+      <div class="simctl">
+        <button type="button" class="mini gh" id="euBack">한 나라 지우기</button>
+        <button type="button" class="mini gh" id="euRe">처음으로</button>
+        <span class="scorepill" id="euMsg">스페인에서 출발!</span>
+      </div>
+    </div>
+
+    <div class="tstep" data-eu="5" hidden>
+      <h4 class="step-h">5단계 · 정리하고 제출하기</h4>
+      <div class="wsheet">
+        <label>내가 찾은 길
+          <textarea id="euAns" rows="2" placeholder="예) 스페인 → 프랑스 → 독일 → 체코 → 오스트리아"></textarea></label>
+        <label>이 길을 고른 이유는 무엇인가요?
+          <textarea id="euWhy" rows="2" placeholder="예) 다른 길로 가면 나라를 더 많이 거쳐야 해서"></textarea></label>
+      </div>
+      <h4 class="step-h" style="margin-top:22px">스스로 평가하기</h4>
+      <div class="rubric" id="euRub"></div>
+      <div class="frow" style="margin-top:18px">
+        <label class="fld"><span>분반</span>
+          <span class="pick" id="euCls">
+            <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+            <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+            <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+          </span></label>
+        <label class="fld grow"><span>모둠 (또는 이름)</span>
+          <input type="text" id="euGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+      </div>
+      <div class="simctl" style="margin-top:14px">
+        <button type="button" class="mini" id="euSend">선생님께 제출하기</button>
+        <button type="button" class="mini gh" id="euCopy">내용 복사</button>
+        <span class="sendmsg" id="euSendMsg"></span>
+      </div>
+    </div>
+
+    <div class="ttnav">
+      <button type="button" class="mini gh" id="euPrev">← 이전</button>
+      <span class="saved">적은 내용은 이 기기에 자동 저장됩니다</span>
+      <button type="button" class="mini" id="euNext">다음 →</button>
+    </div>
+  </div>
+
+  <!-- ⑧ 우리 동네 등굣길 -->
+  <div class="actbox" data-panel="7" hidden>
+    <h3>⑧ 우리 동네 등굣길 <span class="tm">25분 · 모둠</span></h3>
+    <p class="desc">교과서 38~39쪽 활동을 <b>우리 동네 지도</b>로 바꿨습니다.
+      집에서 학교까지, 숫자는 <b>걸리는 시간(분)</b>입니다.
+      <b>너비 우선 탐색</b>과 <b>A* 알고리즘</b>으로 각각 풀어 보고 무엇이 다른지 비교합니다.</p>
+
+    <ol class="wiz" id="rbWiz">
+      <li data-s="1" class="on">문제 정의</li>
+      <li data-s="2">너비 우선</li>
+      <li data-s="3">A* 알고리즘</li>
+      <li data-s="4">비교·제출</li>
+    </ol>
+
+    <div class="tstep" data-rb="1">
+      <h4 class="step-h">1단계 · 문제 정의하기</h4>
+      <div class="canvasarea" id="rbMap1"></div>
+      <div class="g3">
+        <div class="card"><h4>초기 상태</h4><p class="big" style="margin:4px 0">집 🏠</p></div>
+        <div class="card"><h4>목표 상태</h4><p class="big" style="margin:4px 0">학교 🏫</p></div>
+        <div class="card"><h4>수행 작업</h4><p style="font-size:15px; margin:4px 0">이어진 길로 <b>한 칸 이동</b></p></div>
+      </div>
+      <div class="note"><b>h(n) 은 무엇일까?</b> 각 장소 아래 작은 숫자는
+        <b>학교까지 직선으로 잰 시간</b>입니다. 실제로 그렇게 갈 수는 없지만,
+        «대충 이만큼 남았겠구나»를 알려 주는 <b>힌트</b>입니다.</div>
+    </div>
+
+    <div class="tstep" data-rb="2" hidden>
+      <h4 class="step-h">2단계 · <b>너비 우선 탐색</b>으로 풀기</h4>
+      <p class="desc">가까운 곳부터 <b>차례차례 전부</b> 살펴봅니다. 힌트는 쓰지 않아요.
+        «한 걸음 더»를 누르며 <b>몇 군데를 보는지</b> 세어 보세요.</p>
+      <div class="canvasarea" id="rbMap2"></div>
+      <div class="narr" id="rbNarr2">«한 걸음 더»를 눌러 시작하세요.</div>
+      <div class="simctl">
+        <button type="button" class="mini" id="rbStep2">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="rbRe2">처음으로</button>
+        <span class="scorepill" id="rbCnt2">0 군데</span>
+      </div>
+    </div>
+
+    <div class="tstep" data-rb="3" hidden>
+      <h4 class="step-h">3단계 · <b>A* 알고리즘</b>으로 풀기</h4>
+      <p class="desc">이번에는 <b>힌트(h)를 함께</b> 씁니다. <b>f = g + h</b> 가 가장 작은 곳부터 갑니다.</p>
+      <div class="canvasarea" id="rbMap3"></div>
+      <div class="narr" id="rbNarr3">«한 걸음 더»를 눌러 시작하세요.</div>
+      <div class="simctl">
+        <button type="button" class="mini" id="rbStep3">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="rbRe3">처음으로</button>
+        <span class="scorepill" id="rbCnt3">0 군데</span>
+      </div>
+      <div id="rbTab3"></div>
+    </div>
+
+    <div class="tstep" data-rb="4" hidden>
+      <h4 class="step-h">4단계 · 두 방법 비교하고 제출하기</h4>
+      <div class="tw"><table id="rbCmp"></table></div>
+      <div class="wsheet" style="margin-top:16px">
+        <label>어느 쪽이 더 <b>효율적</b>이라고 생각하나요? 왜 그런가요?
+          <textarea id="rbWhy" rows="3" placeholder="예) A*는 힌트를 써서 엉뚱한 곳을 덜 봤기 때문에 더 빠르다"></textarea></label>
+        <label>그런데도 <b>너비 우선 탐색</b>을 쓸 때가 있을까요? 언제일까요?
+          <textarea id="rbWhen" rows="2" placeholder="예) 힌트를 만들 수 없을 때, 또는 장소가 몇 개 안 될 때"></textarea></label>
+      </div>
+      <h4 class="step-h" style="margin-top:22px">스스로 평가하기</h4>
+      <div class="rubric" id="rbRub"></div>
+      <div class="frow" style="margin-top:18px">
+        <label class="fld"><span>분반</span>
+          <span class="pick" id="rbCls">
+            <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+            <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+            <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+          </span></label>
+        <label class="fld grow"><span>모둠 (또는 이름)</span>
+          <input type="text" id="rbGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+      </div>
+      <div class="simctl" style="margin-top:14px">
+        <button type="button" class="mini" id="rbSend">선생님께 제출하기</button>
+        <button type="button" class="mini gh" id="rbCopy">내용 복사</button>
+        <span class="sendmsg" id="rbSendMsg"></span>
+      </div>
+    </div>
+
+    <div class="ttnav">
+      <button type="button" class="mini gh" id="rbPrev">← 이전</button>
+      <span class="saved">적은 내용은 이 기기에 자동 저장됩니다</span>
+      <button type="button" class="mini" id="rbNext">다음 →</button>
+    </div>
+  </div>
 </div></section>
 
 <section id="sim"><div class="wrap">
-  <p class="eyebrow">직접 해 보기</p>
-  <h2>탐색 시뮬레이터</h2>
-  <p class="sub">교과서에 나온 문제를 그대로 움직여 봅니다.
-    <b>한 단계씩</b> 눌러 가며 OPEN·CLOSED 리스트가 어떻게 변하는지 보세요.</p>
+  <p class="eyebrow">한 걸음씩 보는 탐색</p>
+  <h2>네 가지 탐색, 직접 눌러 보기</h2>
+  <p class="sub">교과서 30~34쪽에 나오는 <b>바로 그 예제</b>입니다.
+    <b>«한 걸음 더»</b>를 누를 때마다 컴퓨터가 딱 한 칸씩 움직입니다.
+    아래 설명을 소리 내어 읽으면서 따라가 보세요.</p>
 
-  <!-- ① 격자 길찾기 -->
-  <div class="sim">
-    <h3>① 길 찾기 ― 세 알고리즘 비교</h3>
-    <p class="desc">교과서 43~47쪽과 <b>똑같은 5×7 격자</b>입니다. 출발 (0,0) → 목표 (3,6),
-      회색은 장애물. 알고리즘을 바꿔 가며 <b>방문한 칸 수</b>를 비교해 보세요.</p>
+  <div class="actbar" role="tablist" aria-label="탐색 방법 선택">
+    <button class="atab" role="tab" data-sim="0" aria-selected="true"><i>맹목적 탐색</i>깊이 우선</button>
+    <button class="atab" role="tab" data-sim="1" aria-selected="false"><i>맹목적 탐색</i>너비 우선</button>
+    <button class="atab" role="tab" data-sim="2" aria-selected="false"><i>정보 이용 탐색</i>최상 우선</button>
+    <button class="atab" role="tab" data-sim="3" aria-selected="false"><i>정보 이용 탐색</i>A* 알고리즘</button>
+  </div>
+
+  <div class="simbox" data-sim-panel="0">
+    <h3>깊이 우선 탐색 <span class="tm">교과서 30쪽</span></h3>
+    <p class="desc"><b>일단 끝까지 내려간다!</b> 갈 수 있는 데까지 쭉 내려갔다가,
+      막히면 갈림길로 되돌아와서 다른 길로 갑니다. 미로에서 한쪽 벽만 짚고 가는 것과 비슷해요.</p>
+  </div>
+  <div class="simbox" data-sim-panel="1" hidden>
+    <h3>너비 우선 탐색 <span class="tm">교과서 30쪽</span></h3>
+    <p class="desc"><b>같은 층부터 싹 훑는다!</b> 한 층을 전부 본 다음에야 아래층으로 내려갑니다.
+      가까운 곳부터 차례차례 찾는 방법이에요.</p>
+  </div>
+  <div class="simbox" data-sim-panel="2" hidden>
+    <h3>최상 우선 탐색 <span class="tm">교과서 32쪽</span></h3>
+    <p class="desc"><b>제일 좋아 보이는 것부터!</b> 목표에 가장 가까워 보이는 것을 먼저 골라 갑니다.
+      여기서는 <b>맞은 숫자 칸이 많을수록</b> 좋은 것으로 봅니다.</p>
+  </div>
+  <div class="simbox" data-sim-panel="3" hidden>
+    <h3>A* 알고리즘 <span class="tm">교과서 34쪽</span></h3>
+    <p class="desc"><b>지금까지 온 거리 + 앞으로 갈 거리!</b> 둘을 <b>더해서</b> 가장 작은 곳부터 갑니다.
+      최상 우선 탐색이 «앞»만 봤다면, A*는 «뒤»도 같이 봅니다.</p>
+  </div>
+
+  <div class="stage2">
+    <div class="canvasarea" id="simCanvas"></div>
+    <div class="narr" id="simNarr">«처음으로»를 누르고 시작하세요.</div>
     <div class="simctl">
-      <span class="pick" id="algPick">
-        <button type="button" data-alg="bfs" aria-pressed="true">너비 우선</button>
-        <button type="button" data-alg="best" aria-pressed="false">최상 우선</button>
-        <button type="button" data-alg="astar" aria-pressed="false">A*</button>
-      </span>
-      <button type="button" class="mini" id="gStep">한 단계</button>
-      <button type="button" class="mini" id="gRun">자동 실행</button>
-      <button type="button" class="mini gh" id="gReset">처음부터</button>
+      <button type="button" class="mini gh" id="simReset">처음으로</button>
+      <button type="button" class="mini" id="simStep">한 걸음 더 →</button>
+      <button type="button" class="mini gh" id="simAll">끝까지 보기</button>
+      <span class="scorepill" id="simCount">0 걸음</span>
     </div>
-    <div class="gridwrap">
-      <div class="gsvg"><svg id="gridSvg" class="cellg" viewBox="0 0 350 250" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="legend2">
-          <span><i style="background:var(--tint)"></i>빈 칸</span>
-          <span><i style="background:#7d8ba0"></i>장애물</span>
-          <span><i style="background:#BFE3B4"></i>OPEN</span>
-          <span><i style="background:#F6C7A8"></i>CLOSED</span>
-          <span><i style="background:var(--fill)"></i>최종 경로</span>
-        </div>
-      </div>
-      <div class="gside">
-        <dl class="stat">
-          <dt>단계</dt><dd id="gStepN">0</dd>
-          <dt>방문(CLOSED)</dt><dd id="gVisit">0</dd>
-          <dt>경로 길이</dt><dd id="gLen">—</dd>
-          <dt>상태</dt><dd id="gState">대기</dd>
-        </dl>
-        <div class="lst"><b>OPEN — 아직 탐색 안 한 칸</b><span id="gOpen">(0,0)</span></div>
-        <div class="lst"><b>CLOSED — 탐색이 끝난 칸</b><span id="gClosed">(비어 있음)</span></div>
-      </div>
-    </div>
-    <p class="note" style="margin-top:16px"><b>무엇을 볼까.</b>
-      셋 다 경로는 찾습니다. 하지만 <b>몇 칸이나 헤맸는지</b>가 다릅니다.
-      너비 우선은 가까운 데부터 전부 훑고, 최상 우선은 목표 쪽으로만 달려가고,
-      A*는 «온 거리 + 남은 거리»를 함께 봅니다.</p>
+    <div class="lists" id="simLists"></div>
   </div>
 
-  <!-- ② 트리 순회 -->
-  <div class="sim">
-    <h3>② 트리 순회 ― 깊이 우선 vs 너비 우선</h3>
-    <p class="desc">교과서 30쪽의 A~G 트리입니다. 방문 순서를 한 칸씩 확인해 보세요.</p>
-    <div class="simctl">
-      <span class="pick" id="tPick">
-        <button type="button" data-t="dfs" aria-pressed="true">깊이 우선 (DFS)</button>
-        <button type="button" data-t="bfs" aria-pressed="false">너비 우선 (BFS)</button>
-      </span>
-      <button type="button" class="mini" id="tStep">한 단계</button>
-      <button type="button" class="mini gh" id="tReset">처음부터</button>
-    </div>
-    <figure style="margin:0"><svg id="treeSvg" viewBox="0 0 480 210" xmlns="http://www.w3.org/2000/svg"></svg>
-      <figcaption id="tOrder">방문 순서 —</figcaption></figure>
-  </div>
-
-  <!-- ③ 8-퍼즐 -->
-  <div class="sim">
-    <h3>③ 8-퍼즐 ― 평가 함숫값 체험</h3>
-    <p class="desc">빈칸 옆의 숫자를 눌러 옮깁니다. 목표와 <b>일치하는 칸 수</b>가 곧
-      최상 우선 탐색의 <b>평가 함숫값</b>입니다. 값이 커지는 쪽으로 움직여 보세요.</p>
-    <div class="gridwrap">
-      <div style="flex:0 0 auto"><div class="puz" id="puz"></div></div>
-      <div class="gside">
-        <dl class="stat">
-          <dt>평가 함숫값</dt><dd><span id="pScore">0</span> / 9</dd>
-          <dt>움직인 횟수</dt><dd id="pMove">0</dd>
-        </dl>
-        <p style="font-size:13.5px; color:var(--ink2); margin:0 0 12px">
-          목표 상태 — 1 2 3 / 4 5 6 / 7 8 <span style="color:var(--muted)">(빈칸)</span></p>
-        <div class="simctl" style="margin:0">
-          <button type="button" class="mini gh" id="pReset">처음 상태</button>
-          <button type="button" class="mini gh" id="pShuffle">섞기</button>
-        </div>
-      </div>
-    </div>
-    <p class="ask" id="pMsg" style="margin-top:16px"><b>해 보기</b> 몇 번 만에 9점을 만들 수 있을까요?</p>
-  </div>
+  <div class="note" style="margin-top:18px"><b>다 보고 나서 생각해 보기</b>
+    네 가지 방법 모두 <b>답은 찾습니다.</b> 다른 것은 <b>몇 군데를 들여다봤느냐</b>입니다.
+    걸음 수를 적어 두고 비교해 보세요.</div>
 </div></section>
-
 
 <section id="code"><div class="wrap">
   <p class="eyebrow">교과서 코드</p>
@@ -1678,7 +2088,7 @@ path = astar(grid, start, goal)
     '<div><b>리더보드</b><span>방문 노드 수가 <b>적을수록</b> 좋은 알고리즘</span></div>'+
     '</div>'+
     '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?<br>'+
-    '아래 <b>시뮬레이터</b>에서 직접 세어 볼 수 있습니다.</div>',
+    '위 <b>탐색 시뮬레이터</b>에서 한 걸음씩 눌러 세어 볼 수 있습니다.</div>',
 
     '<p class="kicker">Ⅰ-05 · 코드</p><h4>A* 알고리즘의 뼈대</h4>'+
     '<ul>'+
@@ -1793,193 +2203,918 @@ path = astar(grid, start, goal)
     if(ev.key==='ArrowRight'){ ev.preventDefault(); if(idx<DECKS[deck].slides.length-1){ idx++; render(); } }
     else if(ev.key==='ArrowLeft'){ ev.preventDefault(); if(idx>0){ idx--; render(); } }
   });
-  /* ═══════════ ① 격자 길찾기 시뮬레이터 ═══════════
-     교과서 43~47쪽과 동일한 격자 · 출발 (0,0) · 목표 (3,6) */
-  var GRID=[[0,0,0,0,0,0,0],[1,1,0,0,1,0,0],[1,0,0,0,0,0,0],[0,1,1,0,0,1,0],[0,0,0,0,0,0,0]];
-  var ROWS=GRID.length, COLS=GRID[0].length, START=[0,0], GOAL=[3,6];
-  var CS=46, PAD=6;
-  var alg='bfs', G=null, timer=null;
+  /* ══ 한 걸음씩 보는 탐색 시뮬레이터 4종 ═══════════════════ */
 
-  function key(r,c){ return r+','+c; }
-  function hman(r,c){ return Math.abs(r-GOAL[0])+Math.abs(c-GOAL[1]); }
-
-  function gInit(){
-    if(timer){ clearInterval(timer); timer=null; }
-    G={open:[[START[0],START[1]]], closed:[], came:{}, g:{}, step:0, done:false, path:null};
-    G.g[key(START[0],START[1])]=0;
-    G.came[key(START[0],START[1])]=null;
-    setState('대기');
-    gDraw();
+  var GOAL8 = [1,2,3,4,0,5,6,7,8];          // 교과서 목표 상태 (빈칸이 가운데)
+  function pz3(a, cls){
+    var h = '<div class="pz3 ' + (cls || '') + '">';
+    for(var i = 0; i < 9; i++) h += a[i] ? '<i>' + a[i] + '</i>' : '<i class="e"></i>';
+    return h + '</div>';
   }
-  function inOpen(r,c){ return G.open.some(function(n){ return n[0]===r&&n[1]===c; }); }
-  function inClosed(r,c){ return G.closed.some(function(n){ return n[0]===r&&n[1]===c; }); }
+  function fit8(a){ var n = 0; for(var i = 0; i < 9; i++) if(a[i] && a[i] === GOAL8[i]) n++; return n; }
 
-  function pickIdx(){
-    /* 알고리즘별로 OPEN에서 꺼낼 노드 고르기 */
-    if(alg==='bfs') return 0;                       // 먼저 들어온 것부터
-    var best=0, bv=Infinity;
-    for(var i=0;i<G.open.length;i++){
-      var n=G.open[i], v;
-      if(alg==='best') v=hman(n[0],n[1]);           // 남은 거리만
-      else v=(G.g[key(n[0],n[1])]||0)+hman(n[0],n[1]); // f = g + h
-      if(v<bv){ bv=v; best=i; }
+  /* ── 자료 : 교과서 30쪽 트리 (깊이·너비 우선) ── */
+  var TREE = {
+    A:{ kids:['B','C'], x:250, y:40 },
+    B:{ kids:['D','E'], x:130, y:130 }, C:{ kids:['F','G'], x:370, y:130 },
+    D:{ kids:[], x:70,  y:220 }, E:{ kids:[], x:190, y:220 },
+    F:{ kids:[], x:310, y:220 }, G:{ kids:[], x:430, y:220 }
+  };
+
+  /* ── 자료 : 교과서 32쪽 최상 우선 탐색 트리 ── */
+  var BEST = {
+    A:{ s:[0,2,3,1,7,5,4,6,8], p:null, kids:['B','C'] },
+    B:{ s:[2,0,3,1,7,5,4,6,8], p:'A',  kids:[] },
+    C:{ s:[1,2,3,0,7,5,4,6,8], p:'A',  kids:['D','E','F'] },
+    D:{ s:[0,2,3,1,7,5,4,6,8], p:'C',  kids:[] },
+    E:{ s:[1,2,3,7,0,5,4,6,8], p:'C',  kids:[] },
+    F:{ s:[1,2,3,4,7,5,0,6,8], p:'C',  kids:['G','H'] },
+    G:{ s:[1,2,3,0,7,5,4,6,8], p:'F',  kids:[] },
+    H:{ s:[1,2,3,4,7,5,6,0,8], p:'F',  kids:['L','M','N'] },
+    L:{ s:[1,2,3,4,7,5,0,6,8], p:'H',  kids:[] },
+    M:{ s:[1,2,3,4,0,5,6,7,8], p:'H',  kids:[] },
+    N:{ s:[1,2,3,4,7,5,6,8,0], p:'H',  kids:[] }
+  };
+  for(var bk in BEST) BEST[bk].v = fit8(BEST[bk].s);
+
+  /* ── 자료 : 교과서 34쪽 유럽 지도 (A*) ── */
+  var EU = {
+    '스페인':   { h:200, x:80,  y:250, to:{ '포르투갈':50, '프랑스':60 } },
+    '포르투갈': { h:170, x:30,  y:320, to:{ '스페인':50 } },
+    '프랑스':   { h:150, x:190, y:190, to:{ '스페인':60, '이탈리아':100, '스위스':80, '독일':100 } },
+    '이탈리아': { h:110, x:270, y:310, to:{ '프랑스':100 } },
+    '스위스':   { h:120, x:280, y:225, to:{ '프랑스':80 } },
+    '독일':     { h:90,  x:330, y:110, to:{ '프랑스':100, '체코':10, '폴란드':30 } },
+    '체코':     { h:40,  x:430, y:170, to:{ '독일':10, '오스트리아':10 } },
+    '폴란드':   { h:40,  x:470, y:80,  to:{ '독일':30 } },
+    '오스트리아':{ h:0,  x:410, y:255, to:{ '체코':10 } }
+  };
+
+  /* ── 걸음 만들기 ─────────────────────────────── */
+  function stepsDFS(){
+    var out = [], order = [], stack = [];
+    function go(n){
+      order.push(n); stack.push(n);
+      out.push({ cur:n, order:order.slice(), path:stack.slice(),
+        say: order.length === 1
+          ? 'A 에서 출발합니다. 아래로 갈 수 있으면 <b>계속 내려갑니다.</b>'
+          : '<b>' + n + '</b> 로 내려왔습니다.' });
+      var k = TREE[n].kids;
+      for(var i = 0; i < k.length; i++){
+        go(k[i]);
+        if(i < k.length - 1)
+          out.push({ cur:n, order:order.slice(), path:stack.slice(), back:true,
+            say: '더 갈 곳이 없어서 <b>' + n + '</b> 로 <b>되돌아왔습니다.</b> (백트래킹) 다른 길로 갑니다.' });
+      }
+      stack.pop();
     }
-    return best;
+    go('A');
+    out.push({ cur:null, order:order.slice(), path:[], done:true,
+      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다. 모두 <b>' + order.length + '</b> 군데를 봤어요.' });
+    return out;
   }
-  function gStepOnce(){
-    if(!G||G.done) return;
-    if(!G.open.length){ G.done=true; setState('경로 없음'); return; }
-    var i=pickIdx(), cur=G.open.splice(i,1)[0];
-    G.closed.push(cur); G.step++;
-    if(cur[0]===GOAL[0]&&cur[1]===GOAL[1]){
-      var p=[], k=key(cur[0],cur[1]);
-      while(k!==null&&k!==undefined){ p.unshift(k); k=G.came[k]; }
-      G.path=p; G.done=true; setState('경로 찾음!');
-      if(timer){ clearInterval(timer); timer=null; }
-      gDraw(); return;
+  function stepsBFS(){
+    var out = [], order = [], q = ['A'];
+    out.push({ cur:null, order:[], queue:q.slice(),
+      say: '<b>대기줄</b>에 A 를 넣고 시작합니다. 줄 맨 앞부터 하나씩 꺼내 봅니다.' });
+    while(q.length){
+      var n = q.shift();
+      order.push(n);
+      TREE[n].kids.forEach(function(k){ q.push(k); });
+      out.push({ cur:n, order:order.slice(), queue:q.slice(),
+        say: '<b>' + n + '</b> 를 꺼내 봤습니다.' +
+          (TREE[n].kids.length ? ' 자식 <b>' + TREE[n].kids.join(', ') + '</b> 를 대기줄 <b>뒤에</b> 세웁니다.'
+                               : ' 자식이 없어서 그냥 넘어갑니다.') });
     }
-    [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
-      var r=cur[0]+d[0], c=cur[1]+d[1];
-      if(r<0||c<0||r>=ROWS||c>=COLS||GRID[r][c]===1) return;
-      if(inClosed(r,c)||inOpen(r,c)) return;
-      G.came[key(r,c)]=key(cur[0],cur[1]);
-      G.g[key(r,c)]=(G.g[key(cur[0],cur[1])]||0)+1;
-      G.open.push([r,c]);
-    });
-    setState('탐색 중');
-    gDraw();
+    out.push({ cur:null, order:order.slice(), queue:[], done:true,
+      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다. <b>위층을 전부 본 뒤</b> 아래층으로 갔지요?' });
+    return out;
   }
-  function setState(t){ var e=document.getElementById('gState'); if(e) e.textContent=t; }
-
-  function gDraw(){
-    var svg=document.getElementById('gridSvg'); if(!svg||!G) return;
-    var s='';
-    for(var r=0;r<ROWS;r++) for(var c=0;c<COLS;c++){
-      var x=PAD+c*CS, y=PAD+r*CS, cls='free', lab='';
-      if(GRID[r][c]===1) cls='wall';
-      else if(G.path&&G.path.indexOf(key(r,c))>=0) cls='path';
-      else if(inClosed(r,c)) cls='closed';
-      else if(inOpen(r,c)) cls='open';
-      if(r===START[0]&&c===START[1]) { cls='se'; lab='출발'; }
-      if(r===GOAL[0]&&c===GOAL[1]) { cls=(G.path?'path':'se'); lab='목표'; }
-      s+='<rect class="'+cls+'" x="'+x+'" y="'+y+'" width="'+(CS-4)+'" height="'+(CS-4)+'" rx="7"/>';
-      var on=(cls==='se'||cls==='path'||cls==='wall')?' on':'';
-      if(lab) s+='<text class="on" x="'+(x+(CS-4)/2)+'" y="'+(y+26)+'">'+lab+'</text>';
-      else if(GRID[r][c]===0 && alg!=='bfs' && !G.path)
-        s+='<text class="'+on.trim()+'" x="'+(x+(CS-4)/2)+'" y="'+(y+26)+'">'+hman(r,c)+'</text>';
+  function stepsBest(){
+    var out = [], open = ['A'], closed = [], seen = { A:1 };
+    out.push({ open:open.slice(), closed:[], cur:null,
+      say: '시작! 아직 안 열어 본 것을 담는 <b>OPEN</b> 에 A 를 넣습니다. ' +
+           'A 의 점수는 <b>' + BEST.A.v + '점</b> (목표와 맞은 숫자 칸의 수)입니다.' });
+    while(open.length){
+      var best = open[0];
+      open.forEach(function(n){ if(BEST[n].v > BEST[best].v) best = n; });
+      open.splice(open.indexOf(best), 1);
+      closed.unshift(best);
+      if(BEST[best].v === 8){
+        out.push({ open:open.slice(), closed:closed.slice(), cur:best, hit:true, done:true,
+          say: '<b>' + best + ' (' + BEST[best].v + '점)</b> 을 열었더니 <b>목표 상태</b>였습니다! 탐색 끝.<br>' +
+               '찾아간 순서 : <b>' + closed.slice().reverse().map(function(n){ return n + '/' + BEST[n].v; }).join(' → ') + '</b>' });
+        break;
+      }
+      var kids = BEST[best].kids.filter(function(k){ return !seen[k]; });
+      kids.forEach(function(k){ seen[k] = 1; open.push(k); });
+      out.push({ open:open.slice(), closed:closed.slice(), cur:best,
+        say: 'OPEN 중에서 점수가 가장 높은 <b>' + best + ' (' + BEST[best].v + '점)</b> 을 골라 열었습니다. ' +
+             'CLOSED 로 옮기고' +
+             (kids.length ? ', 자식 <b>' + kids.map(function(k){ return k + '/' + BEST[k].v; }).join(', ') + '</b> 를 OPEN 에 넣습니다.'
+                          : ' 자식은 없습니다.') });
     }
-    svg.setAttribute('viewBox','0 0 '+(PAD*2+COLS*CS-4)+' '+(PAD*2+ROWS*CS-4));
-    svg.innerHTML=s;
-    document.getElementById('gStepN').textContent=G.step;
-    document.getElementById('gVisit').textContent=G.closed.length;
-    document.getElementById('gLen').textContent=G.path?(G.path.length+'칸'):'—';
-    document.getElementById('gOpen').textContent=
-      G.open.length?G.open.map(function(n){return '('+n[0]+','+n[1]+')';}).join(' '):'(비어 있음)';
-    document.getElementById('gClosed').textContent=
-      G.closed.length?G.closed.map(function(n){return '('+n[0]+','+n[1]+')';}).join(' '):'(비어 있음)';
+    return out;
   }
-  [].forEach.call(document.querySelectorAll('#algPick button'), function(b){
-    b.addEventListener('click', function(){
-      alg=b.dataset.alg;
-      [].forEach.call(document.querySelectorAll('#algPick button'), function(x){
-        x.setAttribute('aria-pressed', x===b ? 'true':'false'); });
-      gInit();
-    });
-  });
-  document.getElementById('gStep').addEventListener('click', gStepOnce);
-  document.getElementById('gReset').addEventListener('click', gInit);
-  document.getElementById('gRun').addEventListener('click', function(){
-    if(timer){ clearInterval(timer); timer=null; this.textContent='자동 실행'; return; }
-    this.textContent='멈춤';
-    var btn=this;
-    timer=setInterval(function(){
-      gStepOnce();
-      if(!G||G.done){ clearInterval(timer); timer=null; btn.textContent='자동 실행'; }
-    }, 320);
-  });
-  gInit();
-
-  /* ═══════════ ② 트리 순회 ═══════════ */
-  var TPOS={A:[240,32],B:[140,100],C:[340,100],D:[86,168],E:[194,168],F:[286,168],G:[394,168]};
-  var TEDGE=[['A','B'],['A','C'],['B','D'],['B','E'],['C','F'],['C','G']];
-  var TORD={dfs:['A','B','D','E','C','F','G'], bfs:['A','B','C','D','E','F','G']};
-  var tMode='dfs', tN=0;
-  function tDraw(){
-    var svg=document.getElementById('treeSvg'); if(!svg) return;
-    var ord=TORD[tMode], shown=ord.slice(0,tN), s='';
-    TEDGE.forEach(function(e){
-      s+='<line class="dg" x1="'+TPOS[e[0]][0]+'" y1="'+TPOS[e[0]][1]+'" x2="'+TPOS[e[1]][0]+'" y2="'+TPOS[e[1]][1]+'"/>';
-    });
-    Object.keys(TPOS).forEach(function(k){
-      var p=TPOS[k], i=shown.indexOf(k);
-      s+='<circle class="dnode'+(i>=0?' hit':'')+'" cx="'+p[0]+'" cy="'+p[1]+'" r="20"/>';
-      s+='<text class="dtxt'+(i>=0?' on':'')+'" x="'+p[0]+'" y="'+(p[1]+5)+'">'+k+'</text>';
-      if(i>=0) s+='<text class="dnum" x="'+(p[0]+28)+'" y="'+(p[1]-14)+'">'+(i+1)+'</text>';
-    });
-    svg.innerHTML=s;
-    document.getElementById('tOrder').textContent=
-      '방문 순서 — '+(shown.length?shown.join(' → '):'(아직 없음)')+
-      (tN>=ord.length?'   ✓ 완료':'');
-  }
-  [].forEach.call(document.querySelectorAll('#tPick button'), function(b){
-    b.addEventListener('click', function(){
-      tMode=b.dataset.t; tN=0;
-      [].forEach.call(document.querySelectorAll('#tPick button'), function(x){
-        x.setAttribute('aria-pressed', x===b?'true':'false'); });
-      tDraw();
-    });
-  });
-  document.getElementById('tStep').addEventListener('click', function(){
-    if(tN<TORD[tMode].length){ tN++; tDraw(); }
-  });
-  document.getElementById('tReset').addEventListener('click', function(){ tN=0; tDraw(); });
-  tDraw();
-
-  /* ═══════════ ③ 8-퍼즐 ═══════════ */
-  var GOALP=['1','2','3','4','5','6','7','8',''];
-  /* 목표에서 빈칸을 네 번 되짚어 만든 배치 → 반드시 4번 만에 풀 수 있고 평가 함숫값은 4 */
-  var BOOK =['','1','3','4','2','5','7','8','6'];
-  var P=BOOK.slice(), pMoves=0;
-  function pScore(){ var n=0; for(var i=0;i<9;i++) if(P[i]===GOALP[i]) n++; return n; }
-  function pDraw(){
-    var box=document.getElementById('puz'); if(!box) return;
-    box.innerHTML='';
-    P.forEach(function(v,i){
-      var b=document.createElement('button');
-      b.type='button';
-      b.textContent=v||'';
-      b.className=(v==='')?'empty':((v===GOALP[i])?'ok':'');
-      b.setAttribute('aria-label', v?(v+'번 조각'):'빈칸');
-      if(v) b.addEventListener('click', function(){ pMove(i); });
-      box.appendChild(b);
-    });
-    document.getElementById('pScore').textContent=pScore();
-    document.getElementById('pMove').textContent=pMoves;
-    var msg=document.getElementById('pMsg');
-    if(P.join(',')===GOALP.join(',')) msg.innerHTML='<b>완성!</b> '+pMoves+'번 만에 목표 상태에 도달했습니다. 평가 함숫값 9점.';
-    else msg.innerHTML='<b>해 보기</b> 몇 번 만에 9점을 만들 수 있을까요?';
-  }
-  function pMove(i){
-    var e=P.indexOf(''), r1=Math.floor(i/3), c1=i%3, r2=Math.floor(e/3), c2=e%3;
-    if(Math.abs(r1-r2)+Math.abs(c1-c2)!==1) return;
-    P[e]=P[i]; P[i]=''; pMoves++; pDraw();
-  }
-  document.getElementById('pReset').addEventListener('click', function(){ P=BOOK.slice(); pMoves=0; pDraw(); });
-  document.getElementById('pShuffle').addEventListener('click', function(){
-    /* 목표에서 무작위로 되짚어 섞으면 항상 풀 수 있는 상태가 된다 */
-    P=GOALP.slice();
-    for(var k=0;k<120;k++){
-      var e=P.indexOf(''), r=Math.floor(e/3), c=e%3, cand=[];
-      [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){
-        var nr=r+d[0], nc=c+d[1];
-        if(nr>=0&&nr<3&&nc>=0&&nc<3) cand.push(nr*3+nc);
+  function stepsAstar(){
+    var out = [], g = { '스페인':0 }, from = {}, open = ['스페인'], closed = [], rows = [];
+    out.push({ open:open.slice(), closed:[], rows:[], cur:null,
+      say: '출발지 <b>스페인</b> 에서 시작합니다. 앞으로 갈 곳마다 ' +
+           '<b>f = g + h</b> 를 계산해서 <b>가장 작은 곳</b>으로 갑니다.' });
+    while(open.length){
+      var best = open[0];
+      open.forEach(function(n){ if(g[n] + EU[n].h < g[best] + EU[best].h) best = n; });
+      open.splice(open.indexOf(best), 1);
+      closed.push(best);
+      if(best === '오스트리아'){
+        var path = [best], p = best;
+        while(from[p]){ p = from[p]; path.unshift(p); }
+        out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, path:path, done:true,
+          say: '<b>오스트리아</b> 에 도착했습니다! 가장 짧은 길은<br>' +
+               '<b>' + path.join(' → ') + '</b> · 모두 <b>' + g[best] + '</b> 입니다.' });
+        break;
+      }
+      var added = [];
+      Object.keys(EU[best].to).forEach(function(nb){
+        var ng = g[best] + EU[best].to[nb];
+        if(closed.indexOf(nb) >= 0) return;
+        if(g[nb] === undefined || ng < g[nb]){
+          g[nb] = ng; from[nb] = best;
+          if(open.indexOf(nb) < 0) open.push(nb);
+          added.push({ from:best, to:nb, g:ng, h:EU[nb].h, f:ng + EU[nb].h });
+        }
       });
-      var pick=cand[k%cand.length];
-      P[e]=P[pick]; P[pick]='';
+      added.sort(function(a, b){ return a.f - b.f; });
+      rows = rows.concat(added);
+      var pick = added.length ? added.reduce(function(a, b){ return a.f <= b.f ? a : b; }) : null;
+      out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, gmap:JSON.parse(JSON.stringify(g)),
+        say: '<b>' + best + '</b> 에서 갈 수 있는 곳을 모두 계산했습니다.' +
+             (pick ? ' 그중 <b>' + pick.to + '</b> 의 f 가 <b>' + pick.f + '</b> 로 가장 작습니다.' : '') });
     }
-    pMoves=0; pDraw();
+    return out;
+  }
+
+  /* ── 그리기 ──────────────────────────────────── */
+  function drawTree(st, dfs){
+    var s = '<svg viewBox="0 0 500 270" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="탐색 트리">';
+    Object.keys(TREE).forEach(function(n){
+      TREE[n].kids.forEach(function(k){
+        s += '<line x1="' + TREE[n].x + '" y1="' + (TREE[n].y + 20) + '" x2="' + TREE[k].x +
+             '" y2="' + (TREE[k].y - 20) + '" class="tl"/>';
+      });
+    });
+    Object.keys(TREE).forEach(function(n){
+      var i = st.order.indexOf(n);
+      var cls = 'tn' + (n === st.cur ? ' cur' : (i >= 0 ? ' seen' : ''));
+      s += '<circle cx="' + TREE[n].x + '" cy="' + TREE[n].y + '" r="21" class="' + cls + '"/>';
+      s += '<text x="' + TREE[n].x + '" y="' + (TREE[n].y + 6) + '" class="tt' + (i >= 0 || n === st.cur ? ' on' : '') + '">' + n + '</text>';
+      if(i >= 0) s += '<text x="' + (TREE[n].x + 22) + '" y="' + (TREE[n].y - 16) + '" class="tnum">' + (i + 1) + '</text>';
+    });
+    return s + '</svg>';
+  }
+  function drawBest(st){
+    var order = ['A','B','C','D','E','F','G','H','L','M','N'];
+    var pos = { A:[2,0], B:[0,1], C:[3,1], D:[1,2], E:[2,2], F:[4,2], G:[3,3], H:[5,3], L:[3,4], M:[4,4], N:[5,4] };
+    var h = '<div class="btree">';
+    order.forEach(function(n){
+      var b = BEST[n];
+      var role = st.closed.indexOf(n) >= 0 ? 'closed' : (st.open.indexOf(n) >= 0 ? 'open' : '');
+      if(n === st.cur) role = 'cur';
+      h += '<div class="bnode ' + role + '" style="grid-column:' + (pos[n][0] + 1) + '; grid-row:' + (pos[n][1] + 1) + '">' +
+           '<b>' + n + '</b>' + pz3(b.s) + '<em>' + b.v + '점</em></div>';
+    });
+    return h + '</div>';
+  }
+  function drawEU(st){
+    var s = '<svg viewBox="0 0 520 380" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="유럽 지도">';
+    var done = {};
+    Object.keys(EU).forEach(function(n){
+      Object.keys(EU[n].to).forEach(function(m){
+        var key = [n, m].sort().join('|');
+        if(done[key]) return; done[key] = 1;
+        var onPath = st.path && st.path.indexOf(n) >= 0 && st.path.indexOf(m) >= 0 &&
+                     Math.abs(st.path.indexOf(n) - st.path.indexOf(m)) === 1;
+        s += '<line x1="' + EU[n].x + '" y1="' + EU[n].y + '" x2="' + EU[m].x + '" y2="' + EU[m].y +
+             '" class="el' + (onPath ? ' hit' : '') + '"/>';
+        s += '<text x="' + ((EU[n].x + EU[m].x) / 2) + '" y="' + ((EU[n].y + EU[m].y) / 2 - 5) +
+             '" class="ew">' + EU[n].to[m] + '</text>';
+      });
+    });
+    Object.keys(EU).forEach(function(n){
+      var role = st.closed.indexOf(n) >= 0 ? 'seen' : (st.open.indexOf(n) >= 0 ? 'open' : '');
+      if(n === st.cur) role = 'cur';
+      s += '<ellipse cx="' + EU[n].x + '" cy="' + EU[n].y + '" rx="40" ry="17" class="en ' + role + '"/>';
+      s += '<text x="' + EU[n].x + '" y="' + (EU[n].y + 5) + '" class="et' + (role ? ' on' : '') + '">' + n + '</text>';
+      s += '<text x="' + EU[n].x + '" y="' + (EU[n].y + 32) + '" class="eh">h ' + EU[n].h + '</text>';
+    });
+    return s + '</svg>';
+  }
+  function drawRows(rows){
+    if(!rows || !rows.length) return '';
+    var mn = Math.min.apply(null, rows.map(function(r){ return r.f; }));
+    var h = '<div class="tw"><table class="ftab"><tr><th>출발</th><th>도착</th><th>g<span>온 거리</span></th>' +
+            '<th>h<span>남은 거리</span></th><th>f = g + h</th></tr>';
+    rows.forEach(function(r){
+      h += '<tr' + (r.f === mn ? ' class="pick"' : '') + '><td>' + r.from + '</td><td><b>' + r.to + '</b></td>' +
+           '<td>' + r.g + '</td><td>' + r.h + '</td><td><b>' + r.f + '</b></td></tr>';
+    });
+    return h + '</table></div>';
+  }
+
+  /* ── 진행 ────────────────────────────────────── */
+  var SIMS = [
+    { make:stepsDFS,   draw:function(st){ return drawTree(st, true); },
+      lists:function(st){ return '<div class="lst"><b>찾아본 순서</b>' + (st.order.join(' → ') || '아직 없음') + '</div>' +
+        '<div class="lst"><b>지금 지나온 길</b>' + (st.path.join(' → ') || '없음') + '</div>'; } },
+    { make:stepsBFS,   draw:function(st){ return drawTree(st, false); },
+      lists:function(st){ return '<div class="lst"><b>찾아본 순서</b>' + (st.order.join(' → ') || '아직 없음') + '</div>' +
+        '<div class="lst"><b>대기줄 (다음에 볼 것)</b>' + (st.queue.join(' , ') || '비었음') + '</div>'; } },
+    { make:stepsBest,  draw:drawBest,
+      lists:function(st){
+        var f = function(a){ return a.length ? a.map(function(n){ return n + '/' + BEST[n].v; }).join(' , ') : '비었음'; };
+        return '<div class="lst"><b>OPEN · 아직 안 열어 본 것</b>' + f(st.open) + '</div>' +
+               '<div class="lst"><b>CLOSED · 이미 열어 본 것</b>' + f(st.closed) + '</div>'; } },
+    { make:stepsAstar, draw:drawEU,
+      lists:function(st){ return drawRows(st.rows) +
+        '<div class="lst"><b>이미 지나온 나라</b>' + (st.closed.join(' → ') || '없음') + '</div>'; } }
+  ];
+  var simI = 0, simSteps = [], simAt = -1;
+
+  function simDraw(){
+    var st = simAt >= 0 ? simSteps[simAt] : { order:[], path:[], open:[], closed:[], queue:[], rows:[], cur:null };
+    document.getElementById('simCanvas').innerHTML = SIMS[simI].draw(st);
+    document.getElementById('simLists').innerHTML = SIMS[simI].lists(st);
+    document.getElementById('simNarr').innerHTML = simAt >= 0 ? st.say : '«한 걸음 더»를 눌러 시작하세요.';
+    document.getElementById('simNarr').classList.toggle('fin', !!(st && st.done));
+    document.getElementById('simCount').textContent = (simAt + 1) + ' 걸음';
+    document.getElementById('simStep').disabled = simAt >= simSteps.length - 1;
+    document.getElementById('simAll').disabled = simAt >= simSteps.length - 1;
+  }
+  function simInit(i){
+    simI = i; simSteps = SIMS[i].make(); simAt = -1; simDraw();
+  }
+  [].slice.call(document.querySelectorAll('.atab[data-sim]')).forEach(function(t){
+    t.addEventListener('click', function(){
+      var k = t.getAttribute('data-sim');
+      [].slice.call(document.querySelectorAll('.atab[data-sim]')).forEach(function(o){
+        o.setAttribute('aria-selected', o === t ? 'true' : 'false');
+      });
+      [].slice.call(document.querySelectorAll('[data-sim-panel]')).forEach(function(p){
+        p.hidden = p.getAttribute('data-sim-panel') !== k;
+      });
+      simInit(+k);
+    });
   });
-  pDraw();
+  document.getElementById('simStep').addEventListener('click', function(){
+    if(simAt < simSteps.length - 1){ simAt++; simDraw(); }
+  });
+  document.getElementById('simAll').addEventListener('click', function(){
+    simAt = simSteps.length - 1; simDraw();
+  });
+  document.getElementById('simReset').addEventListener('click', function(){ simAt = -1; simDraw(); });
+  simInit(0);
+
+  /* 받침에 따라 조사를 고른다 (이탈리아 으로 → 이탈리아로) */
+  function jos(w, kind){
+    var s = String(w), last = s.charCodeAt(s.length - 1) - 0xAC00, code = -1;
+    if(last >= 0 && last <= 11171) code = last % 28;
+    else code = ({ '1':8,'3':1,'6':1,'7':8,'8':1,'0':1 })[s.slice(-1)] || 0;
+    var has = code !== 0;
+    if(kind === '로') return s + (!has || code === 8 ? '로' : '으로');
+    if(kind === '을') return s + (has ? '을' : '를');
+    if(kind === '이') return s + (has ? '이' : '가');
+    return s;
+  }
+  /* ══ 공통 : 시트로 보내기 ═══════════════════════════════ */
+  var SHEET_VER2 = null;
+  function sheetVer(cb){
+    if(SHEET_VER2 !== null){ cb(SHEET_VER2); return; }
+    fetch(SUBMIT_URL, { method:'GET' })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ SHEET_VER2 = (j && j.ver) || 1; cb(SHEET_VER2); })
+      .catch(function(){ SHEET_VER2 = -1; cb(-1); });
+  }
+  function postSheet(payload, btn, msg, need){
+    if(!SUBMIT_URL){
+      msg.className = 'sendmsg wait';
+      msg.textContent = '제출 주소가 아직 연결되지 않았습니다 — «내용 복사»로 내세요';
+      return;
+    }
+    btn.disabled = true;
+    msg.className = 'sendmsg wait'; msg.textContent = '확인하는 중…';
+    sheetVer(function(ver){
+      if(ver >= 1 && ver < need){
+        msg.className = 'sendmsg bad';
+        msg.textContent = '선생님 수집기가 아직 이 활동을 받을 수 없습니다. ' +
+          '«내용 복사»로 내고 선생님께 알려 주세요.';
+        btn.disabled = false; return;
+      }
+      msg.textContent = '보내는 중…';
+      var body = JSON.stringify(payload);
+      var ok = function(x){ msg.className = 'sendmsg ok'; msg.textContent = '제출했습니다' + (x || '');
+        btn.textContent = '다시 제출하기'; btn.disabled = false; };
+      var bad = function(){ msg.className = 'sendmsg bad';
+        msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
+        btn.disabled = false; };
+      fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ if(j && j.ok) ok(); else bad(); })
+        .catch(function(){
+          fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+                headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+            .then(function(){ ok(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
+        });
+    });
+  }
+  function clsPickWire(id, set){
+    var el = document.getElementById(id); if(!el) return;
+    el.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-c]'); if(!b) return;
+      [].slice.call(this.children).forEach(function(o){
+        o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      set(b.getAttribute('data-c'));
+    });
+  }
+  function wizWire(wizId, panelAttr, get, set){
+    var wiz = document.getElementById(wizId); if(!wiz) return function(){};
+    var box = wiz.closest('.actbox');
+    function go(n){
+      var max = box.querySelectorAll('[' + panelAttr + ']').length;
+      n = Math.max(1, Math.min(max, n)); set(n);
+      [].slice.call(box.querySelectorAll('[' + panelAttr + ']')).forEach(function(d){
+        d.hidden = +d.getAttribute(panelAttr) !== n; });
+      [].slice.call(wiz.querySelectorAll('li')).forEach(function(li){
+        var s = +li.getAttribute('data-s');
+        li.className = s === n ? 'on' : (s < n ? 'done' : ''); });
+    }
+    [].slice.call(wiz.querySelectorAll('li')).forEach(function(li){
+      li.tabIndex = 0; li.setAttribute('role', 'button');
+      li.addEventListener('click', function(){ go(+li.getAttribute('data-s')); });
+      li.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(+li.getAttribute('data-s')); } });
+    });
+    return go;
+  }
+  function rubricWire(boxId, questions, get, set){
+    var box = document.getElementById(boxId); if(!box) return;
+    box.innerHTML = '';
+    questions.forEach(function(q, i){
+      var d = document.createElement('div');
+      d.className = 'rrow2';
+      d.innerHTML = '<span class="rq">' + q + '</span><span class="pick">' +
+        ['상','중','하'].map(function(g){
+          return '<button type="button" data-g="' + g + '" aria-pressed="' +
+            (get()[i] === g ? 'true' : 'false') + '">' + g + '</button>'; }).join('') + '</span>';
+      d.querySelector('.pick').addEventListener('click', function(e){
+        var b = e.target.closest('button[data-g]'); if(!b) return;
+        var v = get().slice(); v[i] = b.getAttribute('data-g'); set(v);
+        [].slice.call(this.children).forEach(function(o){
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      });
+      box.appendChild(d);
+    });
+  }
+
+  /* ══ ⑤ 8-퍼즐 도전 ═══════════════════════════════════════ */
+  var PZ0 = [0,2,3,1,7,5,4,6,8];
+  function pzMoves(a){
+    var z = a.indexOf(0), r = Math.floor(z / 3), c = z % 3, out = [];
+    if(r > 0) out.push(z - 3); if(r < 2) out.push(z + 3);
+    if(c > 0) out.push(z - 1); if(c < 2) out.push(z + 1);
+    return out;
+  }
+  function pzSwap(a, i){ var b = a.slice(), z = b.indexOf(0); b[z] = b[i]; b[i] = 0; return b; }
+  function pzBoardHTML(a, id){
+    var can = pzMoves(a), h = '';
+    for(var i = 0; i < 9; i++){
+      var ok = can.indexOf(i) >= 0;
+      h += a[i]
+        ? '<button type="button" class="pc' + (ok ? ' can' : '') + (a[i] === GOAL8[i] ? ' fit' : '') +
+          '" data-i="' + i + '"' + (ok ? '' : ' disabled') + '>' + a[i] + '</button>'
+        : '<span class="pc e"></span>';
+    }
+    return h;
+  }
+  var P = { now:PZ0.slice(), hist:[] };
+  function pzDraw(){
+    var b = document.getElementById('pzBoard'); if(!b) return;
+    b.innerHTML = pzBoardHTML(P.now);
+    [].slice.call(b.querySelectorAll('.pc.can')).forEach(function(btn){
+      btn.addEventListener('click', function(){
+        P.hist.push(P.now.slice());
+        P.now = pzSwap(P.now, +btn.getAttribute('data-i'));
+        pzDraw();
+      });
+    });
+    var f = fit8(P.now);
+    document.getElementById('pzFit').textContent = f;
+    document.getElementById('pzMoves').textContent = P.hist.length;
+    document.getElementById('pzBar').style.width = (f / 8 * 100) + '%';
+    document.getElementById('pzBar').className = f === 8 ? 'full' : '';
+    var m = document.getElementById('pzMsg');
+    if(f === 8) m.textContent = '성공! ' + P.hist.length + '번 만에 풀었습니다' +
+      (P.hist.length <= 4 ? ' — 최소 횟수입니다!' : ' (최소는 4번)');
+    else m.textContent = P.hist.length ? '조금만 더!' : '빈칸 옆 숫자를 눌러 보세요';
+  }
+  if(document.getElementById('pzBoard')){
+    document.getElementById('pzGoal').innerHTML = pzBoardHTML(GOAL8);
+    document.getElementById('pzUndo').addEventListener('click', function(){
+      if(P.hist.length){ P.now = P.hist.pop(); pzDraw(); } });
+    document.getElementById('pzReset').addEventListener('click', function(){
+      P.now = PZ0.slice(); P.hist = []; pzDraw(); });
+    document.getElementById('pzHint').addEventListener('click', function(){
+      var best = null, bv = -1;
+      pzMoves(P.now).forEach(function(i){
+        var v = fit8(pzSwap(P.now, i)); if(v > bv){ bv = v; best = i; } });
+      [].slice.call(document.querySelectorAll('#pzBoard .pc')).forEach(function(x){ x.classList.remove('tip'); });
+      var el = document.querySelector('#pzBoard .pc[data-i="' + best + '"]');
+      if(el){ el.classList.add('tip');
+        document.getElementById('pzMsg').textContent = '숫자 ' + jos(el.textContent, '을') + ' 옮기면 맞은 칸이 ' + bv + '개가 됩니다'; }
+    });
+    pzDraw();
+  }
+
+  /* ══ ⑥ 탐색 과정 설계 4단계 ══════════════════════════════ */
+  var DSKEY = 'ai_u1_design4_v1';
+  var DS = { step:1, keys:[], cnt:'', pick:'', why:'', moves:[], cls:'', group:'' };
+  try{ var _ds = JSON.parse(localStorage.getItem(DSKEY)); if(_ds) for(var k in _ds) if(k in DS) DS[k] = _ds[k]; }catch(e){}
+  function dsSave(){ try{ localStorage.setItem(DSKEY, JSON.stringify(DS)); }catch(e){} }
+
+  var DSKEYS = [
+    { t:'8개의 숫자', ok:1 }, { t:'1개의 빈칸', ok:1 },
+    { t:'한 번에 숫자를 1개씩 옮긴다', ok:1 },
+    { t:'숫자판의 색깔', ok:0 }, { t:'퍼즐을 만든 회사', ok:0 },
+    { t:'푸는 데 걸린 시간', ok:0 }
+  ];
+  var dsGo = wizWire('dsWiz', 'data-ds', function(){ return DS.step; },
+                     function(n){ DS.step = n; dsSave(); });
+  if(document.getElementById('dsKey')){
+    var kbox = document.getElementById('dsKey');
+    DSKEYS.forEach(function(c, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'acard'; b.setAttribute('data-i', i);
+      if(DS.keys.indexOf(i) >= 0) b.setAttribute('data-pick', 'y');
+      b.innerHTML = '<span class="pickmark">' + (DS.keys.indexOf(i) >= 0 ? '고름' : '눌러서 고르기') + '</span>' + c.t;
+      b.addEventListener('click', function(){
+        var j = DS.keys.indexOf(i);
+        if(j >= 0){ DS.keys.splice(j, 1); b.removeAttribute('data-pick'); b.querySelector('.pickmark').textContent = '눌러서 고르기'; }
+        else { DS.keys.push(i); b.setAttribute('data-pick', 'y'); b.querySelector('.pickmark').textContent = '고름'; }
+        b.classList.remove('right','wrong'); dsSave();
+      });
+      kbox.appendChild(b);
+    });
+    document.getElementById('dsKeyChk').addEventListener('click', function(){
+      var got = 0;
+      [].slice.call(kbox.children).forEach(function(b, i){
+        var picked = DS.keys.indexOf(i) >= 0;
+        b.classList.toggle('right', picked === !!DSKEYS[i].ok);
+        b.classList.toggle('wrong', picked !== !!DSKEYS[i].ok);
+        if(picked === !!DSKEYS[i].ok) got++;
+      });
+      var m = document.getElementById('dsKeyMsg');
+      m.hidden = false;
+      m.textContent = got === 6 ? '모두 맞혔습니다! 핵심 요소 3개' : got + ' / 6 · 초록이 맞은 칸입니다';
+    });
+
+    document.getElementById('dsInit').innerHTML = pzBoardHTML(PZ0);
+    document.getElementById('dsGoal').innerHTML = pzBoardHTML(GOAL8);
+    var cntPick = document.getElementById('dsCnt');
+    if(DS.cnt){ var cb0 = cntPick.querySelector('button[data-n="' + DS.cnt + '"]'); if(cb0) cb0.setAttribute('aria-pressed','true'); }
+    cntPick.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-n]'); if(!b) return;
+      DS.cnt = b.getAttribute('data-n'); dsSave();
+      [].slice.call(this.children).forEach(function(o){
+        o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      var m = document.getElementById('dsCntMsg');
+      m.hidden = false;
+      m.innerHTML = DS.cnt === '4'
+        ? '<b>정답!</b> 2 · 3 · 5 · 8 네 칸이 제자리에 있습니다. 이 «맞은 칸 수»가 바로 <b>평가 함숫값</b>이에요.'
+        : '<b>다시 세어 보세요.</b> 두 판을 같은 자리끼리 비교해 봅니다. (힌트 : 4개보다 적지 않아요)';
+    });
+
+    var CMP = [
+      { n:2, s:pzSwap(PZ0, 1), lab:'숫자 <b>2</b> 를 빈칸으로' },
+      { n:1, s:pzSwap(PZ0, 3), lab:'숫자 <b>1</b> 을 빈칸으로' }
+    ];
+    var cmpBox = document.getElementById('dsCmp');
+    CMP.forEach(function(c, i){
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'cmpc';
+      if(DS.pick === String(i)) d.setAttribute('data-on', '1');
+      d.innerHTML = '<b>' + c.lab + '</b>' + pzBoardHTML(c.s).replace(/<button[^>]*>/g, '<span class="pc">')
+        .replace(/<\/button>/g, '</span>') + '<em>맞은 칸 ' + fit8(c.s) + '개</em>';
+      d.addEventListener('click', function(){
+        DS.pick = String(i); dsSave();
+        [].slice.call(cmpBox.children).forEach(function(o){ o.removeAttribute('data-on'); });
+        d.setAttribute('data-on', '1');
+        var m = document.getElementById('dsCmpMsg');
+        m.hidden = false;
+        m.innerHTML = i === 1
+          ? '<b>맞습니다!</b> 1을 옮기면 맞은 칸이 <b>4개 → 5개</b> 로 늘어 목표에 <b>가까워집니다.</b>'
+          : '<b>이 수는 멀어집니다.</b> 2를 옮기면 맞은 칸이 <b>4개 → 3개</b> 로 줄어듭니다. 다른 쪽을 보세요.';
+      });
+      cmpBox.appendChild(d);
+    });
+    var wEl = document.getElementById('dsWhy');
+    wEl.value = DS.why || '';
+    wEl.addEventListener('input', function(){ DS.why = this.value; dsSave(); });
+
+    var dsNow = PZ0.slice(), dsHist = [];
+    function dsDraw(){
+      var b = document.getElementById('dsBoard');
+      b.innerHTML = pzBoardHTML(dsNow);
+      [].slice.call(b.querySelectorAll('.pc.can')).forEach(function(btn){
+        btn.addEventListener('click', function(){
+          dsHist.push(dsNow.slice());
+          dsNow = pzSwap(dsNow, +btn.getAttribute('data-i'));
+          DS.moves = dsHist.map(function(s, i){ return fit8(i + 1 < dsHist.length ? dsHist[i + 1] : dsNow); });
+          dsSave(); dsDraw();
+        });
+      });
+      var f = fit8(dsNow);
+      document.getElementById('dsFit').textContent = f;
+      var tr = document.getElementById('dsTrail'), h = '';
+      dsHist.concat([dsNow]).forEach(function(s, i){
+        h += '<div class="dsnode"><b>' + (i === 0 ? '초기' : i + '번째') + '</b>' + pz3(s) + '<em>' + fit8(s) + '점</em></div>';
+        });
+      tr.innerHTML = h;
+      document.getElementById('dsMsg').textContent = f === 8
+        ? '목표 도달! ' + dsHist.length + '번 움직였습니다'
+        : (dsHist.length ? '맞은 칸 ' + f + '개' : '숫자를 눌러 보세요');
+    }
+    document.getElementById('dsUndo').addEventListener('click', function(){
+      if(dsHist.length){ dsNow = dsHist.pop(); dsDraw(); } });
+    document.getElementById('dsRe').addEventListener('click', function(){
+      dsNow = PZ0.slice(); dsHist = []; dsDraw(); });
+    dsDraw();
+
+    document.getElementById('dsPrev').addEventListener('click', function(){ dsGo(DS.step - 1); });
+    document.getElementById('dsNext').addEventListener('click', function(){ dsGo(DS.step + 1); });
+    document.getElementById('dsGroup').value = DS.group || '';
+    document.getElementById('dsGroup').addEventListener('input', function(){ DS.group = this.value; dsSave(); });
+    clsPickWire('dsCls', function(v){ DS.cls = v; dsSave(); });
+    if(DS.cls){ var dcb = document.querySelector('#dsCls button[data-c="' + DS.cls + '"]'); if(dcb) dcb.setAttribute('aria-pressed','true'); }
+    document.getElementById('dsSend').addEventListener('click', function(){
+      var btn = this, msg = document.getElementById('dsSendMsg');
+      if(!DS.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!(DS.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+      postSheet({
+        key:SUBMIT_KEY, type:'puzzle', cls:DS.cls, group:DS.group,
+        keys: DS.keys.map(function(i){ return DSKEYS[i].t; }).join(' · '),
+        cnt: DS.cnt ? DS.cnt + '개' : '',
+        pick: DS.pick === '1' ? '숫자 1 이동 (맞음)' : (DS.pick === '0' ? '숫자 2 이동 (틀림)' : ''),
+        why: DS.why,
+        solved: fit8(dsNow) === 8 ? '성공 (' + dsHist.length + '번)' : '미완 (맞은 칸 ' + fit8(dsNow) + '개)'
+      }, btn, msg, 3);
+    });
+    dsGo(DS.step || 1);
+  }
+
+  /* ══ ⑦ 유럽 여행 길찾기 ══════════════════════════════════ */
+  var EUKEY = 'ai_u1_europe_v1';
+  var EUS = { step:1, blanks:['','',''], ops:[], path:['스페인'], ans:'', why:'', rub:['',''], cls:'', group:'' };
+  try{ var _eu = JSON.parse(localStorage.getItem(EUKEY)); if(_eu) for(var k2 in _eu) if(k2 in EUS) EUS[k2] = _eu[k2]; }catch(e){}
+  function euSave(){ try{ localStorage.setItem(EUKEY, JSON.stringify(EUS)); }catch(e){} }
+
+  var EUTREE = [
+    { n:'스페인',     x:250, y:30,  p:null },
+    { n:'포르투갈',   x:120, y:105, p:'스페인' },
+    { n:'?1',         x:330, y:105, p:'스페인', blank:0 },
+    { n:'이탈리아',   x:200, y:185, p:'?1' },
+    { n:'?2',         x:330, y:185, p:'?1', blank:1 },
+    { n:'독일',       x:455, y:185, p:'?1' },
+    { n:'?3',         x:400, y:265, p:'독일', blank:2 },
+    { n:'폴란드',     x:520, y:265, p:'독일' },
+    { n:'오스트리아', x:400, y:340, p:'?3' }
+  ];
+  var EUANS = ['프랑스','스위스','체코'];
+  function euTreeSVG(){
+    var pos = {}; EUTREE.forEach(function(o){ pos[o.n] = o; });
+    var s = '<svg viewBox="0 0 600 380" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="유럽 나라 그래프">';
+    EUTREE.forEach(function(o){
+      if(!o.p) return;
+      var q = pos[o.p];
+      s += '<line x1="' + q.x + '" y1="' + (q.y + 16) + '" x2="' + o.x + '" y2="' + (o.y - 16) + '" class="el"/>';
+    });
+    EUTREE.forEach(function(o){
+      var blank = o.blank !== undefined;
+      var txt = blank ? (EUS.blanks[o.blank] || '?') : o.n;
+      var filled = blank && EUS.blanks[o.blank];
+      s += '<ellipse cx="' + o.x + '" cy="' + o.y + '" rx="52" ry="18" class="en' +
+           (blank ? (filled ? ' open' : ' blank') : '') + '"/>';
+      s += '<text x="' + o.x + '" y="' + (o.y + 5) + '" class="et' + (filled ? ' on' : '') + '">' + txt + '</text>';
+      if(blank) s += '<text x="' + (o.x - 58) + '" y="' + (o.y + 5) + '" class="eh">' + (o.blank + 1) + '</text>';
+    });
+    return s + '</svg>';
+  }
+  if(document.getElementById('euGraph')){
+    var euCand = ['프랑스','스위스','체코','노르웨이','그리스'];
+    function euBlanksDraw(){
+      document.getElementById('euGraph').innerHTML = euTreeSVG();
+      var h = '';
+      for(var i = 0; i < 3; i++){
+        h += '<div class="blankrow"><b>' + (i + 1) + '번 빈칸</b><span class="pick" data-b="' + i + '">' +
+          euCand.map(function(c){
+            return '<button type="button" data-v="' + c + '" aria-pressed="' +
+              (EUS.blanks[i] === c ? 'true' : 'false') + '">' + c + '</button>'; }).join('') + '</span></div>';
+      }
+      document.getElementById('euBlanks').innerHTML = h;
+      [].slice.call(document.querySelectorAll('#euBlanks .pick')).forEach(function(p){
+        p.addEventListener('click', function(e){
+          var b = e.target.closest('button[data-v]'); if(!b) return;
+          EUS.blanks[+p.getAttribute('data-b')] = b.getAttribute('data-v'); euSave(); euBlanksDraw();
+        });
+      });
+    }
+    euBlanksDraw();
+    document.getElementById('euChk').addEventListener('click', function(){
+      var got = 0;
+      for(var i = 0; i < 3; i++) if(EUS.blanks[i] === EUANS[i]) got++;
+      var m = document.getElementById('euChkMsg'); m.hidden = false;
+      m.textContent = got === 3 ? '모두 맞혔습니다! 프랑스 · 스위스 · 체코' : got + ' / 3 맞았습니다. 지도를 다시 보세요';
+    });
+
+    var euOpsAll = ['포르투갈','프랑스','이탈리아','독일','오스트리아'];
+    var euOpsOk = ['포르투갈','프랑스'];
+    var obox = document.getElementById('euOps');
+    euOpsAll.forEach(function(c){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'acard';
+      if(EUS.ops.indexOf(c) >= 0) b.setAttribute('data-pick', 'y');
+      b.innerHTML = '<span class="pickmark">' + (EUS.ops.indexOf(c) >= 0 ? '고름' : '눌러서 고르기') + '</span>' + c;
+      b.addEventListener('click', function(){
+        var j = EUS.ops.indexOf(c);
+        if(j >= 0){ EUS.ops.splice(j, 1); b.removeAttribute('data-pick'); b.querySelector('.pickmark').textContent = '눌러서 고르기'; }
+        else { EUS.ops.push(c); b.setAttribute('data-pick', 'y'); b.querySelector('.pickmark').textContent = '고름'; }
+        b.classList.remove('right','wrong'); euSave();
+      });
+      obox.appendChild(b);
+    });
+    document.getElementById('euOpsChk').addEventListener('click', function(){
+      var got = 0;
+      [].slice.call(obox.children).forEach(function(b, i){
+        var picked = EUS.ops.indexOf(euOpsAll[i]) >= 0, right = euOpsOk.indexOf(euOpsAll[i]) >= 0;
+        b.classList.toggle('right', picked === right);
+        b.classList.toggle('wrong', picked !== right);
+        if(picked === right) got++;
+      });
+      var m = document.getElementById('euOpsMsg'); m.hidden = false;
+      m.textContent = got === 5 ? '정답! 스페인에서는 포르투갈과 프랑스로만 갈 수 있어요' : got + ' / 5 · 초록이 맞은 칸';
+    });
+
+    function euMapDraw(){
+      var st = { open:[], closed:EUS.path, cur:EUS.path[EUS.path.length - 1], path:EUS.path };
+      document.getElementById('euMap').innerHTML = drawEU(st);
+      [].slice.call(document.querySelectorAll('#euMap .en')).forEach(function(el, i){
+        var name = Object.keys(EU)[i];
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function(){ euClick(name); });
+      });
+      [].slice.call(document.querySelectorAll('#euMap .et')).forEach(function(el, i){
+        var name = Object.keys(EU)[i];
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function(){ euClick(name); });
+      });
+      document.getElementById('euPath').textContent = EUS.path.join('  →  ');
+      var last = EUS.path[EUS.path.length - 1];
+      var m = document.getElementById('euMsg');
+      if(last === '오스트리아')
+        m.textContent = EUS.path.length === 5
+          ? '성공! 가장 적은 ' + (EUS.path.length - 2) + '개 나라를 거쳤습니다'
+          : '도착! 하지만 ' + (EUS.path.length - 2) + '개 나라를 거쳤어요. 더 짧은 길이 있습니다';
+      else m.textContent = last + '에서 이어진 나라를 누르세요';
+    }
+    function euClick(name){
+      var last = EUS.path[EUS.path.length - 1];
+      if(EUS.path.indexOf(name) >= 0) return;
+      if(!EU[last].to[name]){
+        document.getElementById('euMsg').textContent = last + '에서 ' + jos(name, '로') + ' 가는 길이 없습니다';
+        return;
+      }
+      EUS.path.push(name); euSave(); euMapDraw();
+    }
+    document.getElementById('euBack').addEventListener('click', function(){
+      if(EUS.path.length > 1){ EUS.path.pop(); euSave(); euMapDraw(); } });
+    document.getElementById('euRe').addEventListener('click', function(){
+      EUS.path = ['스페인']; euSave(); euMapDraw(); });
+    euMapDraw();
+
+    document.getElementById('euAns').value = EUS.ans || '';
+    document.getElementById('euAns').addEventListener('input', function(){ EUS.ans = this.value; euSave(); });
+    document.getElementById('euWhy').value = EUS.why || '';
+    document.getElementById('euWhy').addEventListener('input', function(){ EUS.why = this.value; euSave(); });
+    rubricWire('euRub', [
+      '문제를 이해하고 분석한 내용을 바탕으로 추상화할 수 있는가?',
+      '문제의 초기 상태와 목표 상태를 적절하게 설정하여 수행 작업을 선택할 수 있는가?'
+    ], function(){ return EUS.rub; }, function(v){ EUS.rub = v; euSave(); });
+
+    var euGo = wizWire('euWiz', 'data-eu', function(){ return EUS.step; }, function(n){ EUS.step = n; euSave(); });
+    document.getElementById('euPrev').addEventListener('click', function(){ euGo(EUS.step - 1); });
+    document.getElementById('euNext').addEventListener('click', function(){ euGo(EUS.step + 1); });
+    document.getElementById('euGroup').value = EUS.group || '';
+    document.getElementById('euGroup').addEventListener('input', function(){ EUS.group = this.value; euSave(); });
+    clsPickWire('euCls', function(v){ EUS.cls = v; euSave(); });
+    if(EUS.cls){ var ecb = document.querySelector('#euCls button[data-c="' + EUS.cls + '"]'); if(ecb) ecb.setAttribute('aria-pressed','true'); }
+    function euReport(){
+      return ['════════ 유럽 여행 길찾기 ════════',
+        '교과서 Ⅰ-03 인공지능과 탐색 (26~27쪽)', '',
+        '분반 : ' + (EUS.cls || '(미선택)'), '모둠 : ' + (EUS.group || '(미입력)'), '',
+        '1단계 그래프 빈칸 : ' + EUS.blanks.join(' · '),
+        '3단계 스페인에서 갈 수 있는 나라 : ' + (EUS.ops.join(' · ') || '(미선택)'),
+        '4단계 지도에서 만든 길 : ' + EUS.path.join(' → '), '',
+        '내가 찾은 길 : ' + (EUS.ans || '(미작성)'),
+        '고른 이유 : ' + (EUS.why || '(미작성)'), '',
+        '자기평가 1 (추상화) : ' + (EUS.rub[0] || '(미선택)'),
+        '자기평가 2 (상태 설정·수행 작업) : ' + (EUS.rub[1] || '(미선택)'),
+        '══════════════════════════════════'].join('\n');
+    }
+    document.getElementById('euCopy').addEventListener('click', function(){ tClip(euReport(), this); });
+    document.getElementById('euSend').addEventListener('click', function(){
+      var btn = this, msg = document.getElementById('euSendMsg');
+      if(!EUS.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!(EUS.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+      postSheet({
+        key:SUBMIT_KEY, type:'europe', cls:EUS.cls, group:EUS.group,
+        blanks:EUS.blanks.join(' · '), ops:EUS.ops.join(' · '),
+        path:EUS.path.join(' → '), ans:EUS.ans, why:EUS.why,
+        rub1:EUS.rub[0], rub2:EUS.rub[1]
+      }, btn, msg, 3);
+    });
+    euGo(EUS.step || 1);
+  }
+
+  /* ══ ⑧ 우리 동네 등굣길 ══════════════════════════════════ */
+  var TOWN = {
+    '집':      { h:14, x:60,  y:275, to:{ '편의점':4, '공원':4 } },
+    '편의점':  { h:14, x:60,  y:150, to:{ '집':4, '빵집':5, '사거리':4 } },
+    '공원':    { h:10, x:175, y:300, to:{ '집':4, '사거리':3, '지하철역':6 } },
+    '빵집':    { h:11, x:180, y:55,  to:{ '편의점':5, '문구점':4 } },
+    '사거리':  { h:8,  x:205, y:175, to:{ '편의점':4, '공원':3, '지하철역':4, '문구점':5 } },
+    '지하철역':{ h:6,  x:325, y:255, to:{ '공원':6, '사거리':4, '학교':8, '도서관':4 } },
+    '문구점':  { h:7,  x:335, y:90,  to:{ '사거리':5, '빵집':4, '도서관':4 } },
+    '도서관':  { h:3,  x:440, y:170, to:{ '지하철역':4, '문구점':4, '학교':3 } },
+    '학교':    { h:0,  x:470, y:290, to:{ '지하철역':8, '도서관':3 } }
+  };
+  function drawTown(st){
+    var s = '<svg viewBox="0 0 540 360" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="우리 동네 지도">';
+    var done = {};
+    Object.keys(TOWN).forEach(function(n){
+      Object.keys(TOWN[n].to).forEach(function(m){
+        var key = [n, m].sort().join('|'); if(done[key]) return; done[key] = 1;
+        var on = st.path && st.path.indexOf(n) >= 0 && st.path.indexOf(m) >= 0 &&
+                 Math.abs(st.path.indexOf(n) - st.path.indexOf(m)) === 1;
+        s += '<line x1="' + TOWN[n].x + '" y1="' + TOWN[n].y + '" x2="' + TOWN[m].x + '" y2="' + TOWN[m].y +
+             '" class="el' + (on ? ' hit' : '') + '"/>';
+        s += '<text x="' + ((TOWN[n].x + TOWN[m].x) / 2) + '" y="' + ((TOWN[n].y + TOWN[m].y) / 2 - 5) +
+             '" class="ew">' + TOWN[n].to[m] + '분</text>';
+      });
+    });
+    Object.keys(TOWN).forEach(function(n){
+      var role = (st.closed && st.closed.indexOf(n) >= 0) ? 'seen' : ((st.open && st.open.indexOf(n) >= 0) ? 'open' : '');
+      if(n === st.cur) role = 'cur';
+      s += '<ellipse cx="' + TOWN[n].x + '" cy="' + TOWN[n].y + '" rx="38" ry="17" class="en ' + role + '"/>';
+      s += '<text x="' + TOWN[n].x + '" y="' + (TOWN[n].y + 5) + '" class="et' + (role ? ' on' : '') + '">' + n + '</text>';
+      if(st.showH !== false) s += '<text x="' + TOWN[n].x + '" y="' + (TOWN[n].y + 31) + '" class="eh">h ' + TOWN[n].h + '</text>';
+    });
+    return s + '</svg>';
+  }
+  function townBFS(){
+    var out = [], seen = { '집':1 }, q = ['집'], closed = [], from = {};
+    while(q.length){
+      var n = q.shift(); closed.push(n);
+      if(n === '학교'){
+        var p = ['학교'], c = '학교';
+        while(from[c]){ c = from[c]; p.unshift(c); }
+        var t = 0; for(var i = 1; i < p.length; i++) t += TOWN[p[i - 1]].to[p[i]];
+        out.push({ closed:closed.slice(), open:q.slice(), cur:n, path:p, done:true, total:t, showH:false,
+          say: '<b>학교</b> 도착! 모두 <b>' + closed.length + '군데</b>를 살펴봤습니다.<br>' +
+               '찾은 길 : <b>' + p.join(' → ') + '</b> · 정거장 <b>' + (p.length - 1) + '개</b> · <b>' + t + '분</b>' });
+        break;
+      }
+      var add = [];
+      Object.keys(TOWN[n].to).forEach(function(m){
+        if(!seen[m]){ seen[m] = 1; from[m] = n; q.push(m); add.push(m); } });
+      out.push({ closed:closed.slice(), open:q.slice(), cur:n, showH:false,
+        say: '<b>' + n + '</b> 를 살펴봤습니다.' +
+          (add.length ? ' 새로 만난 <b>' + add.join(', ') + '</b> 를 대기줄 뒤에 세웁니다.' : ' 새로운 곳은 없습니다.') +
+          ' <span style="opacity:.7">(지금까지 ' + closed.length + '군데)</span>' });
+    }
+    return out;
+  }
+  function townAstar(){
+    var out = [], g = { '집':0 }, from = {}, open = ['집'], closed = [], rows = [];
+    while(open.length){
+      var best = open[0];
+      open.forEach(function(n){ if(g[n] + TOWN[n].h < g[best] + TOWN[best].h) best = n; });
+      open.splice(open.indexOf(best), 1); closed.push(best);
+      if(best === '학교'){
+        var p = ['학교'], c = '학교';
+        while(from[c]){ c = from[c]; p.unshift(c); }
+        out.push({ closed:closed.slice(), open:open.slice(), cur:best, path:p, rows:rows.slice(), done:true, total:g['학교'],
+          say: '<b>학교</b> 도착! <b>' + closed.length + '군데</b>만 살펴봤습니다.<br>' +
+               '찾은 길 : <b>' + p.join(' → ') + '</b> · 정거장 <b>' + (p.length - 1) + '개</b> · <b>' + g['학교'] + '분</b>' });
+        break;
+      }
+      var add = [];
+      Object.keys(TOWN[best].to).forEach(function(m){
+        if(closed.indexOf(m) >= 0) return;
+        var ng = g[best] + TOWN[best].to[m];
+        if(g[m] === undefined || ng < g[m]){
+          g[m] = ng; from[m] = best;
+          if(open.indexOf(m) < 0) open.push(m);
+          add.push({ from:best, to:m, g:ng, h:TOWN[m].h, f:ng + TOWN[m].h });
+        }
+      });
+      rows = rows.concat(add);
+      var pick = add.length ? add.reduce(function(a, b){ return a.f <= b.f ? a : b; }) : null;
+      out.push({ closed:closed.slice(), open:open.slice(), cur:best, rows:rows.slice(),
+        say: '<b>' + best + '</b> 에서 갈 수 있는 곳의 <b>f = g + h</b> 를 계산했습니다.' +
+          (pick ? ' 가장 작은 곳은 <b>' + pick.to + ' (f ' + pick.f + ')</b> 입니다.' : '') +
+          ' <span style="opacity:.7">(지금까지 ' + closed.length + '군데)</span>' });
+    }
+    return out;
+  }
+
+  var RBKEY = 'ai_u1_town_v1';
+  var RB = { step:1, why:'', when:'', rub:['','',''], cls:'', group:'' };
+  try{ var _rb = JSON.parse(localStorage.getItem(RBKEY)); if(_rb) for(var k3 in _rb) if(k3 in RB) RB[k3] = _rb[k3]; }catch(e){}
+  function rbSave(){ try{ localStorage.setItem(RBKEY, JSON.stringify(RB)); }catch(e){} }
+
+  if(document.getElementById('rbMap1')){
+    document.getElementById('rbMap1').innerHTML = drawTown({ closed:[], open:[], cur:null });
+    var B2 = townBFS(), A3 = townAstar(), at2 = -1, at3 = -1;
+    function rbDraw(which){
+      var steps = which === 2 ? B2 : A3, at = which === 2 ? at2 : at3;
+      var st = at >= 0 ? steps[at] : { closed:[], open:[], cur:null, rows:[], showH:(which === 3) };
+      document.getElementById('rbMap' + which).innerHTML = drawTown(st);
+      document.getElementById('rbNarr' + which).innerHTML = at >= 0 ? st.say : '«한 걸음 더»를 눌러 시작하세요.';
+      document.getElementById('rbNarr' + which).classList.toggle('fin', !!st.done);
+      document.getElementById('rbCnt' + which).textContent = (st.closed ? st.closed.length : 0) + ' 군데';
+      document.getElementById('rbStep' + which).disabled = at >= steps.length - 1;
+      if(which === 3) document.getElementById('rbTab3').innerHTML = drawRows(st.rows || []);
+    }
+    document.getElementById('rbStep2').addEventListener('click', function(){ if(at2 < B2.length - 1){ at2++; rbDraw(2); } });
+    document.getElementById('rbRe2').addEventListener('click', function(){ at2 = -1; rbDraw(2); });
+    document.getElementById('rbStep3').addEventListener('click', function(){ if(at3 < A3.length - 1){ at3++; rbDraw(3); } });
+    document.getElementById('rbRe3').addEventListener('click', function(){ at3 = -1; rbDraw(3); });
+    rbDraw(2); rbDraw(3);
+
+    var bEnd = B2[B2.length - 1], aEnd = A3[A3.length - 1];
+    document.getElementById('rbCmp').innerHTML =
+      '<tr><th>구분</th><th>너비 우선 탐색</th><th>A* 알고리즘</th></tr>' +
+      '<tr><td class="d">탐색 방법</td><td>가까운 곳부터 차례차례 전부</td><td>f = g + h 가 작은 곳부터</td></tr>' +
+      '<tr><td class="d">힌트(h) 사용</td><td>쓰지 않음</td><td>씀</td></tr>' +
+      '<tr><td class="d">살펴본 곳</td><td><b>' + bEnd.closed.length + '군데</b></td><td><b>' + aEnd.closed.length + '군데</b></td></tr>' +
+      '<tr><td class="d">찾은 길</td><td>' + bEnd.path.join(' → ') + '</td><td>' + aEnd.path.join(' → ') + '</td></tr>' +
+      '<tr><td class="d">정거장 수</td><td>' + (bEnd.path.length - 1) + '개</td><td>' + (aEnd.path.length - 1) + '개</td></tr>' +
+      '<tr><td class="d">걸리는 시간</td><td><b>' + bEnd.total + '분</b></td><td><b>' + aEnd.total + '분</b></td></tr>';
+
+    ['why','when'].forEach(function(f){
+      var el = document.getElementById('rb' + f.charAt(0).toUpperCase() + f.slice(1));
+      el.value = RB[f] || '';
+      el.addEventListener('input', function(){ RB[f] = this.value; rbSave(); });
+    });
+    rubricWire('rbRub', [
+      '정보 이용 탐색을 이용하여 문제를 해결할 수 있는가?',
+      '맹목적 탐색을 이용하여 문제를 해결할 수 있는가?',
+      '정보 이용 탐색과 맹목적 탐색의 차이점을 설명할 수 있는가?'
+    ], function(){ return RB.rub; }, function(v){ RB.rub = v; rbSave(); });
+
+    var rbGo = wizWire('rbWiz', 'data-rb', function(){ return RB.step; }, function(n){ RB.step = n; rbSave(); });
+    document.getElementById('rbPrev').addEventListener('click', function(){ rbGo(RB.step - 1); });
+    document.getElementById('rbNext').addEventListener('click', function(){ rbGo(RB.step + 1); });
+    document.getElementById('rbGroup').value = RB.group || '';
+    document.getElementById('rbGroup').addEventListener('input', function(){ RB.group = this.value; rbSave(); });
+    clsPickWire('rbCls', function(v){ RB.cls = v; rbSave(); });
+    if(RB.cls){ var rcb = document.querySelector('#rbCls button[data-c="' + RB.cls + '"]'); if(rcb) rcb.setAttribute('aria-pressed','true'); }
+    function rbReport(){
+      return ['════════ 우리 동네 등굣길 ════════',
+        '교과서 Ⅰ-04 지능적 탐색의 종류 (38~39쪽)', '',
+        '분반 : ' + (RB.cls || '(미선택)'), '모둠 : ' + (RB.group || '(미입력)'), '',
+        '너비 우선 : ' + bEnd.closed.length + '군데 · ' + bEnd.path.join(' → ') + ' · ' + bEnd.total + '분',
+        'A* 알고리즘 : ' + aEnd.closed.length + '군데 · ' + aEnd.path.join(' → ') + ' · ' + aEnd.total + '분', '',
+        '어느 쪽이 효율적인가 : ' + (RB.why || '(미작성)'),
+        '너비 우선이 필요한 때 : ' + (RB.when || '(미작성)'), '',
+        '자기평가 1 (정보 이용 탐색) : ' + (RB.rub[0] || '(미선택)'),
+        '자기평가 2 (맹목적 탐색) : ' + (RB.rub[1] || '(미선택)'),
+        '자기평가 3 (차이점 설명) : ' + (RB.rub[2] || '(미선택)'),
+        '══════════════════════════════════'].join('\n');
+    }
+    document.getElementById('rbCopy').addEventListener('click', function(){ tClip(rbReport(), this); });
+    document.getElementById('rbSend').addEventListener('click', function(){
+      var btn = this, msg = document.getElementById('rbSendMsg');
+      if(!RB.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!(RB.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+      postSheet({
+        key:SUBMIT_KEY, type:'town', cls:RB.cls, group:RB.group,
+        bfsSeen:bEnd.closed.length, bfsPath:bEnd.path.join(' → '), bfsTime:bEnd.total,
+        aSeen:aEnd.closed.length, aPath:aEnd.path.join(' → '), aTime:aEnd.total,
+        why:RB.why, when:RB.when,
+        rub1:RB.rub[0], rub2:RB.rub[1], rub3:RB.rub[2]
+      }, btn, msg, 3);
+    });
+    rbGo(RB.step || 1);
+  }
 
   /* ═══════════ 코드 복사 ═══════════ */
   [].forEach.call(document.querySelectorAll('[data-copy]'), function(b){
@@ -2002,7 +3137,7 @@ path = astar(grid, start, goal)
   /* ══ 수업 활동 ═══════════════════════════════════════════ */
 
   /* 탭 전환 */
-  var atabs = [].slice.call(document.querySelectorAll('.atab'));
+  var atabs = [].slice.call(document.querySelectorAll('.atab[data-act]'));
   var apanes = [].slice.call(document.querySelectorAll('[data-panel]'));
   atabs.forEach(function(t){
     t.addEventListener('click', function(){
