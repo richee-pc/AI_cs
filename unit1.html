@@ -27,7 +27,7 @@
   --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
   --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
   --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
-  --warm:#B8620E; --warm-bg:#FFF1DF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
   --good:#11734C; --good-bg:#DDF6EB;
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
@@ -60,7 +60,7 @@
   --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
   --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
   --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
-  --warm:#B8620E; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --warm:#9C5409; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
 }
@@ -238,6 +238,117 @@ summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
 details p{padding:0 20px 17px; margin:0; font-size:14.5px; color:var(--ink2)}
 
 
+.flow-h{font-family:var(--disp); font-weight:400; font-size:22px; color:var(--blue-d); margin:34px 0 8px}
+.card>h4{font-family:var(--disp); font-weight:400; font-size:19px; color:var(--blue-d); margin:0 0 10px}
+.tl{margin:0; padding-left:0; list-style:none; counter-reset:tl}
+.tl li{position:relative; padding:9px 0 9px 30px; font-size:14.5px; color:var(--ink2);
+  border-bottom:1px dashed var(--line); counter-increment:tl}
+.tl li:last-child{border-bottom:none}
+.tl li::before{content:counter(tl); position:absolute; left:0; top:11px; width:20px; height:20px;
+  border-radius:50%; background:var(--blue-xl); color:var(--blue-d);
+  font-size:11.5px; font-weight:800; display:flex; align-items:center; justify-content:center}
+.tl b{color:var(--ink); font-variant-numeric:tabular-nums; margin-right:6px}
+.tl i{font-style:normal; font-size:12px; font-weight:700; color:var(--muted); margin-left:6px}
+/* ── 수업 활동 ─────────────────────────── */
+.actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
+.atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  font-family:var(--sans); font-size:15px; font-weight:800; text-align:left;
+  padding:11px 18px; border-radius:15px; border:2px solid var(--line);
+  background:var(--white); color:var(--ink2); cursor:pointer; transition:.15s}
+.atab i{font-style:normal; font-size:11.5px; font-weight:700; letter-spacing:.04em; color:var(--muted)}
+.atab:hover{border-color:var(--blue-l); background:var(--tint)}
+.atab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill); box-shadow:var(--sh)}
+.atab[aria-selected="true"] i{color:var(--on-fill); opacity:.8}
+.atab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.actbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px; box-shadow:var(--sh)}
+.actbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:24px; color:var(--blue-d); margin:0 0 8px}
+.actbox .tm{font-family:var(--sans); font-size:12.5px; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.actbox .desc{font-size:15px; color:var(--ink2); margin:0 0 18px}
+.mini-h{font-family:var(--disp); font-weight:400; font-size:17px; color:var(--blue-d); margin:0 0 10px}
+.scorepill{font-family:var(--sans); font-size:14px; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:8px 16px}
+
+/* ① AI 판별 카드 */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-bottom:16px}
+.acard{text-align:left; font-family:var(--sans); font-size:14.5px; font-weight:600; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:13px 15px;
+  color:var(--ink); cursor:pointer; transition:.15s; position:relative}
+.acard:hover{border-color:var(--blue-l)}
+.acard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.acard .pickmark{display:block; font-size:11.5px; font-weight:800; letter-spacing:.04em;
+  color:var(--ink2); margin-bottom:4px}
+.acard[data-pick="y"]{border-color:var(--good); background:var(--good-bg)}
+.acard[data-pick="y"] .pickmark{color:var(--good)}
+.acard[data-pick="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.acard[data-pick="n"] .pickmark{color:var(--warm)}
+.acard.right{box-shadow:inset 0 0 0 2px var(--good)}
+.acard.wrong{box-shadow:inset 0 0 0 2px #C63B3B}
+.acard .why{display:block; font-size:13px; font-weight:600; color:var(--ink2);
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--line)}
+
+/* ② 튜링 테스트 */
+.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+.steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
+.steps3 b{display:block; font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d); margin-bottom:4px}
+.steps3 span{font-size:14px; color:var(--ink2); line-height:1.6}
+.roles{display:grid; gap:8px; min-height:60px}
+.roles .hint{font-size:14px; color:var(--muted); line-height:1.6}
+.rrow{display:flex; align-items:center; gap:10px; background:var(--tint);
+  border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:14.5px}
+.rrow b{font-family:var(--disp); font-weight:400; font-size:16px; color:var(--blue-d); min-width:74px}
+.rrow.secret{background:var(--blue-xl); border-color:var(--blue-l)}
+.rrow.masked b+span{filter:blur(6px); user-select:none}
+.qbig{font-family:var(--disp); font-weight:400; font-size:clamp(19px,3.1vw,26px); line-height:1.45;
+  color:var(--ink); background:var(--blue-xl); border-radius:16px; padding:24px 22px;
+  text-align:center; min-height:108px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px}
+.qall{margin:12px 0 0; padding-left:22px; font-size:14px; color:var(--ink2); line-height:1.85}
+
+/* ③ 네 가지 특성 */
+.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+.tcell{text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
+.tcell:hover{border-color:var(--blue-l)}
+.tcell:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tcell b{display:block; font-family:var(--disp); font-weight:400; font-size:18px;
+  color:var(--blue-d); margin-bottom:3px}
+.tcell span{display:block; font-size:13.5px; color:var(--ink2); line-height:1.55}
+.tcell em{display:inline-block; font-style:normal; font-size:12px; font-weight:800;
+  letter-spacing:.04em; color:var(--ink2); margin-top:7px}
+.tcell[data-on="y"]{border-color:var(--good); background:var(--good-bg)}
+.tcell[data-on="y"] em{color:var(--good)}
+.tcell[data-on="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.tcell[data-on="n"] em{color:var(--warm)}
+
+/* ④ 분야 매칭 */
+.matchbox{margin-bottom:16px}
+.mcase{font-family:var(--disp); font-weight:400; font-size:clamp(18px,2.8vw,23px); line-height:1.5;
+  background:var(--blue-xl); border-radius:16px; padding:22px; text-align:center;
+  min-height:96px; display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px}
+.mopts button{font-family:var(--sans); font-size:15px; font-weight:700; padding:13px 10px;
+  border-radius:13px; border:2px solid var(--line); background:var(--tint);
+  color:var(--ink); cursor:pointer; transition:.15s}
+.mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
+@media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
+:root[data-theme="dark"] .mopts button.no{background:#3A1616; color:#FFAFAF}
+:root[data-theme="light"] .mopts button.no{background:#FDE9E9; color:#A62727}
+
+/* ⑤ 학습지 */
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:18px; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:15px;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
+
 /* ── 시뮬레이터 ─────────────────────────── */
 .sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:24px; box-shadow:var(--sh); margin-bottom:20px}
@@ -332,6 +443,7 @@ footer a{font-weight:700}
   <a href="#" class="soon">Ⅳ. 프로젝트</a>
   <span class="sep"></span>
   <a href="#slides">슬라이드</a>
+  <a href="#act">수업 활동</a>
   <a href="#sim">시뮬레이터</a>
   <a href="#code">코드</a>
   <a href="#check">확인 문제</a>
@@ -346,7 +458,7 @@ footer a{font-weight:700}
     <div class="fact"><b>6<span style="font-size:16px"> 소단원</span></b><span>Ⅰ-01 ~ Ⅰ-06</span></div>
     <div class="fact"><b>8~10<span style="font-size:16px"> 차시</span></b><span>분반에 따라 다름</span></div>
     <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>성취기준</span></div>
-    <div class="fact"><b>3<span style="font-size:16px"> 개</span></b><span>시뮬레이터 · 코드 2종</span></div>
+    <div class="fact"><b>5<span style="font-size:16px"> 개</span></b><span>수업 활동 · 시뮬레이터 3</span></div>
   </div>
 </div></div>
 
@@ -405,6 +517,36 @@ footer a{font-weight:700}
     <tr><td class="d">7</td><td class="d">8/31 (월)</td><td><b>Ⅰ-05</b> 지능적 탐색 과정의 적용</td></tr>
     <tr><td class="d">8</td><td class="d">9/1 (화)</td><td><b>Ⅰ-06</b> 컴퓨터가 처리하는 지식의 표현</td></tr>
   </table></div></div>
+
+  <h3 class="flow-h">Ⅰ-01 · Ⅰ-02 를 50분으로 어떻게 채울까</h3>
+  <p class="sub" style="margin-top:-6px">아래 <a href="#act" style="color:var(--blue-d); font-weight:700">수업 활동</a>을 화면에 띄워 놓고 그대로 진행하면 됩니다.</p>
+  <div class="g2">
+    <div class="card">
+      <h4>Ⅰ-01 인공지능의 개념과 특성</h4>
+      <ol class="tl">
+        <li><b>5분</b> 활동 ① 「이건 AI일까?」 카드 12장 분류 <i>도입</i></li>
+        <li><b>10분</b> 인공지능의 정의 · 지능이란 무엇인가 <i>슬라이드</i></li>
+        <li><b>8분</b> 네 가지 특성 <i>슬라이드</i></li>
+        <li><b>10분</b> 활동 ③ 「네 가지 특성 찾기」 짝 활동 <i>실습</i></li>
+        <li><b>15분</b> 활동 ② 「튜링 테스트」 모둠 체험 <i>교과서 14~15쪽</i></li>
+        <li><b>2분</b> 정리 · 다음 차시 예고</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h4>Ⅰ-02 인공지능과 문제 해결</h4>
+      <ol class="tl">
+        <li><b>5분</b> 스피커가 사람을 살린 사례 <i>도입</i></li>
+        <li><b>8분</b> 하루 속의 인공지능 · 학문 분야 <i>슬라이드</i></li>
+        <li><b>10분</b> 활동 ④ 「어느 분야일까?」 모둠 대항 <i>퀴즈</i></li>
+        <li><b>17분</b> 활동 ⑤ 「AI 해결안 설계」 학습지 작성 <i>교과서 20~21쪽</i></li>
+        <li><b>8분</b> 모둠 발표 · 인상 깊은 사례 정리</li>
+        <li><b>2분</b> 정리 · 다음 차시 예고</li>
+      </ol>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px"><b>준비물</b>
+    Ⅰ-01 활동 ②는 컴퓨터 역할 학생이 <b>챗봇으로 답을 미리 만들어</b> 와야 합니다.
+    수업 시작 때 역할을 먼저 배정하고, 그동안 다른 활동을 진행하세요.</div>
 </div></section>
 
 <section id="slides"><div class="wrap">
@@ -433,6 +575,136 @@ footer a{font-weight:700}
       <button type="button" class="go" id="nextS">다음 &#8594;</button>
       <div class="dots" id="dots"></div>
     </div>
+  </div>
+</div></section>
+
+<section id="act"><div class="wrap">
+  <p class="eyebrow">함께 하는 활동</p>
+  <h2>Ⅰ-01 · Ⅰ-02 수업 활동</h2>
+  <p class="sub">교과서 14~15쪽, 20~21쪽 활동을 바로 굴릴 수 있게 만들었습니다.
+    <b>화면에 띄워 놓고 함께 진행</b>하세요.</p>
+
+  <div class="actbar" role="tablist" aria-label="활동 선택">
+    <button class="atab" role="tab" data-act="0" aria-selected="true"><i>Ⅰ-01 · 도입 5분</i>이건 AI일까?</button>
+    <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트</button>
+    <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01 · 10분</i>네 가지 특성 찾기</button>
+    <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 10분</i>어느 분야일까?</button>
+    <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-02 · 20분</i>AI 해결안 설계</button>
+  </div>
+
+  <!-- ① AI 판별 게임 -->
+  <div class="actbox" data-panel="0">
+    <h3>① 이건 AI일까? <span class="tm">5분 · 개인 또는 짝</span></h3>
+    <p class="desc">카드를 눌러 <b>AI가 맞다 / 아니다</b>로 나눠 보세요. 다 고르면 채점됩니다.
+      틀린 것은 <b>왜 틀렸는지</b> 이유가 나옵니다.</p>
+    <div class="cards" id="aiCards"></div>
+    <div class="simctl">
+      <button type="button" class="mini" id="aiCheck">채점하기</button>
+      <button type="button" class="mini gh" id="aiReset">다시</button>
+      <span id="aiScore" class="scorepill" hidden></span>
+    </div>
+    <p class="ask" style="margin-top:14px"><b>정리 질문</b> 「자동으로 움직이는 것」과 「스스로 판단하는 것」의 차이는 무엇일까요?</p>
+  </div>
+
+  <!-- ② 튜링 테스트 -->
+  <div class="actbox" data-panel="1" hidden>
+    <h3>② 튜링 테스트 해 보기 <span class="tm">20분 · 4~6명 모둠</span></h3>
+    <p class="desc">교과서 14~15쪽 활동입니다. <b>컴퓨터 역할</b>은 챗봇으로 답을 미리 만들고,
+      <b>사람 역할</b>은 짧고 정직하게 답합니다. 관객이 누가 컴퓨터인지 맞힙니다.</p>
+
+    <div class="steps3">
+      <div><b>1단계</b><span>역할을 정하고 A·B에 이름을 적는다. 관객은 누가 컴퓨터인지 모른다</span></div>
+      <div><b>2단계</b><span>관객이 질문을 고르면 전달자가 A·B에게 전달하고 답을 듣는다 (4~5회)</span></div>
+      <div><b>3단계</b><span>관객이 토의해 «컴퓨터로 예측되는 쪽»을 정하고 이유를 말한다</span></div>
+    </div>
+
+    <div class="gridwrap" style="margin-top:18px">
+      <div class="gside" style="flex:1 1 260px">
+        <h4 class="mini-h">역할 뽑기</h4>
+        <div class="simctl" style="margin-bottom:10px">
+          <input type="text" id="names" placeholder="이름을 쉼표로 (예: 민준, 서준, 도윤, 하준, 지호)"
+                 style="flex:1 1 200px; min-width:180px; font-family:var(--sans); font-size:14px;
+                        padding:10px 13px; border-radius:11px; border:2px solid var(--line);
+                        background:var(--tint); color:var(--ink)">
+          <button type="button" class="mini" id="rollRole">역할 배정</button>
+        </div>
+        <div class="roles" id="roleOut"><span class="hint">이름을 넣고 «역할 배정»을 누르세요.
+          컴퓨터·사람이 누구인지는 <b>전달자만</b> 보도록 «가리기»로 숨길 수 있습니다.</span></div>
+        <div class="simctl" style="margin-top:8px"><button type="button" class="mini gh" id="hideRole" hidden>가리기 / 보이기</button></div>
+      </div>
+      <div class="gside" style="flex:1 1 280px">
+        <h4 class="mini-h">질문 뽑기</h4>
+        <div class="qbig" id="qBig">질문을 뽑아 주세요</div>
+        <div class="simctl">
+          <button type="button" class="mini" id="rollQ">질문 뽑기</button>
+          <button type="button" class="mini gh" id="qList">전체 질문 보기</button>
+        </div>
+        <ol class="qall" id="qAll" hidden></ol>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:16px"><b>왜 이런 질문일까.</b>
+      계산 문제(2x+1=5)는 컴퓨터가 <b>너무 빠르고 정확</b>해서 티가 납니다.
+      「사랑은 무엇인가」 같은 질문은 <b>사람다운 머뭇거림</b>이 드러납니다.
+      «이번 주말 날씨»는 <b>실시간 정보</b>가 필요해서 또 다릅니다.</p>
+    <p class="ask"><b>마무리 토의</b> 컴퓨터를 맞혔나요? 맞히거나 못 맞힌 이유는 무엇일까요?<br>
+      «컴퓨터가 지능을 가진다»는 것은 무슨 뜻일까요?</p>
+  </div>
+
+  <!-- ③ 네 가지 특성 찾기 -->
+  <div class="actbox" data-panel="2" hidden>
+    <h3>③ 네 가지 특성 찾기 <span class="tm">10분 · 짝 활동</span></h3>
+    <p class="desc">기기를 하나 고르고, <b>인식과 이해 · 학습 · 추론 · 자율성</b> 중
+      몇 개를 가지고 있는지 따져 보세요. 근거를 말할 수 있어야 합니다.</p>
+    <div class="simctl">
+      <span class="pick" id="devPick">
+        <button type="button" data-dev="0" aria-pressed="true">AI 스피커</button>
+        <button type="button" data-dev="1" aria-pressed="false">자율주행차</button>
+        <button type="button" data-dev="2" aria-pressed="false">엘리베이터</button>
+        <button type="button" data-dev="3" aria-pressed="false">영상 추천</button>
+      </span>
+    </div>
+    <div class="traits" id="traits"></div>
+    <p class="ask" id="traitMsg" style="margin-top:14px"><b>해 보기</b> 네 칸을 눌러 «있다/없다»를 정해 보세요.</p>
+  </div>
+
+  <!-- ④ 학문 분야 매칭 -->
+  <div class="actbox" data-panel="3" hidden>
+    <h3>④ 어느 분야일까? <span class="tm">10분 · 모둠 대항</span></h3>
+    <p class="desc">사례를 읽고 <b>어느 학문 분야</b>인지 고르세요. 모둠별로 점수를 매겨도 좋습니다.</p>
+    <div class="matchbox">
+      <div class="mcase" id="mCase">사례를 불러오는 중…</div>
+      <div class="mopts" id="mOpts"></div>
+    </div>
+    <div class="simctl">
+      <span id="mScore" class="scorepill">0 / 0</span>
+      <button type="button" class="mini gh" id="mReset">처음부터</button>
+    </div>
+  </div>
+
+  <!-- ⑤ AI 해결안 설계 -->
+  <div class="actbox" data-panel="4" hidden>
+    <h3>⑤ AI 해결안 설계 <span class="tm">20분 · 모둠 → 발표</span></h3>
+    <p class="desc">교과서 21쪽 활동입니다. <b>불편한 점 → AI 해결 방안 → 필요한 데이터</b>
+      순서로 적고 모둠에서 발표합니다.</p>
+    <div class="wsheet">
+      <label>① 내가 겪은 불편한 점
+        <textarea id="w1" rows="3" placeholder="예) 보고 싶은 영상이 너무 길어서 필요한 부분만 보기 어렵다"></textarea></label>
+      <label>② 인공지능으로 어떻게 해결할까
+        <textarea id="w2" rows="3" placeholder="예) 인공지능이 영상을 분석해 핵심 구간만 요약해 준다"></textarea></label>
+      <label>③ 필요한 데이터는
+        <textarea id="w3" rows="2" placeholder="예) 영상 자막, 사람들이 많이 돌려 본 구간 기록"></textarea></label>
+    </div>
+    <div class="simctl">
+      <button type="button" class="mini" id="wSample">예시 채우기</button>
+      <button type="button" class="mini gh" id="wCopy">내용 복사</button>
+      <button type="button" class="mini gh" id="wClear">지우기</button>
+    </div>
+    <p class="note" style="margin-top:14px"><b>좋은 해결안의 조건.</b>
+      ① 문제가 <b>구체적</b>일 것 ② 해결 방안이 <b>AI다울</b> 것(그냥 자동화가 아니라 판단이 필요할 것)
+      ③ 필요한 데이터를 <b>실제로 구할 수 있을</b> 것.</p>
+    <p class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 발표하고,
+      다른 모둠 것 중 인상 깊었던 것과 그 이유를 적어 봅시다.</p>
   </div>
 </div></section>
 
@@ -811,6 +1083,12 @@ path = astar(grid, start, goal)
     '<figcaption>집 안 곳곳에 인공지능이 들어 있다</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
 
+    '<p class="kicker">Ⅰ-01 · 활동 ①</p><h4>이건 AI일까?</h4>'+
+    '<p class="big">자동으로 열리는 문은<br>인공지능일까, 아닐까?</p>'+
+    '<div class="def"><b>5분 활동</b>카드 12장을 «AI가 맞다 / 아니다»로 나눠 보세요.<br>'+
+    '중요한 것은 정답이 아니라 <b>«왜 그렇게 생각했는지»</b> 입니다.</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ① 이건 AI일까?</b> 에서 바로 할 수 있습니다.</div>',
+
     '<p class="kicker">Ⅰ-01 · 개념</p><h4>인공지능의 정의</h4>'+
     '<div class="def"><b>인공지능 (Artificial Intelligence)</b>'+
     '인간이 가진 <b>지적 능력의 일부 또는 전체</b>를 컴퓨팅 시스템을 이용해 구현한 «인공적인 지능»</div>'+
@@ -832,6 +1110,15 @@ path = astar(grid, start, goal)
     '</div>'+
     '<div class="ask"><b>물어보기</b> 자동으로 층에 멈추는 엘리베이터에는 이 중 몇 개가 있을까요?</div>',
 
+    '<p class="kicker">Ⅰ-01 · 활동 ③</p><h4>네 가지 특성 찾기</h4>'+
+    '<div class="def"><b>10분 · 짝 활동</b>'+
+    'AI 스피커 · 자율주행차 · 엘리베이터 · 영상 추천 중 하나를 고르고,<br>'+
+    '네 가지 특성을 <b>가지고 있는지 없는지</b> 짝과 함께 판단해 보세요.</div>'+
+    '<div class="note"><b>규칙</b> «있다»라고 했으면 <b>근거를 한 문장으로</b> 말할 수 있어야 합니다. '+
+    '근거를 못 대면 «없다»로 봅니다.</div>'+
+    '<div class="ask"><b>생각해 보기</b> 네 개를 모두 가진 것과 하나만 가진 것 —<br>'+
+    '둘 다 «인공지능»이라 부를 수 있을까요?</div>',
+
     '<p class="kicker">Ⅰ-01 · 튜링 테스트</p><h4>컴퓨터가 지능이 있는지 어떻게 판단할까?</h4>'+
     '<figure><svg viewBox="0 0 460 176" xmlns="http://www.w3.org/2000/svg">'+
     '<rect x="14" y="24" width="126" height="86" rx="14" '+C+'="dnode"/>'+
@@ -851,12 +1138,27 @@ path = astar(grid, start, goal)
     '</div>'+
     '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
 
+    '<p class="kicker">Ⅰ-01 · 활동 ②</p><h4>우리가 직접 튜링 테스트</h4>'+
+    '<div class="four">'+
+    '<div><b>컴퓨터 A</b><span>챗봇으로 답을 미리 만들어 온다. 티 나지 않게 다듬는 것이 실력</span></div>'+
+    '<div><b>사람 B</b><span>짧지만 정확하고 정직하게 답한다</span></div>'+
+    '<div><b>전달자</b><span>질문을 전하고 답을 읽어 준다. 누가 컴퓨터인지 유일하게 안다</span></div>'+
+    '<div><b>관객</b><span>4~5번 질문한 뒤 누가 컴퓨터인지 토의해 결정한다</span></div>'+
+    '</div>'+
+    '<div class="note"><b>이기는 요령</b> 컴퓨터 쪽은 <b>너무 완벽하지 않게</b>, '+
+    '사람 쪽은 <b>너무 기계처럼 정확하지 않게</b>. 그래야 어렵습니다.</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ② 튜링 테스트</b> 에서 '+
+    '역할 배정과 질문 뽑기를 할 수 있습니다.</div>',
+
     '<p class="kicker">Ⅰ-01 · 정리</p><h4>오늘 배운 것</h4>'+
     '<ul>'+
     '<li><b>인공지능</b> = 인간의 지적 능력을 컴퓨팅 시스템으로 구현한 것</li>'+
     '<li>네 가지 특성 = <b>인식과 이해 · 학습 · 추론 · 자율성</b></li>'+
     '<li><b>튜링 테스트</b> = 대화로 사람과 구별되지 않으면 지능이 있다고 판단</li>'+
     '<li>«인공지능» 용어의 탄생 = <b>1956년 다트머스 학회</b></li></ul>'+
+    '<div class="note"><b>꼭 짚고 넘어가기</b> 튜링 테스트를 통과했다고 해서 '+
+    '인공지능이 사람과 <b>동등하다</b>고 말할 수는 없습니다. '+
+    '사람과 인공지능의 <b>경계를 탐구하는 지표</b>로 이용할 뿐입니다.</div>'+
     '<div class="ask"><b>다음 시간</b> 인공지능이 실제로 <b>어떤 문제를 어떻게</b> 해결하는지 봅니다.</div>'
    ]},
 
@@ -888,13 +1190,32 @@ path = astar(grid, start, goal)
     '<figcaption>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</figcaption></figure>'+
     '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결하고 도움을 줍니다.</p>',
 
+    '<p class="kicker">Ⅰ-02 · 활동 ④</p><h4>어느 분야일까?</h4>'+
+    '<p class="big">「X-선 사진에서 폐렴이<br>의심되는 부위를 표시한다」</p>'+
+    '<div class="def"><b>10분 · 모둠 대항</b>사례 10개를 읽고 '+
+    '<b>의학 · 교육학 · 법학 · 농업 · 사회과학 · 인문과학</b> 중 어디인지 맞혀 보세요.<br>'+
+    '모둠별로 점수를 세어 겨뤄도 좋습니다.</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ④ 어느 분야일까?</b></div>',
+
     '<p class="kicker">Ⅰ-02 · 활동</p><h4>내가 찾은 문제, 내가 만든 해결안</h4>'+
     '<div class="def"><b>활동지</b>'+
     '① 내 주변의 <b>불편한 점</b>을 하나 고른다<br>'+
     '② 그 문제를 <b>인공지능으로 어떻게</b> 해결할 수 있을지 쓴다<br>'+
     '③ 필요한 <b>데이터</b>는 무엇일지 적는다</div>'+
     '<div class="note"><b>예시</b> 「보고 싶은 영상이 너무 길다」 → 인공지능이 <b>핵심 구간만 요약</b>해 준다 → 필요한 데이터: 영상 자막, 시청 구간 기록</div>'+
-    '<div class="ask"><b>발표</b> 모둠에서 가장 인상 깊었던 사례와 그 이유를 정리해 봅시다.</div>',
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑤ AI 해결안 설계</b> 에 '+
+    '바로 적고 «내용 복사»로 가져갈 수 있습니다.</div>',
+
+    '<p class="kicker">Ⅰ-02 · 활동 ⑤</p><h4>좋은 해결안의 조건</h4>'+
+    '<div class="four">'+
+    '<div><b>구체적인가</b><span>«불편하다»가 아니라 «언제·어디서·무엇이» 불편한지</span></div>'+
+    '<div><b>AI다운가</b><span>그냥 자동화가 아니라 <b>판단</b>이 필요한 일인가</span></div>'+
+    '<div><b>데이터가 있나</b><span>실제로 모을 수 있는 데이터인가</span></div>'+
+    '</div>'+
+    '<div class="note"><b>흔한 실수</b> 「버튼을 누르면 자동으로 켜진다」 — 이것은 <b>자동화</b>이지 인공지능이 아닙니다. '+
+    '무언가를 <b>보고 판단</b>하는 부분이 있어야 합니다.</div>'+
+    '<div class="ask"><b>발표</b> 모둠에서 가장 좋은 아이디어를 하나 골라 발표하고,<br>'+
+    '다른 모둠 것 중 인상 깊었던 것과 그 이유를 적어 봅시다.</div>',
 
     '<p class="kicker">Ⅰ-02 · 정리</p><h4>오늘 배운 것</h4>'+
     '<ul>'+
@@ -1355,6 +1676,305 @@ path = astar(grid, start, goal)
         document.body.removeChild(ta);
       }
     });
+  });
+
+  /* ══ 수업 활동 ═══════════════════════════════════════════ */
+
+  /* 탭 전환 */
+  var atabs = [].slice.call(document.querySelectorAll('.atab'));
+  var apanes = [].slice.call(document.querySelectorAll('[data-panel]'));
+  atabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var k = t.getAttribute('data-act');
+      atabs.forEach(function(o){ o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      apanes.forEach(function(p){ p.hidden = p.getAttribute('data-panel') !== k; });
+    });
+  });
+
+  /* ① 이건 AI일까? */
+  var AICARDS = [
+    {t:'스마트폰 얼굴 인식 잠금 해제', ai:1, why:'사람 얼굴을 학습해 «이 사람이 맞는지» 판단합니다. 인식 + 학습.'},
+    {t:'자동으로 열리는 편의점 문',      ai:0, why:'센서에 물체가 닿으면 무조건 열립니다. 판단도 학습도 없습니다.'},
+    {t:'유튜브 다음 영상 추천',          ai:1, why:'내가 본 기록을 학습해 좋아할 만한 것을 «예측»합니다.'},
+    {t:'계산기의 √ 버튼',                ai:0, why:'정해진 공식을 그대로 계산할 뿐, 스스로 배우지 않습니다.'},
+    {t:'번역 앱',                        ai:1, why:'수많은 문장을 학습해 문맥에 맞는 표현을 골라냅니다.'},
+    {t:'전기밥솥의 «취사» 버튼',         ai:0, why:'정해진 시간·온도대로 동작하는 자동화입니다.'},
+    {t:'스팸 메일 자동 분류',            ai:1, why:'메일의 특징을 학습해 스팸일 «확률»을 계산합니다.'},
+    {t:'신호등이 60초마다 바뀜',         ai:0, why:'시간표대로 반복. 다만 «차량 수를 보고» 바꾸면 AI가 됩니다.'},
+    {t:'AI 스피커에게 노래 틀어 달라기', ai:1, why:'음성을 알아듣고(인식) 무엇을 원하는지 이해합니다.'},
+    {t:'자판기에서 음료 나오기',         ai:0, why:'버튼 → 배출. 정해진 순서를 따르는 기계 동작입니다.'},
+    {t:'자율주행차의 차선 유지',         ai:1, why:'카메라로 차선을 인식하고 스스로 핸들을 조작(자율성)합니다.'},
+    {t:'엑셀에서 «SUM» 계산',            ai:0, why:'사람이 알려 준 수식을 그대로 실행합니다.'}
+  ];
+  var aiWrap = document.getElementById('aiCards');
+  function aiBuild(){
+    if(!aiWrap) return;
+    aiWrap.innerHTML = '';
+    AICARDS.forEach(function(c, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'acard'; b.setAttribute('data-i', i);
+      b.innerHTML = '<span class="pickmark">눌러서 선택</span>' + c.t;
+      b.addEventListener('click', function(){
+        var cur = b.getAttribute('data-pick');
+        var nx = cur === 'y' ? 'n' : (cur === 'n' ? '' : 'y');
+        if(nx) b.setAttribute('data-pick', nx); else b.removeAttribute('data-pick');
+        b.querySelector('.pickmark').textContent =
+          nx === 'y' ? 'AI가 맞다' : (nx === 'n' ? 'AI가 아니다' : '눌러서 선택');
+        b.classList.remove('right','wrong');
+        var w = b.querySelector('.why'); if(w) w.remove();
+      });
+      aiWrap.appendChild(b);
+    });
+    var sc = document.getElementById('aiScore'); if(sc) sc.hidden = true;
+  }
+  var aiCheckBtn = document.getElementById('aiCheck');
+  if(aiCheckBtn) aiCheckBtn.addEventListener('click', function(){
+    var got = 0, done = 0;
+    [].slice.call(aiWrap.children).forEach(function(b){
+      var i = +b.getAttribute('data-i'), p = b.getAttribute('data-pick');
+      b.classList.remove('right','wrong');
+      var w = b.querySelector('.why'); if(w) w.remove();
+      if(!p) return;
+      done++;
+      var ok = (p === 'y') === !!AICARDS[i].ai;
+      b.classList.add(ok ? 'right' : 'wrong');
+      if(ok) got++;
+      if(!ok){
+        var s = document.createElement('span');
+        s.className = 'why'; s.textContent = AICARDS[i].why;
+        b.appendChild(s);
+      }
+    });
+    var sc = document.getElementById('aiScore');
+    sc.hidden = false;
+    sc.textContent = done === 0 ? '카드를 먼저 골라 주세요'
+      : got + ' / ' + done + ' 정답' + (got === AICARDS.length ? '  전부 맞혔습니다!' : '');
+  });
+  var aiResetBtn = document.getElementById('aiReset');
+  if(aiResetBtn) aiResetBtn.addEventListener('click', aiBuild);
+  aiBuild();
+
+  /* ② 튜링 테스트 */
+  var QS = [
+    '2x + 1 = 5 일 때, x 의 값은 무엇인가요?',
+    '양치하는 법을 순서대로 알려 주세요.',
+    '당신의 장래 희망은 무엇인가요?',
+    '1, 3, 5, 7, 9 다음에 올 숫자는 무엇인가요?',
+    '전염병을 예방하려면 어떻게 해야 할까요?',
+    '사랑은 무엇이라고 생각하나요?',
+    '이번 주말 서울의 날씨는 어떤가요?',
+    '어제 저녁으로 무엇을 먹었나요?',
+    '지금 기분이 어떤지 한 문장으로 말해 주세요.',
+    '가장 최근에 웃었던 일은 무엇인가요?'
+  ];
+  var qUsed = [];
+  var qBig = document.getElementById('qBig');
+  var rollQ = document.getElementById('rollQ');
+  if(rollQ) rollQ.addEventListener('click', function(){
+    if(qUsed.length >= QS.length) qUsed = [];
+    var i; do { i = Math.floor(Math.random() * QS.length); } while(qUsed.indexOf(i) >= 0);
+    qUsed.push(i);
+    qBig.textContent = (i + 1) + '. ' + QS[i];
+  });
+  var qListBtn = document.getElementById('qList');
+  if(qListBtn) qListBtn.addEventListener('click', function(){
+    var ol = document.getElementById('qAll');
+    if(!ol.children.length) QS.forEach(function(q){
+      var li = document.createElement('li'); li.textContent = q; ol.appendChild(li);
+    });
+    ol.hidden = !ol.hidden;
+  });
+
+  var ROLES = ['컴퓨터 A', '사람 B', '전달자', '관객'];
+  var rollRole = document.getElementById('rollRole');
+  if(rollRole) rollRole.addEventListener('click', function(){
+    var raw = (document.getElementById('names').value || '').split(/[,，\s]+/)
+      .map(function(s){ return s.trim(); }).filter(Boolean);
+    var out = document.getElementById('roleOut');
+    if(raw.length < 3){
+      out.innerHTML = '<span class="hint">이름을 <b>3명 이상</b> 넣어 주세요. (컴퓨터·사람·전달자가 필요합니다)</span>';
+      document.getElementById('hideRole').hidden = true;
+      return;
+    }
+    for(var i = raw.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1)), t = raw[i]; raw[i] = raw[j]; raw[j] = t;
+    }
+    out.innerHTML = '';
+    raw.forEach(function(nm, i){
+      var role = i < 3 ? ROLES[i] : ROLES[3];
+      var d = document.createElement('div');
+      d.className = 'rrow' + (i < 2 ? ' secret masked' : '');
+      d.innerHTML = '<b>' + role + '</b><span>' + nm + '</span>';
+      out.appendChild(d);
+    });
+    document.getElementById('hideRole').hidden = false;
+  });
+  var hideRole = document.getElementById('hideRole');
+  if(hideRole) hideRole.addEventListener('click', function(){
+    [].slice.call(document.querySelectorAll('#roleOut .secret')).forEach(function(r){
+      r.classList.toggle('masked');
+    });
+  });
+
+  /* ③ 네 가지 특성 */
+  var DEVS = [
+    {n:'AI 스피커', a:[1,1,1,0], m:'말을 알아듣고(인식) 자주 쓰는 말을 배우며(학습) 무슨 뜻인지 따져 봅니다(추론). 다만 <b>스스로 켜고 끄지는 않으니</b> 자율성은 약합니다.'},
+    {n:'자율주행차', a:[1,1,1,1], m:'네 가지를 모두 갖춘 대표적인 예입니다. 카메라로 보고, 주행 데이터로 배우고, 다음 상황을 예측하고, 사람 없이 판단해 움직입니다.'},
+    {n:'엘리베이터', a:[1,0,0,0], m:'버튼과 무게를 <b>감지</b>하기는 하지만 배우지도, 추론하지도 않습니다. 인공지능이 아니라 <b>자동화</b>입니다.'},
+    {n:'영상 추천', a:[1,1,1,0], m:'시청 기록을 읽고(인식) 취향을 배우고(학습) 좋아할 확률을 계산합니다(추론). 재생 버튼은 사람이 누르므로 자율성은 낮습니다.'}
+  ];
+  var TN = [['인식과 이해','센서·입력으로 상황을 파악'],['학습','데이터에서 규칙을 스스로 찾음'],
+            ['추론','아는 것으로 새로운 결론을 냄'],['자율성','사람 없이 스스로 판단·행동']];
+  var devI = 0;
+  function tBuild(){
+    var box = document.getElementById('traits');
+    if(!box) return;
+    box.innerHTML = '';
+    TN.forEach(function(t, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'tcell'; b.setAttribute('data-t', i);
+      b.innerHTML = '<b>' + t[0] + '</b><span>' + t[1] + '</span><em>눌러서 판단</em>';
+      b.addEventListener('click', function(){
+        var cur = b.getAttribute('data-on');
+        var nx = cur === 'y' ? 'n' : (cur === 'n' ? '' : 'y');
+        if(nx) b.setAttribute('data-on', nx); else b.removeAttribute('data-on');
+        b.querySelector('em').textContent = nx === 'y' ? '있다' : (nx === 'n' ? '없다' : '눌러서 판단');
+        tScore();
+      });
+      box.appendChild(b);
+    });
+    document.getElementById('traitMsg').innerHTML =
+      '<b>해 보기</b> 네 칸을 눌러 «있다 / 없다»를 정해 보세요. 네 칸을 다 정하면 해설이 나옵니다.';
+  }
+  function tScore(){
+    var cells = [].slice.call(document.querySelectorAll('#traits .tcell'));
+    var picks = cells.map(function(c){ return c.getAttribute('data-on'); });
+    if(picks.indexOf(null) >= 0 || picks.indexOf('') >= 0) return;
+    var d = DEVS[devI], got = 0;
+    picks.forEach(function(p, i){ if((p === 'y') === !!d.a[i]) got++; });
+    document.getElementById('traitMsg').innerHTML =
+      '<b>' + d.n + ' · ' + got + ' / 4 </b>' + d.m;
+  }
+  var devPick = document.getElementById('devPick');
+  if(devPick) devPick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-dev]'); if(!b) return;
+    devI = +b.getAttribute('data-dev');
+    [].slice.call(devPick.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+    tBuild();
+  });
+  tBuild();
+
+  /* ④ 어느 분야일까? */
+  var FIELDS = ['의학','교육학','법학','농업','사회과학','인문과학'];
+  var MCASES = [
+    {q:'X-선 사진을 보고 폐렴이 의심되는 부위를 표시해 준다', f:0},
+    {q:'학생마다 틀린 문제를 분석해 다음에 풀 문제를 골라 준다', f:1},
+    {q:'수만 건의 판례를 찾아 비슷한 사건의 판결을 정리해 준다', f:2},
+    {q:'드론이 찍은 사진으로 병든 작물만 골라 약을 뿌린다', f:3},
+    {q:'설문 응답을 분석해 지역별 여론의 흐름을 예측한다', f:4},
+    {q:'훼손된 옛 문서의 지워진 글자를 복원한다', f:5},
+    {q:'환자의 유전 정보로 잘 맞는 항암제를 추천한다', f:0},
+    {q:'토양 수분과 날씨를 보고 물 주는 시기를 정해 준다', f:3},
+    {q:'계약서에서 불리한 조항을 찾아 표시해 준다', f:2},
+    {q:'말하기 발음을 듣고 어디를 고쳐야 할지 알려 준다', f:1}
+  ];
+  var mOrder = [], mIdx = 0, mGot = 0, mDone = 0;
+  function mShuffle(){
+    mOrder = MCASES.map(function(_, i){ return i; });
+    for(var i = mOrder.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1)), t = mOrder[i]; mOrder[i] = mOrder[j]; mOrder[j] = t;
+    }
+    mIdx = 0; mGot = 0; mDone = 0;
+  }
+  function mBuild(){
+    var opts = document.getElementById('mOpts');
+    if(!opts) return;
+    opts.innerHTML = '';
+    FIELDS.forEach(function(f, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = f;
+      b.addEventListener('click', function(){ mAnswer(i, b); });
+      opts.appendChild(b);
+    });
+  }
+  function mShow(){
+    var box = document.getElementById('mCase');
+    if(!box) return;
+    [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){
+      b.classList.remove('ok','no'); b.disabled = false;
+    });
+    if(mIdx >= mOrder.length){
+      box.textContent = '끝! ' + mGot + ' / ' + mDone + ' 맞혔습니다';
+      [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){ b.disabled = true; });
+      return;
+    }
+    box.textContent = MCASES[mOrder[mIdx]].q;
+  }
+  function mAnswer(pick, btn){
+    if(mIdx >= mOrder.length) return;
+    var ans = MCASES[mOrder[mIdx]].f;
+    mDone++;
+    if(pick === ans){ mGot++; btn.classList.add('ok'); }
+    else{
+      btn.classList.add('no');
+      document.querySelectorAll('#mOpts button')[ans].classList.add('ok');
+    }
+    document.getElementById('mScore').textContent = mGot + ' / ' + mDone;
+    [].slice.call(document.querySelectorAll('#mOpts button')).forEach(function(b){ b.disabled = true; });
+    setTimeout(function(){ mIdx++; mShow(); }, 950);
+  }
+  var mResetBtn = document.getElementById('mReset');
+  if(mResetBtn) mResetBtn.addEventListener('click', function(){
+    mShuffle(); mShow(); document.getElementById('mScore').textContent = '0 / 0';
+  });
+  if(document.getElementById('mOpts')){ mBuild(); mShuffle(); mShow(); }
+
+  /* ⑤ AI 해결안 설계 */
+  var WSAMPLE = [
+    ['보고 싶은 영상이 너무 길어서 필요한 부분만 찾아보기 어렵다',
+     '인공지능이 영상의 내용을 분석해 핵심 구간만 골라 요약본을 만들어 준다',
+     '영상 자막, 사람들이 많이 되돌려 본 구간 기록, 장면 전환 지점'],
+    ['강물이 오염되어도 사람이 직접 가서 검사해야 알 수 있다',
+     '공공 데이터와 기상 데이터를 학습해 오염을 미리 예측하고 정화 로봇에 신호를 보낸다',
+     '수질 측정소 기록, 강수량·기온, 주변 공장 배출 자료'],
+    ['급식에 좋아하지 않는 반찬이 나오면 많이 남아서 버려진다',
+     '학년·요일·날씨별 잔반량을 학습해 다음 주 식단의 양을 미리 조절한다',
+     '날짜별 잔반 무게, 식단표, 그날 날씨와 행사 일정'],
+    ['교실이 더운지 추운지 사람마다 달라서 늘 다툰다',
+     '온도·습도와 «덥다/춥다» 의견을 함께 학습해 가장 불만이 적은 설정을 찾아 준다',
+     '교실 온습도 기록, 학생들이 누른 «덥다/춥다» 버튼 기록, 창문 개폐 여부']
+  ];
+  var wI = 0;
+  var wSampleBtn = document.getElementById('wSample');
+  if(wSampleBtn) wSampleBtn.addEventListener('click', function(){
+    var s = WSAMPLE[wI % WSAMPLE.length]; wI++;
+    document.getElementById('w1').value = s[0];
+    document.getElementById('w2').value = s[1];
+    document.getElementById('w3').value = s[2];
+  });
+  var wClearBtn = document.getElementById('wClear');
+  if(wClearBtn) wClearBtn.addEventListener('click', function(){
+    ['w1','w2','w3'].forEach(function(id){ document.getElementById(id).value = ''; });
+  });
+  var wCopyBtn = document.getElementById('wCopy');
+  if(wCopyBtn) wCopyBtn.addEventListener('click', function(){
+    var t = '① 불편한 점\n' + document.getElementById('w1').value +
+            '\n\n② 인공지능 해결 방안\n' + document.getElementById('w2').value +
+            '\n\n③ 필요한 데이터\n' + document.getElementById('w3').value;
+    var done = function(){
+      wCopyBtn.textContent = '복사했어요';
+      setTimeout(function(){ wCopyBtn.textContent = '내용 복사'; }, 1600);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done, function(){});
+    }else{
+      var ta = document.createElement('textarea');
+      ta.value = t; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
   });
 
   render();
