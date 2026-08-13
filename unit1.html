@@ -174,8 +174,9 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .stage-top{display:flex; justify-content:space-between; align-items:center; gap:12px;
   padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
 .stage-top .who{font-size:13px; font-weight:700; color:var(--blue-d)}
-.stage-top .cnt{font-family:var(--mono); font-size:13px; color:var(--muted)}
-.slidebox{padding:clamp(22px,4vw,42px); min-height:clamp(340px,52vh,520px);
+.stage-top .cnt{font-family:var(--mono); font-size:13px; color:var(--ink2)}
+.slidebox{padding:clamp(22px,4vw,42px); height:clamp(430px,64vh,660px);
+  overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable;
   display:flex; flex-direction:column; justify-content:center}
 .slide[hidden]{display:none!important}
 .slide h4{font-family:var(--disp); font-weight:400; font-size:clamp(23px,3.6vw,34px);
@@ -893,6 +894,49 @@ table.ftab tr.pick td b{color:var(--good)}
 .narr, .reveal, .rulebox, .pathbar, .qbig, .mcase{font-weight:700}
 .big{font-weight:800}
 
+
+/* ── 알고리즘 카드 · 보물찾기 비유 ─────────── */
+.metaphor{background:var(--tint); border:2px dashed var(--blue-l); border-radius:18px;
+  padding:18px 20px; margin-bottom:20px}
+.mcard{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
+.mcard>span{font-size:26px; line-height:1}
+.mcard>b{display:block; font-family:var(--disp); font-weight:700; font-size:17px;
+  color:var(--blue-d); margin-top:4px}
+.mcard>i{display:block; font-style:normal; font-family:var(--mono); font-size:12.5px;
+  color:var(--warm); margin:2px 0 6px}
+.mcard>p{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0}
+.cscard, .csout li{display:flex; align-items:flex-start; gap:11px}
+.csi{flex:none; font-size:20px; line-height:1.3}
+.cst{flex:1 1 auto}
+.cst>i{display:block; font-style:normal; font-size:12.5px; color:var(--ink2);
+  line-height:1.5; margin-top:3px}
+.csout li .cst>i{color:var(--ink2)}
+
+/* ── 접었다 펴는 구역 ──────────────────────── */
+.fold{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden}
+.fold>summary{list-style:none; cursor:pointer; padding:22px 26px; display:block; position:relative}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'▾'; position:absolute; right:26px; top:50%; transform:translateY(-50%);
+  font-size:22px; color:var(--blue); transition:transform .2s}
+.fold[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+.fold>summary:hover{background:var(--tint)}
+.fold>summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+.feye{display:block; font-size:12.5px; font-weight:800; letter-spacing:.06em; color:var(--blue)}
+.fttl{display:block; font-family:var(--disp); font-weight:700;
+  font-size:clamp(22px,3.6vw,30px); line-height:1.3; color:var(--ink); margin:3px 0 5px;
+  padding-right:34px}
+.fsub{display:block; font-size:14.5px; color:var(--ink2); line-height:1.65; padding-right:34px}
+.foldbody{padding:0 26px 26px; border-top:1px solid var(--line); margin-top:4px; padding-top:22px}
+
+/* ── 등굣길 지도 ───────────────────────────── */
+.twn{min-width:520px}
+.twn .en{rx:14}
+.ee{font-size:19px; text-anchor:middle}
+.ewb{fill:var(--sky-bg); stroke:var(--line); stroke-width:1.5}
+.ewb.hit{fill:var(--good-bg); stroke:var(--good)}
+.ew.hit{fill:var(--good); font-weight:700}
+
 footer{padding:42px 0 70px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line)}
 footer a{font-weight:700}
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
@@ -1031,27 +1075,27 @@ footer a{font-weight:700}
 
 <section id="act"><div class="wrap">
   <p class="eyebrow">함께 하는 활동</p>
-  <h2>Ⅰ-01 · Ⅰ-02 수업 활동</h2>
-  <p class="sub">교과서 14~15쪽, 20~21쪽 활동을 바로 굴릴 수 있게 만들었습니다.
-    <b>화면에 띄워 놓고 함께 진행</b>하세요.</p>
+  <h2>소단원별 수업 활동</h2>
+  <p class="sub">Ⅰ-01 부터 Ⅰ-06 까지, 교과서 활동을 바로 굴릴 수 있게 만들었습니다.
+    <b>화면에 띄워 놓고 함께 진행</b>하세요. 위 <b>차시별 순서</b>에서 오늘 할 활동을 확인하세요.</p>
 
   <div class="actbar" role="tablist" aria-label="활동 선택">
-    <button class="atab" role="tab" data-act="0" aria-selected="true"><i>Ⅰ-01 · 도입 5분</i>이건 AI일까?</button>
-    <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01 · 20분</i>튜링 테스트 진행판</button>
-    <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01 · 10분</i>네 가지 특성 찾기</button>
-    <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02 · 22분</i>AI 해결안 설계</button>
-    <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-03 · 10분</i>8-퍼즐 도전</button>
-    <button class="atab" role="tab" data-act="5" aria-selected="false"><i>Ⅰ-03 · 20분</i>탐색 과정 설계</button>
-    <button class="atab" role="tab" data-act="6" aria-selected="false"><i>Ⅰ-03 · 25분</i>유럽 여행 길찾기</button>
-    <button class="atab" role="tab" data-act="7" aria-selected="false"><i>Ⅰ-04 · 25분</i>우리 동네 등굣길</button>
-    <button class="atab" role="tab" data-act="8" aria-selected="false"><i>Ⅰ-05 · 25분</i>학교 안 길찾기</button>
-    <button class="atab" role="tab" data-act="9" aria-selected="false"><i>Ⅰ-05 · 15분</i>알고리즘 카드</button>
-    <button class="atab" role="tab" data-act="10" aria-selected="false"><i>Ⅰ-06 · 25분</i>추론 게임</button>
+    <button class="atab" role="tab" data-act="0" aria-selected="true"><i>Ⅰ-01 · 도입</i>이건 AI일까?</button>
+    <button class="atab" role="tab" data-act="1" aria-selected="false"><i>Ⅰ-01</i>튜링 테스트 진행판</button>
+    <button class="atab" role="tab" data-act="2" aria-selected="false"><i>Ⅰ-01</i>네 가지 특성 찾기</button>
+    <button class="atab" role="tab" data-act="3" aria-selected="false"><i>Ⅰ-02</i>AI 해결안 설계</button>
+    <button class="atab" role="tab" data-act="4" aria-selected="false"><i>Ⅰ-03</i>8-퍼즐 도전</button>
+    <button class="atab" role="tab" data-act="5" aria-selected="false"><i>Ⅰ-03</i>탐색 과정 설계</button>
+    <button class="atab" role="tab" data-act="6" aria-selected="false"><i>Ⅰ-03</i>유럽 여행 길찾기</button>
+    <button class="atab" role="tab" data-act="7" aria-selected="false"><i>Ⅰ-04</i>우리 동네 등굣길</button>
+    <button class="atab" role="tab" data-act="8" aria-selected="false"><i>Ⅰ-05</i>학교 안 길찾기</button>
+    <button class="atab" role="tab" data-act="9" aria-selected="false"><i>Ⅰ-05</i>알고리즘 카드</button>
+    <button class="atab" role="tab" data-act="10" aria-selected="false"><i>Ⅰ-06</i>추론 게임</button>
   </div>
 
   <!-- ① AI 판별 게임 -->
   <div class="actbox" data-panel="0">
-    <h3>① 이건 AI일까? <span class="tm">5분 · 개인 또는 짝</span></h3>
+    <h3>① 이건 AI일까? <span class="tm">개인 또는 짝</span></h3>
     <p class="desc">카드를 눌러 <b>AI가 맞다 / 아니다</b>로 나눠 보세요. 다 고르면 채점됩니다.
       틀린 것은 <b>왜 틀렸는지</b> 이유가 나옵니다.</p>
     <div class="cards" id="aiCards"></div>
@@ -1065,7 +1109,7 @@ footer a{font-weight:700}
 
   <!-- ② 튜링 테스트 · 5단계 모둠 진행판 -->
   <div class="actbox" data-panel="1" hidden>
-    <h3>② 튜링 테스트 해 보기 <span class="tm">20분 · 4~6명 모둠</span></h3>
+    <h3>② 튜링 테스트 해 보기 <span class="tm">4~6명 모둠</span></h3>
     <p class="desc">교과서 14~15쪽 활동입니다. 아래 <b>1 → 5 단계</b>를 순서대로 따라가면 됩니다.
       적은 내용은 <b>자동으로 저장</b>되고, 마지막에 <b>제출용 활동지</b>가 만들어집니다.</p>
 
@@ -1240,7 +1284,7 @@ footer a{font-weight:700}
 
   <!-- ③ 네 가지 특성 찾기 -->
   <div class="actbox" data-panel="2" hidden>
-    <h3>③ 네 가지 특성 찾기 <span class="tm">10분 · 짝 활동</span></h3>
+    <h3>③ 네 가지 특성 찾기 <span class="tm">짝 활동</span></h3>
     <p class="desc">기기를 하나 고르고, <b>인식과 이해 · 학습 · 추론 · 자율성</b> 중
       몇 개를 가지고 있는지 따져 보세요. 근거를 말할 수 있어야 합니다.</p>
     <div class="simctl">
@@ -1257,7 +1301,7 @@ footer a{font-weight:700}
 
   <!-- ④ AI 해결안 설계 -->
   <div class="actbox" data-panel="3" hidden>
-    <h3>④ AI 해결안 설계 <span class="tm">22분 · 모둠 → 발표</span></h3>
+    <h3>④ AI 해결안 설계 <span class="tm">모둠 → 발표</span></h3>
     <p class="desc">교과서 20~21쪽 활동입니다. 칸을 차례로 채우면 <b>설계 카드</b>가 완성됩니다.
       다 채우면 <b>«AI다움 진단»</b>으로 진짜 인공지능다운 아이디어인지 확인해 보세요.</p>
 
@@ -1331,10 +1375,12 @@ footer a{font-weight:700}
   </div>
   <!-- ⑤ 8-퍼즐 도전 -->
   <div class="actbox" data-panel="4" hidden>
-    <h3>⑤ 8-퍼즐 도전 <span class="tm">10분 · 개인 또는 짝</span></h3>
+    <h3>⑤ 8-퍼즐 도전 <span class="tm">개인 또는 짝</span></h3>
     <p class="desc">교과서 24쪽에 나오는 <b>바로 그 숫자판</b>입니다.
       빈칸 <b>옆에 있는 숫자</b>를 누르면 빈칸으로 미끄러져 들어갑니다.
-      목표 숫자판과 똑같이 만들어 보세요. <b>4번</b>이면 풀 수 있습니다!</p>
+      목표 숫자판과 똑같이 만들어 보세요.<br>
+      <b>«새로 섞기»</b>를 누르면 매번 <b>새로운 판</b>이 나옵니다.
+      어떤 판이 나와도 <b>반드시 풀 수 있고</b>, 최소 몇 번이면 풀리는지 알려 줍니다.</p>
 
     <div class="pzwrap">
       <div class="pzside">
@@ -1356,6 +1402,8 @@ footer a{font-weight:700}
     <div class="simctl" style="margin-top:16px">
       <button type="button" class="mini gh" id="pzUndo">한 수 무르기</button>
       <button type="button" class="mini gh" id="pzReset">처음으로</button>
+      <button type="button" class="mini" id="pzMix">새로 섞기</button>
+      <button type="button" class="mini gh" id="pzBook">교과서 판으로</button>
       <button type="button" class="mini" id="pzHint">힌트 (다음 한 수)</button>
       <span class="scorepill" id="pzMsg">눌러서 시작하세요</span>
     </div>
@@ -1365,7 +1413,7 @@ footer a{font-weight:700}
 
   <!-- ⑥ 탐색 과정 설계 4단계 -->
   <div class="actbox" data-panel="5" hidden>
-    <h3>⑥ 탐색 과정 설계 4단계 <span class="tm">20분 · 선생님과 함께</span></h3>
+    <h3>⑥ 탐색 과정 설계 4단계 <span class="tm">선생님과 함께</span></h3>
     <p class="desc">교과서 24~25쪽입니다. <b>선생님이 왼쪽 낱말을 설명하면</b>
       여러분은 <b>오른쪽 칸을 채우며</b> 따라옵니다.</p>
 
@@ -1463,7 +1511,7 @@ footer a{font-weight:700}
 
   <!-- ⑦ 유럽 여행 길찾기 -->
   <div class="actbox" data-panel="6" hidden>
-    <h3>⑦ 유럽 여행 길찾기 <span class="tm">25분 · 모둠</span></h3>
+    <h3>⑦ 유럽 여행 길찾기 <span class="tm">모둠</span></h3>
     <p class="desc">교과서 26~27쪽 활동입니다. <b>스페인에서 오스트리아까지</b>,
       거쳐 가는 나라가 <b>가장 적은</b> 길을 찾아봅시다. 파란 선으로 이어진 나라끼리만 갈 수 있어요.</p>
 
@@ -1477,8 +1525,12 @@ footer a{font-weight:700}
 
     <div class="tstep" data-eu="1">
       <h4 class="step-h">1단계 · 지도를 <b>그래프</b>로 바꾸기</h4>
-      <p class="desc">복잡한 지도를 <b>점과 선</b>으로 간단히 그린 것을 <b>그래프</b>라고 합니다.
-        빈칸에 들어갈 나라를 골라 보세요.</p>
+      <p class="desc">유럽 지도입니다. <b>파란 선</b>으로 이어진 나라끼리만 오갈 수 있어요.
+        스페인에서 출발해 오스트리아까지 갑니다.</p>
+      <figure><img src="img/u1/eumap.jpg" alt="유럽 지도 · 스페인에서 오스트리아까지">
+        <figcaption>교과서 26쪽 · 파란 선이 오갈 수 있는 길입니다</figcaption></figure>
+      <p class="desc">이 복잡한 지도를 <b>점과 선</b>으로 간단히 줄인 것이 <b>그래프</b>입니다.
+        지도와 아래 그래프를 <b>번갈아 보면서</b> 빈칸에 들어갈 나라를 골라 보세요.</p>
       <div class="canvasarea" id="euGraph"></div>
       <div class="blanks" id="euBlanks"></div>
       <div class="simctl"><button type="button" class="mini" id="euChk">확인하기</button>
@@ -1512,6 +1564,12 @@ footer a{font-weight:700}
       <h4 class="step-h">4단계 · 나라를 <b>순서대로 눌러</b> 길을 만들기</h4>
       <p class="desc">스페인에서 시작해서 이어진 나라를 차례로 누르세요.
         <b>가장 적은 나라</b>를 거쳐 오스트리아에 닿으면 성공입니다.</p>
+      <details class="cbox"><summary>유럽 지도 다시 보기 <i>어디가 어딘지 헷갈릴 때</i></summary>
+        <div class="cbody"><figure style="margin:0"><img src="img/u1/eumap.jpg" alt="유럽 지도"></figure></div>
+      </details>
+      <details class="cbox" style="margin-bottom:14px"><summary>유럽 지도 다시 보기 <i>어디가 어딘지 헷갈릴 때</i></summary>
+        <div class="cbody"><figure style="margin:0"><img src="img/u1/eumap.jpg" alt="유럽 지도"></figure></div>
+      </details>
       <div class="canvasarea" id="euMap"></div>
       <div class="pathbar" id="euPath">스페인</div>
       <div class="simctl">
@@ -1557,7 +1615,7 @@ footer a{font-weight:700}
 
   <!-- ⑧ 우리 동네 등굣길 -->
   <div class="actbox" data-panel="7" hidden>
-    <h3>⑧ 우리 동네 등굣길 <span class="tm">25분 · 모둠</span></h3>
+    <h3>⑧ 우리 동네 등굣길 <span class="tm">모둠</span></h3>
     <p class="desc">교과서 38~39쪽 활동을 <b>우리 동네 지도</b>로 바꿨습니다.
       집에서 학교까지, 숫자는 <b>걸리는 시간(분)</b>입니다.
       <b>너비 우선 탐색</b>과 <b>A* 알고리즘</b>으로 각각 풀어 보고 무엇이 다른지 비교합니다.</p>
@@ -1644,7 +1702,7 @@ footer a{font-weight:700}
   </div>
   <!-- ⑨ 학교 안 길찾기 -->
   <div class="actbox" data-panel="8" hidden>
-    <h3>⑨ 학교 안 길찾기 <span class="tm">25분 · 모둠</span></h3>
+    <h3>⑨ 학교 안 길찾기 <span class="tm">모둠</span></h3>
     <p class="desc">교과서 42쪽의 <b>바로 그 격자</b>를 우리 학교 복도로 바꿨습니다.
       <b>회색은 벽</b>이라 지나갈 수 없고, 상하좌우로 <b>한 칸씩</b>만 움직입니다.</p>
 
@@ -1708,9 +1766,24 @@ footer a{font-weight:700}
 
   <!-- ⑩ 알고리즘 카드 맞추기 -->
   <div class="actbox" data-panel="9" hidden>
-    <h3>⑩ 알고리즘 카드 맞추기 <span class="tm">15분 · 짝 활동</span></h3>
+    <h3>⑩ 알고리즘 카드 맞추기 <span class="tm">짝 활동</span></h3>
     <p class="desc"><b>코드를 몰라도 괜찮습니다.</b> 컴퓨터가 길을 찾는 순서를 카드로 만들어 놨어요.
       <b>순서대로 눌러서</b> 알고리즘을 완성해 보세요. 틀리면 알려 줍니다.</p>
+
+    <div class="metaphor">
+      <h4 class="mini-h">먼저 · 보물찾기로 생각해 봅시다</h4>
+      <div class="g3">
+        <div class="mcard"><span>\uD83D\uDCCB</span><b>가 볼 곳 목록</b>
+          <i>= 열린칸 (OPEN)</i><p>아직 안 가 봤지만 <b>갈 수 있는 곳</b>을 적어 두는 쪽지</p></div>
+        <div class="mcard"><span>\u2714\uFE0F</span><b>이미 가 본 곳</b>
+          <i>= 닫힌칸 (CLOSED)</i><p>확인 끝난 곳. <b>두 번 가지 않으려고</b> 적어 둡니다</p></div>
+        <div class="mcard"><span>\uD83E\uDDED</span><b>가장 그럴듯한 곳</b>
+          <i>= f 가 가장 작은 칸</i><p>목록 중에서 <b>보물이 있을 것 같은 곳</b>부터 가 봅니다</p></div>
+      </div>
+      <div class="note">보물찾기를 할 때 여러분도 똑같이 합니다 —
+        <b>갈 곳을 적어 두고 → 제일 그럴듯한 데를 골라 가 보고 → 아니면 주변을 목록에 추가하고 →
+        가 본 곳은 지운다.</b> 컴퓨터도 이게 전부예요.</div>
+    </div>
 
     <div class="cardsort">
       <div class="csleft">
@@ -1764,7 +1837,7 @@ while open_list:
 
   <!-- ⑪ 추론 게임 -->
   <div class="actbox" data-panel="10" hidden>
-    <h3>⑪ 추론 게임 <span class="tm">25분 · 모둠 대항</span></h3>
+    <h3>⑪ 추론 게임 <span class="tm">모둠 대항</span></h3>
     <p class="desc"><b>사실</b>과 <b>규칙</b>만 있으면 컴퓨터는 <b>새로운 사실</b>을 만들어 냅니다.
       여러분도 할 수 있어요. 여섯 문제를 풀어 보세요!</p>
 
@@ -1878,31 +1951,10 @@ while open_list:
     걸음 수를 적어 두고 비교해 보세요.</div>
 </div></section>
 
-<section id="video"><div class="wrap">
-  <p class="eyebrow">수업 영상</p>
-  <h2>소단원별 강의 영상</h2>
-  <p class="sub">교과서 출판사가 제공하는 영상입니다. 파일이 커서 이 페이지에 올리지 않았고,
-    <b>수업 시간에 함께 봅니다.</b> 복습이 필요하면 선생님께 말하세요.</p>
-  <div class="vids">
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-01 인공지능의 개념과 특성</b><span>34.5 MB</span></span></div>
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-02 인공지능과 문제 해결</b><span>28.4 MB</span></span></div>
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-03 인공지능과 탐색</b><span>37.6 MB</span></span></div>
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-04 지능적 탐색의 종류</b><span>36.7 MB</span></span></div>
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-05 지능적 탐색 과정의 적용</b><span>38.1 MB</span></span></div>
-    <div class="vid"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
-      <span><b>Ⅰ-06 컴퓨터가 처리하는 지식의 표현</b><span>36.4 MB</span></span></div>
-  </div>
-</div></section>
-
 <section id="terms"><div class="wrap">
-  <p class="eyebrow">핵심 용어</p>
-  <h2>이것만은 외우자</h2>
-  <p class="sub">1차 정기고사에 나올 용어입니다. <i>기울인 글씨</i>는 <b>왜 그런지 · 어떻게 쓰는지</b>입니다.</p>
+  <details class="fold">
+    <summary><span class="feye">핵심 용어</span><span class="fttl">이것만은 외우자</span><span class="fsub">1차 정기고사에 나올 용어 44개입니다. <i>기울인 글씨</i>는 <b>왜 그런지 · 어떻게 쓰는지</b>입니다.</span></summary>
+    <div class="foldbody">
 
   <h3 class="tgroup">Ⅰ-01 · Ⅰ-02 인공지능이란</h3>
   <div class="terms">
@@ -1986,26 +2038,28 @@ while open_list:
     <div class="term"><b>전문가 시스템의 한계</b><span>충분한 양의 전문가 지식을 구하기 어렵고 지식 베이스를 관리하기도 어렵다</span>
       <i>그래서 «데이터에서 스스로 배우는» 인공지능이 인기를 얻었다 → Ⅱ단원</i></div>
   </div>
+</div>
+  </details>
 </div></section>
 
 <section id="miscon"><div class="wrap">
-  <p class="eyebrow">여기서 꼭 틀립니다</p>
-  <h2>헷갈리는 것 8가지</h2>
-  <p class="sub">선생님용 지도서가 «여기를 특히 짚어 주라»고 적어 둔 곳,
-    그리고 <b>시험에 오답 선택지로 실제로 나온</b> 문장들입니다.
-    맞다고 생각하면 <b>O</b>, 틀리다고 생각하면 <b>X</b>를 눌러 보세요.</p>
+  <details class="fold">
+    <summary><span class="feye">여기서 꼭 틀립니다</span><span class="fttl">헷갈리는 것 8가지</span><span class="fsub">지도서가 «여기를 특히 짚어 주라»고 적어 둔 곳, 그리고 <b>시험에 오답 선택지로 실제로 나온</b> 문장들입니다.</span></summary>
+    <div class="foldbody">
 
   <div class="oxwrap" id="oxWrap"></div>
   <div class="simctl" style="margin-top:16px">
     <button type="button" class="mini gh" id="oxRe">처음부터</button>
     <span class="scorepill" id="oxScore">0 / 8</span>
   </div>
+</div>
+  </details>
 </div></section>
 
 <section id="check"><div class="wrap">
-  <p class="eyebrow">스스로 점검</p>
-  <h2>확인 문제</h2>
-  <p class="sub">정기고사에 나올 유형입니다. <b>골라 보고</b> 바로 답을 확인하세요.</p>
+  <details class="fold">
+    <summary><span class="feye">스스로 점검</span><span class="fttl">확인 문제</span><span class="fsub">문제은행 유형 객관식 10문항과 서술형 대비 10개입니다.</span></summary>
+    <div class="foldbody">
 
   <div class="qhead">
     <span class="dotrow" id="exDots"></span>
@@ -2067,13 +2121,14 @@ while open_list:
     <p>답이 하나가 아닙니다. <b>「무엇을 보고 → 무엇을 판단하는지」</b>가 들어가야 점수를 받습니다.<br>
       예) 스팸 메일 분류 — 메일의 <b>제목·보낸 사람·본문 특징을 보고</b> 스팸일 <b>확률을 판단</b>해 자동으로 분류한다.<br>
       «자동으로 분류된다»만 쓰면 자동화 설명이라 부족합니다.</p></details>
+</div>
+  </details>
 </div></section>
 
 <section id="next"><div class="wrap">
-  <p class="eyebrow">앞으로</p>
-  <h2>Ⅰ단원이 어디로 이어질까</h2>
-  <p class="sub">지금 배운 것이 <b>남은 세 단원에서 어떻게 쓰이는지</b> 미리 알아 두면
-    훨씬 수월합니다. 지금 이해가 덜 된 것도 여기서 다시 만납니다.</p>
+  <details class="fold">
+    <summary><span class="feye">앞으로</span><span class="fttl">Ⅰ단원이 어디로 이어질까</span><span class="fsub">지금 배운 것이 <b>Ⅱ · Ⅲ · Ⅳ 단원에서 어떻게 쓰이는지</b> 미리 봅니다.</span></summary>
+    <div class="foldbody">
 
   <div class="bridge">
     <div class="br">
@@ -2120,10 +2175,12 @@ while open_list:
     ① 활동 ④의 설계 카드를 <b>지우지 말고 저장</b>해 두기 (Ⅳ단원에서 다시 씁니다)<br>
     ② 「무엇을 <b>보고</b>, 무엇을 <b>정하는지</b>」로 말하는 버릇 들이기<br>
     ③ 코드는 몰라도 됩니다. <b>순서를 정확히 적는 연습</b>만 해 두세요 (활동 ⑩)</div>
+</div>
+  </details>
 </div></section>
 
 <footer><div class="wrap">
-  <p style="margin:0 0 8px"><a href="https://richee-pc.github.io/AI_cs/index.html">← 2학기 안내로 돌아가기</a></p>
+  <p style="margin:0 0 8px"><a href="https://richee-pc.github.io/AI_cs/index.html" style="color:var(--blue-d); font-weight:700">← 2학기 안내로 돌아가기</a></p>
   <p style="margin:0">2026학년도 2학기 「인공지능 기초」 · 조선대학교부속고등학교 2학년<br>
     교과서 「인공지능 기초」(미래엔) Ⅰ단원을 바탕으로 만들었습니다.</p>
 </div></footer>
@@ -2610,11 +2667,19 @@ while open_list:
       bPrev=document.getElementById('prevS'), bNext=document.getElementById('nextS');
   var dtabs=[].slice.call(document.querySelectorAll('.dtab'));
 
+  var stage=document.querySelector('#slides .stage');
   function render(){
     var d=DECKS[deck];
     nm.textContent=d.name;
     sNow.textContent=idx+1; sAll.textContent=d.slides.length;
     box.innerHTML='<div class="slide">'+d.slides[idx]+'</div>';
+    box.scrollTop=0;
+    /* 슬라이드 창 위쪽이 화면 밖으로 밀려 있으면 다시 끌어온다 */
+    var sr=stage.getBoundingClientRect();
+    if(sr.top<56||sr.top>window.innerHeight*0.5){
+      window.scrollTo({ top:window.scrollY+sr.top-70,
+        behavior:(matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth') });
+    }
     dots.innerHTML='';
     d.slides.forEach(function(_,k){
       var i=document.createElement('i');
@@ -3030,7 +3095,58 @@ while open_list:
     }
     return h;
   }
-  var P = { now:PZ0.slice(), hist:[] };
+  /* 맨해튼 거리 — 최소 횟수를 구하는 데 쓴다 */
+  function pzMan(a){
+    var d = 0;
+    for(var i = 0; i < 9; i++){
+      var v = a[i]; if(!v) continue;
+      var g = GOAL8.indexOf(v);
+      d += Math.abs(Math.floor(i / 3) - Math.floor(g / 3)) + Math.abs(i % 3 - g % 3);
+    }
+    return d;
+  }
+  /* IDA* — 8-퍼즐은 순식간에 끝난다. 최소 몇 번이면 풀리는지 정확히 알려 준다 */
+  function pzBest(start){
+    var lim = pzMan(start), path = [];
+    function dfs(a, g, prev){
+      var h = pzMan(a);
+      if(g + h > lim) return g + h;
+      if(h === 0) return -1;
+      var min = 1e9;
+      var mv = pzMoves(a);
+      for(var k = 0; k < mv.length; k++){
+        if(mv[k] === prev) continue;                 // 방금 온 길로 되돌아가지 않기
+        var z = a.indexOf(0);
+        var t = dfs(pzSwap(a, mv[k]), g + 1, z);
+        if(t === -1) return -1;
+        if(t < min) min = t;
+      }
+      return min;
+    }
+    for(var i = 0; i < 40; i++){
+      var t = dfs(start, 0, -1);
+      if(t === -1) return lim;
+      if(t === 1e9) return -1;
+      lim = t;
+    }
+    return -1;
+  }
+  /* 목표에서 무작위로 되짚어 섞는다 → 반드시 풀 수 있는 판만 나온다 */
+  function pzShuffle(steps){
+    var a = GOAL8.slice(), prev = -1;
+    for(var i = 0; i < steps; i++){
+      var mv = pzMoves(a).filter(function(x){ return x !== prev; });
+      if(!mv.length) mv = pzMoves(a);
+      var z = a.indexOf(0);
+      a = pzSwap(a, mv[Math.floor(Math.random() * mv.length)]); prev = z;
+    }
+    return a;
+  }
+  function sameBoard(a, b){
+    for(var i = 0; i < 9; i++) if(a[i] !== b[i]) return false;
+    return true;
+  }
+  var P = { now:PZ0.slice(), hist:[], start:PZ0.slice(), best:4, book:true };
   function pzDraw(){
     var b = document.getElementById('pzBoard'); if(!b) return;
     b.innerHTML = pzBoardHTML(P.now);
@@ -3048,15 +3164,28 @@ while open_list:
     document.getElementById('pzBar').className = f === 8 ? 'full' : '';
     var m = document.getElementById('pzMsg');
     if(f === 8) m.textContent = '성공! ' + P.hist.length + '번 만에 풀었습니다' +
-      (P.hist.length <= 4 ? ' — 최소 횟수입니다!' : ' (최소는 4번)');
-    else m.textContent = P.hist.length ? '조금만 더!' : '빈칸 옆 숫자를 눌러 보세요';
+      (P.best > 0 ? (P.hist.length <= P.best ? ' — 최소 횟수입니다!' : ' (최소는 ' + P.best + '번)') : '');
+    else m.textContent = P.hist.length
+      ? '조금만 더! (지금까지 ' + P.hist.length + '번)'
+      : (P.book ? '교과서 판입니다. 최소 ' + P.best + '번이면 풀려요'
+                : '무작위 판입니다. 최소 ' + P.best + '번이면 풀려요');
   }
   if(document.getElementById('pzBoard')){
     document.getElementById('pzGoal').innerHTML = pzBoardHTML(GOAL8);
     document.getElementById('pzUndo').addEventListener('click', function(){
       if(P.hist.length){ P.now = P.hist.pop(); pzDraw(); } });
     document.getElementById('pzReset').addEventListener('click', function(){
-      P.now = PZ0.slice(); P.hist = []; pzDraw(); });
+      P.now = P.start.slice(); P.hist = []; pzDraw(); });
+    document.getElementById('pzBook').addEventListener('click', function(){
+      P.start = PZ0.slice(); P.now = PZ0.slice(); P.hist = []; P.best = 4; P.book = true; pzDraw(); });
+    document.getElementById('pzMix').addEventListener('click', function(){
+      /* 6~14번이면 수업에 알맞다. 섞는 깊이를 바꿔 가며 그 범위를 찾는다 */
+      var a, b, guard = 0;
+      do {
+        a = pzShuffle(8 + Math.floor(Math.random() * 9));   // 8~16수 섞기
+        b = pzBest(a);
+      } while((b < 6 || b > 14 || sameBoard(a, P.start)) && guard++ < 60);
+      P.start = a.slice(); P.now = a.slice(); P.hist = []; P.best = b; P.book = false; pzDraw(); });
     document.getElementById('pzHint').addEventListener('click', function(){
       var best = null, bv = -1;
       pzMoves(P.now).forEach(function(i){
@@ -3136,8 +3265,10 @@ while open_list:
       var d = document.createElement('button');
       d.type = 'button'; d.className = 'cmpc';
       if(DS.pick === String(i)) d.setAttribute('data-on', '1');
-      d.innerHTML = '<b>' + c.lab + '</b>' + pzBoardHTML(c.s).replace(/<button[^>]*>/g, '<span class="pc">')
-        .replace(/<\/button>/g, '</span>') + '<em>맞은 칸 ' + fit8(c.s) + '개</em>';
+      d.innerHTML = '<b>' + c.lab + '</b><div class="pzbig sm">' +
+        pzBoardHTML(c.s).replace(/<button[^>]*>/g, '<span class="pc">')
+          .replace(/<\/button>/g, '</span>') +
+        '</div><em>맞은 칸 ' + fit8(c.s) + '개</em>';
       d.addEventListener('click', function(){
         DS.pick = String(i); dsSave();
         [].slice.call(cmpBox.children).forEach(function(o){ o.removeAttribute('data-on'); });
@@ -3380,19 +3511,19 @@ while open_list:
 
   /* ══ ⑧ 우리 동네 등굣길 ══════════════════════════════════ */
   var TOWN = {
-    '집':      { h:14, x:60,  y:275, to:{ '편의점':4, '공원':4 } },
-    '편의점':  { h:14, x:60,  y:150, to:{ '집':4, '빵집':5, '사거리':4 } },
-    '공원':    { h:10, x:175, y:300, to:{ '집':4, '사거리':3, '지하철역':6 } },
-    '빵집':    { h:11, x:180, y:55,  to:{ '편의점':5, '문구점':4 } },
-    '사거리':  { h:8,  x:205, y:175, to:{ '편의점':4, '공원':3, '지하철역':4, '문구점':5 } },
-    '지하철역':{ h:6,  x:325, y:255, to:{ '공원':6, '사거리':4, '학교':8, '도서관':4 } },
-    '문구점':  { h:7,  x:335, y:90,  to:{ '사거리':5, '빵집':4, '도서관':4 } },
-    '도서관':  { h:3,  x:440, y:170, to:{ '지하철역':4, '문구점':4, '학교':3 } },
-    '학교':    { h:0,  x:470, y:290, to:{ '지하철역':8, '도서관':3 } }
+    '집':      { e:'\uD83C\uDFE0', h:14, x:72,  y:318, to:{ '편의점':4, '공원':4 } },
+    '편의점':  { e:'\uD83C\uDFEA', h:14, x:72,  y:168, to:{ '집':4, '빵집':5, '사거리':4 } },
+    '공원':    { e:'\uD83C\uDF33', h:10, x:222, y:338, to:{ '집':4, '사거리':3, '지하철역':6 } },
+    '빵집':    { e:'\uD83E\uDD50', h:11, x:222, y:58,  to:{ '편의점':5, '문구점':4 } },
+    '사거리':  { e:'\uD83D\uDEA6', h:8,  x:250, y:200, to:{ '편의점':4, '공원':3, '지하철역':4, '문구점':5 } },
+    '지하철역':{ e:'\uD83D\uDE87', h:6,  x:412, y:288, to:{ '공원':6, '사거리':4, '학교':8, '도서관':4 } },
+    '문구점':  { e:'\u270F\uFE0F', h:7,  x:418, y:100, to:{ '사거리':5, '빵집':4, '도서관':4 } },
+    '도서관':  { e:'\uD83D\uDCDA', h:3,  x:560, y:190, to:{ '지하철역':4, '문구점':4, '학교':3 } },
+    '학교':    { e:'\uD83C\uDFEB', h:0,  x:596, y:325, to:{ '지하철역':8, '도서관':3 } }
   };
   function drawTown(st){
-    var s = '<svg viewBox="0 0 540 360" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="우리 동네 지도">';
-    var done = {};
+    var s = '<svg viewBox="0 0 670 400" class="tsvg twn" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="우리 동네 지도">';
+    var done = {}, labs = '';
     Object.keys(TOWN).forEach(function(n){
       Object.keys(TOWN[n].to).forEach(function(m){
         var key = [n, m].sort().join('|'); if(done[key]) return; done[key] = 1;
@@ -3400,16 +3531,22 @@ while open_list:
                  Math.abs(st.path.indexOf(n) - st.path.indexOf(m)) === 1;
         s += '<line x1="' + TOWN[n].x + '" y1="' + TOWN[n].y + '" x2="' + TOWN[m].x + '" y2="' + TOWN[m].y +
              '" class="el' + (on ? ' hit' : '') + '"/>';
-        s += '<text x="' + ((TOWN[n].x + TOWN[m].x) / 2) + '" y="' + ((TOWN[n].y + TOWN[m].y) / 2 - 5) +
-             '" class="ew">' + TOWN[n].to[m] + '분</text>';
+        var mx = (TOWN[n].x + TOWN[m].x) / 2, my = (TOWN[n].y + TOWN[m].y) / 2;
+        labs += '<rect x="' + (mx - 17) + '" y="' + (my - 11) + '" width="34" height="21" rx="10" class="ewb' +
+                (on ? ' hit' : '') + '"/>' +
+                '<text x="' + mx + '" y="' + (my + 4) + '" class="ew' + (on ? ' hit' : '') + '">' +
+                TOWN[n].to[m] + '분</text>';
       });
     });
+    s += labs;
     Object.keys(TOWN).forEach(function(n){
       var role = (st.closed && st.closed.indexOf(n) >= 0) ? 'seen' : ((st.open && st.open.indexOf(n) >= 0) ? 'open' : '');
       if(n === st.cur) role = 'cur';
-      s += '<ellipse cx="' + TOWN[n].x + '" cy="' + TOWN[n].y + '" rx="38" ry="17" class="en ' + role + '"/>';
-      s += '<text x="' + TOWN[n].x + '" y="' + (TOWN[n].y + 5) + '" class="et' + (role ? ' on' : '') + '">' + n + '</text>';
-      if(st.showH !== false) s += '<text x="' + TOWN[n].x + '" y="' + (TOWN[n].y + 31) + '" class="eh">h ' + TOWN[n].h + '</text>';
+      s += '<rect x="' + (TOWN[n].x - 48) + '" y="' + (TOWN[n].y - 22) + '" width="96" height="44" rx="14" class="en ' + role + '"/>';
+      s += '<text x="' + (TOWN[n].x - 30) + '" y="' + (TOWN[n].y + 7) + '" class="ee">' + TOWN[n].e + '</text>';
+      s += '<text x="' + (TOWN[n].x + 12) + '" y="' + (TOWN[n].y + 6) + '" class="et' + (role ? ' on' : '') + '">' + n + '</text>';
+      if(st.showH !== false)
+        s += '<text x="' + TOWN[n].x + '" y="' + (TOWN[n].y + 38) + '" class="eh">학교까지 어림 ' + TOWN[n].h + '</text>';
     });
     return s + '</svg>';
   }
@@ -4806,13 +4943,13 @@ while open_list:
 
   /* ══ ⑩ 알고리즘 카드 맞추기 ═════════════════════════════ */
   var CARDS = [
-    '출발 칸을 <b>열린칸</b>에 넣는다',
-    '열린칸에서 <b>f 가 가장 작은</b> 칸을 꺼낸다',
-    '꺼낸 칸이 <b>목표</b>인지 확인한다',
-    '목표가 아니면 <b>이웃 칸들의 f</b> 를 계산한다',
-    '계산한 이웃 칸을 <b>열린칸</b>에 넣는다',
-    '꺼낸 칸은 <b>닫힌칸</b>으로 옮긴다',
-    '열린칸이 빌 때까지 <b>2번으로 되돌아간다</b>'
+    ['출발 칸을 <b>열린칸</b>에 넣는다',            '\uD83C\uDFC1', '«여기서 출발!» 을 목록에 적는 것'],
+    ['열린칸에서 <b>f 가 가장 작은</b> 칸을 꺼낸다', '\uD83E\uDDED', '목록에서 제일 그럴듯한 곳을 하나 고르기'],
+    ['꺼낸 칸이 <b>목표</b>인지 확인한다',           '\uD83C\uDFAF', '«혹시 여기가 도착지?» 하고 보는 것'],
+    ['목표가 아니면 <b>이웃 칸들의 f</b> 를 계산한다', '\uD83D\uDD0D', '옆칸들이 얼마나 그럴듯한지 점수 매기기'],
+    ['계산한 이웃 칸을 <b>열린칸</b>에 넣는다',      '\u2795', '새로 알게 된 곳을 목록에 추가'],
+    ['꺼낸 칸은 <b>닫힌칸</b>으로 옮긴다',           '\u2714\uFE0F', '«여긴 봤다» 표시해서 두 번 안 가기'],
+    ['열린칸이 빌 때까지 <b>2번으로 되돌아간다</b>',  '\uD83D\uDD01', '목록이 빌 때까지 계속 되풀이']
   ];
   if(document.getElementById('csBank')){
     var csAt = 0, csOrder = [0,1,2,3,4,5,6];
@@ -4826,7 +4963,8 @@ while open_list:
         if(i < csAt) return;
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'cscard';
-        b.innerHTML = CARDS[i];
+        b.innerHTML = '<span class="csi">' + CARDS[i][1] + '</span><span class="cst">' +
+          CARDS[i][0] + '<i>' + CARDS[i][2] + '</i></span>';
         b.addEventListener('click', function(){
           if(i === csAt){
             csAt++; csDraw();
@@ -4843,7 +4981,10 @@ while open_list:
       var out = document.getElementById('csOut');
       out.innerHTML = '';
       for(var k = 0; k < csAt; k++){
-        var li = document.createElement('li'); li.innerHTML = CARDS[k]; out.appendChild(li);
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="csi">' + CARDS[k][1] + '</span><span class="cst">' +
+          CARDS[k][0] + '<i>' + CARDS[k][2] + '</i></span>';
+        out.appendChild(li);
       }
       if(!csAt) out.innerHTML = '<li class="ph">아직 없습니다</li>';
     }
