@@ -1,0 +1,1787 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="티처블 머신 포즈 인식으로 동작 게임 만들기 - 15분 실습, 프롬프트, 바로 되는 게임">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="동작으로 하는 게임 만들기 · 티처블 머신">
+<meta property="og:description" content="티처블 머신 포즈 인식으로 동작 게임 만들기 - 15분 실습, 프롬프트, 바로 되는 게임">
+<meta property="og:type" content="website">
+<link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=c1585d6a" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>동작으로 하는 게임 만들기 · 티처블 머신</title>
+</head>
+<body>
+<style>
+/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
+   1280px 노트북에서 16px(지금 그대로) → 1920px 18.4px
+   → 2560px 20.8px → 그 이상 22px 에서 멈춘다.
+   교실 대형 화면에 띄워도 글자가 작아 보이지 않는다.            */
+:root{--sbh:clamp(28.75rem,80vh,57.5rem)}
+html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100%}
+
+/* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
+   제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
+   본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
+   강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
+   코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=9b8bfb46') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=c1585d6a') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=69ddb123') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8143db88') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
+  font-weight:400 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=58485f4e') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
+    system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+:root[data-theme="dark"]{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}
+:root[data-theme="light"]{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
+  font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
+.n{font-variant-numeric:tabular-nums}
+::selection{background:var(--blue); color:#fff}
+a{color:var(--blue)}
+
+/* ── 사이트 내비 ─────────────────────────── */
+nav{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--sky-bg) 82%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--line)}
+nav .row{display:flex; gap:4px; overflow-x:auto; padding:9px 0; scrollbar-width:none; align-items:center}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto; color:var(--ink2); text-decoration:none; font-size:0.8438rem; font-weight:600;
+  padding:7px 14px; border-radius:99px; white-space:nowrap; transition:.16s}
+nav a:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav a.here{background:var(--fill); color:var(--on-fill)}
+nav a.soon{opacity:.45; pointer-events:none}
+nav .sep{flex:0 0 auto; width:1px; height:20px; background:var(--line); margin:0 6px}
+
+/* ── 헤더 ────────────────────────────────── */
+.hero{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:radial-gradient(760px 340px at 8% -14%, var(--white) 0%, transparent 62%),
+             linear-gradient(180deg, var(--sky-bg2) 0%, var(--sky-bg) 100%)}
+.badge{display:inline-block; font-size:0.8125rem; font-weight:700; color:var(--blue-d);
+  background:var(--white); padding:7px 18px; border-radius:99px; margin:0 0 18px;
+  box-shadow:var(--sh); border:1px solid var(--line)}
+h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem); line-height:1.2;
+  margin:0 0 16px; color:var(--blue-d)}
+h1 em{font-style:normal; display:block; color:var(--ink)}
+.lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
+.fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
+  box-shadow:var(--sh)}
+.fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
+.fact span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:7px; font-weight:500}
+
+/* ── 섹션 ────────────────────────────────── */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{display:inline-block; font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:5px 15px; border-radius:99px; margin:0 0 13px}
+h2{font-family:var(--disp); font-weight:400; font-size:clamp(1.5625rem,4.3vw,2.25rem); line-height:1.3;
+  margin:0 0 10px; color:var(--ink)}
+.sub{color:var(--muted); font-size:0.9375rem; margin:0 0 26px; max-width:60ch; font-weight:500}
+h3{font-size:1.0625rem; font-weight:700; margin:0 0 11px}
+p{margin:0 0 12px}
+b,strong{font-weight:700; color:var(--ink)}
+
+.card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh)}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
+table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
+th,td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--tint); font-weight:700; font-size:0.8125rem; color:var(--blue-d); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
+
+.std{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--blue-l); border-radius:0 14px 14px 0; padding:15px 18px; box-shadow:var(--sh)}
+.std code{flex:0 0 auto; font-family:var(--mono); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:3px 9px; border-radius:7px}
+.std span{font-size:0.9062rem; line-height:1.65}
+
+/* ── 탭 ──────────────────────────────────── */
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{font-family:var(--sans); font-size:0.875rem; font-weight:700; padding:10px 19px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer;
+  transition:.16s; box-shadow:var(--sh)}
+.tab:hover{color:var(--blue); border-color:var(--blue-l)}
+.tab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.tab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 슬라이드 ────────────────────────────── */
+.deckbar{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px}
+.dtab{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 16px; border-radius:12px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer; transition:.16s;
+  box-shadow:var(--sh); text-align:left; line-height:1.35}
+.dtab i{display:block; font-style:normal; font-family:var(--mono); font-size:0.6875rem; color:var(--muted); margin-bottom:2px}
+.dtab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.dtab[aria-selected="true"] i{color:var(--on-fill); opacity:.75}
+.dtab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.stage{background:var(--white); border:1px solid var(--line); border-radius:24px;
+  box-shadow:var(--sh2); overflow:hidden}
+.stage-top{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
+.stage-top .who{font-size:0.8125rem; font-weight:700; color:var(--blue-d)}
+.stage-top .cnt{font-family:var(--mono); font-size:0.8125rem; color:var(--ink2)}
+.slidebox{padding:clamp(20px,3.4vw,38px); height:var(--sbh); display:flex; flex-direction:column;
+  overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable;
+  display:flex; flex-direction:column; justify-content:center}
+.slide[hidden]{display:none!important}
+.slide h4{font-family:var(--disp); font-weight:400; font-size:clamp(1.4375rem,3.6vw,2.125rem);
+  line-height:1.35; margin:0 0 8px; color:var(--blue-d)}
+.slide .kicker{font-family:var(--mono); font-size:0.75rem; letter-spacing:.08em; color:var(--muted);
+  margin:0 0 14px; text-transform:uppercase}
+.slide p{font-size:clamp(0.9375rem,1.9vw,1.0938rem); line-height:1.8; margin:0 0 14px}
+.slide ul{margin:0 0 14px; padding-left:22px; font-size:clamp(0.9375rem,1.9vw,1.0625rem); line-height:1.85}
+.slide li{margin-bottom:7px}
+.slide li b{color:var(--blue-d)}
+.big{font-family:var(--disp); font-weight:400; font-size:clamp(1.625rem,4.4vw,2.625rem); line-height:1.35;
+  color:var(--ink); text-align:center; margin:14px 0}
+.def{background:var(--blue-xl); border-radius:16px; padding:16px 20px; margin:11px 0}
+.def b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
+.note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
+.note b{color:var(--warm)}
+.ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9688rem; margin:14px 0}
+.ask b{color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+.chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
+.chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:10px 0}
+.four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
+.four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+figure{margin:13px 0; text-align:center}
+figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
+  border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
+figure svg{max-width:100%; height:auto}
+.slidebox > .slide{flex:0 0 auto; width:100%}
+
+/* ── 발표 모드 : 화면 가득 슬라이드 한 장 ── */
+.present{position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%;
+  z-index:2147483000; display:flex; flex-direction:column; isolation:isolate;
+  background:#E9F3FF;                    /* 색 이름이 안 먹혀도 칠해지도록 */
+  background:var(--sky-bg,#E9F3FF); opacity:1; backdrop-filter:none}
+@media (prefers-color-scheme:dark){ .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)} }
+:root[data-theme="dark"] .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)}
+:root[data-theme="light"] .present{background:#E9F3FF; background:var(--sky-bg,#E9F3FF)}
+.pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+@media (prefers-color-scheme:dark){ .pbar{background:#132B47; background:var(--white,#132B47)} }
+:root[data-theme="dark"] .pbar{background:#132B47; background:var(--white,#132B47)}
+:root[data-theme="light"] .pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+/* 덮개가 열려 있는 동안에는 뒤쪽 본문을 아예 그리지 않는다 */
+body.show-on > *:not(.present){visibility:hidden}
+.present[hidden]{display:none}
+.pbar{display:flex; align-items:center; gap:clamp(8px,1.4vw,18px); flex-wrap:wrap;
+  padding:9px clamp(12px,2vw,26px); border-bottom:1px solid var(--line); background:var(--white)}
+.pname{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+.pnum{font-family:var(--mono); font-size:0.875rem; color:var(--muted)}
+.pnum b{font-size:1.125rem; color:var(--blue-d)}
+.pdots{display:flex; gap:7px; margin-left:auto; align-items:center}
+.pdots i{width:11px; height:11px; border-radius:50%; background:var(--line); cursor:pointer;
+  box-shadow:inset 0 0 0 1.5px var(--ink2); transition:width .14s, background .14s}
+.pdots i.on{background:var(--fill); box-shadow:inset 0 0 0 1.5px var(--ink2); width:28px; border-radius:99px}
+.pbtn{font-family:var(--sans); font-weight:700; font-size:0.875rem; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  padding:7px 16px; cursor:pointer}
+.pbtn:hover{background:var(--blue-xl); border-color:var(--blue)}
+.pbtn.solid{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.pbtn.solid:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.pstage{flex:1; min-height:0; position:relative; display:flex; align-items:center; justify-content:center;
+  padding:clamp(12px,2vw,30px) clamp(62px,7vw,116px)}
+.pbox{width:100%; max-width:1520px; height:100%; overflow-y:auto; overscroll-behavior:contain;
+  scrollbar-gutter:stable; display:grid; align-content:center; align-content:safe center}
+.pbox > .slide{width:100%}
+.pnav{position:absolute; top:50%; transform:translateY(-50%);
+  width:clamp(42px,4.4vw,60px); height:clamp(66px,9vh,100px); border-radius:18px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  font-size:1.75rem; line-height:1; cursor:pointer; box-shadow:var(--sh)}
+.pnav:hover:not(:disabled){background:var(--blue-xl); border-color:var(--blue)}
+.pnav:disabled{opacity:.28; cursor:default}
+.pnav.prev{left:clamp(8px,1.2vw,22px)} .pnav.next{right:clamp(8px,1.2vw,22px)}
+.showbtn{margin-left:auto}
+@media (max-width:680px){
+  .pstage{padding:10px 8px 64px}
+  .pnav{top:auto; bottom:10px; transform:none; width:76px; height:46px; border-radius:14px}
+  .pnav.prev{left:12px} .pnav.next{right:12px}
+  .pdots{order:9; width:100%; margin:2px 0 0; justify-content:center}
+}
+.ezl{font-size:0.9375rem; line-height:1.65; color:var(--blue-d); background:var(--blue-xl);
+  border-radius:13px; padding:11px 15px; margin:11px 0}
+.ezl::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.75rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:3px}
+.ezl b{color:var(--blue-d)}
+.slide figure svg{max-height:min(13rem, var(--sbh) * 0.29)}
+.slide figure img{max-height:min(16rem, var(--sbh) * 0.35);object-fit:contain}
+figcaption{font-size:0.8125rem; color:var(--muted); margin-top:8px}
+.stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
+  border-top:1px solid var(--line); background:var(--tint); flex-wrap:wrap}
+.dots{display:flex; gap:6px; margin-left:auto; align-items:center; flex-wrap:wrap}
+.dots i{width:9px; height:9px; border-radius:50%; background:var(--line); display:block; transition:.2s; cursor:pointer}
+.dots i.on{background:var(--fill); width:26px; border-radius:99px}
+button.go{font-family:var(--sans); font-size:0.9062rem; font-weight:700; padding:11px 22px;
+  border-radius:99px; border:1px solid var(--fill); background:var(--fill); color:var(--on-fill);
+  cursor:pointer; transition:.16s}
+button.go:hover{background:var(--fill-d); border-color:var(--fill-d)}
+button.go:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.ghost{background:var(--white); color:var(--blue); border-color:var(--line)}
+button.ghost:hover{background:var(--blue-xl); color:var(--blue-d)}
+button[disabled]{opacity:.3; cursor:default}
+button[disabled]:hover{background:var(--white); color:var(--blue); border-color:var(--line)}
+
+/* SVG 공통 */
+.dg{fill:none; stroke:var(--blue-l); stroke-width:2}
+.dnode{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.dnode.hit{fill:var(--fill); stroke:var(--fill)}
+.dtxt{font-family:var(--sans); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.dtxt.on{fill:var(--on-fill)}
+.dnum{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--warm); text-anchor:middle}
+.dlab{font-family:var(--sans); font-size:12px; fill:var(--muted); text-anchor:middle}
+.pz{width:min(9.25rem, var(--sbh) * 0.20); height:auto; flex:0 0 auto}
+.gtsvg{width:100%; max-width:32rem}
+.wsq{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:clamp(16px,2.2vw,24px); box-shadow:var(--sh); margin:16px 0}
+.wsq > h4{margin:0 0 4px; font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d);
+  display:flex; align-items:center; gap:9px}
+.wsq > h4 em{font-style:normal; font-family:var(--pop); font-size:0.75rem; background:var(--fill);
+  color:var(--on-fill); border-radius:99px; padding:3px 10px; flex:0 0 auto}
+.chose{margin-top:9px; font-size:0.875rem; color:var(--blue-d)}
+.chose b{font-weight:800}
+.wsq .qtext{font-size:0.9375rem; color:var(--ink2); line-height:1.7; margin:0 0 12px}
+.wsline{display:grid; grid-template-columns:minmax(0,1fr); gap:6px; margin:9px 0}
+.wsline > b{font-size:0.8438rem; color:var(--blue-d); line-height:1.5}
+.wsline input{font-family:var(--sans); font-size:0.9375rem; padding:8px 12px; border-radius:11px;
+  border:1px solid var(--line); background:var(--tint); color:var(--ink); min-width:0}
+.wsline input:focus{outline:2px solid var(--blue); outline-offset:1px}
+.wsline input.good{border-color:var(--good); background:var(--good-bg)}
+.wsline input.bad{border-color:var(--warm); background:var(--warm-bg)}
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.wsans{margin-top:12px; padding:13px 16px; border-radius:14px; background:var(--good-bg);
+  border:1px solid var(--good); font-size:0.9062rem; line-height:1.7; color:var(--ink)}
+.wsans b{color:var(--good)}
+.wstab{width:100%; border-collapse:collapse; font-size:0.8438rem; margin:10px 0}
+.wstab th,.wstab td{border:1px solid var(--line); padding:6px 9px; text-align:center}
+.wstab th{background:var(--blue-xl); color:var(--blue-d); font-weight:700}
+.wstab td.pick{background:var(--good-bg); font-weight:800; color:var(--good)}
+.wstab td.cut{opacity:.4; text-decoration:line-through}
+.citysvg{width:100%; max-width:30rem}
+.cn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.cn.seen{fill:var(--blue-xl); stroke:var(--blue)}
+.cn.cur{fill:var(--good-bg); stroke:var(--good); stroke-width:2.6}
+.ct{font-family:var(--mono); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.ce{stroke:var(--line); stroke-width:2}
+.ce.hit{stroke:var(--good); stroke-width:3.4}
+.cw{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.ch{font-family:var(--mono); font-size:10px; fill:var(--blue); text-anchor:middle}
+.gn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.gn.hot{fill:var(--good-bg); stroke:var(--good); stroke-width:2.4}
+.gn.off{opacity:.28}
+.gl{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.gv{font-family:var(--mono); font-size:13px; font-weight:800; fill:var(--blue-d); text-anchor:start}
+.pz rect{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
+.pz rect.g{fill:var(--good-bg); stroke:var(--good)}
+.pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
+
+/* ── 용어 ────────────────────────────────── */
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
+.term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
+.term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
+.term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
+
+/* ── 확인 문제 ───────────────────────────── */
+details{border:1px solid var(--line); border-radius:16px; background:var(--white);
+  margin-bottom:10px; box-shadow:var(--sh); overflow:hidden}
+summary{padding:16px 20px; cursor:pointer; font-weight:700; font-size:0.9688rem; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"답"; font-family:var(--disp); color:var(--blue); font-size:0.9375rem; flex:0 0 auto}
+details[open] summary{color:var(--blue)}
+details[open] summary::after{content:"닫기"}
+summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
+
+
+/* ── 수업 활동 ─────────────────────────── */
+.actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
+.atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  font-family:var(--sans); font-size:0.9375rem; font-weight:800; text-align:left;
+  padding:11px 18px; border-radius:15px; border:2px solid var(--line);
+  background:var(--white); color:var(--ink2); cursor:pointer; transition:.15s}
+.atab i{font-style:normal; font-size:0.7188rem; font-weight:700; letter-spacing:.04em; color:var(--muted)}
+.atab:hover{border-color:var(--blue-l); background:var(--tint)}
+.atab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill); box-shadow:var(--sh)}
+.atab[aria-selected="true"] i{color:var(--on-fill); opacity:.8}
+.atab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.actbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px; box-shadow:var(--sh)}
+.actbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.5rem; color:var(--blue-d); margin:0 0 8px}
+.actbox .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.actbox .desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px}
+.mini-h{font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d); margin:0 0 10px}
+.scorepill{font-family:var(--sans); font-size:0.875rem; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:8px 16px}
+
+/* ① AI 판별 카드 */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-bottom:16px}
+.acard{text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:600; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:13px 15px;
+  color:var(--ink); cursor:pointer; transition:.15s; position:relative}
+.acard:hover{border-color:var(--blue-l)}
+.acard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.acard .pickmark{display:block; font-size:0.7188rem; font-weight:800; letter-spacing:.04em;
+  color:var(--ink2); margin-bottom:4px}
+.acard[data-pick="y"]{border-color:var(--good); background:var(--good-bg)}
+.acard[data-pick="y"] .pickmark{color:var(--good)}
+.acard[data-pick="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.acard[data-pick="n"] .pickmark{color:var(--warm)}
+.acard.right{box-shadow:inset 0 0 0 2px var(--good)}
+.acard.wrong{box-shadow:inset 0 0 0 2px #C63B3B}
+.acard .why{display:block; font-size:0.8125rem; font-weight:600; color:var(--ink2);
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--line)}
+
+/* ② 튜링 테스트 */
+.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+.steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
+.steps3 b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
+.steps3 span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.roles{display:grid; gap:8px; min-height:60px}
+.roles .hint{font-size:0.875rem; color:var(--muted); line-height:1.6}
+.rrow{display:flex; align-items:center; gap:10px; background:var(--tint);
+  border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:0.9062rem}
+.rrow b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d); min-width:74px}
+.rrow.secret{background:var(--blue-xl); border-color:var(--blue-l)}
+.rrow.masked b+span{filter:blur(6px); user-select:none}
+.qbig{font-family:var(--disp); font-weight:400; font-size:clamp(1.1875rem,3.1vw,1.625rem); line-height:1.45;
+  color:var(--ink); background:var(--blue-xl); border-radius:16px; padding:24px 22px;
+  text-align:center; min-height:108px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px}
+.qall{margin:12px 0 0; padding-left:22px; font-size:0.875rem; color:var(--ink2); line-height:1.85}
+
+/* ③ 네 가지 특성 */
+.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+.tcell{text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
+.tcell:hover{border-color:var(--blue-l)}
+.tcell:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tcell b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--blue-d); margin-bottom:3px}
+.tcell span{display:block; font-size:0.8438rem; color:var(--ink2); line-height:1.55}
+.tcell em{display:inline-block; font-style:normal; font-size:0.75rem; font-weight:800;
+  letter-spacing:.04em; color:var(--ink2); margin-top:7px}
+.tcell[data-on="y"]{border-color:var(--good); background:var(--good-bg)}
+.tcell[data-on="y"] em{color:var(--good)}
+.tcell[data-on="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.tcell[data-on="n"] em{color:var(--warm)}
+
+.copyfall{margin:14px 0 0; background:var(--warm-bg); border:2px solid var(--warm);
+  border-radius:16px; padding:16px 18px}
+.copyfall>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--warm); margin-bottom:5px}
+.copyfall>span{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.6; margin-bottom:10px}
+.copyfall textarea{width:100%; font-family:var(--mono); font-size:0.7812rem; line-height:1.7;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:12px 14px; resize:vertical}
+.copyfall textarea:focus{outline:2px solid var(--blue); outline-offset:1px}
+
+/* ── AI 해결안 설계 ─────────────────────── */
+.gauge{position:relative; height:30px; border-radius:99px; background:var(--tint);
+  border:1px solid var(--line); overflow:hidden; margin-bottom:16px}
+.gauge>i{display:block; height:100%; width:0; border-radius:99px;
+  background:var(--fill); transition:width .3s ease}
+.gauge>i.full{background:var(--good)}
+.gauge>b{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:0.8125rem; font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums;
+  mix-blend-mode:normal}
+.canvas{display:grid; gap:13px}
+.cell{display:block; background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:15px 18px; transition:.15s}
+.cell:focus-within{border-color:var(--blue); background:var(--white)}
+.cell.key{background:var(--blue-xl); border-color:var(--blue-l)}
+.cell.warn{background:var(--warm-bg); border-color:var(--warm)}
+.cell>span{display:flex; align-items:center; gap:9px;
+  font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.cell.warn>span{color:var(--warm)}
+.cell>span>i{flex:none; width:24px; height:24px; border-radius:50%;
+  background:var(--fill); color:var(--on-fill); font-style:normal;
+  font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.cell.warn>span>i{background:var(--warm); color:var(--sky-bg)}
+.cell>em{display:block; font-style:normal; font-size:0.8125rem; color:var(--ink2);
+  line-height:1.55; margin:5px 0 9px}
+.cell textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.65;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:11px 13px; resize:vertical}
+.cell textarea:focus{outline:none; border-color:var(--blue)}
+.cell textarea::placeholder{color:var(--muted)}
+.dcards{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
+.dcard{display:inline-flex; align-items:center; gap:6px; font-family:var(--sans);
+  font-size:0.8438rem; font-weight:700; padding:8px 14px; border-radius:99px;
+  border:2px solid var(--line); background:var(--white); color:var(--ink2);
+  cursor:pointer; transition:.15s}
+.dcard:hover{border-color:var(--blue-l)}
+.dcard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.dcard[data-on]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.verdict{margin-top:16px; border-radius:16px; padding:20px 22px; border:2px solid var(--line);
+  background:var(--tint); animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+.verdict b:first-child{display:block; font-family:var(--disp); font-weight:400;
+  font-size:clamp(1.125rem,2.6vw,1.375rem); margin-bottom:7px}
+.verdict span{display:block; font-size:0.9375rem; line-height:1.7; color:var(--ink2)}
+.verdict ul{margin:12px 0 0; padding-left:20px; font-size:0.875rem; color:var(--ink2); line-height:1.8}
+.verdict.ok{background:var(--good-bg); border-color:var(--good)}
+.verdict.ok b{color:var(--good)}
+.verdict.mid{background:var(--blue-xl); border-color:var(--blue-l)}
+.verdict.mid b{color:var(--blue-d)}
+.verdict.no{background:var(--warm-bg); border-color:var(--warm)}
+.verdict.no b{color:var(--warm)}
+@media (prefers-reduced-motion:reduce){.verdict{animation:none} .gauge>i{transition:none}}
+
+/* ── 튜링 테스트 진행판 ─────────────────── */
+.wiz{display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0 0 20px; padding:0; counter-reset:wz}
+.wiz li{flex:1 1 110px; position:relative; font-size:0.8125rem; font-weight:700; color:var(--ink2);
+  background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:9px 10px 9px 32px; counter-increment:wz; transition:.15s}
+.wiz li::before{content:counter(wz); position:absolute; left:9px; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; border-radius:50%; background:var(--line); color:var(--ink2);
+  font-size:0.6875rem; display:flex; align-items:center; justify-content:center}
+.wiz li.done{color:var(--good); border-color:var(--good); background:var(--good-bg)}
+.wiz li.done::before{content:'✓'; background:var(--good); color:#fff}
+.wiz li.on{color:var(--on-fill); background:var(--fill); border-color:var(--fill); box-shadow:var(--sh)}
+.wiz li.on::before{background:var(--on-fill); color:var(--fill-d)}
+.wiz li{cursor:pointer}
+.wiz li:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.step-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin:0 0 14px}
+.rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:4px 13px}
+.frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.fld{flex:0 1 220px; display:block}
+.fld.grow{flex:1 1 260px}
+.fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:6px}
+.fld input, .fld textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+  color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:11px 14px; resize:vertical}
+.fld input:focus, .fld textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
+.secretbox{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px;
+  background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px; padding:14px 18px}
+.secretbox .slabel{font-size:0.7812rem; font-weight:800; letter-spacing:.04em; color:var(--blue-d)}
+.secretbox .sval{font-family:var(--disp); font-weight:400; font-size:1.3125rem; color:var(--blue-d);
+  filter:blur(9px); user-select:none; transition:filter .2s}
+.secretbox.open .sval{filter:none; user-select:auto}
+.dotrow{display:flex; gap:7px; margin-bottom:14px}
+.dotrow i{width:11px; height:11px; border-radius:50%; background:var(--line); transition:.15s}
+.dotrow i.fill{background:var(--fill)}
+.dotrow i.cur{background:var(--fill); box-shadow:0 0 0 4px var(--blue-xl)}
+.timer{font-family:var(--mono); font-size:1.0625rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:11px; padding:6px 13px; min-width:74px; text-align:center}
+.timer.low{color:#fff; background:#C63B3B}
+table.tlog{min-width:520px; font-size:0.875rem}
+table.tlog td.q{font-weight:700; color:var(--blue-d); white-space:normal; min-width:150px}
+table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-nums; color:var(--muted)}
+.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0}
+.vbtn{display:block; text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:16px; padding:16px 18px; cursor:pointer; transition:.15s}
+.vbtn:hover{border-color:var(--blue-l); background:var(--white)}
+.vbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.vbtn b{font-family:var(--disp); font-weight:400; font-size:1.3125rem; color:var(--blue-d)}
+.vbtn span{font-size:0.875rem; color:var(--ink2); margin-left:5px}
+.vbtn .bar{display:block; height:12px; border-radius:99px; background:var(--line);
+  margin:12px 0 7px; overflow:hidden}
+.vbtn .bar i{display:block; height:100%; width:0; background:var(--fill);
+  border-radius:99px; transition:width .35s ease}
+.vbtn em{font-style:normal; font-size:0.8438rem; font-weight:800; color:var(--ink2);
+  font-variant-numeric:tabular-nums}
+.vbtn.win{border-color:var(--good); background:var(--good-bg)}
+.vbtn.win .bar i{background:var(--good)}
+.reveal{margin-top:16px; border-radius:16px; padding:22px; text-align:center;
+  font-family:var(--disp); font-weight:400; font-size:clamp(1.1875rem,3vw,1.5625rem); line-height:1.5;
+  background:var(--good-bg); border:2px solid var(--good); color:var(--ink);
+  animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.reveal .rsub{display:block; font-family:var(--sans); font-size:0.9375rem; font-weight:600;
+  color:var(--ink2); margin-top:9px}
+@keyframes pop{from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none} .vbtn .bar i{transition:none}}
+/* 튜링 4단계 토의 칸 */
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:0.9375rem;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
+.rubric{display:grid; gap:9px}
+.rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
+.rubric .rq{flex:1 1 260px; font-size:0.9062rem; color:var(--ink2)}
+.ttnav{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:24px;
+  padding-top:18px; border-top:1px solid var(--line)}
+.ttnav .saved{flex:1 1 auto; font-size:0.8125rem; color:var(--muted)}
+.ttnav .saved.flash{color:var(--good); font-weight:700}
+.report{font-family:var(--mono); font-size:0.7812rem; line-height:1.75; white-space:pre-wrap;
+  word-break:break-word; background:var(--tint); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; max-height:420px; overflow:auto; margin:0 0 16px; color:var(--ink)}
+.missing{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:14px 18px; font-size:0.9062rem; color:var(--ink2); margin-bottom:14px}
+.missing b{color:var(--warm)}
+@media print{
+  nav, footer, .actbar, .wiz, .ttnav, .simctl, header, section:not(#act){display:none!important}
+  .actbox{border:none; box-shadow:none; padding:0}
+  .tstep[hidden]{display:none!important}
+  .report{max-height:none; border:none; background:none; font-size:11pt}
+}
+
+/* 컴퓨터 역할 학생용 프롬프트 상자 */
+.cbox{margin:16px 0; border:2px dashed var(--blue-l); border-radius:16px;
+  background:var(--blue-xl); overflow:hidden}
+.cbox>summary{display:flex; align-items:center; gap:10px; flex-wrap:wrap; cursor:pointer;
+  list-style:none; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--blue-d); padding:15px 20px}
+.cbox>summary::-webkit-details-marker{display:none}
+.cbox>summary::before{content:'▸'; font-family:var(--sans); font-weight:700; color:var(--blue)}
+.cbox[open]>summary::before{content:'▾'}
+.cbox>summary i{font-style:normal; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--sky-bg); background:var(--warm); border-radius:99px; padding:3px 11px}
+.cbox>summary:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+.cbody{padding:0 20px 20px}
+.cbody .desc{font-size:0.9062rem; color:var(--ink2); margin:0 0 14px}
+.prompt{font-family:var(--mono); font-size:0.7812rem; line-height:1.8; white-space:pre-wrap;
+  word-break:break-word; background:var(--white); border:1px solid var(--line);
+  border-radius:14px; padding:16px 18px; max-height:300px; overflow:auto;
+  margin:0 0 14px; color:var(--ink)}
+a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
+
+/* 제출 상태 */
+.sendmsg{flex:1 1 200px; font-size:0.875rem; font-weight:700}
+.sendmsg.wait{color:var(--muted)}
+.sendmsg.ok{color:var(--good)}
+.sendmsg.bad{color:#A62727}
+@media (prefers-color-scheme:dark){.sendmsg.bad{color:#FF9B9B}}
+:root[data-theme="dark"] .sendmsg.bad{color:#FF9B9B}
+:root[data-theme="light"] .sendmsg.bad{color:#A62727}
+
+/* ── 시뮬레이터 ─────────────────────────── */
+.sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh); margin-bottom:20px}
+.sim h3{display:flex; align-items:center; gap:9px; font-family:var(--disp); font-weight:400;
+  font-size:1.3125rem; color:var(--blue-d); margin:0 0 6px}
+.sim .desc{font-size:0.9062rem; color:var(--ink2); margin:0 0 16px}
+.simctl{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
+.pick button{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:7px 15px; border-radius:99px;
+  border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
+.pick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.pick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mini{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 17px; border-radius:99px;
+  border:1px solid var(--fill); background:var(--fill); color:var(--on-fill); cursor:pointer; transition:.15s}
+.mini:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.mini.gh{background:var(--white); color:var(--blue); border-color:var(--line)}
+.mini.gh:hover{background:var(--blue-xl); color:var(--blue-d)}
+.mini:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.mini[disabled]{opacity:.35; cursor:default}
+.gridwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.gsvg{flex:1 1 320px; min-width:280px}
+.gside{flex:1 1 230px; min-width:220px}
+.stat{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:0.875rem; margin-bottom:14px}
+.stat dt{color:var(--muted); font-weight:600}
+.stat dd{margin:0; font-family:var(--mono); font-weight:700; color:var(--ink)}
+.lst{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:11px 14px;
+  font-family:var(--mono); font-size:0.75rem; line-height:1.6; color:var(--ink2);
+  max-height:120px; overflow:auto; word-break:break-all; margin-bottom:10px}
+.lst .hintx{display:block; margin-top:3px; font-size:0.7188rem; color:var(--muted)}
+.lst b:first-child{color:var(--blue-d); display:block; margin-bottom:3px; font-family:var(--sans); font-size:0.7188rem}
+.cellg rect{stroke:var(--line); stroke-width:1.5}
+.cellg .wall{fill:#7d8ba0}
+.cellg .free{fill:var(--tint)}
+.cellg .open{fill:#BFE3B4}
+.cellg .closed{fill:#F6C7A8}
+.cellg .path{fill:var(--fill)}
+.cellg .se{fill:var(--blue-d)}
+.cellg text{font-family:var(--mono); font-size:9px; fill:var(--ink2); text-anchor:middle}
+.cellg text.on{fill:#fff; font-weight:700}
+.legend2{display:flex; gap:12px; flex-wrap:wrap; font-size:0.7812rem; color:var(--muted); margin-top:10px}
+.legend2 span{display:inline-flex; align-items:center; gap:5px}
+.legend2 i{width:13px; height:13px; border-radius:4px; display:block; border:1px solid var(--line)}
+.puz{display:grid; grid-template-columns:repeat(3,60px); gap:6px; justify-content:center; margin:6px 0 14px}
+.puz button{width:60px; height:60px; border-radius:12px; border:1px solid var(--line);
+  background:var(--tint); font-family:var(--mono); font-size:1.375rem; font-weight:700; color:var(--ink);
+  cursor:pointer; transition:.12s}
+.puz button.ok{background:var(--good-bg); border-color:var(--good); color:var(--good)}
+.puz button.empty{background:transparent; border-style:dashed; cursor:default}
+.puz button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 코드 ───────────────────────────────── */
+.codebox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:18px}
+.codetop{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:13px 20px; background:var(--tint); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.codetop b{font-size:0.9375rem; color:var(--blue-d)}
+.codetop span{font-family:var(--mono); font-size:0.75rem; color:var(--muted)}
+pre{margin:0; padding:20px; overflow-x:auto; background:var(--white);
+  font-family:var(--mono); font-size:0.7812rem; line-height:1.7; color:var(--ink)}
+pre .c{color:var(--muted)}
+pre .k{color:var(--blue-d); font-weight:700}
+pre .s{color:var(--good)}
+
+/* ── 영상 ───────────────────────────────── */
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.vid{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+  box-shadow:var(--sh); display:flex; gap:12px; align-items:flex-start}
+.vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
+  display:grid; place-items:center}
+.vid .pl svg{width:14px; height:14px; fill:var(--blue-d); margin-left:2px}
+.vid b:first-child{display:block; font-size:0.9062rem; font-weight:700}
+.vid span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:3px}
+
+/* 슬라이드 안 이미지 */
+.slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:11px 0}
+.imgrow figure{margin:0}
+.side{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; align-items:center; margin:11px 0}
+.side figure{margin:0}
+.side > *:last-child{margin:0}
+.imgrow figure img{height:min(11.5rem, var(--sbh) * 0.25); width:auto; max-width:100%}
+.imgrow figcaption{font-size:0.7812rem; margin-top:6px}
+
+/* 탐색 설명 옆 낱말 카드 */
+.wordh{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
+  margin:18px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
+.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+.wd{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:13px 16px}
+.wd.key{background:var(--blue-xl); border-color:var(--blue-l)}
+.wd>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin-bottom:5px}
+.wd>b>i{font-style:normal; font-size:0.75rem; font-weight:400; color:var(--ink2); margin-left:5px}
+.wd>span{display:block; font-size:0.90625rem; line-height:1.65; color:var(--ink2)}
+.fbox{background:var(--good-bg); border:2px solid var(--good); border-radius:16px;
+  padding:16px 20px; margin:14px 0}
+.fbox>b{display:block; font-family:var(--pop); font-weight:800;
+  font-size:clamp(1.25rem,3vw,1.625rem); color:var(--good); margin-bottom:9px}
+.fbox>span{display:block; font-size:0.9375rem; line-height:1.75; color:var(--ink2)}
+
+/* ── 한 걸음씩 보는 탐색 ─────────────────── */
+.simbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px 24px; box-shadow:var(--sh); margin-bottom:14px}
+.simbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.4375rem; color:var(--blue-d); margin:0 0 7px}
+.simbox .desc{font-size:0.9688rem; color:var(--ink2); margin:0; line-height:1.7}
+.stage2{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:22px; box-shadow:var(--sh)}
+.canvasarea{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:16px}
+.tsvg{display:block; width:100%; min-width:460px; height:auto}
+.narr{font-family:var(--disp); font-weight:400; font-size:clamp(1rem,2.5vw,1.25rem); line-height:1.6;
+  background:var(--blue-xl); border-radius:16px; padding:18px 20px; color:var(--ink);
+  min-height:78px; display:flex; align-items:center; margin-bottom:14px}
+.narr.fin{background:var(--good-bg); box-shadow:inset 0 0 0 2px var(--good)}
+.narr b{color:var(--blue-d)}
+.narr.fin b{color:var(--good)}
+.lists{display:grid; gap:9px}
+.lists .lst{max-height:none; margin:0; font-family:var(--sans); font-size:0.8438rem}
+
+/* 트리 */
+.tl{stroke:var(--line); stroke-width:2.5}
+.tn{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.tn.seen{fill:var(--blue-xl); stroke:var(--blue-l)}
+.tn.cur{fill:var(--fill); stroke:var(--fill-d)}
+.tt{font-family:var(--disp); font-size:18px; fill:var(--ink2); text-anchor:middle}
+.tt.on{fill:var(--blue-d)}
+.tn.cur+.tt.on{fill:var(--on-fill)}
+.tnum{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--warm); text-anchor:middle}
+
+/* 미니 8-퍼즐 */
+.pz3{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; width:60px; margin:4px auto}
+.pz3 i{font-style:normal; font-family:var(--mono); font-size:0.6875rem; font-weight:700;
+  line-height:18px; text-align:center; background:#F2D9A8; color:#5A3A0A; border-radius:3px}
+.pz3 i.e{background:var(--white); box-shadow:inset 0 0 0 1px var(--line)}
+@media (prefers-color-scheme:dark){.pz3 i{background:#C9A365; color:#2A1A02} .pz3 i.e{background:#1B3550}}
+:root[data-theme="dark"] .pz3 i{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pz3 i.e{background:#1B3550}
+:root[data-theme="light"] .pz3 i{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pz3 i.e{background:#FFFFFF}
+
+.btree{display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:8px; min-width:560px}
+.bnode{background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:6px 4px; text-align:center; transition:.15s}
+.bnode>b{display:block; font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--ink2)}
+.bnode>em{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--muted)}
+.bnode.open{border-color:var(--blue-l); background:var(--blue-xl)}
+.bnode.open>b, .bnode.open>em{color:var(--blue-d)}
+.bnode.closed{border-color:var(--muted); opacity:.55}
+.bnode.cur{border-color:var(--good); background:var(--good-bg); box-shadow:0 0 0 3px var(--good-bg)}
+.bnode.cur>b, .bnode.cur>em{color:var(--good)}
+
+/* 유럽 지도 */
+.el{stroke:var(--line); stroke-width:2.5}
+.el.hit{stroke:var(--good); stroke-width:5}
+.ew{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.en{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.en.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.en.seen{fill:var(--blue-l); stroke:var(--blue-d)}
+.en.cur{fill:var(--fill); stroke:var(--fill-d)}
+.et{font-family:var(--sans); font-size:12.5px; font-weight:700; fill:var(--ink2); text-anchor:middle}
+.et.on{fill:var(--on-fill)}
+.eh{font-family:var(--mono); font-size:10.5px; fill:var(--muted); text-anchor:middle}
+.eh.on{fill:var(--on-fill); opacity:.9}
+table.ftab{min-width:420px; font-size:0.8438rem}
+table.ftab th span{display:block; font-size:0.6562rem; font-weight:600; color:var(--muted)}
+table.ftab tr.pick td{background:var(--good-bg)}
+table.ftab tr.pick td b{color:var(--good)}
+
+/* ── 8-퍼즐 · 탐색 활동 ───────────────────── */
+.pzwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.pzside{flex:1 1 250px; min-width:230px}
+.pzbig{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; max-width:250px; margin:0 auto}
+.pzbig.sm{max-width:190px; gap:5px}
+.pc{display:flex; align-items:center; justify-content:center; aspect-ratio:1;
+  font-family:var(--disp); font-weight:400; font-size:clamp(1.375rem,5vw,2rem);
+  background:#F2D9A8; color:#5A3A0A; border:2px solid transparent; border-radius:12px;
+  cursor:default; transition:.12s}
+.pc.e{background:var(--tint); box-shadow:inset 0 0 0 2px var(--line)}
+.pc.can{cursor:pointer; border-color:#C99A3C}
+.pc.can:hover{transform:scale(1.05); border-color:var(--blue)}
+.pc.can:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.pc.fit{box-shadow:inset 0 0 0 3px var(--good)}
+.pc.tip{border-color:var(--blue); box-shadow:0 0 0 4px var(--blue-xl)}
+.pc[disabled]{opacity:1}
+.pzbig.goal .pc{opacity:.85}
+@media (prefers-color-scheme:dark){.pc{background:#C9A365; color:#2A1A02} .pc.can{border-color:#8A6A28}}
+:root[data-theme="dark"] .pc{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pc.can{border-color:#8A6A28}
+:root[data-theme="light"] .pc{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pc.can{border-color:#C99A3C}
+.pzstat{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:12px;
+  font-size:0.9062rem; color:var(--ink2)}
+.pzstat b{font-family:var(--mono); font-size:1.0625rem; color:var(--blue-d)}
+.pzbar{height:10px; border-radius:99px; background:var(--line); overflow:hidden; margin-top:10px}
+.pzbar>i{display:block; height:100%; width:50%; background:var(--fill); border-radius:99px; transition:width .25s}
+.pzbar>i.full{background:var(--good)}
+
+/* 키워드 띠 */
+.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px; margin:0 0 20px}
+.kw{background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:14px; padding:11px 13px}
+.kw>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d)}
+.kw>span{display:block; font-size:0.7812rem; color:var(--ink2); line-height:1.5; margin-top:2px}
+
+/* 수행 작업 비교 */
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.cmpc{font-family:var(--sans); background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:14px; cursor:pointer; transition:.15s}
+.cmpc:hover{border-color:var(--blue-l)}
+.cmpc:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cmpc>b{display:block; font-size:0.9375rem; font-weight:600; color:var(--ink2); margin-bottom:9px}
+.cmpc .pzbig{max-width:130px}
+.cmpc>em{display:block; font-style:normal; margin-top:9px; font-size:0.875rem; font-weight:800; color:var(--blue-d)}
+.cmpc[data-on]{border-color:var(--good); background:var(--good-bg)}
+.cmpc[data-on]>em{color:var(--good)}
+
+/* 내가 만든 탐색 트리 */
+.dstrail{display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start}
+.dsnode{background:var(--tint); border:2px solid var(--line); border-radius:12px; padding:6px 5px; text-align:center}
+.dsnode>b{display:block; font-size:0.7188rem; font-weight:800; color:var(--ink2)}
+.dsnode>em{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+
+/* 그래프 빈칸 */
+.en.blank{fill:var(--warm-bg); stroke:var(--warm); stroke-dasharray:5 4}
+.blanks{display:grid; gap:9px; margin:14px 0}
+.blankrow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:11px 15px}
+.blankrow>b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d); min-width:74px}
+.pathbar{font-family:var(--disp); font-weight:400; font-size:clamp(1.0625rem,2.8vw,1.375rem);
+  background:var(--blue-xl); border-radius:14px; padding:15px 18px; text-align:center;
+  color:var(--blue-d); margin:14px 0}
+
+/* 내가 고른 여행 */
+.tripsel{display:grid; gap:9px; margin-bottom:14px}
+.trow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:10px 14px}
+.trow>b{font-family:var(--disp); font-weight:700; font-size:1rem; color:var(--blue-d); min-width:40px}
+.trow .chips{margin:0}
+.trow .chip{cursor:pointer; transition:.15s}
+.trow .chip:hover{border-color:var(--blue-l)}
+
+/* ── 학교 격자 ─────────────────────────── */
+.gsv{min-width:380px}
+.gc{stroke:var(--line); stroke-width:2}
+.gc.free{fill:var(--tint)}
+.gc.wall{fill:#8595AB; stroke:#6D7C90}
+.gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+.gc.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.gc.closed{fill:var(--blue-l); stroke:var(--blue-d)}
+.gc.path{fill:var(--good); stroke:var(--good)}
+.gc.cur{fill:var(--fill); stroke:var(--fill-d)}
+.gc.se{stroke:var(--ink); stroke-width:3.5}
+.gt{font-family:var(--mono); font-size:13px; fill:var(--ink2); text-anchor:middle}
+.gt.big{font-family:var(--sans); font-size:12px; font-weight:800; fill:var(--ink)}
+@media (prefers-color-scheme:dark){.gc.fire{fill:#5A3418; stroke:#C97A3E}}
+:root[data-theme="dark"] .gc.fire{fill:#5A3418; stroke:#C97A3E}
+:root[data-theme="light"] .gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+
+/* ── 알고리즘 카드 ─────────────────────── */
+.cardsort{display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px}
+.csleft, .csright{flex:1 1 280px; min-width:250px}
+.csbank{display:grid; gap:8px}
+.cscard{text-align:left; font-family:var(--sans); font-size:0.9375rem; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:13px 16px; color:var(--ink); cursor:pointer; transition:.15s}
+.cscard:hover{border-color:var(--blue-l); background:var(--white)}
+.cscard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cscard.no{border-color:#C63B3B; animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.cscard.no{animation:none}}
+.csout{margin:0; padding:0; list-style:none; display:grid; gap:8px; counter-reset:cs}
+.csout li{background:var(--good-bg); border:2px solid var(--good); border-radius:13px;
+  padding:11px 14px; font-size:0.9375rem; line-height:1.5; counter-increment:cs}
+.csout li::before{content:counter(cs); flex:none; width:25px; height:25px; border-radius:50%;
+  background:var(--good); color:var(--sky-bg); font-family:var(--sans);
+  font-size:0.8125rem; font-weight:800; display:flex; align-items:center; justify-content:center}
+.csout li.ph{background:var(--tint); border-color:var(--line); border-style:dashed;
+  color:var(--ink2); counter-increment:none}
+.csout li.ph::before{content:'?'; background:var(--line); color:var(--ink2)}
+.codeeasy{margin-top:22px; padding-top:20px; border-top:2px dashed var(--line)}
+.ecode{font-family:var(--mono); font-size:0.8125rem; line-height:1.9; white-space:pre;
+  overflow-x:auto; background:var(--tint); border:1px solid var(--line);
+  border-radius:14px; padding:18px 20px; margin:0 0 14px; color:var(--ink)}
+.ecode em{font-style:normal; color:var(--ink2)}
+.cbody code{font-family:var(--mono); font-size:0.8125rem; background:var(--tint);
+  border-radius:5px; padding:1px 5px}
+
+/* 보기 버튼 (추론 게임) */
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px}
+.mopts button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; line-height:1.45;
+  padding:13px 12px; border-radius:13px; border:2px solid var(--line); background:var(--tint);
+  color:var(--ink); cursor:pointer; transition:.15s}
+.mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mopts button[disabled]{cursor:default; opacity:1; color:var(--ink2)}
+.mopts button[aria-pressed="true"]{border-color:var(--blue-d); background:var(--fill);
+  color:var(--on-fill); box-shadow:var(--sh)}
+.mopts button[aria-pressed="true"]::before{content:"\2713\00a0"; font-weight:900}
+.mopts button[aria-pressed="true"]:hover{border-color:var(--fill-d); background:var(--fill-d)}
+.def .mopts button:not([aria-pressed="true"]){background:var(--white)}
+.mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
+@media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
+:root[data-theme="dark"] .mopts button.no{background:#3A1616; color:#FFAFAF}
+:root[data-theme="light"] .mopts button.no{background:#FDE9E9; color:#A62727}
+/* ── 추론 게임 ─────────────────────────── */
+.qhead{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+.ifcard{background:var(--tint); border:2px solid var(--line); border-radius:18px; padding:20px 22px}
+.ifq{font-family:var(--disp); font-weight:400; font-size:clamp(1.125rem,3vw,1.4375rem);
+  color:var(--blue-d); margin:0 0 14px}
+.iffacts{display:grid; gap:7px; margin-bottom:16px}
+.ffact{background:var(--white); border-left:4px solid var(--blue-l); border-radius:0 11px 11px 0;
+  padding:10px 14px; font-size:0.9375rem; line-height:1.6; color:var(--ink)}
+.ifask{font-family:var(--disp); font-weight:400; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:0 0 14px}
+.ifcard .mopts button{background:var(--white)}
+
+/* ── 내가 만드는 규칙 ──────────────────── */
+.rulemake{display:grid; gap:11px; margin-bottom:14px}
+.rl{display:block}
+.rl>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:5px}
+.rl input{width:100%; font-family:var(--sans); font-size:0.9375rem; color:var(--ink);
+  background:var(--tint); border:2px solid var(--line); border-radius:13px; padding:11px 14px}
+.rl input:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.rl input::placeholder{color:var(--muted)}
+.rulebox{font-family:var(--disp); font-weight:400; font-size:clamp(1rem,2.6vw,1.25rem);
+  line-height:1.6; background:var(--good-bg); border:2px solid var(--good);
+  border-radius:16px; padding:18px 20px; color:var(--ink); margin-bottom:16px}
+.rulebox b{color:var(--good)}
+
+/* ── 용어 사전 ─────────────────────────── */
+.tgroup{font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d);
+  margin:26px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line)}
+.tgroup:first-of-type{margin-top:0}
+.term em.ez{display:block; font-style:normal; font-size:0.8438rem; line-height:1.6;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:11px;
+  padding:9px 12px; margin:0 0 9px}
+.term em.ez::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.7188rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:2px}
+.term i{display:block; font-style:normal; font-size:0.8438rem; color:var(--muted);
+  line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
+
+/* ── 차시별 수업 흐름 ─────────────────── */
+.flowlist{display:grid; gap:12px}
+.fcard{display:flex; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px; box-shadow:var(--sh)}
+.fnum{flex:none; width:64px; text-align:center; font-family:var(--disp); font-weight:700;
+  font-size:1.625rem; line-height:1.1; color:var(--on-fill); background:var(--fill);
+  border-radius:14px; padding:12px 4px; align-self:flex-start}
+.fnum>span{display:block; font-family:var(--sans); font-size:0.6875rem; font-weight:700; opacity:.85}
+.fbody{flex:1 1 auto; min-width:0}
+.fbody>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d)}
+.fbody>i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:2px}
+.fdays{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0}
+.fdays span{display:inline-flex; align-items:center; gap:6px; font-size:0.8125rem; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  font-variant-numeric:tabular-nums}
+.fdays em{font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+.fgo{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px}
+.fgo a{font-size:0.8438rem; font-weight:700; color:var(--blue-d); background:var(--blue-xl);
+  border:1px solid var(--blue-l); border-radius:99px; padding:5px 13px; text-decoration:none;
+  transition:.15s}
+.fgo a:hover{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.ftip{font-size:0.8438rem; color:var(--ink2); line-height:1.6; margin:0}
+.ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+/* ── 헷갈리는 것 O/X ──────────────────── */
+.oxwrap{display:grid; gap:11px}
+.oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
+  transition:.15s}
+.oxc.right{border-color:var(--good); background:var(--good-bg)}
+.oxc.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxq{display:flex; gap:11px; font-size:0.9688rem; line-height:1.6; color:var(--ink); margin:0 0 11px}
+.oxn{flex:none; width:24px; height:24px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.oxb{display:flex; gap:9px}
+.oxb button{width:58px; height:42px; font-family:var(--disp); font-weight:700; font-size:1.25rem;
+  border-radius:12px; border:2px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.oxb button:hover:not([disabled]){border-color:var(--blue); color:var(--blue-d)}
+.oxb button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oxb button[disabled]{cursor:default}
+.oxb button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.oxw{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); font-size:0.9062rem;
+  line-height:1.7; color:var(--ink2)}
+.oxw>b{display:block; font-family:var(--disp); font-weight:700; font-size:1rem; margin-bottom:4px}
+.oxc.right .oxw>b{color:var(--good)}
+.oxc.wrong .oxw>b{color:var(--warm)}
+
+/* ── 확인 문제 ────────────────────────── */
+.extag{display:inline-block; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:4px 12px; margin-bottom:11px}
+.onum{display:inline-block; width:20px; font-weight:800; color:var(--blue-d)}
+.mopts button.ok .onum, .mopts button.no .onum{color:inherit}
+#exOpts{grid-template-columns:1fr}
+#exOpts button{text-align:left}
+
+/* ── 다음 단원 다리 ───────────────────── */
+.bridge{display:grid; gap:14px}
+.br{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:20px 24px; box-shadow:var(--sh)}
+.br:nth-child(2){border-left-color:var(--warm)}
+.br:nth-child(3){border-left-color:var(--good)}
+.brtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px}
+.br:nth-child(2) .brtag{color:var(--warm); background:var(--warm-bg)}
+.br:nth-child(3) .brtag{color:var(--good); background:var(--good-bg)}
+.br>h4{font-family:var(--disp); font-weight:700; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:10px 0 8px; line-height:1.45}
+.br>p{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 10px}
+.br ul{margin:0 0 10px; padding-left:20px; font-size:0.9062rem; line-height:1.85; color:var(--ink2)}
+.brtool{font-size:0.8438rem; color:var(--muted); margin:0; padding-top:9px;
+  border-top:1px dashed var(--line)}
+
+
+/* ── 강조 글꼴을 쓰는 자리 (한 화면에 하나씩만) ─────────── */
+.hero h1, .big, .narr, .reveal, .rulebox, .pathbar, .qbig, .mcase,
+.fnum, .pc, .oxb button, .scorepill{font-family:var(--pop)}
+.narr, .reveal, .rulebox, .pathbar, .qbig, .mcase{font-weight:700}
+.big{font-weight:800}
+
+
+/* ── 알고리즘 카드 · 보물찾기 비유 ─────────── */
+.metaphor{background:var(--tint); border:2px dashed var(--blue-l); border-radius:18px;
+  padding:18px 20px; margin-bottom:20px}
+.mcard{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
+.mcard>span{font-size:1.625rem; line-height:1}
+.mcard>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin-top:4px}
+.mcard>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.7812rem;
+  color:var(--warm); margin:2px 0 6px}
+.mcard>p{font-size:0.8438rem; line-height:1.6; color:var(--ink2); margin:0}
+.cscard, .csout li{display:flex; align-items:flex-start; gap:11px}
+.csi{flex:none; font-size:1.25rem; line-height:1.3}
+.cst{flex:1 1 auto}
+.cst>i{display:block; font-style:normal; font-size:0.7812rem; color:var(--ink2);
+  line-height:1.5; margin-top:3px}
+.csout li .cst>i{color:var(--ink2)}
+
+/* ── 접었다 펴는 구역 ──────────────────────── */
+.fold{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden}
+.fold>summary{list-style:none; cursor:pointer; padding:22px 26px; display:block; position:relative}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'▾'; position:absolute; right:26px; top:50%; transform:translateY(-50%);
+  font-size:1.375rem; color:var(--blue); transition:transform .2s}
+.fold[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+.fold>summary:hover{background:var(--tint)}
+.fold>summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+.feye{display:block; font-size:0.7812rem; font-weight:800; letter-spacing:.06em; color:var(--blue)}
+.fttl{display:block; font-family:var(--disp); font-weight:700;
+  font-size:clamp(1.375rem,3.6vw,1.875rem); line-height:1.3; color:var(--ink); margin:3px 0 5px;
+  padding-right:34px}
+.fsub{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.65; padding-right:34px}
+.foldbody{padding:0 26px 26px; border-top:1px solid var(--line); margin-top:4px; padding-top:22px}
+
+/* ── 등굣길 지도 ───────────────────────────── */
+.twn{min-width:520px}
+.twn .en{rx:14}
+.ee{font-size:19px; text-anchor:middle}
+.ewb{fill:var(--sky-bg); stroke:var(--line); stroke-width:1.5}
+.ewb.hit{fill:var(--good-bg); stroke:var(--good)}
+.ew.hit{fill:var(--good); font-weight:700}
+
+.sign{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:34px}
+.bun-gif{width:clamp(120px,26vw,164px); height:auto; display:block; border-radius:18px}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-family:var(--disp); font-size:1.0625rem;
+  color:var(--blue-d); background:var(--white); border:1px solid var(--line); border-radius:99px;
+  padding:8px 20px; box-shadow:var(--sh); letter-spacing:.01em}
+.ptp span{font-size:1.1875rem; line-height:1}
+footer{padding:42px 0 70px; color:var(--muted); font-size:0.8438rem; border-top:1px solid var(--line)}
+footer a{font-weight:700}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+@media (max-width:560px){ .hero{padding:38px 0 34px} section{padding:40px 0} .slidebox{min-height:320px} }
+
+
+/* ── 이 페이지만 쓰는 모양 ─────────────────────────── */
+.ph{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:linear-gradient(180deg,var(--sky-bg2),var(--sky-bg))}
+.ph h1{font-family:var(--disp); font-weight:700; font-size:clamp(2rem,5.4vw,3.25rem);
+  line-height:1.15; margin:10px 0 12px; color:var(--ink)}
+.ph h1 em{display:block; font-style:normal; font-family:var(--pop);
+  font-size:clamp(1.0625rem,2.4vw,1.4375rem); color:var(--blue-d); margin-top:10px}
+.ph .lede{font-size:clamp(1rem,1.9vw,1.1875rem); color:var(--ink2); line-height:1.75; max-width:46em}
+.badge{display:inline-block; font-family:var(--pop); font-size:0.8125rem; letter-spacing:.02em;
+  background:var(--fill); color:var(--on-fill); border-radius:99px; padding:6px 16px}
+
+.timeline{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:11px; margin:20px 0 4px}
+.tl{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:14px 16px;
+  box-shadow:var(--sh); position:relative}
+.tl b{display:block; font-family:var(--pop); font-size:0.75rem; color:var(--blue-d); letter-spacing:.03em}
+.tl span{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin:4px 0 3px}
+.tl i{font-style:normal; font-size:0.8125rem; color:var(--muted); line-height:1.55}
+
+.stepbig{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:clamp(18px,2.6vw,28px); box-shadow:var(--sh); margin:18px 0}
+.stepbig > h3{margin:0 0 6px; font-family:var(--disp); font-weight:700;
+  font-size:clamp(1.125rem,2.3vw,1.375rem); color:var(--ink); display:flex; align-items:center; gap:11px}
+.stepbig > h3 em{font-style:normal; flex:0 0 auto; width:2rem; height:2rem; border-radius:50%;
+  background:var(--fill); color:var(--on-fill); font-family:var(--pop); font-size:0.9375rem;
+  display:grid; place-items:center}
+.stepbig > h3 small{margin-left:auto; font-family:var(--mono); font-size:0.8125rem;
+  font-weight:400; color:var(--muted)}
+.stepbig > p{font-size:0.9375rem; color:var(--ink2); line-height:1.75; margin:0 0 12px}
+
+.poses{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:12px; margin:14px 0}
+.pose{background:var(--tint); border:2px solid var(--line); border-radius:16px;
+  padding:16px 14px; text-align:center}
+.pose .em{font-size:2.5rem; line-height:1.1; display:block}
+.pose b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin:8px 0 3px}
+.pose code{font-family:var(--mono); font-size:0.8125rem; background:var(--white); overflow-wrap:anywhere;
+  border:1px solid var(--line); border-radius:8px; padding:2px 8px; color:var(--ink)}
+.pose i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:7px; line-height:1.5}
+
+.urlrow{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:center; margin:12px 0}
+.urlrow input{font-family:var(--mono); font-size:0.9375rem; padding:12px 14px; border-radius:12px;
+  border:2px solid var(--line); background:var(--tint); color:var(--ink); min-width:0}
+.urlrow input:focus{outline:2px solid var(--blue); outline-offset:1px}
+.urlrow input.good{border-color:var(--good); background:var(--good-bg)}
+.urlrow input.bad{border-color:var(--warm); background:var(--warm-bg)}
+@media (max-width:560px){ .urlrow{grid-template-columns:1fr} }
+
+.prompt{font-family:var(--mono); font-size:0.8438rem; line-height:1.72; white-space:pre-wrap;
+  word-break:break-word; background:var(--tint); border:1px solid var(--line); border-radius:14px;
+  padding:16px 18px; margin:12px 0; max-height:26rem; overflow:auto; color:var(--ink)}
+.aibtns{display:flex; gap:9px; flex-wrap:wrap; margin-top:10px}
+.aibtns a{display:inline-flex; align-items:center; gap:7px; font-family:var(--sans);
+  font-size:0.875rem; font-weight:700; text-decoration:none; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d); padding:8px 16px}
+.aibtns a:hover{background:var(--blue-xl); border-color:var(--blue)}
+
+.codein{width:100%; box-sizing:border-box; font-family:var(--mono); font-size:0.8125rem;
+  line-height:1.6; padding:14px 16px; border-radius:14px; border:2px solid var(--line);
+  background:var(--tint); color:var(--ink); resize:vertical; min-height:9rem}
+.codein:focus{outline:2px solid var(--blue); outline-offset:1px}
+.stage2{margin:14px 0; border:2px solid var(--line); border-radius:18px; overflow:hidden;
+  background:var(--white); box-shadow:var(--sh)}
+.stage2 .bar{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  padding:9px 14px; border-bottom:1px solid var(--line); background:var(--tint)}
+.stage2 .bar b{font-family:var(--disp); font-size:0.9375rem; color:var(--blue-d)}
+.stage2 iframe{display:block; width:100%; height:clamp(24rem,62vh,42rem); border:0; background:#fff}
+.stage2.big iframe{height:calc(100vh - 8rem)}
+
+.warnbox{background:var(--warm-bg); border:1px solid var(--warm); border-radius:16px;
+  padding:15px 18px; margin:14px 0; font-size:0.9062rem; line-height:1.72; color:var(--ink)}
+.warnbox b{color:var(--warm)}
+.qa{border:1px solid var(--line); border-radius:14px; background:var(--white); margin:9px 0;
+  box-shadow:var(--sh); overflow:hidden}
+.qa > summary{cursor:pointer; padding:14px 18px; font-family:var(--disp); font-weight:700;
+  font-size:1rem; color:var(--blue-d); list-style:none}
+.qa > summary::-webkit-details-marker{display:none}
+.qa > summary::before{content:"?"; display:inline-grid; place-items:center; width:1.4rem; height:1.4rem;
+  border-radius:50%; background:var(--blue-xl); color:var(--blue-d); font-family:var(--pop);
+  font-size:0.8125rem; margin-right:10px; vertical-align:-3px}
+.qa[open] > summary{border-bottom:1px solid var(--line)}
+.qa .ans{padding:14px 18px; font-size:0.9062rem; line-height:1.75; color:var(--ink2); overflow-wrap:anywhere}
+.qa .ans b{color:var(--ink)}
+</style>
+
+<nav><div class="wrap"><div class="row">
+  <a href="https://richee-pc.github.io/AI_cs/index.html" class="unit">2학기 안내</a>
+  <span class="sep"></span>
+  <a href="https://richee-pc.github.io/AI_cs/unit1.html">Ⅰ단원 수업 자료</a>
+  <span class="sep"></span>
+  <a href="#flow">오늘 순서</a>
+  <a href="#s1">① 동작 학습</a>
+  <a href="#s2">② 모델 주소</a>
+  <a href="#s3">③ 프롬프트</a>
+  <a href="#s4">④ 실행</a>
+  <a href="#s5">⑤ 바로 되는 게임</a>
+  <a href="#more">더 해 보기</a>
+  <a href="#help">안 될 때</a>
+</div></div></nav>
+
+<div class="ph"><div class="wrap">
+  <p class="badge">15분 실습 · 인공지능 기초</p>
+  <h1>동작으로 하는 게임 만들기<em>내 몸이 조이스틱이 됩니다</em></h1>
+  <p class="lede">웹캠 앞에서 <b>오른손을 들면 오른쪽</b>, <b>왼손을 들면 왼쪽</b>,
+    <b>양손을 들면 점프</b>, <b>가만히 있으면 정지.</b><br>
+    동작을 인공지능에게 <b>직접 가르치고</b>, 그 모델로 움직이는 게임을 <b>생성형 AI에게 만들게</b> 합니다.
+    코드를 몰라도 됩니다.</p>
+</div></div>
+
+<section id="flow"><div class="wrap">
+  <p class="eyebrow">오늘 순서</p>
+  <h2>15분, 이렇게 갑니다</h2>
+  <p class="sub">순서대로만 따라오면 끝납니다. <b>막히면 손을 드세요.</b>
+    ⑤번 <b>«바로 되는 게임»</b>은 코드를 못 받아도 체험할 수 있게 미리 만들어 둔 것입니다.</p>
+  <div class="timeline">
+    <div class="tl"><b>0 ~ 5분</b><span>① 동작 가르치기</span><i>티처블 머신에서 네 가지 자세를 찍어 학습</i></div>
+    <div class="tl"><b>5 ~ 7분</b><span>② 모델 내보내기</span><i>모델을 올리고 주소를 받아 아래 칸에 붙여넣기</i></div>
+    <div class="tl"><b>7 ~ 10분</b><span>③ AI에게 부탁</span><i>프롬프트를 복사해 제미나이·챗지피티에 넣기</i></div>
+    <div class="tl"><b>10 ~ 14분</b><span>④ 실행하고 놀기</span><i>받은 코드를 붙여넣고 바로 실행</i></div>
+    <div class="tl"><b>14 ~ 15분</b><span>⑤ 자랑하기</span><i>제일 재미있게 만든 사람 시연</i></div>
+  </div>
+  <div class="note"><b>준비물</b> 웹캠이 있는 노트북 · <b>크롬</b> 브라우저 ·
+    구글 계정(제미나이용) · 팔을 들 수 있는 공간.
+    <b>카메라 권한을 «허용»</b> 해야 동작을 읽을 수 있습니다.</div>
+</div></section>
+
+<section id="s1"><div class="wrap">
+  <p class="eyebrow">1단계</p>
+  <h2>인공지능에게 내 동작을 가르치기</h2>
+  <p class="sub"><b>티처블 머신</b>은 구글이 만든 «가르치는 기계»입니다.
+    사진을 몇 장 보여 주기만 하면 스스로 규칙을 찾아냅니다 — Ⅱ단원에서 배울 <b>기계학습</b>이 바로 이것입니다.</p>
+
+  <div class="stepbig">
+    <h3><em>1</em>티처블 머신 열고 «포즈 프로젝트» 고르기<small>1분</small></h3>
+    <p>아래 단추로 열고 <b>Pose Project(포즈 프로젝트)</b> 를 고릅니다.
+      <b>Image 가 아니라 Pose</b> 입니다 — 몸의 관절 위치로 판단하기 때문에 옷 색이나 배경이 달라도 잘 맞힙니다.</p>
+    <div class="aibtns">
+      <a href="https://teachablemachine.withgoogle.com/train/pose" target="_blank" rel="noopener noreferrer">티처블 머신 포즈 열기 ↗</a>
+    </div>
+  </div>
+
+  <div class="stepbig">
+    <h3><em>2</em>클래스 네 개를 만들고 이름 붙이기<small>1분</small></h3>
+    <p>«Class 1» 이라고 적힌 이름을 눌러 <b>아래와 똑같이</b> 고칩니다.
+      이름이 다르면 게임이 동작을 못 알아듣습니다.</p>
+    <div class="poses">
+      <div class="pose"><span class="em">🙋‍♂️</span><b>오른손</b><code>오른손</code>
+        <i>오른팔만 어깨 위로</i></div>
+      <div class="pose"><span class="em">🙋</span><b>왼손</b><code>왼손</code>
+        <i>왼팔만 어깨 위로</i></div>
+      <div class="pose"><span class="em">🙌</span><b>양손</b><code>양손</code>
+        <i>두 팔 모두 위로 (점프)</i></div>
+      <div class="pose"><span class="em">🧍</span><b>정지</b><code>정지</code>
+        <i>팔을 내리고 가만히</i></div>
+    </div>
+    <div class="note"><b>거울에 주의</b> 화면은 거울처럼 좌우가 바뀌어 보입니다.
+      <b>«내 오른손»</b>을 들었을 때 그것을 <b>오른손</b>으로 학습시키면 됩니다. 화면에서 어느 쪽에 보이는지는 신경 쓰지 마세요.</div>
+  </div>
+
+  <div class="stepbig">
+    <h3><em>3</em>자세마다 사진 찍기<small>3분</small></h3>
+    <p>각 클래스의 <b>Webcam</b> 을 누르고 <b>«Hold to Record»</b> 를 <b>2~3초</b> 누릅니다.
+      한 자세당 <b>100장 안팎</b>이면 충분합니다.</p>
+    <div class="four">
+      <div><b>잘 되게 하는 요령</b><span>찍는 동안 <b>몸을 조금씩 움직이세요.</b>
+        옆으로 한 걸음, 살짝 앞뒤로. 그래야 실제 게임에서도 잘 맞힙니다</span></div>
+      <div><b>«정지»가 가장 중요</b><span>팔 내리고 서 있기, 앉기, 고개 돌리기 등
+        <b>«아무 동작도 아닌 상태»를 넉넉히</b> 찍어야 캐릭터가 제멋대로 움직이지 않습니다</span></div>
+    </div>
+    <p style="margin-top:12px">다 찍었으면 가운데 <b>«Train Model»</b> 을 누릅니다.
+      학습하는 동안 <b>탭을 옮기지 마세요.</b> 20~40초쯤 걸립니다.</p>
+  </div>
+
+  <div class="stepbig">
+    <h3><em>4</em>바로 확인해 보기<small>30초</small></h3>
+    <p>오른쪽 <b>Preview</b> 에서 팔을 들어 봅니다.
+      막대가 <b>내가 의도한 동작 쪽으로 90% 넘게</b> 올라가면 성공입니다.</p>
+    <div class="warnbox"><b>막대가 흔들린다면</b> 그 자세의 사진이 부족한 것입니다.
+      해당 클래스에 사진을 더 찍고 <b>«Train Model»을 다시</b> 누르세요. 특히 <b>정지</b>를 더 찍으면 좋아집니다.</div>
+  </div>
+</div></section>
+
+<section id="s2"><div class="wrap">
+  <p class="eyebrow">2단계</p>
+  <h2>모델을 인터넷에 올리고 주소 받기</h2>
+  <p class="sub">학습한 모델은 아직 <b>내 브라우저 안에만</b> 있습니다.
+    게임이 쓰려면 인터넷 주소를 가져야 합니다.</p>
+
+  <div class="stepbig">
+    <h3><em>5</em>Export Model → Upload my model<small>1분</small></h3>
+    <p>오른쪽 위 <b>«Export Model»</b> → <b>Tensorflow.js</b> 탭 → <b>«Upload my model»</b> 을 누릅니다.
+      잠시 뒤 <b>Your sharable link</b> 아래에 주소가 나옵니다.
+      <code style="font-family:var(--mono); font-size:0.8125rem">https://teachablemachine.withgoogle.com/models/…/</code></p>
+    <div class="note"><b>이 주소를 복사</b>해서 아래 칸에 붙여넣으세요.
+      한 번 넣으면 이 페이지의 <b>프롬프트와 게임에 자동으로 들어갑니다.</b></div>
+    <div class="urlrow">
+      <input type="url" id="mUrl" placeholder="https://teachablemachine.withgoogle.com/models/여기에붙여넣기/"
+             autocomplete="off" spellcheck="false">
+      <button type="button" class="mini" id="mSave">저장하기</button>
+    </div>
+    <div id="mMsg" class="sendmsg"></div>
+  </div>
+</div></section>
+
+<section id="s3"><div class="wrap">
+  <p class="eyebrow">3단계</p>
+  <h2>생성형 AI에게 게임을 부탁하기</h2>
+  <p class="sub">아래 프롬프트에는 <b>내 모델 주소가 이미 들어가 있습니다.</b>
+    통째로 복사해서 제미나이나 챗지피티에 붙여넣기만 하면 됩니다.</p>
+
+  <div class="stepbig">
+    <h3><em>6</em>어떤 게임으로 할지 고르기<small>30초</small></h3>
+    <p>고르면 프롬프트가 바로 바뀝니다.</p>
+    <div class="mopts" id="gPick"></div>
+  </div>
+
+  <div class="stepbig">
+    <h3><em>7</em>프롬프트 복사해서 넣기<small>2분</small></h3>
+    <pre class="prompt" id="pText"></pre>
+    <div class="simctl">
+      <button type="button" class="mini" id="pCopy">프롬프트 복사</button>
+      <button type="button" class="mini gh" id="pReset">기본으로</button>
+    </div>
+    <div class="aibtns">
+      <a href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">제미나이 열기 ↗</a>
+      <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">챗지피티 열기 ↗</a>
+      <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">클로드 열기 ↗</a>
+    </div>
+    <div class="note" style="margin-top:14px"><b>AI가 코드를 주면</b> 코드 상자 오른쪽 위의
+      <b>복사 단추</b>를 눌러 통째로 복사하세요. 설명 글은 필요 없습니다.</div>
+  </div>
+</div></section>
+
+<section id="s4"><div class="wrap">
+  <p class="eyebrow">4단계</p>
+  <h2>받은 코드를 여기서 바로 실행하기</h2>
+  <p class="sub">파일을 만들 필요 없습니다. <b>붙여넣고 «실행하기»</b> 를 누르면 아래에서 바로 돌아갑니다.
+    카메라를 물어보면 <b>«허용»</b> 하세요.</p>
+
+  <div class="stepbig">
+    <h3><em>8</em>코드 붙여넣고 실행<small>2분</small></h3>
+    <textarea class="codein" id="codeIn" rows="8" spellcheck="false"
+      placeholder="AI가 준 HTML 코드를 여기에 통째로 붙여넣으세요 (&lt;!doctype html&gt; 부터 &lt;/html&gt; 까지)"></textarea>
+    <div class="simctl" style="margin-top:12px">
+      <button type="button" class="mini" id="runBtn">실행하기 ▶</button>
+      <button type="button" class="mini gh" id="stopBtn">멈추기</button>
+      <button type="button" class="mini gh" id="bigBtn">크게 보기</button>
+      <button type="button" class="mini gh" id="dlBtn">파일로 저장</button>
+      <span class="sendmsg" id="runMsg"></span>
+    </div>
+    <div class="stage2" id="stage" hidden>
+      <div class="bar"><b id="stageTtl">내가 만든 게임</b>
+        <span style="margin-left:auto; font-size:0.8125rem; color:var(--muted)">
+          카메라를 «허용» 해야 동작을 읽습니다</span></div>
+      <iframe id="runFrame" title="내가 만든 게임" allow="camera; microphone; fullscreen"></iframe>
+    </div>
+  </div>
+</div></section>
+
+<section id="s5"><div class="wrap">
+  <p class="eyebrow">5단계</p>
+  <h2>바로 되는 게임 · 안전망</h2>
+  <p class="sub">AI가 준 코드가 잘 안 돌아가도 괜찮습니다.
+    <b>모델 주소만 넣어 두면</b> 아래 단추로 바로 놀 수 있는 게임을 미리 만들어 두었습니다.
+    <b>내 모델로</b> 움직입니다.</p>
+
+  <div class="stepbig">
+    <h3><em>9</em>별 받기 · 폭탄 피하기<small>바로 실행</small></h3>
+    <p>왼손 → 왼쪽 · 오른손 → 오른쪽 · 양손 → 점프 · 정지 → 멈춤.
+      <b>별을 받으면 10점</b>, 폭탄에 맞으면 목숨이 하나 줄어듭니다.</p>
+    <div class="simctl">
+      <button type="button" class="mini" id="demoBtn">바로 되는 게임 실행 ▶</button>
+      <button type="button" class="mini gh" id="demoCode">이 게임 코드 보기</button>
+      <span class="sendmsg" id="demoMsg"></span>
+    </div>
+    <div class="note" style="margin-top:14px"><b>코드 보기</b>를 누르면 위 4단계 칸에 이 게임의 코드가 들어갑니다.
+      AI에게 <b>«이 코드를 이렇게 바꿔 줘»</b> 라고 부탁할 때 쓰면 좋습니다.</div>
+  </div>
+</div></section>
+
+<section id="more"><div class="wrap">
+  <p class="eyebrow">더 해 보기</p>
+  <h2>남는 시간에 붙여 볼 것들</h2>
+  <p class="sub">AI에게 <b>이어서</b> 부탁하면 됩니다. 아래 문장을 그대로 복사해 붙여넣으세요.</p>
+  <div class="terms" id="moreList"></div>
+</div></section>
+
+<section id="help"><div class="wrap">
+  <p class="eyebrow">안 될 때</p>
+  <h2>자주 막히는 곳</h2>
+
+  <details class="qa"><summary>카메라 화면이 안 나와요</summary>
+    <div class="ans">주소창 왼쪽 <b>자물쇠(또는 카메라) 아이콘</b>을 눌러 <b>카메라를 «허용»</b> 으로 바꾸고
+      <b>새로 고침</b> 하세요. 다른 탭이나 줌·팀즈가 카메라를 쓰고 있으면 <b>그것부터 끄세요.</b>
+      노트북에 카메라 가림막이 있는지도 확인합니다.</div></details>
+
+  <details class="qa"><summary>«model.json 을 불러올 수 없습니다» 같은 오류가 떠요</summary>
+    <div class="ans">모델 주소가 잘못된 경우입니다. 주소는 반드시
+      <b>https://teachablemachine.withgoogle.com/models/</b> 로 시작하고
+      <b>/ (빗금)으로 끝나야</b> 합니다. 티처블 머신에서 <b>«Upload my model»</b> 을 눌러 나온
+      <b>sharable link</b> 를 다시 복사하세요. 다운로드한 zip 파일 주소는 쓸 수 없습니다.</div></details>
+
+  <details class="qa"><summary>캐릭터가 혼자 계속 움직여요</summary>
+    <div class="ans"><b>«정지» 사진이 부족</b>한 것입니다. 팔 내리고 서 있기, 앉기, 옆 보기 등을
+      더 찍고 다시 학습시키세요. 그래도 그러면 AI에게
+      <b>«확률이 0.8 이상일 때만 움직이게 해 줘»</b> 라고 부탁하면 됩니다.</div></details>
+
+  <details class="qa"><summary>좌우가 반대로 움직여요</summary>
+    <div class="ans">웹캠은 거울처럼 보여 주기 때문에 헷갈리기 쉽습니다. 두 가지 방법이 있습니다.
+      <b>①</b> 티처블 머신에서 <b>오른손과 왼손 클래스의 이름을 서로 바꾸고</b> 다시 내보내기.
+      <b>②</b> AI에게 <b>«좌우를 반대로 바꿔 줘»</b> 라고 부탁하기. ②가 더 빠릅니다.</div></details>
+
+  <details class="qa"><summary>AI가 준 코드가 그냥 흰 화면이에요</summary>
+    <div class="ans">코드를 <b>일부만</b> 복사했을 가능성이 큽니다.
+      <b>&lt;!doctype html&gt; 부터 &lt;/html&gt; 까지</b> 통째로 들어갔는지 확인하세요.
+      그래도 안 되면 AI에게 <b>«화면이 하얗게 나와. 오류를 찾아서 전체 코드를 다시 줘»</b> 라고 하세요.
+      그것도 안 되면 <b>5단계의 «바로 되는 게임»</b> 으로 체험하면 됩니다.</div></details>
+
+  <details class="qa"><summary>인식이 느리고 뚝뚝 끊겨요</summary>
+    <div class="ans">다른 탭을 <b>모두 닫으세요.</b> 포즈 인식은 계산이 많습니다.
+      그래도 느리면 AI에게 <b>«캔버스 크기를 320×240 으로 줄이고 예측을 0.1초마다 한 번만 해 줘»</b>
+      라고 부탁하세요.</div></details>
+
+  <details class="qa"><summary>이게 왜 «인공지능»인가요?</summary>
+    <div class="ans">우리는 <b>규칙을 한 줄도 적지 않았습니다.</b>
+      «팔꿈치가 어깨보다 위면 손을 든 것»같은 규칙을 사람이 정해 준 적이 없지요.
+      대신 <b>사진(데이터)만 보여 주었고</b>, 기계가 스스로 구분하는 방법을 찾아냈습니다.
+      이것이 <b>기계학습</b>이고, Ⅱ단원에서 자세히 배웁니다.
+      Ⅰ단원에서 배운 <b>«인식과 이해 · 학습 · 추론 · 자율성»</b> 중
+      어떤 것이 쓰였는지 생각해 보세요.</div></details>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px">
+    <a href="https://richee-pc.github.io/AI_cs/index.html" style="color:var(--blue-d); font-weight:700">← 2학기 안내로</a>
+    &nbsp;·&nbsp;
+    <a href="https://richee-pc.github.io/AI_cs/unit1.html" style="color:var(--blue-d); font-weight:700">Ⅰ단원 수업 자료 →</a></p>
+  <p style="margin:0">2026학년도 2학기 「인공지능 기초」 · 조선대학교부속고등학교 2학년<br>
+    티처블 머신은 구글이 만든 무료 도구입니다. 학습한 사진은 <b>내 컴퓨터에서만</b> 처리되고,
+    업로드되는 것은 <b>학습이 끝난 모델</b>뿐입니다.</p>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+         alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ── 모델 주소 : 한 번 넣으면 페이지 전체가 함께 쓴다 ── */
+  var KEY = 'ai-pose-model';
+  var model = '';
+  try{ model = localStorage.getItem(KEY) || ''; }catch(e){}
+
+  function okUrl(u){
+    return /^https:\/\/teachablemachine\.withgoogle\.com\/models\/[A-Za-z0-9_-]+\/?$/.test((u || '').trim());
+  }
+  function tidy(u){
+    u = (u || '').trim();
+    if(u && u.slice(-1) !== '/') u += '/';
+    return u;
+  }
+  function setModel(u, quiet){
+    var msg = $('mMsg'), box = $('mUrl');
+    if(!u){ box.className = ''; msg.className = 'sendmsg'; msg.textContent = ''; model = ''; paint(); return; }
+    if(!okUrl(u)){
+      box.className = 'bad'; msg.className = 'sendmsg bad';
+      msg.textContent = '주소가 이상합니다. https://teachablemachine.withgoogle.com/models/… 로 시작해야 합니다';
+      model = ''; paint(); return;
+    }
+    model = tidy(u); box.value = model; box.className = 'good';
+    try{ localStorage.setItem(KEY, model); }catch(e){}
+    msg.className = 'sendmsg ok';
+    msg.textContent = quiet ? '저장된 모델 주소를 불러왔습니다' : '저장했습니다 — 아래 프롬프트와 게임에 자동으로 들어갑니다';
+    paint();
+  }
+  $('mSave').addEventListener('click', function(){ setModel($('mUrl').value); });
+  $('mUrl').addEventListener('keydown', function(e){ if(e.key === 'Enter') setModel(this.value); });
+  $('mUrl').addEventListener('paste', function(){ var el = this; setTimeout(function(){ setModel(el.value); }, 30); });
+
+  /* ── 어떤 게임으로 만들까 ── */
+  var GAMES = [
+    { k:'star', t:'별 받기 · 폭탄 피하기', d:
+      '위에서 별과 폭탄이 떨어진다. 좌우로 움직여 별을 받으면 10점, 폭탄에 맞으면 목숨이 하나 줄어든다. ' +
+      '목숨은 3개이고 다 잃으면 게임이 끝난다. 점프로 폭탄을 피할 수도 있다.' },
+    { k:'run', t:'장애물 달리기', d:
+      '캐릭터가 계속 오른쪽으로 달리고, 바닥에서 장애물이 다가온다. 점프로 뛰어넘고 좌우로 속도를 조절한다. ' +
+      '오래 버틸수록 점수가 올라가고 점점 빨라진다.' },
+    { k:'brick', t:'벽돌 깨기', d:
+      '아래쪽 막대를 좌우로 움직여 공을 튕겨 위쪽 벽돌을 깬다. 양손을 들면 공이 빨라진다. ' +
+      '공을 놓치면 목숨이 줄고, 벽돌을 다 깨면 이긴다.' },
+    { k:'maze', t:'미로 탈출', d:
+      '격자 미로에서 캐릭터를 상하좌우로 움직여 출구를 찾는다. 양손을 들면 한 칸 위로, ' +
+      '아무 동작도 안 하면 제자리. 지나온 길이 표시되고 걸린 시간을 잰다.' }
+  ];
+  var gi = 0;
+
+  function promptText(){
+    var u = model || 'https://teachablemachine.withgoogle.com/models/여기에_내_모델_주소/';
+    var G = GAMES[gi];
+    return [
+      '너는 웹 게임을 만들어 주는 도우미야. 아래 조건에 딱 맞는 HTML 파일 하나를 만들어 줘.',
+      '',
+      '[내 모델]',
+      '티처블 머신 «포즈(Pose)» 모델 주소 : ' + u,
+      '학습시킨 동작 이름 4가지 : 왼손 · 오른손 · 양손 · 정지',
+      '',
+      '[반드시 지킬 것]',
+      '1. 파일 하나짜리 HTML 로 만들어 줘. 설치나 빌드 없이 브라우저에서 바로 열려야 해.',
+      '2. 모델은 아래 두 줄로 불러와. 다른 라이브러리는 쓰지 마.',
+      '   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"><\/script>',
+      '   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"><\/script>',
+      '   tmPose.load(주소+"model.json", 주소+"metadata.json") 으로 모델을 불러오고,',
+      '   model.estimatePose(webcam.canvas) 로 자세를 잡은 뒤 model.predict(posenetOutput) 으로 예측해.',
+      '3. 동작에 따른 조작',
+      '   «왼손» 이 가장 높으면 왼쪽으로 이동',
+      '   «오른손» 이 가장 높으면 오른쪽으로 이동',
+      '   «양손» 이 가장 높으면 점프',
+      '   «정지» 가 가장 높으면 멈춤',
+      '   가장 높은 확률이 0.7 보다 낮으면 «정지» 로 봐.',
+      '4. 게임 내용 : ' + G.t,
+      '   ' + G.d,
+      '5. 화면 구성',
+      '   왼쪽에 게임 화면(canvas), 오른쪽에 웹캠 화면과 지금 인식된 동작 이름·확률(막대그래프).',
+      '   위쪽에 점수와 목숨을 크게 보여 줘.',
+      '6. 처음에는 «카메라 켜고 시작» 버튼만 보이고, 버튼을 눌러야 카메라가 켜지게 해 줘.',
+      '   (브라우저가 사용자 클릭 없이는 카메라를 켤 수 없어)',
+      '7. 화면에 나오는 글자는 모두 한국어로. 고등학생이 봐도 예쁘게 만들어 줘.',
+      '8. 모델을 못 불러오거나 카메라가 막히면 화면에 그 이유를 한국어로 알려 줘.',
+      '9. 설명이나 주석 없이 «완성된 코드 한 덩어리»만 줘. 바로 복사해서 쓸 거야.'
+    ].join('\n');
+  }
+  function paint(){
+    $('gPick').innerHTML = GAMES.map(function(g, i){
+      return '<button type="button" data-g="' + i + '"' +
+        (i === gi ? ' aria-pressed="true"' : '') + '>' + g.t + '</button>';
+    }).join('');
+    $('pText').textContent = promptText();
+    var no = !model;
+    $('demoBtn').disabled = no;
+    $('demoMsg').className = 'sendmsg' + (no ? ' wait' : '');
+    $('demoMsg').textContent = no ? '먼저 2단계에서 모델 주소를 넣어 주세요' : '';
+  }
+  $('gPick').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-g]'); if(!b) return;
+    gi = +b.getAttribute('data-g'); paint();
+  });
+  $('pCopy').addEventListener('click', function(){ clip(promptText(), this); });
+  $('pReset').addEventListener('click', function(){ gi = 0; paint(); });
+
+  /* ── 더 해 보기 ── */
+  var MORE = [
+    ['소리 넣기', '게임에 소리를 넣어 줘. 별을 받으면 «띵» 하는 짧은 소리, 폭탄에 맞으면 «퍽» 하는 소리. Web Audio API 로 만들어 줘. 파일은 쓰지 마.'],
+    ['점수 저장', '최고 점수를 localStorage 에 저장해서 다시 열어도 남아 있게 해 줘. 화면 위에 «최고 점수»도 같이 보여 줘.'],
+    ['난이도 올리기', '30초마다 떨어지는 속도가 20%씩 빨라지게 해 줘. 지금 몇 단계인지도 화면에 보여 줘.'],
+    ['좌우 바꾸기', '좌우가 반대로 움직여. 왼손과 오른손의 방향을 서로 바꿔 줘.'],
+    ['덜 예민하게', '캐릭터가 혼자 움직여. 확률이 0.85 이상일 때만 움직이고, 같은 동작이 3번 연속 나올 때만 방향을 바꾸게 해 줘.'],
+    ['두 사람이 대결', '두 명이 번갈아 하고 점수를 비교하는 화면을 붙여 줘. 이긴 사람을 크게 보여 줘.']
+  ];
+  $('moreList').innerHTML = MORE.map(function(m, i){
+    return '<div class="term"><b>' + m[0] + '</b><span>' + m[1] + '</span>' +
+      '<div class="simctl" style="margin-top:10px">' +
+      '<button type="button" class="mini gh" data-more="' + i + '">이 문장 복사</button></div></div>';
+  }).join('');
+  $('moreList').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-more]'); if(!b) return;
+    clip(MORE[+b.getAttribute('data-more')][1], b);
+  });
+
+  
+  /* ── 바로 되는 게임 (안전망) ────────────────────────
+     AI 가 준 코드가 안 돌아가도 체험은 되게, 완성본을 미리 넣어 둔다.
+     __MODEL__ 자리에 학생의 모델 주소가 들어간다. */
+  var GAME_HTML = [
+   '<!doctype html><html lang="ko"><head><meta charset="utf-8">',
+   '<meta name="viewport" content="width=device-width,initial-scale=1">',
+   '<title>별 받기 · 폭탄 피하기</title><style>',
+   '*{box-sizing:border-box}',
+   'body{margin:0;padding:14px;background:#0d1b2e;color:#e8f2ff;text-align:center;',
+   '  font-family:system-ui,"Malgun Gothic",sans-serif}',
+   'h1{font-size:17px;margin:0 0 8px}',
+   '#hud{font-size:16px;font-weight:800;margin-bottom:10px}',
+   '#row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:flex-start}',
+   'canvas{background:#12233c;border-radius:14px;display:block}',
+   '#side{display:flex;flex-direction:column;gap:8px;align-items:center}',
+   '#act{font-size:19px;font-weight:800;background:#1c3a5e;border-radius:10px;',
+   '  padding:9px 14px;min-width:180px}',
+   '#bars{width:190px;font-size:12px;text-align:left}',
+   '.b{margin:4px 0}.b i{display:block;font-style:normal;color:#9fc0e6}',
+   '.b u{display:block;height:7px;background:#2f6fec;border-radius:4px;text-decoration:none}',
+   'button{font:inherit;font-weight:800;padding:11px 22px;border-radius:99px;border:0;',
+   '  background:#2f6fec;color:#fff;cursor:pointer;margin-top:12px}',
+   '#msg{font-size:13px;color:#9fc0e6;margin-top:10px;min-height:20px}',
+   '</style></head><body>',
+   '<h1>⭐ 별 받기 · 💣 폭탄 피하기</h1>',
+   '<div id="hud">점수 <span id="sc">0</span> · 목숨 <span id="hp">3</span></div>',
+   '<div id="row"><canvas id="cv" width="480" height="360"></canvas>',
+   '<div id="side"><canvas id="cam" width="190" height="190"></canvas>',
+   '<div id="act">시작을 눌러 주세요</div><div id="bars"></div></div></div>',
+   '<button id="go">카메라 켜고 시작</button>',
+   '<div id="msg">왼손 ← 왼쪽 · 오른손 → 오른쪽 · 양손 ↑ 점프 · 정지 멈춤</div>',
+   '<scr' + 'ipt src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js">' + '</scr' + 'ipt>',
+   '<scr' + 'ipt src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js">' + '</scr' + 'ipt>',
+   '<scr' + 'ipt>',
+   'var MODEL="__MODEL__";',
+   'var model,webcam,camCtx,running=false,act="정지",conf=0,over=false;',
+   'var cv=document.getElementById("cv"),g=cv.getContext("2d");',
+   'var GY=316,P={x:220,y:GY-44,w:40,h:44,vx:0,vy:0,ground:true};',
+   'var items=[],score=0,lives=3,tick=0;',
+   'function kind(n){n=(n||"").toLowerCase();',
+   '  if(/양손|both|점프|jump/.test(n))return "jump";',
+   '  if(/왼|left/.test(n))return "left";',
+   '  if(/오른|right/.test(n))return "right";return "stop";}',
+   'function say(t){document.getElementById("msg").textContent=t;}',
+   'async function init(){',
+   '  try{',
+   '    say("모델을 불러오는 중…");',
+   '    model=await tmPose.load(MODEL+"model.json",MODEL+"metadata.json");',
+   '    webcam=new tmPose.Webcam(190,190,true);',
+   '    await webcam.setup(); await webcam.play();',
+   '    camCtx=document.getElementById("cam").getContext("2d");',
+   '    running=true; document.getElementById("go").style.display="none";',
+   '    say("왼손 ← 왼쪽 · 오른손 → 오른쪽 · 양손 ↑ 점프 · 정지 멈춤");',
+   '    loop(); game();',
+   '  }catch(e){ say("시작하지 못했습니다 : "+e.message+" — 모델 주소와 카메라 권한을 확인하세요"); }',
+   '}',
+   'async function loop(){',
+   '  if(!running)return;',
+   '  webcam.update();',
+   '  var r=await model.estimatePose(webcam.canvas);',
+   '  var pr=await model.predict(r.posenetOutput);',
+   '  var best=pr[0],i;',
+   '  for(i=1;i<pr.length;i++) if(pr[i].probability>best.probability) best=pr[i];',
+   '  conf=best.probability;',
+   '  act=(conf<0.7)?"정지":best.className;',
+   '  document.getElementById("act").textContent=act+"  "+Math.round(conf*100)+"%";',
+   '  var h="";',
+   '  for(i=0;i<pr.length;i++) h+=\'<div class="b"><i>\'+pr[i].className+" "+',
+   '    Math.round(pr[i].probability*100)+\'%</i><u style="width:\'+',
+   '    Math.round(pr[i].probability*100)+\'%"></u></div>\';',
+   '  document.getElementById("bars").innerHTML=h;',
+   '  camCtx.drawImage(webcam.canvas,0,0);',
+   '  if(r.pose){ tmPose.drawKeypoints(r.pose.keypoints,0.5,camCtx);',
+   '              tmPose.drawSkeleton(r.pose.keypoints,0.5,camCtx); }',
+   '  requestAnimationFrame(loop);',
+   '}',
+   'function reset(){score=0;lives=3;items=[];tick=0;over=false;P.x=220;P.y=GY-P.h;P.vy=0;}',
+   'function game(){',
+   '  var k=kind(act);',
+   '  if(over){ if(k==="jump") reset(); draw(); requestAnimationFrame(game); return; }',
+   '  tick++;',
+   '  P.vx=(k==="left")?-4.2:((k==="right")?4.2:0);',
+   '  if(k==="jump"&&P.ground){P.vy=-11.5;P.ground=false;}',
+   '  P.x+=P.vx; P.vy+=0.55; P.y+=P.vy;',
+   '  if(P.y>GY-P.h){P.y=GY-P.h;P.vy=0;P.ground=true;}',
+   '  if(P.x<4)P.x=4; if(P.x>cv.width-P.w-4)P.x=cv.width-P.w-4;',
+   '  if(tick%38===0) items.push({x:20+Math.random()*(cv.width-70),y:-26,',
+   '    v:1.6+Math.random()*1.6,bomb:Math.random()<0.34});',
+   '  for(var i=items.length-1;i>=0;i--){',
+   '    var it=items[i]; it.y+=it.v;',
+   '    if(it.y>cv.height+30){items.splice(i,1);continue;}',
+   '    if(it.x<P.x+P.w&&it.x+26>P.x&&it.y<P.y+P.h&&it.y+26>P.y){',
+   '      if(it.bomb){lives--; if(lives<=0)over=true;} else score+=10;',
+   '      items.splice(i,1);}',
+   '  }',
+   '  document.getElementById("sc").textContent=score;',
+   '  document.getElementById("hp").textContent=lives;',
+   '  draw(); requestAnimationFrame(game);',
+   '}',
+   'function draw(){',
+   '  g.clearRect(0,0,cv.width,cv.height);',
+   '  g.fillStyle="#1a3050"; g.fillRect(0,GY,cv.width,cv.height-GY);',
+   '  g.textBaseline="top"; g.textAlign="left"; g.font="24px serif";',
+   '  for(var i=0;i<items.length;i++) g.fillText(items[i].bomb?"💣":"⭐",items[i].x,items[i].y);',
+   '  g.font="40px serif"; g.fillText("🧑‍🚀",P.x-2,P.y-4);',
+   '  if(over){',
+   '    g.fillStyle="rgba(6,16,30,.88)"; g.fillRect(0,0,cv.width,cv.height);',
+   '    g.fillStyle="#fff"; g.textAlign="center"; g.font="bold 30px sans-serif";',
+   '    g.fillText("게임 끝!  점수 "+score,cv.width/2,142);',
+   '    g.font="16px sans-serif"; g.fillStyle="#9fc0e6";',
+   '    g.fillText("양손을 들면 다시 시작합니다",cv.width/2,190);',
+   '    g.textAlign="left";',
+   '  }',
+   '}',
+   'document.getElementById("go").addEventListener("click",init);',
+   '</scr' + 'ipt></body></html>'
+  ].join('\n');
+
+
+  /* ── 코드 실행기 ── */
+  function run(code, title){
+    if(!/</.test(code || '')){
+      $('runMsg').className = 'sendmsg bad';
+      $('runMsg').textContent = '코드가 비어 있습니다. AI가 준 HTML 을 통째로 붙여넣어 주세요';
+      return;
+    }
+    $('stage').hidden = false;
+    $('stageTtl').textContent = title || '내가 만든 게임';
+    $('runFrame').srcdoc = code;
+    $('runMsg').className = 'sendmsg ok';
+    $('runMsg').textContent = '실행했습니다 — 카메라를 «허용» 하세요';
+    try{ $('stage').scrollIntoView({ block:'start', behavior:'smooth' }); }catch(e){}
+  }
+  $('runBtn').addEventListener('click', function(){ run($('codeIn').value); });
+  $('stopBtn').addEventListener('click', function(){
+    $('runFrame').srcdoc = '';
+    $('stage').hidden = true;
+    $('runMsg').className = 'sendmsg'; $('runMsg').textContent = '멈췄습니다';
+  });
+  $('bigBtn').addEventListener('click', function(){
+    var on = $('stage').classList.toggle('big');
+    this.textContent = on ? '작게 보기' : '크게 보기';
+    if(on) try{ $('stage').scrollIntoView({ block:'start' }); }catch(e){}
+  });
+  $('dlBtn').addEventListener('click', function(){
+    var code = $('codeIn').value;
+    if(!/</.test(code)){
+      $('runMsg').className = 'sendmsg bad';
+      $('runMsg').textContent = '저장할 코드가 없습니다'; return;
+    }
+    var b = new Blob(['﻿' + code], { type:'text/html;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(b); a.download = '내가만든동작게임.html';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+    $('runMsg').className = 'sendmsg ok';
+    $('runMsg').textContent = '내려받았습니다 — 파일을 두 번 누르면 브라우저에서 열립니다';
+  });
+
+  /* ── 바로 되는 게임 ── */
+  function demoHtml(){ return GAME_HTML.replace('__MODEL__', model); }
+  $('demoBtn').addEventListener('click', function(){
+    if(!model) return;
+    run(demoHtml(), '바로 되는 게임 · 별 받기');
+  });
+  $('demoCode').addEventListener('click', function(){
+    $('codeIn').value = demoHtml();
+    $('runMsg').className = 'sendmsg ok';
+    $('runMsg').textContent = '위 칸에 코드를 넣었습니다 — 그대로 AI에게 «이렇게 바꿔 줘» 라고 부탁해 보세요';
+    try{ $('codeIn').scrollIntoView({ block:'center', behavior:'smooth' }); }catch(e){}
+  });
+
+  /* ── 복사 (권한이 막혀도 되게 세 단계) ── */
+  function clip(txt, btn){
+    var back = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', back);
+    var done = function(){ btn.textContent = '복사했습니다 ✓';
+      clearTimeout(btn._t); btn._t = setTimeout(function(){ btn.textContent = back; }, 1700); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){ legacy(txt, btn, done); });
+    } else legacy(txt, btn, done);
+  }
+  function legacy(txt, btn, done){
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var ok = false;
+    try{ ok = document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    if(ok) done();
+    else {
+      btn.textContent = '아래 칸에서 Ctrl+C';
+      var box = btn.closest('.stepbig') || document.body;
+      var fall = box.querySelector('.copyfall');
+      if(!fall){
+        fall = document.createElement('div');
+        fall.className = 'copyfall';
+        fall.innerHTML = '<b>자동 복사가 막혀 있습니다</b><span>아래 칸이 이미 선택돼 있습니다. ' +
+          '<b>Ctrl + C</b> 를 누르세요.</span><textarea readonly rows="8"></textarea>';
+        box.appendChild(fall);
+      }
+      var t2 = fall.querySelector('textarea');
+      t2.value = txt; t2.focus(); t2.select();
+    }
+  }
+
+  /* ── 시작 ── */
+  if(model){ $('mUrl').value = model; setModel(model, true); } else paint();
+})();
+</script>
+
+</body>
+</html>
