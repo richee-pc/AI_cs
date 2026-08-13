@@ -11,7 +11,7 @@
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=79fa0053" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=c5e8315c" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=3bad1932" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -29,9 +29,9 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=41361b81') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=593bfa11') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=c5e8315c') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=3bad1932') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=79fa0053') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
@@ -783,6 +783,7 @@ pre .s{color:var(--good)}
 .et{font-family:var(--sans); font-size:12.5px; font-weight:700; fill:var(--ink2); text-anchor:middle}
 .et.on{fill:var(--on-fill)}
 .eh{font-family:var(--mono); font-size:10.5px; fill:var(--muted); text-anchor:middle}
+.eh.on{fill:var(--on-fill); opacity:.9}
 table.ftab{min-width:420px; font-size:0.8438rem}
 table.ftab th span{display:block; font-size:0.6562rem; font-weight:600; color:var(--muted)}
 table.ftab tr.pick td{background:var(--good-bg)}
@@ -1201,8 +1202,8 @@ footer a{font-weight:700}
 <section id="slides"><div class="wrap">
   <p class="eyebrow">수업 슬라이드</p>
   <h2>소단원별 슬라이드</h2>
-  <p class="sub">수업에서 쓰는 슬라이드입니다. <b>소단원을 누르면 화면 가득</b> 열립니다.
-    <b>← →</b> 로 넘기고 <b>Esc</b> 로 닫습니다.</p>
+  <p class="sub">수업에서 쓰는 슬라이드입니다. 소단원을 고르고 <b>← →</b> 로 넘기세요. <b>«화면 가득 보기»</b>를 누르면 크게 볼 수 있습니다.
+키보드 방향키로도 넘어가고, 화면 가득 볼 때는 <b>Esc</b> 로 닫습니다.</p>
 
   <div class="deckbar" role="tablist" aria-label="소단원 선택">
     <button class="dtab" role="tab" data-deck="0" aria-selected="true"><i>Ⅰ-01</i>개념과 특성</button>
@@ -3335,7 +3336,7 @@ while open_list:
     else if(d<0 && idx>0){ idx--; render(); }
   }
   dtabs.forEach(function(t,k){
-    t.addEventListener('click',function(){ deck=k; idx=0; openShow(); render(); });
+    t.addEventListener('click',function(){ deck=k; idx=0; render(); });
   });
   bPrev.addEventListener('click',function(){ step(-1); });
   bNext.addEventListener('click',function(){ step(1); });
@@ -4008,22 +4009,22 @@ while open_list:
        h(n) = 직선 거리, 실제 길 = 직선 x 1.15 (돌아가는 만큼)
      h 가 실제보다 절대 크지 않아 A* 는 언제나 최단 경로를 찾는다.   */
   var TRIP = {
-    '포르투갈': { x:45,  y:300, to:['스페인'] },
-    '스페인':   { x:110, y:305, to:['포르투갈','프랑스'] },
-    '프랑스':   { x:198, y:222, to:['스페인','벨기에','스위스','이탈리아','독일'] },
-    '벨기에':   { x:218, y:152, to:['프랑스','네덜란드','독일'] },
-    '네덜란드': { x:238, y:116, to:['벨기에','독일'] },
-    '스위스':   { x:262, y:250, to:['프랑스','이탈리아','독일','오스트리아'] },
-    '이탈리아': { x:302, y:330, to:['프랑스','스위스','오스트리아'] },
-    '독일':     { x:322, y:146, to:['프랑스','벨기에','네덜란드','스위스','오스트리아','체코','폴란드','덴마크'] },
-    '덴마크':   { x:322, y:70,  to:['독일'] },
-    '오스트리아':{ x:357, y:236, to:['스위스','이탈리아','독일','체코'] },
-    '체코':     { x:392, y:162, to:['독일','오스트리아','폴란드'] },
-    '폴란드':   { x:452, y:112, to:['독일','체코'] }
+    '포르투갈': { x:58,  y:330, to:['스페인'] },
+    '스페인':   { x:172, y:350, to:['포르투갈','프랑스'] },
+    '프랑스':   { x:206, y:240, to:['스페인','벨기에','스위스','이탈리아','독일'] },
+    '벨기에':   { x:166, y:136, to:['프랑스','네덜란드','독일'] },
+    '네덜란드': { x:252, y:60,  to:['벨기에','독일'] },
+    '스위스':   { x:310, y:250, to:['프랑스','이탈리아','독일','오스트리아'] },
+    '이탈리아': { x:324, y:358, to:['프랑스','스위스','오스트리아'] },
+    '독일':     { x:356, y:140, to:['프랑스','벨기에','네덜란드','스위스','오스트리아','체코','폴란드','덴마크'] },
+    '덴마크':   { x:356, y:52,  to:['독일'] },
+    '오스트리아':{ x:456, y:250, to:['스위스','이탈리아','독일','체코'] },
+    '체코':     { x:496, y:148, to:['독일','오스트리아','폴란드'] },
+    '폴란드':   { x:570, y:58,  to:['독일','체코'] }
   };
   function tripLine(a, b){
     var dx = TRIP[a].x - TRIP[b].x, dy = TRIP[a].y - TRIP[b].y;
-    return Math.round(Math.sqrt(dx * dx + dy * dy) * 8 / 10) * 10;   /* 직선 km */
+    return Math.round(Math.sqrt(dx * dx + dy * dy) * 5 / 10) * 10;   /* 직선 km */
   }
   function tripRoad(a, b){ return Math.round(tripLine(a, b) * 1.15 / 10) * 10; }
   function tripAstar(from, goal){
@@ -4053,7 +4054,7 @@ while open_list:
     return null;
   }
   function drawTrip(from, goal, path){
-    var s = '<svg viewBox="0 0 500 380" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="유럽 여행 지도">';
+    var s = '<svg viewBox="0 0 640 420" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="유럽 여행 지도">';
     var done = {};
     Object.keys(TRIP).forEach(function(a){
       TRIP[a].to.forEach(function(b){
@@ -4068,12 +4069,14 @@ while open_list:
     });
     Object.keys(TRIP).forEach(function(nm){
       var role = nm === from ? 'cur' : (nm === goal ? 'seen' : (path && path.indexOf(nm) >= 0 ? 'open' : ''));
+      var two = (goal && nm !== goal);
       s += '<ellipse data-n="' + nm + '" cx="' + TRIP[nm].x + '" cy="' + TRIP[nm].y +
-           '" rx="41" ry="16" class="en ' + role + '"/>';
-      s += '<text data-n="' + nm + '" x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + 5) +
+           '" rx="44" ry="' + (two ? 24 : 19) + '" class="en ' + role + '"/>';
+      s += '<text data-n="' + nm + '" x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + (two ? -2 : 5)) +
            '" class="et' + (role ? ' on' : '') + '">' + nm + '</text>';
-      if(goal && nm !== goal) s += '<text x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + 30) +
-        '" class="eh">h ' + tripLine(nm, goal) + '</text>';
+      /* h 값은 타원 «안» 아랫줄에. 밖에 두면 아래쪽 나라 위에 얹힌다. */
+      if(two) s += '<text data-n="' + nm + '" x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + 14) +
+        '" class="eh' + (role ? ' on' : '') + '">h ' + tripLine(nm, goal) + '</text>';
     });
     return s + '</svg>';
   }
