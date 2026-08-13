@@ -11,7 +11,7 @@
 <meta property="og:description" content="티처블 머신 포즈 인식으로 동작 게임 만들기 - 15분 실습, 프롬프트, 바로 되는 게임">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=c1585d6a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=1e0fbc4e" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>동작으로 하는 게임 만들기 · 티처블 머신</title>
@@ -30,9 +30,9 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=9b8bfb46') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=e483099d') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=c1585d6a') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=1e0fbc4e') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=69ddb123') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
@@ -40,7 +40,7 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=58485f4e') format('woff2');
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=4e9fb374') format('woff2');
   font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
@@ -1300,6 +1300,15 @@ footer a{font-weight:700}
       <button type="button" class="mini" id="mSave">저장하기</button>
     </div>
     <div id="mMsg" class="sendmsg"></div>
+
+    <div class="note" style="margin-top:16px"><b>넣었으면 꼭 점검하세요.</b>
+      게임이 안 움직이는 이유는 <b>거의 항상 «동작 이름»</b> 때문입니다.
+      아래 단추를 누르면 내 모델이 어떤 이름을 쓰는지, 그 이름이 어떤 조작에 연결되는지 보여 줍니다.</div>
+    <div class="simctl" style="margin-top:12px">
+      <button type="button" class="mini" id="chkBtn">내 모델 점검하기</button>
+      <span class="sendmsg" id="chkMsg"></span>
+    </div>
+    <div id="chkOut"></div>
   </div>
 </div></section>
 
@@ -1390,6 +1399,18 @@ footer a{font-weight:700}
   <p class="eyebrow">안 될 때</p>
   <h2>자주 막히는 곳</h2>
 
+  <details class="qa" open><summary>카메라는 켜지는데 캐릭터가 전혀 안 움직여요</summary>
+    <div class="ans"><b>거의 항상 «동작 이름» 때문입니다.</b>
+      게임은 티처블 머신에 적힌 이름을 보고 어떤 조작인지 정합니다.
+      이름이 <b>Class 1 · Class 2</b> 처럼 남아 있거나 <b>«오른손 들기»</b> 처럼 다르면 알아듣지 못합니다.<br><br>
+      <b>확인하는 법</b> 게임 화면 위쪽 <b>«동작 연결»</b> 줄을 보세요.
+      내 동작 이름마다 <b>← 왼쪽 / 오른쪽 → / ↑ 점프 / 정지</b> 를 <b>직접 고를 수 있습니다.</b>
+      고치는 즉시 반영되니 학습을 다시 할 필요가 없습니다.<br><br>
+      <b>미리 알아보려면</b> 위 <b>2단계의 «내 모델 점검하기»</b> 를 누르세요.
+      내 모델의 동작 이름과, 그 이름이 어떤 조작으로 연결되는지 표로 보여 줍니다.<br><br>
+      그리고 오른쪽 막대그래프를 보세요. <b>막대가 전혀 안 움직이면</b> 카메라에 몸이 안 잡히는 것입니다 —
+      <b>상반신이 다 보이게</b> 뒤로 물러서세요. 포즈 모델은 어깨·팔꿈치·손목이 보여야 합니다.</div></details>
+
   <details class="qa"><summary>카메라 화면이 안 나와요</summary>
     <div class="ans">주소창 왼쪽 <b>자물쇠(또는 카메라) 아이콘</b>을 눌러 <b>카메라를 «허용»</b> 으로 바꾸고
       <b>새로 고침</b> 하세요. 다른 탭이나 줌·팀즈가 카메라를 쓰고 있으면 <b>그것부터 끄세요.</b>
@@ -1474,12 +1495,67 @@ footer a{font-weight:700}
     model = tidy(u); box.value = model; box.className = 'good';
     try{ localStorage.setItem(KEY, model); }catch(e){}
     msg.className = 'sendmsg ok';
-    msg.textContent = quiet ? '저장된 모델 주소를 불러왔습니다' : '저장했습니다 — 아래 프롬프트와 게임에 자동으로 들어갑니다';
+    msg.textContent = quiet ? '저장된 모델 주소를 불러왔습니다' : '저장했습니다 — 이제 «내 모델 점검하기» 를 눌러 보세요';
     paint();
   }
   $('mSave').addEventListener('click', function(){ setModel($('mUrl').value); });
   $('mUrl').addEventListener('keydown', function(e){ if(e.key === 'Enter') setModel(this.value); });
   $('mUrl').addEventListener('paste', function(){ var el = this; setTimeout(function(){ setModel(el.value); }, 30); });
+
+  /* ── 모델 점검 : «안 움직인다» 의 원인을 미리 잡아 준다 ── */
+  function guess(n){
+    n = (n || '').toLowerCase();
+    if(/양손|둘다|both|점프|jump|위/.test(n)) return 'jump';
+    if(/왼|left/.test(n)) return 'left';
+    if(/오른|right/.test(n)) return 'right';
+    if(/정지|가만|없|기본|stop|idle|none|neutral/.test(n)) return 'stop';
+    return '';
+  }
+  var NAMES = { left:'← 왼쪽으로', right:'오른쪽으로 →', jump:'↑ 점프', stop:'정지' };
+  $('chkBtn').addEventListener('click', function(){
+    var btn = this, msg = $('chkMsg'), out = $('chkOut');
+    if(!model){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 위 칸에 모델 주소를 넣고 저장하세요'; return; }
+    btn.disabled = true; msg.className = 'sendmsg wait'; msg.textContent = '모델을 확인하는 중…';
+    out.innerHTML = '';
+    fetch(model + 'metadata.json', { cache:'no-store' })
+      .then(function(r){ if(!r.ok) throw new Error('주소를 찾을 수 없습니다 (' + r.status + ')'); return r.json(); })
+      .then(function(m){
+        var labels = m.labels || [];
+        var pose = /pose/i.test(m.packageName || '');
+        var rows = labels.map(function(n){
+          var k = guess(n);
+          return '<tr><td><b>' + n + '</b></td><td>' +
+            (k ? '<span style="color:var(--good);font-weight:700">' + NAMES[k] + '</span>'
+               : '<span style="color:var(--warm);font-weight:700">알아듣지 못함 → 순서대로 붙임</span>') +
+            '</td></tr>';
+        }).join('');
+        var ks = labels.map(guess);
+        var bad = [];
+        if(!pose) bad.push('이 모델은 <b>포즈(Pose) 모델이 아닙니다.</b> 티처블 머신에서 <b>Pose Project</b> 로 다시 만들어 주세요.');
+        if(labels.length < 2) bad.push('동작이 <b>' + labels.length + '개</b>뿐입니다. 최소 <b>왼손 · 오른손</b> 두 개는 있어야 움직입니다.');
+        if(ks.indexOf('left') < 0 || ks.indexOf('right') < 0)
+          bad.push('이름만 보고는 <b>왼쪽·오른쪽을 알 수 없습니다.</b> 클래스 이름을 ' +
+            '<b>왼손 · 오른손 · 양손 · 정지</b> 로 고치면 가장 확실합니다. ' +
+            '(고치지 않아도 게임 화면 위쪽 <b>«동작 연결»</b> 에서 직접 고를 수 있습니다.)');
+        out.innerHTML = '<div class="tw" style="margin-top:14px"><table class="wstab" ' +
+          'style="width:100%;border-collapse:collapse;font-size:0.875rem">' +
+          '<tr><th style="text-align:left">모델에 있는 동작 이름</th><th style="text-align:left">게임에서 어떤 조작</th></tr>' +
+          rows + '</table></div>' +
+          (bad.length
+            ? '<div class="warnbox"><b>확인할 것</b><br>' + bad.join('<br>') + '</div>'
+            : '<div class="note" style="border-color:var(--good)"><b>좋습니다.</b> 동작 ' + labels.length + '개가 모두 잘 연결됩니다 — ' +
+              '아래 <b>⑤ 바로 되는 게임</b>으로 바로 확인해 보세요.</div>');
+        msg.className = 'sendmsg ok';
+        msg.textContent = '동작 ' + labels.length + '개를 찾았습니다';
+        btn.disabled = false;
+      })
+      .catch(function(e){
+        msg.className = 'sendmsg bad';
+        msg.textContent = '불러오지 못했습니다 : ' + e.message +
+          ' — «Upload my model» 로 나온 주소가 맞는지 확인하세요';
+        btn.disabled = false;
+      });
+  });
 
   /* ── 어떤 게임으로 만들까 ── */
   var GAMES = [
@@ -1521,16 +1597,20 @@ footer a{font-weight:700}
       '   «양손» 이 가장 높으면 점프',
       '   «정지» 가 가장 높으면 멈춤',
       '   가장 높은 확률이 0.7 보다 낮으면 «정지» 로 봐.',
-      '4. 게임 내용 : ' + G.t,
+      '4. 동작 이름이 위와 다를 수도 있으니, 시작할 때 model.getClassLabels() 로 실제 이름을 읽어서',
+      '   화면 위쪽에 «이름 → 조작» 을 고를 수 있는 select 상자를 만들어 줘. 이름에 «왼/left» 가 있으면',
+      '   왼쪽, «오른/right» 면 오른쪽, «양손/점프/jump» 면 점프로 미리 골라 두고, 못 알아들으면 순서대로 붙여 줘.',
+      '5. 게임 내용 : ' + G.t,
       '   ' + G.d,
-      '5. 화면 구성',
+      '6. 화면 구성',
       '   왼쪽에 게임 화면(canvas), 오른쪽에 웹캠 화면과 지금 인식된 동작 이름·확률(막대그래프).',
       '   위쪽에 점수와 목숨을 크게 보여 줘.',
-      '6. 처음에는 «카메라 켜고 시작» 버튼만 보이고, 버튼을 눌러야 카메라가 켜지게 해 줘.',
+      '7. 처음에는 «카메라 켜고 시작» 버튼만 보이고, 버튼을 눌러야 카메라가 켜지게 해 줘.',
       '   (브라우저가 사용자 클릭 없이는 카메라를 켤 수 없어)',
-      '7. 화면에 나오는 글자는 모두 한국어로. 고등학생이 봐도 예쁘게 만들어 줘.',
-      '8. 모델을 못 불러오거나 카메라가 막히면 화면에 그 이유를 한국어로 알려 줘.',
-      '9. 설명이나 주석 없이 «완성된 코드 한 덩어리»만 줘. 바로 복사해서 쓸 거야.'
+      '8. 화면에 나오는 글자는 모두 한국어로. 고등학생이 봐도 예쁘게 만들어 줘.',
+      '9. 모델을 못 불러오거나 카메라가 막히면 화면에 그 이유를 한국어로 알려 줘.',
+      '   예측하는 부분은 try/catch 로 감싸서, 한 번 오류가 나도 게임이 멈추지 않게 해 줘.',
+      '10. 설명이나 주석 없이 «완성된 코드 한 덩어리»만 줘. 바로 복사해서 쓸 거야.'
     ].join('\n');
   }
   function paint(){
@@ -1553,12 +1633,12 @@ footer a{font-weight:700}
 
   /* ── 더 해 보기 ── */
   var MORE = [
+    ['안 움직일 때', '캐릭터가 전혀 안 움직여. model.getClassLabels() 로 읽은 동작 이름과 지금 인식된 이름을 화면에 그대로 보여 주고, 이름마다 어떤 조작인지 select 로 고를 수 있게 해 줘.'],
     ['소리 넣기', '게임에 소리를 넣어 줘. 별을 받으면 «띵» 하는 짧은 소리, 폭탄에 맞으면 «퍽» 하는 소리. Web Audio API 로 만들어 줘. 파일은 쓰지 마.'],
     ['점수 저장', '최고 점수를 localStorage 에 저장해서 다시 열어도 남아 있게 해 줘. 화면 위에 «최고 점수»도 같이 보여 줘.'],
     ['난이도 올리기', '30초마다 떨어지는 속도가 20%씩 빨라지게 해 줘. 지금 몇 단계인지도 화면에 보여 줘.'],
     ['좌우 바꾸기', '좌우가 반대로 움직여. 왼손과 오른손의 방향을 서로 바꿔 줘.'],
-    ['덜 예민하게', '캐릭터가 혼자 움직여. 확률이 0.85 이상일 때만 움직이고, 같은 동작이 3번 연속 나올 때만 방향을 바꾸게 해 줘.'],
-    ['두 사람이 대결', '두 명이 번갈아 하고 점수를 비교하는 화면을 붙여 줘. 이긴 사람을 크게 보여 줘.']
+    ['덜 예민하게', '캐릭터가 혼자 움직여. 확률이 0.85 이상일 때만 움직이고, 같은 동작이 3번 연속 나올 때만 방향을 바꾸게 해 줘.']
   ];
   $('moreList').innerHTML = MORE.map(function(m, i){
     return '<div class="term"><b>' + m[0] + '</b><span>' + m[1] + '</span>' +
@@ -1583,6 +1663,12 @@ footer a{font-weight:700}
    '  font-family:system-ui,"Malgun Gothic",sans-serif}',
    'h1{font-size:17px;margin:0 0 8px}',
    '#hud{font-size:16px;font-weight:800;margin-bottom:10px}',
+   '#map{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 12px}',
+   '#map .m{background:#16304f;border-radius:10px;padding:7px 10px;font-size:13px;text-align:left}',
+   '#map .m b{display:block;color:#9fc0e6;font-size:12px;margin-bottom:4px}',
+   '#map select{font:inherit;font-size:13px;padding:4px 6px;border-radius:7px;',
+   '  border:1px solid #2c4c74;background:#0d1b2e;color:#e8f2ff}',
+   '#warn{color:#ffcf8a;font-size:13px;margin:0 0 10px;min-height:18px}',
    '#row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:flex-start}',
    'canvas{background:#12233c;border-radius:14px;display:block}',
    '#side{display:flex;flex-direction:column;gap:8px;align-items:center}',
@@ -1597,6 +1683,7 @@ footer a{font-weight:700}
    '</style></head><body>',
    '<h1>⭐ 별 받기 · 💣 폭탄 피하기</h1>',
    '<div id="hud">점수 <span id="sc">0</span> · 목숨 <span id="hp">3</span></div>',
+   '<div id="map"></div><div id="warn"></div>',
    '<div id="row"><canvas id="cv" width="480" height="360"></canvas>',
    '<div id="side"><canvas id="cam" width="190" height="190"></canvas>',
    '<div id="act">시작을 눌러 주세요</div><div id="bars"></div></div></div>',
@@ -1606,19 +1693,56 @@ footer a{font-weight:700}
    '<scr' + 'ipt src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js">' + '</scr' + 'ipt>',
    '<scr' + 'ipt>',
    'var MODEL="__MODEL__";',
-   'var model,webcam,camCtx,running=false,act="정지",conf=0,over=false;',
+   'var model,webcam,camCtx,running=false,act="",conf=0,over=false;',
+   'var MAP={},LABELS=[];',
    'var cv=document.getElementById("cv"),g=cv.getContext("2d");',
    'var GY=316,P={x:220,y:GY-44,w:40,h:44,vx:0,vy:0,ground:true};',
    'var items=[],score=0,lives=3,tick=0;',
-   'function kind(n){n=(n||"").toLowerCase();',
-   '  if(/양손|both|점프|jump/.test(n))return "jump";',
+   '/* 이름으로 조작을 짐작한다. 못 알아들으면 순서대로 붙인다. */',
+   'function guess(n){n=(n||"").toLowerCase();',
+   '  if(/양손|둘다|both|점프|jump|위/.test(n))return "jump";',
    '  if(/왼|left/.test(n))return "left";',
-   '  if(/오른|right/.test(n))return "right";return "stop";}',
+   '  if(/오른|right/.test(n))return "right";',
+   '  if(/정지|가만|없|기본|stop|idle|none|neutral/.test(n))return "stop";',
+   '  return "";}',
+   'function buildMap(labels){',
+   '  LABELS=labels.slice(); MAP={};',
+   '  var order=["left","right","jump","stop"],used={};',
+   '  labels.forEach(function(n){ var k=guess(n); if(k&&!used[k]){MAP[n]=k;used[k]=1;} });',
+   '  labels.forEach(function(n){ if(MAP[n])return;',
+   '    for(var i=0;i<order.length;i++) if(!used[order[i]]){MAP[n]=order[i];used[order[i]]=1;return;}',
+   '    MAP[n]="stop"; });',
+   '  drawMap();',
+   '}',
+   'function drawMap(){',
+   '  var names={left:"← 왼쪽",right:"오른쪽 →",jump:"↑ 점프",stop:"정지"};',
+   '  document.getElementById("map").innerHTML=LABELS.map(function(n,i){',
+   '    return \'<div class="m"><b>\'+n+\'</b><select data-n="\'+i+\'">\'+',
+   '      ["left","right","jump","stop"].map(function(k){',
+   '        return \'<option value="\'+k+\'"\'+(MAP[n]===k?" selected":"")+">"+names[k]+"</option>";',
+   '      }).join("")+"</select></div>";',
+   '  }).join("");',
+   '  warn();',
+   '}',
+   'function warn(){',
+   '  var have={};',
+   '  LABELS.forEach(function(n){ have[MAP[n]]=1; });',
+   '  document.getElementById("warn").textContent =',
+   '    (have.left&&have.right) ? "" :',
+   '    "⚠ 왼쪽과 오른쪽이 모두 연결돼야 움직입니다. 위 상자에서 골라 주세요.";',
+   '}',
+   '/* 고른 칸을 다시 그리면 초점이 튄다. 연결표와 경고만 고친다. */',
+   'document.getElementById("map").addEventListener("change",function(e){',
+   '  var s=e.target; if(!s.getAttribute)return;',
+   '  var i=s.getAttribute("data-n"); if(i===null)return;',
+   '  MAP[LABELS[+i]]=s.value; warn();',
+   '});',
    'function say(t){document.getElementById("msg").textContent=t;}',
    'async function init(){',
    '  try{',
    '    say("모델을 불러오는 중…");',
    '    model=await tmPose.load(MODEL+"model.json",MODEL+"metadata.json");',
+   '    buildMap(model.getClassLabels());',
    '    webcam=new tmPose.Webcam(190,190,true);',
    '    await webcam.setup(); await webcam.play();',
    '    camCtx=document.getElementById("cam").getContext("2d");',
@@ -1629,27 +1753,29 @@ footer a{font-weight:700}
    '}',
    'async function loop(){',
    '  if(!running)return;',
-   '  webcam.update();',
-   '  var r=await model.estimatePose(webcam.canvas);',
-   '  var pr=await model.predict(r.posenetOutput);',
-   '  var best=pr[0],i;',
-   '  for(i=1;i<pr.length;i++) if(pr[i].probability>best.probability) best=pr[i];',
-   '  conf=best.probability;',
-   '  act=(conf<0.7)?"정지":best.className;',
-   '  document.getElementById("act").textContent=act+"  "+Math.round(conf*100)+"%";',
-   '  var h="";',
-   '  for(i=0;i<pr.length;i++) h+=\'<div class="b"><i>\'+pr[i].className+" "+',
-   '    Math.round(pr[i].probability*100)+\'%</i><u style="width:\'+',
-   '    Math.round(pr[i].probability*100)+\'%"></u></div>\';',
-   '  document.getElementById("bars").innerHTML=h;',
-   '  camCtx.drawImage(webcam.canvas,0,0);',
-   '  if(r.pose){ tmPose.drawKeypoints(r.pose.keypoints,0.5,camCtx);',
-   '              tmPose.drawSkeleton(r.pose.keypoints,0.5,camCtx); }',
+   '  try{',
+   '    webcam.update();',
+   '    var r=await model.estimatePose(webcam.canvas);',
+   '    var pr=await model.predict(r.posenetOutput);',
+   '    var best=pr[0],i;',
+   '    for(i=1;i<pr.length;i++) if(pr[i].probability>best.probability) best=pr[i];',
+   '    conf=best.probability; act=(conf<0.7)?"":best.className;',
+   '    document.getElementById("act").textContent=',
+   '      (act?act:"(애매함)")+"  "+Math.round(conf*100)+"%";',
+   '    var h="";',
+   '    for(i=0;i<pr.length;i++) h+=\'<div class="b"><i>\'+pr[i].className+" "+',
+   '      Math.round(pr[i].probability*100)+\'%</i><u style="width:\'+',
+   '      Math.round(pr[i].probability*100)+\'%"></u></div>\';',
+   '    document.getElementById("bars").innerHTML=h;',
+   '    camCtx.drawImage(webcam.canvas,0,0);',
+   '    if(r.pose){ tmPose.drawKeypoints(r.pose.keypoints,0.5,camCtx);',
+   '                tmPose.drawSkeleton(r.pose.keypoints,0.5,camCtx); }',
+   '  }catch(e){ say("인식 중 문제가 생겼습니다 : "+e.message); }',
    '  requestAnimationFrame(loop);',
    '}',
    'function reset(){score=0;lives=3;items=[];tick=0;over=false;P.x=220;P.y=GY-P.h;P.vy=0;}',
    'function game(){',
-   '  var k=kind(act);',
+   '  var k=MAP[act]||"stop";',
    '  if(over){ if(k==="jump") reset(); draw(); requestAnimationFrame(game); return; }',
    '  tick++;',
    '  P.vx=(k==="left")?-4.2:((k==="right")?4.2:0);',
@@ -1675,7 +1801,9 @@ footer a{font-weight:700}
    '  g.fillStyle="#1a3050"; g.fillRect(0,GY,cv.width,cv.height-GY);',
    '  g.textBaseline="top"; g.textAlign="left"; g.font="24px serif";',
    '  for(var i=0;i<items.length;i++) g.fillText(items[i].bomb?"💣":"⭐",items[i].x,items[i].y);',
-   '  g.font="40px serif"; g.fillText("🧑‍🚀",P.x-2,P.y-4);',
+   '  g.fillStyle="#ffd166"; g.fillRect(P.x,P.y,P.w,P.h);',
+   '  g.fillStyle="#0d1b2e"; g.fillRect(P.x+9,P.y+13,7,7); g.fillRect(P.x+24,P.y+13,7,7);',
+   '  g.font="34px serif"; g.fillText("🙂",P.x+3,P.y+2);',
    '  if(over){',
    '    g.fillStyle="rgba(6,16,30,.88)"; g.fillRect(0,0,cv.width,cv.height);',
    '    g.fillStyle="#fff"; g.textAlign="center"; g.font="bold 30px sans-serif";',
