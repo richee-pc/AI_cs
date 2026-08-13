@@ -11,7 +11,7 @@
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=0ee0b00f" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=ec6d549e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=213057dc" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -21,16 +21,17 @@
    1280px 노트북에서 16px(지금 그대로) → 1920px 18.4px
    → 2560px 20.8px → 그 이상 22px 에서 멈춘다.
    교실 대형 화면에 띄워도 글자가 작아 보이지 않는다.            */
-html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100%}
+:root{--sbh:clamp(28.75rem,80vh,57.5rem)}
+html{font-size:clamp(15px, min(11.2px + 0.375vw, 4.6px + 1.4vh), 22px); -webkit-text-size-adjust:100%}
 
 /* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
    제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=bd4e25e7') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=84cb5fa0') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=ec6d549e') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=213057dc') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=0ee0b00f') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
@@ -122,7 +123,7 @@ h1 em{font-style:normal; display:block; color:var(--ink)}
 .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
 .fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
   box-shadow:var(--sh)}
-.fact b{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
+.fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
 .fact span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:7px; font-weight:500}
 
 /* ── 섹션 ────────────────────────────────── */
@@ -180,7 +181,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
   padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
 .stage-top .who{font-size:0.8125rem; font-weight:700; color:var(--blue-d)}
 .stage-top .cnt{font-family:var(--mono); font-size:0.8125rem; color:var(--ink2)}
-.slidebox{padding:clamp(20px,3.4vw,38px); height:clamp(28.75rem,80vh,57.5rem);
+.slidebox{padding:clamp(20px,3.4vw,38px); height:var(--sbh);
   overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable;
   display:flex; flex-direction:column; justify-content:center}
 .slide[hidden]{display:none!important}
@@ -194,8 +195,8 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .slide li b{color:var(--blue-d)}
 .big{font-family:var(--disp); font-weight:400; font-size:clamp(1.625rem,4.4vw,2.625rem); line-height:1.35;
   color:var(--ink); text-align:center; margin:14px 0}
-.def{background:var(--blue-xl); border-radius:16px; padding:20px 24px; margin:14px 0}
-.def b{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
+.def{background:var(--blue-xl); border-radius:16px; padding:16px 20px; margin:11px 0}
+.def b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
 .note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
   padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
 .note b{color:var(--warm)}
@@ -206,14 +207,16 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
   background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
 .chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
-.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:12px 0}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:10px 0}
 .four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
-.four b{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
+.four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
 .four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
-figure{margin:16px 0; text-align:center}
+figure{margin:13px 0; text-align:center}
 figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
   border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
 figure svg{max-width:100%; height:auto}
+.slide figure svg{max-height:min(12rem, var(--sbh) * 0.26)}
+.slide figure img{max-height:min(15rem, var(--sbh) * 0.32);object-fit:contain}
 figcaption{font-size:0.8125rem; color:var(--muted); margin-top:8px}
 .stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
   border-top:1px solid var(--line); background:var(--tint); flex-wrap:wrap}
@@ -238,6 +241,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .dtxt.on{fill:var(--on-fill)}
 .dnum{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--warm); text-anchor:middle}
 .dlab{font-family:var(--sans); font-size:12px; fill:var(--muted); text-anchor:middle}
+.pz{width:min(9.25rem, var(--sbh) * 0.20); height:auto; flex:0 0 auto}
 .pz rect{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
 .pz rect.g{fill:var(--good-bg); stroke:var(--good)}
 .pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
@@ -245,7 +249,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 /* ── 용어 ────────────────────────────────── */
 .terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
 .term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
-.term b{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
+.term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
 .term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
 
 /* ── 확인 문제 ───────────────────────────── */
@@ -304,7 +308,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 /* ② 튜링 테스트 */
 .steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
 .steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
-.steps3 b{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
+.steps3 b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
 .steps3 span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
 .roles{display:grid; gap:8px; min-height:60px}
 .roles .hint{font-size:0.875rem; color:var(--muted); line-height:1.6}
@@ -325,7 +329,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
 .tcell:hover{border-color:var(--blue-l)}
 .tcell:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
-.tcell b{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+.tcell b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
   color:var(--blue-d); margin-bottom:3px}
 .tcell span{display:block; font-size:0.8438rem; color:var(--ink2); line-height:1.55}
 .tcell em{display:inline-block; font-style:normal; font-size:0.75rem; font-weight:800;
@@ -385,7 +389,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 .dcard[data-on]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
 .verdict{margin-top:16px; border-radius:16px; padding:20px 22px; border:2px solid var(--line);
   background:var(--tint); animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
-.verdict b{display:block; font-family:var(--disp); font-weight:400;
+.verdict b:first-child{display:block; font-family:var(--disp); font-weight:400;
   font-size:clamp(1.125rem,2.6vw,1.375rem); margin-bottom:7px}
 .verdict span{display:block; font-size:0.9375rem; line-height:1.7; color:var(--ink2)}
 .verdict ul{margin:12px 0 0; padding-left:20px; font-size:0.875rem; color:var(--ink2); line-height:1.8}
@@ -550,7 +554,8 @@ a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
 .lst{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:11px 14px;
   font-family:var(--mono); font-size:0.75rem; line-height:1.6; color:var(--ink2);
   max-height:120px; overflow:auto; word-break:break-all; margin-bottom:10px}
-.lst b{color:var(--blue-d); display:block; margin-bottom:3px; font-family:var(--sans); font-size:0.7188rem}
+.lst .hintx{display:block; margin-top:3px; font-size:0.7188rem; color:var(--muted)}
+.lst b:first-child{color:var(--blue-d); display:block; margin-bottom:3px; font-family:var(--sans); font-size:0.7188rem}
 .cellg rect{stroke:var(--line); stroke-width:1.5}
 .cellg .wall{fill:#7d8ba0}
 .cellg .free{fill:var(--tint)}
@@ -591,14 +596,17 @@ pre .s{color:var(--good)}
 .vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
   display:grid; place-items:center}
 .vid .pl svg{width:14px; height:14px; fill:var(--blue-d); margin-left:2px}
-.vid b{display:block; font-size:0.9062rem; font-weight:700}
+.vid b:first-child{display:block; font-size:0.9062rem; font-weight:700}
 .vid span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:3px}
 
 /* 슬라이드 안 이미지 */
 .slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
-.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:14px 0}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:11px 0}
 .imgrow figure{margin:0}
-.imgrow img{width:100%}
+.side{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; align-items:center; margin:11px 0}
+.side figure{margin:0}
+.side > *:last-child{margin:0}
+.imgrow figure img{height:min(10.75rem, var(--sbh) * 0.23); width:auto; max-width:100%}
 .imgrow figcaption{font-size:0.7812rem; margin-top:6px}
 
 /* 탐색 설명 옆 낱말 카드 */
@@ -1561,7 +1569,7 @@ footer a{font-weight:700}
       <h4 class="step-h">1단계 · 지도를 <b>그래프</b>로 바꾸기</h4>
       <p class="desc">유럽 지도입니다. <b>파란 선</b>으로 이어진 나라끼리만 오갈 수 있어요.
         스페인에서 출발해 오스트리아까지 갑니다.</p>
-      <figure><img src="img/u1/eumap.jpg" width="946" height="525" style="--w:720px" alt="유럽 지도 · 스페인에서 오스트리아까지">
+      <figure><img src="img/u1/eumap.jpg" width="946" height="525" style="--w:468px" alt="유럽 지도 · 스페인에서 오스트리아까지">
         <figcaption>교과서 26쪽 · 파란 선이 오갈 수 있는 길입니다</figcaption></figure>
       <p class="desc">이 복잡한 지도를 <b>점과 선</b>으로 간단히 줄인 것이 <b>그래프</b>입니다.
         지도와 아래 그래프를 <b>번갈아 보면서</b> 빈칸에 들어갈 나라를 골라 보세요.</p>
@@ -2361,7 +2369,7 @@ while open_list:
   var DECKS=[
    {name:'Ⅰ-01 인공지능의 개념과 특성', slides:[
     '<p class="kicker">Ⅰ-01 · 1차시</p><h4>인공지능이란 무엇일까?</h4>'+
-    '<figure><img src="img/u1/life.jpg" width="1000" height="900" style="--w:467px" alt="일상 속 인공지능">'+
+    '<figure><img src="img/u1/life.jpg" width="1000" height="900" style="--w:289px" alt="일상 속 인공지능">'+
     '<figcaption>집 안 곳곳에 인공지능이 들어 있다</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
 
@@ -2379,10 +2387,10 @@ while open_list:
 
     '<p class="kicker">Ⅰ-01 · 특성</p><h4>인공지능의 네 가지 특성</h4>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/perceive.jpg" width="760" height="542" style="--w:589px" alt="인식과 이해"><figcaption>인식과 이해</figcaption></figure>'+
-    '<figure><img src="img/u1/learn.jpg" width="760" height="542" style="--w:589px" alt="학습"><figcaption>학습</figcaption></figure>'+
-    '<figure><img src="img/u1/infer.jpg" width="760" height="542" style="--w:589px" alt="추론"><figcaption>추론</figcaption></figure>'+
-    '<figure><img src="img/u1/auto.jpg" width="760" height="542" style="--w:589px" alt="자율성"><figcaption>자율성</figcaption></figure>'+
+    '<figure><img src="img/u1/perceive.jpg" width="760" height="542" style="--w:365px" alt="인식과 이해"><figcaption>인식과 이해</figcaption></figure>'+
+    '<figure><img src="img/u1/learn.jpg" width="760" height="542" style="--w:365px" alt="학습"><figcaption>학습</figcaption></figure>'+
+    '<figure><img src="img/u1/infer.jpg" width="760" height="542" style="--w:365px" alt="추론"><figcaption>추론</figcaption></figure>'+
+    '<figure><img src="img/u1/auto.jpg" width="760" height="542" style="--w:365px" alt="자율성"><figcaption>자율성</figcaption></figure>'+
     '</div>'+
     '<div class="four">'+
     '<div><b>인식과 이해</b><span>센서로 외부 정보를 받아들이고 상황을 이해<br><i>예) 스피커가 목소리를 알아듣는다</i></span></div>'+
@@ -2415,8 +2423,8 @@ while open_list:
     '<text '+C+'="dlab" x="230" y="160">구별하지 못하면 → 그 컴퓨터는 지능이 있다고 본다</text>'+
     '</svg><figcaption>튜링 테스트 (앨런 튜링, 1950)</figcaption></figure>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/turing.jpg" width="560" height="678" style="--w:347px" alt="앨런 튜링"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
-    '<figure><img src="img/u1/turingtest.jpg" width="800" height="800" style="--w:420px" alt="튜링 테스트 장면"><figcaption>교과서 13쪽</figcaption></figure>'+
+    '<figure><img src="img/u1/turing.jpg" width="560" height="678" style="--w:215px" alt="앨런 튜링"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
+    '<figure><img src="img/u1/turingtest.jpg" width="800" height="800" style="--w:260px" alt="튜링 테스트 장면"><figcaption>교과서 13쪽</figcaption></figure>'+
     '</div>'+
     '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
 
@@ -2460,7 +2468,7 @@ while open_list:
     '<div class="note"><b>공통점</b> 모두 <b>데이터를 보고 스스로 판단</b>합니다. 정해진 규칙만 따르는 기계와는 다릅니다.</div>',
 
     '<p class="kicker">Ⅰ-02 · 학문</p><h4>학문 분야에서의 인공지능</h4>'+
-    '<figure><img src="img/u1/fields.jpg" width="980" height="1274" style="--w:323px" alt="학문 분야별 인공지능">'+
+    '<figure><img src="img/u1/fields.jpg" width="980" height="1274" style="--w:200px" alt="학문 분야별 인공지능">'+
     '<figcaption>교과서 18~19쪽</figcaption></figure>'+
     '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결합니다.</p>'+
     '<div class="chips">'+
@@ -2468,9 +2476,8 @@ while open_list:
     '<span class="chip on">교육학</span><span class="chip on">농업</span><span class="chip on">사회 과학</span>'+
     '<span class="chip on">예술</span><span class="chip on">생명 공학</span><span class="chip on">인문 과학</span>'+
     '</div>'+
-    '<div class="def"><b>공통점</b>'+
-    '어느 분야든 인공지능이 하는 일은 같습니다. '+
-    '<b>문제가 생길 요인을 예측하고 제어</b>하며, <b>문제 해결에 필요한 최적의 환경</b>을 제공합니다.</div>',
+    '<div class="note"><b>공통점</b> 어느 분야든 하는 일은 같습니다 — '+
+    '<b>문제 요인을 예측하고 제어</b>하며 <b>최적의 환경을 제공</b>합니다.</div>',
 
     '<p class="kicker">Ⅰ-02 · 학문 ①</p><h4>의학 · 생명 공학 · 농업</h4>'+
     '<div class="four">'+
@@ -2556,7 +2563,7 @@ while open_list:
     '<div><b>정보 검색</b><span>검색어에 맞는 문서를 추천한다</span></div>'+
     '<div><b>의료 활동</b><span>진단 정보를 제공해 의사 결정을 돕는다</span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/route.jpg" width="710" height="591" style="--w:505px" alt="자율주행차의 경로 탐색">'+
+    '<figure><img src="img/u1/route.jpg" width="710" height="591" style="--w:312px" alt="자율주행차의 경로 탐색">'+
     '<figcaption>자율주행차도 경로 탐색 알고리즘을 쓴다</figcaption></figure>'+
     '<p>모두 <b>«수많은 후보 중에서 좋은 답을 고르는»</b> 문제입니다.</p>',
 
@@ -2705,7 +2712,7 @@ while open_list:
     '<div><b>경로 발견 문제</b><span>길 찾기 · 미로 찾기 · 8-퍼즐<br><i>목적: 최단 경로 구하기</i></span></div>'+
     '<div><b>게임 문제</b><span>틱택토 · 바둑 · 체스<br><i>목적: 상대방 이기기</i></span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/problems.jpg" width="940" height="895" style="--w:441px" alt="지능적 탐색이 필요한 문제들">'+
+    '<figure><img src="img/u1/problems.jpg" width="940" height="895" style="--w:273px" alt="지능적 탐색이 필요한 문제들">'+
     '<figcaption>미로 · 8-퍼즐 · 바둑 · 체스</figcaption></figure>'+
     '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
 
@@ -2721,10 +2728,8 @@ while open_list:
     '<div class="def"><b>오늘의 미션</b>'+
     '격자 지도에서 출발점 → 도착점까지 <b>가장 짧은 길</b>을 찾아라.<br>'+
     '같은 문제를 <b>너비 우선 탐색</b>과 <b>A*</b> 두 가지로 풀고, <b>방문한 노드 수</b>를 비교한다.</div>'+
-    '<div class="four">'+
-    '<div><b>기록할 것</b><span>① 찾은 경로의 길이<br>② 방문한 노드 수<br>③ 걸린 시간</span></div>'+
-    '<div><b>리더보드</b><span>방문 노드 수가 <b>적을수록</b> 좋은 알고리즘</span></div>'+
-    '</div>'+
+    '<div class="note"><b>기록할 것</b> ① 찾은 경로의 길이 · ② 방문한 노드 수 · ③ 걸린 시간<br>'+
+    '방문 노드 수가 <b>적을수록</b> 좋은 알고리즘입니다.</div>'+
     '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?<br>'+
     '위 <b>탐색 시뮬레이터</b>에서 한 걸음씩 눌러 세어 볼 수 있습니다.</div>',
 
@@ -2767,9 +2772,11 @@ while open_list:
     '<text '+C+'="dlab" x="56" y="98">사실·관찰의 기록</text><text '+C+'="dlab" x="174" y="98">가공해 의미를 가진 것</text>'+
     '<text '+C+'="dlab" x="292" y="98">체계화해 판단에 쓰는 것</text><text '+C+'="dlab" x="410" y="98">통찰</text>'+
     '</svg><figcaption>데이터 → 정보 → 지식 → 지혜</figcaption></figure>'+
-    '<figure><img src="img/u1/dikw.jpg" width="620" height="434" style="--w:600px" alt="DIKW 피라미드">'+
+    '<div class="side">'+
+    '<figure><img src="img/u1/dikw.jpg" width="620" height="434" style="--w:250px" alt="DIKW 피라미드">'+
     '<figcaption>교과서 47쪽</figcaption></figure>'+
-    '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까 정보일까 지식일까?</div>',
+    '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까, 정보일까, 지식일까?<br>'+
+    '「31도면 덥다」는? 「덥다면 물을 챙기자」는?</div></div>',
 
     '<p class="kicker">Ⅰ-06 · 표현</p><h4>지식을 컴퓨터에 담는 세 가지 방법</h4>'+
     '<div class="four">'+
@@ -2991,7 +2998,7 @@ while open_list:
   }
   function stepsAstar(){
     var out = [], g = { '스페인':0 }, from = {}, open = ['스페인'], closed = [], rows = [];
-    out.push({ open:open.slice(), closed:[], rows:[], cur:null,
+    out.push({ open:open.slice(), closed:[], rows:[], cur:null, fromMap:{},
       say: '출발지 <b>스페인</b> 에서 시작합니다. 앞으로 갈 곳마다 ' +
            '<b>f = g + h</b> 를 계산해서 <b>가장 작은 곳</b>으로 갑니다.' });
     while(open.length){
@@ -3020,7 +3027,8 @@ while open_list:
       added.sort(function(a, b){ return a.f - b.f; });
       rows = rows.concat(added);
       var pick = added.length ? added.reduce(function(a, b){ return a.f <= b.f ? a : b; }) : null;
-      out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, gmap:JSON.parse(JSON.stringify(g)),
+      out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best,
+        gmap:JSON.parse(JSON.stringify(g)), fromMap:JSON.parse(JSON.stringify(from)),
         say: '<b>' + best + '</b> 에서 갈 수 있는 곳을 모두 계산했습니다.' +
              (pick ? ' 그중 <b>' + pick.to + '</b> 의 f 가 <b>' + pick.f + '</b> 로 가장 작습니다.' : '') });
     }
@@ -3108,8 +3116,14 @@ while open_list:
         return '<div class="lst"><b>OPEN · 아직 안 열어 본 것</b>' + f(st.open) + '</div>' +
                '<div class="lst"><b>CLOSED · 이미 열어 본 것</b>' + f(st.closed) + '</div>'; } },
     { make:stepsAstar, draw:drawEU,
-      lists:function(st){ return drawRows(st.rows) +
-        '<div class="lst"><b>이미 지나온 나라</b>' + (st.closed.join(' → ') || '없음') + '</div>'; } }
+      lists:function(st){
+        var road = st.path;
+        if(!road && st.cur){ road = [st.cur]; var q = st.cur, fm = st.fromMap || {}, guard = 0;
+          while(fm[q] && guard++ < 20){ q = fm[q]; road.unshift(q); } }
+        return drawRows(st.rows) +
+          '<div class="lst"><b>지금 보고 있는 곳까지 온 길</b>' + ((road && road.join(' → ')) || '아직 없음') + '</div>' +
+          '<div class="lst"><b>CLOSED · 이미 열어 본 나라</b>' + (st.closed.join(' , ') || '없음') +
+          '<span class="hintx">열어 봤다고 해서 모두 답 경로인 것은 아닙니다.</span></div>'; } }
   ];
   var simI = 0, simSteps = [], simAt = -1;
 
