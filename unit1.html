@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅰ. 인공지능의 이해 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=0ee0b00f" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=e0d79b4e" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -29,17 +29,17 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=53312c9d') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=e0d79b4e') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=0ee0b00f') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=543afc86') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIPop'; src:url('font/pop.woff2') format('woff2');
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=b3b65296') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIMono'; src:url('font/mono.woff2') format('woff2');
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=87b9cec0') format('woff2');
   font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
@@ -218,8 +218,19 @@ figure svg{max-width:100%; height:auto}
 .slidebox > .slide{flex:0 0 auto; width:100%}
 
 /* ── 발표 모드 : 화면 가득 슬라이드 한 장 ── */
-.present{position:fixed; inset:0; z-index:200; background:var(--sky-bg); display:flex; flex-direction:column;
-  isolation:isolate}
+.present{position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%;
+  z-index:2147483000; display:flex; flex-direction:column; isolation:isolate;
+  background:#E9F3FF;                    /* 색 이름이 안 먹혀도 칠해지도록 */
+  background:var(--sky-bg,#E9F3FF); opacity:1; backdrop-filter:none}
+@media (prefers-color-scheme:dark){ .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)} }
+:root[data-theme="dark"] .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)}
+:root[data-theme="light"] .present{background:#E9F3FF; background:var(--sky-bg,#E9F3FF)}
+.pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+@media (prefers-color-scheme:dark){ .pbar{background:#132B47; background:var(--white,#132B47)} }
+:root[data-theme="dark"] .pbar{background:#132B47; background:var(--white,#132B47)}
+:root[data-theme="light"] .pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+/* 덮개가 열려 있는 동안에는 뒤쪽 본문을 아예 그리지 않는다 */
+body.show-on > *:not(.present){visibility:hidden}
 .present[hidden]{display:none}
 .pbar{display:flex; align-items:center; gap:clamp(8px,1.4vw,18px); flex-wrap:wrap;
   padding:9px clamp(12px,2vw,26px); border-bottom:1px solid var(--line); background:var(--white)}
@@ -1172,20 +1183,6 @@ footer a{font-weight:700}
   </div>
 </div>
 
-<div class="present" id="present" hidden role="dialog" aria-modal="true" aria-label="슬라이드 화면 가득 보기">
-  <div class="pbar">
-    <span class="pname" id="pName"></span>
-    <span class="pnum"><b id="pNow">1</b> / <span id="pAll">5</span></span>
-    <button type="button" class="pbtn" id="pFull">전체 화면</button>
-    <button type="button" class="pbtn" id="pClose">닫기 (Esc)</button>
-    <span class="pdots" id="pDots"></span>
-  </div>
-  <div class="pstage">
-    <button type="button" class="pnav prev" id="pPrev" aria-label="이전 슬라이드">&#8249;</button>
-    <div class="pbox" id="pBox"></div>
-    <button type="button" class="pnav next" id="pNext" aria-label="다음 슬라이드">&#8250;</button>
-  </div>
-</div>
 </section>
 
 <section id="act"><div class="wrap">
@@ -2387,6 +2384,21 @@ while open_list:
   </details>
 </div></section>
 
+<div class="present" id="present" hidden role="dialog" aria-modal="true" aria-label="슬라이드 화면 가득 보기">
+  <div class="pbar">
+    <span class="pname" id="pName"></span>
+    <span class="pnum"><b id="pNow">1</b> / <span id="pAll">5</span></span>
+    <button type="button" class="pbtn" id="pFull">전체 화면</button>
+    <button type="button" class="pbtn" id="pClose">닫기 (Esc)</button>
+    <span class="pdots" id="pDots"></span>
+  </div>
+  <div class="pstage">
+    <button type="button" class="pnav prev" id="pPrev" aria-label="이전 슬라이드">&#8249;</button>
+    <div class="pbox" id="pBox"></div>
+    <button type="button" class="pnav next" id="pNext" aria-label="다음 슬라이드">&#8250;</button>
+  </div>
+</div>
+
 <footer><div class="wrap">
   <p style="margin:0 0 8px"><a href="https://richee-pc.github.io/AI_cs/index.html" style="color:var(--blue-d); font-weight:700">← 2학기 안내로 돌아가기</a></p>
   <p style="margin:0">2026학년도 2학기 「인공지능 기초」 · 조선대학교부속고등학교 2학년<br>
@@ -3034,6 +3046,7 @@ while open_list:
     scrollKeep=window.scrollY;
     showing=true;
     show.hidden=false;
+    document.body.classList.add('show-on');
     document.documentElement.style.overflow='hidden';
     render();
     document.getElementById('pClose').focus();
@@ -3042,6 +3055,7 @@ while open_list:
     if(!showing) return;
     showing=false;
     show.hidden=true;
+    document.body.classList.remove('show-on');
     document.documentElement.style.overflow='';
     if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen()['catch'](function(){});
     render();
