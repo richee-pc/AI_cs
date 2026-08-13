@@ -11,7 +11,7 @@
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=0ee0b00f" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=d8fe0f71" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=e0d79b4e" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -29,9 +29,9 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=d114013e') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=53312c9d') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=d8fe0f71') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=e0d79b4e') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=0ee0b00f') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
@@ -216,6 +216,44 @@ figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height
   border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
 figure svg{max-width:100%; height:auto}
 .slidebox > .slide{flex:0 0 auto; width:100%}
+
+/* ── 발표 모드 : 화면 가득 슬라이드 한 장 ── */
+.present{position:fixed; inset:0; z-index:120; background:var(--bg); display:flex; flex-direction:column}
+.present[hidden]{display:none}
+.pbar{display:flex; align-items:center; gap:clamp(8px,1.4vw,18px); flex-wrap:wrap;
+  padding:9px clamp(12px,2vw,26px); border-bottom:1px solid var(--line); background:var(--white)}
+.pname{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+.pnum{font-family:var(--mono); font-size:0.875rem; color:var(--muted)}
+.pnum b{font-size:1.125rem; color:var(--blue-d)}
+.pdots{display:flex; gap:7px; margin-left:auto; align-items:center}
+.pdots i{width:11px; height:11px; border-radius:50%; background:var(--line); cursor:pointer;
+  box-shadow:inset 0 0 0 1.5px var(--ink2); transition:width .14s, background .14s}
+.pdots i.on{background:var(--fill); box-shadow:inset 0 0 0 1.5px var(--ink2); width:28px; border-radius:99px}
+.pbtn{font-family:var(--sans); font-weight:700; font-size:0.875rem; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  padding:7px 16px; cursor:pointer}
+.pbtn:hover{background:var(--blue-xl); border-color:var(--blue)}
+.pbtn.solid{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.pbtn.solid:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.pstage{flex:1; min-height:0; position:relative; display:flex; align-items:center; justify-content:center;
+  padding:clamp(12px,2vw,30px) clamp(62px,7vw,116px)}
+.pbox{width:100%; max-width:1520px; height:100%; overflow-y:auto; overscroll-behavior:contain;
+  scrollbar-gutter:stable; display:grid; align-content:center; align-content:safe center}
+.pbox > .slide{width:100%}
+.pnav{position:absolute; top:50%; transform:translateY(-50%);
+  width:clamp(42px,4.4vw,60px); height:clamp(66px,9vh,100px); border-radius:18px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  font-size:1.75rem; line-height:1; cursor:pointer; box-shadow:var(--sh)}
+.pnav:hover:not(:disabled){background:var(--blue-xl); border-color:var(--blue)}
+.pnav:disabled{opacity:.28; cursor:default}
+.pnav.prev{left:clamp(8px,1.2vw,22px)} .pnav.next{right:clamp(8px,1.2vw,22px)}
+.showbtn{margin-left:auto}
+@media (max-width:680px){
+  .pstage{padding:10px 8px 64px}
+  .pnav{top:auto; bottom:10px; transform:none; width:76px; height:46px; border-radius:14px}
+  .pnav.prev{left:12px} .pnav.next{right:12px}
+  .pdots{order:9; width:100%; margin:2px 0 0; justify-content:center}
+}
 .ezl{font-size:0.9375rem; line-height:1.65; color:var(--blue-d); background:var(--blue-xl);
   border-radius:13px; padding:11px 15px; margin:11px 0}
 .ezl::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
@@ -1106,8 +1144,8 @@ footer a{font-weight:700}
 <section id="slides"><div class="wrap">
   <p class="eyebrow">수업 슬라이드</p>
   <h2>소단원별 슬라이드</h2>
-  <p class="sub">수업에서 쓰는 슬라이드입니다. 소단원을 고르고 <b>← →</b> 로 넘기세요.
-    키보드 방향키로도 넘어갑니다.</p>
+  <p class="sub">수업에서 쓰는 슬라이드입니다. <b>소단원을 누르면 화면 가득</b> 열립니다.
+    <b>← →</b> 로 넘기고 <b>Esc</b> 로 닫습니다.</p>
 
   <div class="deckbar" role="tablist" aria-label="소단원 선택">
     <button class="dtab" role="tab" data-deck="0" aria-selected="true"><i>Ⅰ-01</i>개념과 특성</button>
@@ -1122,6 +1160,7 @@ footer a{font-weight:700}
     <div class="stage-top">
       <span class="who" id="deckName">Ⅰ-01 인공지능의 개념과 특성</span>
       <span class="cnt"><b id="sNow">1</b> / <span id="sAll">5</span></span>
+      <button type="button" class="pbtn solid showbtn" id="openShow">화면 가득 보기</button>
     </div>
     <div class="slidebox" id="slidebox"></div>
     <div class="stage-nav">
@@ -1130,7 +1169,23 @@ footer a{font-weight:700}
       <div class="dots" id="dots"></div>
     </div>
   </div>
-</div></section>
+</div>
+
+<div class="present" id="present" hidden role="dialog" aria-modal="true" aria-label="슬라이드 화면 가득 보기">
+  <div class="pbar">
+    <span class="pname" id="pName"></span>
+    <span class="pnum"><b id="pNow">1</b> / <span id="pAll">5</span></span>
+    <button type="button" class="pbtn" id="pFull">전체 화면</button>
+    <button type="button" class="pbtn" id="pClose">닫기 (Esc)</button>
+    <span class="pdots" id="pDots"></span>
+  </div>
+  <div class="pstage">
+    <button type="button" class="pnav prev" id="pPrev" aria-label="이전 슬라이드">&#8249;</button>
+    <div class="pbox" id="pBox"></div>
+    <button type="button" class="pnav next" id="pNext" aria-label="다음 슬라이드">&#8250;</button>
+  </div>
+</div>
+</section>
 
 <section id="act"><div class="wrap">
   <p class="eyebrow">함께 하는 활동</p>
@@ -2887,81 +2942,149 @@ while open_list:
   var dtabs=[].slice.call(document.querySelectorAll('.dtab'));
 
   var stage=document.querySelector('#slides .stage');
+  var show=document.getElementById('present'),
+      pBox=document.getElementById('pBox'), pName=document.getElementById('pName'),
+      pNow=document.getElementById('pNow'), pAll=document.getElementById('pAll'),
+      pDots=document.getElementById('pDots'),
+      pPrev=document.getElementById('pPrev'), pNext=document.getElementById('pNext');
+  var showing=false;
 
-  /* 슬라이드 한 장이 창에 꼭 맞도록 배율을 정한다.
-     넘치면 줄이고, 남으면 키운다. 0.78배 ~ 1.5배 사이. */
-  function fitSlide(){
-    var sl=box.firstElementChild;
+  /* 슬라이드 한 장이 창에 꼭 맞도록 배율을 정한다. 넘치면 줄이고, 남으면 키운다.
+     화면 가득 보기에서는 자리가 넉넉하므로 훨씬 크게 키울 수 있다. */
+  function fitIn(el, LO, HI){
+    var sl=el.firstElementChild;
     if(!sl) return;
-    /* 폭이 좁은 화면(휴대폰)에서는 글씨를 줄이면 오히려 읽기 어렵다.
-       그럴 때는 배율을 거의 건드리지 않고 슬라이드 안에서 스크롤하게 둔다. */
-    var narrow=window.innerWidth<720;
-    var FIT_LO=narrow?0.96:0.72, FIT_HI=narrow?1.06:1.7;
     sl.style.zoom='';
-    var room=box.clientHeight
-           - parseFloat(getComputedStyle(box).paddingTop)
-           - parseFloat(getComputedStyle(box).paddingBottom);
+    var cs=getComputedStyle(el);
+    var room=el.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
     var nat=sl.getBoundingClientRect().height;
     if(!room||!nat) return;
-    var z=Math.max(FIT_LO, Math.min(FIT_HI, room/nat));
+    var z=Math.max(LO, Math.min(HI, room/nat));
     sl.style.zoom=z.toFixed(3);
     /* 배율을 바꾸면 글이 다시 접히므로 몇 번 더 다듬는다 */
-    for(var k=0;k<7;k++){
-      var over=box.scrollHeight-box.clientHeight;
+    for(var k=0;k<8;k++){
+      var over=el.scrollHeight-el.clientHeight;
       if(over>1){
-        if(z<=FIT_LO+0.001) break;
-        z=Math.max(FIT_LO, z-Math.max(0.02, z*over/box.clientHeight));
+        if(z<=LO+0.001) break;
+        z=Math.max(LO, z-Math.max(0.02, z*over/el.clientHeight));
       }else{
-        if(z>=FIT_HI-0.001) break;
-        var up=Math.min(FIT_HI, z+0.03);
+        if(z>=HI-0.001) break;
+        var up=Math.min(HI, z+(z>1.6?0.05:0.03));
         sl.style.zoom=up.toFixed(3);
-        if(box.scrollHeight-box.clientHeight>1){ sl.style.zoom=z.toFixed(3); break; }
+        if(el.scrollHeight-el.clientHeight>1){ sl.style.zoom=z.toFixed(3); break; }
         z=up; continue;
       }
       sl.style.zoom=z.toFixed(3);
     }
+  }
+  function fitSlide(){
+    /* 폭이 좁은 화면(휴대폰)에서는 글씨를 너무 줄이면 오히려 읽기 어렵다.
+       그럴 때는 덜 줄이고 슬라이드 안에서 스크롤하게 둔다. */
+    var narrow=window.innerWidth<720;
+    if(showing){ fitIn(pBox, narrow?0.9:0.72, narrow?1.4:2.4); return; }
+    fitIn(box, narrow?0.96:0.72, narrow?1.06:1.7);
   }
   var fitTimer=null;
   function fitLater(){ clearTimeout(fitTimer); fitTimer=setTimeout(fitSlide, 90); }
   window.addEventListener('resize', fitLater);
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitSlide);
   box.addEventListener('load', fitLater, true);   /* 그림이 늦게 뜰 때 */
+  pBox.addEventListener('load', fitLater, true);
+
+  function makeDots(el, cnt){
+    el.innerHTML='';
+    for(var k=0;k<cnt;k++){
+      (function(k){
+        var i=document.createElement('i');
+        if(k===idx) i.className='on';
+        i.title=(k+1)+'번 슬라이드';
+        i.addEventListener('click',function(){ idx=k; render(); });
+        el.appendChild(i);
+      })(k);
+    }
+  }
 
   function render(){
-    var d=DECKS[deck];
-    nm.textContent=d.name;
+    var d=DECKS[deck], last=d.slides.length-1, tgt=showing?pBox:box;
+    nm.textContent=d.name; pName.textContent=d.name;
     sNow.textContent=idx+1; sAll.textContent=d.slides.length;
-    box.innerHTML='<div class="slide">'+d.slides[idx]+'</div>';
-    box.scrollTop=0;
+    pNow.textContent=idx+1; pAll.textContent=d.slides.length;
+    tgt.innerHTML='<div class="slide">'+d.slides[idx]+'</div>';
+    tgt.scrollTop=0;
     fitSlide();
-    /* 슬라이드 창 위쪽이 화면 밖으로 밀려 있으면 다시 끌어온다 */
-    var sr=stage.getBoundingClientRect();
-    if(sr.top<56||sr.top>window.innerHeight*0.5){
-      window.scrollTo({ top:window.scrollY+sr.top-70,
-        behavior:(matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth') });
+    if(!showing){
+      /* 슬라이드 창 위쪽이 화면 밖으로 밀려 있으면 다시 끌어온다 */
+      var sr=stage.getBoundingClientRect();
+      if(sr.top<56||sr.top>window.innerHeight*0.5){
+        window.scrollTo({ top:window.scrollY+sr.top-70,
+          behavior:(matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth') });
+      }
     }
-    dots.innerHTML='';
-    d.slides.forEach(function(_,k){
-      var i=document.createElement('i');
-      if(k===idx) i.className='on';
-      i.title=(k+1)+'번 슬라이드';
-      i.addEventListener('click',function(){ idx=k; render(); });
-      dots.appendChild(i);
-    });
-    bPrev.disabled=(idx===0); bNext.disabled=(idx===d.slides.length-1);
+    makeDots(showing?pDots:dots, d.slides.length);
+    bPrev.disabled=pPrev.disabled=(idx===0);
+    bNext.disabled=pNext.disabled=(idx===last);
     dtabs.forEach(function(t,k){ t.setAttribute('aria-selected', k===deck?'true':'false'); });
   }
-  dtabs.forEach(function(t,k){
-    t.addEventListener('click',function(){ deck=k; idx=0; render(); });
+
+  /* ── 화면 가득 보기 열고 닫기 ── */
+  var scrollKeep=0;
+  function openShow(){
+    if(showing) return;
+    scrollKeep=window.scrollY;
+    showing=true;
+    show.hidden=false;
+    document.documentElement.style.overflow='hidden';
+    render();
+    document.getElementById('pClose').focus();
+  }
+  function closeShow(){
+    if(!showing) return;
+    showing=false;
+    show.hidden=true;
+    document.documentElement.style.overflow='';
+    if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen()['catch'](function(){});
+    render();
+    window.scrollTo(0, scrollKeep);
+  }
+  document.getElementById('openShow').addEventListener('click', openShow);
+  document.getElementById('pClose').addEventListener('click', closeShow);
+  document.getElementById('pFull').addEventListener('click', function(){
+    var el=document.documentElement;
+    if(document.fullscreenElement){ if(document.exitFullscreen) document.exitFullscreen()['catch'](function(){}); }
+    else if(el.requestFullscreen){ el.requestFullscreen()['catch'](function(){}); }
+    setTimeout(fitSlide, 260);
   });
-  bPrev.addEventListener('click',function(){ if(idx>0){ idx--; render(); } });
-  bNext.addEventListener('click',function(){ if(idx<DECKS[deck].slides.length-1){ idx++; render(); } });
+  document.addEventListener('fullscreenchange', function(){
+    this.getElementById('pFull').textContent = document.fullscreenElement ? '전체 화면 끄기' : '전체 화면';
+    setTimeout(fitSlide, 120);
+  });
+
+  function step(d){
+    var last=DECKS[deck].slides.length-1;
+    if(d>0 && idx<last){ idx++; render(); }
+    else if(d<0 && idx>0){ idx--; render(); }
+  }
+  dtabs.forEach(function(t,k){
+    t.addEventListener('click',function(){ deck=k; idx=0; openShow(); render(); });
+  });
+  bPrev.addEventListener('click',function(){ step(-1); });
+  bNext.addEventListener('click',function(){ step(1); });
+  pPrev.addEventListener('click',function(){ step(-1); });
+  pNext.addEventListener('click',function(){ step(1); });
   document.addEventListener('keydown',function(ev){
     if(/^(INPUT|TEXTAREA|SELECT)$/.test(ev.target.tagName)) return;
+    if(showing){
+      if(ev.key==='Escape'){ ev.preventDefault(); closeShow(); }
+      else if(ev.key==='ArrowRight'||ev.key==='PageDown'||ev.key===' '){ ev.preventDefault(); step(1); }
+      else if(ev.key==='ArrowLeft'||ev.key==='PageUp'){ ev.preventDefault(); step(-1); }
+      else if(ev.key==='Home'){ ev.preventDefault(); idx=0; render(); }
+      else if(ev.key==='End'){ ev.preventDefault(); idx=DECKS[deck].slides.length-1; render(); }
+      return;
+    }
     var r=document.getElementById('slides').getBoundingClientRect();
     if(r.bottom<0||r.top>window.innerHeight) return;
-    if(ev.key==='ArrowRight'){ ev.preventDefault(); if(idx<DECKS[deck].slides.length-1){ idx++; render(); } }
-    else if(ev.key==='ArrowLeft'){ ev.preventDefault(); if(idx>0){ idx--; render(); } }
+    if(ev.key==='ArrowRight'){ ev.preventDefault(); step(1); }
+    else if(ev.key==='ArrowLeft'){ ev.preventDefault(); step(-1); }
   });
   /* ══ 한 걸음씩 보는 탐색 시뮬레이터 4종 ═══════════════════ */
 
