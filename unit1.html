@@ -175,7 +175,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
   padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
 .stage-top .who{font-size:13px; font-weight:700; color:var(--blue-d)}
 .stage-top .cnt{font-family:var(--mono); font-size:13px; color:var(--ink2)}
-.slidebox{padding:clamp(22px,4vw,42px); height:clamp(430px,64vh,660px);
+.slidebox{padding:clamp(20px,3.4vw,38px); height:clamp(460px,80vh,920px);
   overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable;
   display:flex; flex-direction:column; justify-content:center}
 .slide[hidden]{display:none!important}
@@ -755,11 +755,15 @@ table.ftab tr.pick td b{color:var(--good)}
 .cscard.no{border-color:#C63B3B; animation:shake .35s}
 @keyframes shake{25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){.cscard.no{animation:none}}
-.csout{margin:0; padding-left:24px; display:grid; gap:8px; counter-reset:none}
+.csout{margin:0; padding:0; list-style:none; display:grid; gap:8px; counter-reset:cs}
 .csout li{background:var(--good-bg); border:2px solid var(--good); border-radius:13px;
-  padding:11px 14px; font-size:15px; line-height:1.5}
+  padding:11px 14px; font-size:15px; line-height:1.5; counter-increment:cs}
+.csout li::before{content:counter(cs); flex:none; width:25px; height:25px; border-radius:50%;
+  background:var(--good); color:var(--sky-bg); font-family:var(--sans);
+  font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center}
 .csout li.ph{background:var(--tint); border-color:var(--line); border-style:dashed;
-  color:var(--ink2); list-style:none; margin-left:-24px}
+  color:var(--ink2); counter-increment:none}
+.csout li.ph::before{content:'?'; background:var(--line); color:var(--ink2)}
 .codeeasy{margin-top:22px; padding-top:20px; border-top:2px dashed var(--line)}
 .ecode{font-family:var(--mono); font-size:13px; line-height:1.9; white-space:pre;
   overflow-x:auto; background:var(--tint); border:1px solid var(--line);
