@@ -305,6 +305,8 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
   display:flex; align-items:center; gap:9px}
 .wsq > h4 em{font-style:normal; font-family:var(--pop); font-size:0.75rem; background:var(--fill);
   color:var(--on-fill); border-radius:99px; padding:3px 10px; flex:0 0 auto}
+.chose{margin-top:9px; font-size:0.875rem; color:var(--blue-d)}
+.chose b{font-weight:800}
 .wsq .qtext{font-size:0.9375rem; color:var(--ink2); line-height:1.7; margin:0 0 12px}
 .wsline{display:grid; grid-template-columns:minmax(0,1fr); gap:6px; margin:9px 0}
 .wsline > b{font-size:0.8438rem; color:var(--blue-d); line-height:1.5}
@@ -912,6 +914,11 @@ table.ftab tr.pick td b{color:var(--good)}
 .mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
 .mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
 .mopts button[disabled]{cursor:default; opacity:1; color:var(--ink2)}
+.mopts button[aria-pressed="true"]{border-color:var(--blue-d); background:var(--fill);
+  color:var(--on-fill); box-shadow:var(--sh)}
+.mopts button[aria-pressed="true"]::before{content:"\2713\00a0"; font-weight:900}
+.mopts button[aria-pressed="true"]:hover{border-color:var(--fill-d); background:var(--fill-d)}
+.def .mopts button:not([aria-pressed="true"]){background:var(--white)}
 .mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
 .mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
 @media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
@@ -2085,20 +2092,11 @@ while open_list:
       <div class="wsans" id="ws5Ans" hidden></div>
     </div>
 
-    <div class="frow" style="margin-top:18px">
-      <label class="fld"><span>분반</span>
-        <span class="pick" id="wsCls">
-          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
-          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
-          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
-        </span></label>
-      <label class="fld grow"><span>이름 (또는 모둠)</span>
-        <input type="text" id="wsGroup" placeholder="예) 2학년 3반 김다은" autocomplete="off"></label>
-    </div>
-    <div class="simctl" style="margin-top:14px">
-      <button type="button" class="mini" id="wsSend">선생님께 제출하기</button>
-      <button type="button" class="mini gh" id="wsCopy">내용 복사</button>
-      <span class="sendmsg" id="wsSendMsg"></span>
+    <div class="note" style="margin-top:18px"><b>이 활동은 따로 내지 않아도 됩니다.</b>
+      화면에서 확인한 답을 <b>종이 학습지에 옮겨 적으면</b> 됩니다.
+      적은 답을 한 번에 가져가고 싶으면 아래 <b>«내 답 복사»</b>를 누르세요.</div>
+    <div class="simctl" style="margin-top:12px">
+      <button type="button" class="mini gh" id="wsCopy">내 답 복사</button>
     </div>
   </div>
 
@@ -6232,7 +6230,8 @@ while open_list:
           '<div class="mopts" style="margin-top:10px">' + W1OPT.map(function(o){
             return '<button type="button" data-i="' + i + '" data-v="' + o + '"' +
                    (WS.a1[i] === o ? ' aria-pressed="true"' : '') + '>' + o + '</button>'; }).join('') +
-          '</div></div>';
+          '</div>' + (WS.a1[i] ? '<div class="chose">고른 답 · <b>' + WS.a1[i] + '</b></div>' : '') +
+          '</div>';
       }).join('');
     }
     $w('ws1').addEventListener('click', function(e){
@@ -6276,7 +6275,8 @@ while open_list:
           '<div class="mopts" style="margin-top:10px">' + q.o.map(function(o){
             return '<button type="button" data-i="' + i + '" data-v="' + o + '"' +
                    (WS.a2[i] === o ? ' aria-pressed="true"' : '') + '>' + o + '</button>'; }).join('') +
-          '</div></div>';
+          '</div>' + (WS.a2[i] ? '<div class="chose">고른 답 · <b>' + WS.a2[i] + '</b></div>' : '') +
+          '</div>';
       }).join('');
     }
     $w('ws2').addEventListener('click', function(e){
@@ -6566,31 +6566,22 @@ while open_list:
     });
     ws5Draw(); w5draw();
 
-    /* ── 제출 ── */
-    var wsCls = '';
-    clsPickWire('wsCls', function(v){ wsCls = v; });
+    /* ── 내 답 모으기 ── */
     function wsReport(){
       var g3 = $w('ws3').querySelectorAll('input'), g4 = $w('ws4').querySelectorAll('input'),
           g5 = $w('ws5').querySelectorAll('input');
-      return {
-        q1: WS.a1.join(' / '),
-        q2: WS.a2.join(' / '),
-        q3: [].slice.call(g3).map(function(x){ return x.value.trim(); }).join(' / '),
-        q4: [].slice.call(g4).map(function(x){ return x.value.trim(); }).join(' / '),
-        q5: [].slice.call(g5).map(function(x){ return x.value.trim(); }).join(' / ')
-      };
+      var pick = function(list){ return [].slice.call(list).map(function(x){ return x.value.trim(); }).join(' / '); };
+      return { q1: WS.a1.join(' / '), q2: WS.a2.join(' / '),
+               q3: pick(g3), q4: pick(g4), q5: pick(g5) };
     }
-    $w('wsSend').addEventListener('click', function(){
-      var btn = this, msg = $w('wsSendMsg'), r = wsReport();
-      if(!wsCls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
-      if(!($w('wsGroup').value || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '이름을 적어 주세요'; return; }
-      postSheet({ key:SUBMIT_KEY, type:'worksheet', cls:wsCls, group:$w('wsGroup').value.trim(),
-        q1:r.q1, q2:r.q2, q3:r.q3, q4:r.q4, q5:r.q5 }, btn, msg, 5);
-    });
     $w('wsCopy').addEventListener('click', function(){
-      var r = wsReport();
-      var t = '탐색 알고리즘 학습지 · ' + (wsCls || '분반 미기입') + ' · ' + ($w('wsGroup').value || '이름 미기입') + '\n' +
-        '1번 : ' + r.q1 + '\n2번 : ' + r.q2 + '\n3번 : ' + r.q3 + '\n4번 : ' + r.q4 + '\n5번 : ' + r.q5 + '\n';
+      var r = wsReport(), nl = String.fromCharCode(10);
+      var t = '탐색 알고리즘 학습지 · 내가 적은 답' + nl +
+        '1번 (가)(나)(다) : ' + r.q1 + nl +
+        '2번 용어 / 개선 기법 : ' + r.q2 + nl +
+        '3번 평가값 / 이동 거리 / 평가 개수 : ' + r.q3 + nl +
+        '4번 최단 경로 / 총 비용 : ' + r.q4 + nl +
+        '5번 A값 / C베타 / C알파 / 자를 단말 : ' + r.q5 + nl;
       tClip(t, this);
     });
   }
