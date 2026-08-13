@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="내가 만든 동작 게임 실행 - 붙여넣은 코드를 새 탭에서 돌립니다">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="내가 만든 동작 게임">
+<meta property="og:description" content="내가 만든 동작 게임 실행 - 붙여넣은 코드를 새 탭에서 돌립니다">
+<meta property="og:type" content="website">
+<link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>내가 만든 동작 게임</title>
+</head>
+<body>
+<style>
+body{margin:0;padding:0;background:#0d1b2e;color:#e8f2ff;
+  font-family:system-ui,'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
+#wait{max-width:620px;margin:16vh auto 0;padding:26px 28px;text-align:center;
+  background:#12233c;border:1px solid #2c4c74;border-radius:18px;line-height:1.85}
+#wait h1{font-size:19px;margin:0 0 10px}
+#wait p{font-size:14.5px;color:#9fc0e6;margin:0 0 6px}
+#wait a{color:#8fc5fb;font-weight:700}
+#wait code{background:#0d1b2e;border-radius:6px;padding:2px 7px;font-size:13px}
+</style>
+
+<div id="wait">
+  <h1>내가 만든 동작 게임</h1>
+  <p>코드를 불러오는 중…</p>
+</div>
+
+<script>
+function boot(){
+  /* 이 페이지는 «진짜 주소»를 가진 보통 페이지다.
+     페이지 «안»(iframe)에서는 브라우저가 카메라 장치를 안 내주는 경우가
+     있어서, 학생이 만든 게임도 여기로 옮겨 실행한다. */
+  var code = '';
+  try{ code = sessionStorage.getItem('ai-pose-code') || localStorage.getItem('ai-pose-code') || ''; }
+  catch(e){}
+
+  if(!code || code.indexOf('<') < 0){
+    document.getElementById('wait').innerHTML =
+      '<h1>실행할 코드가 없습니다</h1>' +
+      '<p>이 페이지는 <b>내가 만든 게임을 새 탭에서 돌리는 곳</b>입니다.</p>' +
+      '<p>먼저 <a href="pose.html#s4">동작 게임 만들기 → ④단계</a> 에서 ' +
+      'AI가 준 코드를 붙여넣고 <b>«새 탭에서 실행»</b> 을 눌러 주세요.</p>';
+    return;
+  }
+  if(!window.isSecureContext){
+    document.getElementById('wait').innerHTML =
+      '<h1>https 주소로 열어 주세요</h1>' +
+      '<p>브라우저는 안전하지 않은 주소에서 <b>카메라를 켜 주지 않습니다.</b></p>' +
+      '<p><code>https://richee-pc.github.io/AI_cs/run.html</code></p>';
+    return;
+  }
+  /* 파싱이 끝난 뒤에 지우고 써야 안내 화면이 남지 않는다.
+     이렇게 하면 새 문서가 만들어져 DOMContentLoaded · load 도 다시 일어난다. */
+  document.open();
+  document.write(code);
+  document.close();
+}
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(boot, 0); });
+else setTimeout(boot, 0);
+</script>
+
+</body>
+</html>
