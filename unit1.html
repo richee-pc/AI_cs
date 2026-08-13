@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅰ. 인공지능의 이해 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=0ee0b00f" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=ca91ddd3" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -28,17 +28,17 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2befaed2') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=ca91ddd3') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=0ee0b00f') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=543afc86') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIPop'; src:url('font/pop.woff2') format('woff2');
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=b3b65296') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIMono'; src:url('font/mono.woff2') format('woff2');
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=87b9cec0') format('woff2');
   font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
@@ -211,8 +211,8 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .four b{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
 .four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
 figure{margin:16px 0; text-align:center}
-figure img{max-width:100%; height:auto; border-radius:14px; background:var(--tint);
-  min-height:60px; font-size:0.8125rem; color:var(--muted)}
+figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
+  border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
 figure svg{max-width:100%; height:auto}
 figcaption{font-size:0.8125rem; color:var(--muted); margin-top:8px}
 .stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
@@ -730,6 +730,15 @@ table.ftab tr.pick td b{color:var(--good)}
 .pathbar{font-family:var(--disp); font-weight:400; font-size:clamp(1.0625rem,2.8vw,1.375rem);
   background:var(--blue-xl); border-radius:14px; padding:15px 18px; text-align:center;
   color:var(--blue-d); margin:14px 0}
+
+/* 내가 고른 여행 */
+.tripsel{display:grid; gap:9px; margin-bottom:14px}
+.trow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:10px 14px}
+.trow>b{font-family:var(--disp); font-weight:700; font-size:1rem; color:var(--blue-d); min-width:40px}
+.trow .chips{margin:0}
+.trow .chip{cursor:pointer; transition:.15s}
+.trow .chip:hover{border-color:var(--blue-l)}
 
 /* ── 학교 격자 ─────────────────────────── */
 .gsv{min-width:380px}
@@ -1536,7 +1545,7 @@ footer a{font-weight:700}
       <h4 class="step-h">1단계 · 지도를 <b>그래프</b>로 바꾸기</h4>
       <p class="desc">유럽 지도입니다. <b>파란 선</b>으로 이어진 나라끼리만 오갈 수 있어요.
         스페인에서 출발해 오스트리아까지 갑니다.</p>
-      <figure><img src="img/u1/eumap.jpg" alt="유럽 지도 · 스페인에서 오스트리아까지">
+      <figure><img src="img/u1/eumap.jpg" width="946" height="525" style="--w:720px" alt="유럽 지도 · 스페인에서 오스트리아까지">
         <figcaption>교과서 26쪽 · 파란 선이 오갈 수 있는 길입니다</figcaption></figure>
       <p class="desc">이 복잡한 지도를 <b>점과 선</b>으로 간단히 줄인 것이 <b>그래프</b>입니다.
         지도와 아래 그래프를 <b>번갈아 보면서</b> 빈칸에 들어갈 나라를 골라 보세요.</p>
@@ -1571,21 +1580,35 @@ footer a{font-weight:700}
 
     <div class="tstep" data-eu="4" hidden>
       <h4 class="step-h">4단계 · 나라를 <b>순서대로 눌러</b> 길을 만들기</h4>
-      <p class="desc">스페인에서 시작해서 이어진 나라를 차례로 누르세요.
-        <b>가장 적은 나라</b>를 거쳐 오스트리아에 닿으면 성공입니다.</p>
-      <details class="cbox"><summary>유럽 지도 다시 보기 <i>어디가 어딘지 헷갈릴 때</i></summary>
-        <div class="cbody"><figure style="margin:0"><img src="img/u1/eumap.jpg" alt="유럽 지도"></figure></div>
-      </details>
-      <details class="cbox" style="margin-bottom:14px"><summary>유럽 지도 다시 보기 <i>어디가 어딘지 헷갈릴 때</i></summary>
-        <div class="cbody"><figure style="margin:0"><img src="img/u1/eumap.jpg" alt="유럽 지도"></figure></div>
+      <div class="simctl">
+        <span class="pick" id="euMode">
+          <button type="button" data-m="book" aria-pressed="true">교과서 문제</button>
+          <button type="button" data-m="free" aria-pressed="false">내가 고른 여행 ✈</button>
+        </span>
+      </div>
+      <p class="desc" id="euDesc"></p>
+
+      <div id="euFree" hidden>
+        <div class="tripsel">
+          <div class="trow"><b>출발</b><span class="chips" id="euFrom"></span></div>
+          <div class="trow"><b>도착</b><span class="chips" id="euTo"></span></div>
+        </div>
+      </div>
+
+      <details class="cbox" style="margin-bottom:14px">
+        <summary>진짜 유럽 지도 보기 <i>어디가 어디쯤인지 헷갈릴 때</i></summary>
+        <div class="cbody"><figure style="margin:0"><img src="img/u1/eumap.jpg"
+          width="946" height="525" alt="유럽 지도" loading="lazy"></figure></div>
       </details>
       <div class="canvasarea" id="euMap"></div>
       <div class="pathbar" id="euPath">스페인</div>
       <div class="simctl">
         <button type="button" class="mini gh" id="euBack">한 나라 지우기</button>
         <button type="button" class="mini gh" id="euRe">처음으로</button>
+        <button type="button" class="mini" id="euSolve" hidden>A* 가 찾은 길 보기</button>
         <span class="scorepill" id="euMsg">스페인에서 출발!</span>
       </div>
+      <div class="verdict" id="euCmp" hidden></div>
     </div>
 
     <div class="tstep" data-eu="5" hidden>
@@ -2243,7 +2266,7 @@ while open_list:
   var DECKS=[
    {name:'Ⅰ-01 인공지능의 개념과 특성', slides:[
     '<p class="kicker">Ⅰ-01 · 1차시</p><h4>인공지능이란 무엇일까?</h4>'+
-    '<figure><img src="img/u1/life.jpg" alt="일상 속 인공지능">'+
+    '<figure><img src="img/u1/life.jpg" width="1000" height="900" style="--w:467px" alt="일상 속 인공지능">'+
     '<figcaption>집 안 곳곳에 인공지능이 들어 있다</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 스마트폰 · 스피커 · 로봇청소기 · TV 추천 …<br>이것들의 <b>공통점</b>은 무엇일까요?</div>',
 
@@ -2261,10 +2284,10 @@ while open_list:
 
     '<p class="kicker">Ⅰ-01 · 특성</p><h4>인공지능의 네 가지 특성</h4>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/perceive.jpg" alt="인식과 이해"><figcaption>인식과 이해</figcaption></figure>'+
-    '<figure><img src="img/u1/learn.jpg" alt="학습"><figcaption>학습</figcaption></figure>'+
-    '<figure><img src="img/u1/infer.jpg" alt="추론"><figcaption>추론</figcaption></figure>'+
-    '<figure><img src="img/u1/auto.jpg" alt="자율성"><figcaption>자율성</figcaption></figure>'+
+    '<figure><img src="img/u1/perceive.jpg" width="760" height="542" style="--w:589px" alt="인식과 이해"><figcaption>인식과 이해</figcaption></figure>'+
+    '<figure><img src="img/u1/learn.jpg" width="760" height="542" style="--w:589px" alt="학습"><figcaption>학습</figcaption></figure>'+
+    '<figure><img src="img/u1/infer.jpg" width="760" height="542" style="--w:589px" alt="추론"><figcaption>추론</figcaption></figure>'+
+    '<figure><img src="img/u1/auto.jpg" width="760" height="542" style="--w:589px" alt="자율성"><figcaption>자율성</figcaption></figure>'+
     '</div>'+
     '<div class="four">'+
     '<div><b>인식과 이해</b><span>센서로 외부 정보를 받아들이고 상황을 이해<br><i>예) 스피커가 목소리를 알아듣는다</i></span></div>'+
@@ -2297,8 +2320,8 @@ while open_list:
     '<text '+C+'="dlab" x="230" y="160">구별하지 못하면 → 그 컴퓨터는 지능이 있다고 본다</text>'+
     '</svg><figcaption>튜링 테스트 (앨런 튜링, 1950)</figcaption></figure>'+
     '<div class="imgrow">'+
-    '<figure><img src="img/u1/turing.jpg" alt="앨런 튜링"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
-    '<figure><img src="img/u1/turingtest.jpg" alt="튜링 테스트 장면"><figcaption>교과서 13쪽</figcaption></figure>'+
+    '<figure><img src="img/u1/turing.jpg" width="560" height="678" style="--w:347px" alt="앨런 튜링"><figcaption>앨런 튜링 (1912~1954)</figcaption></figure>'+
+    '<figure><img src="img/u1/turingtest.jpg" width="800" height="800" style="--w:420px" alt="튜링 테스트 장면"><figcaption>교과서 13쪽</figcaption></figure>'+
     '</div>'+
     '<div class="note"><b>용어</b> «인공지능»이라는 말은 <b>1956년 다트머스 학회</b>에서 존 매카시 등이 만들었습니다.</div>',
 
@@ -2342,7 +2365,7 @@ while open_list:
     '<div class="note"><b>공통점</b> 모두 <b>데이터를 보고 스스로 판단</b>합니다. 정해진 규칙만 따르는 기계와는 다릅니다.</div>',
 
     '<p class="kicker">Ⅰ-02 · 학문</p><h4>학문 분야에서의 인공지능</h4>'+
-    '<figure><img src="img/u1/fields.jpg" alt="학문 분야별 인공지능">'+
+    '<figure><img src="img/u1/fields.jpg" width="980" height="1274" style="--w:323px" alt="학문 분야별 인공지능">'+
     '<figcaption>교과서 18~19쪽</figcaption></figure>'+
     '<p>인공지능은 개인의 삶뿐 아니라 <b>학문 분야 전반</b>에 걸쳐 문제를 해결합니다.</p>'+
     '<div class="chips">'+
@@ -2438,7 +2461,7 @@ while open_list:
     '<div><b>정보 검색</b><span>검색어에 맞는 문서를 추천한다</span></div>'+
     '<div><b>의료 활동</b><span>진단 정보를 제공해 의사 결정을 돕는다</span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/route.jpg" alt="자율주행차의 경로 탐색">'+
+    '<figure><img src="img/u1/route.jpg" width="710" height="591" style="--w:505px" alt="자율주행차의 경로 탐색">'+
     '<figcaption>자율주행차도 경로 탐색 알고리즘을 쓴다</figcaption></figure>'+
     '<p>모두 <b>«수많은 후보 중에서 좋은 답을 고르는»</b> 문제입니다.</p>',
 
@@ -2541,7 +2564,7 @@ while open_list:
     '<div><b>경로 발견 문제</b><span>길 찾기 · 미로 찾기 · 8-퍼즐<br><i>목적: 최단 경로 구하기</i></span></div>'+
     '<div><b>게임 문제</b><span>틱택토 · 바둑 · 체스<br><i>목적: 상대방 이기기</i></span></div>'+
     '</div>'+
-    '<figure><img src="img/u1/problems.jpg" alt="지능적 탐색이 필요한 문제들">'+
+    '<figure><img src="img/u1/problems.jpg" width="940" height="895" style="--w:441px" alt="지능적 탐색이 필요한 문제들">'+
     '<figcaption>미로 · 8-퍼즐 · 바둑 · 체스</figcaption></figure>'+
     '<div class="note"><b>탐색이 필요한 문제의 특징</b> ① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</div>',
 
@@ -2603,7 +2626,7 @@ while open_list:
     '<text '+C+'="dlab" x="56" y="98">사실·관찰의 기록</text><text '+C+'="dlab" x="174" y="98">가공해 의미를 가진 것</text>'+
     '<text '+C+'="dlab" x="292" y="98">체계화해 판단에 쓰는 것</text><text '+C+'="dlab" x="410" y="98">통찰</text>'+
     '</svg><figcaption>데이터 → 정보 → 지식 → 지혜</figcaption></figure>'+
-    '<figure><img src="img/u1/dikw.jpg" alt="DIKW 피라미드">'+
+    '<figure><img src="img/u1/dikw.jpg" width="620" height="434" style="--w:600px" alt="DIKW 피라미드">'+
     '<figcaption>교과서 47쪽</figcaption></figure>'+
     '<div class="ask"><b>생각 열기</b> 「오늘 기온 31도」는 데이터일까 정보일까 지식일까?</div>',
 
@@ -3347,9 +3370,85 @@ while open_list:
 
   /* ══ ⑦ 유럽 여행 길찾기 ══════════════════════════════════ */
   var EUKEY = 'ai_u1_europe_v1';
-  var EUS = { step:1, blanks:['','',''], ops:[], path:['스페인'], ans:'', why:'', rub:['',''], cls:'', group:'' };
+  var EUS = { step:1, blanks:['','',''], ops:[], path:['스페인'], ans:'', why:'', rub:['',''],
+              cls:'', group:'', mode:'book', from:'스페인', to:'폴란드', trip:['스페인'] };
   try{ var _eu = JSON.parse(localStorage.getItem(EUKEY)); if(_eu) for(var k2 in _eu) if(k2 in EUS) EUS[k2] = _eu[k2]; }catch(e){}
   function euSave(){ try{ localStorage.setItem(EUKEY, JSON.stringify(EUS)); }catch(e){} }
+
+  /* ── 내가 고른 여행 · 유럽 12개 나라 ──────────────────────
+     좌표에서 거리를 뽑는다. 1칸 = 8 km 로 보고
+       h(n) = 직선 거리, 실제 길 = 직선 x 1.15 (돌아가는 만큼)
+     h 가 실제보다 절대 크지 않아 A* 는 언제나 최단 경로를 찾는다.   */
+  var TRIP = {
+    '포르투갈': { x:45,  y:300, to:['스페인'] },
+    '스페인':   { x:110, y:305, to:['포르투갈','프랑스'] },
+    '프랑스':   { x:198, y:222, to:['스페인','벨기에','스위스','이탈리아','독일'] },
+    '벨기에':   { x:218, y:152, to:['프랑스','네덜란드','독일'] },
+    '네덜란드': { x:238, y:116, to:['벨기에','독일'] },
+    '스위스':   { x:262, y:250, to:['프랑스','이탈리아','독일','오스트리아'] },
+    '이탈리아': { x:302, y:330, to:['프랑스','스위스','오스트리아'] },
+    '독일':     { x:322, y:146, to:['프랑스','벨기에','네덜란드','스위스','오스트리아','체코','폴란드','덴마크'] },
+    '덴마크':   { x:322, y:70,  to:['독일'] },
+    '오스트리아':{ x:357, y:236, to:['스위스','이탈리아','독일','체코'] },
+    '체코':     { x:392, y:162, to:['독일','오스트리아','폴란드'] },
+    '폴란드':   { x:452, y:112, to:['독일','체코'] }
+  };
+  function tripLine(a, b){
+    var dx = TRIP[a].x - TRIP[b].x, dy = TRIP[a].y - TRIP[b].y;
+    return Math.round(Math.sqrt(dx * dx + dy * dy) * 8 / 10) * 10;   /* 직선 km */
+  }
+  function tripRoad(a, b){ return Math.round(tripLine(a, b) * 1.15 / 10) * 10; }
+  function tripAstar(from, goal){
+    var g = {}, came = {}, open = [from], closed = [];
+    g[from] = 0;
+    var guard = 0;
+    while(open.length && guard++ < 300){
+      var bi = 0;
+      for(var i = 1; i < open.length; i++)
+        if(g[open[i]] + tripLine(open[i], goal) < g[open[bi]] + tripLine(open[bi], goal)) bi = i;
+      var cur = open.splice(bi, 1)[0];
+      closed.push(cur);
+      if(cur === goal){
+        var path = [cur];
+        while(came[path[0]]) path.unshift(came[path[0]]);
+        return { path:path, cost:g[goal], seen:closed.length };
+      }
+      TRIP[cur].to.forEach(function(nb){
+        if(closed.indexOf(nb) >= 0) return;
+        var ng = g[cur] + tripRoad(cur, nb);
+        if(g[nb] === undefined || ng < g[nb]){
+          g[nb] = ng; came[nb] = cur;
+          if(open.indexOf(nb) < 0) open.push(nb);
+        }
+      });
+    }
+    return null;
+  }
+  function drawTrip(from, goal, path){
+    var s = '<svg viewBox="0 0 500 380" class="tsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="유럽 여행 지도">';
+    var done = {};
+    Object.keys(TRIP).forEach(function(a){
+      TRIP[a].to.forEach(function(b){
+        var k = [a, b].sort().join('|'); if(done[k]) return; done[k] = 1;
+        var on = path && path.indexOf(a) >= 0 && path.indexOf(b) >= 0 &&
+                 Math.abs(path.indexOf(a) - path.indexOf(b)) === 1;
+        s += '<line x1="' + TRIP[a].x + '" y1="' + TRIP[a].y + '" x2="' + TRIP[b].x +
+             '" y2="' + TRIP[b].y + '" class="el' + (on ? ' hit' : '') + '"/>';
+        if(on) s += '<text x="' + ((TRIP[a].x + TRIP[b].x) / 2) + '" y="' +
+             ((TRIP[a].y + TRIP[b].y) / 2 - 5) + '" class="ew">' + tripRoad(a, b) + '</text>';
+      });
+    });
+    Object.keys(TRIP).forEach(function(nm){
+      var role = nm === from ? 'cur' : (nm === goal ? 'seen' : (path && path.indexOf(nm) >= 0 ? 'open' : ''));
+      s += '<ellipse data-n="' + nm + '" cx="' + TRIP[nm].x + '" cy="' + TRIP[nm].y +
+           '" rx="41" ry="16" class="en ' + role + '"/>';
+      s += '<text data-n="' + nm + '" x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + 5) +
+           '" class="et' + (role ? ' on' : '') + '">' + nm + '</text>';
+      if(goal && nm !== goal) s += '<text x="' + TRIP[nm].x + '" y="' + (TRIP[nm].y + 30) +
+        '" class="eh">h ' + tripLine(nm, goal) + '</text>';
+    });
+    return s + '</svg>';
+  }
 
   var EUTREE = [
     { n:'스페인',     x:250, y:30,  p:null },
@@ -3438,6 +3537,7 @@ while open_list:
     });
 
     function euMapDraw(){
+      if(EUS.mode === 'free'){ tripDraw(); return; }
       var st = { open:[], closed:EUS.path, cur:EUS.path[EUS.path.length - 1], path:EUS.path };
       document.getElementById('euMap').innerHTML = drawEU(st);
       [].slice.call(document.querySelectorAll('#euMap .en')).forEach(function(el, i){
@@ -3459,6 +3559,89 @@ while open_list:
           : '도착! 하지만 ' + (EUS.path.length - 2) + '개 나라를 거쳤어요. 더 짧은 길이 있습니다';
       else m.textContent = last + '에서 이어진 나라를 누르세요';
     }
+    /* ── 내가 고른 여행 ── */
+    function tripChips(){
+      var names = Object.keys(TRIP);
+      ['From','To'].forEach(function(kind){
+        var key = kind === 'From' ? 'from' : 'to';
+        document.getElementById('eu' + kind).innerHTML = names.map(function(nm){
+          return '<button type="button" class="chip' + (EUS[key] === nm ? ' on' : '') +
+            '" data-n="' + nm + '">' + nm + '</button>'; }).join('');
+        document.getElementById('eu' + kind).addEventListener('click', function(e){
+          var b = e.target.closest('button[data-n]'); if(!b) return;
+          var v = b.getAttribute('data-n');
+          if(key === 'from' && v === EUS.to) return;
+          if(key === 'to' && v === EUS.from) return;
+          EUS[key] = v; EUS.trip = [EUS.from]; euSave(); tripChips(); tripDraw();
+        }, { once:true });
+      });
+    }
+    function tripDraw(){
+      document.getElementById('euMap').innerHTML = drawTrip(EUS.from, EUS.to, EUS.trip);
+      [].slice.call(document.querySelectorAll('#euMap [data-n]')).forEach(function(el){
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function(){ tripClick(el.getAttribute('data-n')); });
+      });
+      var cost = 0;
+      for(var i = 1; i < EUS.trip.length; i++) cost += tripRoad(EUS.trip[i - 1], EUS.trip[i]);
+      document.getElementById('euPath').textContent = EUS.trip.join('  →  ') +
+        (EUS.trip.length > 1 ? '   ·   ' + cost + ' km' : '');
+      var last = EUS.trip[EUS.trip.length - 1];
+      var m = document.getElementById('euMsg');
+      if(last === EUS.to){
+        var best = tripAstar(EUS.from, EUS.to);
+        m.textContent = cost === best.cost ? '도착! 가장 짧은 길입니다 (' + cost + ' km)'
+          : '도착! ' + cost + ' km — 더 짧은 길이 있어요 (' + best.cost + ' km)';
+      }else m.textContent = last + '에서 이어진 나라를 누르세요';
+      document.getElementById('euSolve').hidden = false;
+    }
+    function tripClick(name){
+      var last = EUS.trip[EUS.trip.length - 1];
+      if(EUS.trip.indexOf(name) >= 0) return;
+      if(TRIP[last].to.indexOf(name) < 0){
+        document.getElementById('euMsg').textContent =
+          last + '에서 ' + jos(name, '로') + ' 바로 가는 길이 없습니다';
+        return;
+      }
+      EUS.trip.push(name); euSave(); tripDraw();
+      document.getElementById('euCmp').hidden = true;
+    }
+    document.getElementById('euMode').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-m]'); if(!b) return;
+      EUS.mode = b.getAttribute('data-m'); euSave();
+      [].slice.call(this.children).forEach(function(o){
+        o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      euModeDraw();
+    });
+    function euModeDraw(){
+      var free = EUS.mode === 'free';
+      document.getElementById('euFree').hidden = !free;
+      document.getElementById('euSolve').hidden = !free;
+      document.getElementById('euCmp').hidden = true;
+      document.getElementById('euDesc').innerHTML = free
+        ? '<b>가고 싶은 나라를 직접 골라 보세요.</b> 출발과 도착을 정하고 지도에서 나라를 순서대로 누릅니다. ' +
+          '숫자는 <b>km</b> 예요. 다 만들면 «A* 가 찾은 길»과 비교해 봅시다.'
+        : '스페인에서 시작해서 이어진 나라를 차례로 누르세요. ' +
+          '<b>가장 적은 나라</b>를 거쳐 오스트리아에 닿으면 성공입니다.';
+      if(free){ tripChips(); tripDraw(); } else euMapDraw();
+    }
+    document.getElementById('euSolve').addEventListener('click', function(){
+      var best = tripAstar(EUS.from, EUS.to);
+      var mine = 0;
+      for(var i = 1; i < EUS.trip.length; i++) mine += tripRoad(EUS.trip[i - 1], EUS.trip[i]);
+      var done = EUS.trip[EUS.trip.length - 1] === EUS.to;
+      EUS.trip = best.path.slice(); euSave(); tripDraw();
+      var box = document.getElementById('euCmp');
+      box.hidden = false;
+      box.className = 'verdict ' + (done && mine === best.cost ? 'ok' : 'mid');
+      box.innerHTML = '<b>A* 가 찾은 길</b><span>' + best.path.join(' → ') +
+        ' · <b>' + best.cost + ' km</b> · 살펴본 나라 ' + best.seen + '개' +
+        (done ? (mine === best.cost
+          ? '<br>여러분이 찾은 길과 <b>똑같습니다!</b> 잘했어요.'
+          : '<br>여러분 길은 ' + mine + ' km 였으니 <b>' + (mine - best.cost) + ' km 더 짧아졌습니다.</b>')
+        : '') + '</span>';
+    });
+
     function euClick(name){
       var last = EUS.path[EUS.path.length - 1];
       if(EUS.path.indexOf(name) >= 0) return;
@@ -3469,10 +3652,15 @@ while open_list:
       EUS.path.push(name); euSave(); euMapDraw();
     }
     document.getElementById('euBack').addEventListener('click', function(){
+      if(EUS.mode === 'free'){ if(EUS.trip.length > 1){ EUS.trip.pop(); euSave(); tripDraw(); } return; }
       if(EUS.path.length > 1){ EUS.path.pop(); euSave(); euMapDraw(); } });
     document.getElementById('euRe').addEventListener('click', function(){
+      if(EUS.mode === 'free'){ EUS.trip = [EUS.from]; euSave(); tripDraw();
+        document.getElementById('euCmp').hidden = true; return; }
       EUS.path = ['스페인']; euSave(); euMapDraw(); });
-    euMapDraw();
+    [].slice.call(document.querySelectorAll('#euMode button')).forEach(function(o){
+      o.setAttribute('aria-pressed', o.getAttribute('data-m') === EUS.mode ? 'true' : 'false'); });
+    euModeDraw();
 
     document.getElementById('euAns').value = EUS.ans || '';
     document.getElementById('euAns').addEventListener('input', function(){ EUS.ans = this.value; euSave(); });
@@ -3496,7 +3684,8 @@ while open_list:
         '분반 : ' + (EUS.cls || '(미선택)'), '모둠 : ' + (EUS.group || '(미입력)'), '',
         '1단계 그래프 빈칸 : ' + EUS.blanks.join(' · '),
         '3단계 스페인에서 갈 수 있는 나라 : ' + (EUS.ops.join(' · ') || '(미선택)'),
-        '4단계 지도에서 만든 길 : ' + EUS.path.join(' → '), '',
+        '4단계 지도에서 만든 길 : ' + EUS.path.join(' → '),
+        '내가 고른 여행 : ' + EUS.from + ' → ' + EUS.to + ' · ' + EUS.trip.join(' → '), '',
         '내가 찾은 길 : ' + (EUS.ans || '(미작성)'),
         '고른 이유 : ' + (EUS.why || '(미작성)'), '',
         '자기평가 1 (추상화) : ' + (EUS.rub[0] || '(미선택)'),
@@ -3511,7 +3700,9 @@ while open_list:
       postSheet({
         key:SUBMIT_KEY, type:'europe', cls:EUS.cls, group:EUS.group,
         blanks:EUS.blanks.join(' · '), ops:EUS.ops.join(' · '),
-        path:EUS.path.join(' → '), ans:EUS.ans, why:EUS.why,
+        path:'[교과서] ' + EUS.path.join(' → ') +
+             '  /  [내가 고른 여행] ' + EUS.from + '→' + EUS.to + ' : ' + EUS.trip.join(' → '),
+        ans:EUS.ans, why:EUS.why,
         rub1:EUS.rub[0], rub2:EUS.rub[1]
       }, btn, msg, 3);
     });
