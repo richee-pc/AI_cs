@@ -18,7 +18,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 4;
+var VER = 5;
 
 var SHEETS = {
 
@@ -122,6 +122,19 @@ var SHEETS = {
     row: function (d) {
       return [new Date(), d.cls || '', d.group || '', d.score || '',
               d.rule || '', d.fresh || '', d.weak || ''];
+    }
+  },
+
+  worksheet: {
+    name: '탐색학습지',
+    head: ['제출 시각', '분반', '이름(모둠)',
+           '1번 (가)/(나)/(다)', '2번 용어/개선기법',
+           '3번 평가값/이동거리/평가개수', '4번 최단경로/총비용',
+           '5번 A값/C베타/C알파/자를 단말'],
+    width: [140, 70, 130, 300, 220, 220, 200, 260],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.q1 || '', d.q2 || '', d.q3 || '', d.q4 || '', d.q5 || ''];
     }
   }
 };

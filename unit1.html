@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅰ. 인공지능의 이해 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅰ단원 인공지능의 이해 - 수업 슬라이드, 차시 배정, 핵심 용어, 확인 문제">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=0ee0b00f" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=e0d79b4e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=79fa0053" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=c5e8315c" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅰ. 인공지능의 이해 · 수업 자료</title>
@@ -29,17 +29,17 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=53312c9d') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=41361b81') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=e0d79b4e') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=c5e8315c') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=0ee0b00f') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=79fa0053') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=543afc86') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=4a26fee2') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=b3b65296') format('woff2');
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=f13d9289') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=87b9cec0') format('woff2');
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=1763cb21') format('woff2');
   font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
@@ -298,6 +298,44 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .dnum{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--warm); text-anchor:middle}
 .dlab{font-family:var(--sans); font-size:12px; fill:var(--muted); text-anchor:middle}
 .pz{width:min(9.25rem, var(--sbh) * 0.20); height:auto; flex:0 0 auto}
+.gtsvg{width:100%; max-width:32rem}
+.wsq{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:clamp(16px,2.2vw,24px); box-shadow:var(--sh); margin:16px 0}
+.wsq > h4{margin:0 0 4px; font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d);
+  display:flex; align-items:center; gap:9px}
+.wsq > h4 em{font-style:normal; font-family:var(--pop); font-size:0.75rem; background:var(--fill);
+  color:var(--on-fill); border-radius:99px; padding:3px 10px; flex:0 0 auto}
+.wsq .qtext{font-size:0.9375rem; color:var(--ink2); line-height:1.7; margin:0 0 12px}
+.wsline{display:grid; grid-template-columns:minmax(0,1fr); gap:6px; margin:9px 0}
+.wsline > b{font-size:0.8438rem; color:var(--blue-d); line-height:1.5}
+.wsline input{font-family:var(--sans); font-size:0.9375rem; padding:8px 12px; border-radius:11px;
+  border:1px solid var(--line); background:var(--tint); color:var(--ink); min-width:0}
+.wsline input:focus{outline:2px solid var(--blue); outline-offset:1px}
+.wsline input.good{border-color:var(--good); background:var(--good-bg)}
+.wsline input.bad{border-color:var(--warm); background:var(--warm-bg)}
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.wsans{margin-top:12px; padding:13px 16px; border-radius:14px; background:var(--good-bg);
+  border:1px solid var(--good); font-size:0.9062rem; line-height:1.7; color:var(--ink)}
+.wsans b{color:var(--good)}
+.wstab{width:100%; border-collapse:collapse; font-size:0.8438rem; margin:10px 0}
+.wstab th,.wstab td{border:1px solid var(--line); padding:6px 9px; text-align:center}
+.wstab th{background:var(--blue-xl); color:var(--blue-d); font-weight:700}
+.wstab td.pick{background:var(--good-bg); font-weight:800; color:var(--good)}
+.wstab td.cut{opacity:.4; text-decoration:line-through}
+.citysvg{width:100%; max-width:30rem}
+.cn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.cn.seen{fill:var(--blue-xl); stroke:var(--blue)}
+.cn.cur{fill:var(--good-bg); stroke:var(--good); stroke-width:2.6}
+.ct{font-family:var(--mono); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.ce{stroke:var(--line); stroke-width:2}
+.ce.hit{stroke:var(--good); stroke-width:3.4}
+.cw{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.ch{font-family:var(--mono); font-size:10px; fill:var(--blue); text-anchor:middle}
+.gn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.gn.hot{fill:var(--good-bg); stroke:var(--good); stroke-width:2.4}
+.gn.off{opacity:.28}
+.gl{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.gv{font-family:var(--mono); font-size:13px; font-weight:800; fill:var(--blue-d); text-anchor:start}
 .pz rect{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
 .pz rect.g{fill:var(--good-bg); stroke:var(--good)}
 .pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
@@ -1203,6 +1241,7 @@ footer a{font-weight:700}
     <button class="atab" role="tab" data-act="8" aria-selected="false"><i>Ⅰ-05</i>학교 안 길찾기</button>
     <button class="atab" role="tab" data-act="9" aria-selected="false"><i>Ⅰ-05</i>알고리즘 카드</button>
     <button class="atab" role="tab" data-act="10" aria-selected="false"><i>Ⅰ-06</i>추론 게임</button>
+    <button class="atab" role="tab" data-act="11" aria-selected="false"><i>Ⅰ-04·05</i>탐색 학습지 함께 풀기</button>
   </div>
 
   <!-- ① AI 판별 게임 -->
@@ -1961,6 +2000,108 @@ while open_list:
     </div>
   </div>
 
+  <!-- ⑫ 탐색 학습지 함께 풀기 -->
+  <div class="actbox" data-panel="11" hidden>
+    <h3>⑫ 탐색 학습지 함께 풀기 <span class="tm">개인 · 짝</span></h3>
+    <p class="desc">선생님이 나눠 주신 <b>「탐색 알고리즘 학습지」</b> 다섯 문제입니다.
+      종이에 먼저 풀어 보고, 여기서 <b>한 걸음씩 눌러 확인</b>하세요.
+      <b>답을 적고 «맞나 볼까요»</b>를 누르면 채점과 해설이 나옵니다.</p>
+
+    <!-- 1번 -->
+    <div class="wsq">
+      <h4><em>1번</em> 이름을 맞혀 보세요</h4>
+      <p class="qtext">경험적(휴리스틱) 탐색에 대한 설명입니다. (가)(나)(다)에 알맞은 탐색 방법의 이름을 고르세요.</p>
+      <div id="ws1"></div>
+      <div class="simctl"><button type="button" class="mini" id="ws1Chk">맞나 볼까요</button>
+        <button type="button" class="mini gh" id="ws1Re">다시</button></div>
+      <div class="wsans" id="ws1Ans" hidden></div>
+    </div>
+
+    <!-- 2번 -->
+    <div class="wsq">
+      <h4><em>2번</em> 언덕 등반이 멈춰 버렸어요</h4>
+      <p class="qtext">아래는 8-퍼즐에서 <b>언덕 등반 탐색</b>의 첫 번째 탐색 과정입니다.
+        동그라미 숫자는 <b>평가 함숫값</b>(목표와 같은 자리에 있는 타일 수)이에요.
+        <b>지금 자리는 5인데, 자식 넷 중 5를 넘는 것이 하나도 없습니다.</b></p>
+      <div id="ws2Fig"></div>
+      <div id="ws2"></div>
+      <div class="simctl"><button type="button" class="mini" id="ws2Chk">맞나 볼까요</button>
+        <button type="button" class="mini gh" id="ws2Re">다시</button></div>
+      <div class="wsans" id="ws2Ans" hidden></div>
+    </div>
+
+    <!-- 3번 -->
+    <div class="wsq">
+      <h4><em>3번</em> 언덕 등반으로 8-퍼즐 풀기</h4>
+      <p class="qtext"><b>평가 함숫값 = 목표와 같은 자리에 있는 타일 수</b>이고, <b>클수록</b> 먼저 고릅니다.
+        위·아래·왼·오른쪽으로 한 칸씩만 움직이고, <b>한 번 평가한 판은 다시 평가하지 않습니다.</b></p>
+      <div id="ws3Fig"></div>
+      <div class="simctl">
+        <button type="button" class="mini" id="ws3Step">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="ws3All">끝까지 보기</button>
+        <button type="button" class="mini gh" id="ws3Re">처음으로</button>
+        <span class="scorepill" id="ws3Pill">0 걸음</span>
+      </div>
+      <div id="ws3Log"></div>
+      <div id="ws3"></div>
+      <div class="simctl"><button type="button" class="mini" id="ws3Chk">맞나 볼까요</button></div>
+      <div class="wsans" id="ws3Ans" hidden></div>
+    </div>
+
+    <!-- 4번 -->
+    <div class="wsq">
+      <h4><em>4번</em> A*로 도시 a에서 g까지</h4>
+      <p class="qtext"><b>f(n) = g(n) + h(n)</b> — g는 지금까지 <b>실제로 온 도로 거리</b>,
+        h는 그 도시에서 <b>g까지의 직선거리</b>(파란 숫자)입니다.</p>
+      <div id="ws4Fig"></div>
+      <div class="simctl">
+        <button type="button" class="mini" id="ws4Step">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="ws4All">끝까지 보기</button>
+        <button type="button" class="mini gh" id="ws4Re">처음으로</button>
+        <span class="scorepill" id="ws4Pill">0 걸음</span>
+      </div>
+      <div id="ws4Say" class="note" style="margin:10px 0"></div>
+      <div id="ws4Tab"></div>
+      <div id="ws4"></div>
+      <div class="simctl"><button type="button" class="mini" id="ws4Chk">맞나 볼까요</button></div>
+      <div class="wsans" id="ws4Ans" hidden></div>
+    </div>
+
+    <!-- 5번 -->
+    <div class="wsq">
+      <h4><em>5번</em> minimax 와 알파베타 가지치기</h4>
+      <p class="qtext">△는 <b>내 차례(Max)</b>, ▽는 <b>상대 차례(Min)</b>, ○는 <b>평가 함숫값</b>입니다.
+        「한 걸음 더」를 누르면 아래에서 위로 값이 접혀 올라가고, <b>잘리는 가지는 흐려집니다.</b></p>
+      <div id="ws5Fig"></div>
+      <div class="simctl">
+        <button type="button" class="mini" id="ws5Step">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="ws5All">끝까지 보기</button>
+        <button type="button" class="mini gh" id="ws5Re">처음으로</button>
+        <span class="scorepill" id="ws5Pill">0 걸음</span>
+      </div>
+      <div id="ws5Say" class="note" style="margin:10px 0"></div>
+      <div id="ws5"></div>
+      <div class="simctl"><button type="button" class="mini" id="ws5Chk">맞나 볼까요</button></div>
+      <div class="wsans" id="ws5Ans" hidden></div>
+    </div>
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="wsCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름 (또는 모둠)</span>
+        <input type="text" id="wsGroup" placeholder="예) 2학년 3반 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="wsSend">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="wsCopy">내용 복사</button>
+      <span class="sendmsg" id="wsSendMsg"></span>
+    </div>
+  </div>
+
   <!-- ⑪ 추론 게임 -->
   <div class="actbox" data-panel="10" hidden>
     <h3>⑪ 추론 게임 <span class="tm">모둠 대항</span></h3>
@@ -2158,7 +2299,7 @@ while open_list:
 
 <section id="terms"><div class="wrap">
   <details class="fold">
-    <summary><span class="feye">핵심 용어</span><span class="fttl">이것만은 외우자</span><span class="fsub">1차 정기고사에 나올 용어 44개입니다. <i>기울인 글씨</i>는 <b>왜 그런지 · 어떻게 쓰는지</b>입니다.</span></summary>
+    <summary><span class="feye">핵심 용어</span><span class="fttl">이것만은 외우자</span><span class="fsub">1차 정기고사에 나올 용어 52개입니다. <i>기울인 글씨</i>는 <b>왜 그런지 · 어떻게 쓰는지</b>입니다.</span></summary>
     <div class="foldbody">
 
   <h3 class="tgroup">Ⅰ-01 · Ⅰ-02 인공지능이란</h3>
@@ -2201,6 +2342,19 @@ while open_list:
     <div class="term"><b>맨해튼 거리</b><em class="ez">옆으로 몇 칸 + 위아래로 몇 칸. 벽은 없는 셈 치고 대충 세어 보는 거리.</em><span>가로로 몇 칸 + 세로로 몇 칸. 벽을 무시하고 대충 재는 거리</span>
       <i>격자 문제에서 h를 구하는 가장 흔한 방법</i></div>
     <div class="term"><b>OPEN / CLOSED 리스트</b><em class="ez">「가 볼 곳 목록」과 「이미 가 본 곳 목록」. 두 번 가지 않으려고 나눠 적는다.</em><span>확장은 됐지만 아직 탐색하지 않은 노드 / 탐색이 끝난 노드</span></div>
+    <div class="term"><b>언덕 등반 탐색</b><em class="ez">안개 낀 산에서 «지금 발밑보다 높은 쪽»으로만 한 걸음씩 오르는 것. 지도는 안 보고 발밑만 봅니다.</em><span>목표 노드를 <b>언덕의 꼭대기</b>에 비유하고, 각 노드에서 꼭대기에 가장 빨리 닿을 수 있는 다음 노드를 고르는 방법. 깊이 우선 탐색과 비슷하게 <b>가장 유망한 자식 노드 하나</b>만 골라 내려간다</span>
+      <i>최상 우선 탐색과 다른 점 — 언덕 등반은 <b>바로 지금 자리의 자식만</b> 보고, 최상 우선은 <b>지금까지 나온 모든 후보(OPEN)</b> 중에서 고른다</i></div>
+    <div class="term"><b>국부 최대 (지역 최대)</b><em class="ez">작은 언덕 꼭대기에 올라서서 «여기가 제일 높네» 하고 멈추는 것. 사실 저 너머에 더 높은 산이 있어요.</em><span>주변보다는 높지만 <b>진짜 꼭대기는 아닌 자리</b>. 언덕 등반은 여기에 올라서면 더 높은 자식이 없어 <b>멈춰 버린다</b></span>
+      <i>개선 기법 = <b>최상 우선 탐색</b>. 지금 자리를 버리고 <b>전체 후보 중</b> 가장 좋은 곳으로 건너뛴다</i></div>
+    <div class="term"><b>고원 (평지)</b><em class="ez">평평한 운동장 한가운데. 어디로 가도 높이가 똑같아서 방향을 못 정합니다.</em><span>이웃 노드의 평가 함숫값이 <b>모두 같아</b> 어느 쪽으로 가야 할지 알 수 없는 구간</span></div>
+    <div class="term"><b>균일 비용 탐색</b><em class="ez">«남은 길»은 안 보고 «지금까지 온 거리»만 봅니다. A* 에서 h 를 뺀 것이라고 보면 돼요.</em><span>지금까지 <b>실제로 온 거리 g(n)</b> 가 가장 작은 노드부터 넓혀 가는 맹목적 탐색</span>
+      <i>A* 의 f = g + h 에서 <b>h = 0</b> 인 경우가 균일 비용 탐색이다</i></div>
+    <div class="term"><b>게임 트리</b><em class="ez">틱택토에서 «내가 여기 두면 → 상대는 저기 두겠지 → 그럼 나는…» 을 끝까지 그려 본 그림.</em><span>두 사람이 번갈아 두는 게임에서 <b>나올 수 있는 모든 판</b>을 가지처럼 펼친 트리. 한 층은 내 차례, 다음 층은 상대 차례가 된다</span></div>
+    <div class="term"><b>Max 노드 / Min 노드</b><em class="ez">나는 나한테 제일 좋은 수를, 상대는 나한테 제일 나쁜 수를 고른다고 보는 겁니다.</em><span>내 차례 = <b>Max 노드(△)</b>, 값이 <b>가장 큰</b> 자식을 고른다 · 상대 차례 = <b>Min 노드(▽)</b>, 값이 <b>가장 작은</b> 자식을 고른다</span></div>
+    <div class="term"><b>minimax 기법</b><em class="ez">맨 아래 점수부터 위로 접어 올립니다. 내 차례 층은 큰 값, 상대 차례 층은 작은 값을 남겨요.</em><span>단말 노드의 평가 함숫값을 <b>아래에서 위로</b> 올리며, Max 노드에서는 최댓값을 Min 노드에서는 최솟값을 취해 뿌리의 값을 정하는 게임 탐색 기법</span>
+      <i>「상대도 최선을 둔다」고 가정하는 것이 핵심</i></div>
+    <div class="term"><b>알파베타 가지치기</b><em class="ez">«어차피 이쪽은 안 고를 건데 더 볼 필요 있나?» 하고 건너뛰는 것. 답은 minimax 와 똑같고 보는 개수만 줄어듭니다.</em><span><b>알파값(α)</b> = Max 노드가 지금까지 확보한 가장 큰 값, <b>베타값(β)</b> = Min 노드가 지금까지 확보한 가장 작은 값. <b>α ≥ β</b> 가 되면 남은 가지는 결과를 바꿀 수 없으므로 <b>보지 않고 잘라 낸다</b></span>
+      <i>minimax 와 <b>결과는 항상 같다</b>. 달라지는 것은 «몇 개를 들여다봤느냐» 뿐</i></div>
     <div class="term"><b>지능적 탐색이 필요한 문제</b><em class="ez">답이 있기는 한데 경우의 수가 너무 많아서 하나하나 다 해 볼 수는 없는 문제.</em><span>① 문제가 복잡하다 ② 해결할 수 있는 방법이 있다 ③ 가능한 해의 수가 많다</span>
       <i>경로 발견 문제(길 찾기·미로·8-퍼즐)와 게임 문제(틱택토·바둑·체스)</i></div>
   </div>
@@ -2443,6 +2597,44 @@ while open_list:
     });
     s+='</svg>';
     return '<figure>'+s+'<figcaption>'+label+'</figcaption></figure>';
+  }
+
+  /* 학습지 5번 게임 트리. st.val 에 값이 있으면 노드 안에 적고,
+     st.cut 에 든 단말은 흐리게, st.now 는 강조한다. */
+  var GT = {
+    A:{x:250,y:22,max:1,kids:['B','C']},
+    B:{x:150,y:82,max:0,kids:['D','E']},  C:{x:350,y:82,max:0,kids:['F','G']},
+    D:{x:100,y:142,max:1,kids:['l0','l1']}, E:{x:200,y:142,max:1,kids:['l2','l3']},
+    F:{x:300,y:142,max:1,kids:['l4','l5']}, G:{x:400,y:142,max:1,kids:['l6','l7']},
+    l0:{x:74,y:200,v:5},  l1:{x:126,y:200,v:2},  l2:{x:174,y:200,v:12}, l3:{x:226,y:200,v:6},
+    l4:{x:274,y:200,v:3}, l5:{x:326,y:200,v:1},  l6:{x:374,y:200,v:9},  l7:{x:426,y:200,v:4}
+  };
+  function gtree(st){
+    st = st || {};
+    var val = st.val || {}, cut = st.cut || [], now = st.now;
+    var s = '<svg viewBox="0 0 500 222" class="gtsvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="게임 트리">';
+    Object.keys(GT).forEach(function(k){
+      (GT[k].kids || []).forEach(function(c){
+        s += '<line ' + C + '="dg" x1="' + GT[k].x + '" y1="' + (GT[k].y + 11) +
+             '" x2="' + GT[c].x + '" y2="' + (GT[c].y - 10) + '"/>';
+      });
+    });
+    Object.keys(GT).forEach(function(k){
+      var g = GT[k], off = (cut.indexOf(k) >= 0), hot = (k === now);
+      var cls = 'gn' + (off ? ' off' : '') + (hot ? ' hot' : '');
+      if(g.v === undefined){
+        var p = g.max ? (g.x - 15) + ',' + (g.y + 11) + ' ' + (g.x + 15) + ',' + (g.y + 11) + ' ' + g.x + ',' + (g.y - 11)
+                      : (g.x - 15) + ',' + (g.y - 11) + ' ' + (g.x + 15) + ',' + (g.y - 11) + ' ' + g.x + ',' + (g.y + 11);
+        s += '<polygon points="' + p + '" ' + C + '="' + cls + '"/>';
+        s += '<text ' + C + '="gl" x="' + g.x + '" y="' + (g.y + (g.max ? 9 : -1)) + '">' + k + '</text>';
+        if(val[k] !== undefined)
+          s += '<text ' + C + '="gv" x="' + (g.x + 21) + '" y="' + (g.y + 4) + '">' + val[k] + '</text>';
+      }else{
+        s += '<circle cx="' + g.x + '" cy="' + g.y + '" r="12" ' + C + '="' + cls + '"/>';
+        s += '<text ' + C + '="gl" x="' + g.x + '" y="' + (g.y + 4) + '">' + g.v + '</text>';
+      }
+    });
+    return s + '</svg>';
   }
 
   function puzzle(rows, hit){
@@ -2775,6 +2967,36 @@ while open_list:
 '<div class="ezl"><b>평가 함수</b>는 «여기가 얼마나 좋은 자리인가»를 점수로 매겨 주는 계산식입니다.<br><b>OPEN</b>은 «가 볼 곳 목록», <b>CLOSED</b>는 «이미 가 본 곳 목록» 이라고 외우면 쉬워요.</div>'+
     '<div class="note"><b>8-퍼즐에서는</b> 평가 함숫값 = <b>목표 상태와 일치하는 칸의 수</b>. 값이 클수록 우선순위가 높습니다.</div>',
 
+    '<p class="kicker">Ⅰ-04 · 정보 이용 탐색</p><h4>언덕 등반 탐색</h4>'+
+    '<div class="def"><b>언덕 등반 탐색</b>'+
+    '목표를 <b>언덕의 꼭대기</b>라고 생각하고, 지금 자리에서 갈 수 있는 곳 중 '+
+    '<b>꼭대기에 가장 빨리 닿을 것 같은 곳 하나</b>만 골라 올라갑니다.</div>'+
+    '<div class="ezl">안개 낀 산에서 지도 없이 오르는 것과 같아요. '+
+    '<b>발밑만 보고 «지금보다 높은 쪽»으로</b> 한 걸음씩 갑니다.</div>'+
+    '<div class="four">'+
+    '<div><b>깊이 우선과 닮은 점</b><span>고른 길로 <b>쭉 내려간다</b>. 후보를 모아 두지 않는다</span></div>'+
+    '<div><b>다른 점</b><span>아무 데나 가지 않고 <b>평가 함숫값이 가장 좋은 자식</b>을 고른다</span></div>'+
+    '</div>',
+
+    '<p class="kicker">Ⅰ-04 · 정보 이용 탐색</p><h4>언덕 등반의 함정 · 국부 최대</h4>'+
+    '<figure><div style="display:flex; gap:20px; justify-content:center; align-items:flex-end; flex-wrap:wrap">'+
+    '<div>'+puzzle(["2","8","3","1","","4","7","6","5"])+
+    '<div style="font-size:.8125rem; color:var(--muted); margin-top:4px">지금 자리 · 평가값 <b>5</b></div></div>'+
+    '<div style="font-size:1.5rem; color:var(--muted)">→</div>'+
+    '<div>'+puzzle(["2","8","3","","1","4","7","6","5"])+
+    '<div style="font-size:.8125rem; color:var(--muted); margin-top:4px">5</div></div>'+
+    '<div>'+puzzle(["2","","3","1","8","4","7","6","5"])+
+    '<div style="font-size:.8125rem; color:var(--muted); margin-top:4px">5</div></div>'+
+    '<div>'+puzzle(["2","8","3","1","4","","7","6","5"])+
+    '<div style="font-size:.8125rem; color:var(--muted); margin-top:4px">4</div></div>'+
+    '<div>'+puzzle(["2","8","3","1","6","4","7","","5"])+
+    '<div style="font-size:.8125rem; color:var(--muted); margin-top:4px">4</div></div>'+
+    '</div><figcaption>자식 넷 중 <b>지금(5)보다 높은 것이 하나도 없다</b></figcaption></figure>'+
+    '<div class="def"><b>국부 최대 (지역 최대)</b>'+
+    '주변보다는 높지만 <b>진짜 꼭대기는 아닌 자리</b>. 언덕 등반은 여기서 <b>멈춰 버립니다.</b></div>'+
+    '<div class="note"><b>어떻게 고치나</b> 지금 자리를 버리고, '+
+    '<b>지금까지 나온 후보 전체(OPEN)</b> 중 가장 좋은 곳으로 건너뜁니다 — 그것이 <b>최상 우선 탐색</b>입니다.</div>',
+
     '<p class="kicker">Ⅰ-04 · 정보 이용 탐색</p><h4>A* 알고리즘</h4>'+
     '<p class="big">f(n) = g(n) + h(n)</p>'+
     '<div class="four">'+
@@ -2835,6 +3057,41 @@ while open_list:
     '방문 노드 수가 <b>적을수록</b> 좋은 알고리즘입니다.</div>'+
     '<div class="ask"><b>예상해 보기</b> 어느 쪽이 노드를 더 적게 방문할까요? 왜 그럴까요?<br>'+
     '위 <b>탐색 시뮬레이터</b>에서 한 걸음씩 눌러 세어 볼 수 있습니다.</div>',
+
+    '<p class="kicker">Ⅰ-05 · 게임</p><h4>게임도 탐색이다 · 게임 트리</h4>'+
+    '<figure>'+gtree({})+'<figcaption>△ 내 차례(Max) · ▽ 상대 차례(Min) · ○ 평가 함숫값</figcaption></figure>'+
+    '<div class="ezl">«내가 여기 두면 → 상대는 저기 두겠지 → 그럼 나는…» 을 '+
+    '끝까지 그려 본 것이 <b>게임 트리</b>입니다.</div>'+
+    '<div class="four">'+
+    '<div><b>△ Max 노드</b><span><b>내 차례.</b> 나에게 가장 <b>좋은(큰)</b> 값을 고른다</span></div>'+
+    '<div><b>▽ Min 노드</b><span><b>상대 차례.</b> 나에게 가장 <b>나쁜(작은)</b> 값을 고른다</span></div>'+
+    '</div>',
+
+    '<p class="kicker">Ⅰ-05 · 게임</p><h4>minimax · 아래에서 위로 접어 올리기</h4>'+
+    '<div class="def"><b>minimax 기법</b>'+
+    '맨 아래 점수부터 <b>위로 올려 접습니다.</b> Max 층에서는 <b>가장 큰 값</b>을, '+
+    'Min 층에서는 <b>가장 작은 값</b>을 남깁니다.</div>'+
+    '<div class="steps3">'+
+    '<div><b>① 아래 층 (△ Max)</b><span>D=max(5,2)=<b>5</b> · E=max(12,6)=<b>12</b><br>'+
+    'F=max(3,1)=<b>3</b> · G=max(9,4)=<b>9</b></span></div>'+
+    '<div><b>② 가운데 층 (▽ Min)</b><span>B=min(5,12)=<b>5</b><br>C=min(3,9)=<b>3</b></span></div>'+
+    '<div><b>③ 뿌리 (△ Max)</b><span>A=max(5,3)=<b>5</b></span></div>'+
+    '</div>'+
+    '<div class="ezl">「상대도 최선을 둔다」고 <b>가정</b>하는 것이 핵심입니다. '+
+    '상대가 실수하기를 바라지 않아요.</div>',
+
+    '<p class="kicker">Ⅰ-05 · 게임</p><h4>알파베타 가지치기 · 안 봐도 되는 가지</h4>'+
+    '<div class="four">'+
+    '<div><b>알파값 α</b><span><b>Max</b> 가 지금까지 확보한 <b>가장 큰</b> 값<br>'+
+    '<i>«적어도 이만큼은 받는다»</i></span></div>'+
+    '<div><b>베타값 β</b><span><b>Min</b> 이 지금까지 확보한 <b>가장 작은</b> 값<br>'+
+    '<i>«많아야 이만큼만 준다»</i></span></div>'+
+    '</div>'+
+    '<div class="def"><b>자르는 규칙</b>'+
+    '<b>α ≥ β</b> 가 되는 순간, 남은 가지는 <b>결과를 바꿀 수 없습니다.</b> 그래서 보지 않고 잘라 냅니다.</div>'+
+    '<div class="ezl">답은 minimax 와 <b>언제나 똑같습니다.</b> 달라지는 건 «몇 개를 들여다봤느냐» 뿐이에요.</div>'+
+    '<div class="ask"><b>여기서 하기</b> 아래 <b>수업 활동 → ⑫ 탐색 학습지 함께 풀기</b> 에서 '+
+    '한 칸씩 눌러 가며 잘리는 장면을 볼 수 있습니다.</div>',
 
     '<p class="kicker">Ⅰ-05 · 알고리즘</p><h4>코드는 «순서를 적는 일»</h4>'+
     '<div class="g2">'+
@@ -5952,6 +6209,391 @@ while open_list:
     $('exRe').addEventListener('click', function(){ at = 0; ans = []; draw(); });
     draw();
   })();
+
+  /* ══ ⑫ 탐색 학습지 함께 풀기 ═══════════════════════════ */
+  if(document.getElementById('ws1')){
+    var WS = { a1:['','',''], a2:['',''], a3:['','',''], a4:['',''], a5:['','','',''] };
+    var $w = function(id){ return document.getElementById(id); };
+    var esc = function(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); };
+
+    /* ── 1번 : 이름 맞히기 ── */
+    var W1 = [
+      { k:'(가)', t:'출발 노드에서 특정 노드까지의 <b>경로 비용</b>과 특정 노드에서 목표 노드까지의 ' +
+             '<b>예측 경로</b>를 합산한 평가함수로 최적경로를 탐색한다', a:'A* 알고리즘' },
+      { k:'(나)', t:'목표 노드를 <b>언덕의 꼭대기</b>에 비유하고, 각 노드에서 꼭대기에 가장 빨리 도달할 수 있는 ' +
+             '다음 노드를 선택한다. 깊이 우선 탐색과 비슷하게 가장 유망한 <b>자녀 노드</b>를 고른다', a:'언덕 등반 탐색' },
+      { k:'(다)', t:'깊이 우선 탐색에서 <b>국부 최대</b>에 빠지는 단점을 해결하기 위해, 각 상태마다 ' +
+             '가장 유망한 노드만을 확장하여 탐색 범위를 줄인다', a:'최상 우선 탐색' }
+    ];
+    var W1OPT = ['A* 알고리즘','언덕 등반 탐색','최상 우선 탐색','너비 우선 탐색'];
+    function ws1Draw(){
+      $w('ws1').innerHTML = W1.map(function(q, i){
+        return '<div class="def" style="margin:10px 0"><b>' + q.k + '</b>' + q.t +
+          '<div class="mopts" style="margin-top:10px">' + W1OPT.map(function(o){
+            return '<button type="button" data-i="' + i + '" data-v="' + o + '"' +
+                   (WS.a1[i] === o ? ' aria-pressed="true"' : '') + '>' + o + '</button>'; }).join('') +
+          '</div></div>';
+      }).join('');
+    }
+    $w('ws1').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-v]'); if(!b) return;
+      WS.a1[+b.getAttribute('data-i')] = b.getAttribute('data-v'); ws1Draw();
+    });
+    $w('ws1Chk').addEventListener('click', function(){
+      var ok = W1.filter(function(q, i){ return WS.a1[i] === q.a; }).length;
+      $w('ws1Ans').hidden = false;
+      $w('ws1Ans').innerHTML = '<b>' + ok + ' / 3 맞았습니다.</b><br>' +
+        W1.map(function(q, i){
+          return q.k + ' <b>' + q.a + '</b>' + (WS.a1[i] === q.a ? ' ✔' : ' ✘ (내 답 : ' + (WS.a1[i] || '고르지 않음') + ')'); }).join('<br>') +
+        '<br><br><b>헷갈리는 곳</b> — (나) 언덕 등반은 <b>지금 자리의 자식만</b> 보고, ' +
+        '(다) 최상 우선은 <b>지금까지 나온 후보 전체</b> 중에서 고릅니다.';
+    });
+    $w('ws1Re').addEventListener('click', function(){ WS.a1 = ['','','']; $w('ws1Ans').hidden = true; ws1Draw(); });
+    ws1Draw();
+
+    /* ── 2번 : 국부 최대 ── */
+    function ws2Fig(){
+      var kid = [[['2','8','3','','1','4','7','6','5'],5],[['2','','3','1','8','4','7','6','5'],5],
+                 [['2','8','3','1','4','','7','6','5'],4],[['2','8','3','1','6','4','7','','5'],4]];
+      var h = '<figure><div style="display:flex; gap:16px; justify-content:center; align-items:flex-end; flex-wrap:wrap">';
+      h += '<div>' + puzzle(['2','8','3','1','','4','7','6','5']) +
+           '<div style="font-size:.8125rem;color:var(--muted);margin-top:4px">지금 · <b>5</b></div></div>';
+      h += '<div style="font-size:1.4rem;color:var(--muted);align-self:center">→</div>';
+      kid.forEach(function(k){
+        h += '<div>' + puzzle(k[0]) + '<div style="font-size:.8125rem;color:var(--muted);margin-top:4px">' +
+             k[1] + '</div></div>';
+      });
+      return h + '</div><figcaption>자식 넷 중 <b>5를 넘는 것이 없다</b></figcaption></figure>';
+    }
+    $w('ws2Fig').innerHTML = ws2Fig();
+    var W2 = [
+      { q:'여기서 생긴 문제점을 무엇이라고 부르나요?', o:['국부 최대','백트래킹','상태 공간','맨해튼 거리'], a:'국부 최대' },
+      { q:'이 문제점을 개선한 대표적인 기법은?', o:['최상 우선 탐색','깊이 우선 탐색','너비 우선 탐색','균일 비용 탐색'], a:'최상 우선 탐색' }
+    ];
+    function ws2Draw(){
+      $w('ws2').innerHTML = W2.map(function(q, i){
+        return '<div class="def" style="margin:10px 0"><b>' + (i + 1) + ')</b>' + q.q +
+          '<div class="mopts" style="margin-top:10px">' + q.o.map(function(o){
+            return '<button type="button" data-i="' + i + '" data-v="' + o + '"' +
+                   (WS.a2[i] === o ? ' aria-pressed="true"' : '') + '>' + o + '</button>'; }).join('') +
+          '</div></div>';
+      }).join('');
+    }
+    $w('ws2').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-v]'); if(!b) return;
+      WS.a2[+b.getAttribute('data-i')] = b.getAttribute('data-v'); ws2Draw();
+    });
+    $w('ws2Chk').addEventListener('click', function(){
+      var ok = W2.filter(function(q, i){ return WS.a2[i] === q.a; }).length;
+      $w('ws2Ans').hidden = false;
+      $w('ws2Ans').innerHTML = '<b>' + ok + ' / 2 맞았습니다.</b><br>' +
+        '1) <b>국부 최대</b> — 주변보다는 높지만 진짜 꼭대기가 아닌 자리. 더 높은 자식이 없어 멈춥니다.<br>' +
+        '2) <b>최상 우선 탐색</b> — 지금 자리를 버리고 <b>후보 전체(OPEN)</b> 중 가장 좋은 곳으로 건너뜁니다.<br><br>' +
+        '<b>덧붙임</b> 자식 둘의 값이 지금과 <b>똑같이 5</b>인 것처럼 이웃이 모두 같은 값이면 <b>고원(평지)</b>이라고 부릅니다.';
+    });
+    $w('ws2Re').addEventListener('click', function(){ WS.a2 = ['','']; $w('ws2Ans').hidden = true; ws2Draw(); });
+    ws2Draw();
+
+    /* ── 3번 : 언덕 등반으로 8-퍼즐 ── */
+    var W3S = ['1','5','2','4','','3','7','8','6'], W3G = ['1','2','3','4','5','6','7','8',''];
+    function w3key(a){ return a.map(function(x){ return x || '_'; }).join(''); }
+    function w3score(a){ var n = 0; for(var i = 0; i < 9; i++) if(a[i] && a[i] === W3G[i]) n++; return n; }
+    function w3kids(a){
+      var z = a.indexOf(''), r = Math.floor(z / 3), c = z % 3, out = [];
+      [[-1,0],[1,0],[0,-1],[0,1]].forEach(function(d){
+        var nr = r + d[0], nc = c + d[1];
+        if(nr < 0 || nr > 2 || nc < 0 || nc > 2) return;
+        var k = nr * 3 + nc, t = a.slice(); t[z] = t[k]; t[k] = '';
+        out.push(t);
+      });
+      return out;
+    }
+    var w3, w3seen, w3eval, w3done;
+    function w3reset(){
+      w3 = [W3S.slice()]; w3seen = { }; w3seen[w3key(W3S)] = 1; w3eval = 1; w3done = false;
+      w3draw();
+    }
+    function w3step(){
+      if(w3done) return;
+      var cur = w3[w3.length - 1];
+      if(w3key(cur) === w3key(W3G)){ w3done = true; w3draw(); return; }
+      var ch = w3kids(cur).filter(function(k){ return !w3seen[w3key(k)]; });
+      w3eval += ch.length;
+      ch.forEach(function(k){ w3seen[w3key(k)] = 1; });
+      if(!ch.length){ w3done = true; w3draw(); return; }
+      var best = ch[0];
+      ch.forEach(function(k){ if(w3score(k) > w3score(best)) best = k; });
+      w3.push(best);
+      if(w3key(best) === w3key(W3G)) w3done = true;
+      w3draw();
+    }
+    function w3draw(){
+      var h = '<figure><div style="display:flex; gap:14px; justify-content:center; align-items:flex-end; flex-wrap:wrap">';
+      w3.forEach(function(a, i){
+        h += '<div>' + puzzle(a, w3key(a) === w3key(W3G) ? [0,1,2,3,4,5,6,7,8] : null) +
+             '<div style="font-size:.8125rem;color:var(--muted);margin-top:4px">' +
+             (i === 0 ? '시작' : i + '번째') + ' · 평가값 <b>' + w3score(a) + '</b></div></div>';
+        if(i < w3.length - 1) h += '<div style="font-size:1.3rem;color:var(--muted);align-self:center">→</div>';
+      });
+      h += '</div><figcaption>목표 : ' + W3G.slice(0,3).join(' ') + ' / ' + W3G.slice(3,6).join(' ') +
+           ' / ' + W3G.slice(6).map(function(x){ return x || '_'; }).join(' ') + '</figcaption></figure>';
+      $w('ws3Fig').innerHTML = h;
+      $w('ws3Pill').textContent = (w3.length - 1) + ' 걸음';
+      $w('ws3Log').innerHTML = w3done
+        ? '<div class="note"><b>도착!</b> 옮긴 횟수 <b>' + (w3.length - 1) + '</b>번 · ' +
+          '평가한 퍼즐은 모두 <b>' + w3eval + '</b>개입니다.</div>' : '';
+      $w('ws3Step').disabled = w3done;
+      $w('ws3All').disabled = w3done;
+    }
+    function ws3Draw(){
+      var lab = ['1) 세 번째로 선택된 퍼즐의 평가함수값', '2) 시작에서 목표까지 총 이동 거리(횟수)',
+                 '3) 평가된 8-퍼즐의 총 개수'];
+      $w('ws3').innerHTML = '<div class="wsgrid">' + lab.map(function(t, i){
+        return '<label class="wsline"><b>' + t + '</b>' +
+               '<input type="text" inputmode="numeric" data-i="' + i + '" value="' + esc(WS.a3[i]) + '" placeholder="숫자"></label>';
+      }).join('') + '</div>';
+    }
+    $w('ws3').addEventListener('input', function(e){
+      if(e.target.tagName === 'INPUT') WS.a3[+e.target.getAttribute('data-i')] = e.target.value.trim();
+    });
+    $w('ws3Step').addEventListener('click', w3step);
+    $w('ws3All').addEventListener('click', function(){ for(var i = 0; i < 30 && !w3done; i++) w3step(); });
+    $w('ws3Re').addEventListener('click', function(){ w3reset(); $w('ws3Ans').hidden = true; });
+    $w('ws3Chk').addEventListener('click', function(){
+      var real = ['7','4','10'];
+      var ins = $w('ws3').querySelectorAll('input');
+      var ok = 0;
+      [].slice.call(ins).forEach(function(el, i){
+        var good = el.value.trim().replace(/[^0-9]/g,'') === real[i];
+        el.className = good ? 'good' : 'bad'; if(good) ok++;
+      });
+      $w('ws3Ans').hidden = false;
+      $w('ws3Ans').innerHTML = '<b>' + ok + ' / 3 맞았습니다.</b><br>' +
+        '1) 평가값 <b>7</b> — 4 → 5 → 6 → <b>7</b> → 8 로 올라갑니다 (시작 판은 세지 않습니다).<br>' +
+        '2) <b>4</b>번 — 5↑, 2→, 3↓, 6↓ 네 번 옮기면 목표에 닿습니다.<br>' +
+        '3) <b>10</b>개 — 시작 1 + 4 + 2 + 1 + 2 = 10. 이미 본 판은 다시 세지 않습니다.<br><br>' +
+        '<b>여기서는 국부 최대에 안 걸립니다.</b> 평가값이 4→5→6→7→8 로 계속 올라가지요? ' +
+        '2번 문제처럼 <b>올라갈 곳이 없을 때</b>만 멈춥니다.';
+    });
+    ws3Draw(); w3reset();
+
+    /* ── 4번 : A* 도시 길찾기 ── */
+    var CT = {
+      a:{x:44,y:118,h:9},  b:{x:150,y:48,h:8},  c:{x:150,y:186,h:7},
+      e:{x:300,y:48,h:3},  d:{x:300,y:186,h:4}, g:{x:436,y:74,h:0}, f:{x:436,y:162,h:2}
+    };
+    var CE = [['a','b',5],['a','c',4],['b','c',5],['b','e',6],['b','d',7],
+              ['c','e',8],['c','d',3],['e','g',3],['d','f',3],['f','g',2]];
+    var CADJ = {};
+    CE.forEach(function(x){ (CADJ[x[0]] = CADJ[x[0]] || {})[x[1]] = x[2];
+                            (CADJ[x[1]] = CADJ[x[1]] || {})[x[0]] = x[2]; });
+    function ws4Svg(st){
+      st = st || { open:[], closed:[], cur:null, path:[] };
+      var h = '<svg viewBox="0 0 480 232" class="citysvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="도시 도로망">';
+      CE.forEach(function(x){
+        var A = CT[x[0]], B = CT[x[1]];
+        var on = st.path && st.path.indexOf(x[0]) >= 0 && st.path.indexOf(x[1]) >= 0 &&
+                 Math.abs(st.path.indexOf(x[0]) - st.path.indexOf(x[1])) === 1;
+        h += '<line ' + C + '="ce' + (on ? ' hit' : '') + '" x1="' + A.x + '" y1="' + A.y +
+             '" x2="' + B.x + '" y2="' + B.y + '"/>';
+        h += '<text ' + C + '="cw" x="' + ((A.x + B.x) / 2) + '" y="' + ((A.y + B.y) / 2 - 4) + '">' + x[2] + '</text>';
+      });
+      Object.keys(CT).forEach(function(k){
+        var t = CT[k], role = st.closed.indexOf(k) >= 0 ? 'seen' : (st.open.indexOf(k) >= 0 ? 'seen' : '');
+        if(k === st.cur) role = 'cur';
+        h += '<circle cx="' + t.x + '" cy="' + t.y + '" r="17" ' + C + '="cn ' + role + '"/>';
+        h += '<text ' + C + '="ct" x="' + t.x + '" y="' + (t.y + 5) + '">' + k + '</text>';
+        h += '<text ' + C + '="ch" x="' + t.x + '" y="' + (t.y + 30) + '">h ' + t.h + '</text>';
+      });
+      return h + '</svg>';
+    }
+    function ws4Steps(){
+      var out = [], g = { a:0 }, from = {}, open = ['a'], closed = [], rows = [];
+      out.push({ open:open.slice(), closed:[], rows:[], cur:null, path:[],
+                 say:'출발 도시 <b>a</b>. 갈 수 있는 곳마다 <b>f = g + h</b> 를 계산해 <b>가장 작은 곳</b>으로 갑니다.' });
+      while(open.length){
+        var best = open[0];
+        open.forEach(function(x){ if(g[x] + CT[x].h < g[best] + CT[best].h) best = x; });
+        open.splice(open.indexOf(best), 1); closed.push(best);
+        var pth = [best], q = best, guard = 0;
+        while(from[q] && guard++ < 20){ q = from[q]; pth.unshift(q); }
+        if(best === 'g'){
+          out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, path:pth, done:true,
+            say:'<b>g</b> 에 도착! 가장 짧은 길은 <b>' + pth.join(' → ') + '</b> · 총 비용 <b>' + g[best] + '</b> 입니다.' });
+          break;
+        }
+        var add = [];
+        Object.keys(CADJ[best]).forEach(function(nb){
+          if(closed.indexOf(nb) >= 0) return;
+          var ng = g[best] + CADJ[best][nb];
+          if(g[nb] === undefined || ng < g[nb]){
+            g[nb] = ng; from[nb] = best;
+            if(open.indexOf(nb) < 0) open.push(nb);
+            add.push({ from:best, to:nb, g:ng, h:CT[nb].h, f:ng + CT[nb].h });
+          }
+        });
+        add.sort(function(x, y){ return x.f - y.f; });
+        rows = rows.concat(add);
+        var pick = add.length ? add[0] : null;
+        out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, path:pth,
+          say:'<b>' + best + '</b> 를 꺼냈습니다. 여기서 갈 수 있는 곳의 f 를 계산했어요.' +
+              (pick ? ' 그중 <b>' + pick.to + '</b> 의 f = <b>' + pick.f + '</b> 가 가장 작습니다.' : '') });
+      }
+      return out;
+    }
+    var W4 = ws4Steps(), w4at = -1;
+    function w4draw(){
+      var st = w4at >= 0 ? W4[w4at] : { open:[], closed:[], cur:null, path:[], rows:[],
+        say:'«한 걸음 더»를 눌러 시작하세요.' };
+      $w('ws4Fig').innerHTML = ws4Svg(st);
+      $w('ws4Say').innerHTML = st.say;
+      $w('ws4Pill').textContent = Math.max(0, w4at) + ' 걸음';
+      if(st.rows && st.rows.length){
+        var mn = Math.min.apply(null, st.rows.map(function(r){ return r.f; }));
+        var h = '<div class="tw"><table class="wstab"><tr><th>출발</th><th>도착</th>' +
+                '<th>g<br>온 거리</th><th>h<br>남은 거리</th><th>f = g + h</th></tr>';
+        st.rows.forEach(function(r){
+          h += '<tr><td>' + r.from + '</td><td><b>' + r.to + '</b></td><td>' + r.g + '</td><td>' + r.h +
+               '</td><td class="' + (r.f === mn ? 'pick' : '') + '"><b>' + r.f + '</b></td></tr>';
+        });
+        $w('ws4Tab').innerHTML = h + '</table></div>';
+      } else $w('ws4Tab').innerHTML = '';
+      $w('ws4Step').disabled = (w4at >= W4.length - 1);
+      $w('ws4All').disabled = (w4at >= W4.length - 1);
+    }
+    function ws4Draw(){
+      var lab = ['1) A*가 찾은 최단 경로 (예 : a → b → g)', '2) 그 길의 총 비용'];
+      $w('ws4').innerHTML = '<div class="wsgrid">' + lab.map(function(t, i){
+        return '<label class="wsline"><b>' + t + '</b><input type="text" data-i="' + i +
+               '" value="' + esc(WS.a4[i]) + '" placeholder="' + (i ? '숫자' : 'a → … → g') + '"></label>';
+      }).join('') + '</div>';
+    }
+    $w('ws4').addEventListener('input', function(e){
+      if(e.target.tagName === 'INPUT') WS.a4[+e.target.getAttribute('data-i')] = e.target.value.trim();
+    });
+    $w('ws4Step').addEventListener('click', function(){ if(w4at < W4.length - 1){ w4at++; w4draw(); } });
+    $w('ws4All').addEventListener('click', function(){ w4at = W4.length - 1; w4draw(); });
+    $w('ws4Re').addEventListener('click', function(){ w4at = -1; w4draw(); $w('ws4Ans').hidden = true; });
+    $w('ws4Chk').addEventListener('click', function(){
+      var ins = $w('ws4').querySelectorAll('input');
+      var mine = (ins[0].value || '').replace(/[^a-gA-G]/g, '').toLowerCase();
+      var ok1 = (mine === 'acdfg'), ok2 = ((ins[1].value || '').replace(/[^0-9]/g,'') === '12');
+      ins[0].className = ok1 ? 'good' : 'bad'; ins[1].className = ok2 ? 'good' : 'bad';
+      $w('ws4Ans').hidden = false;
+      $w('ws4Ans').innerHTML = '<b>' + ((ok1 ? 1 : 0) + (ok2 ? 1 : 0)) + ' / 2 맞았습니다.</b><br>' +
+        '2) 최단 경로 <b>a → c → d → f → g</b><br>' +
+        '3) 총 비용 <b>12</b> (4 + 3 + 3 + 2)<br><br>' +
+        '<b>왜 b 로 안 갔을까?</b> a→b 는 5, a→c 는 4 입니다. ' +
+        'b 의 f = 5 + 8 = <b>13</b>, c 의 f = 4 + 7 = <b>11</b> 이라 c 를 먼저 꺼냈어요.<br>' +
+        '<b>1) 탐색 트리</b>는 위 그림에서 초록으로 표시된 길을 종이에 그대로 옮겨 그리면 됩니다.';
+    });
+    ws4Draw(); w4draw();
+
+    /* ── 5번 : minimax · 알파베타 ── */
+    function ws5Steps(){
+      var out = [], val = {}, cut = [], LEAF = { l0:5, l1:2, l2:12, l3:6, l4:3, l5:1, l6:9, l7:4 };
+      function snap(now, say){ out.push({ val:JSON.parse(JSON.stringify(val)), cut:cut.slice(), now:now, say:say }); }
+      snap(null, '맨 아래 <b>단말 노드</b>의 점수부터 <b>위로 접어 올립니다.</b> ' +
+                 '△는 큰 값, ▽는 작은 값을 남깁니다.');
+      function go(k, a, b){
+        if(LEAF[k] !== undefined){ return LEAF[k]; }
+        var mx = GT[k].max, v = mx ? -1e9 : 1e9, kids = GT[k].kids;
+        for(var i = 0; i < kids.length; i++){
+          var c = kids[i], cv = go(c, a, b);
+          if(LEAF[c] !== undefined) snap(c, '단말 <b>' + LEAF[c] + '</b> 을 봤습니다.');
+          v = mx ? Math.max(v, cv) : Math.min(v, cv);
+          if(mx) a = Math.max(a, v); else b = Math.min(b, v);
+          val[k] = v; snap(k, '<b>' + k + '</b> (' + (mx ? '△ Max' : '▽ Min') + ') 의 값은 지금 <b>' + v +
+            '</b> · α = ' + (a <= -1e8 ? '-∞' : a) + ' , β = ' + (b >= 1e8 ? '∞' : b));
+          if(a >= b){
+            var rest = kids.slice(i + 1), gone = [];
+            rest.forEach(function(r){ gone.push(r); (GT[r] && GT[r].kids || []).forEach(function(x){ gone.push(x); }); });
+            cut = cut.concat(gone);
+            snap(k, '<b>α ≥ β</b> ( ' + (a <= -1e8 ? '-∞' : a) + ' ≥ ' + (b >= 1e8 ? '∞' : b) +
+              ' ) 이므로 남은 가지는 <b>봐도 결과가 안 바뀝니다.</b> 잘라 냅니다.');
+            break;
+          }
+        }
+        return v;
+      }
+      var r = go('A', -1e9, 1e9);
+      snap('A', '끝! <b>A 의 값은 ' + r + '</b> 입니다. ' +
+                '흐려진 단말은 <b>보지 않아도 되는 노드</b>예요.');
+      return out;
+    }
+    var W5 = ws5Steps(), w5at = 0;
+    function w5draw(){
+      var st = W5[w5at];
+      $w('ws5Fig').innerHTML = '<figure>' + gtree(st) +
+        '<figcaption>△ Max(내 차례) · ▽ Min(상대 차례) · ○ 평가 함숫값</figcaption></figure>';
+      $w('ws5Say').innerHTML = st.say;
+      $w('ws5Pill').textContent = w5at + ' / ' + (W5.length - 1) + ' 걸음';
+      $w('ws5Step').disabled = (w5at >= W5.length - 1);
+      $w('ws5All').disabled = (w5at >= W5.length - 1);
+    }
+    function ws5Draw(){
+      var lab = ['1) minimax 로 구한 A 의 평가함수값', '2) 노드 C 의 베타(β)값',
+                 '3) 노드 C 의 알파(α)값', '4) 평가하지 않아도 되는 단말 노드 (예 : 1, 2, 3)'];
+      $w('ws5').innerHTML = '<div class="wsgrid">' + lab.map(function(t, i){
+        return '<label class="wsline"><b>' + t + '</b><input type="text" data-i="' + i +
+               '" value="' + esc(WS.a5[i]) + '" placeholder="' + (i === 3 ? '숫자를 쉼표로' : '숫자') + '"></label>';
+      }).join('') + '</div>';
+    }
+    $w('ws5').addEventListener('input', function(e){
+      if(e.target.tagName === 'INPUT') WS.a5[+e.target.getAttribute('data-i')] = e.target.value.trim();
+    });
+    $w('ws5Step').addEventListener('click', function(){ if(w5at < W5.length - 1){ w5at++; w5draw(); } });
+    $w('ws5All').addEventListener('click', function(){ w5at = W5.length - 1; w5draw(); });
+    $w('ws5Re').addEventListener('click', function(){ w5at = 0; w5draw(); $w('ws5Ans').hidden = true; });
+    $w('ws5Chk').addEventListener('click', function(){
+      var ins = $w('ws5').querySelectorAll('input');
+      var num = function(el){ return (el.value || '').replace(/[^0-9]/g, ''); };
+      var set = function(el){ return (el.value || '').match(/\d+/g) || []; };
+      var got = set(ins[3]).slice().sort().join(',');
+      var oks = [num(ins[0]) === '5', num(ins[1]) === '3', num(ins[2]) === '5', got === ['6','9','4'].sort().join(',')];
+      var ok = 0;
+      [].slice.call(ins).forEach(function(el, i){ el.className = oks[i] ? 'good' : 'bad'; if(oks[i]) ok++; });
+      $w('ws5Ans').hidden = false;
+      $w('ws5Ans').innerHTML = '<b>' + ok + ' / 4 맞았습니다.</b><br>' +
+        '1) <b>5</b> — D=max(5,2)=5, E=max(12,6)=12 → B=min(5,12)=<b>5</b> · ' +
+        'F=max(3,1)=3, G=max(9,4)=9 → C=min(3,9)=<b>3</b> · A=max(5,3)=<b>5</b><br>' +
+        '2) C 의 β = <b>3</b> — F 가 3 을 돌려주는 순간 C 의 β 가 3 이 됩니다.<br>' +
+        '3) C 의 α = <b>5</b> — B 에서 이미 5 를 확보했으므로 A 가 물려준 값입니다.<br>' +
+        '4) <b>6, 9, 4</b> — E 의 12 를 보는 순간 α(12) ≥ β(5) 라 <b>6</b> 은 볼 필요가 없고, ' +
+        'C 의 β(3) ≤ α(5) 라 <b>G 아래 9 와 4</b> 도 볼 필요가 없습니다.<br><br>' +
+        '<b>꼭 기억할 것</b> 잘라 내도 <b>A 의 값은 5 로 똑같습니다.</b> 답이 바뀌는 게 아니라 ' +
+        '<b>보는 개수만</b> 줄어듭니다.';
+    });
+    ws5Draw(); w5draw();
+
+    /* ── 제출 ── */
+    var wsCls = '';
+    clsPickWire('wsCls', function(v){ wsCls = v; });
+    function wsReport(){
+      var g3 = $w('ws3').querySelectorAll('input'), g4 = $w('ws4').querySelectorAll('input'),
+          g5 = $w('ws5').querySelectorAll('input');
+      return {
+        q1: WS.a1.join(' / '),
+        q2: WS.a2.join(' / '),
+        q3: [].slice.call(g3).map(function(x){ return x.value.trim(); }).join(' / '),
+        q4: [].slice.call(g4).map(function(x){ return x.value.trim(); }).join(' / '),
+        q5: [].slice.call(g5).map(function(x){ return x.value.trim(); }).join(' / ')
+      };
+    }
+    $w('wsSend').addEventListener('click', function(){
+      var btn = this, msg = $w('wsSendMsg'), r = wsReport();
+      if(!wsCls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+      if(!($w('wsGroup').value || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '이름을 적어 주세요'; return; }
+      postSheet({ key:SUBMIT_KEY, type:'worksheet', cls:wsCls, group:$w('wsGroup').value.trim(),
+        q1:r.q1, q2:r.q2, q3:r.q3, q4:r.q4, q5:r.q5 }, btn, msg, 5);
+    });
+    $w('wsCopy').addEventListener('click', function(){
+      var r = wsReport();
+      var t = '탐색 알고리즘 학습지 · ' + (wsCls || '분반 미기입') + ' · ' + ($w('wsGroup').value || '이름 미기입') + '\n' +
+        '1번 : ' + r.q1 + '\n2번 : ' + r.q2 + '\n3번 : ' + r.q3 + '\n4번 : ' + r.q4 + '\n5번 : ' + r.q5 + '\n';
+      tClip(t, this);
+    });
+  }
 
   render();
 })();
