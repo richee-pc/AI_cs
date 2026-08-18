@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Ⅰ-04·05 탐색 학습지</title>
+<style>
+@font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-Regular.ttf') format('truetype'); font-weight:400}
+@font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-Bold.ttf') format('truetype'); font-weight:700}
+@font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-ExtraBold.ttf') format('truetype'); font-weight:800}
+@page{size:A4; margin:10mm 11mm 12mm}
+*{box-sizing:border-box}
+html,body{margin:0; padding:0}
+body{font-family:'Nanum', sans-serif; color:#1B3358; font-size:12.4px; line-height:1.55; background:#fff}
+.page{width:190mm; min-height:273mm; margin:0 auto; page-break-after:always; position:relative; padding:0 2mm 8mm}
+.page:last-child{page-break-after:auto}
+
+/* 머리 */
+.head{display:flex; justify-content:space-between; align-items:flex-end; gap:12px;
+  border-bottom:3px solid #2F6FEC; padding:0 0 8px; margin:0 0 12px}
+.brand .k{font-size:10px; font-weight:800; letter-spacing:.08em; color:#2F6FEC; margin:0 0 2px}
+.brand h1{font-size:20px; font-weight:800; margin:0; letter-spacing:-.02em}
+.brand p{margin:3px 0 0; font-size:11px; color:#516C8C}
+.meta{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+.meta span{display:inline-flex; align-items:center; gap:6px; border:1.5px solid #BFD6F5;
+  border-radius:8px; padding:5px 8px; font-size:11px; color:#516C8C; background:#F4F8FF}
+.meta i{font-style:normal; border-bottom:1.2px dotted #8AA7CC; min-width:64px; height:14px}
+.chip{background:#2F6FEC; color:#fff; font-weight:800; font-size:10px; padding:3px 8px; border-radius:99px}
+
+/* 문제 상자 */
+.q{border:1.6px solid #D5E6F8; border-radius:12px; padding:10px 12px 12px; margin:0 0 10px; background:#fff}
+.q h2{font-size:13.5px; font-weight:800; margin:0 0 6px; color:#1B49B8; display:flex; align-items:center; gap:8px}
+.q h2 em{font-style:normal; background:#2F6FEC; color:#fff; font-size:10.5px; padding:2px 8px; border-radius:99px}
+.hint{background:#FFF6E8; border-left:4px solid #D48A1A; border-radius:0 8px 8px 0; padding:6px 10px; font-size:11.5px; color:#7A4A0A; margin:0 0 8px}
+.easy{background:#EAF3FF; border-left:4px solid #2F6FEC; border-radius:0 8px 8px 0; padding:6px 10px; font-size:11.5px; color:#1B49B8; margin:0 0 8px}
+.row{display:flex; gap:12px; align-items:flex-start}
+.col{flex:1; min-width:0}
+.line{border-bottom:1.2px dotted #8AA7CC; min-height:22px; margin:4px 0}
+.lines{margin:4px 0 0}
+.lines .line{margin:7px 0 0}
+.write{border:1.4px dashed #8FC5FB; border-radius:8px; min-height:36px; background:#F7FBFF; margin-top:6px; position:relative}
+.write.lg{min-height:58px}
+.fill{display:none; padding:7px 10px; color:#11734C; font-weight:700; font-size:12px}
+html.key .fill{display:block}
+html.key .write{background:#E7F8EF; border-style:solid; border-color:#8ED4B0}
+.small{font-size:11px; color:#516C8C}
+ol.plain{margin:4px 0 0; padding-left:18px}
+ol.plain li{margin:3px 0}
+
+/* 객관식 */
+.opts{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
+.opt{border:1.4px solid #C5DBF5; border-radius:8px; padding:4px 10px; font-size:11.5px; background:#F4F8FF}
+html.key .opt.ok{background:#DDF6EB; border-color:#11734C; font-weight:800; color:#11734C}
+
+/* 퍼즐 */
+.pz{border-collapse:collapse; margin:0 auto}
+.pz td{width:22px; height:22px; border:1.4px solid #1B3358; text-align:center; font-weight:800; font-size:12px; background:#F2D9A8; color:#5A3A0A}
+.pz td.e{background:#fff}
+.pzcap{text-align:center; font-size:10.5px; color:#516C8C; margin-top:3px}
+
+/* 스택·큐 상자 */
+.boxcol{display:flex; flex-direction:column-reverse; align-items:center; gap:3px; min-height:92px; width:86px;
+  border:2px solid #2F6FEC; border-radius:10px; padding:6px; background:#F4F8FF}
+.boxcol b{display:block; width:100%; text-align:center; background:#fff; border:1.3px solid #8FC5FB; border-radius:6px; padding:4px 0; font-size:12px}
+.boxcol b.top{background:#2F6FEC; color:#fff}
+.qline{display:flex; gap:6px; align-items:center; min-height:42px; border:2px solid #2F6FEC; border-radius:10px; padding:6px 8px; background:#F4F8FF}
+.qline b{min-width:36px; text-align:center; background:#fff; border:1.3px solid #8FC5FB; border-radius:6px; padding:6px 4px}
+.qline b.front{background:#2F6FEC; color:#fff}
+.lab{font-size:10px; font-weight:800; color:#2F6FEC; text-align:center; margin-top:4px}
+
+svg.tree{width:100%; height:auto; max-height:148px}
+.foot{position:absolute; left:2mm; right:2mm; bottom:2mm; display:flex; justify-content:space-between;
+  font-size:10px; color:#7A96B8}
+.check{display:flex; flex-wrap:wrap; gap:10px; font-size:11.5px; margin-top:6px}
+.check span{border:1.3px solid #C5DBF5; border-radius:8px; padding:4px 8px}
+
+/* 표 */
+table.grid{width:100%; border-collapse:collapse; font-size:11.5px}
+table.grid th, table.grid td{border:1.3px solid #C5DBF5; padding:5px 6px; text-align:center}
+table.grid th{background:#E9F3FF; color:#1B49B8; font-size:11px}
+table.grid td.h{height:26px}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.badge{display:inline-block; background:#FFF1DF; color:#9C5409; font-weight:800; font-size:10px; padding:1px 7px; border-radius:99px}
+</style>
+</head>
+<body>
+<!-- ════════ 1쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">인공지능 기초 · Ⅰ. 인공지능의 이해</p>
+      <h1>탐색 학습지 <span class="chip">Ⅰ-04 · Ⅰ-05</span></h1>
+      <p>배운 탐색을 손으로 직접 풀어 봅시다. 계산기·컴퓨터 없이, 연필만 있으면 됩니다.</p>
+    </div>
+    <div class="meta">
+      <span>분반 <i></i></span>
+      <span>번호 <i></i></span>
+      <span>이름 <i></i></span>
+    </div>
+  </header>
+
+  <article class="q">
+    <h2><em>1</em> 이름을 붙이면 절반은 끝</h2>
+    <p class="easy">쉽게 말하면 — 설명을 읽고, 알맞은 탐색 방법의 이름에 ○ 하세요. (각 1점, 5점)</p>
+    <ol class="plain">
+      <li>한 길로 끝까지 갔다가, 막히면 되돌아온다. <b>접시 더미(스택)</b>을 쓴다.
+        <div class="opts">
+          <span class="opt ok">깊이 우선 탐색</span><span class="opt">너비 우선 탐색</span>
+          <span class="opt">언덕 등반 탐색</span><span class="opt">A* 알고리즘</span>
+        </div></li>
+      <li>가까운 층을 다 본 뒤에 아래층으로 간다. <b>급식 줄(큐)</b>을 쓴다.
+        <div class="opts">
+          <span class="opt">깊이 우선 탐색</span><span class="opt ok">너비 우선 탐색</span>
+          <span class="opt">최상 우선 탐색</span><span class="opt">언덕 등반 탐색</span>
+        </div></li>
+      <li>지금 자리의 자식 중, 점수가 제일 좋은 <b>하나</b>만 골라 올라간다. 발밑만 본다.
+        <div class="opts">
+          <span class="opt">최상 우선 탐색</span><span class="opt ok">언덕 등반 탐색</span>
+          <span class="opt">너비 우선 탐색</span><span class="opt">A* 알고리즘</span>
+        </div></li>
+      <li>언덕 등반이 작은 언덕에서 멈추는 문제를 고치려고 나왔다. <b>OPEN 전체</b>에서 최고를 고른다.
+        <div class="opts">
+          <span class="opt">깊이 우선 탐색</span><span class="opt">너비 우선 탐색</span>
+          <span class="opt ok">최상 우선 탐색</span><span class="opt">minimax</span>
+        </div></li>
+      <li>지금까지 온 거리 <b>g</b> 와 앞으로 남을 거리 어림 <b>h</b> 를 더해서 고른다. f = g + h
+        <div class="opts">
+          <span class="opt">언덕 등반 탐색</span><span class="opt">최상 우선 탐색</span>
+          <span class="opt">너비 우선 탐색</span><span class="opt ok">A* 알고리즘</span>
+        </div></li>
+    </ol>
+  </article>
+
+  <article class="q">
+    <h2><em>2</em> 스택이냐, 큐냐</h2>
+    <p class="easy">쉽게 말하면 — 접시 더미는 <b>나중에 올린 것부터</b>, 급식 줄은 <b>먼저 온 사람부터</b>.</p>
+    <div class="two">
+      <div>
+        <p><b>① 스택</b> 빈 스택에 A 넣고(push), B 넣고, C 넣은 다음 <b>한 번 꺼냈습니다(pop).</b><br>
+          지금 맨 위(top)는? &nbsp; 맨 아래는?</p>
+        <div class="row" style="margin-top:8px; align-items:flex-end; gap:16px">
+          <div>
+            <div class="boxcol" aria-hidden="true">
+              <b>A</b><b>B</b><b class="top">C</b>
+            </div>
+            <div class="lab">C까지 넣은 뒤 (참고)</div>
+          </div>
+          <div style="font-size:22px; color:#8AA7CC; padding-bottom:28px">→</div>
+          <div>
+            <div class="boxcol">
+              <b>&nbsp;</b><b>&nbsp;</b><b class="top">&nbsp;</b>
+            </div>
+            <div class="lab">pop 한 뒤 · 직접 그리기</div>
+          </div>
+        </div>
+        <div class="write"><span class="fill">맨 위 B · 맨 아래 A &nbsp;(꺼낸 것: C)</span></div>
+      </div>
+      <div>
+        <p><b>② 큐</b> 빈 큐에 A, B, C 를 차례로 세운 다음 <b>한 명 내보냈습니다(dequeue).</b><br>
+          지금 맨 앞(front)은? &nbsp; 맨 뒤(rear)는?</p>
+        <div style="margin-top:10px">
+          <div class="qline"><b class="front">A</b><b>B</b><b>C</b></div>
+          <div class="lab">내보내기 직전 (참고) · 앞 →</div>
+          <div class="qline" style="margin-top:8px"><b class="front">&nbsp;</b><b>&nbsp;</b><b>&nbsp;</b></div>
+          <div class="lab">dequeue 한 뒤 · 직접 그리기</div>
+        </div>
+        <div class="write"><span class="fill">앞 B · 뒤 C &nbsp;(나간 사람: A)</span></div>
+      </div>
+    </div>
+    <p style="margin:8px 0 0"><b>③</b> 깊이 우선은 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ), 너비 우선은 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) 를 씁니다.
+      <span class="fill">깊이 우선 = 스택 · 너비 우선 = 큐</span></p>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>1 / 5</span></div>
+</section>
+
+<!-- ════════ 2쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">Ⅰ-04 맹목적 탐색</p>
+      <h1>깊이 우선 · 너비 우선, 순서를 써 보세요</h1>
+    </div>
+    <div class="meta"><span>이름 <i></i></span></div>
+  </header>
+
+  <article class="q">
+    <h2><em>3</em> 같은 나무, 다른 걸음</h2>
+    <p class="hint">왼쪽이 먼저인 자식부터 봅니다. (A의 왼쪽 자식은 B, 오른쪽은 C)</p>
+    <div class="two">
+      <div>
+        <p style="text-align:center; font-weight:800; color:#1B49B8; margin:0 0 4px">깊이 우선 탐색 (스택)</p>
+        <svg class="tree" viewBox="0 0 280 150" xmlns="http://www.w3.org/2000/svg">
+          <line x1="140" y1="22" x2="80" y2="62" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="140" y1="22" x2="200" y2="62" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="80" y1="62" x2="48" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="80" y1="62" x2="112" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="200" y1="62" x2="168" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="200" y1="62" x2="232" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <circle cx="140" cy="22" r="14" fill="#2F6FEC"/><text x="140" y="27" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">A</text>
+          <circle cx="80" cy="62" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="80" y="67" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">B</text>
+          <circle cx="200" cy="62" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="200" y="67" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">C</text>
+          <circle cx="48" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="48" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">D</text>
+          <circle cx="112" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="112" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">E</text>
+          <circle cx="168" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="168" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">F</text>
+          <circle cx="232" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="232" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">G</text>
+        </svg>
+        <p class="small">방문 순서 (모든 노드)</p>
+        <div class="line"></div>
+        <div class="write"><span class="fill">A → B → D → E → C → F → G</span></div>
+        <p class="small" style="margin-top:8px">D 를 본 뒤 다음에 가는 곳은? 그 걸음을 무엇이라고 하나요?</p>
+        <div class="write"><span class="fill">E (같은 부모 B의 다른 자식) · 백트래킹</span></div>
+      </div>
+      <div>
+        <p style="text-align:center; font-weight:800; color:#1B49B8; margin:0 0 4px">너비 우선 탐색 (큐)</p>
+        <svg class="tree" viewBox="0 0 280 150" xmlns="http://www.w3.org/2000/svg">
+          <line x1="140" y1="22" x2="80" y2="62" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="140" y1="22" x2="200" y2="62" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="80" y1="62" x2="48" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="80" y1="62" x2="112" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="200" y1="62" x2="168" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <line x1="200" y1="62" x2="232" y2="108" stroke="#8FC5FB" stroke-width="2"/>
+          <circle cx="140" cy="22" r="14" fill="#2F6FEC"/><text x="140" y="27" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">A</text>
+          <circle cx="80" cy="62" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="80" y="67" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">B</text>
+          <circle cx="200" cy="62" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="200" y="67" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">C</text>
+          <circle cx="48" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="48" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">D</text>
+          <circle cx="112" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="112" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">E</text>
+          <circle cx="168" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="168" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">F</text>
+          <circle cx="232" cy="108" r="14" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/><text x="232" y="113" text-anchor="middle" fill="#1B3358" font-size="13" font-weight="700">G</text>
+        </svg>
+        <p class="small">방문 순서 (모든 노드)</p>
+        <div class="line"></div>
+        <div class="write"><span class="fill">A → B → C → D → E → F → G</span></div>
+        <p class="small" style="margin-top:8px">A 를 꺼낸 직후, 큐에 들어 있는 노드는? (앞→뒤)</p>
+        <div class="write"><span class="fill">B, C</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="q">
+    <h2><em>4</em> 왜 순서가 다를까요?</h2>
+    <p>같은 나무인데 방문 순서가 다릅니다. <b>한 문장</b>으로 이유를 쓰세요.</p>
+    <div class="write lg"><span class="fill">깊이 우선은 스택(나중에 넣은 것 먼저)이라 한 길로 끝까지 가고,
+      너비 우선은 큐(먼저 넣은 것 먼저)라 같은 층을 먼저 훑기 때문이다.</span></div>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>2 / 5</span></div>
+</section>
+
+<!-- ════════ 3쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">Ⅰ-04 정보 이용 탐색</p>
+      <h1>언덕 등반, 작은 언덕에서 멈추다</h1>
+    </div>
+    <div class="meta"><span>이름 <i></i></span></div>
+  </header>
+
+  <article class="q">
+    <h2><em>5</em> 8-퍼즐 · 국부 최대</h2>
+    <p class="easy">평가 함숫값 = <b>목표와 같은 자리에 있는 숫자 칸의 수</b>. <b>클수록</b> 좋습니다.
+      목표 예: 1 2 3 / 8 &nbsp; 4 / 7 6 5 처럼 「제자리」가 많을수록 높은 점수.</p>
+    <p>지금 자리의 점수는 <b>5</b>입니다. 한 칸 움직여 갈 수 있는 자식 넷의 점수는 아래와 같습니다.</p>
+    <div class="row" style="justify-content:center; gap:14px; margin:10px 0; flex-wrap:wrap">
+      <div>
+        <table class="pz"><tr><td>2</td><td>8</td><td>3</td></tr><tr><td>1</td><td class="e"></td><td>4</td></tr><tr><td>7</td><td>6</td><td>5</td></tr></table>
+        <div class="pzcap">지금 · <b>5</b></div>
+      </div>
+      <div style="align-self:center; font-size:20px; color:#8AA7CC">→</div>
+      <div>
+        <table class="pz"><tr><td>2</td><td>8</td><td>3</td></tr><tr><td class="e"></td><td>1</td><td>4</td></tr><tr><td>7</td><td>6</td><td>5</td></tr></table>
+        <div class="pzcap">5</div>
+      </div>
+      <div>
+        <table class="pz"><tr><td>2</td><td class="e"></td><td>3</td></tr><tr><td>1</td><td>8</td><td>4</td></tr><tr><td>7</td><td>6</td><td>5</td></tr></table>
+        <div class="pzcap">5</div>
+      </div>
+      <div>
+        <table class="pz"><tr><td>2</td><td>8</td><td>3</td></tr><tr><td>1</td><td>4</td><td class="e"></td></tr><tr><td>7</td><td>6</td><td>5</td></tr></table>
+        <div class="pzcap">4</div>
+      </div>
+      <div>
+        <table class="pz"><tr><td>2</td><td>8</td><td>3</td></tr><tr><td>1</td><td>6</td><td>4</td></tr><tr><td>7</td><td class="e"></td><td>5</td></tr></table>
+        <div class="pzcap">4</div>
+      </div>
+    </div>
+    <ol class="plain">
+      <li>언덕 등반은 여기서 어떻게 될까요? 왜 그렇게 되나요?
+        <div class="write lg"><span class="fill">멈춘다. 지금(5)보다 높은 자식이 하나도 없어서 더 올라갈 곳이 없다. 이 자리를 국부 최대(지역 최고)라고 한다.</span></div></li>
+      <li>이 문제점을 무엇이라고 부르나요?
+        <div class="opts">
+          <span class="opt ok">국부 최대 (지역 최대)</span><span class="opt">백트래킹</span>
+          <span class="opt">맨해튼 거리</span><span class="opt">상태 공간</span>
+        </div></li>
+      <li>이 문제점을 고치려고 나온 방법은?
+        <div class="opts">
+          <span class="opt">깊이 우선 탐색</span><span class="opt">너비 우선 탐색</span>
+          <span class="opt ok">최상 우선 탐색</span><span class="opt">균일 비용 탐색</span>
+        </div></li>
+    </ol>
+  </article>
+
+  <article class="q">
+    <h2><em>6</em> 최상 우선은 어떻게 다를까</h2>
+    <p>언덕 등반은 <b>지금 자리의 자식만</b> 봅니다. 최상 우선은 지금까지 나온 후보를 <b>OPEN</b>에 모아 두고, 그중에서 점수가 가장 좋은 것을 고릅니다.</p>
+    <p>지금 OPEN = <b>B/6, C/4, D/3</b> (이름/점수). 다음에 열어 볼 노드는? 이유는?</p>
+    <div class="write"><span class="fill">B (6점이 가장 높음). 점수가 클수록 우선이므로 OPEN 전체 중 최고인 B를 고른다.</span></div>
+    <p style="margin-top:8px">OPEN 과 CLOSED 를 우리말로 한 줄씩 적으세요.</p>
+    <p class="small">OPEN =</p><div class="line"></div>
+    <p class="small">CLOSED =</p><div class="line"></div>
+    <div class="write"><span class="fill">OPEN: 아직 안 가 본(열어 보지 않은) 곳 목록 · CLOSED: 이미 가 본(탐색이 끝난) 곳 목록</span></div>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>3 / 5</span></div>
+</section>
+
+<!-- ════════ 4쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">Ⅰ-05 탐색의 적용</p>
+      <h1>A* 로 최단 경로 찾기</h1>
+    </div>
+    <div class="meta"><span>이름 <i></i></span></div>
+  </header>
+
+  <article class="q">
+    <h2><em>7</em> f = g + h 계산해 보기</h2>
+    <p class="easy">g = 지금까지 <b>실제로 온 거리</b> &nbsp;·&nbsp; h = 목표까지 <b>어림 거리</b> (그림의 파란 숫자) &nbsp;·&nbsp; <b>f 가 작을수록</b> 먼저 갑니다.</p>
+    <p>출발은 <b>S</b>, 목표는 <b>G</b> 입니다. 선의 숫자는 도로 거리, 동그라미 아래 숫자는 h 입니다.</p>
+    <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:150px">
+      <line x1="70" y1="80" x2="210" y2="40" stroke="#8FC5FB" stroke-width="3"/>
+      <line x1="70" y1="80" x2="210" y2="130" stroke="#8FC5FB" stroke-width="3"/>
+      <line x1="210" y1="40" x2="370" y2="80" stroke="#8FC5FB" stroke-width="3"/>
+      <line x1="210" y1="130" x2="370" y2="80" stroke="#8FC5FB" stroke-width="3"/>
+      <text x="130" y="50" font-size="13" fill="#1B49B8" font-weight="700">2</text>
+      <text x="125" y="118" font-size="13" fill="#1B49B8" font-weight="700">5</text>
+      <text x="300" y="50" font-size="13" fill="#1B49B8" font-weight="700">4</text>
+      <text x="305" y="125" font-size="13" fill="#1B49B8" font-weight="700">2</text>
+      <circle cx="70" cy="80" r="22" fill="#2F6FEC"/>
+      <text x="70" y="85" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">S</text>
+      <text x="70" y="118" text-anchor="middle" fill="#516C8C" font-size="11">h 6</text>
+      <circle cx="210" cy="40" r="22" fill="#fff" stroke="#1B49B8" stroke-width="2"/>
+      <text x="210" y="46" text-anchor="middle" fill="#1B3358" font-size="16" font-weight="700">A</text>
+      <text x="210" y="78" text-anchor="middle" fill="#516C8C" font-size="11">h 3</text>
+      <circle cx="210" cy="130" r="22" fill="#fff" stroke="#1B49B8" stroke-width="2"/>
+      <text x="210" y="136" text-anchor="middle" fill="#1B3358" font-size="16" font-weight="700">B</text>
+      <text x="210" y="162" text-anchor="middle" fill="#516C8C" font-size="11">h 2</text>
+      <circle cx="370" cy="80" r="22" fill="#11734C"/>
+      <text x="370" y="85" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">G</text>
+      <text x="370" y="118" text-anchor="middle" fill="#516C8C" font-size="11">h 0</text>
+    </svg>
+    <ol class="plain">
+      <li>S에서 A로 갔을 때 &nbsp; g(A) = ( &nbsp;&nbsp;&nbsp; ) &nbsp; h(A) = ( &nbsp;&nbsp;&nbsp; ) &nbsp; f(A) = ( &nbsp;&nbsp;&nbsp; )
+        <span class="fill">g=2, h=3, f=5</span></li>
+      <li>S에서 B로 갔을 때 &nbsp; g(B) = ( &nbsp;&nbsp;&nbsp; ) &nbsp; h(B) = ( &nbsp;&nbsp;&nbsp; ) &nbsp; f(B) = ( &nbsp;&nbsp;&nbsp; )
+        <span class="fill">g=5, h=2, f=7</span></li>
+      <li>A*는 S 다음에 어느 도시를 먼저 열까요? 왜?
+        <div class="write"><span class="fill">A. f(A)=5 가 f(B)=7 보다 작아서.</span></div></li>
+      <li>A*가 찾는 경로와 총 비용은?
+        <div class="write"><span class="fill">S → A → G · 총 비용 6 (2+4). (S→B→G 는 7이라 더 멀다.)</span></div></li>
+    </ol>
+  </article>
+
+  <article class="q">
+    <h2><em>8</em> 최상 우선과 A* , 한 줄 차이</h2>
+    <p>최상 우선은 «앞으로 갈 길»만 보고, A*는 «온 길 + 갈 길»을 같이 봅니다. 그래서 A*가 더 짧은 길을 찾는 경우가 많습니다.</p>
+    <p>우리 학교 길찾기에서 최상 우선은 10칸, A*는 8칸을 찾았습니다. <b>왜 A*가 더 짧을 수 있는지</b> 자기 말로 쓰세요.</p>
+    <div class="write lg"><span class="fill">최상 우선은 남은 거리(h)만 봐서 멀리 돌아온 길을 고를 수 있다.
+      A*는 지금까지 온 거리(g)까지 더하므로 전체 예상 비용이 작은 길을 고른다.</span></div>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>4 / 5</span></div>
+</section>
+
+<!-- ════════ 5쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">Ⅰ-05 게임 탐색 · 정리</p>
+      <h1>minimax 한 판, 그리고 오늘 한 줄</h1>
+    </div>
+    <div class="meta"><span>이름 <i></i></span></div>
+  </header>
+
+  <article class="q">
+    <h2><em>9</em> 아래에서 위로 접어 올리기</h2>
+    <p class="easy">△ 내 차례(Max) = <b>큰 값</b> &nbsp;·&nbsp; ▽ 상대 차례(Min) = <b>작은 값</b>. 맨 아래 점수부터 올립니다.</p>
+    <svg viewBox="0 0 420 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:140px">
+      <line x1="210" y1="22" x2="120" y2="70" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="210" y1="22" x2="300" y2="70" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="120" y1="70" x2="70" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="120" y1="70" x2="170" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="300" y1="70" x2="250" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="300" y1="70" x2="350" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <polygon points="210,8 228,34 192,34" fill="#2F6FEC"/>
+      <text x="210" y="28" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+      <polygon points="120,82 104,56 136,56" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/>
+      <text x="120" y="72" text-anchor="middle" fill="#1B3358" font-size="11" font-weight="700">B</text>
+      <polygon points="300,82 284,56 316,56" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/>
+      <text x="300" y="72" text-anchor="middle" fill="#1B3358" font-size="11" font-weight="700">C</text>
+      <circle cx="70" cy="126" r="14" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="70" y="131" text-anchor="middle" font-size="12" font-weight="700">10</text>
+      <circle cx="170" cy="126" r="14" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="170" y="131" text-anchor="middle" font-size="12" font-weight="700">6</text>
+      <circle cx="250" cy="126" r="14" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="250" y="131" text-anchor="middle" font-size="12" font-weight="700">2</text>
+      <circle cx="350" cy="126" r="14" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="350" y="131" text-anchor="middle" font-size="12" font-weight="700">8</text>
+      <text x="28" y="24" font-size="10" fill="#516C8C">△ Max</text>
+      <text x="28" y="70" font-size="10" fill="#516C8C">▽ Min</text>
+    </svg>
+    <div class="two" style="margin-top:6px">
+      <div>
+        <p>B 의 값 = min(10, 6) = ( &nbsp;&nbsp;&nbsp;&nbsp; )</p>
+        <p>C 의 값 = min(2, 8) = ( &nbsp;&nbsp;&nbsp;&nbsp; )</p>
+        <p>A 의 값 = max(B, C) = ( &nbsp;&nbsp;&nbsp;&nbsp; )</p>
+        <div class="write"><span class="fill">B=6 · C=2 · A=6</span></div>
+      </div>
+      <div>
+        <p>나는 A에서 어느 쪽으로 두는 게 좋을까요? B 쪽? C 쪽? 한 줄로.</p>
+        <div class="write lg"><span class="fill">B 쪽. A는 큰 값을 고르므로 6(B)이 2(C)보다 좋다. 상대가 최선을 둔다고 가정한다.</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="q">
+    <h2><em>10</em> 오늘 배운 것을 내 말로</h2>
+    <p>다음 중 하나를 골라 친구에게 설명하듯 쓰세요.</p>
+    <p class="small">□ 스택과 큐가 다른 점 &nbsp;&nbsp; □ 언덕 등반이 멈추는 이유 &nbsp;&nbsp; □ A*가 g와 h를 더하는 이유</p>
+    <div class="write" style="min-height:88px"><span class="fill">(학생 자유 서술. 핵심만 보이면 됨)
+      · 스택: 나중에 넣은 것 먼저 / 큐: 먼저 넣은 것 먼저
+      · 언덕 등반: 자식이 지금보다 안 좋으면 국부 최대에서 정지
+      · A*: 온 길+갈 길을 더해야 전체 비용이 작은 길을 고름</span></div>
+  </article>
+
+  <article class="q">
+    <h2><em>스스로 점검</em> 오늘 할 수 있게 된 것</h2>
+    <div class="check">
+      <span>□ 깊이 우선과 너비 우선의 순서를 그릴 수 있다</span>
+      <span>□ 스택·큐를 그림으로 설명할 수 있다</span>
+      <span>□ 국부 최대와 최상 우선을 구분할 수 있다</span>
+      <span>□ f = g + h 를 계산할 수 있다</span>
+      <span>□ Max는 큰 값, Min은 작은 값을 고른다</span>
+    </div>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>5 / 5</span></div>
+</section>
+</body>
+</html>
