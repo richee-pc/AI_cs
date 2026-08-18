@@ -25,6 +25,7 @@ body{font-family:'Nanum', sans-serif; color:#1B3358; font-size:12.4px; line-heig
   border-radius:8px; padding:5px 8px; font-size:11px; color:#516C8C; background:#F4F8FF}
 .meta i{font-style:normal; border-bottom:1.2px dotted #8AA7CC; min-width:64px; height:14px}
 .chip{background:#2F6FEC; color:#fff; font-weight:800; font-size:10px; padding:3px 8px; border-radius:99px}
+html.key .brand h1::after{content:"  · 정답지"; color:#11734C; font-size:16px}
 
 /* 문제 상자 */
 .q{border:1.6px solid #D5E6F8; border-radius:12px; padding:10px 12px 12px; margin:0 0 10px; background:#fff}
@@ -41,6 +42,9 @@ body{font-family:'Nanum', sans-serif; color:#1B3358; font-size:12.4px; line-heig
 .write.lg{min-height:58px}
 .fill{display:none; padding:7px 10px; color:#11734C; font-weight:700; font-size:12px}
 html.key .fill{display:block}
+html.key .write{min-height:0}
+html.key .write.lg{min-height:0}
+html.key .fill{padding:4px 8px; font-size:11.3px; line-height:1.4}
 html.key .write{background:#E7F8EF; border-style:solid; border-color:#8ED4B0}
 .small{font-size:11px; color:#516C8C}
 ol.plain{margin:4px 0 0; padding-left:18px}
@@ -70,7 +74,7 @@ html.key .opt.ok{background:#DDF6EB; border-color:#11734C; font-weight:800; colo
 svg.tree{width:100%; height:auto; max-height:148px}
 .foot{position:absolute; left:2mm; right:2mm; bottom:2mm; display:flex; justify-content:space-between;
   font-size:10px; color:#7A96B8}
-.check{display:flex; flex-wrap:wrap; gap:10px; font-size:11.5px; margin-top:6px}
+.check{display:flex; flex-wrap:wrap; gap:8px; font-size:11.2px; margin-top:4px}
 .check span{border:1.3px solid #C5DBF5; border-radius:8px; padding:4px 8px}
 
 /* 표 */
@@ -81,6 +85,11 @@ table.grid td.h{height:26px}
 
 .two{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .badge{display:inline-block; background:#FFF1DF; color:#9C5409; font-weight:800; font-size:10px; padding:1px 7px; border-radius:99px}
+.abbox{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0 8px}
+.abbox div{border:1.4px solid #C5DBF5; border-radius:10px; padding:7px 10px; background:#F4F8FF; font-size:11.5px}
+.abbox b{color:#1B49B8}
+.xnote{display:inline-block; border:1.4px dashed #E07A7A; color:#9C2F2F; font-weight:800; font-size:10px; padding:1px 6px; border-radius:99px}
+html.key .xnote{background:#FDECEC; border-style:solid}
 </style>
 </head>
 <body>
@@ -101,7 +110,7 @@ table.grid td.h{height:26px}
 
   <article class="q">
     <h2><em>1</em> 이름을 붙이면 절반은 끝</h2>
-    <p class="easy">쉽게 말하면 — 설명을 읽고, 알맞은 탐색 방법의 이름에 ○ 하세요. (각 1점, 5점)</p>
+    <p class="easy">쉽게 말하면 — 설명을 읽고, 알맞은 탐색 방법의 이름에 ○ 하세요. (각 1점, 6점)</p>
     <ol class="plain">
       <li>한 길로 끝까지 갔다가, 막히면 되돌아온다. <b>접시 더미(스택)</b>을 쓴다.
         <div class="opts">
@@ -127,6 +136,11 @@ table.grid td.h{height:26px}
         <div class="opts">
           <span class="opt">언덕 등반 탐색</span><span class="opt">최상 우선 탐색</span>
           <span class="opt">너비 우선 탐색</span><span class="opt ok">A* 알고리즘</span>
+        </div></li>
+      <li>「어차피 안 고를 가지」는 건너뛴다. 답은 minimax와 같고, <b>보는 개수만</b> 줄어든다.
+        <div class="opts">
+          <span class="opt">언덕 등반 탐색</span><span class="opt">A* 알고리즘</span>
+          <span class="opt ok">알파베타 가지치기</span><span class="opt">너비 우선 탐색</span>
         </div></li>
     </ol>
   </article>
@@ -170,7 +184,7 @@ table.grid td.h{height:26px}
     <p style="margin:8px 0 0"><b>③</b> 깊이 우선은 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ), 너비 우선은 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) 를 씁니다.
       <span class="fill">깊이 우선 = 스택 · 너비 우선 = 큐</span></p>
   </article>
-  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>1 / 5</span></div>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>1 / 6</span></div>
 </section>
 
 <!-- ════════ 2쪽 ════════ -->
@@ -242,7 +256,7 @@ table.grid td.h{height:26px}
     <div class="write lg"><span class="fill">깊이 우선은 스택(나중에 넣은 것 먼저)이라 한 길로 끝까지 가고,
       너비 우선은 큐(먼저 넣은 것 먼저)라 같은 층을 먼저 훑기 때문이다.</span></div>
   </article>
-  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>2 / 5</span></div>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>2 / 6</span></div>
 </section>
 
 <!-- ════════ 3쪽 ════════ -->
@@ -309,7 +323,7 @@ table.grid td.h{height:26px}
     <p class="small">CLOSED =</p><div class="line"></div>
     <div class="write"><span class="fill">OPEN: 아직 안 가 본(열어 보지 않은) 곳 목록 · CLOSED: 이미 가 본(탐색이 끝난) 곳 목록</span></div>
   </article>
-  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>3 / 5</span></div>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>3 / 6</span></div>
 </section>
 
 <!-- ════════ 4쪽 ════════ -->
@@ -367,15 +381,15 @@ table.grid td.h{height:26px}
     <div class="write lg"><span class="fill">최상 우선은 남은 거리(h)만 봐서 멀리 돌아온 길을 고를 수 있다.
       A*는 지금까지 온 거리(g)까지 더하므로 전체 예상 비용이 작은 길을 고른다.</span></div>
   </article>
-  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>4 / 5</span></div>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>4 / 6</span></div>
 </section>
 
 <!-- ════════ 5쪽 ════════ -->
 <section class="page">
   <header class="head">
     <div class="brand">
-      <p class="k">Ⅰ-05 게임 탐색 · 정리</p>
-      <h1>minimax 한 판, 그리고 오늘 한 줄</h1>
+      <p class="k">Ⅰ-05 게임 탐색</p>
+      <h1>minimax 한 판, 이어서 가지치기</h1>
     </div>
     <div class="meta"><span>이름 <i></i></span></div>
   </header>
@@ -418,13 +432,121 @@ table.grid td.h{height:26px}
   </article>
 
   <article class="q">
-    <h2><em>10</em> 오늘 배운 것을 내 말로</h2>
+    <h2><em>10</em> 같은 나무, 안 봐도 되는 가지</h2>
+    <p class="easy">α = Max가 지금까지 확보한 <b>가장 큰</b> 값 &nbsp;·&nbsp; β = Min이 지금까지 확보한 <b>가장 작은</b> 값.
+      <b>α ≥ β</b> 가 되면 남은 가지는 결과를 바꿀 수 없으니 <b>잘라 냅니다.</b></p>
+    <div class="abbox">
+      <div><b>알파값 α</b><br>「나는 적어도 이만큼은 받는다」</div>
+      <div><b>베타값 β</b><br>「상대는 많아야 이만큼만 준다」</div>
+    </div>
+    <p>9번 나무를 <b>왼쪽부터</b> 알파베타로 봅시다.</p>
+    <ol class="plain">
+      <li>B를 다 접으면 B = 6. A(Max)는 이제 적어도 6은 받습니다. 이때 <b>α</b> = ( &nbsp;&nbsp;&nbsp;&nbsp; )
+        <span class="fill">6</span></li>
+      <li>C의 왼쪽 자식 <b>2</b>를 보면, C(Min)는 많아야 2입니다. 이때 <b>β</b> = ( &nbsp;&nbsp;&nbsp;&nbsp; )
+        <span class="fill">2</span></li>
+      <li>α ≥ β 인가요? 그러면 C의 오른쪽 자식 <b>8</b>은 봐도 될까요?
+        <div class="opts">
+          <span class="opt">본다</span><span class="opt ok">잘라 낸다 (안 본다)</span>
+        </div></li>
+      <li>잘라 낸 뒤 A의 값은? 9번의 minimax 답과 같나요?
+        <div class="write"><span class="fill">A = 6. minimax와 같다. 달라진 것은 8을 안 본 것 뿐.</span></div></li>
+    </ol>
+  </article>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>5 / 6</span></div>
+</section>
+
+<!-- ════════ 6쪽 ════════ -->
+<section class="page">
+  <header class="head">
+    <div class="brand">
+      <p class="k">Ⅰ-05 게임 탐색 · 정리</p>
+      <h1>알파베타 가지치기, 한 나무 더</h1>
+    </div>
+    <div class="meta"><span>이름 <i></i></span></div>
+  </header>
+
+  <article class="q">
+    <h2><em>11</em> 잘리는 잎에 × 표시</h2>
+    <p class="easy">왼쪽부터, △는 큰 값 · ▽는 작은 값. <b>α ≥ β</b> 가 되는 순간 남은 가지는 × 하세요.
+      수업 활동 ⑫와 <b>같은 나무</b>입니다.</p>
+    <svg viewBox="0 0 500 228" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:168px">
+      <line x1="250" y1="22" x2="150" y2="70" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="250" y1="22" x2="350" y2="70" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="150" y1="70" x2="100" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="150" y1="70" x2="200" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="350" y1="70" x2="300" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="350" y1="70" x2="400" y2="122" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="100" y1="122" x2="74" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="100" y1="122" x2="126" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="200" y1="122" x2="174" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="200" y1="122" x2="226" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="300" y1="122" x2="274" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="300" y1="122" x2="326" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="400" y1="122" x2="374" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <line x1="400" y1="122" x2="426" y2="178" stroke="#8FC5FB" stroke-width="2"/>
+      <polygon points="250,8 268,34 232,34" fill="#2F6FEC"/>
+      <text x="250" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">A</text>
+      <polygon points="150,84 134,58 166,58" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/>
+      <text x="150" y="74" text-anchor="middle" fill="#1B3358" font-size="11" font-weight="700">B</text>
+      <polygon points="350,84 334,58 366,58" fill="#fff" stroke="#1B49B8" stroke-width="1.6"/>
+      <text x="350" y="74" text-anchor="middle" fill="#1B3358" font-size="11" font-weight="700">C</text>
+      <polygon points="100,108 118,134 82,134" fill="#2F6FEC"/>
+      <text x="100" y="128" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">D</text>
+      <polygon points="200,108 218,134 182,134" fill="#2F6FEC"/>
+      <text x="200" y="128" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">E</text>
+      <polygon points="300,108 318,134 282,134" fill="#2F6FEC"/>
+      <text x="300" y="128" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">F</text>
+      <polygon points="400,108 418,134 382,134" fill="#2F6FEC"/>
+      <text x="400" y="128" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">G</text>
+      <circle cx="74" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="74" y="191" text-anchor="middle" font-size="12" font-weight="700">5</text>
+      <circle cx="126" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="126" y="191" text-anchor="middle" font-size="12" font-weight="700">2</text>
+      <circle cx="174" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="174" y="191" text-anchor="middle" font-size="12" font-weight="700">12</text>
+      <circle cx="226" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="226" y="191" text-anchor="middle" font-size="12" font-weight="700">6</text>
+      <circle cx="274" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="274" y="191" text-anchor="middle" font-size="12" font-weight="700">3</text>
+      <circle cx="326" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="326" y="191" text-anchor="middle" font-size="12" font-weight="700">1</text>
+      <circle cx="374" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="374" y="191" text-anchor="middle" font-size="12" font-weight="700">9</text>
+      <circle cx="426" cy="186" r="13" fill="#FFF1DF" stroke="#D48A1A" stroke-width="1.5"/><text x="426" y="191" text-anchor="middle" font-size="12" font-weight="700">4</text>
+      <!-- 정답: 잘린 잎 6, 9, 4 -->
+      <g class="fill" fill="none" stroke="#C43C3C" stroke-width="2.4">
+        <line x1="216" y1="176" x2="236" y2="196"/><line x1="236" y1="176" x2="216" y2="196"/>
+        <line x1="364" y1="176" x2="384" y2="196"/><line x1="384" y1="176" x2="364" y2="196"/>
+        <line x1="416" y1="176" x2="436" y2="196"/><line x1="436" y1="176" x2="416" y2="196"/>
+      </g>
+      <text x="18" y="22" font-size="10" fill="#516C8C">△ Max</text>
+      <text x="18" y="70" font-size="10" fill="#516C8C">▽ Min</text>
+      <text x="18" y="128" font-size="10" fill="#516C8C">△ Max</text>
+    </svg>
+    <p class="small">빈칸에 접어 올린 값을 쓰고, 안 봐도 되는 잎에는 × 하세요.</p>
+    <table class="grid" style="margin-top:6px">
+      <tr><th>노드</th><th>A (△)</th><th>B (▽)</th><th>C (▽)</th><th>D (△)</th><th>E (△)</th><th>F (△)</th><th>G (△)</th></tr>
+      <tr>
+        <th>값</th>
+        <td class="h"><span class="fill">5</span></td>
+        <td class="h"><span class="fill">5</span></td>
+        <td class="h"><span class="fill">3</span></td>
+        <td class="h"><span class="fill">5</span></td>
+        <td class="h"><span class="fill">12</span></td>
+        <td class="h"><span class="fill">3</span></td>
+        <td class="h"><span class="fill">안 봄</span></td>
+      </tr>
+    </table>
+    <ol class="plain" style="margin-top:8px">
+      <li>보지 않아도 되는 단말 노드의 점수 (작은 수부터)
+        <div class="write"><span class="fill">6, 9, 4. E에서 12를 본 순간 α(12)≥β(5)라 6을 자름. C에서 F=3이 되면 α(5)≥β(3)라 G(9, 4) 전체를 자름.</span></div></li>
+      <li>노드 C의 알파값 α = ( &nbsp;&nbsp;&nbsp; ) &nbsp; 베타값 β = ( &nbsp;&nbsp;&nbsp; )
+        <span class="fill">α = 5 (B에서 이미 확보) · β = 3 (F가 돌려준 값)</span></li>
+      <li>가지를 잘라도 A의 값은 minimax와 같나요? 한 줄로.
+        <div class="write"><span class="fill">같다. A는 5. 답이 바뀌는 게 아니라 보는 개수만 줄어든다.</span></div></li>
+    </ol>
+  </article>
+
+  <article class="q">
+    <h2><em>12</em> 오늘 배운 것을 내 말로</h2>
     <p>다음 중 하나를 골라 친구에게 설명하듯 쓰세요.</p>
-    <p class="small">□ 스택과 큐가 다른 점 &nbsp;&nbsp; □ 언덕 등반이 멈추는 이유 &nbsp;&nbsp; □ A*가 g와 h를 더하는 이유</p>
-    <div class="write" style="min-height:88px"><span class="fill">(학생 자유 서술. 핵심만 보이면 됨)
-      · 스택: 나중에 넣은 것 먼저 / 큐: 먼저 넣은 것 먼저
-      · 언덕 등반: 자식이 지금보다 안 좋으면 국부 최대에서 정지
-      · A*: 온 길+갈 길을 더해야 전체 비용이 작은 길을 고름</span></div>
+    <p class="small">□ 스택과 큐가 다른 점 &nbsp;&nbsp; □ 언덕 등반이 멈추는 이유 &nbsp;&nbsp; □ A*가 g와 h를 더하는 이유 &nbsp;&nbsp; □ 알파베타가 가지를 자르는 이유</p>
+    <div class="write" style="min-height:52px"><span class="fill">(핵심만 보이면 됨)
+      스택=나중에 넣은 것 먼저 / 큐=먼저 넣은 것 먼저 · 언덕 등반=자식이 더 안 좋으면 국부 최대에서 정지 · A*=온 길+갈 길 · 알파베타=α≥β이면 안 본다(답은 minimax와 같음).</span></div>
   </article>
 
   <article class="q">
@@ -435,9 +557,10 @@ table.grid td.h{height:26px}
       <span>□ 국부 최대와 최상 우선을 구분할 수 있다</span>
       <span>□ f = g + h 를 계산할 수 있다</span>
       <span>□ Max는 큰 값, Min은 작은 값을 고른다</span>
+      <span>□ α ≥ β 이면 남은 가지를 자를 수 있다</span>
     </div>
   </article>
-  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>5 / 5</span></div>
+  <div class="foot"><span>인공지능 기초 · 탐색 학습지 학생용</span><span>6 / 6</span></div>
 </section>
 </body>
 </html>
