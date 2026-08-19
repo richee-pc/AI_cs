@@ -758,6 +758,36 @@ pre .s{color:var(--good)}
 .narr.fin b{color:var(--good)}
 .lists{display:grid; gap:9px}
 .lists .lst{max-height:none; margin:0; font-family:var(--sans); font-size:0.8438rem}
+/* ── ⑨ 학교 안 길찾기 : 고르기·격자·설명·목록·조작을 한 화면에 ── */
+.oneview{--ovh:min(46vh,392px); display:flex; flex-direction:column; gap:11px;
+  background:var(--tint); border:1px solid var(--line); border-radius:var(--r);
+  padding:13px clamp(11px,1.6vw,17px); margin-bottom:16px}
+.ovbar,.ovfoot{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0}
+.ovbar .scorepill{margin-left:auto}
+.ovmain{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(12px,1.8vw,20px); align-items:start}
+.ovgrid{width:100%; max-width:calc(var(--ovh) * 1.36); margin-inline:auto}
+.ovgrid .canvasarea{margin:0; overflow:visible}
+.ovgrid .tsvg,.ovgrid .gsv{min-width:0; width:100%; height:auto}
+.ovside{display:grid; gap:8px; min-width:0}
+.ovside .ovstory{margin:0; font-size:0.9062rem; color:var(--ink2); line-height:1.55}
+.ovside .narr{margin:0; font-size:clamp(0.95rem,1.6vw,1.125rem)}
+.ovside .lst{max-height:none; margin:0; font-family:var(--sans); font-size:0.8438rem}
+.ovside .tw{margin:0}
+.ovside .tw table{min-width:0; font-size:0.8125rem}
+.ovside .tw th,.ovside .tw td{padding:7px 9px}
+.ovhint{font-family:var(--sans); font-size:0.7812rem; color:var(--muted)}
+@media (max-width:900px){
+  .oneview{--ovh:min(38vh,320px)}
+  .ovmain{grid-template-columns:1fr}
+  .ovbar .scorepill{margin-left:0}
+}
+/* 「크게 보기」 — 활동판만 화면 가득히 (슬라이드 .present 와 같은 덮개 방식) */
+.oneview.ovbig{--ovh:min(62vh,540px); position:fixed; top:0; right:0; bottom:0; left:0;
+  z-index:2147483000; margin:0; border-radius:0; overflow:auto; justify-content:center;
+  background:#FFFFFF; background:var(--white,#FFFFFF); padding:clamp(14px,2.4vw,32px)}
+.oneview.ovbig .ovmain{align-items:center}
+body.ovbig-on{overflow:hidden}
 .sqvis{background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:12px 14px; margin-top:8px}
 .sqvis>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9375rem; color:var(--blue-d); margin-bottom:4px}
 .sqcap{font-size:0.75rem; color:var(--muted); margin:4px 0}
@@ -1910,38 +1940,48 @@ footer a{font-weight:700}
     <p class="desc">교과서 42쪽의 <b>바로 그 격자</b>를 우리 학교 복도로 바꿨습니다.
       <b>회색은 벽</b>이라 지나갈 수 없고, 상하좌우로 <b>한 칸씩</b>만 움직입니다.</p>
 
-    <div class="simctl">
-      <span class="pick" id="scPick">
-        <button type="button" data-s="0" aria-pressed="true">급식실 가기</button>
-        <button type="button" data-s="1" aria-pressed="false">매점 가기</button>
-        <button type="button" data-s="2" aria-pressed="false">불이 났다! 대피</button>
-      </span>
-      <span class="pick" id="scAlg">
-        <button type="button" data-a="best" aria-pressed="true">최상 우선</button>
-        <button type="button" data-a="astar" aria-pressed="false">A*</button>
-      </span>
+    <div class="oneview" id="scBoard">
+      <div class="ovbar">
+        <span class="pick" id="scPick">
+          <button type="button" data-s="0" aria-pressed="true">급식실 가기</button>
+          <button type="button" data-s="1" aria-pressed="false">매점 가기</button>
+          <button type="button" data-s="2" aria-pressed="false">불이 났다! 대피</button>
+        </span>
+        <span class="pick" id="scAlg">
+          <button type="button" data-a="best" aria-pressed="true">최상 우선</button>
+          <button type="button" data-a="astar" aria-pressed="false">A*</button>
+        </span>
+        <span class="scorepill" id="scCnt">0 칸</span>
+        <button type="button" class="mini gh" id="scFull">크게 보기</button>
+      </div>
+
+      <div class="ovmain">
+        <div class="ovgrid"><div class="canvasarea" id="scGrid"></div></div>
+        <div class="ovside">
+          <p class="ovstory" id="scStory"></p>
+          <div class="narr" id="scNarr">«한 걸음 더»를 눌러 시작하세요.</div>
+          <div class="lst" id="scList"></div>
+          <div class="tw"><table id="scCmp"></table></div>
+        </div>
+      </div>
+
+      <div class="ovfoot">
+        <button type="button" class="mini" id="scStep">한 걸음 더 →</button>
+        <button type="button" class="mini gh" id="scAll">끝까지 보기</button>
+        <button type="button" class="mini gh" id="scRe">처음으로</button>
+        <span class="ovhint">칸 안의 숫자는 <b>h</b> — 목표까지 남은 거리 어림값</span>
+      </div>
     </div>
-    <p class="desc" id="scStory"></p>
 
-    <div class="canvasarea" id="scGrid"></div>
-    <div class="narr" id="scNarr">«한 걸음 더»를 눌러 시작하세요.</div>
-    <div class="simctl">
-      <button type="button" class="mini" id="scStep">한 걸음 더 →</button>
-      <button type="button" class="mini gh" id="scAll">끝까지 보기</button>
-      <button type="button" class="mini gh" id="scRe">처음으로</button>
-      <span class="scorepill" id="scCnt">0 칸</span>
+    <div class="g2" style="margin-top:16px">
+      <div class="ask" style="margin:0"><b>꼭 비교해 보세요 · 매점 가기</b>
+        최상 우선은 <b>12칸만 보고</b> 끝내지만 길은 <b>10칸짜리 길</b>을 찾습니다.
+        A*는 <b>15칸을 보지만</b> 가장 짧은 <b>8칸짜리 길</b>을 찾아요.<br>
+        «빨리 찾는 것»과 «짧은 길을 찾는 것»은 <b>다른 이야기</b>입니다.</div>
+      <div class="note" style="margin:0"><b>h(n) 은 어떻게 구할까?</b>
+        지금 칸에서 목표 칸까지 <b>가로 칸수 + 세로 칸수</b>를 더합니다. 벽은 못 본 척하고 그냥 셉니다.
+        «대충 이만큼 남았겠다»는 <b>어림짐작</b>이에요. 이걸 <b>맨해튼 거리</b>라고 합니다.</div>
     </div>
-    <div class="lists"><div class="lst" id="scList"></div></div>
-
-    <div class="tw" style="margin-top:16px"><table id="scCmp"></table></div>
-
-    <div class="ask" style="margin-top:16px"><b>꼭 비교해 보세요 · 매점 가기</b>
-      최상 우선은 <b>12칸만 보고</b> 끝내지만 길은 <b>10칸짜리 길</b>을 찾습니다.
-      A*는 <b>15칸을 보지만</b> 가장 짧은 <b>8칸짜리 길</b>을 찾아요.<br>
-      «빨리 찾는 것»과 «짧은 길을 찾는 것»은 <b>다른 이야기</b>입니다.</div>
-    <div class="note" style="margin-top:16px"><b>h(n) 은 어떻게 구할까?</b>
-      지금 칸에서 목표 칸까지 <b>가로 칸수 + 세로 칸수</b>를 더합니다. 벽은 못 본 척하고 그냥 셉니다.
-      «대충 이만큼 남았겠다»는 <b>어림짐작</b>이에요. 이걸 <b>맨해튼 거리</b>라고 합니다.</div>
 
     <div class="wsheet" style="margin-top:18px">
       <label>두 방법을 모두 돌려 보고 — 살펴본 칸 수가 왜 다를까요?
@@ -5947,7 +5987,7 @@ while open_list:
     function scPaint(){
       var st = scAt >= 0 ? scSt[scAt] : { open:[SCEN[scSi].start], closed:[], cur:null };
       document.getElementById('scGrid').innerHTML = scDraw(st, scSi, scAlg);
-      document.getElementById('scNarr').innerHTML = scAt >= 0 ? st.say : '«한 걸음 더»를 눌러 시작하세요. 칸 안의 숫자가 <b>h</b> 입니다.';
+      document.getElementById('scNarr').innerHTML = scAt >= 0 ? st.say : '«한 걸음 더»를 눌러 한 칸씩 살펴보세요.';
       document.getElementById('scNarr').classList.toggle('fin', !!st.done);
       document.getElementById('scCnt').textContent = st.closed.length + ' 칸';
       document.getElementById('scStep').disabled = scAt >= scSt.length - 1;
@@ -5987,6 +6027,19 @@ while open_list:
     document.getElementById('scStep').addEventListener('click', function(){ if(scAt < scSt.length - 1){ scAt++; scPaint(); } });
     document.getElementById('scAll').addEventListener('click', function(){ scAt = scSt.length - 1; scPaint(); });
     document.getElementById('scRe').addEventListener('click', function(){ scAt = -1; scPaint(); });
+    function scBig(on){
+      var bd = document.getElementById('scBoard');
+      bd.classList.toggle('ovbig', on);
+      document.body.classList.toggle('ovbig-on', on);
+      document.getElementById('scFull').textContent = on ? '원래대로' : '크게 보기';
+      if(!on) bd.scrollIntoView({ block:'center' });
+    }
+    document.getElementById('scFull').addEventListener('click', function(){
+      scBig(!document.getElementById('scBoard').classList.contains('ovbig'));
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && document.getElementById('scBoard').classList.contains('ovbig')) scBig(false);
+    });
     ['why','fire'].forEach(function(f){
       var el = document.getElementById('sc' + f.charAt(0).toUpperCase() + f.slice(1));
       el.value = SC[f] || '';
