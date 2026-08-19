@@ -7,74 +7,74 @@
 @font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-Regular.ttf') format('truetype'); font-weight:400}
 @font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-Bold.ttf') format('truetype'); font-weight:700}
 @font-face{font-family:'Nanum'; src:url('fonts/NanumGothic-ExtraBold.ttf') format('truetype'); font-weight:800}
-@page{size:257mm 364mm; margin:7mm 8mm 8mm}
+@page{size:257mm 364mm; margin:6mm 7mm 7mm}
 *{box-sizing:border-box}
 html,body{margin:0; padding:0}
-body{font-family:'Nanum', sans-serif; color:#1B3358; font-size:10.6px; line-height:1.38; background:#fff}
-p{margin:0 0 3px}
-.page{width:241mm; height:349mm; margin:0 auto; page-break-after:always; position:relative; overflow:hidden; padding-bottom:7mm}
+body{font-family:'Nanum', sans-serif; color:#1B3358; font-size:12.5px; line-height:1.42; background:#fff}
+p{margin:0 0 4px}
+.page{width:243mm; height:351mm; margin:0 auto; page-break-after:always; position:relative; overflow:hidden; padding-bottom:7mm}
 .page:last-child{page-break-after:auto}
 
 .head{display:flex; justify-content:space-between; align-items:flex-end; gap:10px;
-  border-bottom:2.6px solid #2F6FEC; padding:0 0 5px; margin:0 0 7px}
-.brand .k{font-size:9px; font-weight:800; letter-spacing:.08em; color:#2F6FEC; margin:0 0 1px}
-.brand h1{font-size:17px; font-weight:800; margin:0; letter-spacing:-.02em}
-.brand p{margin:2px 0 0; font-size:9.5px; color:#516C8C}
+  border-bottom:2.8px solid #2F6FEC; padding:0 0 6px; margin:0 0 8px}
+.brand .k{font-size:10.5px; font-weight:800; letter-spacing:.08em; color:#2F6FEC; margin:0 0 1px}
+.brand h1{font-size:20px; font-weight:800; margin:0; letter-spacing:-.02em}
+.brand p{margin:2px 0 0; font-size:11px; color:#516C8C}
 .meta{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
 .meta span{display:inline-flex; align-items:center; gap:5px; border:1.4px solid #BFD6F5;
-  border-radius:7px; padding:3px 7px; font-size:10px; color:#516C8C; background:#F4F8FF}
-.meta i{font-style:normal; border-bottom:1.1px dotted #8AA7CC; min-width:52px; height:12px}
-.chip{background:#2F6FEC; color:#fff; font-weight:800; font-size:9px; padding:2px 7px; border-radius:99px; margin-left:4px}
-.print{background:#FFF1DF; color:#9C5409; font-weight:800; font-size:9px; padding:2px 7px; border-radius:99px}
-html.key .brand h1::after{content:"  · 정답지"; color:#11734C; font-size:14px}
+  border-radius:7px; padding:4px 8px; font-size:11.5px; color:#516C8C; background:#F4F8FF}
+.meta i{font-style:normal; border-bottom:1.1px dotted #8AA7CC; min-width:58px; height:14px}
+.chip{background:#2F6FEC; color:#fff; font-weight:800; font-size:10px; padding:2px 8px; border-radius:99px; margin-left:4px}
+.print{background:#FFF1DF; color:#9C5409; font-weight:800; font-size:10px; padding:2px 8px; border-radius:99px}
+html.key .brand h1::after{content:"  · 정답지"; color:#11734C; font-size:16px}
 
-.cols{display:grid; grid-template-columns:1fr 1fr; gap:8px; align-items:start}
-.q{border:1.4px solid #D5E6F8; border-radius:9px; padding:6px 8px 7px; margin:0 0 6px; background:#fff}
-.q h2{font-size:11.5px; font-weight:800; margin:0 0 4px; color:#1B49B8; display:flex; align-items:center; gap:6px}
-.q h2 em{font-style:normal; background:#2F6FEC; color:#fff; font-size:9.5px; padding:1px 7px; border-radius:99px}
-.easy{background:#EAF3FF; border-left:3.5px solid #2F6FEC; border-radius:0 7px 7px 0; padding:3px 7px; font-size:10px; color:#1B49B8; margin:0 0 5px}
-.hint{background:#FFF6E8; border-left:3.5px solid #D48A1A; border-radius:0 7px 7px 0; padding:3px 7px; font-size:10px; color:#7A4A0A; margin:0 0 5px}
-.line{border-bottom:1.1px dotted #8AA7CC; min-height:16px; margin:2px 0}
-.write{border:1.2px dashed #8FC5FB; border-radius:6px; min-height:22px; background:#F7FBFF; margin-top:3px}
-.write.lg{min-height:32px}
-.fill{display:none; padding:3px 6px; color:#11734C; font-weight:700; font-size:10.2px; line-height:1.35}
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:9px; align-items:start}
+.q{border:1.5px solid #D5E6F8; border-radius:9px; padding:7px 9px 8px; margin:0 0 7px; background:#fff}
+.q h2{font-size:13.5px; font-weight:800; margin:0 0 5px; color:#1B49B8; display:flex; align-items:center; gap:6px}
+.q h2 em{font-style:normal; background:#2F6FEC; color:#fff; font-size:11px; padding:2px 8px; border-radius:99px}
+.easy{background:#EAF3FF; border-left:3.5px solid #2F6FEC; border-radius:0 7px 7px 0; padding:4px 8px; font-size:11.5px; color:#1B49B8; margin:0 0 5px}
+.hint{background:#FFF6E8; border-left:3.5px solid #D48A1A; border-radius:0 7px 7px 0; padding:4px 8px; font-size:11.5px; color:#7A4A0A; margin:0 0 5px}
+.line{border-bottom:1.2px dotted #8AA7CC; min-height:20px; margin:3px 0}
+.write{border:1.3px dashed #8FC5FB; border-radius:6px; min-height:26px; background:#F7FBFF; margin-top:4px}
+.write.lg{min-height:38px}
+.fill{display:none; padding:4px 7px; color:#11734C; font-weight:700; font-size:11.8px; line-height:1.38}
 html.key .fill{display:block}
 html.key .write, html.key .write.lg{min-height:0; background:#E7F8EF; border-style:solid; border-color:#8ED4B0}
-.small{font-size:9.5px; color:#516C8C}
-ol.plain{margin:2px 0 0; padding-left:16px}
-ol.plain li{margin:2px 0}
-.opts{display:flex; flex-wrap:wrap; gap:3px; margin-top:2px}
-.opt{border:1.2px solid #C5DBF5; border-radius:6px; padding:1px 6px; font-size:9.6px; background:#F4F8FF}
+.small{font-size:11px; color:#516C8C}
+ol.plain{margin:3px 0 0; padding-left:18px}
+ol.plain li{margin:3px 0}
+.opts{display:flex; flex-wrap:wrap; gap:4px; margin-top:3px}
+.opt{border:1.3px solid #C5DBF5; border-radius:6px; padding:2px 7px; font-size:11px; background:#F4F8FF}
 html.key .opt.ok{background:#DDF6EB; border-color:#11734C; font-weight:800; color:#11734C}
 
 .pz{border-collapse:collapse; margin:0 auto}
-.pz td{width:16px; height:16px; border:1.2px solid #1B3358; text-align:center; font-weight:800; font-size:10px; background:#F2D9A8; color:#5A3A0A}
+.pz td{width:20px; height:20px; border:1.3px solid #1B3358; text-align:center; font-weight:800; font-size:11.5px; background:#F2D9A8; color:#5A3A0A}
 .pz td.e{background:#fff}
-.pzcap{text-align:center; font-size:9px; color:#516C8C; margin-top:1px}
+.pzcap{text-align:center; font-size:10px; color:#516C8C; margin-top:2px}
 
-.boxcol{display:flex; flex-direction:column-reverse; align-items:center; gap:2px; min-height:64px; width:62px;
-  border:1.7px solid #2F6FEC; border-radius:8px; padding:4px; background:#F4F8FF}
-.boxcol b{display:block; width:100%; text-align:center; background:#fff; border:1.1px solid #8FC5FB; border-radius:5px; padding:2px 0; font-size:10.5px}
+.boxcol{display:flex; flex-direction:column-reverse; align-items:center; gap:3px; min-height:74px; width:72px;
+  border:1.8px solid #2F6FEC; border-radius:8px; padding:5px; background:#F4F8FF}
+.boxcol b{display:block; width:100%; text-align:center; background:#fff; border:1.2px solid #8FC5FB; border-radius:5px; padding:3px 0; font-size:12px}
 .boxcol b.top{background:#2F6FEC; color:#fff}
-.qline{display:flex; gap:4px; align-items:center; min-height:28px; border:1.7px solid #2F6FEC; border-radius:8px; padding:3px 5px; background:#F4F8FF}
-.qline b{min-width:26px; text-align:center; background:#fff; border:1.1px solid #8FC5FB; border-radius:5px; padding:3px 2px}
+.qline{display:flex; gap:5px; align-items:center; min-height:32px; border:1.8px solid #2F6FEC; border-radius:8px; padding:4px 6px; background:#F4F8FF}
+.qline b{min-width:30px; text-align:center; background:#fff; border:1.2px solid #8FC5FB; border-radius:5px; padding:4px 3px; font-size:12px}
 .qline b.front{background:#2F6FEC; color:#fff}
-.lab{font-size:8.5px; font-weight:800; color:#2F6FEC; text-align:center; margin-top:2px}
+.lab{font-size:9.5px; font-weight:800; color:#2F6FEC; text-align:center; margin-top:3px}
 .row{display:flex; gap:8px; align-items:flex-start}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:7px}
-.abbox{display:grid; grid-template-columns:1fr 1fr; gap:5px; margin:3px 0 4px}
-.abbox div{border:1.2px solid #C5DBF5; border-radius:7px; padding:4px 7px; background:#F4F8FF; font-size:9.8px}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.abbox{display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:4px 0 5px}
+.abbox div{border:1.3px solid #C5DBF5; border-radius:7px; padding:5px 8px; background:#F4F8FF; font-size:11px}
 .abbox b{color:#1B49B8}
-table.grid{width:100%; border-collapse:collapse; font-size:9.8px}
-table.grid th, table.grid td{border:1.1px solid #C5DBF5; padding:3px 3px; text-align:center}
-table.grid th{background:#E9F3FF; color:#1B49B8; font-size:9px}
-table.grid td.h{height:18px}
-.check{display:flex; flex-wrap:wrap; gap:5px; font-size:9.8px; margin-top:3px}
-.check span{border:1.1px solid #C5DBF5; border-radius:6px; padding:2px 6px}
+table.grid{width:100%; border-collapse:collapse; font-size:11px}
+table.grid th, table.grid td{border:1.2px solid #C5DBF5; padding:4px 4px; text-align:center}
+table.grid th{background:#E9F3FF; color:#1B49B8; font-size:10px}
+table.grid td.h{height:22px}
+.check{display:flex; flex-wrap:wrap; gap:6px; font-size:11px; margin-top:4px}
+.check span{border:1.2px solid #C5DBF5; border-radius:6px; padding:3px 7px}
 .foot{position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
-  font-size:9px; color:#7A96B8}
+  font-size:10px; color:#7A96B8}
 svg.fit{width:100%; height:auto; display:block}
-.match li{margin:3px 0 4px}
+.match li{margin:4px 0 5px}
 </style>
 </head>
 <body>
@@ -150,7 +150,7 @@ svg.fit{width:100%; height:auto; display:block}
       <article class="q">
         <h2><em>3</em> 같은 나무, 다른 걸음</h2>
         <p class="hint">왼쪽 자식부터. A의 왼쪽은 B, 오른쪽은 C.</p>
-        <svg class="fit" viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg" style="max-height:92px">
+        <svg class="fit" viewBox="0 0 280 118" xmlns="http://www.w3.org/2000/svg" style="max-height:124px">
           <line x1="140" y1="18" x2="80" y2="52" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="140" y1="18" x2="200" y2="52" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="80" y1="52" x2="48" y2="92" stroke="#8FC5FB" stroke-width="2"/>
@@ -227,7 +227,7 @@ svg.fit{width:100%; height:auto; display:block}
       <article class="q">
         <h2><em>7</em> f = g + h 계산해 보기</h2>
         <p class="easy">g = 실제로 온 거리 · h = 어림(파란 숫자) · <b>f가 작을수록</b> 먼저.</p>
-        <svg class="fit" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg" style="max-height:108px">
+        <svg class="fit" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg" style="max-height:124px">
           <line x1="50" y1="64" x2="170" y2="28" stroke="#8FC5FB" stroke-width="2.6"/>
           <line x1="50" y1="64" x2="170" y2="104" stroke="#8FC5FB" stroke-width="2.6"/>
           <line x1="170" y1="28" x2="310" y2="64" stroke="#8FC5FB" stroke-width="2.6"/>
@@ -281,7 +281,7 @@ svg.fit{width:100%; height:auto; display:block}
       <article class="q">
         <h2><em>9</em> 아래에서 위로 접어 올리기</h2>
         <p class="easy">△ Max = <b>큰 값</b> · ▽ Min = <b>작은 값</b>. 맨 아래부터.</p>
-        <svg class="fit" viewBox="0 0 420 128" xmlns="http://www.w3.org/2000/svg" style="max-height:108px">
+        <svg class="fit" viewBox="0 0 420 128" xmlns="http://www.w3.org/2000/svg" style="max-height:124px">
           <line x1="210" y1="20" x2="120" y2="58" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="210" y1="20" x2="300" y2="58" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="120" y1="58" x2="70" y2="102" stroke="#8FC5FB" stroke-width="2"/>
@@ -331,7 +331,7 @@ svg.fit{width:100%; height:auto; display:block}
       <article class="q">
         <h2><em>11</em> 잘리는 잎에 × 표시</h2>
         <p class="easy">왼쪽부터. α ≥ β 순간 남은 가지에 ×. 수업 활동 ⑫와 <b>같은 나무</b>.</p>
-        <svg class="fit" viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="max-height:148px">
+        <svg class="fit" viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="max-height:168px">
           <line x1="250" y1="20" x2="150" y2="62" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="250" y1="20" x2="350" y2="62" stroke="#8FC5FB" stroke-width="2"/>
           <line x1="150" y1="62" x2="100" y2="110" stroke="#8FC5FB" stroke-width="2"/>
