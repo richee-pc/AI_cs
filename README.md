@@ -84,7 +84,7 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 ├── unit1.html        # Ⅰ단원 수업 자료
 ├── img/u1/           # Ⅰ단원 교과서 삽화 14장 (미래엔)
 ├── snowball.gif      # 푸터 토끼 (교체용 원본)
-├── app.py            # Streamlit 진입점 (index.html을 읽어 렌더링)
+├── app.py            # 옛 Streamlit 주소로 들어온 학생을 새 주소로 안내
 ├── requirements.txt
 └── README.md
 ```
@@ -129,17 +129,34 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 
 iframe 없이 브라우저가 문서를 직접 렌더링해서 모바일에서도 가장 깔끔하게 보입니다.
 
-### Streamlit Community Cloud
+학생에게 알려 주는 주소는 이 하나입니다.
 
-1. [share.streamlit.io](https://share.streamlit.io) 에 GitHub 계정으로 로그인합니다.
-2. **New app** → 저장소 선택 → Branch `main` → Main file path `app.py` → **Deploy**.
-3. 몇 분 뒤 `https://<앱이름>.streamlit.app` 주소가 생성됩니다.
+```
+https://richee-pc.github.io/AI_cs/
+```
 
-이후 `index.html` 을 수정해 push하면 배포된 페이지에 자동 반영됩니다.
+### Streamlit — 옛 주소 안내판으로만 남겨 둠
+
+`https://aichsptp.streamlit.app/` 은 예전에 학생에게 알려 준 주소입니다.
+지금은 `app.py` 가 **새 주소로 안내하는 화면**만 띄웁니다. 안내 페이지 자체를 띄우지 않습니다.
+
+Streamlit 으로는 이 사이트를 제대로 서비스할 수 없기 때문입니다.
+
+| 막히는 것 | 까닭 |
+|---|---|
+| `unit1.html` 등 나머지 쪽이 안 열림 | Streamlit 은 `app.py` 가 읽어 준 파일 **하나만** 띄울 수 있다. 정적 파일 서버가 아니다 |
+| 페이지 안의 링크를 눌러도 반응이 없음 | 페이지가 sandbox iframe 안에서 돌고, 그 sandbox 에 `allow-top-navigation` 이 없다 |
+| 자동 이동(리다이렉트)이 안 됨 | 같은 이유. 그래서 학생이 단추를 한 번 눌러야 한다 |
+
+`target="_blank"` 로 새 탭을 여는 것은 sandbox 의 `allow-popups` 덕분에 동작하므로,
+안내판의 단추는 새 탭으로 새 주소를 엽니다.
+
+학생이 옛 주소를 더 이상 쓰지 않는 것이 확인되면
+[share.streamlit.io](https://share.streamlit.io) 에서 앱을 지워도 됩니다.
 
 ## 로컬에서 실행하기
 
-`index.html` 을 더블클릭해 열면 끝입니다. Streamlit으로 확인하려면:
+`index.html` 을 더블클릭해 열면 끝입니다. 옛 주소 안내판을 확인하려면:
 
 ```bash
 pip install -r requirements.txt
