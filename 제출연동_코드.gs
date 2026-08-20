@@ -241,8 +241,8 @@ function sheet(kind) {
     sh.setFrozenRows(1);
     sh.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm');
     for (var i = 0; i < kind.width.length; i++) sh.setColumnWidth(i + 1, kind.width[i]);
-  } else if (sh.getLastColumn() < kind.head.length) {
-    // 이미 만들어진 탭에 열이 늘어난 경우 — 머리글을 손으로 고치지 않아도 되게 채워 준다
+  } else if (headDiffers(sh, kind)) {
+    // 열 구성이 바뀐 탭 — 머리글을 손으로 고치지 않아도 되게 맞춰 준다
     sh.getRange(1, 1, 1, kind.head.length)
       .setValues([kind.head])
       .setFontWeight('bold')
@@ -251,6 +251,17 @@ function sheet(kind) {
     for (var j = 0; j < kind.width.length; j++) sh.setColumnWidth(j + 1, kind.width[j]);
   }
   return sh;
+}
+
+/** 지금 머리글이 코드의 head 와 다른지 (열이 늘었거나 이름이 바뀐 경우) */
+function headDiffers(sh, kind) {
+  var last = sh.getLastColumn();
+  if (last < kind.head.length) return true;
+  var now = sh.getRange(1, 1, 1, kind.head.length).getValues()[0];
+  for (var i = 0; i < kind.head.length; i++) {
+    if (String(now[i] || '').trim() !== kind.head[i]) return true;
+  }
+  return false;
 }
 
 function out(obj) {
