@@ -3828,7 +3828,8 @@ while open_list:
   function stepsDFS(){
     var out = [], order = [], stack = ['A'];
     out.push({ cur:null, order:[], stack:stack.slice(),
-      say: '빈 <b>스택</b>에 시작 노드 <b>A</b> 를 넣습니다 (push). 스택은 <b>맨 위(top)</b>에서만 넣고 꺼냅니다.' });
+      say: '빈 <b>스택</b>에 시작 노드 <b>A</b> 를 넣습니다 (push).',
+      why: '스택은 <b>맨 위(top)</b>에서만 넣고 꺼냅니다. 접시 더미를 떠올리세요.' });
     var prev = null;
     while(stack.length){
       var n = stack.pop();
@@ -3836,44 +3837,45 @@ while open_list:
       order.push(n);
       var kids = TREE[n].kids.slice();
       for(var i = kids.length - 1; i >= 0; i--) stack.push(kids[i]);
-      var kidTxt = kids.length ? ' 자식 <b>' + kids.join(', ') + '</b> 를 스택 <b>맨 위</b>에 올립니다 (push). 나중에 넣은 <b>' + kids[0] + '</b> 가 다음에 꺼내집니다.'
-                               : ' 자식이 없습니다.';
+      var kidTxt = kids.length ? '자식 <b>' + kids.join(', ') + '</b> 를 스택 <b>맨 위</b>에 올립니다 (push). 나중에 넣은 <b>' + kids[0] + '</b> 가 다음에 꺼내집니다.'
+                               : '자식이 없습니다. 스택 맨 위의 다음 노드로 넘어갑니다.';
       var say;
-      if(order.length === 1)
-        say = '스택 맨 위에서 <b>A</b> 를 꺼냈습니다 (pop). 시작점이에요.' + kidTxt;
-      else if(back)
-        say = '더 내려갈 곳이 없어 <b>백트래킹</b>. 스택 맨 위의 <b>' + n + '</b> 를 꺼냅니다 (pop).' + kidTxt;
-      else
-        say = '스택 맨 위에서 <b>' + n + '</b> 를 꺼냈습니다 (pop).' + kidTxt;
-      out.push({ cur:n, order:order.slice(), stack:stack.slice(), back:back, say:say });
+      if(order.length === 1)      say = '스택 맨 위에서 <b>A</b> 를 꺼냈습니다 (pop). 시작점이에요.';
+      else if(back)               say = '더 내려갈 곳이 없어 <b>백트래킹</b> — <b>' + n + '</b> 를 꺼냅니다 (pop).';
+      else                        say = '스택 맨 위에서 <b>' + n + '</b> 를 꺼냈습니다 (pop).';
+      out.push({ cur:n, order:order.slice(), stack:stack.slice(), back:back, say:say, why:kidTxt });
       prev = n;
     }
     out.push({ cur:null, order:order.slice(), stack:[], done:true,
-      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다. 스택이 비면 탐색이 끝나요.' });
+      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다.',
+      why: '<b>스택이 비면</b> 탐색이 끝납니다. 한 길로 끝까지 내려갔다가 되돌아온 자취예요.' });
     return out;
   }
   function stepsBFS(){
     var out = [], order = [], q = ['A'];
     out.push({ cur:null, order:[], queue:q.slice(),
-      say: '빈 <b>큐</b>에 시작 노드 <b>A</b> 를 넣습니다 (enqueue). 줄 <b>앞(front)</b>에서 꺼내고, <b>뒤(rear)</b>에 세웁니다.' });
+      say: '빈 <b>큐</b>에 시작 노드 <b>A</b> 를 넣습니다 (enqueue).',
+      why: '줄 <b>앞(front)</b>에서 꺼내고 <b>뒤(rear)</b>에 세웁니다. 급식 줄을 떠올리세요.' });
     while(q.length){
       var n = q.shift();
       order.push(n);
       TREE[n].kids.forEach(function(k){ q.push(k); });
       out.push({ cur:n, order:order.slice(), queue:q.slice(),
-        say: '줄 앞에서 <b>' + n + '</b> 를 꺼냈습니다 (dequeue).' +
-          (TREE[n].kids.length ? ' 자식 <b>' + TREE[n].kids.join(', ') + '</b> 를 줄 <b>뒤</b>에 세웁니다 (enqueue).'
-                               : ' 자식이 없어서 그냥 넘어갑니다.') });
+        say: '줄 앞에서 <b>' + n + '</b> 를 꺼냈습니다 (dequeue).',
+        why: (TREE[n].kids.length ? '자식 <b>' + TREE[n].kids.join(', ') + '</b> 를 줄 <b>뒤</b>에 세웁니다 (enqueue).'
+                                  : '자식이 없어서 그냥 넘어갑니다.') });
     }
     out.push({ cur:null, order:order.slice(), queue:[], done:true,
-      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다. <b>위층을 전부 본 뒤</b> 아래층으로 갔지요?' });
+      say: '끝! 찾아본 순서는 <b>' + order.join(' → ') + '</b> 입니다.',
+      why: '<b>위층을 전부 본 뒤</b> 아래층으로 갔지요? 물결이 퍼지듯 한 겹씩 훑습니다.' });
     return out;
   }
   function stepsBest(){
     var out = [], open = ['A'], closed = [], seen = { A:1 };
     out.push({ open:open.slice(), closed:[], cur:null,
-      say: '시작! 아직 안 열어 본 것을 담는 <b>OPEN</b> 에 A 를 넣습니다. ' +
-           'A 의 점수는 <b>' + BEST.A.v + '점</b> (목표와 맞은 숫자 칸의 수)입니다.' });
+      say: '시작! <b>OPEN</b> 에 <b>A</b> 를 넣습니다.',
+      why: 'OPEN 은 <b>아직 안 열어 본 것</b>을 담아 두는 곳입니다. ' +
+           'A 의 점수는 <b>' + BEST.A.v + '점</b> — 목표와 <b>맞은 숫자 칸의 수</b>예요.' });
     while(open.length){
       var best = open[0];
       open.forEach(function(n){ if(BEST[n].v > BEST[best].v) best = n; });
@@ -3881,25 +3883,28 @@ while open_list:
       closed.unshift(best);
       if(BEST[best].v === 8){
         out.push({ open:open.slice(), closed:closed.slice(), cur:best, hit:true, done:true,
-          say: '<b>' + best + ' (' + BEST[best].v + '점)</b> 을 열었더니 <b>목표 상태</b>였습니다! 탐색 끝.<br>' +
-               '찾아간 순서 : <b>' + closed.slice().reverse().map(function(n){ return n + '/' + BEST[n].v; }).join(' → ') + '</b>' });
+          say: '<b>' + best + ' (' + BEST[best].v + '점)</b> 을 열었더니 <b>목표 상태</b>였습니다!',
+          why: '찾아간 순서 : <b>' +
+               closed.slice().reverse().map(function(n){ return n + '/' + BEST[n].v; }).join(' → ') +
+               '</b> · 점수가 <b>4 → 5 → 6 → 7 → 8</b> 로 계속 올라갔지요?' });
         break;
       }
       var kids = BEST[best].kids.filter(function(k){ return !seen[k]; });
       kids.forEach(function(k){ seen[k] = 1; open.push(k); });
       out.push({ open:open.slice(), closed:closed.slice(), cur:best,
-        say: 'OPEN 중에서 점수가 가장 높은 <b>' + best + ' (' + BEST[best].v + '점)</b> 을 골라 열었습니다. ' +
-             'CLOSED 로 옮기고' +
-             (kids.length ? ', 자식 <b>' + kids.map(function(k){ return k + '/' + BEST[k].v; }).join(', ') + '</b> 를 OPEN 에 넣습니다.'
-                          : ' 자식은 없습니다.') });
+        say: 'OPEN 중 점수가 가장 높은 <b>' + best + ' (' + BEST[best].v + '점)</b> 을 열었습니다.',
+        why: '연 노드는 <b>CLOSED</b> 로 옮깁니다. ' +
+             (kids.length ? '자식 <b>' + kids.map(function(k){ return k + '/' + BEST[k].v; }).join(', ') + '</b> 를 <b>OPEN</b> 에 넣어요.'
+                          : '자식은 없습니다.') });
     }
     return out;
   }
   function stepsAstar(){
     var out = [], g = { '스페인':0 }, from = {}, open = ['스페인'], closed = [], rows = [];
     out.push({ open:open.slice(), closed:[], rows:[], cur:null, fromMap:{},
-      say: '출발지 <b>스페인</b> 에서 시작합니다. 앞으로 갈 곳마다 ' +
-           '<b>f = g + h</b> 를 계산해서 <b>가장 작은 곳</b>으로 갑니다.' });
+      say: '출발지 <b>스페인</b> 에서 시작합니다.',
+      why: '갈 수 있는 곳마다 <b>f = g + h</b> 를 계산해서 <b>f 가 가장 작은 곳</b>으로 갑니다. ' +
+           'g 는 <b>지금까지 온 거리</b>, h 는 <b>앞으로 남은 거리 어림</b>이에요.' });
     while(open.length){
       var best = open[0];
       open.forEach(function(n){ if(g[n] + EU[n].h < g[best] + EU[best].h) best = n; });
@@ -3909,8 +3914,8 @@ while open_list:
         var path = [best], p = best;
         while(from[p]){ p = from[p]; path.unshift(p); }
         out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best, path:path, done:true,
-          say: '<b>오스트리아</b> 에 도착했습니다! 가장 짧은 길은<br>' +
-               '<b>' + path.join(' → ') + '</b> · 모두 <b>' + g[best] + '</b> 입니다.' });
+          say: '<b>오스트리아</b> 에 도착했습니다!',
+          why: '가장 짧은 길은 <b>' + path.join(' → ') + '</b> · 모두 <b>' + g[best] + '</b> 입니다.' });
         break;
       }
       var added = [];
@@ -3928,8 +3933,10 @@ while open_list:
       var pick = added.length ? added.reduce(function(a, b){ return a.f <= b.f ? a : b; }) : null;
       out.push({ open:open.slice(), closed:closed.slice(), rows:rows.slice(), cur:best,
         gmap:JSON.parse(JSON.stringify(g)), fromMap:JSON.parse(JSON.stringify(from)),
-        say: '<b>' + best + '</b> 에서 갈 수 있는 곳을 모두 계산했습니다.' +
-             (pick ? ' 그중 <b>' + pick.to + '</b> 의 f 가 <b>' + pick.f + '</b> 로 가장 작습니다.' : '') });
+        say: '<b>' + best + '</b> 에서 갈 수 있는 곳을 모두 계산했습니다.',
+        why: (pick ? '그중 <b>' + pick.to + '</b> 의 f 가 가장 작습니다 — ' +
+                     'g ' + pick.g + ' + h ' + pick.h + ' = <b>f ' + pick.f + '</b>. 다음은 여기로 갑니다.'
+                   : '새로 갈 수 있는 곳이 없습니다.') });
     }
     return out;
   }
