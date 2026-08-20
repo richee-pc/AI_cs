@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v4
+ * 인공지능 기초 활동지 수집기  v6
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -10,6 +10,12 @@
  *   · 우리동네등굣길    ← Ⅰ-04 활동 ⑧
  *   · 학교안길찾기      ← Ⅰ-05 활동 ⑨
  *   · 추론게임          ← Ⅰ-06 활동 ⑪
+ *   · 규칙게임          ← Ⅰ-06 활동 ⑪ «친구와 추론 게임 주고받기»
+ *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
+ *
+ * 규칙게임 탭만은 학생 페이지가 «읽기»도 합니다. 친구들이 올린 게임을
+ * 목록으로 보여 주어야 하기 때문입니다. 나머지 탭은 읽히지 않습니다.
+ * 부적절한 내용이 올라오면 시트에서 그 줄을 지우면 목록에서도 사라집니다.
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
  */
@@ -18,7 +24,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 5;
+var VER = 6;
 
 var SHEETS = {
 
@@ -117,11 +123,25 @@ var SHEETS = {
   infer: {
     name: '추론게임',
     head: ['제출 시각', '분반', '모둠', '추론 퍼즐 점수',
-           '내가 만든 규칙', '새로 알 수 있는 사실', '이 규칙이 틀릴 수 있는 경우'],
-    width: [140, 70, 130, 110, 380, 340, 340],
+           '내가 만든 게임', '그 게임의 정답', '규칙이 틀릴 수 있는 경우',
+           '친구 게임에 남긴 의견'],
+    width: [140, 70, 130, 110, 380, 300, 340, 420],
     row: function (d) {
       return [new Date(), d.cls || '', d.group || '', d.score || '',
-              d.rule || '', d.fresh || '', d.weak || ''];
+              d.rule || '', d.fresh || '', d.weak || '', d.peer || ''];
+    }
+  },
+
+  rulegame: {
+    name: '규칙게임',
+    // 게임 종류가 다섯 가지라 열을 종류별로 두지 않습니다. 사람이 읽을 요약과
+    // 되살릴 원본(JSON)을 나누어 담아, 종류가 늘어도 이 코드를 고칠 일이 없게 했습니다.
+    head: ['제출 시각', '분반', '만든 사람(모둠)', '게임 종류',
+           '문제 요약', '정답', '게임 데이터(JSON)'],
+    width: [140, 70, 130, 100, 380, 240, 420],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '', d.kind || '',
+              d.sum || '', d.ans || '', d.json || ''];
     }
   },
 
@@ -167,9 +187,45 @@ function doPost(e) {
   }
 }
 
-// 학생 페이지가 코드 버전을 확인할 때, 그리고 선생님이 주소를 눌러 볼 때
-function doGet() {
+// 학생 페이지가 코드 버전을 확인할 때, 그리고 선생님이 주소를 눌러 볼 때.
+// ?list=rulegame 이면 «규칙게임» 탭을 읽어 목록으로 돌려준다.
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (p.list) {
+    if (p.key !== SUBMIT_KEY) {
+      return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
+    }
+    // 읽기를 허용하는 탭은 «규칙게임» 하나뿐입니다. 다른 탭은 열어 주지 않습니다.
+    if (p.list !== 'rulegame') {
+      return out({ ok: false, error: '읽을 수 없는 목록입니다.' });
+    }
+    return out({ ok: true, ver: VER, games: readGames(p.cls || '') });
+  }
   return out({ ok: true, ver: VER, msg: '수집기가 켜져 있습니다. (v' + VER + ')' });
+}
+
+/** «규칙게임» 탭을 읽어 최신순으로 돌려준다. cls 를 주면 그 분반 것만. */
+function readGames(cls) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.rulegame.name);
+  if (!sh) return [];
+  var last = sh.getLastRow();
+  if (last < 2) return [];
+  var MAX = 300;                                   // 너무 많아지면 최근 것부터
+  var n = Math.min(last - 1, MAX);
+  var rows = sh.getRange(last - n + 1, 1, n, 7).getValues();
+  var list = [];
+  for (var i = rows.length - 1; i >= 0; i--) {     // 최신이 맨 위로
+    var r = rows[i];
+    var js = String(r[6] || '').trim();
+    if (!js) continue;                             // 원본이 없으면 되살릴 수 없다
+    if (cls && String(r[1] || '') !== cls) continue;
+    list.push({
+      t: r[0] ? new Date(r[0]).getTime() : 0,
+      cls: String(r[1] || ''), n: String(r[2] || ''),
+      kind: String(r[3] || ''), json: js
+    });
+  }
+  return list;
 }
 
 function sheet(kind) {
@@ -185,6 +241,14 @@ function sheet(kind) {
     sh.setFrozenRows(1);
     sh.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm');
     for (var i = 0; i < kind.width.length; i++) sh.setColumnWidth(i + 1, kind.width[i]);
+  } else if (sh.getLastColumn() < kind.head.length) {
+    // 이미 만들어진 탭에 열이 늘어난 경우 — 머리글을 손으로 고치지 않아도 되게 채워 준다
+    sh.getRange(1, 1, 1, kind.head.length)
+      .setValues([kind.head])
+      .setFontWeight('bold')
+      .setBackground('#DCEBFF')
+      .setFontColor('#1B49B8');
+    for (var j = 0; j < kind.width.length; j++) sh.setColumnWidth(j + 1, kind.width[j]);
   }
   return sh;
 }
