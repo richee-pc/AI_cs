@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v10
+ * 인공지능 기초 활동지 수집기  v11
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -28,7 +28,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 10;
+var VER = 11;
 
 var SHEETS = {
 
@@ -649,7 +649,8 @@ function 세특초안만들기() {
     if (!nm) continue;
     var k = cls + '|' + nm;
     var old = keep[k] || ['', '', '', ''];
-    var txt = 세특문장(G[r], mine[k], old[0], old[1], old[2]);
+    // G[r][12] = 채점표 M열 「관찰 메모」 · old[2] = 세특도우미 I열 「선생님 한 줄」
+    var txt = 세특문장(G[r], mine[k], old[0], old[1], old[2], G[r][12]);
     if (txt) done++;
     body.push([cls, nm, G[r][2], G[r][3], G[r][9], G[r][10],
                old[0], old[1], old[2], txt, '', old[3]]);
@@ -721,7 +722,7 @@ function 을를(s) { return 받침(s) ? '을' : '를'; }
     세특은 과목당 500자다. 넘치면 «덜 중요한 것부터» 덜어 낸다.
     pri 가 클수록 먼저 덜어 낸다. 점수에서 나온 네 문장과
     선생님이 직접 적은 것은 마지막까지 남긴다. */
-function 세특문장(row, sub, strong, grow, memo) {
+function 세특문장(row, sub, strong, grow, memo, watch) {
   var topic = String(row[2] || '').trim();
   var side = String(row[3] || '').trim();
   var sc = [row[5], row[6], row[7], row[8]];
@@ -745,10 +746,15 @@ function 세특문장(row, sub, strong, grow, memo) {
   // 무엇을 했는지 — 점수 단계에서 뽑는다
   for (var e = 0; e < 4; e++) add(1, 등급문장(e, sc[e]));
 
-  // 선생님이 직접 본 것
-  if (memo && String(memo).trim()) {
-    add(1, String(memo).trim().replace(/[.。]\s*$/, ''));
-  }
+  // 선생님이 직접 본 것 — 채점표의 「관찰 메모」와 세특도우미의 「선생님 한 줄」.
+  // 두 곳에 같은 말을 적어 두었으면 한 번만 넣는다.
+  // 「선생님 한 줄」은 세특을 쓰려고 일부러 적은 것이므로 끝까지 남기고,
+  // 자리가 모자라면 「관찰 메모」부터 덜어 낸다 (pri 1.5 > 1).
+  var 본것 = {};
+  [[watch, 1.5], [memo, 1]].forEach(function (m) {
+    var x = String(m[0] === null || m[0] === undefined ? '' : m[0]).trim().replace(/[.。]\s*$/, '');
+    if (x && !본것[x]) { 본것[x] = 1; add(m[1], x); }
+  });
 
   // 학생이 낸 글에서 구체적인 것
   if (sub) {
