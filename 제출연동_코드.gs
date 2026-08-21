@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v9
+ * 인공지능 기초 활동지 수집기  v10
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -12,6 +12,8 @@
  *   · 추론게임          ← Ⅰ-06 활동 ⑪
  *   · 토론입론서        ← Ⅲ-04 활동 ⑧ 개별 문서 A~D부 (수행평가 ① 윤리 토론)
  *   · 토론채점          ← 선생님이 «수행평가» 메뉴에서 만드는 채점표
+ *   · 채점기준          ← 채점표가 «채점 근거» 문장을 가져오는 곳 (원문 5단계)
+ *   · 세특도우미        ← 점수와 제출물에서 세특 초안을 뽑아 주는 곳
  *   · 규칙게임          ← Ⅰ-06 활동 ⑪ «친구와 추론 게임 주고받기»
  *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
  *
@@ -26,7 +28,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 9;
+var VER = 10;
 
 var SHEETS = {
 
@@ -312,35 +314,101 @@ function headDiffers(sh, kind) {
 
 
 /* ══════════════════════════════════════════════════════════
-   토론 채점표
+   토론 채점표 · 채점 기준 · 세특 도우미
    「토론입론서」 탭에 들어온 제출물에서 명단을 뽑아 채점표를 만든다.
-   평가 요소 네 가지는 평가 운영 계획의 「가. 인공지능 윤리 토론」과 같다.
+   평가 요소 네 가지와 5단계 기준은 평가 운영 계획의
+   「가. 인공지능 윤리 토론」 원문과 같다.
    시트를 열면 상단에 «수행평가» 메뉴가 생긴다.
+
+   점수를 고르면 그 점수의 «기준 문장»이 채점표에 그대로 따라 붙는다.
+   학생이 «왜 이 점수인가»를 물으면 그 칸을 그대로 보여 주면 된다.
    ══════════════════════════════════════════════════════════ */
 
 var GRADE_SHEET = '토론채점';
+var CRIT_SHEET  = '채점기준';
+var SE_SHEET    = '세특도우미';
+
 var GRADE_COLS = ['논제 분석과 입론서', '교차 질의와 반론·반박',
                   '최종 정리 발언', '윤리 분석과 공존 방안'];
 var GRADE_LEVELS = [25, 20, 15, 10, 5, 0];   // 0 = 미실시
 var CUT = [[90, 'A'], [80, 'B'], [70, 'C'], [50, 'D']];   // 그 아래는 E
 
+/* 평가 운영 계획 원문. 채점표의 「채점 근거」 칸이 여기서 문장을 가져간다. */
+var CRIT = [
+  [25, '윤리 관점(투명성·공정성·책임성) 중 2가지 이상으로 쟁점을 나누어 쓰고, 근거 3가지 모두에 출처(기관·연도 또는 수치)를 밝혔으며, 입론 요약 발언에서 원고 없이 근거의 출처를 설명함',
+   20, '윤리 관점 1가지로 쟁점을 나누어 쓰고, 근거 3가지 중 2가지에 출처를 밝혔으며, 주장과 근거가 서로 어긋나지 않음',
+   15, '근거 3가지를 제시하였으나 출처를 밝힌 것이 1가지이거나, 근거 1가지가 주장과 연결되지 않음',
+   10, '근거를 2가지 이하로 제시하였거나 출처가 없으며, 입론 요약 발언에서 자기 근거를 설명하지 못함',
+   5,  '입론서를 제출하였으나 양식 6항목 중 3항목 이상이 비어 있거나 논제와 관련이 없음'],
+  [25, '질의와 답변을 모두 수행하고, 질의에서 상대 논증의 전제 또는 근거의 허점을 지목하였으며, 답변에서 상대의 재질문에 새로운 근거를 들어 대응함',
+   20, '질의와 답변을 모두 수행하고, 상대 논증의 허점을 지목하여 근거를 들어 반박함',
+   15, '질의와 답변을 모두 수행하였으나 그중 하나가 상대 발언을 겨냥하지 못하거나 근거 없이 자기 주장을 반복함',
+   10, '질의와 답변 중 한 가지만 수행함',
+   5,  '질의와 답변을 하지 않았으나 토론 규칙을 지키며 상대 발언을 듣고 기록함'],
+  [25, '토론 중 실제로 오간 논점을 2가지 이상 인용하여 쟁점을 정리하고, 자기 입장이 우위인 이유를 근거와 함께 제시하며 정해진 1분 안에 마침',
+   20, '토론 중 오간 논점을 1가지 인용하여 쟁점을 정리하고 자기 입장을 근거와 함께 정리함',
+   15, '쟁점을 정리하였으나 토론 중 오간 논점을 인용하지 못하고 입론 내용에 머무름',
+   10, '발언이 자기 입론서의 문장을 그대로 반복하는 데 그침',
+   5,  '최종 정리 발언에 참여하였으나 쟁점 정리 없이 소감을 말하는 데 그침'],
+  [25, '개발자·사용자·운영자 세 관점에서 각각 쟁점을 분석하고, 토론에서 자신이 반박당한 지점을 밝혀 주장을 수정·보완하였으며, 실천 방안을 「누가 무엇을 한다」가 드러나게 2가지 이상 제시함',
+   20, '세 관점 중 2가지 관점에서 쟁점을 분석하고, 실천 방안을 「누가 무엇을 한다」가 드러나게 1가지 이상 제시함',
+   15, '한 관점에서만 쟁점을 분석하였고, 실천 방안이 「노력해야 한다」 수준의 일반 진술에 그침',
+   10, '토론 내용을 요약하는 데 그치고 윤리 관점의 분석이 나타나지 않음',
+   5,  '성찰문을 제출하였으나 논제와 관련이 없거나 요구 분량의 절반에 못 미침']
+];
+
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('수행평가')
-    .addItem('토론 채점표 만들기 / 명단 새로고침', '토론채점표만들기')
+    .addItem('① 토론 채점표 만들기 / 명단 새로고침', '토론채점표만들기')
+    .addItem('② 세특 초안 만들기 / 새로 고치기', '세특초안만들기')
     .addSeparator()
     .addItem('채점 결과 요약 보기', '토론채점요약')
     .addToUi();
 }
 
-/** 제출된 입론서에서 명단을 뽑아 채점표를 만든다. 이미 매긴 점수는 지우지 않는다. */
+/* ── 채점기준 탭 ──────────────────────────────────────────
+   채점표의 「채점 근거」 칸이 이 탭을 찾아본다. 사람이 읽어도 되고,
+   학생에게 그대로 보여 주어도 되는 표다.                        */
+function 채점기준시트(ss) {
+  var sh = ss.getSheetByName(CRIT_SHEET);
+  if (sh) sh.clear(); else sh = ss.insertSheet(CRIT_SHEET);
+
+  var rows = [['찾는 값', '평가 요소', '점수', '이 점수를 주는 기준']];
+  for (var e = 0; e < 4; e++) {
+    for (var k = 0; k < CRIT[e].length; k += 2) {
+      rows.push([(e + 1) + '-' + CRIT[e][k],
+                 (e + 1) + '. ' + GRADE_COLS[e],
+                 CRIT[e][k], CRIT[e][k + 1]]);
+    }
+    rows.push([(e + 1) + '-0', (e + 1) + '. ' + GRADE_COLS[e], 0, '미실시 — 해당 활동에 참여하지 않음']);
+  }
+  sh.getRange(1, 1, rows.length, 4).setValues(rows);
+  sh.getRange(1, 1, 1, 4).setFontWeight('bold')
+    .setBackground('#DCEBFF').setFontColor('#1B49B8');
+  sh.getRange(2, 4, rows.length - 1, 1).setWrap(true).setVerticalAlignment('top');
+  sh.getRange(2, 3, rows.length - 1, 1).setHorizontalAlignment('center').setFontWeight('bold');
+  sh.setColumnWidth(1, 80); sh.setColumnWidth(2, 200);
+  sh.setColumnWidth(3, 60); sh.setColumnWidth(4, 720);
+  sh.setFrozenRows(1);
+  // 만점 줄만 초록으로
+  for (var r = 2; r <= rows.length; r++) {
+    if (sh.getRange(r, 3).getValue() === 25) {
+      sh.getRange(r, 1, 1, 4).setBackground('#DDF6EB');
+    }
+  }
+  return sh;
+}
+
+/** 제출된 문서에서 명단을 뽑아 채점표를 만든다. 이미 매긴 점수는 지우지 않는다. */
 function 토론채점표만들기() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var src = ss.getSheetByName(SHEETS.debate.name);
   if (!src || src.getLastRow() < 2) {
-    SpreadsheetApp.getUi().alert('아직 제출된 입론서가 없습니다.\n학생이 활동 ⑧에서 제출하면 명단이 채워집니다.');
+    SpreadsheetApp.getUi().alert('아직 제출된 문서가 없습니다.\n학생이 활동 ⑧에서 제출하면 명단이 채워집니다.');
     return;
   }
+  채점기준시트(ss);
 
   // 제출물에서 (분반, 이름) 뽑기 — 같은 학생이 여러 번 냈으면 마지막 것만
   var rows = src.getRange(2, 1, src.getLastRow() - 1, 6).getValues();  // 시각·분반·이름·논제·입장·채운 칸
@@ -353,7 +421,7 @@ function 토론채점표만들기() {
     if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '', '']); }
     list[seen[key]][2] = String(rows[i][3] || '');   // 논제
     list[seen[key]][3] = String(rows[i][4] || '');   // 입장
-    list[seen[key]][4] = String(rows[i][5] || '');   // 채운 칸 (26칸 중 몇 칸)
+    list[seen[key]][4] = String(rows[i][5] || '');   // 채운 칸
   }
   list.sort(function (a, b) {
     return a[0] === b[0] ? (a[1] < b[1] ? -1 : 1) : (a[0] < b[0] ? -1 : 1);
@@ -364,10 +432,10 @@ function 토론채점표만들기() {
   if (sh) {
     // 이미 매긴 점수와 메모를 기억해 둔다
     if (sh.getLastRow() > 2) {
-      var prev = sh.getRange(3, 1, sh.getLastRow() - 2, 12).getValues();
+      var prev = sh.getRange(3, 1, sh.getLastRow() - 2, 13).getValues();
       for (var p = 0; p < prev.length; p++) {
         var k = String(prev[p][0]) + '|' + String(prev[p][1]);
-        old[k] = [prev[p][5], prev[p][6], prev[p][7], prev[p][8], prev[p][11]];
+        old[k] = [prev[p][5], prev[p][6], prev[p][7], prev[p][8], prev[p][12]];
       }
     }
     sh.clear();
@@ -380,14 +448,16 @@ function 토론채점표만들기() {
   var head1 = ['분반', '이름(모둠)', '논제', '입장', '채운 칸',
                '① ' + GRADE_COLS[0], '② ' + GRADE_COLS[1],
                '③ ' + GRADE_COLS[2], '④ ' + GRADE_COLS[3],
-               '합계', '성취도', '메모'];
+               '합계', '성취도', '채점 근거 (자동)', '관찰 메모'];
   var head2 = ['', '', '', '', '26칸 중',
-               '25점', '25점', '25점', '25점', '100점', '', '피드백·특기사항'];
+               '25점', '25점', '25점', '25점', '100점', '',
+               '고른 점수의 기준 문장이 그대로 들어옵니다',
+               '토론 중 눈에 띈 모습 — 세특에 쓰입니다'];
   sh.getRange(1, 1, 1, head1.length).setValues([head1])
     .setFontWeight('bold').setBackground('#DCEBFF').setFontColor('#1B49B8')
     .setVerticalAlignment('middle').setWrap(true);
   sh.getRange(2, 1, 1, head2.length).setValues([head2])
-    .setFontSize(9).setFontColor('#5E708D').setBackground('#F2F8FF');
+    .setFontSize(9).setFontColor('#5E708D').setBackground('#F2F8FF').setWrap(true);
   sh.setFrozenRows(2);
   sh.setFrozenColumns(2);
 
@@ -398,13 +468,15 @@ function 토론채점표만들기() {
       var k2 = list[r][0] + '|' + list[r][1];
       if (old[k2]) {
         sh.getRange(row, 6, 1, 4).setValues([[old[k2][0], old[k2][1], old[k2][2], old[k2][3]]]);
-        sh.getRange(row, 12).setValue(old[k2][4]);
+        sh.getRange(row, 13).setValue(old[k2][4]);
       }
       // 합계 · 성취도
       sh.getRange(row, 10).setFormula('=IF(COUNT(F' + row + ':I' + row + ')=0,"",SUM(F' + row + ':I' + row + '))');
       sh.getRange(row, 11).setFormula(
         '=IF(J' + row + '="","",IF(J' + row + '>=90,"A",IF(J' + row + '>=80,"B",' +
         'IF(J' + row + '>=70,"C",IF(J' + row + '>=50,"D","E")))))');
+      // 채점 근거 — 고른 점수의 기준 문장을 「채점기준」 탭에서 가져온다
+      sh.getRange(row, 12).setFormula(근거수식(row));
     }
     // 점수 칸 드롭다운
     var rule = SpreadsheetApp.newDataValidation()
@@ -416,6 +488,7 @@ function 토론채점표만들기() {
       .setHorizontalAlignment('center').setFontWeight('bold');
     sh.getRange(3, 5, list.length, 1).setHorizontalAlignment('center');
     sh.getRange(3, 10, list.length, 2).setHorizontalAlignment('center').setFontWeight('bold');
+    sh.getRange(3, 12, list.length, 2).setWrap(true).setVerticalAlignment('top').setFontSize(9);
 
     // 성취도 색
     var rng = sh.getRange(3, 11, list.length, 1);
@@ -432,7 +505,7 @@ function 토론채점표만들기() {
     sh.setConditionalFormatRules(rules);
   }
 
-  var w = [70, 130, 290, 60, 70, 110, 110, 110, 110, 70, 70, 320];
+  var w = [70, 130, 260, 60, 70, 105, 105, 105, 105, 65, 65, 460, 300];
   for (var i2 = 0; i2 < w.length; i2++) sh.setColumnWidth(i2 + 1, w[i2]);
   sh.getRange(1, 1, 2, head1.length).setHorizontalAlignment('center');
 
@@ -440,8 +513,284 @@ function 토론채점표만들기() {
     '채점표를 만들었습니다.\n\n' +
     '학생 ' + list.length + '명\n\n' +
     '점수 칸(①~④)은 25 / 20 / 15 / 10 / 5 중에서 고르면 되고,\n' +
-    '합계와 성취도는 자동으로 계산됩니다.\n' +
-    '다시 실행해도 이미 매긴 점수는 그대로 둡니다.');
+    '합계·성취도와 «채점 근거»는 자동으로 채워집니다.\n\n' +
+    '「채점 근거」 칸에는 고른 점수의 기준 문장이 그대로 들어옵니다.\n' +
+    '학생이 점수를 물으면 그 칸을 보여 주시면 됩니다.\n' +
+    '기준 원문은 새로 만들어진 «채점기준» 탭에 있습니다.\n\n' +
+    '다시 실행해도 이미 매긴 점수와 관찰 메모는 그대로 둡니다.');
+}
+
+/** 한 줄의 「채점 근거」 수식 */
+function 근거수식(row) {
+  var part = [];
+  var col = ['F', 'G', 'H', 'I'], num = ['①', '②', '③', '④'];
+  for (var e = 0; e < 4; e++) {
+    var c = col[e] + row;
+    part.push('IF(' + c + '="","","' + num[e] + ' "&' + c + '&"점 · "&' +
+              'IFERROR(VLOOKUP("' + (e + 1) + '-"&' + c + ",'" + CRIT_SHEET + "'!$A:$D,4,FALSE),\"\"))");
+  }
+  return '=IF(COUNT(F' + row + ':I' + row + ')=0,"",TEXTJOIN(CHAR(10)&CHAR(10),TRUE,' +
+         part.join(',') + '))';
+}
+
+/* ══════════════════════════════════════════════════════════
+   세특 도우미
+   점수와 학생이 낸 글에서 «관찰된 사실»만 뽑아 초안을 짜 준다.
+   초안은 어디까지나 초안이다 — 선생님이 고쳐 「최종본」 칸에 넣는다.
+   점수나 드롭다운을 바꾸면 메뉴에서 한 번 더 눌러 새로 고친다.
+   ══════════════════════════════════════════════════════════ */
+
+/* 점수 단계별로 «무엇을 했는지»를 세특 말투(…함/…음)로 적어 둔 것.
+   평가 기준의 표현을 학생의 «행동»으로 바꾸어 옮겼다. */
+var SE_CLAUSE = [
+  { 25:'윤리 관점 두 가지 이상으로 쟁점을 나누고 근거 세 가지에 모두 출처를 밝혀 입론을 구성하였으며, 발표에서 원고 없이 근거의 출처를 설명함',
+    20:'윤리 관점을 세워 쟁점을 나누고 근거 대부분에 출처를 밝혀 주장과 어긋나지 않는 입론을 구성함',
+    15:'근거 세 가지를 갖추어 입론을 구성함',
+    10:'주장과 근거를 갖추어 입론을 작성함',
+    5 :'입론 작성 활동에 참여함' },
+  { 25:'교차 질의에서 상대 논증의 전제와 근거의 허점을 지목해 질문하고, 상대의 재질문에는 새로운 근거를 들어 대응함',
+    20:'교차 질의에서 상대 논증의 허점을 지목하고 근거를 들어 반박함',
+    15:'교차 질의에서 질문과 답변에 모두 참여함',
+    10:'교차 질의에서 질문과 답변 중 한 가지를 수행함',
+    5 :'토론 규칙을 지키며 상대의 발언을 끝까지 듣고 기록함' },
+  { 25:'최종 정리 발언에서 토론 중 오간 논점을 두 가지 이상 인용해 쟁점을 정리하고 자기 입장이 우위인 이유를 근거와 함께 제시함',
+    20:'최종 정리 발언에서 토론 중 오간 논점을 인용해 쟁점을 정리함',
+    15:'최종 정리 발언에서 쟁점을 정리함',
+    10:'최종 정리 발언에 참여함',
+    5 :'최종 정리 순서에 참여함' },
+  { 25:'토론 뒤 성찰에서 개발자·사용자·운영자 세 관점으로 쟁점을 분석하고, 자신이 반박당한 지점을 밝혀 주장을 수정·보완함',
+    20:'토론 뒤 성찰에서 두 관점으로 쟁점을 분석하고 실천 방안을 구체적으로 제시함',
+    15:'토론 뒤 성찰에서 한 관점으로 쟁점을 분석하고 실천 방안을 제시함',
+    10:'토론 내용을 정리하여 성찰함',
+    5 :'성찰 활동에 참여함' }
+];
+
+var SE_STRONG = {
+  '':'',
+  '자료 조사':'근거를 찾을 때 기관과 연도를 확인해 신뢰할 수 있는 자료를 골라내는 모습이 두드러짐',
+  '논리 전개':'주장과 근거의 연결을 스스로 점검하며 논리를 촘촘하게 세우는 모습이 두드러짐',
+  '반박 대응':'예상하지 못한 질문에도 침착하게 새로운 근거를 찾아 대응하는 순발력이 돋보임',
+  '쟁점 정리':'여러 갈래로 흩어진 논의를 핵심 쟁점으로 묶어 정리하는 능력이 돋보임',
+  '윤리적 성찰':'기술의 편익과 위험을 함께 저울질하며 판단을 유보할 줄 아는 태도를 보임',
+  '경청과 기록':'상대의 발언을 끝까지 듣고 정확히 기록해 이후 논의에 활용하는 태도가 돋보임',
+  '팀 조율':'팀 안에서 발언 순서와 역할을 조율하며 협력을 이끄는 모습을 보임',
+  '자료의 재해석':'찾은 자료를 그대로 옮기지 않고 자기 말로 바꾸어 설명하는 힘이 있음'
+};
+
+var SE_GROW = {
+  '':'',
+  '입장 전환 경험':'무작위로 배정받은 입장이 평소 생각과 달랐음에도 근거를 갖추어 논리를 세우는 경험을 통해 사고의 폭을 넓힘',
+  '주장 수정':'토론에서 반박당한 지점을 인정하고 자신의 주장을 스스로 고쳐 쓰는 지적 정직함을 보임',
+  '준비의 효과 확인':'충분한 사전 조사가 발언의 설득력으로 이어진다는 것을 스스로 확인함',
+  '발표 자신감':'여러 사람 앞에서 말하는 부담을 준비로 이겨 내며 발언 태도가 눈에 띄게 나아짐',
+  '관점의 확장':'개발자·사용자·운영자로 자리를 바꾸어 보며 하나의 기술을 여러 자리에서 바라보게 됨'
+};
+
+function 등급문장(e, score) {
+  var x = String(score === null || score === undefined ? '' : score).trim();
+  if (x === '' || isNaN(Number(x))) return '';
+  return SE_CLAUSE[e][Number(x)] || '';
+}
+
+/** 채점표와 제출물을 읽어 세특 초안을 만든다. 이미 적은 최종본은 지우지 않는다. */
+function 세특초안만들기() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var gs = ss.getSheetByName(GRADE_SHEET);
+  if (!gs || gs.getLastRow() < 3) {
+    SpreadsheetApp.getUi().alert('채점표가 아직 없습니다.\n먼저 «① 토론 채점표 만들기»를 실행하세요.');
+    return;
+  }
+  var src = ss.getSheetByName(SHEETS.debate.name);
+
+  // 학생이 낸 글에서 세특에 쓸 만한 것만 골라 둔다 (마지막 제출 기준)
+  var mine = {};
+  if (src && src.getLastRow() > 1) {
+    var d = src.getRange(2, 1, src.getLastRow() - 1, 34).getValues();
+    for (var i = 0; i < d.length; i++) {
+      var nm = String(d[i][2] || '').trim();
+      if (!nm) continue;
+      mine[String(d[i][1] || '').trim() + '|' + nm] = {
+        views: String(d[i][6] || '').trim(),      // 윤리 관점
+        act:   String(d[i][32] || '').trim(),     // D-6 실천 방안 ①
+        beat:  String(d[i][30] || '').trim()      // D-4 반박당한 지점
+      };
+    }
+  }
+
+  var G = gs.getRange(3, 1, gs.getLastRow() - 2, 13).getValues();
+
+  var sh = ss.getSheetByName(SE_SHEET);
+  var keep = {};
+  if (sh) {
+    if (sh.getLastRow() > 1) {
+      var pv = sh.getRange(2, 1, sh.getLastRow() - 1, 12).getValues();
+      for (var p = 0; p < pv.length; p++) {
+        keep[String(pv[p][0]) + '|' + String(pv[p][1])] =
+          [pv[p][6], pv[p][7], pv[p][8], pv[p][11]];   // 두드러진 점 · 성장 · 한 줄 · 최종본
+      }
+    }
+    sh.clear();
+    sh.clearConditionalFormatRules();
+  } else {
+    sh = ss.insertSheet(SE_SHEET);
+  }
+
+  var head = ['분반', '이름(모둠)', '논제', '입장', '합계', '성취도',
+              '두드러진 점', '성장·변화', '선생님 한 줄',
+              '세특 초안 (자동)', '글자 수', '최종본 (고쳐 쓰는 칸)'];
+  sh.getRange(1, 1, 1, head.length).setValues([head])
+    .setFontWeight('bold').setBackground('#DCEBFF').setFontColor('#1B49B8').setWrap(true);
+  sh.setFrozenRows(1);
+  sh.setFrozenColumns(2);
+
+  var body = [], done = 0;
+  for (var r = 0; r < G.length; r++) {
+    var cls = String(G[r][0] || ''), nm = String(G[r][1] || '');
+    if (!nm) continue;
+    var k = cls + '|' + nm;
+    var old = keep[k] || ['', '', '', ''];
+    var txt = 세특문장(G[r], mine[k], old[0], old[1], old[2]);
+    if (txt) done++;
+    body.push([cls, nm, G[r][2], G[r][3], G[r][9], G[r][10],
+               old[0], old[1], old[2], txt, '', old[3]]);
+  }
+  if (!body.length) {
+    SpreadsheetApp.getUi().alert('채점표에 학생이 없습니다.');
+    return;
+  }
+  sh.getRange(2, 1, body.length, head.length).setValues(body);
+
+  // 드롭다운 두 칸
+  function pick(col, obj, help) {
+    var opts = [];
+    for (var key in obj) if (key) opts.push(key);
+    sh.getRange(2, col, body.length, 1).setDataValidation(
+      SpreadsheetApp.newDataValidation().requireValueInList(opts, true)
+        .setAllowInvalid(true).setHelpText(help).build());
+  }
+  pick(7, SE_STRONG, '토론에서 가장 두드러진 점을 하나 고르세요 (비워도 됩니다)');
+  pick(8, SE_GROW, '이 학생에게 남은 변화를 하나 고르세요 (비워도 됩니다)');
+
+  for (var b = 0; b < body.length; b++) {
+    var row = 2 + b;
+    sh.getRange(row, 11).setFormula('=IF(L' + row + '="",LEN(J' + row + '),LEN(L' + row + '))');
+  }
+  sh.getRange(2, 10, body.length, 1).setWrap(true).setVerticalAlignment('top').setFontSize(9);
+  sh.getRange(2, 12, body.length, 1).setWrap(true).setVerticalAlignment('top');
+  sh.getRange(2, 9, body.length, 1).setWrap(true).setVerticalAlignment('top');
+  sh.getRange(2, 11, body.length, 1).setHorizontalAlignment('center').setFontWeight('bold');
+
+  // 500자를 넘으면 빨갛게
+  sh.setConditionalFormatRules([
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenNumberGreaterThan(500)
+      .setBackground('#FDE9E7').setFontColor('#C8362F')
+      .setRanges([sh.getRange(2, 11, body.length, 1)]).build()
+  ]);
+
+  var w = [70, 120, 240, 55, 60, 60, 130, 130, 240, 560, 70, 560];
+  for (var i3 = 0; i3 < w.length; i3++) sh.setColumnWidth(i3 + 1, w[i3]);
+
+  SpreadsheetApp.getUi().alert(
+    '세특 초안을 만들었습니다.\n\n' +
+    '학생 ' + body.length + '명 · 초안이 만들어진 학생 ' + done + '명\n' +
+    '(점수를 하나도 매기지 않은 학생은 초안이 비어 있습니다)\n\n' +
+    '［쓰는 순서］\n' +
+    '1. «두드러진 점»과 «성장·변화»를 드롭다운에서 고릅니다.\n' +
+    '2. «선생님 한 줄»에 그 학생만의 장면을 적습니다.\n' +
+    '3. 메뉴에서 «② 세특 초안 만들기»를 한 번 더 누릅니다.\n' +
+    '4. J열 초안을 L열 «최종본»에 옮겨 고쳐 씁니다.\n\n' +
+    '초안은 500자를 넘지 않게 맞춥니다. 넘칠 것 같으면\n' +
+    '관점·성장 문장부터 덜어 내고, 점수에서 나온 네 문장과\n' +
+    '선생님이 적은 한 줄은 끝까지 남깁니다.\n\n' +
+    '초안은 점수와 학생이 낸 글에서 «확인된 사실»만으로 짰습니다.\n' +
+    '보지 않은 모습은 적혀 있지 않으니, 마지막 손질은 선생님 몫입니다.');
+}
+
+/* 받침이 있으면 «을/과», 없으면 «를/와». 따옴표와 문장부호는 떼고 본다. */
+function 받침(s) {
+  s = String(s).replace(/[^가-힣a-zA-Z0-9]+$/, '');
+  if (!s) return false;
+  var c = s.charCodeAt(s.length - 1);
+  if (c >= 0xAC00 && c <= 0xD7A3) return (c - 0xAC00) % 28 !== 0;
+  return true;
+}
+function 을를(s) { return 받침(s) ? '을' : '를'; }
+
+/** 한 학생의 세특 초안 문장을 짠다.
+    세특은 과목당 500자다. 넘치면 «덜 중요한 것부터» 덜어 낸다.
+    pri 가 클수록 먼저 덜어 낸다. 점수에서 나온 네 문장과
+    선생님이 직접 적은 것은 마지막까지 남긴다. */
+function 세특문장(row, sub, strong, grow, memo) {
+  var topic = String(row[2] || '').trim();
+  var side = String(row[3] || '').trim();
+  var sc = [row[5], row[6], row[7], row[8]];
+
+  // 실제로 «숫자»가 들어 있는 칸만 채점된 것으로 본다.
+  // 공백 한 칸이 잘못 들어가 있어도 초안이 만들어지지 않게 한다.
+  var any = false;
+  for (var i = 0; i < 4; i++) {
+    var x = String(sc[i]).trim();
+    if (x !== '' && !isNaN(Number(x))) any = true;
+  }
+  if (!any) return '';
+
+  var part = [];
+  function add(pri, text) { if (text) part.push({ p: pri, t: text }); }
+
+  var t = topic || '인공지능 윤리 쟁점';
+  add(0, '‘' + t + '’' + 을를(t) + ' 논제로 한 인공지능 윤리 토론에 ' +
+         (side ? side + ' 측으로 ' : '') + '참여함');
+
+  // 무엇을 했는지 — 점수 단계에서 뽑는다
+  for (var e = 0; e < 4; e++) add(1, 등급문장(e, sc[e]));
+
+  // 선생님이 직접 본 것
+  if (memo && String(memo).trim()) {
+    add(1, String(memo).trim().replace(/[.。]\s*$/, ''));
+  }
+
+  // 학생이 낸 글에서 구체적인 것
+  if (sub) {
+    if (sub.act && Number(sc[3]) >= 15) {
+      var a = 줄임(sub.act, 45);
+      add(2, '실천 방안으로 ‘' + a + '’' + 을를(a) + ' 제시함');
+    }
+    if (sub.views && Number(sc[0]) >= 20) {
+      var vs = String(sub.views).split('·').map(function (x) { return x.trim(); })
+                 .filter(function (x) { return x; });
+      if (vs.length === 1) {
+        add(4, '쟁점을 「' + vs[0] + '」 관점에서 살펴봄');
+      } else if (vs.length > 1) {
+        add(4, '쟁점을 ' + vs.map(function (x) { return '「' + x + '」'; }).join(' · ') +
+               ' ' + vs.length + '가지 관점으로 나누어 살펴봄');
+      }
+    }
+  }
+
+  if (strong && SE_STRONG[strong]) add(2, SE_STRONG[strong]);
+  if (grow && SE_GROW[grow]) add(3, SE_GROW[grow]);
+
+  function 이어붙이기(list) {
+    return list.map(function (x) { return x.t; }).join('. ') + '.';
+  }
+  var txt = 이어붙이기(part);
+  // 500자를 넘으면 pri 가 큰 것부터 하나씩 뺀다 (같은 pri 면 뒤엣것부터)
+  while (txt.length > 500) {
+    var worst = -1, wp = -1;
+    for (var q = 0; q < part.length; q++) {
+      if (part[q].p > 0 && part[q].p >= wp) { wp = part[q].p; worst = q; }
+    }
+    if (worst < 0) break;
+    part.splice(worst, 1);
+    txt = 이어붙이기(part);
+  }
+  return txt;
+}
+
+function 줄임(s, n) {
+  s = String(s).replace(/\s+/g, ' ').trim();
+  return s.length <= n ? s : s.slice(0, n - 1) + '…';
 }
 
 /** 분반별·항목별 평균과 성취도 분포를 요약해 보여 준다. */
@@ -449,7 +798,7 @@ function 토론채점요약() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sh = ss.getSheetByName(GRADE_SHEET);
   if (!sh || sh.getLastRow() < 3) {
-    SpreadsheetApp.getUi().alert('채점표가 아직 없습니다. 먼저 «토론 채점표 만들기»를 실행하세요.');
+    SpreadsheetApp.getUi().alert('채점표가 아직 없습니다. 먼저 «① 토론 채점표 만들기»를 실행하세요.');
     return;
   }
   var v = sh.getRange(3, 1, sh.getLastRow() - 2, 11).getValues();
@@ -484,6 +833,7 @@ function 토론채점요약() {
   }
   SpreadsheetApp.getUi().alert(msg);
 }
+
 
 function out(obj) {
   return ContentService
