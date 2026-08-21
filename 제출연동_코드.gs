@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v7
+ * 인공지능 기초 활동지 수집기  v8
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -11,6 +11,7 @@
  *   · 학교안길찾기      ← Ⅰ-05 활동 ⑨
  *   · 추론게임          ← Ⅰ-06 활동 ⑪
  *   · 토론입론서        ← Ⅲ-04 활동 ⑧ (수행평가 ① 윤리 쟁점 토론)
+ *   · 토론채점          ← 선생님이 «수행평가» 메뉴에서 만드는 채점표
  *   · 규칙게임          ← Ⅰ-06 활동 ⑪ «친구와 추론 게임 주고받기»
  *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
  *
@@ -25,7 +26,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 7;
+var VER = 8;
 
 var SHEETS = {
 
@@ -274,6 +275,178 @@ function headDiffers(sh, kind) {
     if (String(now[i] || '').trim() !== kind.head[i]) return true;
   }
   return false;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   토론 채점표
+   「토론입론서」 탭에 들어온 제출물에서 명단을 뽑아 채점표를 만든다.
+   평가 요소 네 가지는 평가 운영 계획의 「가. 인공지능 윤리 토론」과 같다.
+   시트를 열면 상단에 «수행평가» 메뉴가 생긴다.
+   ══════════════════════════════════════════════════════════ */
+
+var GRADE_SHEET = '토론채점';
+var GRADE_COLS = ['논제 분석과 입론서', '교차 질의와 반론·반박',
+                  '최종 정리 발언', '윤리 분석과 공존 방안'];
+var GRADE_LEVELS = [25, 20, 15, 10, 5, 0];   // 0 = 미실시
+var CUT = [[90, 'A'], [80, 'B'], [70, 'C'], [50, 'D']];   // 그 아래는 E
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('수행평가')
+    .addItem('토론 채점표 만들기 / 명단 새로고침', '토론채점표만들기')
+    .addSeparator()
+    .addItem('채점 결과 요약 보기', '토론채점요약')
+    .addToUi();
+}
+
+/** 제출된 입론서에서 명단을 뽑아 채점표를 만든다. 이미 매긴 점수는 지우지 않는다. */
+function 토론채점표만들기() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var src = ss.getSheetByName(SHEETS.debate.name);
+  if (!src || src.getLastRow() < 2) {
+    SpreadsheetApp.getUi().alert('아직 제출된 입론서가 없습니다.\n학생이 활동 ⑧에서 제출하면 명단이 채워집니다.');
+    return;
+  }
+
+  // 제출물에서 (분반, 이름) 뽑기 — 같은 학생이 여러 번 냈으면 마지막 것만
+  var rows = src.getRange(2, 1, src.getLastRow() - 1, 5).getValues();  // 시각·분반·이름·논제·입장
+  var seen = {}, list = [];
+  for (var i = 0; i < rows.length; i++) {
+    var cls = String(rows[i][1] || '').trim();
+    var nm = String(rows[i][2] || '').trim();
+    if (!nm) continue;
+    var key = cls + '|' + nm;
+    if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '']); }
+    list[seen[key]][2] = String(rows[i][3] || '');   // 논제
+    list[seen[key]][3] = String(rows[i][4] || '');   // 입장
+  }
+  list.sort(function (a, b) {
+    return a[0] === b[0] ? (a[1] < b[1] ? -1 : 1) : (a[0] < b[0] ? -1 : 1);
+  });
+
+  var sh = ss.getSheetByName(GRADE_SHEET);
+  var old = {};
+  if (sh) {
+    // 이미 매긴 점수와 메모를 기억해 둔다
+    if (sh.getLastRow() > 2) {
+      var prev = sh.getRange(3, 1, sh.getLastRow() - 2, 11).getValues();
+      for (var p = 0; p < prev.length; p++) {
+        var k = String(prev[p][0]) + '|' + String(prev[p][1]);
+        old[k] = [prev[p][4], prev[p][5], prev[p][6], prev[p][7], prev[p][10]];
+      }
+    }
+    sh.clear();
+    sh.clearConditionalFormatRules();
+  } else {
+    sh = ss.insertSheet(GRADE_SHEET);
+  }
+
+  // ── 머리글 두 줄 ──
+  var head1 = ['분반', '이름(모둠)', '논제', '입장',
+               '① ' + GRADE_COLS[0], '② ' + GRADE_COLS[1],
+               '③ ' + GRADE_COLS[2], '④ ' + GRADE_COLS[3],
+               '합계', '성취도', '메모'];
+  var head2 = ['', '', '', '', '25점', '25점', '25점', '25점', '100점', '', '피드백·특기사항'];
+  sh.getRange(1, 1, 1, head1.length).setValues([head1])
+    .setFontWeight('bold').setBackground('#DCEBFF').setFontColor('#1B49B8')
+    .setVerticalAlignment('middle').setWrap(true);
+  sh.getRange(2, 1, 1, head2.length).setValues([head2])
+    .setFontSize(9).setFontColor('#5E708D').setBackground('#F2F8FF');
+  sh.setFrozenRows(2);
+  sh.setFrozenColumns(2);
+
+  if (list.length) {
+    sh.getRange(3, 1, list.length, 4).setValues(list);
+    for (var r = 0; r < list.length; r++) {
+      var row = 3 + r;
+      var k2 = list[r][0] + '|' + list[r][1];
+      if (old[k2]) {
+        sh.getRange(row, 5, 1, 4).setValues([[old[k2][0], old[k2][1], old[k2][2], old[k2][3]]]);
+        sh.getRange(row, 11).setValue(old[k2][4]);
+      }
+      // 합계 · 성취도
+      sh.getRange(row, 9).setFormula('=IF(COUNT(E' + row + ':H' + row + ')=0,"",SUM(E' + row + ':H' + row + '))');
+      sh.getRange(row, 10).setFormula(
+        '=IF(I' + row + '="","",IF(I' + row + '>=90,"A",IF(I' + row + '>=80,"B",' +
+        'IF(I' + row + '>=70,"C",IF(I' + row + '>=50,"D","E")))))');
+    }
+    // 점수 칸 드롭다운
+    var rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(GRADE_LEVELS, true)
+      .setAllowInvalid(false)
+      .setHelpText('25 / 20 / 15 / 10 / 5 중에서 고르세요 (0 = 미실시)')
+      .build();
+    sh.getRange(3, 5, list.length, 4).setDataValidation(rule)
+      .setHorizontalAlignment('center').setFontWeight('bold');
+    sh.getRange(3, 9, list.length, 2).setHorizontalAlignment('center').setFontWeight('bold');
+
+    // 성취도 색
+    var rng = sh.getRange(3, 10, list.length, 1);
+    var rules = [];
+    var colors = [['A', '#DDF6EB', '#11734C'], ['B', '#DCEBFF', '#1B49B8'],
+                  ['C', '#FFF1DF', '#9C5409'], ['D', '#FDE9E7', '#C8362F'],
+                  ['E', '#F1D5D2', '#8A241E']];
+    for (var c = 0; c < colors.length; c++) {
+      rules.push(SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo(colors[c][0])
+        .setBackground(colors[c][1]).setFontColor(colors[c][2])
+        .setRanges([rng]).build());
+    }
+    sh.setConditionalFormatRules(rules);
+  }
+
+  var w = [70, 130, 300, 60, 110, 110, 110, 110, 70, 70, 320];
+  for (var i2 = 0; i2 < w.length; i2++) sh.setColumnWidth(i2 + 1, w[i2]);
+  sh.getRange(1, 1, 2, head1.length).setHorizontalAlignment('center');
+
+  SpreadsheetApp.getUi().alert(
+    '채점표를 만들었습니다.\n\n' +
+    '학생 ' + list.length + '명\n\n' +
+    '점수 칸(①~④)은 25 / 20 / 15 / 10 / 5 중에서 고르면 되고,\n' +
+    '합계와 성취도는 자동으로 계산됩니다.\n' +
+    '다시 실행해도 이미 매긴 점수는 그대로 둡니다.');
+}
+
+/** 분반별·항목별 평균과 성취도 분포를 요약해 보여 준다. */
+function 토론채점요약() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(GRADE_SHEET);
+  if (!sh || sh.getLastRow() < 3) {
+    SpreadsheetApp.getUi().alert('채점표가 아직 없습니다. 먼저 «토론 채점표 만들기»를 실행하세요.');
+    return;
+  }
+  var v = sh.getRange(3, 1, sh.getLastRow() - 2, 10).getValues();
+  var byCls = {}, dist = { A: 0, B: 0, C: 0, D: 0, E: 0 }, done = 0;
+  var sum = [0, 0, 0, 0], cnt = [0, 0, 0, 0];
+  for (var i = 0; i < v.length; i++) {
+    var cls = String(v[i][0] || '(분반없음)');
+    if (!byCls[cls]) byCls[cls] = { n: 0, done: 0, total: 0 };
+    byCls[cls].n++;
+    for (var k = 0; k < 4; k++) {
+      var x = v[i][4 + k];
+      if (typeof x === 'number' && x > 0) { sum[k] += x; cnt[k]++; }
+    }
+    var tot = v[i][8], gr = String(v[i][9] || '');
+    if (typeof tot === 'number' && tot > 0) {
+      done++; byCls[cls].done++; byCls[cls].total += tot;
+      if (dist[gr] !== undefined) dist[gr]++;
+    }
+  }
+  var msg = '전체 ' + v.length + '명 중 ' + done + '명 채점 완료\n\n';
+  msg += '［항목별 평균］\n';
+  for (var k2 = 0; k2 < 4; k2++) {
+    msg += '  ' + (k2 + 1) + '. ' + GRADE_COLS[k2] + ' : ' +
+           (cnt[k2] ? (sum[k2] / cnt[k2]).toFixed(1) : '-') + ' / 25\n';
+  }
+  msg += '\n［성취도 분포］\n  ';
+  msg += ['A', 'B', 'C', 'D', 'E'].map(function (x) { return x + ' ' + dist[x] + '명'; }).join(' · ');
+  msg += '\n\n［분반별 평균］\n';
+  for (var c2 in byCls) {
+    msg += '  ' + c2 + ' : ' + (byCls[c2].done ? (byCls[c2].total / byCls[c2].done).toFixed(1) : '-') +
+           '점 (' + byCls[c2].done + '/' + byCls[c2].n + '명)\n';
+  }
+  SpreadsheetApp.getUi().alert(msg);
 }
 
 function out(obj) {

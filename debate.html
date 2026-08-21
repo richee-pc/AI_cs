@@ -1376,6 +1376,17 @@ footer a{font-weight:700}
 .tprow{display:grid; grid-template-columns:96px 1fr; gap:10px; padding:4px 0;
   font-size:0.875rem; line-height:1.6; color:var(--ink2)}
 .tpk{font-family:var(--mono); font-size:0.75rem; color:var(--muted)}
+.tphd{display:flex; gap:7px; align-items:center; margin-bottom:6px}
+.tpf{font-family:var(--sans); font-size:0.6875rem; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); padding:2px 9px; border-radius:99px}
+.tplv{font-family:var(--sans); font-size:0.6875rem; font-weight:700; padding:2px 9px;
+  border-radius:99px}
+.tplv.lv1{background:var(--good-bg); color:var(--good)}
+.tplv.lv2{background:var(--tint); color:var(--muted)}
+.tplv.lv3{background:var(--warm-bg); color:var(--warm)}
+.tpw{margin-top:9px; padding:9px 12px; background:var(--tint); border-radius:10px;
+  font-size:0.8438rem; line-height:1.6; color:var(--ink2)}
+.tpw b{color:var(--blue-d)}
 
 /* 양식 항목 */
 .fitems{display:grid; gap:8px}
@@ -1529,7 +1540,7 @@ footer a{font-weight:700}
 <section id="topics"><div class="wrap">
   <p class="eyebrow">골라서 준비</p>
   <h2>논제</h2>
-  <p class="sub">아래 세 가지 가운데 <b>한 분반에서 두 개</b>를 골라 진행합니다.
+  <p class="sub">아래 <b>열 가지</b> 가운데 <b>한 분반에서 두 개</b>를 골라 진행합니다.
     같은 논제를 고른 학생끼리 <b>찬성 · 반대</b>로 나뉩니다.
     <b>내가 고른 입장이 내 실제 생각이 아니어도 됩니다.</b></p>
   <div class="tpcards" id="tpBox"></div>
@@ -1549,7 +1560,8 @@ footer a{font-weight:700}
 
   <div data-wrp="0">
     <div class="ask"><b>입론서는 Ⅲ단원 페이지에서 씁니다</b>
-      <a class="golink" href="https://richee-pc.github.io/AI_cs/unit3.html#act">Ⅲ단원 → 수업 활동 → ⑧ 토론 입론서 열기 →</a>
+      <a class="golink" href="https://richee-pc.github.io/AI_cs/unit3.html#act">Ⅲ단원 → 수업 활동 → ⑧ 토론 입론서 열기 →</a><br>
+      논제 <b>열 가지</b>가 모두 들어 있습니다.
       적은 내용은 그 페이지에 저장되고, 「선생님께 제출」로 바로 낼 수 있습니다.</div>
 
     <h3 class="step-h" style="margin-top:20px">양식 여섯 항목</h3>
@@ -1711,31 +1723,90 @@ var RUBRIC = [
 
 /* ══ 논제 ═════════════════════════════════════════════════ */
 var TOPICS = [
-  { t:'자율주행차의 사고 회피 알고리즘은 누구의 안전을 우선해야 하는가',
-    y:'탑승자를 우선해야 한다 · 보행자를 우선해야 한다',
-    u:'Ⅲ-03 자율주행 장단점 · Ⅲ-04 윤리적 딜레마',
-    k:'인간 존엄성 원칙 · 책임 소재 · 설명 가능한 인공지능(XAI)',
-    a:'Ⅲ단원 활동 ⑤ 장단점 저울 · ⑦ 딜레마 ①' },
-  { t:'AI 채용 심사 도입을 허용해야 하는가',
-    y:'허용해야 한다 · 허용해서는 안 된다',
+  { f:'교육', lv:'보통',
+    t:'AI 디지털교과서를 학교 수업에 도입해야 하는가',
+    y:'학습 격차를 줄인다 · 화면 의존과 데이터 수집이 더 큰 문제다',
+    u:'Ⅲ-02 맞춤형 서비스 · Ⅲ-04 편향성',
+    k:'맞춤형 서비스 · 데이터 편향성 · 개인정보 · 인간 중심 인공지능',
+    s:'교육부 · 한국교육학술정보원(KERIS) 보도자료, 시범 운영 결과',
+    w:'여러분이 <b>당사자</b>입니다. 겪어 본 이야기가 곧 근거가 돼요.' },
+  { f:'학습 윤리', lv:'쉬움',
+    t:'학교 과제에 생성형 AI 사용을 허용해야 하는가',
+    y:'도구일 뿐 활용 능력이 실력이다 · 스스로 생각할 기회를 빼앗는다',
+    u:'Ⅲ-03 비판적 자세 · Ⅲ-04 사용자 윤리',
+    k:'사용자 윤리 · 투명성 · 인공지능 환각 · 인간 중심 인공지능',
+    s:'각 대학·교육청의 생성형 AI 활용 지침, 학교 학업성적관리규정',
+    w:'우리 수행평가의 <b>AI 활용 규칙</b>이 바로 이 논제의 한 가지 답입니다.' },
+  { f:'노동 · 채용', lv:'보통',
+    t:'AI 채용 심사 도입을 허용해야 하는가',
+    y:'사람보다 일관되고 채용 비리를 줄인다 · 과거의 차별을 그대로 배운다',
     u:'Ⅲ-04 데이터 편향성',
-    k:'데이터 편향성 · 공정성 · 개발자 윤리 · 아마존 채용 사례',
-    a:'Ⅲ단원 활동 ⑥ 편향성 구분 3번 사례' },
-  { t:'생성형 AI 학습 데이터의 저작권을 어디까지 인정해야 하는가',
-    y:'창작자의 권리를 넓게 인정해야 한다 · 학습은 자유롭게 허용해야 한다',
+    k:'데이터 편향성 · 공정성 · 개발자 윤리 · 설명 가능한 인공지능(XAI)',
+    s:'아마존 채용 인공지능 폐기 사례(2018) · 국가인권위원회 · EU AI Act 고위험 분류',
+    w:'Ⅲ단원 <b>활동 ⑥의 3번 사례</b>가 그대로 근거가 됩니다.' },
+  { f:'창작 · 저작권', lv:'어려움',
+    t:'생성형 AI 학습에 쓰인 저작물의 창작자에게 보상해야 하는가',
+    y:'창작자의 권리다 · 학습까지 막으면 기술이 멈춘다',
     u:'Ⅲ-04 윤리적 쟁점',
-    k:'윤리적 딜레마 · 사용자 윤리 · 투명성 · 창작물 저작권',
-    a:'Ⅲ단원 활동 ⑦ 딜레마 ③' }
+    k:'윤리적 딜레마 · 사용자 윤리 · 투명성 · 사회의 공공선',
+    s:'한국저작권위원회 · 문화체육관광부 생성형 AI 저작권 안내서',
+    w:'정답이 아직 <b>사회에서도 안 정해진</b> 문제예요. 그만큼 근거 싸움이 됩니다.' },
+  { f:'안전 · 책임', lv:'보통',
+    t:'자율주행차 사고의 책임은 제조사가 져야 하는가',
+    y:'판단은 알고리즘이 했다 · 운전자가 감독 의무를 진다',
+    u:'Ⅲ-03 자율주행 장단점 · Ⅲ-04 윤리적 딜레마',
+    k:'책임성 · 인간 존엄성 원칙 · 설명 가능한 인공지능(XAI)',
+    s:'국토교통부 자율주행 사고조사위원회 · 자동차손해배상보장법 개정 논의',
+    w:'Ⅲ단원 <b>활동 ⑤ 저울</b>과 <b>⑦ 딜레마 ①</b>에서 재료를 모으세요.' },
+  { f:'사법', lv:'어려움',
+    t:'재판에서 인공지능의 양형 보조를 허용해야 하는가',
+    y:'같은 죄에 같은 형을 준다 · 과거 판결의 편향을 굳힌다',
+    u:'Ⅰ-02 에스토니아 사례 · Ⅲ-04 알고리즘 편향성',
+    k:'알고리즘 편향성 · 투명성 · XAI · 인간 존엄성 원칙',
+    s:'법원행정처 양형위원회 자료 · 미국 COMPAS 재범 예측 논란',
+    w:'Ⅰ단원에서 봤던 <b>에스토니아 인공지능 판결</b>이 여기로 이어집니다.' },
+  { f:'프라이버시', lv:'보통',
+    t:'공공장소의 실시간 얼굴 인식을 허용해야 하는가',
+    y:'범죄를 예방하고 실종자를 찾는다 · 모두가 늘 감시받게 된다',
+    u:'Ⅲ-01 컴퓨터 비전 · Ⅲ-04 편향성',
+    k:'데이터 편향성 · 공정성 · 인간 존엄성 원칙 · 사회의 공공선',
+    s:'개인정보보호위원회 · 국가인권위원회 · EU AI Act 금지 조항',
+    w:'인식 정확도가 <b>피부색과 성별에 따라 다르다</b>는 연구가 핵심 근거입니다.' },
+  { f:'미디어', lv:'쉬움',
+    t:'청소년에게는 추천 알고리즘을 제한해야 하는가',
+    y:'필터 버블과 중독에서 보호해야 한다 · 선택의 자유를 뺏는 것이다',
+    u:'Ⅲ-04 알고리즘 편향성 · 필터 버블',
+    k:'알고리즘 편향성 · 필터 버블 · 사용자 윤리 · 사회의 공공선',
+    s:'방송통신심의위원회 · 한국언론진흥재단 청소년 미디어 이용 조사',
+    w:'<b>여러분 이야기</b>입니다. 어제 본 추천 목록이 근거가 될 수 있어요.' },
+  { f:'의료 · 복지', lv:'보통',
+    t:'인공지능 챗봇이 청소년 정신건강 상담을 맡아도 되는가',
+    y:'말 꺼내기 어려운 아이에게 문턱이 낮다 · 위기 신호를 놓치면 돌이킬 수 없다',
+    u:'Ⅲ-03 인간 중심 인공지능 · Ⅲ-04 책임성',
+    k:'인간 중심 인공지능 · 인공지능 환각 · 책임성 · 공존 방안',
+    s:'보건복지부 정신건강 통계 · 한국생명존중희망재단',
+    w:'«편의»와 «안전»이 정면으로 부딪히는 논제입니다.' },
+  { f:'디지털 성범죄', lv:'어려움',
+    t:'딥페이크 제작 도구 자체를 법으로 금지해야 하는가',
+    y:'피해가 회복 불가능하다 · 도구가 아니라 사용을 처벌해야 한다',
+    u:'Ⅲ-04 윤리적 딜레마 · 사용자 윤리',
+    k:'윤리적 딜레마 · 사용자 윤리 · 사회의 공공선 · 개발자 책임',
+    s:'여성가족부 · 방송통신심의위원회 · 성폭력처벌법 개정 내용',
+    w:'무거운 주제입니다. <b>피해 사례를 자세히 묘사하지 않고</b> 제도만 두고 다투세요.' }
 ];
 (function(){
   var b = $('tpBox'); if(!b) return;
+  var LV = { '쉬움':1, '보통':2, '어려움':3 };
   b.innerHTML = TOPICS.map(function(t, i){
     return '<div class="tpc"><div class="tpn">' + (i + 1) + '</div><div class="tpb">' +
+      '<div class="tphd"><span class="tpf">' + esc(t.f) + '</span>' +
+      '<span class="tplv lv' + (LV[t.lv] || 2) + '">' + esc(t.lv) + '</span></div>' +
       '<b>' + esc(t.t) + '</b>' +
       '<div class="tprow"><span class="tpk">나뉘는 지점</span><span>' + esc(t.y) + '</span></div>' +
       '<div class="tprow"><span class="tpk">배운 곳</span><span>' + esc(t.u) + '</span></div>' +
       '<div class="tprow"><span class="tpk">쓸 만한 개념</span><span>' + esc(t.k) + '</span></div>' +
-      '<div class="tprow"><span class="tpk">재료 모으기</span><span>' + esc(t.a) + '</span></div>' +
+      '<div class="tprow"><span class="tpk">자료 찾을 곳</span><span>' + esc(t.s) + '</span></div>' +
+      '<div class="tpw">' + t.w + '</div>' +
       '</div></div>';
   }).join('');
 })();
