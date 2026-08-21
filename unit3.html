@@ -1,0 +1,2511 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="「인공지능 기초」 Ⅲ단원 인공지능의 사회적 영향 - 발전 연표, 편향성, 윤리적 딜레마, 토론 입론서">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Ⅲ. 인공지능의 사회적 영향 · 수업 자료">
+<meta property="og:description" content="발전 연표, 직업 대체 가능성, 편향성 구분, 윤리적 딜레마, 토론 입론서">
+<meta property="og:type" content="website">
+<link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>Ⅲ. 인공지능의 사회적 영향 · 수업 자료</title>
+</head>
+<body>
+<style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
+   1280px 노트북에서 16px(지금 그대로) → 1920px 18.4px
+   → 2560px 20.8px → 그 이상 22px 에서 멈춘다.
+   교실 대형 화면에 띄워도 글자가 작아 보이지 않는다.            */
+:root{--sbh:clamp(28.75rem,80vh,57.5rem)}
+html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100%}
+
+/* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
+   제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
+   본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
+   강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
+   코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=f5a931b2') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f5f08870') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=69ddb123') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8143db88') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
+  font-weight:400 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=4e9fb374') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
+    system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+:root[data-theme="dark"]{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}
+:root[data-theme="light"]{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
+  font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
+.n{font-variant-numeric:tabular-nums}
+::selection{background:var(--blue); color:#fff}
+a{color:var(--blue)}
+
+/* ── 사이트 내비 ─────────────────────────── */
+nav{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--sky-bg) 82%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--line)}
+nav .row{display:flex; gap:4px; overflow-x:auto; padding:9px 0; scrollbar-width:none; align-items:center}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto; color:var(--ink2); text-decoration:none; font-size:0.8438rem; font-weight:600;
+  padding:7px 14px; border-radius:99px; white-space:nowrap; transition:.16s}
+nav a:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav a.here{background:var(--fill); color:var(--on-fill)}
+nav a.soon{opacity:.45; pointer-events:none}
+nav .sep{flex:0 0 auto; width:1px; height:20px; background:var(--line); margin:0 6px}
+
+/* ── 헤더 ────────────────────────────────── */
+.hero{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:radial-gradient(760px 340px at 8% -14%, var(--white) 0%, transparent 62%),
+             linear-gradient(180deg, var(--sky-bg2) 0%, var(--sky-bg) 100%)}
+.badge{display:inline-block; font-size:0.8125rem; font-weight:700; color:var(--blue-d);
+  background:var(--white); padding:7px 18px; border-radius:99px; margin:0 0 18px;
+  box-shadow:var(--sh); border:1px solid var(--line)}
+h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem); line-height:1.2;
+  margin:0 0 16px; color:var(--blue-d)}
+h1 em{font-style:normal; display:block; color:var(--ink)}
+.lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
+.fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
+  box-shadow:var(--sh)}
+.fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
+.fact span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:7px; font-weight:500}
+
+/* ── 섹션 ────────────────────────────────── */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{display:inline-block; font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:5px 15px; border-radius:99px; margin:0 0 13px}
+h2{font-family:var(--disp); font-weight:400; font-size:clamp(1.5625rem,4.3vw,2.25rem); line-height:1.3;
+  margin:0 0 10px; color:var(--ink)}
+.sub{color:var(--muted); font-size:0.9375rem; margin:0 0 26px; max-width:60ch; font-weight:500}
+h3{font-size:1.0625rem; font-weight:700; margin:0 0 11px}
+p{margin:0 0 12px}
+b,strong{font-weight:700; color:var(--ink)}
+
+.card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh)}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
+table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
+th,td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--tint); font-weight:700; font-size:0.8125rem; color:var(--blue-d); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
+
+.std{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--blue-l); border-radius:0 14px 14px 0; padding:15px 18px; box-shadow:var(--sh)}
+.std code{flex:0 0 auto; font-family:var(--mono); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:3px 9px; border-radius:7px}
+.std span{font-size:0.9062rem; line-height:1.65}
+
+/* ── 탭 ──────────────────────────────────── */
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{font-family:var(--sans); font-size:0.875rem; font-weight:700; padding:10px 19px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer;
+  transition:.16s; box-shadow:var(--sh)}
+.tab:hover{color:var(--blue); border-color:var(--blue-l)}
+.tab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.tab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 슬라이드 ────────────────────────────── */
+.deckbar{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px}
+.dtab{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 16px; border-radius:12px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer; transition:.16s;
+  box-shadow:var(--sh); text-align:left; line-height:1.35}
+.dtab i{display:block; font-style:normal; font-family:var(--mono); font-size:0.6875rem; color:var(--muted); margin-bottom:2px}
+.dtab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.dtab[aria-selected="true"] i{color:var(--on-fill); opacity:.75}
+.dtab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.stage{background:var(--white); border:1px solid var(--line); border-radius:24px;
+  box-shadow:var(--sh2); overflow:hidden}
+.stage-top{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:14px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
+.stage-top .who{font-size:0.8125rem; font-weight:700; color:var(--blue-d)}
+.stage-top .cnt{font-family:var(--mono); font-size:0.8125rem; color:var(--ink2)}
+.slidebox{padding:clamp(20px,3.4vw,38px); height:var(--sbh); display:flex; flex-direction:column;
+  overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable;
+  display:flex; flex-direction:column; justify-content:center}
+.slide[hidden]{display:none!important}
+.slide h4{font-family:var(--disp); font-weight:400; font-size:clamp(1.4375rem,3.6vw,2.125rem);
+  line-height:1.35; margin:0 0 8px; color:var(--blue-d)}
+.slide .kicker{font-family:var(--mono); font-size:0.75rem; letter-spacing:.08em; color:var(--muted);
+  margin:0 0 14px; text-transform:uppercase}
+.slide p{font-size:clamp(0.9375rem,1.9vw,1.0938rem); line-height:1.8; margin:0 0 14px}
+.slide ul{margin:0 0 14px; padding-left:22px; font-size:clamp(0.9375rem,1.9vw,1.0625rem); line-height:1.85}
+.slide li{margin-bottom:7px}
+.slide li b{color:var(--blue-d)}
+.big{font-family:var(--disp); font-weight:400; font-size:clamp(1.625rem,4.4vw,2.625rem); line-height:1.35;
+  color:var(--ink); text-align:center; margin:14px 0}
+.def{background:var(--blue-xl); border-radius:16px; padding:16px 20px; margin:11px 0}
+.def b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
+.note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
+.note b{color:var(--warm)}
+.ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9688rem; margin:14px 0}
+.ask b{color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+.chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
+.chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:10px 0}
+.four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
+.four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+figure{margin:13px 0; text-align:center}
+figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
+  border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
+figure svg{max-width:100%; height:auto}
+.slidebox > .slide{flex:0 0 auto; width:100%}
+
+/* ── 발표 모드 : 화면 가득 슬라이드 한 장 ── */
+.present{position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%;
+  z-index:2147483000; display:flex; flex-direction:column; isolation:isolate;
+  background:#E9F3FF;                    /* 색 이름이 안 먹혀도 칠해지도록 */
+  background:var(--sky-bg,#E9F3FF); opacity:1; backdrop-filter:none}
+@media (prefers-color-scheme:dark){ .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)} }
+:root[data-theme="dark"] .present{background:#0A1A2E; background:var(--sky-bg,#0A1A2E)}
+:root[data-theme="light"] .present{background:#E9F3FF; background:var(--sky-bg,#E9F3FF)}
+.pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+@media (prefers-color-scheme:dark){ .pbar{background:#132B47; background:var(--white,#132B47)} }
+:root[data-theme="dark"] .pbar{background:#132B47; background:var(--white,#132B47)}
+:root[data-theme="light"] .pbar{background:#FFFFFF; background:var(--white,#FFFFFF)}
+/* 덮개가 열려 있는 동안에는 뒤쪽 본문을 아예 그리지 않는다 */
+body.show-on > *:not(.present){visibility:hidden}
+.present[hidden]{display:none}
+.pbar{display:flex; align-items:center; gap:clamp(8px,1.4vw,18px); flex-wrap:wrap;
+  padding:9px clamp(12px,2vw,26px); border-bottom:1px solid var(--line); background:var(--white)}
+.pname{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+.pnum{font-family:var(--mono); font-size:0.875rem; color:var(--muted)}
+.pnum b{font-size:1.125rem; color:var(--blue-d)}
+.pdots{display:flex; gap:7px; margin-left:auto; align-items:center}
+.pdots i{width:11px; height:11px; border-radius:50%; background:var(--line); cursor:pointer;
+  box-shadow:inset 0 0 0 1.5px var(--ink2); transition:width .14s, background .14s}
+.pdots i.on{background:var(--fill); box-shadow:inset 0 0 0 1.5px var(--ink2); width:28px; border-radius:99px}
+.pbtn{font-family:var(--sans); font-weight:700; font-size:0.875rem; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  padding:7px 16px; cursor:pointer}
+.pbtn:hover{background:var(--blue-xl); border-color:var(--blue)}
+.pbtn.solid{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.pbtn.solid:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.pstage{flex:1; min-height:0; position:relative; display:flex; align-items:center; justify-content:center;
+  padding:clamp(12px,2vw,30px) clamp(62px,7vw,116px)}
+.pbox{width:100%; max-width:1520px; height:100%; overflow-y:auto; overscroll-behavior:contain;
+  scrollbar-gutter:stable; display:grid; align-content:center; align-content:safe center}
+.pbox > .slide{width:100%}
+.pnav{position:absolute; top:50%; transform:translateY(-50%);
+  width:clamp(42px,4.4vw,60px); height:clamp(66px,9vh,100px); border-radius:18px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d);
+  font-size:1.75rem; line-height:1; cursor:pointer; box-shadow:var(--sh)}
+.pnav:hover:not(:disabled){background:var(--blue-xl); border-color:var(--blue)}
+.pnav:disabled{opacity:.28; cursor:default}
+.pnav.prev{left:clamp(8px,1.2vw,22px)} .pnav.next{right:clamp(8px,1.2vw,22px)}
+.showbtn{margin-left:auto}
+@media (max-width:680px){
+  .pstage{padding:10px 8px 64px}
+  .pnav{top:auto; bottom:10px; transform:none; width:76px; height:46px; border-radius:14px}
+  .pnav.prev{left:12px} .pnav.next{right:12px}
+  .pdots{order:9; width:100%; margin:2px 0 0; justify-content:center}
+}
+.ezl{font-size:0.9375rem; line-height:1.65; color:var(--blue-d); background:var(--blue-xl);
+  border-radius:13px; padding:11px 15px; margin:11px 0}
+.ezl::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.75rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:3px}
+.ezl b{color:var(--blue-d)}
+.picpair{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:14px; align-items:center; margin:8px 0 10px}
+.picpair > .vtxt{min-width:0}
+.picpair .vtxt p{margin:0 0 8px; font-size:clamp(0.9rem,1.8vw,1.05rem)}
+.picpair .vtxt .four{margin:8px 0 0}
+.slide .visfig{margin:0}
+.simbox .picpair{margin:8px 0 12px}
+@media (max-width:720px){.picpair{grid-template-columns:1fr}}
+.vplate{fill:var(--blue-xl); stroke:var(--blue-d); stroke-width:2}
+.vplate.on{fill:var(--fill); stroke:var(--fill-d)}
+.vline{fill:none; stroke:var(--blue-l); stroke-width:2.5}
+.vpath{fill:none; stroke:var(--fill); stroke-width:4; stroke-linecap:round; stroke-linejoin:round}
+.vhill{fill:var(--blue-xl); stroke:var(--blue-l); stroke-width:2}
+.vpeak{fill:var(--good-bg); stroke:var(--good); stroke-width:2.5}
+.vlocal{fill:var(--warm-bg); stroke:var(--warm); stroke-width:2.5}
+.vdot{fill:var(--fill)}
+.vtxts{font-family:var(--disp); font-size:13px; font-weight:700; fill:var(--blue-d); text-anchor:middle}
+.vsm{font-family:var(--sans); font-size:11px; font-weight:700; fill:var(--muted); text-anchor:middle}
+.von{fill:var(--on-fill)}
+.slide figure svg{max-height:min(13rem, var(--sbh) * 0.29)}
+.slide .visfig svg, .simbox .visfig svg, .slide .picpair > figure svg{max-height:min(15.5rem, var(--sbh) * 0.40); width:100%; height:auto}
+.slide figure img{max-height:min(16rem, var(--sbh) * 0.35);object-fit:contain}
+figcaption{font-size:0.8125rem; color:var(--muted); margin-top:8px}
+.stage-nav{display:flex; gap:9px; align-items:center; padding:14px 24px;
+  border-top:1px solid var(--line); background:var(--tint); flex-wrap:wrap}
+.dots{display:flex; gap:6px; margin-left:auto; align-items:center; flex-wrap:wrap}
+.dots i{width:9px; height:9px; border-radius:50%; background:var(--line); display:block; transition:.2s; cursor:pointer}
+.dots i.on{background:var(--fill); width:26px; border-radius:99px}
+button.go{font-family:var(--sans); font-size:0.9062rem; font-weight:700; padding:11px 22px;
+  border-radius:99px; border:1px solid var(--fill); background:var(--fill); color:var(--on-fill);
+  cursor:pointer; transition:.16s}
+button.go:hover{background:var(--fill-d); border-color:var(--fill-d)}
+button.go:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.ghost{background:var(--white); color:var(--blue); border-color:var(--line)}
+button.ghost:hover{background:var(--blue-xl); color:var(--blue-d)}
+button[disabled]{opacity:.3; cursor:default}
+button[disabled]:hover{background:var(--white); color:var(--blue); border-color:var(--line)}
+
+/* SVG 공통 */
+.dg{fill:none; stroke:var(--blue-l); stroke-width:2}
+.dnode{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.dnode.hit{fill:var(--fill); stroke:var(--fill)}
+.dtxt{font-family:var(--sans); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.dtxt.on{fill:var(--on-fill)}
+.dnum{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--warm); text-anchor:middle}
+.dlab{font-family:var(--sans); font-size:12px; fill:var(--muted); text-anchor:middle}
+.pz{width:min(9.25rem, var(--sbh) * 0.20); height:auto; flex:0 0 auto}
+.gtsvg{width:100%; max-width:32rem}
+.mhsvg{width:100%; max-width:20rem; height:auto; display:block; margin:0 auto}
+.mhc{fill:var(--tint); stroke:var(--line); stroke-width:1.4}
+.mhbird{stroke:var(--cut); stroke-width:2.4; stroke-dasharray:6 5; opacity:.9}
+.mhbt{font-family:var(--sans); font-size:10px; font-weight:700; fill:var(--cut); text-anchor:start}
+.mhwalk{fill:none; stroke:var(--blue); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; opacity:.9}
+.mhse{fill:var(--fill); stroke:var(--white); stroke-width:2.5}
+.mhse.goal{fill:var(--good)}
+.mhlab{font-family:var(--sans); font-size:10px; font-weight:800; fill:var(--on-fill); text-anchor:middle}
+.mhnum{font-family:var(--sans); font-size:12px; font-weight:800; fill:var(--blue-d); text-anchor:middle}
+.mhnum.v{text-anchor:middle}
+.wsq{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:clamp(16px,2.2vw,24px); box-shadow:var(--sh); margin:16px 0}
+.wsq > h4{margin:0 0 4px; font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d);
+  display:flex; align-items:center; gap:9px}
+.wsq > h4 em{font-style:normal; font-family:var(--pop); font-size:0.75rem; background:var(--fill);
+  color:var(--on-fill); border-radius:99px; padding:3px 10px; flex:0 0 auto}
+.chose{margin-top:9px; font-size:0.875rem; color:var(--blue-d)}
+.chose b{font-weight:800}
+.wsq .qtext{font-size:0.9375rem; color:var(--ink2); line-height:1.7; margin:0 0 12px}
+.wsline{display:grid; grid-template-columns:minmax(0,1fr); gap:6px; margin:9px 0}
+.wsline > b{font-size:0.8438rem; color:var(--blue-d); line-height:1.5}
+.wsline input{font-family:var(--sans); font-size:0.9375rem; padding:8px 12px; border-radius:11px;
+  border:1px solid var(--line); background:var(--tint); color:var(--ink); min-width:0}
+.wsline input:focus{outline:2px solid var(--blue); outline-offset:1px}
+.wsline input.good{border-color:var(--good); background:var(--good-bg)}
+.wsline input.bad{border-color:var(--warm); background:var(--warm-bg)}
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.wsans{margin-top:12px; padding:13px 16px; border-radius:14px; background:var(--good-bg);
+  border:1px solid var(--good); font-size:0.9062rem; line-height:1.7; color:var(--ink)}
+.wsans b{color:var(--good)}
+.wstab{width:100%; border-collapse:collapse; font-size:0.8438rem; margin:10px 0}
+.wstab th,.wstab td{border:1px solid var(--line); padding:6px 9px; text-align:center}
+.wstab th{background:var(--blue-xl); color:var(--blue-d); font-weight:700}
+.wstab td.pick{background:var(--good-bg); font-weight:800; color:var(--good)}
+.wstab td.cut{opacity:.4; text-decoration:line-through}
+.citysvg{width:100%; max-width:30rem}
+.cn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.cn.seen{fill:var(--blue-xl); stroke:var(--blue)}
+.cn.cur{fill:var(--good-bg); stroke:var(--good); stroke-width:2.6}
+.ct{font-family:var(--mono); font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.ce{stroke:var(--line); stroke-width:2}
+.ce.hit{stroke:var(--good); stroke-width:3.4}
+.cw{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.ch{font-family:var(--mono); font-size:10px; fill:var(--blue); text-anchor:middle}
+.gn{fill:var(--tint); stroke:var(--line); stroke-width:1.6}
+.gn.hot{fill:var(--good-bg); stroke:var(--good); stroke-width:2.4}
+.gn.off{opacity:.34}
+.gn.cutnode{fill:var(--cut-bg); stroke:var(--cut); stroke-width:2; stroke-dasharray:4 3}
+.dg.cutted{stroke:var(--cut); stroke-width:2.6; stroke-dasharray:6 4; opacity:.9}
+.cutbg{fill:var(--white); stroke:var(--cut); stroke-width:1.6}
+.cutx{fill:none; stroke:var(--cut); stroke-width:2.4; stroke-linecap:round}
+.gl{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.gv{font-family:var(--mono); font-size:13px; font-weight:800; fill:var(--blue-d); text-anchor:start}
+.pz rect{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
+.pz rect.g{fill:var(--good-bg); stroke:var(--good)}
+.pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
+
+/* ── 용어 ────────────────────────────────── */
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
+.term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
+.term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
+.term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
+
+/* ── 확인 문제 ───────────────────────────── */
+details{border:1px solid var(--line); border-radius:16px; background:var(--white);
+  margin-bottom:10px; box-shadow:var(--sh); overflow:hidden}
+summary{padding:16px 20px; cursor:pointer; font-weight:700; font-size:0.9688rem; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"답"; font-family:var(--disp); color:var(--blue); font-size:0.9375rem; flex:0 0 auto}
+details[open] summary{color:var(--blue)}
+details[open] summary::after{content:"닫기"}
+summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
+
+
+/* ── 수업 활동 ─────────────────────────── */
+.actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
+.atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  font-family:var(--sans); font-size:0.9375rem; font-weight:800; text-align:left;
+  padding:11px 18px; border-radius:15px; border:2px solid var(--line);
+  background:var(--white); color:var(--ink2); cursor:pointer; transition:.15s}
+.atab i{font-style:normal; font-size:0.7188rem; font-weight:700; letter-spacing:.04em; color:var(--muted)}
+.atab:hover{border-color:var(--blue-l); background:var(--tint)}
+.atab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill); box-shadow:var(--sh)}
+.atab[aria-selected="true"] i{color:var(--on-fill); opacity:.8}
+.atab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.actbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px; box-shadow:var(--sh)}
+.actbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.5rem; color:var(--blue-d); margin:0 0 8px}
+.actbox .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.actbox .desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px}
+.mini-h{font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d); margin:0 0 10px}
+.scorepill{font-family:var(--sans); font-size:0.875rem; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:8px 16px}
+
+/* ① AI 판별 카드 */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-bottom:16px}
+.acard{text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:600; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:13px 15px;
+  color:var(--ink); cursor:pointer; transition:.15s; position:relative}
+.acard:hover{border-color:var(--blue-l)}
+.acard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.acard .pickmark{display:block; font-size:0.7188rem; font-weight:800; letter-spacing:.04em;
+  color:var(--ink2); margin-bottom:4px}
+.acard[data-pick="y"]{border-color:var(--good); background:var(--good-bg)}
+.acard[data-pick="y"] .pickmark{color:var(--good)}
+.acard[data-pick="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.acard[data-pick="n"] .pickmark{color:var(--warm)}
+.acard.right{box-shadow:inset 0 0 0 2px var(--good)}
+.acard.wrong{box-shadow:inset 0 0 0 2px #C63B3B}
+.acard .why{display:block; font-size:0.8125rem; font-weight:600; color:var(--ink2);
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--line)}
+
+/* ② 튜링 테스트 */
+.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+.steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
+.steps3 b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
+.steps3 span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.roles{display:grid; gap:8px; min-height:60px}
+.roles .hint{font-size:0.875rem; color:var(--muted); line-height:1.6}
+.rrow{display:flex; align-items:center; gap:10px; background:var(--tint);
+  border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:0.9062rem}
+.rrow b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d); min-width:74px}
+.rrow.secret{background:var(--blue-xl); border-color:var(--blue-l)}
+.rrow.masked b+span{filter:blur(6px); user-select:none}
+.qbig{font-family:var(--disp); font-weight:400; font-size:clamp(1.1875rem,3.1vw,1.625rem); line-height:1.45;
+  color:var(--ink); background:var(--blue-xl); border-radius:16px; padding:24px 22px;
+  text-align:center; min-height:108px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px}
+.qall{margin:12px 0 0; padding-left:22px; font-size:0.875rem; color:var(--ink2); line-height:1.85}
+
+/* ③ 네 가지 특성 */
+.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+.tcell{text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
+.tcell:hover{border-color:var(--blue-l)}
+.tcell:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tcell b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--blue-d); margin-bottom:3px}
+.tcell span{display:block; font-size:0.8438rem; color:var(--ink2); line-height:1.55}
+.tcell em{display:inline-block; font-style:normal; font-size:0.75rem; font-weight:800;
+  letter-spacing:.04em; color:var(--ink2); margin-top:7px}
+.tcell[data-on="y"]{border-color:var(--good); background:var(--good-bg)}
+.tcell[data-on="y"] em{color:var(--good)}
+.tcell[data-on="n"]{border-color:var(--warm); background:var(--warm-bg)}
+.tcell[data-on="n"] em{color:var(--warm)}
+
+.copyfall{margin:14px 0 0; background:var(--warm-bg); border:2px solid var(--warm);
+  border-radius:16px; padding:16px 18px}
+.copyfall>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--warm); margin-bottom:5px}
+.copyfall>span{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.6; margin-bottom:10px}
+.copyfall textarea{width:100%; font-family:var(--mono); font-size:0.7812rem; line-height:1.7;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:12px 14px; resize:vertical}
+.copyfall textarea:focus{outline:2px solid var(--blue); outline-offset:1px}
+
+/* ── AI 해결안 설계 ─────────────────────── */
+.gauge{position:relative; height:30px; border-radius:99px; background:var(--tint);
+  border:1px solid var(--line); overflow:hidden; margin-bottom:16px}
+.gauge>i{display:block; height:100%; width:0; border-radius:99px;
+  background:var(--fill); transition:width .3s ease}
+.gauge>i.full{background:var(--good)}
+.gauge>b{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:0.8125rem; font-weight:800; color:var(--ink); font-variant-numeric:tabular-nums;
+  mix-blend-mode:normal}
+.canvas{display:grid; gap:13px}
+.cell{display:block; background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:15px 18px; transition:.15s}
+.cell:focus-within{border-color:var(--blue); background:var(--white)}
+.cell.key{background:var(--blue-xl); border-color:var(--blue-l)}
+.cell.warn{background:var(--warm-bg); border-color:var(--warm)}
+.cell>span{display:flex; align-items:center; gap:9px;
+  font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.cell.warn>span{color:var(--warm)}
+.cell>span>i{flex:none; width:24px; height:24px; border-radius:50%;
+  background:var(--fill); color:var(--on-fill); font-style:normal;
+  font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.cell.warn>span>i{background:var(--warm); color:var(--sky-bg)}
+.cell>em{display:block; font-style:normal; font-size:0.8125rem; color:var(--ink2);
+  line-height:1.55; margin:5px 0 9px}
+.cell textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.65;
+  color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:11px 13px; resize:vertical}
+.cell textarea:focus{outline:none; border-color:var(--blue)}
+.cell textarea::placeholder{color:var(--muted)}
+.dcards{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px}
+.dcard{display:inline-flex; align-items:center; gap:6px; font-family:var(--sans);
+  font-size:0.8438rem; font-weight:700; padding:8px 14px; border-radius:99px;
+  border:2px solid var(--line); background:var(--white); color:var(--ink2);
+  cursor:pointer; transition:.15s}
+.dcard:hover{border-color:var(--blue-l)}
+.dcard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.dcard[data-on]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.verdict{margin-top:16px; border-radius:16px; padding:20px 22px; border:2px solid var(--line);
+  background:var(--tint); animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+.verdict b:first-child{display:block; font-family:var(--disp); font-weight:400;
+  font-size:clamp(1.125rem,2.6vw,1.375rem); margin-bottom:7px}
+.verdict span{display:block; font-size:0.9375rem; line-height:1.7; color:var(--ink2)}
+.verdict ul{margin:12px 0 0; padding-left:20px; font-size:0.875rem; color:var(--ink2); line-height:1.8}
+.verdict.ok{background:var(--good-bg); border-color:var(--good)}
+.verdict.ok b{color:var(--good)}
+.verdict.mid{background:var(--blue-xl); border-color:var(--blue-l)}
+.verdict.mid b{color:var(--blue-d)}
+.verdict.no{background:var(--warm-bg); border-color:var(--warm)}
+.verdict.no b{color:var(--warm)}
+@media (prefers-reduced-motion:reduce){.verdict{animation:none} .gauge>i{transition:none}}
+
+/* ── 튜링 테스트 진행판 ─────────────────── */
+.wiz{display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0 0 20px; padding:0; counter-reset:wz}
+.wiz li{flex:1 1 110px; position:relative; font-size:0.8125rem; font-weight:700; color:var(--ink2);
+  background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:9px 10px 9px 32px; counter-increment:wz; transition:.15s}
+.wiz li::before{content:counter(wz); position:absolute; left:9px; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; border-radius:50%; background:var(--line); color:var(--ink2);
+  font-size:0.6875rem; display:flex; align-items:center; justify-content:center}
+.wiz li.done{color:var(--good); border-color:var(--good); background:var(--good-bg)}
+.wiz li.done::before{content:'✓'; background:var(--good); color:#fff}
+.wiz li.on{color:var(--on-fill); background:var(--fill); border-color:var(--fill); box-shadow:var(--sh)}
+.wiz li.on::before{background:var(--on-fill); color:var(--fill-d)}
+.wiz li{cursor:pointer}
+.wiz li:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.step-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin:0 0 14px}
+.rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:4px 13px}
+.frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.fld{flex:0 1 220px; display:block}
+.fld.grow{flex:1 1 260px}
+.fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:6px}
+.fld input, .fld textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+  color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:11px 14px; resize:vertical}
+.fld input:focus, .fld textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
+.secretbox{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px;
+  background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px; padding:14px 18px}
+.secretbox .slabel{font-size:0.7812rem; font-weight:800; letter-spacing:.04em; color:var(--blue-d)}
+.secretbox .sval{font-family:var(--disp); font-weight:400; font-size:1.3125rem; color:var(--blue-d);
+  filter:blur(9px); user-select:none; transition:filter .2s}
+.secretbox.open .sval{filter:none; user-select:auto}
+.dotrow{display:flex; gap:7px; margin-bottom:14px}
+.dotrow i{width:11px; height:11px; border-radius:50%; background:var(--line); transition:.15s}
+.dotrow i.fill{background:var(--fill)}
+.dotrow i.cur{background:var(--fill); box-shadow:0 0 0 4px var(--blue-xl)}
+.timer{font-family:var(--mono); font-size:1.0625rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:11px; padding:6px 13px; min-width:74px; text-align:center}
+.timer.low{color:#fff; background:#C63B3B}
+table.tlog{min-width:520px; font-size:0.875rem}
+table.tlog td.q{font-weight:700; color:var(--blue-d); white-space:normal; min-width:150px}
+table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-nums; color:var(--muted)}
+.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0}
+.vbtn{display:block; text-align:left; font-family:var(--sans); background:var(--tint);
+  border:2px solid var(--line); border-radius:16px; padding:16px 18px; cursor:pointer; transition:.15s}
+.vbtn:hover{border-color:var(--blue-l); background:var(--white)}
+.vbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.vbtn b{font-family:var(--disp); font-weight:400; font-size:1.3125rem; color:var(--blue-d)}
+.vbtn span{font-size:0.875rem; color:var(--ink2); margin-left:5px}
+.vbtn .bar{display:block; height:12px; border-radius:99px; background:var(--line);
+  margin:12px 0 7px; overflow:hidden}
+.vbtn .bar i{display:block; height:100%; width:0; background:var(--fill);
+  border-radius:99px; transition:width .35s ease}
+.vbtn em{font-style:normal; font-size:0.8438rem; font-weight:800; color:var(--ink2);
+  font-variant-numeric:tabular-nums}
+.vbtn.win{border-color:var(--good); background:var(--good-bg)}
+.vbtn.win .bar i{background:var(--good)}
+.reveal{margin-top:16px; border-radius:16px; padding:22px; text-align:center;
+  font-family:var(--disp); font-weight:400; font-size:clamp(1.1875rem,3vw,1.5625rem); line-height:1.5;
+  background:var(--good-bg); border:2px solid var(--good); color:var(--ink);
+  animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
+.reveal .rsub{display:block; font-family:var(--sans); font-size:0.9375rem; font-weight:600;
+  color:var(--ink2); margin-top:9px}
+@keyframes pop{from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none} .vbtn .bar i{transition:none}}
+/* 튜링 4단계 토의 칸 */
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:0.9375rem;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
+.rubric{display:grid; gap:9px}
+.rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
+.rubric .rq{flex:1 1 260px; font-size:0.9062rem; color:var(--ink2)}
+.ttnav{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:24px;
+  padding-top:18px; border-top:1px solid var(--line)}
+.ttnav .saved{flex:1 1 auto; font-size:0.8125rem; color:var(--muted)}
+.ttnav .saved.flash{color:var(--good); font-weight:700}
+.report{font-family:var(--mono); font-size:0.7812rem; line-height:1.75; white-space:pre-wrap;
+  word-break:break-word; background:var(--tint); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; max-height:420px; overflow:auto; margin:0 0 16px; color:var(--ink)}
+.missing{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:14px 18px; font-size:0.9062rem; color:var(--ink2); margin-bottom:14px}
+.missing b{color:var(--warm)}
+@media print{
+  nav, footer, .actbar, .wiz, .ttnav, .simctl, header, section:not(#act){display:none!important}
+  .actbox{border:none; box-shadow:none; padding:0}
+  .tstep[hidden]{display:none!important}
+  .report{max-height:none; border:none; background:none; font-size:11pt}
+}
+
+/* 컴퓨터 역할 학생용 프롬프트 상자 */
+.cbox{margin:16px 0; border:2px dashed var(--blue-l); border-radius:16px;
+  background:var(--blue-xl); overflow:hidden}
+.cbox>summary{display:flex; align-items:center; gap:10px; flex-wrap:wrap; cursor:pointer;
+  list-style:none; font-family:var(--disp); font-weight:400; font-size:1.125rem;
+  color:var(--blue-d); padding:15px 20px}
+.cbox>summary::-webkit-details-marker{display:none}
+.cbox>summary::before{content:'▸'; font-family:var(--sans); font-weight:700; color:var(--blue)}
+.cbox[open]>summary::before{content:'▾'}
+.cbox>summary i{font-style:normal; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--sky-bg); background:var(--warm); border-radius:99px; padding:3px 11px}
+.cbox>summary:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+.cbody{padding:0 20px 20px}
+.cbody .desc{font-size:0.9062rem; color:var(--ink2); margin:0 0 14px}
+.prompt{font-family:var(--mono); font-size:0.7812rem; line-height:1.8; white-space:pre-wrap;
+  word-break:break-word; background:var(--white); border:1px solid var(--line);
+  border-radius:14px; padding:16px 18px; max-height:300px; overflow:auto;
+  margin:0 0 14px; color:var(--ink)}
+a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
+
+/* 제출 상태 */
+.sendmsg{flex:1 1 200px; font-size:0.875rem; font-weight:700}
+.sendmsg.wait{color:var(--muted)}
+.sendmsg.ok{color:var(--good)}
+.sendmsg.bad{color:#A62727}
+@media (prefers-color-scheme:dark){.sendmsg.bad{color:#FF9B9B}}
+:root[data-theme="dark"] .sendmsg.bad{color:#FF9B9B}
+:root[data-theme="light"] .sendmsg.bad{color:#A62727}
+
+/* ── 시뮬레이터 ─────────────────────────── */
+.sim{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh); margin-bottom:20px}
+.sim h3{display:flex; align-items:center; gap:9px; font-family:var(--disp); font-weight:400;
+  font-size:1.3125rem; color:var(--blue-d); margin:0 0 6px}
+.sim .desc{font-size:0.9062rem; color:var(--ink2); margin:0 0 16px}
+.simctl{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
+.pick button{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:7px 15px; border-radius:99px;
+  border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
+.pick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.pick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mini{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 17px; border-radius:99px;
+  border:1px solid var(--fill); background:var(--fill); color:var(--on-fill); cursor:pointer; transition:.15s}
+.mini:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.mini.gh{background:var(--white); color:var(--blue); border-color:var(--line)}
+.mini.gh:hover{background:var(--blue-xl); color:var(--blue-d)}
+.mini:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.mini[disabled]{opacity:.35; cursor:default}
+.gridwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.gsvg{flex:1 1 320px; min-width:280px}
+.gside{flex:1 1 230px; min-width:220px}
+.stat{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:0.875rem; margin-bottom:14px}
+.stat dt{color:var(--muted); font-weight:600}
+.stat dd{margin:0; font-family:var(--mono); font-weight:700; color:var(--ink)}
+.lst{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:11px 14px;
+  font-family:var(--mono); font-size:0.75rem; line-height:1.6; color:var(--ink2);
+  max-height:120px; overflow:auto; word-break:break-all; margin-bottom:10px}
+.lst .hintx{display:block; margin-top:3px; font-size:0.7188rem; color:var(--muted)}
+.lst b:first-child{color:var(--blue-d); display:block; margin-bottom:3px; font-family:var(--sans); font-size:0.7188rem}
+.cellg rect{stroke:var(--line); stroke-width:1.5}
+.cellg .wall{fill:#7d8ba0}
+.cellg .free{fill:var(--tint)}
+.cellg .open{fill:#BFE3B4}
+.cellg .closed{fill:#F6C7A8}
+.cellg .path{fill:var(--fill)}
+.cellg .se{fill:var(--blue-d)}
+.cellg text{font-family:var(--mono); font-size:9px; fill:var(--ink2); text-anchor:middle}
+.cellg text.on{fill:#fff; font-weight:700}
+.legend2{display:flex; gap:12px; flex-wrap:wrap; font-size:0.7812rem; color:var(--muted); margin-top:10px}
+.legend2 span{display:inline-flex; align-items:center; gap:5px}
+.legend2 i{width:13px; height:13px; border-radius:4px; display:block; border:1px solid var(--line)}
+.puz{display:grid; grid-template-columns:repeat(3,60px); gap:6px; justify-content:center; margin:6px 0 14px}
+.puz button{width:60px; height:60px; border-radius:12px; border:1px solid var(--line);
+  background:var(--tint); font-family:var(--mono); font-size:1.375rem; font-weight:700; color:var(--ink);
+  cursor:pointer; transition:.12s}
+.puz button.ok{background:var(--good-bg); border-color:var(--good); color:var(--good)}
+.puz button.empty{background:transparent; border-style:dashed; cursor:default}
+.puz button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+/* ── 코드 ───────────────────────────────── */
+.codebox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:18px}
+.codetop{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:13px 20px; background:var(--tint); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.codetop b{font-size:0.9375rem; color:var(--blue-d)}
+.codetop span{font-family:var(--mono); font-size:0.75rem; color:var(--muted)}
+pre{margin:0; padding:20px; overflow-x:auto; background:var(--white);
+  font-family:var(--mono); font-size:0.7812rem; line-height:1.7; color:var(--ink)}
+pre .c{color:var(--muted)}
+pre .k{color:var(--blue-d); font-weight:700}
+pre .s{color:var(--good)}
+
+/* ── 영상 ───────────────────────────────── */
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.vid{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+  box-shadow:var(--sh); display:flex; gap:12px; align-items:flex-start}
+.vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
+  display:grid; place-items:center}
+.vid .pl svg{width:14px; height:14px; fill:var(--blue-d); margin-left:2px}
+.vid b:first-child{display:block; font-size:0.9062rem; font-weight:700}
+.vid span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:3px}
+
+/* 슬라이드 안 이미지 */
+.slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:11px 0}
+.imgrow figure{margin:0}
+.side{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; align-items:center; margin:11px 0}
+.side figure{margin:0}
+.side > *:last-child{margin:0}
+.imgrow figure img{height:min(11.5rem, var(--sbh) * 0.25); width:auto; max-width:100%}
+.imgrow figcaption{font-size:0.7812rem; margin-top:6px}
+
+/* 탐색 설명 옆 낱말 카드 */
+.wordh{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
+  margin:18px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
+.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+.wd{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:13px 16px}
+.wd.key{background:var(--blue-xl); border-color:var(--blue-l)}
+.wd>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin-bottom:5px}
+.wd>b>i{font-style:normal; font-size:0.75rem; font-weight:400; color:var(--ink2); margin-left:5px}
+.wd>span{display:block; font-size:0.90625rem; line-height:1.65; color:var(--ink2)}
+.fbox{background:var(--good-bg); border:2px solid var(--good); border-radius:16px;
+  padding:16px 20px; margin:14px 0}
+.fbox>b{display:block; font-family:var(--pop); font-weight:800;
+  font-size:clamp(1.25rem,3vw,1.625rem); color:var(--good); margin-bottom:9px}
+.fbox>span{display:block; font-size:0.9375rem; line-height:1.75; color:var(--ink2)}
+
+/* ── 한 걸음씩 보는 탐색 ─────────────────── */
+.simbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px 24px; box-shadow:var(--sh); margin-bottom:14px}
+.simbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.4375rem; color:var(--blue-d); margin:0 0 7px}
+.simbox .desc{font-size:0.9688rem; color:var(--ink2); margin:0; line-height:1.7}
+.stage2{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:22px; box-shadow:var(--sh)}
+.canvasarea{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:16px}
+.tsvg{display:block; width:100%; min-width:460px; height:auto}
+.narr{font-family:var(--disp); font-weight:400; font-size:clamp(1rem,2.5vw,1.25rem); line-height:1.6;
+  background:var(--blue-xl); border-radius:16px; padding:18px 20px; color:var(--ink);
+  min-height:78px; display:flex; align-items:center; margin-bottom:14px}
+.narr.fin{background:var(--good-bg); box-shadow:inset 0 0 0 2px var(--good)}
+/* 긴 설명은 큰 글씨 나레이션에 넣지 않는다. 상자가 부풀어 아래 내용이 통째로 밀린다. */
+.narr.cut{background:var(--cut-bg); box-shadow:inset 0 0 0 2px var(--cut)}
+.narr.cut b{color:var(--cut)}
+.simwhy{margin:-6px 0 14px; padding:11px 15px; border-left:4px solid var(--blue-l);
+  background:var(--tint); border-radius:0 12px 12px 0;
+  font-family:var(--sans); font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.simwhy b{color:var(--blue-d)}
+.simwhy[hidden]{display:none}
+.narr.cut + .simwhy{border-left-color:var(--cut); background:var(--cut-bg)}
+.narr.cut + .simwhy b{color:var(--cut)}
+.narr b{color:var(--blue-d)}
+.narr.fin b{color:var(--good)}
+.lists{display:grid; gap:9px}
+.lists .lst{max-height:none; margin:0; font-family:var(--sans); font-size:0.8438rem}
+/* ── ⑨ 학교 안 길찾기 : 고르기·격자·설명·목록·조작을 한 화면에 ── */
+.oneview{--ovh:min(46vh,392px); display:flex; flex-direction:column; gap:11px;
+  background:var(--tint); border:1px solid var(--line); border-radius:var(--r);
+  padding:13px clamp(11px,1.6vw,17px); margin-bottom:16px}
+.ovbar,.ovfoot{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:0}
+.ovbar .scorepill{margin-left:auto}
+.ovmain{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(12px,1.8vw,20px); align-items:start}
+.ovgrid{width:100%; max-width:calc(var(--ovh) * 1.36); margin-inline:auto}
+.ovgrid .canvasarea{margin:0; overflow:visible}
+.ovgrid .tsvg,.ovgrid .gsv{min-width:0; width:100%; height:auto}
+.ovside{display:grid; gap:8px; min-width:0}
+.ovside .ovstory{margin:0; font-size:0.9062rem; color:var(--ink2); line-height:1.55}
+.ovside .narr{margin:0; font-size:clamp(0.95rem,1.6vw,1.125rem)}
+.ovside .lst{max-height:none; margin:0; font-family:var(--sans); font-size:0.8438rem}
+.ovside .tw{margin:0}
+.ovside .tw table{min-width:0; font-size:0.8125rem}
+.ovside .tw th,.ovside .tw td{padding:7px 9px}
+.ovhint{font-family:var(--sans); font-size:0.7812rem; color:var(--muted)}
+.dimx{color:var(--muted); font-weight:400; font-size:0.8125rem}
+/* 「왜 이 칸을 골랐나」 — g·h·f 가 어디서 나온 숫자인지 함께 보여 준다 */
+.whycard{background:var(--white); border:1px solid var(--line); border-radius:14px;
+  padding:10px 12px; box-shadow:var(--sh)}
+.whycard .whyhint{margin:0; font-family:var(--sans); font-size:0.8125rem; color:var(--muted)}
+.whyrow{display:flex; align-items:stretch; gap:6px; flex-wrap:wrap}
+.wchip{flex:1 1 0; min-width:96px; display:flex; flex-direction:column; align-items:center;
+  border-radius:11px; padding:6px 8px; text-align:center}
+.wchip b{font-family:var(--mono); font-size:0.75rem; font-weight:800; opacity:.8}
+.wchip em{font-family:var(--disp); font-style:normal; font-weight:800;
+  font-size:clamp(1.1rem,2.6vw,1.45rem); line-height:1.15}
+.wchip i{font-style:normal; font-family:var(--sans); font-size:0.6875rem; line-height:1.35;
+  margin-top:2px; min-height:2.7em}
+.wchip.cg{background:var(--blue-xl); color:var(--blue-d)}
+.wchip.ch{background:var(--warm-bg); color:#8A5A18}
+.wchip.cf{background:var(--good-bg); color:#1D6B3F}
+.wop{align-self:center; font-family:var(--disp); font-weight:800; font-size:1.15rem; color:var(--muted)}
+.whyline{margin:8px 0 0; min-height:3.2em; font-family:var(--sans); font-size:0.8125rem;
+  line-height:1.55; color:var(--ink2)}
+.whyline b{color:var(--blue-d)}
+.whypath{margin:6px 0 0; font-family:var(--mono); font-size:0.7188rem; line-height:1.5; color:var(--ink2);
+  background:var(--good-bg); border-radius:9px; padding:6px 9px; word-break:break-all}
+/* OPEN 목록을 점수 순으로 줄 세워 «다음 차례»가 보이게 */
+.opl{display:flex; flex-wrap:wrap; gap:5px; margin-top:4px}
+.opi{display:inline-flex; align-items:baseline; gap:4px; background:var(--white);
+  border:1px solid var(--line); border-radius:8px; padding:3px 7px;
+  font-family:var(--mono); font-size:0.7188rem; color:var(--ink2)}
+.opi em{font-style:normal; font-weight:800; color:var(--blue-d)}
+.opi.next{background:var(--blue-xl); border-color:var(--blue-l); box-shadow:0 0 0 2px var(--blue-xl)}
+.opi.next::after{content:'← 다음'; font-family:var(--sans); font-size:0.625rem; font-weight:700; color:var(--blue-d)}
+.opi.fresh{border-color:var(--good); box-shadow:inset 0 0 0 1px var(--good)}
+.opi.fresh em{color:var(--good)}
+.hintx .fr{color:var(--good)}
+/* 활동판 안에서는 나레이션 최소 높이를 줄인다 (오른쪽 칸이 좁아 두 줄이 쉽게 난다) */
+.ovside .narr{min-height:4.6em; padding:12px 15px; align-items:center}
+@media (max-width:900px){ .wchip{min-width:78px} }
+@media (max-width:900px){
+  .oneview{--ovh:min(38vh,320px)}
+  .ovmain{grid-template-columns:1fr}
+  .ovbar .scorepill{margin-left:0}
+}
+/* 「크게 보기」 — 활동판만 화면 가득히 (슬라이드 .present 와 같은 덮개 방식) */
+.oneview.ovbig{--ovh:min(62vh,540px); position:fixed; top:0; right:0; bottom:0; left:0;
+  z-index:2147483000; margin:0; border-radius:0; overflow:auto; justify-content:center;
+  background:#FFFFFF; background:var(--white,#FFFFFF); padding:clamp(14px,2.4vw,32px)}
+.oneview.ovbig .ovmain{align-items:center}
+body.ovbig-on{overflow:hidden}
+.sqvis{background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:12px 14px; margin-top:8px}
+.sqvis>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9375rem; color:var(--blue-d); margin-bottom:4px}
+.sqcap{font-size:0.75rem; color:var(--muted); margin:4px 0}
+.sqempty{text-align:center; color:var(--muted); font-size:0.875rem; padding:16px 8px}
+.sqstack{display:flex; flex-direction:column; align-items:stretch; gap:5px; max-width:220px}
+.sqstack i, .sqqueue i{display:block; text-align:center; font-style:normal; font-family:var(--disp); font-weight:700;
+  font-size:1.0625rem; background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:10px;
+  padding:7px 16px; color:var(--blue-d)}
+.sqstack i.top, .sqqueue i.front{background:var(--fill); border-color:var(--fill-d); color:var(--on-fill); box-shadow:0 0 0 3px var(--blue-xl)}
+.sqstack i em, .sqqueue i em{display:inline; font-style:normal; font-size:0.6875rem; font-weight:700; opacity:.85; margin-left:6px}
+.sqqueue{display:flex; flex-wrap:wrap; align-items:center; gap:6px}
+.sqends{display:flex; justify-content:space-between; gap:10px; font-size:0.75rem; font-weight:700; color:var(--blue-d); margin-top:6px}
+
+/* 트리 */
+.tl{stroke:var(--line); stroke-width:2.5}
+.tn{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.tn.seen{fill:var(--blue-xl); stroke:var(--blue-l)}
+.tn.cur{fill:var(--fill); stroke:var(--fill-d)}
+.tt{font-family:var(--disp); font-size:18px; fill:var(--ink2); text-anchor:middle}
+.tt.on{fill:var(--blue-d)}
+.tn.cur+.tt.on{fill:var(--on-fill)}
+.tnum{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--warm); text-anchor:middle}
+
+/* 미니 8-퍼즐 */
+.pz3{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; width:60px; margin:4px auto}
+.pz3 i{font-style:normal; font-family:var(--mono); font-size:0.6875rem; font-weight:700;
+  line-height:18px; text-align:center; background:#F2D9A8; color:#5A3A0A; border-radius:3px}
+.pz3 i.e{background:var(--white); box-shadow:inset 0 0 0 1px var(--line)}
+@media (prefers-color-scheme:dark){.pz3 i{background:#C9A365; color:#2A1A02} .pz3 i.e{background:#1B3550}}
+:root[data-theme="dark"] .pz3 i{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pz3 i.e{background:#1B3550}
+:root[data-theme="light"] .pz3 i{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pz3 i.e{background:#FFFFFF}
+
+.btree{display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:8px; min-width:560px}
+.bnode{background:var(--tint); border:2px solid var(--line); border-radius:12px;
+  padding:6px 4px; text-align:center; transition:.15s}
+.bnode>b{display:block; font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--ink2)}
+.bnode>em{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--muted)}
+.bnode.open{border-color:var(--blue-l); background:var(--blue-xl)}
+.bnode.open>b, .bnode.open>em{color:var(--blue-d)}
+.bnode.closed{border-color:var(--muted); opacity:.55}
+.bnode.cur{border-color:var(--good); background:var(--good-bg); box-shadow:0 0 0 3px var(--good-bg)}
+.bnode.cur>b, .bnode.cur>em{color:var(--good)}
+
+/* 유럽 지도 */
+.el{stroke:var(--line); stroke-width:2.5}
+.el.hit{stroke:var(--good); stroke-width:5}
+.ew{font-family:var(--mono); font-size:11px; fill:var(--muted); text-anchor:middle}
+.en{fill:var(--tint); stroke:var(--line); stroke-width:2.5}
+.en.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.en.seen{fill:var(--blue-l); stroke:var(--blue-d)}
+.en.cur{fill:var(--fill); stroke:var(--fill-d)}
+.et{font-family:var(--sans); font-size:12.5px; font-weight:700; fill:var(--ink2); text-anchor:middle}
+.et.on{fill:var(--on-fill)}
+.eh{font-family:var(--mono); font-size:10.5px; fill:var(--muted); text-anchor:middle}
+.eh.on{fill:var(--on-fill); opacity:.9}
+table.ftab{min-width:420px; font-size:0.8438rem}
+table.ftab th span{display:block; font-size:0.6562rem; font-weight:600; color:var(--muted)}
+table.ftab tr.pick td{background:var(--good-bg)}
+table.ftab tr.pick td b{color:var(--good)}
+
+/* ── 8-퍼즐 · 탐색 활동 ───────────────────── */
+.pzwrap{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
+.pzside{flex:1 1 250px; min-width:230px}
+.pzbig{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; max-width:250px; margin:0 auto}
+.pzbig.sm{max-width:190px; gap:5px}
+.pc{display:flex; align-items:center; justify-content:center; aspect-ratio:1;
+  font-family:var(--disp); font-weight:400; font-size:clamp(1.375rem,5vw,2rem);
+  background:#F2D9A8; color:#5A3A0A; border:2px solid transparent; border-radius:12px;
+  cursor:default; transition:.12s}
+.pc.e{background:var(--tint); box-shadow:inset 0 0 0 2px var(--line)}
+.pc.can{cursor:pointer; border-color:#C99A3C}
+.pc.can:hover{transform:scale(1.05); border-color:var(--blue)}
+.pc.can:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.pc.fit{box-shadow:inset 0 0 0 3px var(--good)}
+.pc.tip{border-color:var(--blue); box-shadow:0 0 0 4px var(--blue-xl)}
+.pc[disabled]{opacity:1}
+.pzbig.goal .pc{opacity:.85}
+@media (prefers-color-scheme:dark){.pc{background:#C9A365; color:#2A1A02} .pc.can{border-color:#8A6A28}}
+:root[data-theme="dark"] .pc{background:#C9A365; color:#2A1A02}
+:root[data-theme="dark"] .pc.can{border-color:#8A6A28}
+:root[data-theme="light"] .pc{background:#F2D9A8; color:#5A3A0A}
+:root[data-theme="light"] .pc.can{border-color:#C99A3C}
+.pzstat{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:12px;
+  font-size:0.9062rem; color:var(--ink2)}
+.pzstat b{font-family:var(--mono); font-size:1.0625rem; color:var(--blue-d)}
+.pzbar{height:10px; border-radius:99px; background:var(--line); overflow:hidden; margin-top:10px}
+.pzbar>i{display:block; height:100%; width:50%; background:var(--fill); border-radius:99px; transition:width .25s}
+.pzbar>i.full{background:var(--good)}
+
+/* 키워드 띠 */
+.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px; margin:0 0 20px}
+.kw{background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:14px; padding:11px 13px}
+.kw>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d)}
+.kw>span{display:block; font-size:0.7812rem; color:var(--ink2); line-height:1.5; margin-top:2px}
+
+/* 수행 작업 비교 */
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.cmpc{font-family:var(--sans); background:var(--tint); border:2px solid var(--line);
+  border-radius:16px; padding:14px; cursor:pointer; transition:.15s}
+.cmpc:hover{border-color:var(--blue-l)}
+.cmpc:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cmpc>b{display:block; font-size:0.9375rem; font-weight:600; color:var(--ink2); margin-bottom:9px}
+.cmpc .pzbig{max-width:130px}
+.cmpc>em{display:block; font-style:normal; margin-top:9px; font-size:0.875rem; font-weight:800; color:var(--blue-d)}
+.cmpc[data-on]{border-color:var(--good); background:var(--good-bg)}
+.cmpc[data-on]>em{color:var(--good)}
+
+/* 내가 만든 탐색 트리 */
+.dstrail{display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start}
+.dsnode{background:var(--tint); border:2px solid var(--line); border-radius:12px; padding:6px 5px; text-align:center}
+.dsnode>b{display:block; font-size:0.7188rem; font-weight:800; color:var(--ink2)}
+.dsnode>em{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+
+/* 그래프 빈칸 */
+.en.blank{fill:var(--warm-bg); stroke:var(--warm); stroke-dasharray:5 4}
+.blanks{display:grid; gap:9px; margin:14px 0}
+.blankrow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:11px 15px}
+.blankrow>b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d); min-width:74px}
+.pathbar{font-family:var(--disp); font-weight:400; font-size:clamp(1.0625rem,2.8vw,1.375rem);
+  background:var(--blue-xl); border-radius:14px; padding:15px 18px; text-align:center;
+  color:var(--blue-d); margin:14px 0}
+
+/* 내가 고른 여행 */
+.tripsel{display:grid; gap:9px; margin-bottom:14px}
+.trow{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:10px 14px}
+.trow>b{font-family:var(--disp); font-weight:700; font-size:1rem; color:var(--blue-d); min-width:40px}
+.trow .chips{margin:0}
+.trow .chip{cursor:pointer; transition:.15s}
+.trow .chip:hover{border-color:var(--blue-l)}
+
+/* ── 학교 격자 ─────────────────────────── */
+.gsv{min-width:380px}
+.gc{stroke:var(--line); stroke-width:2}
+.gc.free{fill:var(--tint)}
+.gc.wall{fill:#8595AB; stroke:#6D7C90}
+.gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+.gc.open{fill:var(--blue-xl); stroke:var(--blue-l)}
+.gc.closed{fill:var(--blue-l); stroke:var(--blue-d)}
+.gc.path{fill:var(--good); stroke:var(--good)}
+.gc.cur{fill:var(--fill); stroke:var(--fill-d)}
+.gc.se{stroke:var(--ink); stroke-width:3.5}
+.gt{font-family:var(--mono); font-size:13px; fill:var(--ink2); text-anchor:middle}
+.gt.big{font-family:var(--sans); font-size:12px; font-weight:800; fill:var(--ink)}
+@media (prefers-color-scheme:dark){.gc.fire{fill:#5A3418; stroke:#C97A3E}}
+:root[data-theme="dark"] .gc.fire{fill:#5A3418; stroke:#C97A3E}
+:root[data-theme="light"] .gc.fire{fill:#FFD9C2; stroke:#E08A4E}
+
+/* ── 알고리즘 카드 ─────────────────────── */
+.cardsort{display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px}
+.csleft, .csright{flex:1 1 280px; min-width:250px}
+.csbank{display:grid; gap:8px}
+.cscard{text-align:left; font-family:var(--sans); font-size:0.9375rem; line-height:1.5;
+  background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:13px 16px; color:var(--ink); cursor:pointer; transition:.15s}
+.cscard:hover{border-color:var(--blue-l); background:var(--white)}
+.cscard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cscard.no{border-color:#C63B3B; animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.cscard.no{animation:none}}
+.csout{margin:0; padding:0; list-style:none; display:grid; gap:8px; counter-reset:cs}
+.csout li{background:var(--good-bg); border:2px solid var(--good); border-radius:13px;
+  padding:11px 14px; font-size:0.9375rem; line-height:1.5; counter-increment:cs}
+.csout li::before{content:counter(cs); flex:none; width:25px; height:25px; border-radius:50%;
+  background:var(--good); color:var(--sky-bg); font-family:var(--sans);
+  font-size:0.8125rem; font-weight:800; display:flex; align-items:center; justify-content:center}
+.csout li.ph{background:var(--tint); border-color:var(--line); border-style:dashed;
+  color:var(--ink2); counter-increment:none}
+.csout li.ph::before{content:'?'; background:var(--line); color:var(--ink2)}
+.codeeasy{margin-top:22px; padding-top:20px; border-top:2px dashed var(--line)}
+.ecode{font-family:var(--mono); font-size:0.8125rem; line-height:1.9; white-space:pre;
+  overflow-x:auto; background:var(--tint); border:1px solid var(--line);
+  border-radius:14px; padding:18px 20px; margin:0 0 14px; color:var(--ink)}
+.ecode em{font-style:normal; color:var(--ink2)}
+.cbody code{font-family:var(--mono); font-size:0.8125rem; background:var(--tint);
+  border-radius:5px; padding:1px 5px}
+
+/* 보기 버튼 (추론 게임) */
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px}
+.mopts button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; line-height:1.45;
+  padding:13px 12px; border-radius:13px; border:2px solid var(--line); background:var(--tint);
+  color:var(--ink); cursor:pointer; transition:.15s}
+.mopts button:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.mopts button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mopts button[disabled]{cursor:default; opacity:1; color:var(--ink2)}
+.mopts button[aria-pressed="true"]{border-color:var(--blue-d); background:var(--fill);
+  color:var(--on-fill); box-shadow:var(--sh)}
+.mopts button[aria-pressed="true"]::before{content:"\2713\00a0"; font-weight:900}
+.mopts button[aria-pressed="true"]:hover{border-color:var(--fill-d); background:var(--fill-d)}
+.def .mopts button:not([aria-pressed="true"]){background:var(--white)}
+.mopts button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.mopts button.no{border-color:#C63B3B; background:#FDE9E9; color:#A62727}
+@media (prefers-color-scheme:dark){.mopts button.no{background:#3A1616; color:#FFAFAF}}
+:root[data-theme="dark"] .mopts button.no{background:#3A1616; color:#FFAFAF}
+:root[data-theme="light"] .mopts button.no{background:#FDE9E9; color:#A62727}
+/* ── 추론 게임 ─────────────────────────── */
+.qhead{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+.ifcard{background:var(--tint); border:2px solid var(--line); border-radius:18px; padding:20px 22px}
+.ifq{font-family:var(--disp); font-weight:400; font-size:clamp(1.125rem,3vw,1.4375rem);
+  color:var(--blue-d); margin:0 0 14px}
+.iffacts{display:grid; gap:7px; margin-bottom:16px}
+.ffact{background:var(--white); border-left:4px solid var(--blue-l); border-radius:0 11px 11px 0;
+  padding:10px 14px; font-size:0.9375rem; line-height:1.6; color:var(--ink)}
+.ifask{font-family:var(--disp); font-weight:400; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:0 0 14px}
+.ifcard .mopts button{background:var(--white)}
+
+/* ── 내가 만드는 규칙 ──────────────────── */
+.rulemake{display:grid; gap:11px; margin-bottom:14px}
+.rl{display:block}
+.rl>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:5px}
+.rl input{width:100%; font-family:var(--sans); font-size:0.9375rem; color:var(--ink);
+  background:var(--tint); border:2px solid var(--line); border-radius:13px; padding:11px 14px}
+.rl input:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.rl input::placeholder{color:var(--muted)}
+.rulebox{font-family:var(--disp); font-weight:400; font-size:clamp(1rem,2.6vw,1.25rem);
+  line-height:1.6; background:var(--good-bg); border:2px solid var(--good);
+  border-radius:16px; padding:18px 20px; color:var(--ink); margin-bottom:16px}
+.rulebox b{color:var(--good)}
+/* 친구에게 보낼 링크 — 길어서 반드시 접히게 한다 */
+.sharebox{margin:12px 0; padding:12px 14px; background:var(--tint); border:1px solid var(--line);
+  border-radius:12px; font-family:var(--mono); font-size:0.75rem; line-height:1.6;
+  color:var(--ink2); word-break:break-all; max-height:7.2em; overflow:auto}
+.ffact b{color:var(--blue-d); margin-right:6px}
+/* 우리 반 게임 목록 — 스크롤해서 고른다 */
+.gamelist{margin-top:14px; max-height:26rem; overflow-y:auto; display:grid; gap:9px;
+  padding:4px; background:var(--tint); border:1px solid var(--line); border-radius:14px}
+.gamelist .glnone{margin:0; padding:18px 12px; text-align:center; font-family:var(--sans);
+  font-size:0.875rem; color:var(--muted)}
+.gcard{display:block; width:100%; text-align:left; background:var(--white);
+  border:1px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer;
+  font-family:var(--sans); transition:border-color .12s, box-shadow .12s}
+.gcard:hover{border-color:var(--blue-l); box-shadow:var(--sh)}
+.gcard:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.gcard>b{display:block; font-size:0.875rem; font-weight:800; color:var(--blue-d); margin-bottom:5px}
+.gcard>b i{font-style:normal; font-weight:700; font-size:0.75rem; color:var(--muted); margin-left:6px}
+.gcard>span{display:block; font-size:0.8125rem; line-height:1.5; color:var(--ink2);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.gcard .gthen{color:var(--good); font-weight:700}
+.gcard>em{display:block; margin-top:7px; font-style:normal; font-size:0.75rem;
+  font-weight:800; color:var(--blue)}
+.gcard>b em{font-style:normal; margin-right:5px}
+.gcard .gkind{display:inline-block; margin-bottom:4px; padding:1px 8px; border-radius:99px;
+  background:var(--blue-xl); color:var(--blue-d); font-size:0.6875rem; font-weight:800; width:auto}
+/* 게임 종류 고르기 */
+/* 만드는 순서 ① ② ③ */
+.gsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px;
+  list-style:none; margin:0 0 18px; padding:0; counter-reset:gs}
+.gsteps li{counter-increment:gs; position:relative; padding:12px 14px 12px 46px;
+  background:var(--tint); border:1px solid var(--line); border-radius:14px}
+.gsteps li::before{content:counter(gs); position:absolute; left:13px; top:12px;
+  width:23px; height:23px; border-radius:50%; background:var(--fill); color:var(--on-fill);
+  font-family:var(--sans); font-size:0.8125rem; font-weight:800; display:flex;
+  align-items:center; justify-content:center}
+.gsteps b{display:block; font-family:var(--sans); font-size:0.9375rem; font-weight:800;
+  color:var(--blue-d); margin-bottom:2px}
+.gsteps span{font-family:var(--sans); font-size:0.8125rem; color:var(--muted); line-height:1.5}
+.gexctl{margin-bottom:12px}
+/* 친구 게임에 남기는 의견 — 게임 카드 안에만 나온다 */
+.peerbox{margin-top:18px; padding:14px 16px; background:var(--white);
+  border:1px dashed var(--line); border-radius:14px}
+.peerbox>b{display:block; font-family:var(--sans); font-size:0.875rem; font-weight:800;
+  color:var(--blue-d); margin-bottom:8px}
+.peerbox>b i{font-style:normal; font-weight:400; color:var(--muted)}
+.peerbox .pick{flex-wrap:wrap}
+.peerbox label{display:block; margin-top:10px}
+.peerbox label>span{display:block; font-family:var(--sans); font-size:0.8125rem;
+  font-weight:700; color:var(--blue-d); margin-bottom:4px}
+.peerbox textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+  padding:9px 12px; border:1.5px solid var(--line); border-radius:11px;
+  background:var(--tint); color:var(--ink); resize:vertical}
+.peerbox textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.peerbox .sendmsg{display:block; margin-top:8px}
+.kindbar{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:8px; margin-bottom:12px}
+.kbtn{display:flex; flex-direction:column; align-items:center; gap:3px; padding:11px 8px;
+  font-family:var(--sans); font-size:0.8125rem; font-weight:800; line-height:1.3;
+  color:var(--ink2); background:var(--white); border:2px solid var(--line); border-radius:14px; cursor:pointer}
+.kbtn em{font-style:normal; font-size:1.4rem; line-height:1}
+.kbtn:hover{border-color:var(--blue-l)}
+.kbtn[aria-pressed="true"]{border-color:var(--blue-d); background:var(--blue-xl); color:var(--blue-d)}
+.kbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.kindtip{background:var(--tint); border-left:4px solid var(--blue-l); border-radius:0 12px 12px 0;
+  padding:11px 15px; margin-bottom:14px; font-family:var(--sans); font-size:0.875rem;
+  line-height:1.6; color:var(--ink2)}
+.kindtip b{color:var(--blue-d)}
+/* 게임 만들기 폼 */
+.gform{display:grid; gap:10px; margin-bottom:14px}
+.gfl{display:block}
+.gfl>span{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:700;
+  color:var(--blue-d); margin-bottom:4px}
+.gfl>span i{font-style:normal; font-weight:400; color:var(--muted)}
+.gfl input[type="text"], .gfl textarea{width:100%; font-family:var(--sans); font-size:0.9375rem;
+  line-height:1.6; padding:9px 12px; border:1.5px solid var(--line); border-radius:11px;
+  background:var(--tint); color:var(--ink); resize:vertical}
+.gfl input:focus, .gfl textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.gfl .gpick{display:inline-flex}
+/* 푸는 화면 */
+.chainopts button{text-align:left; line-height:1.5}
+.chainopts button b{color:var(--blue-d)}
+.chainopts button.ok b{color:inherit}
+.ffact.new{animation:ffpop .35s ease}
+@keyframes ffpop{from{opacity:0; transform:translateY(-5px)}to{opacity:1; transform:none}}
+.shake{animation:shk .35s}
+@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.hintmsg{margin:10px 0; font-family:var(--sans); font-size:0.875rem; color:var(--ink2)}
+.hintmsg b{color:var(--blue-d)}
+.guessrow{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:6px}
+.guessrow input{flex:1 1 200px; font-family:var(--sans); font-size:0.9375rem; padding:9px 12px;
+  border:1.5px solid var(--line); border-radius:11px; background:var(--white); color:var(--ink)}
+.guessrow input:focus{outline:none; border-color:var(--blue)}
+.oxwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:14px}
+.oxcol{border-radius:14px; padding:12px 14px; border:2px solid var(--line); background:var(--white)}
+.oxcol>b{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:800; margin-bottom:7px}
+.oxcol span{display:block; font-family:var(--sans); font-size:0.9375rem; line-height:1.7; color:var(--ink)}
+.oxcol.ok{border-color:var(--good); background:var(--good-bg)}
+.oxcol.ok>b{color:var(--good)}
+.oxcol.no{border-color:var(--warm); background:var(--warm-bg)}
+.oxcol.no>b{color:var(--warm)}
+
+/* ── 용어 사전 ─────────────────────────── */
+.tgroup{font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d);
+  margin:26px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line)}
+.tgroup:first-of-type{margin-top:0}
+.term em.ez{display:block; font-style:normal; font-size:0.8438rem; line-height:1.6;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:11px;
+  padding:9px 12px; margin:0 0 9px}
+.term em.ez::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.7188rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:2px}
+.term i{display:block; font-style:normal; font-size:0.8438rem; color:var(--muted);
+  line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
+
+/* ── 차시별 수업 흐름 ─────────────────── */
+.flowlist{display:grid; gap:12px}
+.fcard{display:flex; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px; box-shadow:var(--sh)}
+.fnum{flex:none; width:64px; text-align:center; font-family:var(--disp); font-weight:700;
+  font-size:1.625rem; line-height:1.1; color:var(--on-fill); background:var(--fill);
+  border-radius:14px; padding:12px 4px; align-self:flex-start}
+.fnum>span{display:block; font-family:var(--sans); font-size:0.6875rem; font-weight:700; opacity:.85}
+.fbody{flex:1 1 auto; min-width:0}
+.fbody>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d)}
+.fbody>i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:2px}
+.fdays{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0}
+.fdays span{display:inline-flex; align-items:center; gap:6px; font-size:0.8125rem; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  font-variant-numeric:tabular-nums}
+.fdays em{font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+.fgo{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px}
+.fgo a{font-size:0.8438rem; font-weight:700; color:var(--blue-d); background:var(--blue-xl);
+  border:1px solid var(--blue-l); border-radius:99px; padding:5px 13px; text-decoration:none;
+  transition:.15s}
+.fgo a:hover{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.ftip{font-size:0.8438rem; color:var(--ink2); line-height:1.6; margin:0}
+.ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+/* ── 헷갈리는 것 O/X ──────────────────── */
+.oxwrap{display:grid; gap:11px}
+.oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
+  transition:.15s}
+.oxc.right{border-color:var(--good); background:var(--good-bg)}
+.oxc.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxq{display:flex; gap:11px; font-size:0.9688rem; line-height:1.6; color:var(--ink); margin:0 0 11px}
+.oxn{flex:none; width:24px; height:24px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.oxb{display:flex; gap:9px}
+.oxb button{width:58px; height:42px; font-family:var(--disp); font-weight:700; font-size:1.25rem;
+  border-radius:12px; border:2px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.oxb button:hover:not([disabled]){border-color:var(--blue); color:var(--blue-d)}
+.oxb button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oxb button[disabled]{cursor:default}
+.oxb button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.oxw{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); font-size:0.9062rem;
+  line-height:1.7; color:var(--ink2)}
+.oxw>b{display:block; font-family:var(--disp); font-weight:700; font-size:1rem; margin-bottom:4px}
+.oxc.right .oxw>b{color:var(--good)}
+.oxc.wrong .oxw>b{color:var(--warm)}
+
+/* ── 확인 문제 ────────────────────────── */
+.extag{display:inline-block; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:4px 12px; margin-bottom:11px}
+.onum{display:inline-block; width:20px; font-weight:800; color:var(--blue-d)}
+.mopts button.ok .onum, .mopts button.no .onum{color:inherit}
+#exOpts{grid-template-columns:1fr}
+#exOpts button{text-align:left}
+
+/* ── 다음 단원 다리 ───────────────────── */
+.bridge{display:grid; gap:14px}
+.br{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:20px 24px; box-shadow:var(--sh)}
+.br:nth-child(2){border-left-color:var(--warm)}
+.br:nth-child(3){border-left-color:var(--good)}
+.brtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px}
+.br:nth-child(2) .brtag{color:var(--warm); background:var(--warm-bg)}
+.br:nth-child(3) .brtag{color:var(--good); background:var(--good-bg)}
+.br>h4{font-family:var(--disp); font-weight:700; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:10px 0 8px; line-height:1.45}
+.br>p{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 10px}
+.br ul{margin:0 0 10px; padding-left:20px; font-size:0.9062rem; line-height:1.85; color:var(--ink2)}
+.brtool{font-size:0.8438rem; color:var(--muted); margin:0; padding-top:9px;
+  border-top:1px dashed var(--line)}
+
+
+/* ── 강조 글꼴을 쓰는 자리 (한 화면에 하나씩만) ─────────── */
+.hero h1, .big, .narr, .reveal, .rulebox, .pathbar, .qbig, .mcase,
+.fnum, .pc, .oxb button, .scorepill{font-family:var(--pop)}
+.narr, .reveal, .rulebox, .pathbar, .qbig, .mcase{font-weight:700}
+.big{font-weight:800}
+
+
+/* ── 알고리즘 카드 · 보물찾기 비유 ─────────── */
+.metaphor{background:var(--tint); border:2px dashed var(--blue-l); border-radius:18px;
+  padding:18px 20px; margin-bottom:20px}
+.mcard{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
+.mcard>span{font-size:1.625rem; line-height:1}
+.mcard>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
+  color:var(--blue-d); margin-top:4px}
+.mcard>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.7812rem;
+  color:var(--warm); margin:2px 0 6px}
+.mcard>p{font-size:0.8438rem; line-height:1.6; color:var(--ink2); margin:0}
+.cscard, .csout li{display:flex; align-items:flex-start; gap:11px}
+.csi{flex:none; font-size:1.25rem; line-height:1.3}
+.cst{flex:1 1 auto}
+.cst>i{display:block; font-style:normal; font-size:0.7812rem; color:var(--ink2);
+  line-height:1.5; margin-top:3px}
+.csout li .cst>i{color:var(--ink2)}
+
+/* ── 접었다 펴는 구역 ──────────────────────── */
+.fold{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden}
+.fold>summary{list-style:none; cursor:pointer; padding:22px 26px; display:block; position:relative}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'▾'; position:absolute; right:26px; top:50%; transform:translateY(-50%);
+  font-size:1.375rem; color:var(--blue); transition:transform .2s}
+.fold[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+.fold>summary:hover{background:var(--tint)}
+.fold>summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+.feye{display:block; font-size:0.7812rem; font-weight:800; letter-spacing:.06em; color:var(--blue)}
+.fttl{display:block; font-family:var(--disp); font-weight:700;
+  font-size:clamp(1.375rem,3.6vw,1.875rem); line-height:1.3; color:var(--ink); margin:3px 0 5px;
+  padding-right:34px}
+.fsub{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.65; padding-right:34px}
+.foldbody{padding:0 26px 26px; border-top:1px solid var(--line); margin-top:4px; padding-top:22px}
+
+/* ── 등굣길 지도 ───────────────────────────── */
+.twn{min-width:520px}
+.twn .en{rx:14}
+.ee{font-size:19px; text-anchor:middle}
+.ewb{fill:var(--sky-bg); stroke:var(--line); stroke-width:1.5}
+.ewb.hit{fill:var(--good-bg); stroke:var(--good)}
+.ew.hit{fill:var(--good); font-weight:700}
+
+.sign{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:34px}
+.bun-gif{width:clamp(120px,26vw,164px); height:auto; display:block; border-radius:18px}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-family:var(--disp); font-size:1.0625rem;
+  color:var(--blue-d); background:var(--white); border:1px solid var(--line); border-radius:99px;
+  padding:8px 20px; box-shadow:var(--sh); letter-spacing:.01em}
+.ptp span{font-size:1.1875rem; line-height:1}
+footer{padding:42px 0 70px; color:var(--muted); font-size:0.8438rem; border-top:1px solid var(--line)}
+footer a{font-weight:700}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+@media (max-width:560px){ .hero{padding:38px 0 34px} section{padding:40px 0} .slidebox{min-height:320px} }
+
+/* ══ Ⅲ단원 전용 ═══════════════════════════════════════════ */
+.u3link{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 18px; margin:16px 0}
+.u3link>b{display:block; font-family:var(--pop); font-weight:800; color:var(--good); margin-bottom:5px}
+.u3link>span{font-size:0.9375rem; line-height:1.7; color:var(--ink2)}
+.stds{display:grid; gap:10px}
+
+
+
+/* ① 연표 */
+.tlbar{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+.tlpick{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
+.tlc{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:8px 13px;
+  border-radius:99px; border:1.5px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer}
+.tlc:hover:not([disabled]){border-color:var(--blue-l); color:var(--blue-d)}
+.tlc:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tlc.used{opacity:.3; cursor:default}
+.timeline{display:grid; gap:9px}
+.tlnone{margin:0; padding:20px; text-align:center; background:var(--tint);
+  border-radius:14px; font-family:var(--sans); font-size:0.875rem; color:var(--muted)}
+.tli{display:grid; grid-template-columns:74px 1fr; gap:12px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-left:5px solid var(--blue-l);
+  border-radius:0 14px 14px 0; padding:12px 15px; animation:tlin .3s ease}
+@keyframes tlin{from{opacity:0; transform:translateX(-8px)}to{opacity:1; transform:none}}
+.tli.cold{border-left-color:var(--muted); background:var(--tint)}
+.tli .ty{font-family:var(--mono); font-size:1.0625rem; font-weight:800; color:var(--blue-d)}
+.tli.cold .ty{color:var(--muted)}
+.tli .tb b{display:block; font-family:var(--sans); font-size:0.9375rem; font-weight:800;
+  color:var(--ink); margin-bottom:3px}
+.tli .tb b em{font-style:normal; margin-left:7px; font-size:0.6875rem; font-weight:700;
+  color:var(--good); background:var(--good-bg); padding:2px 7px; border-radius:99px}
+.tli .tb span{font-size:0.875rem; line-height:1.6; color:var(--ink2)}
+
+/* ③ 4분면 */
+.jobwrap{display:grid; gap:14px}
+.jobpick{display:flex; flex-wrap:wrap; gap:7px; min-height:38px; align-items:center}
+.jc{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:8px 14px;
+  border-radius:10px; border:1.5px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer}
+.jc:hover{border-color:var(--blue-l)}
+.jc.on{border-color:var(--blue-d); background:var(--fill); color:var(--on-fill)}
+.jc:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.jbdone{font-family:var(--sans); font-size:0.875rem; color:var(--good); font-weight:700}
+.quad{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:9px;
+  padding:26px 0 26px 26px}
+.qaxis{position:absolute; font-family:var(--sans); font-size:0.75rem; font-weight:700;
+  color:var(--muted)}
+.qaxis.qy{left:0; top:50%; transform:translateY(-50%) rotate(-90deg); transform-origin:center;
+  white-space:nowrap}
+.qaxis.qx{bottom:2px; left:50%; transform:translateX(-50%)}
+.qcell{background:var(--tint); border:2px dashed var(--line2); border-radius:14px;
+  padding:12px 14px; min-height:104px; cursor:pointer}
+.qcell:hover{border-color:var(--blue-l); background:var(--blue-xl)}
+.qcell>b{display:block; font-family:var(--sans); font-size:0.8438rem; font-weight:800;
+  color:var(--blue-d)}
+.qcell>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.6875rem;
+  color:var(--muted); margin-bottom:7px}
+.qcell .drop{display:flex; flex-wrap:wrap; gap:5px}
+.jt{font-family:var(--sans); font-size:0.75rem; font-weight:700; padding:3px 9px;
+  border-radius:99px}
+.jt.ok{background:var(--good-bg); color:var(--good)}
+.jt.no{background:var(--cut-bg,#FDE9E7); color:var(--cut,#C8362F)}
+
+/* ④ 생애별 */
+.life{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:11px}
+.lf{display:block}
+.lf>span{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:700;
+  color:var(--blue-d); margin-bottom:5px}
+.lf textarea{width:100%; font-family:var(--sans); font-size:0.9062rem; line-height:1.6;
+  padding:9px 12px; border:1.5px solid var(--line); border-radius:11px;
+  background:var(--tint); color:var(--ink); resize:vertical}
+.lf textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+
+/* ⑤ 저울 */
+.scale{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px}
+.sc{border-radius:16px; padding:15px 18px; border:2px solid var(--line); background:var(--white)}
+.sc>b{display:block; font-family:var(--pop); font-weight:800; font-size:0.9375rem; margin-bottom:8px}
+.sc ul{margin:0; padding-left:19px; display:grid; gap:6px}
+.sc li{font-size:0.9062rem; line-height:1.6; color:var(--ink2)}
+.sc.good{border-color:var(--good); background:var(--good-bg)}
+.sc.good>b{color:var(--good)}
+.sc.bad{border-color:var(--warm); background:var(--warm-bg)}
+.sc.bad>b{color:var(--warm)}
+
+/* ⑧ 입론서 */
+.rubric-hint{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:8px}
+.rubric-hint span{background:var(--tint); border:1px solid var(--line); border-radius:11px;
+  padding:9px 12px; font-family:var(--sans); font-size:0.8125rem; color:var(--ink2)}
+.rubric-hint b{font-family:var(--mono); color:var(--blue-d); margin-right:6px}
+.topics{display:grid; gap:9px}
+.tp{display:grid; grid-template-columns:30px 1fr; gap:11px; align-items:start; width:100%;
+  text-align:left; background:var(--white); border:2px solid var(--line); border-radius:14px;
+  padding:13px 15px; cursor:pointer; font-family:var(--sans)}
+.tp:hover{border-color:var(--blue-l)}
+.tp.on{border-color:var(--blue-d); background:var(--blue-xl)}
+.tp:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tp>b{grid-row:1/3; width:26px; height:26px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--mono); font-size:0.8125rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+.tp>span{font-size:0.9375rem; font-weight:700; color:var(--ink); line-height:1.5}
+.tp>i{font-style:normal; font-family:var(--mono); font-size:0.6875rem; color:var(--muted);
+  margin-top:3px}
+.rbl{display:grid; grid-template-columns:1fr auto; gap:11px; align-items:center;
+  background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:10px 14px;
+  margin-bottom:8px}
+.rbl>span:first-child{font-family:var(--sans); font-size:0.875rem; color:var(--ink2)}
+.copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
+  padding:10px; border:1px solid var(--line); border-radius:10px;
+  background:var(--tint); color:var(--ink)}
+@media (max-width:640px){
+  .tli{grid-template-columns:1fr; gap:4px}
+  .quad{grid-template-columns:1fr; padding:0 0 22px}
+  .qaxis.qy{display:none}
+  .rbl{grid-template-columns:1fr; gap:7px}
+}
+</style>
+
+<nav><div class="wrap"><div class="row">
+  <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내</a>
+  <span class="sep"></span>
+  <a href="https://richee-pc.github.io/AI_cs/unit1.html">Ⅰ. 인공지능의 이해</a>
+  <a href="#" class="soon">Ⅱ. 인공지능과 학습</a>
+  <a href="https://richee-pc.github.io/AI_cs/unit3.html" class="here">Ⅲ. 사회적 영향</a>
+  <a href="#" class="soon">Ⅳ. 프로젝트</a>
+  <span class="sep"></span>
+  <a href="#goal">배울 것</a>
+  <a href="#flow">차시별 순서</a>
+  <a href="#act">수업 활동</a>
+  <a href="#debate">토론 준비</a>
+  <a href="#terms">핵심 용어</a>
+  <a href="#check">확인 문제</a>
+</div></div></nav>
+
+<section id="goal"><div class="wrap">
+  <p class="eyebrow">교과서 144~177쪽 · 8차시</p>
+  <h2>Ⅲ. 인공지능의 사회적 영향</h2>
+  <p class="sub">Ⅰ단원이 <b>«어떻게 푸는가»</b>였다면, 이 단원은 <b>«그래서 괜찮은가»</b>를 묻습니다.
+    정답이 하나가 아닌 문제들이라 <b>고르고, 근거를 대고, 남의 말을 듣는</b> 것이 공부입니다.
+    이 단원의 끝은 <b>수행평가 ① 인공지능 윤리 쟁점 토론</b>으로 이어집니다.</p>
+
+  <div class="u3link">
+    <b>Ⅰ단원에서 이미 연습했습니다</b>
+    <span>활동 ④ 「AI 해결안 설계」의 <b>6번 칸</b>과 활동 ⑪ 「이 규칙이 틀릴 수 있는 경우」 —
+      그 질문이 이 단원의 전부입니다.</span>
+  </div>
+
+  <h3 class="step-h">성취기준</h3>
+  <div class="stds">
+    <div class="std"><code>03-01</code><span>인공지능의 발전으로 인한 <b>사회 변화</b>를 살펴보고, 인공지능으로 해결할 수 있는 <b>사회적 문제</b>를 분석한다.</span></div>
+    <div class="std"><code>03-02</code><span>인공지능에 의해 변화하는 인간의 <b>삶과 직업</b>의 양상에 대해 이해하고 <b>진로</b>를 탐색한다.</span></div>
+    <div class="std"><code>03-03</code><span>인공지능에 대한 <b>비판적 자세</b>를 바탕으로 인공지능과 인간의 <b>공존 방안</b>을 도출한다.</span></div>
+    <div class="std"><code>03-04</code><span>인공지능의 활용 사례와 <b>윤리적 딜레마</b> 상황을 인공지능 <b>윤리 관점</b>에서 분석한다.</span></div>
+  </div>
+
+  <div class="ask" style="margin-top:18px"><b>수행평가와 이어집니다</b>
+    9월 3주 <b>인공지능 윤리 쟁점 토론</b>(20%)의 논제 세 가지가 모두 이 단원 내용입니다.
+    <b>자율주행차 사고 회피</b>는 Ⅲ-03·04, <b>AI 채용 심사</b>는 Ⅲ-04 편향성,
+    <b>생성형 AI 저작권</b>은 Ⅲ-04 윤리 쟁점에서 나옵니다.
+    수업 활동이 곧 <b>입론서 재료</b>가 되도록 짰습니다.</div>
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <p class="eyebrow">여덟 차시</p>
+  <h2>차시별 순서</h2>
+  <p class="sub">소단원마다 2차시씩입니다. 앞 차시는 <b>개념과 사례</b>, 뒤 차시는 <b>활동과 토의</b>로 씁니다.</p>
+  <div class="tw"><table id="u3flow"></table></div>
+</div></section>
+
+
+<section id="act"><div class="wrap">
+  <p class="eyebrow">손으로 하는 것</p>
+  <h2>수업 활동</h2>
+  <p class="sub">여덟 가지입니다. 차시 순서대로 이어지고,
+    <b>마지막 ⑧번이 수행평가 입론서</b>로 그대로 넘어갑니다.
+    적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
+
+  <div class="actbar" role="tablist" aria-label="수업 활동 선택">
+    <button class="atab" role="tab" data-u3="0" aria-selected="true"><i>Ⅲ-01</i>AI 발전 연표</button>
+    <button class="atab" role="tab" data-u3="1" aria-selected="false"><i>Ⅲ-01</i>사회 문제 해결 설계</button>
+    <button class="atab" role="tab" data-u3="2" aria-selected="false"><i>Ⅲ-02</i>직업 대체 가능성</button>
+    <button class="atab" role="tab" data-u3="3" aria-selected="false"><i>Ⅲ-02</i>진로 로드맵</button>
+    <button class="atab" role="tab" data-u3="4" aria-selected="false"><i>Ⅲ-03</i>장단점 저울</button>
+    <button class="atab" role="tab" data-u3="5" aria-selected="false"><i>Ⅲ-04</i>편향성 구분</button>
+    <button class="atab" role="tab" data-u3="6" aria-selected="false"><i>Ⅲ-04</i>윤리적 딜레마</button>
+    <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>수행평가</i>토론 입론서</button>
+  </div>
+
+  <!-- ① AI 발전 연표 -->
+  <div class="actbox" data-u3p="0">
+    <h3>① 인공지능 발전 연표 <span class="tm">개인</span></h3>
+    <p class="desc">인공지능은 <b>한 번에 발전하지 않았습니다.</b> 기대가 몰렸다가 식고, 다시 몰리기를 되풀이했어요.
+      아래 카드를 <b>오래된 것부터</b> 눌러 연표를 완성해 보세요.</p>
+
+    <div class="tlbar">
+      <span class="scorepill" id="tlCnt">0 / 11</span>
+      <button type="button" class="mini gh" id="tlRe">처음부터</button>
+      <button type="button" class="mini gh" id="tlAll">연표 펼쳐 보기</button>
+      <span class="sendmsg" id="tlMsg">가장 오래된 사건부터 눌러 보세요.</span>
+    </div>
+    <div class="tlpick" id="tlPick"></div>
+    <div class="timeline" id="tlLine"></div>
+
+    <div class="note" style="margin-top:16px"><b>Ⅰ단원에서 만난 것들</b>
+      <b>튜링 테스트</b>(1950) · <b>다트머스 회의</b>(1956) · <b>전문가 시스템</b>(1980) 은
+      Ⅰ단원에서 배운 그것입니다. 여기서는 <b>«언제, 왜 그때 나왔는가»</b>를 봅니다.</div>
+    <div class="ask" style="margin-top:14px"><b>생각해 볼 것</b>
+      1970년대와 1980년대에 <b>암흑기</b>가 두 번 왔습니다.
+      기대가 컸다가 성과가 안 나오자 투자가 끊긴 것이에요.
+      지금의 생성형 인공지능은 어떨까요? <b>토론 논제로 이어집니다.</b></div>
+  </div>
+
+  <!-- ② 사회 문제 해결 설계 -->
+  <div class="actbox" data-u3p="1" hidden>
+    <h3>② 인공지능으로 더 나은 사회 만들기 <span class="tm">모둠</span></h3>
+    <p class="desc">교과서 149쪽 활동입니다. <b>우리 사회의 문제</b>를 하나 고르고,
+      <b>어떤 인공지능 기술</b>로 풀지 설계해 보세요.</p>
+
+    <div class="metaphor">
+      <h4 class="mini-h">교과서가 든 네 가지 사례</h4>
+      <div class="g2" id="u3cases"></div>
+    </div>
+
+    <div class="wsheet" style="margin-top:16px">
+      <label>① 우리 사회에서 찾을 수 있는 <b>문제점</b>은 무엇인가요?
+        <textarea id="s1a" rows="2" placeholder="예) 이상 기후 · 일회용품 과다 사용 · 디지털 격차 · 해양 쓰레기"></textarea></label>
+      <label>② 그중 하나를 골라, <b>어떤 인공지능 기술</b>로 풀 수 있을까요?
+        <textarea id="s1b" rows="2" placeholder="예) 컴퓨터 비전으로 해양 쓰레기를 자동 식별해 수거 로봇에게 위치를 알려 준다"></textarea></label>
+      <label>③ 그 해결책이 <b>잘 안 될 수도 있는 까닭</b>은 무엇일까요?
+        <textarea id="s1c" rows="2" placeholder="예) 물속 사진은 흐려서 인식률이 낮을 수 있다 · 수거 로봇이 물고기까지 건질 수 있다"></textarea></label>
+    </div>
+    <div class="ask"><b>③번이 중요합니다</b> Ⅰ단원 활동 ⑪의 「이 규칙이 틀릴 수 있는 경우」와 같은 질문이에요.
+      <b>좋은 점만 말하는 사람은 토론에서 집니다.</b></div>
+  </div>
+
+  <!-- ③ 직업 대체 가능성 -->
+  <div class="actbox" data-u3p="2" hidden>
+    <h3>③ 인공지능이 대신하기 쉬운 일은? <span class="tm">개인</span></h3>
+    <p class="desc">교과서 153쪽입니다. 일을 <b>두 가지 잣대</b>로 나눠 봅니다 —
+      <b>정해진 순서가 있는가(정형)</b>, 그리고 <b>배우는 데 오래 걸리는가(숙련도)</b>.
+      직업 카드를 눌러 알맞은 칸에 넣어 보세요.</p>
+
+    <div class="jobwrap">
+      <div class="jobpick" id="jbPick"></div>
+      <div class="quad" id="jbQuad">
+        <div class="qaxis qy">숙련도 높음 ↑</div>
+        <div class="qaxis qx">정형 ← → 비정형</div>
+        <div class="qcell" data-q="0"><b>고숙련 · 정형</b><i>대체 가능성 중간</i><span class="drop"></span></div>
+        <div class="qcell" data-q="1"><b>고숙련 · 비정형</b><i>대체 가능성 낮음</i><span class="drop"></span></div>
+        <div class="qcell" data-q="2"><b>저숙련 · 정형</b><i>대체 가능성 높음</i><span class="drop"></span></div>
+        <div class="qcell" data-q="3"><b>저숙련 · 비정형</b><i>대체 가능성 낮음</i><span class="drop"></span></div>
+      </div>
+    </div>
+    <div class="simctl">
+      <span class="scorepill" id="jbCnt">0 / 8</span>
+      <button type="button" class="mini gh" id="jbRe">처음부터</button>
+      <span class="sendmsg" id="jbMsg">카드를 누른 뒤 넣을 칸을 누르세요.</span>
+    </div>
+    <div class="verdict" id="jbWhy" hidden></div>
+
+    <div class="ask" style="margin-top:16px"><b>여기서 놀랍니다</b>
+      <b>간병 · 육아 · 실버케어</b>는 «저숙련»으로 분류되지만 대체 가능성은 <b>낮습니다.</b>
+      상황이 매번 다르고 사람의 마음을 읽어야 하기 때문이에요.
+      <b>«쉬운 일 = 대체되기 쉬운 일»이 아닙니다.</b></div>
+  </div>
+
+  <!-- ④ 진로 로드맵 -->
+  <div class="actbox" data-u3p="3" hidden>
+    <h3>④ 진로 로드맵 만들기 <span class="tm">개인</span></h3>
+    <p class="desc">교과서 154~155쪽입니다. <b>내 희망 직업</b>이 인공지능 때문에
+      어떻게 바뀔지 생각해 보고, 생애별 계획을 세워 봅니다.</p>
+
+    <div class="frow">
+      <label class="fld grow"><span>희망 직업 (분야)</span>
+        <input type="text" id="s3job" placeholder="예) 경찰 (수사)" autocomplete="off"></label>
+    </div>
+    <div class="wsheet">
+      <label><b>비전 선언문</b> — 「( )분야에서 ( )일을 하며 ( )를 실현하고 싶다」
+        <textarea id="s3vis" rows="2" placeholder="예) 수사 분야에서 경찰 일을 하며 지역 범죄율 감소를 실현하고 싶다"></textarea></label>
+    </div>
+
+    <h4 class="step-h" style="margin-top:20px">생애별 진로 계획</h4>
+    <div class="life" id="s3life"></div>
+
+    <div class="wsheet" style="margin-top:18px">
+      <label>이 직업은 미래에 <b>인공지능을 활용</b>하게 될까요, <b>대체</b>될까요?
+        <textarea id="s3fut" rows="2" placeholder="예) 인공지능이 범죄 데이터 분석을 도와주지만, 예기치 못한 상황의 순간 대처는 사람이 해야 한다"></textarea></label>
+      <label>그렇다면 나는 <b>어떤 역량</b>을 길러야 할까요?
+        <textarea id="s3cap" rows="2" placeholder="예) 인공지능 분석 결과를 읽고 판단하는 능력 · 사람을 대하는 소통 능력"></textarea></label>
+    </div>
+  </div>
+
+  <!-- ⑤ 장단점 저울 -->
+  <div class="actbox" data-u3p="4" hidden>
+    <h3>⑤ 인공지능 장단점 저울 <span class="tm">개인 → 모둠</span></h3>
+    <p class="desc">교과서 157쪽입니다. 같은 기술이라도 <b>좋은 점과 걱정되는 점</b>이 함께 있습니다.
+      하나를 골라 양쪽을 다 적어 보세요. <b>이 표가 토론 입론서의 뼈대</b>가 됩니다.</p>
+
+    <div class="simctl">
+      <span class="pick" id="scPickTech">
+        <button type="button" data-t="0" aria-pressed="true">자율 주행 자동차</button>
+        <button type="button" data-t="1" aria-pressed="false">의료 인공지능</button>
+        <button type="button" data-t="2" aria-pressed="false">챗봇</button>
+      </span>
+    </div>
+    <div class="scale">
+      <div class="sc good"><b>👍 좋은 점</b><ul id="scGood"></ul></div>
+      <div class="sc bad"><b>⚠️ 걱정되는 점</b><ul id="scBad"></ul></div>
+    </div>
+
+    <div class="wsheet" style="margin-top:16px">
+      <label>위 내용 말고 <b>내가 생각한</b> 좋은 점 하나
+        <textarea id="s4g" rows="2" placeholder="교과서에 없는 것으로 적어 보세요"></textarea></label>
+      <label>내가 생각한 <b>걱정되는 점</b> 하나
+        <textarea id="s4b" rows="2" placeholder="교과서에 없는 것으로 적어 보세요"></textarea></label>
+      <label>그 걱정을 줄이려면 <b>사람이 무엇을 해야</b> 할까요?
+        <textarea id="s4h" rows="2" placeholder="이것이 「인간 중심 인공지능」의 실천입니다"></textarea></label>
+    </div>
+    <div class="note"><b>인간 중심 인공지능</b> 인공지능이 인간을 <b>대체</b>하는 것이 아니라
+      <b>돕고 협력</b>하는 데 중점을 두는 관점입니다. 마지막 칸이 바로 그 이야기예요.</div>
+  </div>
+
+  <!-- ⑥ 편향성 구분 -->
+  <div class="actbox" data-u3p="5" hidden>
+    <h3>⑥ 편향성 구분 훈련 <span class="tm">개인</span></h3>
+    <p class="desc">인공지능의 편향에는 <b>두 갈래</b>가 있습니다. 사례를 읽고 어느 쪽인지 골라 보세요.</p>
+
+    <div class="metaphor">
+      <div class="g2">
+        <div class="mcard"><span>📊</span><b>데이터 편향성</b>
+          <i>학습한 자료가 한쪽으로 쏠림</i>
+          <p>백인 · 남성 자료만 잔뜩 배웠다면, 나머지 사람은 <b>잘 못 알아봅니다.</b>
+            원인이 <b>«무엇을 배웠나»</b>에 있습니다.</p></div>
+        <div class="mcard"><span>🔁</span><b>알고리즘 편향성</b>
+          <i>추천이 한쪽만 계속 보여 줌</i>
+          <p>내가 본 것과 비슷한 것만 계속 추천하면 <b>세상이 그런 줄</b> 알게 됩니다.
+            원인이 <b>«어떻게 골라 주나»</b>에 있습니다.</p></div>
+      </div>
+    </div>
+
+    <div class="qhead" style="margin-top:16px">
+      <span class="dotrow" id="biDots"></span>
+      <span class="scorepill" id="biScore">0 / 0</span>
+    </div>
+    <div class="ifcard">
+      <p class="ifask" id="biCase"></p>
+      <div class="mopts" id="biOpts"></div>
+      <div class="verdict" id="biWhy" hidden></div>
+    </div>
+    <div class="simctl">
+      <button type="button" class="mini gh" id="biPrev">← 이전</button>
+      <button type="button" class="mini" id="biNext">다음 →</button>
+      <button type="button" class="mini gh" id="biRe">처음부터</button>
+    </div>
+
+    <div class="ask" style="margin-top:16px"><b>가르는 기준 한 줄</b>
+      <b>«무엇을 배웠나»</b>가 문제면 데이터 편향, <b>«어떻게 골라 주나»</b>가 문제면 알고리즘 편향입니다.</div>
+  </div>
+
+  <!-- ⑦ 윤리적 딜레마 -->
+  <div class="actbox" data-u3p="6" hidden>
+    <h3>⑦ 윤리적 딜레마 <span class="tm">모둠 토의</span></h3>
+    <p class="desc">교과서 167~169쪽입니다. <b>여러 가치가 부딪혀</b> 쉽게 정할 수 없는 상황이에요.
+      정답을 맞히는 활동이 아닙니다. <b>어느 쪽을 고르든 근거가 있어야</b> 합니다.</p>
+
+    <div class="simctl">
+      <span class="pick" id="dlPick">
+        <button type="button" data-d="0" aria-pressed="true">① 의료 인공지능 오진</button>
+        <button type="button" data-d="1" aria-pressed="false">② 집안일 로봇의 명령</button>
+      </span>
+    </div>
+    <div class="ifcard">
+      <p class="ifask" id="dlStory"></p>
+      <p class="desc" id="dlAsk" style="margin:14px 0 10px"></p>
+      <div class="mopts" id="dlOpts"></div>
+    </div>
+
+    <div class="wsheet" style="margin-top:16px">
+      <label>내가 그렇게 고른 <b>이유</b>는?
+        <textarea id="s6why" rows="2" placeholder="한 문장으로 또렷하게 적어 보세요"></textarea></label>
+      <label>나와 <b>다르게 고른 친구</b>의 이유는 무엇이었나요?
+        <textarea id="s6other" rows="2" placeholder="모둠 토의에서 들은 것을 적어 보세요"></textarea></label>
+      <label>들어 보니 <b>내 생각이 바뀐 부분</b>이 있나요?
+        <textarea id="s6change" rows="2" placeholder="바뀌지 않았다면 «왜 바뀌지 않았는지»를 적으세요"></textarea></label>
+    </div>
+    <div class="note"><b>토론에서 이기는 법</b> 상대 입장을 <b>가장 강한 형태로</b> 말할 수 있어야 반박도 됩니다.
+      세 번째 칸을 진지하게 채운 사람이 <b>수행평가에서 «반론·반박» 점수를 받습니다.</b></div>
+  </div>
+
+  <!-- ⑧ 토론 입론서 -->
+  <div class="actbox" data-u3p="7" hidden>
+    <h3>⑧ 토론 입론서 만들기 <span class="tm">수행평가 ①</span></h3>
+    <p class="desc"><b>9월 3주 인공지능 윤리 쟁점 토론(20%)</b>의 입론서입니다.
+      앞의 활동에서 적은 것들이 그대로 재료가 됩니다.
+      <b>채점 항목 네 가지</b>에 맞춰 칸을 짰습니다.</p>
+
+    <div class="rubric-hint">
+      <span><b>25</b> 논제 분석과 입론서</span>
+      <span><b>25</b> 반론·반박의 논리</span>
+      <span><b>25</b> 최종 발언 · 쟁점 정리</span>
+      <span><b>25</b> 윤리 분석과 공존 방안</span>
+    </div>
+
+    <h4 class="step-h" style="margin-top:20px">1 · 논제 고르기</h4>
+    <div class="topics" id="dbTopic"></div>
+
+    <h4 class="step-h" style="margin-top:20px">2 · 내 입장</h4>
+    <div class="simctl">
+      <span class="pick" id="dbSide">
+        <button type="button" data-s="0" aria-pressed="false">찬성</button>
+        <button type="button" data-s="1" aria-pressed="false">반대</button>
+      </span>
+      <span class="sendmsg" id="dbSideMsg"></span>
+    </div>
+
+    <h4 class="step-h" style="margin-top:20px">3 · 입론서</h4>
+    <div class="wsheet">
+      <label><b>주장</b> — 한 문장으로
+        <textarea id="d1" rows="2" placeholder="예) 자율주행차는 탑승자보다 보행자의 안전을 우선해야 한다"></textarea></label>
+      <label><b>근거 1</b> — Ⅲ단원에서 배운 <b>개념이나 사례</b>를 넣으세요
+        <textarea id="d2" rows="2" placeholder="예) 국가 인공지능 윤리기준의 「인간 존엄성 원칙」에 따르면…"></textarea></label>
+      <label><b>근거 2</b>
+        <textarea id="d3" rows="2" placeholder="예) 아마존 채용 인공지능 사례처럼 데이터 편향은 실제로 피해를 냈다"></textarea></label>
+      <label><b>예상 반론</b> — 상대는 무엇이라 할까요? <i>(가장 강한 반론으로)</i>
+        <textarea id="d4" rows="2" placeholder="약한 반론을 적으면 반박도 약해집니다"></textarea></label>
+      <label><b>재반박</b> — 그 반론에 어떻게 답할까요?
+        <textarea id="d5" rows="2" placeholder=""></textarea></label>
+      <label><b>공존 방안</b> — 사람은 무엇을 해야 할까요? <i>(채점 4번 항목)</i>
+        <textarea id="d6" rows="2" placeholder="개발자 · 운영관리자 · 사용자 중 누구의 역할인지 밝혀 적으면 좋습니다"></textarea></label>
+    </div>
+
+    <div class="ask"><b>근거에 쓸 만한 것들</b>
+      국가 인공지능 윤리기준 <b>3대 원칙</b>(인간 존엄성 · 사회의 공공선 · 기술 합목적성) ·
+      <b>데이터/알고리즘 편향</b> 사례 · <b>인간 중심 인공지능</b> ·
+      개발자 · 운영관리자 · 사용자의 <b>세 가지 책임</b> — 아래 「핵심 용어」에 다 있습니다.</div>
+
+    <h4 class="step-h" style="margin-top:22px">스스로 점검</h4>
+    <div class="rubric" id="dbRub"></div>
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="dbCls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 (또는 이름)</span>
+        <input type="text" id="dbGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="dbSend">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="dbCopy">내용 복사</button>
+      <span class="sendmsg" id="dbSendMsg"></span>
+    </div>
+  </div>
+</div></section>
+
+<section id="debate"><div class="wrap">
+  <p class="eyebrow">수행평가 ①</p>
+  <h2>인공지능 윤리 쟁점 토론</h2>
+  <p class="sub">9월 3주 · 모둠 대항 토너먼트 · <b>점수는 개인별</b>입니다.
+    팀이 져도 <b>내 발언으로 평가</b>받습니다.</p>
+
+  <div class="g3">
+    <div class="mcard"><span>📝</span><b>준비</b><i>입론서 쓰기</i>
+      <p>논제를 고르고 위 <b>활동 ⑧</b>에서 입론서를 완성합니다. 채점 기준표는 준비 차시에 나눠 줍니다.</p></div>
+    <div class="mcard"><span>🗣️</span><b>토론</b><i>예선 → 결승</i>
+      <p>모둠 대항으로 진행합니다. <b>반론과 재반박</b>이 절반의 점수예요.</p></div>
+    <div class="mcard"><span>🤝</span><b>마무리</b><i>성찰문</i>
+      <p>토론이 끝나면 <b>인간-AI 공존 방안</b>을 담은 성찰문을 씁니다.</p></div>
+  </div>
+
+  <h3 class="step-h" style="margin-top:22px">논제와 이 단원의 연결</h3>
+  <div class="tw"><table id="dbMap"></table></div>
+
+  <div class="note" style="margin-top:16px"><b>세부 안내는 확정 후 공개합니다</b>
+    채점 기준표와 진행 방식, 논제 목록은 교과협의회에서 확정한 뒤 안내합니다.
+    평가 2주 전에는 반드시 알려 드립니다.</div>
+</div></section>
+
+<section id="terms"><div class="wrap">
+  <details class="fold">
+    <summary><span class="feye">이것만은 외우자</span><span class="fttl">핵심 용어</span>
+      <span class="fsub">Ⅲ단원 용어 <b>26개</b>입니다. <i>기울인 글씨</i>는 <b>쉽게 푼 말</b>이에요.</span></summary>
+    <div class="foldbody">
+      <div id="u3terms"></div>
+    </div>
+  </details>
+</div></section>
+
+<section id="check"><div class="wrap">
+  <details class="fold">
+    <summary><span class="feye">스스로 점검</span><span class="fttl">확인 문제</span>
+      <span class="fsub">교과서 마무리와 <b>출제대비 문제은행</b>에서 뽑은 <b>10문항</b>입니다.</span></summary>
+    <div class="foldbody">
+      <div class="qhead">
+        <span class="dotrow" id="ckDots"></span>
+        <span class="scorepill" id="ckScore">0 / 0</span>
+      </div>
+      <div class="ifcard">
+        <h4 class="ifq" id="ckQ"></h4>
+        <div class="mopts" id="ckOpts"></div>
+        <div class="verdict" id="ckWhy" hidden></div>
+      </div>
+      <div class="simctl">
+        <button type="button" class="mini gh" id="ckPrev">← 이전</button>
+        <button type="button" class="mini" id="ckNext">다음 →</button>
+        <button type="button" class="mini gh" id="ckRe">처음부터</button>
+      </div>
+    </div>
+  </details>
+</div></section>
+
+<footer><div class="wrap">
+  <p>조선대학교부속고등학교 · 2026학년도 2학기 · 인공지능 기초 (2학년 진로 선택)</p>
+  <p class="fine">Ⅲ. 인공지능의 사회적 영향 · 교과서 144~177쪽 · 8차시</p>
+</div></footer>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Ⅲ. 인공지능의 사회적 영향 — 수업 자료
+   내용은 교과서 144~177쪽, 교사용 지도서, 수업 PPT 110장에서 가져왔다.
+   ══════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
+var SUBMIT_KEY = 'chosun-ai-2026';
+var KEY = 'ai_u3_v1';
+
+var U3 = { tl:[], jb:{}, bi:[], biAt:0, dl:[0,0], ck:[], ckAt:0, tech:0,
+           s1a:'', s1b:'', s1c:'', s3job:'', s3vis:'', s3life:['','','',''],
+           s3fut:'', s3cap:'', s4g:'', s4b:'', s4h:'',
+           s6why:'', s6other:'', s6change:'',
+           topic:-1, side:-1, d1:'', d2:'', d3:'', d4:'', d5:'', d6:'',
+           rub:['','',''], cls:'', group:'' };
+try{ var _s = JSON.parse(localStorage.getItem(KEY)); if(_s) for(var k in _s) if(k in U3) U3[k] = _s[k]; }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U3)); }catch(e){} }
+
+function esc(x){ return String(x == null ? '' : x)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function $(id){ return document.getElementById(id); }
+function bind(id, field){
+  var el = $(id); if(!el) return;
+  el.value = U3[field] || '';
+  el.addEventListener('input', function(){ U3[field] = this.value; save(); });
+}
+
+/* ══ 차시별 순서 ══════════════════════════════════════════ */
+var FLOW = [
+  ['1','Ⅲ-01 인공지능의 발전과 사회 변화','144~147쪽','발전 연표 · 사회 변화 다섯 갈래','활동 ① 발전 연표'],
+  ['2','Ⅲ-01 인공지능으로 해결할 사회 문제','148~149쪽','팬데믹 · 의사소통 · 보안 · 고령화','활동 ② 사회 문제 해결 설계'],
+  ['3','Ⅲ-02 인공지능에 의해 변화하는 삶','150~151쪽','추천 시스템 · 맞춤형 서비스','—'],
+  ['4','Ⅲ-02 변화하는 직업과 진로','152~155쪽','직업 변화 네 양상 · 대체 가능성','활동 ③ 대체 가능성 · ④ 진로 로드맵'],
+  ['5','Ⅲ-03 인공지능 활용의 장단점','156~157쪽','자율주행 · 의료 · 챗봇','활동 ⑤ 장단점 저울'],
+  ['6','Ⅲ-03 인간과 인공지능의 공존','158~161쪽','인간 중심 인공지능 · 공존 방안','활동 ⑤ 마무리 칸'],
+  ['7','Ⅲ-04 편향성과 윤리적 딜레마','162~169쪽','데이터/알고리즘 편향 · 딜레마','활동 ⑥ 편향성 · ⑦ 딜레마'],
+  ['8','Ⅲ-04 윤리 기준과 사회적 책임','170~177쪽','국가 AI 윤리기준 · 개발자·관리자·사용자','활동 ⑧ 토론 입론서']
+];
+(function(){
+  var t = $('u3flow'); if(!t) return;
+  var h = '<tr><th>차시</th><th>내용</th><th>교과서</th><th>핵심</th><th>활동</th></tr>';
+  FLOW.forEach(function(r){
+    h += '<tr><td class="d"><b>' + r[0] + '</b></td><td>' + esc(r[1]) + '</td>' +
+         '<td class="d">' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td>' +
+         '<td class="d">' + esc(r[4]) + '</td></tr>';
+  });
+  t.innerHTML = h;
+})();
+
+
+/* ══ 활동 탭 ══════════════════════════════════════════════ */
+(function(){
+  var tabs = [].slice.call(document.querySelectorAll('.atab[data-u3]'));
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var k = t.getAttribute('data-u3');
+      tabs.forEach(function(o){ o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      [].slice.call(document.querySelectorAll('[data-u3p]')).forEach(function(p){
+        p.hidden = p.getAttribute('data-u3p') !== k;
+      });
+    });
+  });
+})();
+
+/* ══ ① 인공지능 발전 연표 ═════════════════════════════════ */
+var TL = [
+  { y:'1950', t:'튜링 테스트', d:'앨런 튜링이 기계에 지능이 있는지 판별하는 방법을 제안했다. 사람이 대화만으로 컴퓨터와 사람을 구별하지 못하면 지능이 있다고 본다.', u1:true },
+  { y:'1956', t:'다트머스 회의', d:'미국 다트머스 대학교에 학자들이 모여 «지능을 가진 기계»를 논의했다. 존 매카시가 «인공지능»이라는 용어를 처음 제안했다.', u1:true },
+  { y:'1958', t:'퍼셉트론', d:'프랭크 로센블래드가 뇌신경을 모사한 인공신경 뉴런 «퍼셉트론»을 제시했다. 입력을 받아 처리해 출력을 내는 인공신경망의 최소 단위다.' },
+  { y:'1970', t:'인공지능 암흑기', d:'기대한 성과가 나오지 않자 대규모 투자가 끊겼다. 연구가 침체되고 많은 프로젝트가 중단됐다. 1970년대와 1980년대에 걸쳐 두 번 왔다.', cold:true },
+  { y:'1980', t:'전문가 시스템', d:'전문가의 지식과 경험을 데이터베이스로 만들어 의사 결정을 프로그램화했다. 의료 진단처럼 특정 분야의 고도 업무를 지원했다.', u1:true },
+  { y:'1989', t:'합성곱 신경망 (CNN)', d:'얀 레쿤과 요슈아 벤지오가 CNN의 초기 구조를 개발했다. 이미지 같은 데이터를 자동으로 분석하고 인식하는 데 특화된 모델이다.' },
+  { y:'1997', t:'IBM 딥블루', d:'IBM의 딥블루가 체스 챔피언 가리 카스파로프에게 승리했다. 카스파로프는 «이해할 수 없는 기계의 창의성을 보았다»고 말했다.' },
+  { y:'2012', t:'딥러닝 · 이미지넷 우승', d:'재프리 힌튼 교수팀의 알렉스넷이 이미지넷 대회에서 84.7% 인식률로 우승했다. 딥러닝이 전 세계에 알려진 계기다.' },
+  { y:'2014', t:'생성적 적대 신경망 (GAN)', d:'생성 모델이 진짜 같은 데이터를 만들고 분류 모델이 그것을 구별하는 방식으로 학습한다. 이미지 생성 분야에서 널리 쓰인다.' },
+  { y:'2016', t:'알파고', d:'딥마인드의 바둑 프로그램이 이세돌 9단에게 4승 1패로 승리했다. 바둑의 경우의 수는 10의 170제곱에 이른다.' },
+  { y:'2022~', t:'생성형 인공지능', d:'요구에 따라 글 · 이미지 · 음악 등을 자동으로 만들어 내는 인공지능이 사회 여러 분야에 큰 영향을 끼치고 있다.' }
+];
+(function(){
+  var pick = $('tlPick'); if(!pick) return;
+  var line = $('tlLine'), cnt = $('tlCnt'), msg = $('tlMsg');
+  var order = TL.map(function(_, i){ return i; }).sort(function(a, b){
+    return ((a * 7919 + 13) % 101) - ((b * 7919 + 13) % 101);
+  });
+  function draw(){
+    var got = U3.tl || [];
+    pick.innerHTML = order.map(function(i){
+      var used = got.indexOf(i) >= 0;
+      return '<button type="button" class="tlc' + (used ? ' used' : '') + '" data-i="' + i + '"' +
+        (used ? ' disabled' : '') + '>' + esc(TL[i].t) + '</button>';
+    }).join('');
+    line.innerHTML = got.length ? got.map(function(i, n){
+      var e = TL[i];
+      return '<div class="tli' + (e.cold ? ' cold' : '') + '">' +
+        '<span class="ty">' + esc(e.y) + '</span>' +
+        '<div class="tb"><b>' + esc(e.t) + (e.u1 ? '<em>Ⅰ단원</em>' : '') + '</b>' +
+        '<span>' + esc(e.d) + '</span></div></div>';
+    }).join('') : '<p class="tlnone">아직 비어 있습니다. 위에서 <b>가장 오래된 사건</b>부터 눌러 보세요.</p>';
+    cnt.textContent = got.length + ' / ' + TL.length;
+  }
+  pick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]'); if(!b) return;
+    var i = +b.getAttribute('data-i'), got = U3.tl || [];
+    if(i === got.length){
+      got.push(i); U3.tl = got; save();
+      msg.className = 'sendmsg ok';
+      msg.textContent = got.length === TL.length
+        ? '연표를 완성했습니다! 기대와 침체가 되풀이된 것이 보이나요?'
+        : TL[i].y + ' — 맞아요. 다음으로 오래된 것은?';
+    }else{
+      msg.className = 'sendmsg bad';
+      msg.innerHTML = '<b>' + esc(TL[i].t) + '</b>은(는) ' + esc(TL[i].y) + '년입니다. ' +
+        (got.length ? '지금은 <b>' + esc(TL[got[got.length - 1]].y) + '</b> 다음 차례예요.'
+                    : '더 오래된 사건이 있습니다.');
+    }
+    draw();
+  });
+  $('tlRe').addEventListener('click', function(){
+    U3.tl = []; save(); draw();
+    msg.className = 'sendmsg'; msg.textContent = '가장 오래된 사건부터 눌러 보세요.';
+  });
+  $('tlAll').addEventListener('click', function(){
+    U3.tl = TL.map(function(_, i){ return i; }); save(); draw();
+    msg.className = 'sendmsg wait'; msg.textContent = '연표를 모두 펼쳤습니다. 다시 풀려면 «처음부터»를 누르세요.';
+  });
+  draw();
+})();
+
+/* ══ ② 사회 문제 해결 사례 ════════════════════════════════ */
+var CASES = [
+  ['🦠','팬데믹 문제','기계학습이 질병 데이터를 학습·분석해 예측한 내용을 정부·병원·항공사에 제공한다. 전염병 확산을 미리 예측하고 방지할 기반을 마련한다.'],
+  ['🤟','장애인의 의사소통','자연어 처리로 수화를 텍스트로 바꾸는 서비스가 장애인과 비장애인의 소통을 돕는다. 의사소통의 장벽을 줄인다.'],
+  ['🛡️','보안 문제','컴퓨터 비전으로 위험 물품을 빠르고 정확하게 판독한다. 실시간 모니터링이 의심스러운 행동을 감지해 경고한다.'],
+  ['👵','고령화와 복지 일손','지능형 로봇이 노인의 말벗이 되고 식사·약 복용·운동을 알려 준다. 위급 상황에는 119를 호출한다.']
+];
+(function(){
+  var box = $('u3cases'); if(!box) return;
+  box.innerHTML = CASES.map(function(c){
+    return '<div class="mcard"><span>' + c[0] + '</span><b>' + esc(c[1]) + '</b>' +
+           '<p>' + esc(c[2]) + '</p></div>';
+  }).join('');
+  ['s1a','s1b','s1c'].forEach(function(f){ bind(f, f); });
+})();
+
+/* ══ ③ 직업 대체 가능성 4분면 ═════════════════════════════ */
+var JOBS = [
+  { n:'회계 사무', q:0 }, { n:'통·번역', q:0 },
+  { n:'의사 진단', q:1 }, { n:'상담·심리', q:1 },
+  { n:'단순 조립', q:2 }, { n:'요금 수납', q:2 },
+  { n:'간병·육아', q:3 }, { n:'실버케어', q:3 }
+];
+var QNAME = ['고숙련 · 정형','고숙련 · 비정형','저숙련 · 정형','저숙련 · 비정형'];
+(function(){
+  var pick = $('jbPick'); if(!pick) return;
+  var quad = $('jbQuad'), cnt = $('jbCnt'), msg = $('jbMsg'), why = $('jbWhy');
+  var sel = -1;
+  function draw(){
+    var put = U3.jb || {};
+    pick.innerHTML = JOBS.map(function(j, i){
+      if(put[i] !== undefined) return '';
+      return '<button type="button" class="jc' + (sel === i ? ' on' : '') + '" data-i="' + i + '">' +
+             esc(j.n) + '</button>';
+    }).join('') || '<span class="jbdone">카드를 모두 넣었습니다</span>';
+    [].slice.call(quad.querySelectorAll('.qcell')).forEach(function(c){
+      var q = +c.getAttribute('data-q');
+      var here = Object.keys(put).filter(function(i){ return put[i] === q; });
+      c.querySelector('.drop').innerHTML = here.map(function(i){
+        var ok = JOBS[i].q === q;
+        return '<span class="jt' + (ok ? ' ok' : ' no') + '">' + esc(JOBS[i].n) +
+               (ok ? '' : ' ✕') + '</span>';
+      }).join('');
+    });
+    var n = Object.keys(put).length;
+    cnt.textContent = n + ' / ' + JOBS.length;
+    if(n === JOBS.length){
+      var right = Object.keys(put).filter(function(i){ return JOBS[i].q === put[i]; }).length;
+      why.className = 'verdict ' + (right === JOBS.length ? 'ok' : 'mid');
+      why.innerHTML = '<b>' + right + ' / ' + JOBS.length + ' 맞았습니다</b><span>' +
+        '<b>정형</b>은 «정해진 순서대로 하는 일», <b>비정형</b>은 «상황마다 달라지는 일»입니다. ' +
+        '인공지능이 가장 잘 대신하는 것은 <b>정형 업무</b>예요. ' +
+        '간병·육아처럼 «저숙련»으로 분류돼도 상황이 매번 다르면 대체가 어렵습니다.</span>';
+      why.hidden = false;
+    }else{ why.hidden = true; }
+  }
+  pick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]'); if(!b) return;
+    sel = +b.getAttribute('data-i');
+    msg.className = 'sendmsg wait';
+    msg.innerHTML = '<b>' + esc(JOBS[sel].n) + '</b> — 어느 칸에 넣을까요?';
+    draw();
+  });
+  quad.addEventListener('click', function(e){
+    var c = e.target.closest('.qcell'); if(!c) return;
+    if(sel < 0){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 위에서 카드를 고르세요.'; return; }
+    var q = +c.getAttribute('data-q');
+    if(!U3.jb) U3.jb = {};
+    U3.jb[sel] = q; save();
+    var ok = JOBS[sel].q === q;
+    msg.className = 'sendmsg ' + (ok ? 'ok' : 'bad');
+    msg.innerHTML = ok ? '<b>' + esc(JOBS[sel].n) + '</b> 맞아요.'
+      : '<b>' + esc(JOBS[sel].n) + '</b>은(는) <b>' + QNAME[JOBS[sel].q] + '</b>입니다.';
+    sel = -1; draw();
+  });
+  $('jbRe').addEventListener('click', function(){
+    U3.jb = {}; sel = -1; save(); draw();
+    msg.className = 'sendmsg'; msg.textContent = '카드를 누른 뒤 넣을 칸을 누르세요.';
+  });
+  draw();
+})();
+
+/* ══ ④ 진로 로드맵 ════════════════════════════════════════ */
+var LIFE = ['고등학교 시기','20세의 나','30세의 나','40세 이후의 나'];
+(function(){
+  var box = $('s3life'); if(!box) return;
+  box.innerHTML = LIFE.map(function(t, i){
+    return '<label class="lf"><span>' + esc(t) + '</span>' +
+      '<textarea data-i="' + i + '" rows="2" placeholder="예) 경찰 관련 서적을 찾아 읽고 체력을 기른다"></textarea></label>';
+  }).join('');
+  [].slice.call(box.querySelectorAll('textarea')).forEach(function(el){
+    var i = +el.getAttribute('data-i');
+    el.value = (U3.s3life && U3.s3life[i]) || '';
+    el.addEventListener('input', function(){
+      if(!U3.s3life) U3.s3life = ['','','',''];
+      U3.s3life[i] = this.value; save();
+    });
+  });
+  ['s3job','s3vis','s3fut','s3cap'].forEach(function(f){ bind(f, f); });
+})();
+
+/* ══ ⑤ 장단점 저울 ════════════════════════════════════════ */
+var TECH = [
+  { good:['교통 흐름이 좋아지고 사고가 줄어든다','운전이 어려운 노약자·장애인에게 이동 수단이 된다','이동하면서 다른 일을 할 수 있다'],
+    bad:['시스템 오류로 사고가 날 수 있다','사고가 나면 책임이 누구에게 있는지 다투게 된다','내 위치 정보가 새어 나갈 수 있다'] },
+  { good:['수술 로봇이 까다로운 정밀 수술을 해낸다','진단 로봇이 질병을 빠르게 찾아낸다','유전자·건강 데이터로 맞춤 치료 계획을 세운다'],
+    bad:['의료 사고가 나면 책임 소재로 다툰다','인공지능의 결정이 안전하지 않을 수 있다','의사의 결정권을 침해할 수 있다'] },
+  { good:['언제 어디서나 궁금한 것을 바로 알려 준다','사람을 덜 써도 되어 비용이 준다','창작이나 문제 풀이를 도와준다'],
+    bad:['잘못된 자료를 계속 배우면 틀린 답을 한다','학습에 쓰는 자료를 어떻게 모았는지 논란이 된다'] }
+];
+(function(){
+  var pick = $('scPickTech'); if(!pick) return;
+  function draw(){
+    var t = TECH[U3.tech || 0];
+    $('scGood').innerHTML = t.good.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+    $('scBad').innerHTML = t.bad.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+    [].slice.call(pick.children).forEach(function(b){
+      b.setAttribute('aria-pressed', +b.getAttribute('data-t') === (U3.tech || 0) ? 'true' : 'false');
+    });
+  }
+  pick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-t]'); if(!b) return;
+    U3.tech = +b.getAttribute('data-t'); save(); draw();
+  });
+  ['s4g','s4b','s4h'].forEach(function(f){ bind(f, f); });
+  draw();
+})();
+
+/* ══ ⑥ 편향성 구분 ════════════════════════════════════════ */
+var BIAS = [
+  { c:'의료용 맥박 산소 측정기는 피부에 빛을 비춰 작동한다. 그런데 백인 환자의 멜라닌 색소값을 표준으로 삼아, 흑인 환자의 수치를 잘못 보고할 가능성이 있다.',
+    a:0, w:'표준으로 삼은 <b>자료 자체가 백인 쪽으로 쏠려</b> 있습니다. 무엇을 배웠는가의 문제예요.' },
+  { c:'동양계 뉴질랜드인이 여권 갱신용 사진을 올렸더니 «눈을 감았습니다»라며 거부됐다. 인공지능이 상대적으로 눈이 작은 아시아인의 사진을 인식하지 못한 것이다.',
+    a:0, w:'학습한 얼굴 자료에 <b>아시아인이 적었기</b> 때문입니다. 데이터 편향입니다.' },
+  { c:'미국의 한 기업이 도입한 채용 인공지능이 경력 10년 이상 남성만 추천하거나, «여성 체스 동아리»처럼 여성 문구가 있으면 제외해 결국 폐기됐다.',
+    a:0, w:'지난 10년간의 이력서를 배웠는데 <b>그 자료에 남성이 훨씬 많았습니다.</b> 데이터 편향이에요. — <b>토론 논제 «AI 채용 심사»의 핵심 사례</b>입니다.' },
+  { c:'미국의 유명 농구선수가 «지구는 평평하다»고 주장했다. 그는 평평한 지구 음모론이 동영상 서비스의 추천에 의해 수억 번 추천됐다고 말했다.',
+    a:1, w:'자료가 치우친 게 아니라 <b>추천이 비슷한 것만 계속 보여 준</b> 결과입니다. 알고리즘 편향이에요.' },
+  { c:'동영상 플랫폼 개발자가 말했다. «제가 만든 알고리즘의 필터 버블이 사회의 분극화를 더 심하게 만들어 걱정입니다.»',
+    a:1, w:'<b>필터 버블</b> — 맞춤 자료만 주다 보니 사용자가 <b>다양한 관점을 못 보게</b> 되는 현상입니다. 알고리즘 편향입니다.' },
+  { c:'○○ 회사의 신용카드는 인공지능이 신용한도를 정하는데, 성별에 따라 한도를 다르게 적용했다.',
+    a:0, w:'과거 금융 자료에 담긴 <b>성별 차이를 그대로 배운</b> 것입니다. 데이터 편향이에요.' },
+  { c:'SNS에서 우연히 본 유해 콘텐츠가 그 뒤로 계속 추천 목록에 올라왔다.',
+    a:1, w:'본 것과 비슷한 것을 <b>계속 고르는 방식</b>이 문제입니다. 알고리즘 편향입니다.' }
+];
+(function(){
+  var opts = $('biOpts'); if(!opts) return;
+  function draw(){
+    var q = BIAS[U3.biAt], got = U3.bi || [];
+    $('biCase').innerHTML = esc(q.c);
+    opts.innerHTML = '';
+    ['📊 데이터 편향성','🔁 알고리즘 편향성'].forEach(function(t, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = t;
+      var g = got[U3.biAt];
+      if(g !== undefined && g !== null){
+        b.disabled = true;
+        if(i === q.a) b.className = 'ok';
+        else if(i === g) b.className = 'no';
+      }else{
+        b.addEventListener('click', function(){
+          if(!U3.bi) U3.bi = [];
+          U3.bi[U3.biAt] = i; save(); draw();
+        });
+      }
+      opts.appendChild(b);
+    });
+    var g2 = got[U3.biAt];
+    var v = $('biWhy');
+    if(g2 === undefined || g2 === null){ v.hidden = true; }
+    else{
+      v.className = 'verdict ' + (g2 === q.a ? 'ok' : 'no');
+      v.innerHTML = '<b>' + (g2 === q.a ? '맞았어요' : '아쉬워요 — 정답은 ' +
+        (q.a === 0 ? '데이터 편향성' : '알고리즘 편향성')) + '</b><span>' + q.w + '</span>';
+      v.hidden = false;
+    }
+    $('biDots').innerHTML = BIAS.map(function(_, i){
+      var s = (got[i] === undefined || got[i] === null) ? '' : (got[i] === BIAS[i].a ? ' ok' : ' no');
+      return '<span class="dot' + s + (i === U3.biAt ? ' now' : '') + '"></span>';
+    }).join('');
+    var done = 0, right = 0;
+    BIAS.forEach(function(x, i){
+      if(got[i] !== undefined && got[i] !== null){ done++; if(got[i] === x.a) right++; }
+    });
+    $('biScore').textContent = right + ' / ' + done;
+    $('biPrev').disabled = U3.biAt <= 0;
+    $('biNext').disabled = U3.biAt >= BIAS.length - 1;
+  }
+  $('biPrev').addEventListener('click', function(){ if(U3.biAt > 0){ U3.biAt--; save(); draw(); } });
+  $('biNext').addEventListener('click', function(){ if(U3.biAt < BIAS.length - 1){ U3.biAt++; save(); draw(); } });
+  $('biRe').addEventListener('click', function(){ U3.bi = []; U3.biAt = 0; save(); draw(); });
+  draw();
+})();
+
+/* ══ ⑦ 윤리적 딜레마 ══════════════════════════════════════ */
+var DILEMMA = [
+  { s:'인공지능은 맞춤 의료와 정밀 진료에 널리 쓰인다. 그런데 백인 환자 데이터로 과다하게 훈련받은 진단 인공지능이 흑인 환자를 오진했다면, 책임은 누구에게 있을까?',
+    q:'책임이 가장 큰 쪽은 어디라고 생각하나요?',
+    o:['인공지능 개발 회사','데이터 수집 업체','최종 판단을 내린 의료진','도입을 결정한 병원'] },
+  { s:'가정용 로봇 A는 «주인의 명령에 복종한다»는 원칙을 지켜야 한다. 부모님이 A에게 철수의 컴퓨터 사용을 금지하라고 했는데, 철수가 A에게 컴퓨터를 켜 달라고 명령했다.',
+    q:'A는 어떻게 해야 할까요?',
+    o:['부모님의 명령을 따른다','철수의 명령을 따른다','둘 다 따르지 않고 알린다','판단을 미루고 기다린다'] }
+];
+(function(){
+  var pick = $('dlPick'); if(!pick) return;
+  var cur = 0;
+  function draw(){
+    var d = DILEMMA[cur];
+    $('dlStory').innerHTML = esc(d.s);
+    $('dlAsk').innerHTML = '<b>' + esc(d.q) + '</b> 정답은 없습니다. <b>고르고 근거를 대는 것</b>이 활동이에요.';
+    var box = $('dlOpts');
+    box.innerHTML = '';
+    d.o.forEach(function(t, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = t;
+      b.setAttribute('aria-pressed', (U3.dl && U3.dl[cur]) === i + 1 ? 'true' : 'false');
+      b.addEventListener('click', function(){
+        if(!U3.dl) U3.dl = [0,0];
+        U3.dl[cur] = i + 1; save(); draw();
+      });
+      box.appendChild(b);
+    });
+    [].slice.call(pick.children).forEach(function(b){
+      b.setAttribute('aria-pressed', +b.getAttribute('data-d') === cur ? 'true' : 'false');
+    });
+  }
+  pick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-d]'); if(!b) return;
+    cur = +b.getAttribute('data-d'); draw();
+  });
+  ['s6why','s6other','s6change'].forEach(function(f){ bind(f, f); });
+  draw();
+})();
+
+/* ══ ⑧ 토론 입론서 ════════════════════════════════════════ */
+var TOPICS = [
+  { t:'자율주행차의 사고 회피 알고리즘은 누구의 안전을 우선해야 하는가',
+    l:'Ⅲ-03 자율주행 장단점 · Ⅲ-04 윤리적 딜레마' },
+  { t:'AI 채용 심사 도입을 허용해야 하는가',
+    l:'Ⅲ-04 데이터 편향성 (아마존 채용 사례)' },
+  { t:'생성형 AI 학습 데이터의 저작권을 어디까지 인정해야 하는가',
+    l:'Ⅲ-04 윤리적 쟁점 (창작물 저작권)' }
+];
+var RUB = [
+  '논제와 관련된 Ⅲ단원 개념을 근거로 썼는가?',
+  '상대의 반론을 가장 강한 형태로 예상했는가?',
+  '사람이 할 일(공존 방안)까지 제시했는가?'
+];
+(function(){
+  var box = $('dbTopic'); if(!box) return;
+  function drawTopic(){
+    box.innerHTML = TOPICS.map(function(t, i){
+      return '<button type="button" class="tp' + (U3.topic === i ? ' on' : '') + '" data-i="' + i + '">' +
+        '<b>' + (i + 1) + '</b><span>' + esc(t.t) + '</span><i>' + esc(t.l) + '</i></button>';
+    }).join('');
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]'); if(!b) return;
+    U3.topic = +b.getAttribute('data-i'); save(); drawTopic();
+  });
+  drawTopic();
+
+  var side = $('dbSide');
+  function drawSide(){
+    [].slice.call(side.children).forEach(function(b){
+      b.setAttribute('aria-pressed', +b.getAttribute('data-s') === U3.side ? 'true' : 'false');
+    });
+    $('dbSideMsg').textContent = U3.side < 0 ? '' :
+      (U3.side === 0 ? '찬성 쪽에서 근거를 모아 보세요.' : '반대 쪽에서 근거를 모아 보세요.');
+  }
+  side.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-s]'); if(!b) return;
+    U3.side = +b.getAttribute('data-s'); save(); drawSide();
+  });
+  drawSide();
+
+  ['d1','d2','d3','d4','d5','d6'].forEach(function(f){ bind(f, f); });
+
+  var rb = $('dbRub');
+  rb.innerHTML = RUB.map(function(t, i){
+    return '<label class="rbl"><span>' + esc(t) + '</span>' +
+      '<span class="pick rbp" data-i="' + i + '">' +
+      ['아직','조금','충분히'].map(function(v, k){
+        return '<button type="button" data-v="' + k + '" aria-pressed="' +
+          (String(U3.rub[i]) === String(k) ? 'true' : 'false') + '">' + v + '</button>';
+      }).join('') + '</span></label>';
+  }).join('');
+  rb.addEventListener('click', function(e){
+    var b = e.target.closest('.rbp button'); if(!b) return;
+    var wrap = b.parentElement, i = +wrap.getAttribute('data-i');
+    U3.rub[i] = b.getAttribute('data-v'); save();
+    [].slice.call(wrap.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+  });
+
+  $('dbGroup').value = U3.group || '';
+  $('dbGroup').addEventListener('input', function(){ U3.group = this.value; save(); });
+  $('dbCls').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-c]'); if(!b) return;
+    U3.cls = b.getAttribute('data-c'); save();
+    [].slice.call(this.children).forEach(function(o){
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+  });
+  if(U3.cls){
+    var cb = document.querySelector('#dbCls button[data-c="' + U3.cls + '"]');
+    if(cb) cb.setAttribute('aria-pressed', 'true');
+  }
+
+  function report(){
+    var t = U3.topic >= 0 ? TOPICS[U3.topic].t : '(논제 미선택)';
+    var sd = U3.side === 0 ? '찬성' : (U3.side === 1 ? '반대' : '(입장 미선택)');
+    return ['════════ 토론 입론서 ════════',
+      '수행평가 ① 인공지능 윤리 쟁점 토론', '',
+      '분반 : ' + (U3.cls || '(미선택)'), '모둠 : ' + (U3.group || '(미입력)'), '',
+      '논제 : ' + t, '입장 : ' + sd, '',
+      '주장 : ' + (U3.d1 || '(미작성)'),
+      '근거 1 : ' + (U3.d2 || '(미작성)'),
+      '근거 2 : ' + (U3.d3 || '(미작성)'),
+      '예상 반론 : ' + (U3.d4 || '(미작성)'),
+      '재반박 : ' + (U3.d5 || '(미작성)'),
+      '공존 방안 : ' + (U3.d6 || '(미작성)'),
+      '══════════════════════════════════'].join('\n');
+  }
+  function clip(txt, btn){
+    var ok = function(){ btn.textContent = '복사했어요';
+      setTimeout(function(){ btn.textContent = '내용 복사'; }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(ok, function(){ manual(txt, btn); });
+    }else{ manual(txt, btn); }
+  }
+  function manual(txt, btn){
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.readOnly = true; ta.className = 'copyout'; ta.rows = 10;
+    btn.parentElement.appendChild(ta); ta.select();
+    btn.textContent = '아래에서 직접 복사';
+  }
+  $('dbCopy').addEventListener('click', function(){ clip(report(), this); });
+
+  $('dbSend').addEventListener('click', function(){
+    var btn = this, msg = $('dbSendMsg');
+    if(U3.topic < 0){ msg.className = 'sendmsg wait'; msg.textContent = '논제를 먼저 고르세요'; return; }
+    if(U3.side < 0){ msg.className = 'sendmsg wait'; msg.textContent = '입장을 골라 주세요'; return; }
+    if(!U3.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
+    if(!(U3.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
+    if(!(U3.d1 || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '주장을 먼저 적어 주세요'; return; }
+    btn.disabled = true;
+    msg.className = 'sendmsg wait'; msg.textContent = '보내는 중…';
+    var body = JSON.stringify({
+      key:SUBMIT_KEY, type:'debate', cls:U3.cls, group:U3.group.trim(),
+      topic:TOPICS[U3.topic].t, side:(U3.side === 0 ? '찬성' : '반대'),
+      claim:U3.d1, r1:U3.d2, r2:U3.d3, counter:U3.d4, rebut:U3.d5, coexist:U3.d6
+    });
+    var good = function(x){ msg.className = 'sendmsg ok';
+      msg.textContent = '제출했습니다' + (x || '');
+      btn.textContent = '다시 제출하기'; btn.disabled = false; };
+    var bad = function(){ msg.className = 'sendmsg bad';
+      msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
+      btn.disabled = false; };
+    fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.ok) good(); else bad(); })
+      .catch(function(){
+        fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+              headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+          .then(function(){ good(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
+      });
+  });
+})();
+
+/* ══ 논제 ↔ 단원 연결 표 ══════════════════════════════════ */
+(function(){
+  var t = $('dbMap'); if(!t) return;
+  var rows = [
+    ['자율주행차 사고 회피', 'Ⅲ-03 · Ⅲ-04', '활동 ⑤ 장단점 저울 · ⑦ 딜레마 ①',
+     '인간 존엄성 원칙 · 책임 소재 · 공존 방안'],
+    ['AI 채용 심사 허용', 'Ⅲ-04', '활동 ⑥ 편향성 3번 사례',
+     '데이터 편향성 · 공정성 · 개발자 책임'],
+    ['생성형 AI 저작권', 'Ⅲ-04', '활동 ⑦ 딜레마 ③ 창작물 저작권',
+     '윤리적 딜레마 · 사용자 윤리 · 투명성']
+  ];
+  var h = '<tr><th>논제</th><th>소단원</th><th>여기서 재료를</th><th>쓸 만한 개념</th></tr>';
+  rows.forEach(function(r){
+    h += '<tr><td><b>' + esc(r[0]) + '</b></td><td class="d">' + esc(r[1]) + '</td>' +
+         '<td class="d">' + esc(r[2]) + '</td><td>' + esc(r[3]) + '</td></tr>';
+  });
+  t.innerHTML = h;
+})();
+
+/* ══ 핵심 용어 ════════════════════════════════════════════ */
+var TERMS = [
+ ['Ⅲ-01 발전과 사회 변화', [
+  ['지능형 서비스','언제 어디서나 지금 상황을 파악해 알맞은 정보와 서비스를 알아서 내주는 것','자율주행 내비게이션, 로봇 어드바이저'],
+  ['사물지능융합기술 (AIoT)','인공지능 + 클라우드 + 사물인터넷이 합쳐진 분야','냉장고가 식재료를 알아보고 알아서 주문한다'],
+  ['자연어 처리','사람이 쓰는 말을 문맥과 상황에 맞게 알아듣는 기술','자동 요약, 동시 통역'],
+  ['컴퓨터 비전','사진과 영상에서 얼굴이나 물건을 알아보는 기술','공장의 불량품 검사 자동화'],
+  ['생성형 인공지능','요구에 따라 글·이미지·음악을 만들어 내는 인공지능','2022년 이후 사회 전반에 큰 영향'],
+  ['인공지능 암흑기','기대한 성과가 안 나와 투자가 끊기고 연구가 침체된 시기','1970년대와 1980년대 두 차례']
+ ]],
+ ['Ⅲ-02 삶과 직업의 변화', [
+  ['추천 시스템','내가 본 것과 고른 것을 바탕으로 좋아할 만한 것을 골라 주는 인공지능','쇼핑몰 상품 추천, 영상 추천'],
+  ['맞춤형 서비스','사람마다 다른 특성을 분석해 저마다 다른 서비스를 주는 것','맞춤 건강 컨설팅, 맞춤 학습'],
+  ['직업의 전문화·세분화','한 직업이 여러 전문 분야로 갈라지는 것','인공지능 개발자 → 기계학습 엔지니어 등'],
+  ['정형 업무','정해진 순서대로 하는 일. 인공지능이 대신하기 쉽다','회계 사무, 단순 조립'],
+  ['비정형 업무','상황마다 달라져 정해진 순서가 없는 일. 대신하기 어렵다','간병, 육아, 상담']
+ ]],
+ ['Ⅲ-03 인공지능과 우리 삶', [
+  ['비판적 자세','받아들이거나 거부하기 전에 «정말 그런가»를 따져 보는 태도','일방적 수용도 일방적 거부도 아니다'],
+  ['인간 중심 인공지능','인간을 대체하지 않고 돕고 협력하는 데 중점을 두는 인공지능','인간을 배제하지 않고 함께 일한다'],
+  ['공존을 위한 인공지능의 역할','안전성 향상 · 편의성 증진 · 인류 문제 해결 · 업무 효율과 생산성 향상','네 가지를 묶어 외운다'],
+  ['공존을 위한 인간의 역할','인공지능을 감시하고 점검하며, 책임의 소재를 정해 두는 일','드론 배달의 정기 점검·실시간 감시']
+ ]],
+ ['Ⅲ-04 인공지능 윤리', [
+  ['편향성','취향이나 가치관에 따라 중립을 잃고 한쪽으로 치우치는 성질','결과를 왜곡하거나 특정 집단에 피해를 준다'],
+  ['데이터 편향성','학습한 자료 자체가 한쪽으로 쏠려 생기는 편향','맥박 산소 측정기, 여권 사진 심사, 아마존 채용'],
+  ['알고리즘 편향성','고르고 추천하는 방식 때문에 생기는 편향','필터 버블, 음모론 추천'],
+  ['필터 버블','맞춤 정보만 주다 보니 다양한 관점을 접하지 못하게 되는 현상','사회의 분극화를 키운다'],
+  ['인공지능 환각','날조된 거짓 정보를 사실인 양 그럴듯하게 내놓는 것','챗봇이 없는 사실을 지어낸다'],
+  ['설명 가능한 인공지능 (XAI)','판단의 이유를 사람이 이해할 수 있게 제시하는 인공지능','응급 예측 시스템이 진단 이유를 설명한다'],
+  ['윤리적 딜레마','여러 가치가 부딪혀 쉽게 결정할 수 없는 난처한 상황','의료 인공지능의 책임 소재'],
+  ['국가 인공지능 윤리기준 3대 원칙','인간 존엄성 · 사회의 공공선 · 기술 합목적성','대한민국이 정한 기본 원칙'],
+  ['공정성','개인의 다름을 존중하고 누구도 배제하지 않는 원칙','사투리 음성까지 모으는 것이 다양성 존중'],
+  ['투명성','판단 과정과 근거를 밝히는 것','진단을 내린 이유를 설명한다'],
+  ['개발자 윤리','신뢰할 수 있게 만들고, 데이터 편향을 확인하고, 출시 뒤에도 관리하며 책임을 공유한다','«지식 베이스가 추론한다»처럼 역할을 헷갈리지 말 것'],
+  ['운영·관리자 윤리','사회적 합의에 따른 원칙을 세우고, 공공 이익을 위한 활용을 관리·감독한다',''],
+  ['사용자 윤리','원래 목적에 맞게 쓰고, 문제가 생기면 알리고, 관련 법률과 지침을 지킨다','']
+ ]]
+];
+(function(){
+  var box = $('u3terms'); if(!box) return;
+  box.innerHTML = TERMS.map(function(g){
+    return '<h3 class="tgroup">' + esc(g[0]) + '</h3><div class="terms">' +
+      g[1].map(function(t){
+        return '<div class="term"><b>' + esc(t[0]) + '</b>' +
+          '<span>' + esc(t[1]) + '</span>' +
+          (t[2] ? '<i>' + esc(t[2]) + '</i>' : '') + '</div>';
+      }).join('') + '</div>';
+  }).join('');
+})();
+
+/* ══ 확인 문제 ════════════════════════════════════════════ */
+var CHECK = [
+  { q:'인공지능의 발전에 대한 설명으로 옳지 않은 것은?',
+    o:['빅데이터 축적과 정보 처리 용량 증가로 발전했다',
+       '1950년 개념 제시 이후 암흑기 없이 급격히 발전했다',
+       '2012년 딥러닝 모델이 이미지넷 대회에서 우승했다',
+       '1956년 다트머스 회의에서 «인공지능» 용어가 처음 나왔다'],
+    a:1, w:'<b>암흑기가 두 번</b> 있었습니다. 기대한 성과가 안 나와 투자가 끊긴 시기예요.' },
+  { q:'사회 문제 해결에 활용할 수 있는 인공지능 분야를 모두 고른 것은?',
+    o:['지능형 서비스 · 컴퓨터 비전 · 기계학습',
+       '인공지능 딜레마 · 지능형 서비스 · 데이터 편향성',
+       '데이터 편향성 · 필터 버블 · 기계학습',
+       '인공지능 딜레마 · 컴퓨터 비전 · 필터 버블'],
+    a:0, w:'딜레마 · 편향성 · 필터 버블은 <b>해결할 «문제»</b>이지 활용할 «분야»가 아닙니다.' },
+  { q:'인공지능과 진로에 대한 설명으로 옳지 않은 것은?',
+    o:['수많은 직업이 인공지능에 의해 변화할 것이다',
+       '기존 직업에 필요한 능력이 변화할 것이다',
+       '미래가 급격히 변하므로 진로 탐색은 불필요하다',
+       '인공지능 관련 직업이 세분화·전문화된다'],
+    a:2, w:'변화가 크기 때문에 <b>오히려 더 탐색해야</b> 합니다.' },
+  { q:'다음은 어떤 직업 변화 양상인가?<br><i>단순 프로그래머에서 웹 개발자·앱 프로그래머·인공지능 소프트웨어 프로그래머 등으로 나뉘었다.</i>',
+    o:['노동 생산성 증대','많은 직업이 사라짐','업무 시간 단축','직업의 세분화·전문화'],
+    a:3, w:'한 직업이 <b>여러 전문 분야로 갈라진</b> 경우입니다.' },
+  { q:'인공지능의 영향으로 빠르게 성장할 직업이 <b>아닌</b> 것은?',
+    o:['정보 보안 분석가','핀테크 엔지니어','톨게이트 수납원','데이터 분석가'],
+    a:2, w:'요금 수납은 <b>저숙련 · 정형 업무</b>라 대체 가능성이 높습니다.' },
+  { q:'빈칸에 들어갈 말은?<br><i>( )은 윤리적 설계를 통해 인간의 능력을 대체하지 않고 향상시키는 데 중점을 둔다.</i>',
+    o:['인간 중심 인공지능','생성형 인공지능','설명 가능한 인공지능','지능형 서비스'],
+    a:0, w:'<b>인간 중심 인공지능</b>입니다. 대체가 아니라 <b>협력</b>이 핵심이에요.' },
+  { q:'인간과 인공지능의 바람직한 공존을 위한 <b>인공지능의 역할</b>이 아닌 것은?',
+    o:['인류의 문제를 해결한다','인간의 편의성을 증진한다',
+       '인간의 판단을 대신해 최종 결정을 내린다','인간의 안전성을 높인다'],
+    a:2, w:'최종 결정까지 넘기는 것은 공존이 아닙니다. 인공지능은 <b>돕는</b> 역할이에요.' },
+  { q:'다음 사례의 편향성은?<br><i>신용카드 인공지능이 성별에 따라 신용한도를 다르게 적용했다.</i>',
+    o:['데이터 편향성','알고리즘 편향성','필터 버블','인공지능 환각'],
+    a:0, w:'과거 자료에 담긴 <b>성별 차이를 그대로 배운</b> 것입니다.' },
+  { q:'다음 설명에 해당하는 윤리 기준은?<br><i>인공지능 응급 예측 시스템이 진단을 내리고 그 이유까지 설명한다.</i>',
+    o:['투명성','다양성 존중','공공선','자율성'],
+    a:0, w:'판단의 <b>이유를 밝히는 것</b>이 투명성입니다. 설명 가능한 인공지능(XAI)과 이어집니다.' },
+  { q:'국가 인공지능 윤리기준의 <b>3대 기본 원칙</b>이 아닌 것은?',
+    o:['인간 존엄성 원칙','사회의 공공선 원칙','기술 합목적성 원칙','이윤 극대화 원칙'],
+    a:3, w:'세 가지는 <b>인간 존엄성 · 사회의 공공선 · 기술 합목적성</b>입니다.' }
+];
+(function(){
+  var opts = $('ckOpts'); if(!opts) return;
+  function draw(){
+    var q = CHECK[U3.ckAt], got = U3.ck || [];
+    $('ckQ').innerHTML = q.q;
+    opts.innerHTML = '';
+    q.o.forEach(function(t, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.innerHTML = '<span class="onum">' + (i + 1) + '</span>' + esc(t);
+      var g = got[U3.ckAt];
+      if(g !== undefined && g !== null){
+        b.disabled = true;
+        if(i === q.a) b.className = 'ok';
+        else if(i === g) b.className = 'no';
+      }else{
+        b.addEventListener('click', function(){
+          if(!U3.ck) U3.ck = [];
+          U3.ck[U3.ckAt] = i; save(); draw();
+        });
+      }
+      opts.appendChild(b);
+    });
+    var g2 = got[U3.ckAt], v = $('ckWhy');
+    if(g2 === undefined || g2 === null){ v.hidden = true; }
+    else{
+      v.className = 'verdict ' + (g2 === q.a ? 'ok' : 'no');
+      v.innerHTML = '<b>' + (g2 === q.a ? '맞았어요' : '아쉬워요 — 정답은 ' + (q.a + 1) + '번') +
+        '</b><span>' + q.w + '</span>';
+      v.hidden = false;
+    }
+    $('ckDots').innerHTML = CHECK.map(function(_, i){
+      var s = (got[i] === undefined || got[i] === null) ? '' : (got[i] === CHECK[i].a ? ' ok' : ' no');
+      return '<span class="dot' + s + (i === U3.ckAt ? ' now' : '') + '"></span>';
+    }).join('');
+    var done = 0, right = 0;
+    CHECK.forEach(function(x, i){
+      if(got[i] !== undefined && got[i] !== null){ done++; if(got[i] === x.a) right++; }
+    });
+    $('ckScore').textContent = right + ' / ' + done;
+    $('ckPrev').disabled = U3.ckAt <= 0;
+    $('ckNext').disabled = U3.ckAt >= CHECK.length - 1;
+  }
+  $('ckPrev').addEventListener('click', function(){ if(U3.ckAt > 0){ U3.ckAt--; save(); draw(); } });
+  $('ckNext').addEventListener('click', function(){ if(U3.ckAt < CHECK.length - 1){ U3.ckAt++; save(); draw(); } });
+  $('ckRe').addEventListener('click', function(){ U3.ck = []; U3.ckAt = 0; save(); draw(); });
+  draw();
+})();
+
+})();
+
+</script>
+</body>
+</html>
