@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v8
+ * 인공지능 기초 활동지 수집기  v9
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -10,7 +10,7 @@
  *   · 우리동네등굣길    ← Ⅰ-04 활동 ⑧
  *   · 학교안길찾기      ← Ⅰ-05 활동 ⑨
  *   · 추론게임          ← Ⅰ-06 활동 ⑪
- *   · 토론입론서        ← Ⅲ-04 활동 ⑧ (수행평가 ① 윤리 쟁점 토론)
+ *   · 토론입론서        ← Ⅲ-04 활동 ⑧ 개별 문서 A~D부 (수행평가 ① 윤리 토론)
  *   · 토론채점          ← 선생님이 «수행평가» 메뉴에서 만드는 채점표
  *   · 규칙게임          ← Ⅰ-06 활동 ⑪ «친구와 추론 게임 주고받기»
  *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
@@ -26,7 +26,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 8;
+var VER = 9;
 
 var SHEETS = {
 
@@ -136,12 +136,45 @@ var SHEETS = {
 
   debate: {
     name: '토론입론서',
-    head: ['제출 시각', '분반', '모둠(이름)', '논제', '입장',
-           '주장', '근거 1', '근거 2', '예상 반론', '재반박', '공존 방안'],
-    width: [140, 70, 130, 320, 60, 300, 300, 300, 300, 300, 300],
+    // 열 순서는 학생 페이지(unit3.html)의 FIELDS 배열과 같습니다.
+    // A부 = 평가 요소 ① · B부 = ② · C부 = ③ · D부 = ④
+    head: ['제출 시각', '분반', '이름(모둠)', '논제', '입장', '채운 칸',
+           '윤리 관점',
+           'A-3 첫 관점 쟁점', 'A-3 둘째 관점 쟁점', 'A-4 주장',
+           'A-5 근거 1', '근거 1 출처', 'A-5 근거 2', '근거 2 출처',
+           'A-5 근거 3', '근거 3 출처', 'A-6 입론 발표 메모',
+           'B-1 상대가 펼 주장', 'B-2 질문 ①', 'B-2 질문 ②', 'B-2 질문 ③',
+           'B-3 나에게 올 반론', 'B-4 재반박 새 근거',
+           'C-1 오간 논점 ①', 'C-2 오간 논점 ②', 'C-3 최종 정리 발언 원고',
+           'C-4 말함 / 원고',
+           'D-1 개발자 관점', 'D-2 사용자 관점', 'D-3 운영·관리자 관점',
+           'D-4 반박당한 지점', 'D-5 주장 수정·보완',
+           'D-6 실천 방안 ①', 'D-6 실천 방안 ②'],
+    width: [140, 70, 120, 300, 60, 80,
+            160,
+            300, 300, 300,
+            300, 180, 300, 180,
+            300, 180, 260,
+            280, 280, 280, 280,
+            280, 280,
+            280, 280, 420,
+            100,
+            280, 280, 280,
+            300, 300,
+            300, 300],
     row: function (d) {
-      return [new Date(), d.cls || '', d.group || '', d.topic || '', d.side || '',
-              d.claim || '', d.r1 || '', d.r2 || '', d.counter || '', d.rebut || '', d.coexist || ''];
+      return [new Date(), d.cls || '', d.group || '', d.topic || '', d.side || '', d.done || '',
+              d.views || '',
+              d.v1 || '', d.v2 || '', d.cl || '',
+              d.r1 || '', d.s1 || '', d.r2 || '', d.s2 || '',
+              d.r3 || '', d.s3 || '', d.sp || '',
+              d.b1 || '', d.q1 || '', d.q2 || '', d.q3 || '',
+              d.b3 || '', d.b4 || '',
+              d.n1 || '', d.n2 || '', d.fn || '',
+              d.spoke || '',
+              d.p1 || '', d.p2 || '', d.p3 || '',
+              d.w1 || '', d.w2 || '',
+              d.x1 || '', d.x2 || ''];
     }
   },
 
@@ -310,16 +343,17 @@ function 토론채점표만들기() {
   }
 
   // 제출물에서 (분반, 이름) 뽑기 — 같은 학생이 여러 번 냈으면 마지막 것만
-  var rows = src.getRange(2, 1, src.getLastRow() - 1, 5).getValues();  // 시각·분반·이름·논제·입장
+  var rows = src.getRange(2, 1, src.getLastRow() - 1, 6).getValues();  // 시각·분반·이름·논제·입장·채운 칸
   var seen = {}, list = [];
   for (var i = 0; i < rows.length; i++) {
     var cls = String(rows[i][1] || '').trim();
     var nm = String(rows[i][2] || '').trim();
     if (!nm) continue;
     var key = cls + '|' + nm;
-    if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '']); }
+    if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '', '']); }
     list[seen[key]][2] = String(rows[i][3] || '');   // 논제
     list[seen[key]][3] = String(rows[i][4] || '');   // 입장
+    list[seen[key]][4] = String(rows[i][5] || '');   // 채운 칸 (26칸 중 몇 칸)
   }
   list.sort(function (a, b) {
     return a[0] === b[0] ? (a[1] < b[1] ? -1 : 1) : (a[0] < b[0] ? -1 : 1);
@@ -330,10 +364,10 @@ function 토론채점표만들기() {
   if (sh) {
     // 이미 매긴 점수와 메모를 기억해 둔다
     if (sh.getLastRow() > 2) {
-      var prev = sh.getRange(3, 1, sh.getLastRow() - 2, 11).getValues();
+      var prev = sh.getRange(3, 1, sh.getLastRow() - 2, 12).getValues();
       for (var p = 0; p < prev.length; p++) {
         var k = String(prev[p][0]) + '|' + String(prev[p][1]);
-        old[k] = [prev[p][4], prev[p][5], prev[p][6], prev[p][7], prev[p][10]];
+        old[k] = [prev[p][5], prev[p][6], prev[p][7], prev[p][8], prev[p][11]];
       }
     }
     sh.clear();
@@ -343,11 +377,12 @@ function 토론채점표만들기() {
   }
 
   // ── 머리글 두 줄 ──
-  var head1 = ['분반', '이름(모둠)', '논제', '입장',
+  var head1 = ['분반', '이름(모둠)', '논제', '입장', '채운 칸',
                '① ' + GRADE_COLS[0], '② ' + GRADE_COLS[1],
                '③ ' + GRADE_COLS[2], '④ ' + GRADE_COLS[3],
                '합계', '성취도', '메모'];
-  var head2 = ['', '', '', '', '25점', '25점', '25점', '25점', '100점', '', '피드백·특기사항'];
+  var head2 = ['', '', '', '', '26칸 중',
+               '25점', '25점', '25점', '25점', '100점', '', '피드백·특기사항'];
   sh.getRange(1, 1, 1, head1.length).setValues([head1])
     .setFontWeight('bold').setBackground('#DCEBFF').setFontColor('#1B49B8')
     .setVerticalAlignment('middle').setWrap(true);
@@ -357,19 +392,19 @@ function 토론채점표만들기() {
   sh.setFrozenColumns(2);
 
   if (list.length) {
-    sh.getRange(3, 1, list.length, 4).setValues(list);
+    sh.getRange(3, 1, list.length, 5).setValues(list);
     for (var r = 0; r < list.length; r++) {
       var row = 3 + r;
       var k2 = list[r][0] + '|' + list[r][1];
       if (old[k2]) {
-        sh.getRange(row, 5, 1, 4).setValues([[old[k2][0], old[k2][1], old[k2][2], old[k2][3]]]);
-        sh.getRange(row, 11).setValue(old[k2][4]);
+        sh.getRange(row, 6, 1, 4).setValues([[old[k2][0], old[k2][1], old[k2][2], old[k2][3]]]);
+        sh.getRange(row, 12).setValue(old[k2][4]);
       }
       // 합계 · 성취도
-      sh.getRange(row, 9).setFormula('=IF(COUNT(E' + row + ':H' + row + ')=0,"",SUM(E' + row + ':H' + row + '))');
-      sh.getRange(row, 10).setFormula(
-        '=IF(I' + row + '="","",IF(I' + row + '>=90,"A",IF(I' + row + '>=80,"B",' +
-        'IF(I' + row + '>=70,"C",IF(I' + row + '>=50,"D","E")))))');
+      sh.getRange(row, 10).setFormula('=IF(COUNT(F' + row + ':I' + row + ')=0,"",SUM(F' + row + ':I' + row + '))');
+      sh.getRange(row, 11).setFormula(
+        '=IF(J' + row + '="","",IF(J' + row + '>=90,"A",IF(J' + row + '>=80,"B",' +
+        'IF(J' + row + '>=70,"C",IF(J' + row + '>=50,"D","E")))))');
     }
     // 점수 칸 드롭다운
     var rule = SpreadsheetApp.newDataValidation()
@@ -377,12 +412,13 @@ function 토론채점표만들기() {
       .setAllowInvalid(false)
       .setHelpText('25 / 20 / 15 / 10 / 5 중에서 고르세요 (0 = 미실시)')
       .build();
-    sh.getRange(3, 5, list.length, 4).setDataValidation(rule)
+    sh.getRange(3, 6, list.length, 4).setDataValidation(rule)
       .setHorizontalAlignment('center').setFontWeight('bold');
-    sh.getRange(3, 9, list.length, 2).setHorizontalAlignment('center').setFontWeight('bold');
+    sh.getRange(3, 5, list.length, 1).setHorizontalAlignment('center');
+    sh.getRange(3, 10, list.length, 2).setHorizontalAlignment('center').setFontWeight('bold');
 
     // 성취도 색
-    var rng = sh.getRange(3, 10, list.length, 1);
+    var rng = sh.getRange(3, 11, list.length, 1);
     var rules = [];
     var colors = [['A', '#DDF6EB', '#11734C'], ['B', '#DCEBFF', '#1B49B8'],
                   ['C', '#FFF1DF', '#9C5409'], ['D', '#FDE9E7', '#C8362F'],
@@ -396,7 +432,7 @@ function 토론채점표만들기() {
     sh.setConditionalFormatRules(rules);
   }
 
-  var w = [70, 130, 300, 60, 110, 110, 110, 110, 70, 70, 320];
+  var w = [70, 130, 290, 60, 70, 110, 110, 110, 110, 70, 70, 320];
   for (var i2 = 0; i2 < w.length; i2++) sh.setColumnWidth(i2 + 1, w[i2]);
   sh.getRange(1, 1, 2, head1.length).setHorizontalAlignment('center');
 
@@ -416,7 +452,7 @@ function 토론채점요약() {
     SpreadsheetApp.getUi().alert('채점표가 아직 없습니다. 먼저 «토론 채점표 만들기»를 실행하세요.');
     return;
   }
-  var v = sh.getRange(3, 1, sh.getLastRow() - 2, 10).getValues();
+  var v = sh.getRange(3, 1, sh.getLastRow() - 2, 11).getValues();
   var byCls = {}, dist = { A: 0, B: 0, C: 0, D: 0, E: 0 }, done = 0;
   var sum = [0, 0, 0, 0], cnt = [0, 0, 0, 0];
   for (var i = 0; i < v.length; i++) {
@@ -424,10 +460,10 @@ function 토론채점요약() {
     if (!byCls[cls]) byCls[cls] = { n: 0, done: 0, total: 0 };
     byCls[cls].n++;
     for (var k = 0; k < 4; k++) {
-      var x = v[i][4 + k];
+      var x = v[i][5 + k];
       if (typeof x === 'number' && x > 0) { sum[k] += x; cnt[k]++; }
     }
-    var tot = v[i][8], gr = String(v[i][9] || '');
+    var tot = v[i][9], gr = String(v[i][10] || '');
     if (typeof tot === 'number' && tot > 0) {
       done++; byCls[cls].done++; byCls[cls].total += tot;
       if (dist[gr] !== undefined) dist[gr]++;

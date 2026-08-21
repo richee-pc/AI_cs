@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 Ⅲ단원 인공지능의 사회적 영향 - 발전 연표, 편향성, 윤리적 딜레마, 토론 입론서">
+<meta name="description" content="「인공지능 기초」 Ⅲ단원 인공지능의 사회적 영향 - 발전 연표, 편향성, 윤리적 딜레마, 수행평가 개별 문서">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Ⅲ. 인공지능의 사회적 영향 · 수업 자료">
-<meta property="og:description" content="발전 연표, 직업 대체 가능성, 편향성 구분, 윤리적 딜레마, 토론 입론서">
+<meta property="og:description" content="발전 연표, 직업 대체 가능성, 편향성 구분, 윤리적 딜레마, 수행평가 개별 문서">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
@@ -1431,6 +1431,33 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* ⑧ 개별 문서 A~D부 */
+.dpbar{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 5px}
+.dpb{flex:1 1 132px; font-family:var(--sans); font-size:0.8125rem; font-weight:700;
+  padding:10px 13px; border-radius:12px; border:1px solid var(--line); line-height:1.4;
+  background:var(--tint); color:var(--muted); cursor:pointer; text-align:left}
+.dpb>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.6875rem;
+  font-weight:700; opacity:.9; margin-bottom:3px}
+.dpb[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.dpb:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.dphint{margin:0 0 15px; font-size:0.8125rem; color:var(--muted); font-weight:600}
+.fullcond{background:var(--good-bg); border-radius:12px; padding:11px 15px; margin:0 0 16px;
+  font-size:0.8125rem; line-height:1.75; color:var(--good); font-weight:600}
+.fullcond b{color:var(--good)}
+.vpick{display:flex; flex-wrap:wrap; gap:7px}
+.vpick button{font-family:var(--sans); font-size:0.8125rem; font-weight:700; padding:8px 15px;
+  border-radius:99px; border:1px solid var(--line); background:var(--tint); color:var(--ink2); cursor:pointer}
+.vpick button[aria-pressed="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.vpick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.cnt{display:block; font-family:var(--mono); font-size:0.75rem; color:var(--muted); margin-top:5px}
+.cnt.ok{color:var(--good)}
+.cnt.over{color:var(--cut)}
+.fillbar{display:flex; align-items:center; gap:11px; margin:16px 0 0;
+  font-family:var(--mono); font-size:0.8125rem; color:var(--muted); font-weight:700}
+.fillbar>span.bar{flex:1; height:8px; background:var(--tint); border-radius:99px; overflow:hidden}
+.fillbar>span.bar>i{display:block; height:100%; width:0; background:var(--fill); border-radius:99px}
+.fillbar>span.bar>i.full{background:var(--good)}
+
 @media (max-width:640px){
   .tli{grid-template-columns:1fr; gap:4px}
   .quad{grid-template-columns:1fr; padding:0 0 22px}
@@ -1479,10 +1506,11 @@ footer a{font-weight:700}
   </div>
 
   <div class="ask" style="margin-top:18px"><b>수행평가와 이어집니다</b>
-    9월 3주 <b>인공지능 윤리 쟁점 토론</b>(20%)의 논제 세 가지가 모두 이 단원 내용입니다.
+    9월 3주 <b>인공지능 윤리 토론</b>(20%) 논제 <b>열 가지</b>가 모두 이 단원 내용입니다.
     <b>자율주행차 사고 회피</b>는 Ⅲ-03·04, <b>AI 채용 심사</b>는 Ⅲ-04 편향성,
     <b>생성형 AI 저작권</b>은 Ⅲ-04 윤리 쟁점에서 나옵니다.
-    수업 활동이 곧 <b>입론서 재료</b>가 되도록 짰습니다.</div>
+    수업 활동이 곧 <b>개별 문서의 재료</b>가 되도록 짰습니다.
+    <a href="https://richee-pc.github.io/AI_cs/debate.html" style="font-weight:800">수행평가 ① 안내 페이지 →</a></div>
 </div></section>
 
 <section id="flow"><div class="wrap">
@@ -1497,7 +1525,7 @@ footer a{font-weight:700}
   <p class="eyebrow">손으로 하는 것</p>
   <h2>수업 활동</h2>
   <p class="sub">여덟 가지입니다. 차시 순서대로 이어지고,
-    <b>마지막 ⑧번이 수행평가 입론서</b>로 그대로 넘어갑니다.
+    <b>마지막 ⑧번이 수행평가 개별 문서</b>로 그대로 넘어갑니다.
     적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
@@ -1508,7 +1536,7 @@ footer a{font-weight:700}
     <button class="atab" role="tab" data-u3="4" aria-selected="false"><i>Ⅲ-03</i>장단점 저울</button>
     <button class="atab" role="tab" data-u3="5" aria-selected="false"><i>Ⅲ-04</i>편향성 구분</button>
     <button class="atab" role="tab" data-u3="6" aria-selected="false"><i>Ⅲ-04</i>윤리적 딜레마</button>
-    <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>수행평가</i>토론 입론서</button>
+    <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>수행평가</i>개별 문서</button>
   </div>
 
   <!-- ① AI 발전 연표 -->
@@ -1619,7 +1647,7 @@ footer a{font-weight:700}
   <div class="actbox" data-u3p="4" hidden>
     <h3>⑤ 인공지능 장단점 저울 <span class="tm">개인 → 모둠</span></h3>
     <p class="desc">교과서 157쪽입니다. 같은 기술이라도 <b>좋은 점과 걱정되는 점</b>이 함께 있습니다.
-      하나를 골라 양쪽을 다 적어 보세요. <b>이 표가 토론 입론서의 뼈대</b>가 됩니다.</p>
+      하나를 골라 양쪽을 다 적어 보세요. <b>이 표가 개별 문서 A부의 뼈대</b>가 됩니다.</p>
 
     <div class="simctl">
       <span class="pick" id="scPickTech">
@@ -1712,28 +1740,30 @@ footer a{font-weight:700}
       세 번째 칸을 진지하게 채운 사람이 <b>수행평가에서 «반론·반박» 점수를 받습니다.</b></div>
   </div>
 
-  <!-- ⑧ 토론 입론서 -->
+  <!-- ⑧ 개별 문서 -->
   <div class="actbox" data-u3p="7" hidden>
-    <h3>⑧ 토론 입론서 만들기 <span class="tm">수행평가 ①</span></h3>
-    <p class="desc"><b>9월 3주 인공지능 윤리 쟁점 토론(20%)</b>의 입론서입니다.
-      앞의 활동에서 적은 것들이 그대로 재료가 됩니다.
-      <b>채점 항목 네 가지</b>에 맞춰 칸을 짰습니다.</p>
+    <h3>⑧ 개별 문서 쓰기 <span class="tm">수행평가 ①</span></h3>
+    <p class="desc"><b>9월 3주 인공지능 윤리 토론(20%)</b>에 내는 문서입니다.
+      <b>네 부분(A~D부)</b>이 <b>채점 요소 네 가지</b>와 하나씩 맞물립니다.
+      각 칸의 안내문은 <b>채점기준표의 25점(만점) 조건을 그대로 옮긴 것</b>이에요.</p>
 
-    <div class="ask" style="margin:0 0 14px"><b>채점기준표 전문은 따로 있습니다</b>
+    <div class="ask" style="margin:0 0 14px"><b>채점기준표 전문과 토론 진행 방식은 따로 있습니다</b>
       <a href="https://richee-pc.github.io/AI_cs/debate.html#rubric" style="font-weight:800">
         수행평가 ① 안내 페이지 열기 →</a>
-      네 항목의 <b>5단계 기준</b>과 <b>발언권 카드</b>, <b>인공지능 활용 규칙</b>이 모두 있습니다.</div>
+      네 항목의 <b>5단계 기준</b>, <b>한 차시 42분 흐름</b>, <b>무작위 배정</b>,
+      <b>발언권 카드</b>, <b>인공지능 활용 규칙</b>이 모두 있습니다.</div>
     <div class="rubric-hint">
-      <span><b>25</b> 논제 분석과 입론서</span>
-      <span><b>25</b> 반론·반박의 논리</span>
-      <span><b>25</b> 최종 발언 · 쟁점 정리</span>
-      <span><b>25</b> 윤리 분석과 공존 방안</span>
+      <span><b>25</b> A부 · 논제 분석과 입론</span>
+      <span><b>25</b> B부 · 교차 질의와 반박</span>
+      <span><b>25</b> C부 · 최종 정리 발언</span>
+      <span><b>25</b> D부 · 윤리 분석과 공존</span>
     </div>
 
-    <h4 class="step-h" style="margin-top:20px">1 · 논제 고르기</h4>
+    <h4 class="step-h" style="margin-top:20px">배정받은 논제</h4>
+    <p class="desc">1차시에 <b>무작위로 배정받은</b> 논제를 고르세요. 직접 고르는 것이 아닙니다.</p>
     <div class="topics" id="dbTopic"></div>
 
-    <h4 class="step-h" style="margin-top:20px">2 · 내 입장</h4>
+    <h4 class="step-h" style="margin-top:20px">배정받은 입장</h4>
     <div class="simctl">
       <span class="pick" id="dbSide">
         <button type="button" data-s="0" aria-pressed="false">찬성</button>
@@ -1742,26 +1772,155 @@ footer a{font-weight:700}
       <span class="sendmsg" id="dbSideMsg"></span>
     </div>
 
-    <h4 class="step-h" style="margin-top:20px">3 · 입론서</h4>
-    <div class="wsheet">
-      <label><b>주장</b> — 한 문장으로
-        <textarea id="d1" rows="2" placeholder="예) 자율주행차는 탑승자보다 보행자의 안전을 우선해야 한다"></textarea></label>
-      <label><b>근거 1</b> — Ⅲ단원에서 배운 <b>개념이나 사례</b>를 넣으세요
-        <textarea id="d2" rows="2" placeholder="예) 국가 인공지능 윤리기준의 「인간 존엄성 원칙」에 따르면…"></textarea></label>
-      <label><b>근거 2</b>
-        <textarea id="d3" rows="2" placeholder="예) 아마존 채용 인공지능 사례처럼 데이터 편향은 실제로 피해를 냈다"></textarea></label>
-      <label><b>예상 반론</b> — 상대는 무엇이라 할까요? <i>(가장 강한 반론으로)</i>
-        <textarea id="d4" rows="2" placeholder="약한 반론을 적으면 반박도 약해집니다"></textarea></label>
-      <label><b>재반박</b> — 그 반론에 어떻게 답할까요?
-        <textarea id="d5" rows="2" placeholder=""></textarea></label>
-      <label><b>공존 방안</b> — 사람은 무엇을 해야 할까요? <i>(채점 4번 항목)</i>
-        <textarea id="d6" rows="2" placeholder="개발자 · 운영관리자 · 사용자 중 누구의 역할인지 밝혀 적으면 좋습니다"></textarea></label>
+    <div class="dpbar" role="tablist" aria-label="문서 부분 선택">
+      <button class="dpb" role="tab" data-dp="0" aria-selected="true"><i>요소 ① 25점</i>A부 · 입론</button>
+      <button class="dpb" role="tab" data-dp="1" aria-selected="false"><i>요소 ② 25점</i>B부 · 질의 준비</button>
+      <button class="dpb" role="tab" data-dp="2" aria-selected="false"><i>요소 ③ 25점</i>C부 · 토론 기록</button>
+      <button class="dpb" role="tab" data-dp="3" aria-selected="false"><i>요소 ④ 25점</i>D부 · 성찰</button>
     </div>
 
-    <div class="ask"><b>근거에 쓸 만한 것들</b>
-      국가 인공지능 윤리기준 <b>3대 원칙</b>(인간 존엄성 · 사회의 공공선 · 기술 합목적성) ·
-      <b>데이터/알고리즘 편향</b> 사례 · <b>인간 중심 인공지능</b> ·
-      개발자 · 운영관리자 · 사용자의 <b>세 가지 책임</b> — 아래 「핵심 용어」에 다 있습니다.</div>
+    <!-- ── A부 ── -->
+    <div data-dpp="0">
+      <p class="dphint">1·2차시에 씁니다.</p>
+      <div class="fullcond"><b>만점(25점) 조건</b><br>
+        윤리 관점 <b>2가지 이상</b>으로 쟁점을 나누고 · 근거 <b>3가지 모두에 출처</b>(기관·연도 또는 수치)를 밝히고 ·
+        입론 발표에서 <b>원고 없이</b> 근거의 출처를 설명하면 25점</div>
+
+      <h4 class="step-h">A-2 · 윤리 관점 고르기 <span class="tm">둘 이상</span></h4>
+      <p class="desc">이 논제에서 <b>무엇이 걸리는지</b> 관점을 고릅니다. <b>하나만 고르면 20점</b>입니다.</p>
+      <div class="vpick" id="dbViews"></div>
+      <span class="cnt" id="dbViewCnt"></span>
+
+      <div class="wsheet" style="margin-top:16px">
+        <label><b>A-3 · 첫 번째 관점에서 본 쟁점</b> — 고른 관점 하나를 잡고 「이 논제에서 무엇이 문제인가」
+          <textarea id="dbV1" rows="2" placeholder="예) 공정성 — 채용 인공지능은 과거 합격자 자료로 배우기 때문에, 그 자료에 있던 차별이 그대로 되풀이된다"></textarea></label>
+        <label><b>A-3 · 두 번째 관점에서 본 쟁점</b> — <i>여기까지 채워야 만점 조건</i>
+          <textarea id="dbV2" rows="2" placeholder="예) 책임성 — 떨어뜨린 이유를 회사도 설명하지 못하면, 잘못을 따질 사람이 사라진다"></textarea></label>
+        <label><b>A-4 · 주장</b> — 한 문장으로. 「무엇을 어떻게 해야 한다」가 드러나게
+          <textarea id="dbCl" rows="2" placeholder="예) 자율주행차는 탑승자보다 보행자의 안전을 우선해야 한다"></textarea></label>
+      </div>
+
+      <h4 class="step-h" style="margin-top:20px">A-5 · 근거 세 가지와 그 출처 <span class="tm">셋 다 출처</span></h4>
+      <p class="desc"><b>세 가지 모두</b>에 <b>기관 이름과 연도</b> 또는 <b>수치</b>를 붙여야 25점입니다.
+        둘만 붙이면 20점, 하나면 15점이에요.</p>
+      <div class="wsheet">
+        <label><b>근거 1</b>
+          <textarea id="dbR1" rows="2" placeholder="예) 아마존이 2018년에 채용 인공지능을 폐기했다 — 여성 지원자를 낮게 매겼기 때문"></textarea></label>
+        <label><b>근거 1의 출처</b> — 기관·연도 또는 수치
+          <input type="text" id="dbS1" placeholder="예) 로이터 보도 2018 / 국가인권위원회 2022 실태조사" autocomplete="off"></label>
+        <label><b>근거 2</b>
+          <textarea id="dbR2" rows="2" placeholder=""></textarea></label>
+        <label><b>근거 2의 출처</b>
+          <input type="text" id="dbS2" placeholder="" autocomplete="off"></label>
+        <label><b>근거 3</b>
+          <textarea id="dbR3" rows="2" placeholder=""></textarea></label>
+        <label><b>근거 3의 출처</b>
+          <input type="text" id="dbS3" placeholder="" autocomplete="off"></label>
+        <label><b>A-6 · 입론 발표 메모</b> — <b>원고가 아니라 키워드만</b>.
+          발표에서 원고를 읽으면 만점 조건을 놓칩니다
+          <textarea id="dbSp" rows="2" placeholder="예) 아마존 2018 폐기 → 인권위 조사 수치 → 설명 못 하면 책임도 없다"></textarea></label>
+      </div>
+
+      <div class="ask"><b>근거에 쓸 만한 것들</b>
+        국가 인공지능 윤리기준 <b>3대 원칙</b>(인간 존엄성 · 사회의 공공선 · 기술 합목적성) ·
+        <b>데이터/알고리즘 편향</b> 사례 · <b>인간 중심 인공지능</b> ·
+        개발자 · 운영관리자 · 사용자의 <b>세 가지 책임</b> — 아래 「핵심 용어」에 다 있습니다.</div>
+    </div>
+
+    <!-- ── B부 ── -->
+    <div data-dpp="1" hidden>
+      <p class="dphint">1·2차시에 씁니다.</p>
+      <div class="fullcond"><b>만점(25점) 조건</b><br>
+        질의와 답변을 <b>모두</b> 하고 · 질의에서 상대 논증의 <b>전제 또는 근거의 허점</b>을 지목하고 ·
+        답변에서 상대의 재질문에 <b>새로운 근거</b>를 들어 대응하면 25점</div>
+
+      <div class="wsheet">
+        <label><b>B-1 · 상대가 펼 주장</b> — 상대 자리에 앉았다고 생각하고 <b>가장 강한 형태로</b>
+          <textarea id="dbB1" rows="2" placeholder="약하게 적으면 준비도 약해집니다"></textarea></label>
+      </div>
+
+      <h4 class="step-h" style="margin-top:20px">B-2 · 찌를 질문 세 개 <span class="tm">허점 지목</span></h4>
+      <p class="desc">그냥 궁금한 것을 묻는 게 아닙니다.
+        <b>「상대 주장 → 그 전제나 근거의 허점 → 질문」</b> 순서로 적으세요.
+        세 개를 준비해야 하나가 막혀도 이어집니다.</p>
+      <div class="wsheet">
+        <label><b>질문 ①</b>
+          <textarea id="dbQ1" rows="2" placeholder="예) 상대는 «정확도가 높다»고 했는데, 그 정확도는 어떤 사람들 자료로 잰 것인가요?"></textarea></label>
+        <label><b>질문 ②</b>
+          <textarea id="dbQ2" rows="2" placeholder=""></textarea></label>
+        <label><b>질문 ③</b>
+          <textarea id="dbQ3" rows="2" placeholder=""></textarea></label>
+        <label><b>B-3 · 나에게 올 가장 강한 반론</b>
+          <textarea id="dbB3" rows="2" placeholder=""></textarea></label>
+        <label><b>B-4 · 재반박에 쓸 «새» 근거</b> —
+          A-5에 쓴 근거를 다시 말하는 것은 안 됩니다. <b>새 근거</b>여야 만점 조건이에요
+          <textarea id="dbB4" rows="2" placeholder=""></textarea></label>
+      </div>
+    </div>
+
+    <!-- ── C부 ── -->
+    <div data-dpp="2" hidden>
+      <p class="dphint">3·4차시 <b>토론 중에</b> 씁니다. 미리 인쇄해 두거나 이 화면을 열어 두세요.</p>
+      <div class="fullcond"><b>만점(25점) 조건</b><br>
+        토론 중 실제로 오간 논점을 <b>2가지 이상 인용</b>해 쟁점을 정리하고 ·
+        내 입장이 우위인 이유를 근거와 함께 제시하며 · <b>정해진 1분 안에</b> 마치면 25점</div>
+
+      <div class="wsheet">
+        <label><b>C-1 · 오간 논점 기록 ①</b> — <b>누가 무슨 말을 했는지</b> 들리는 대로
+          <textarea id="dbN1" rows="2" placeholder="예) 상대 3번이 «사람 면접관도 편견이 있다»고 했다"></textarea></label>
+        <label><b>C-2 · 오간 논점 기록 ②</b> — <b>두 개 이상</b> 있어야 만점. 하나면 20점, 없으면 15점
+          <textarea id="dbN2" rows="2" placeholder=""></textarea></label>
+      </div>
+
+      <h4 class="step-h" style="margin-top:20px">C-3 · 최종 정리 발언 원고 <span class="tm">1분 · 전원</span></h4>
+      <p class="desc">위 <b>C-1·C-2를 인용</b>하고, 내 입장이 나은 이유를 <b>근거와 함께</b> 씁니다.
+        <b>입론 문장을 그대로 옮기면 10점</b>입니다.
+        말하는 두 명뿐 아니라 <b>전원이 씁니다</b> — 말하지 않은 학생은 이 원고로 평가받아요.</p>
+      <div class="wsheet">
+        <label><b>원고</b> — 1분은 말로 <b>300~350자</b>
+          <textarea id="dbFn" rows="5" placeholder="예) 상대는 «사람 면접관도 편견이 있다»고 했습니다. 맞습니다. 다만 사람은 왜 떨어뜨렸는지 물어볼 수 있고…"></textarea>
+          <span class="cnt" id="dbFnCnt">0자</span></label>
+      </div>
+
+      <h4 class="step-h" style="margin-top:18px">C-4 · 나는 어느 쪽이었나</h4>
+      <div class="simctl">
+        <span class="pick" id="dbSpoke">
+          <button type="button" data-k="0" aria-pressed="false">최종 정리 발언을 말했다</button>
+          <button type="button" data-k="1" aria-pressed="false">원고로 냈다</button>
+        </span>
+      </div>
+    </div>
+
+    <!-- ── D부 ── -->
+    <div data-dpp="3" hidden>
+      <p class="dphint">토론이 끝난 뒤에 씁니다. <b>내가 토론하지 않은 차시</b>에 관찰한 것도 함께 넣으세요.</p>
+      <div class="fullcond"><b>만점(25점) 조건</b><br>
+        개발자·사용자·운영자 <b>세 관점에서 각각</b> 쟁점을 분석하고 ·
+        <b>자신이 반박당한 지점</b>을 밝혀 주장을 수정·보완하고 ·
+        실천 방안을 <b>「누가 무엇을 한다」</b>가 드러나게 <b>2가지 이상</b> 제시하면 25점</div>
+
+      <div class="wsheet">
+        <label><b>D-1 · 개발자 관점의 쟁점</b> — <b>만드는 쪽</b>이 마주하는 문제는?
+          <textarea id="dbP1" rows="2" placeholder=""></textarea></label>
+        <label><b>D-2 · 사용자 관점의 쟁점</b> — <b>쓰는 쪽</b>이 마주하는 문제는?
+          <textarea id="dbP2" rows="2" placeholder=""></textarea></label>
+        <label><b>D-3 · 운영·관리자 관점의 쟁점</b> — <b>도입하고 관리하는 쪽</b>이 마주하는 문제는?
+          <i>셋 다 있어야 25점, 둘이면 20점, 하나면 15점</i>
+          <textarea id="dbP3" rows="2" placeholder=""></textarea></label>
+        <label><b>D-4 · 내가 반박당한 지점</b> — 토론에서 <b>막혔던 순간</b>을 솔직히.
+          <i>이게 만점 조건입니다 — 숨기면 점수가 깎여요</i>
+          <textarea id="dbW1" rows="2" placeholder="예) «그럼 사람 면접관은 왜 괜찮냐»는 질문에 바로 답하지 못했다"></textarea></label>
+        <label><b>D-5 · 주장의 수정·보완</b> — 그래서 내 생각을 <b>어떻게 고쳤는지</b>
+          <textarea id="dbW2" rows="2" placeholder=""></textarea></label>
+        <label><b>D-6 · 실천 방안 ①</b> — <b>「누가 무엇을 한다」</b> 형태로
+          <textarea id="dbX1" rows="2" placeholder="예) 인공지능 개발자는 학습 자료의 성별 분포를 공개한다"></textarea></label>
+        <label><b>D-6 · 실천 방안 ②</b> — <i>「모두가 노력해야 한다」는 15점입니다</i>
+          <textarea id="dbX2" rows="2" placeholder="예) 학교는 채용 인공지능을 쓸 때 사람 면접을 반드시 함께 둔다"></textarea></label>
+      </div>
+    </div>
+
+    <div class="fillbar"><span id="dbFillN">0 / 26칸</span>
+      <span class="bar"><i id="dbFillB"></i></span></div>
 
     <h4 class="step-h" style="margin-top:22px">스스로 점검</h4>
     <div class="rubric" id="dbRub"></div>
@@ -1773,9 +1932,12 @@ footer a{font-weight:700}
           <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
           <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
         </span></label>
-      <label class="fld grow"><span>모둠 (또는 이름)</span>
-        <input type="text" id="dbGroup" placeholder="예) 3모둠 · 김다은" autocomplete="off"></label>
+      <label class="fld grow"><span>이름 (또는 모둠)</span>
+        <input type="text" id="dbGroup" placeholder="예) 3모둠 김다은" autocomplete="off"></label>
     </div>
+    <div class="note" style="margin-top:14px"><b>두 번 냅니다</b>
+      <b>2차시 끝</b>에 A·B부까지 한 번, <b>토론이 끝난 뒤</b> C·D부까지 채워 한 번 더.
+      <b>나중에 낸 것으로 채점</b>하니 두 번째에 앞부분을 고쳐 내도 됩니다.</div>
     <div class="simctl" style="margin-top:14px">
       <button type="button" class="mini" id="dbSend">선생님께 제출하기</button>
       <button type="button" class="mini gh" id="dbCopy">내용 복사</button>
@@ -1787,24 +1949,34 @@ footer a{font-weight:700}
 <section id="debate"><div class="wrap">
   <p class="eyebrow">수행평가 ①</p>
   <h2>인공지능 윤리 쟁점 토론</h2>
-  <p class="sub">9월 3주 · 모둠 대항 토너먼트 · <b>점수는 개인별</b>입니다.
-    팀이 져도 <b>내 발언으로 평가</b>받습니다.</p>
+  <p class="sub">9월 3주 · <b>모두 4차시</b> · 논제와 찬반은 <b>무작위 배정</b> ·
+    <b>점수는 개인별</b>입니다. 팀이 져도 <b>내 발언과 내 문서</b>로 평가받습니다.</p>
 
   <div class="g3">
-    <div class="mcard"><span>📝</span><b>준비</b><i>입론서 쓰기</i>
-      <p>논제를 고르고 위 <b>활동 ⑧</b>에서 입론서를 완성합니다. 채점 기준표는 준비 차시에 나눠 줍니다.</p></div>
-    <div class="mcard"><span>🗣️</span><b>토론</b><i>예선 → 결승</i>
-      <p>모둠 대항으로 진행합니다. <b>반론과 재반박</b>이 절반의 점수예요.</p></div>
-    <div class="mcard"><span>🤝</span><b>마무리</b><i>성찰문</i>
-      <p>토론이 끝나면 <b>인간-AI 공존 방안</b>을 담은 성찰문을 씁니다.</p></div>
+    <div class="mcard"><span>🎲</span><b>1차시</b><i>배정과 자료 찾기</i>
+      <p>반을 절반으로 나눠 <b>논제 두 개</b>를 배정하고, 그 안에서 <b>찬반을 무작위</b>로 뽑습니다.
+        채점기준표와 문서 양식을 받습니다.</p></div>
+    <div class="mcard"><span>📝</span><b>2차시</b><i>개별 문서 A·B부</i>
+      <p>위 <b>활동 ⑧</b>에서 <b>A부(입론)</b>와 <b>B부(질의 준비)</b>를 씁니다. 차시 끝에 <b>1차 제출</b>합니다.</p></div>
+    <div class="mcard"><span>🗣️</span><b>3·4차시</b><i>논제 하나씩 토론</i>
+      <p>3차시에 논제 ①, 4차시에 논제 ②를 <b>42분 흐름</b>대로 토론합니다.
+        내 차시가 아니면 <b>관찰·기록</b>을 하고, 끝나고 <b>C·D부까지 2차 제출</b>합니다.</p></div>
   </div>
+
+  <div class="ask" style="margin-top:16px"><b>한 차시 42분 흐름</b>
+    찬성 입론 <b>8분</b> → 반대 질문·찬성 응답 <b>10분</b> → 찬성 최종 정리 <b>2분</b> →
+    정리 <b>2분</b> → 반대 입론 <b>8분</b> → 찬성 질문·반대 응답 <b>10분</b> → 반대 최종 정리 <b>2분</b>.
+    <a href="https://richee-pc.github.io/AI_cs/debate.html#timeline" style="font-weight:800">
+      진행 타이머와 1인당 시간 보기 →</a></div>
 
   <h3 class="step-h" style="margin-top:22px">논제와 이 단원의 연결</h3>
   <div class="tw"><table id="dbMap"></table></div>
 
-  <div class="note" style="margin-top:16px"><b>세부 안내는 확정 후 공개합니다</b>
-    채점 기준표와 진행 방식, 논제 목록은 교과협의회에서 확정한 뒤 안내합니다.
-    평가 2주 전에는 반드시 알려 드립니다.</div>
+  <div class="note" style="margin-top:16px"><b>세부 안내는 모두 공개되어 있습니다</b>
+    채점기준표 <b>5단계 전문</b>, 논제 <b>열 가지</b>, 발언권 카드, 개별 문서 양식,
+    인공지능 활용 규칙이 수행평가 안내 페이지에 있습니다.
+    <a href="https://richee-pc.github.io/AI_cs/debate.html" style="font-weight:800">
+      수행평가 ① 인공지능 윤리 토론 안내 열기 →</a></div>
 </div></section>
 
 <section id="terms"><div class="wrap">
@@ -1862,8 +2034,12 @@ var U3 = { tl:[], jb:{}, bi:[], biAt:0, dl:[0,0], ck:[], ckAt:0, tech:0,
            s1a:'', s1b:'', s1c:'', s3job:'', s3vis:'', s3life:['','','',''],
            s3fut:'', s3cap:'', s4g:'', s4b:'', s4h:'',
            s6why:'', s6other:'', s6change:'',
-           topic:-1, side:-1, d1:'', d2:'', d3:'', d4:'', d5:'', d6:'',
-           rub:['','',''], cls:'', group:'' };
+           topic:-1, side:-1, views:[], spoke:-1,
+           v1:'', v2:'', cl:'', r1:'', s1:'', r2:'', s2:'', r3:'', s3:'', sp:'',
+           b1:'', q1:'', q2:'', q3:'', b3:'', b4:'',
+           n1:'', n2:'', fn:'',
+           p1:'', p2:'', p3:'', w1:'', w2:'', x1:'', x2:'',
+           rub:['','','',''], cls:'', group:'' };
 try{ var _s = JSON.parse(localStorage.getItem(KEY)); if(_s) for(var k in _s) if(k in U3) U3[k] = _s[k]; }catch(e){}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(U3)); }catch(e){} }
 
@@ -1885,7 +2061,7 @@ var FLOW = [
   ['5','Ⅲ-03 인공지능 활용의 장단점','156~157쪽','자율주행 · 의료 · 챗봇','활동 ⑤ 장단점 저울'],
   ['6','Ⅲ-03 인간과 인공지능의 공존','158~161쪽','인간 중심 인공지능 · 공존 방안','활동 ⑤ 마무리 칸'],
   ['7','Ⅲ-04 편향성과 윤리적 딜레마','162~169쪽','데이터/알고리즘 편향 · 딜레마','활동 ⑥ 편향성 · ⑦ 딜레마'],
-  ['8','Ⅲ-04 윤리 기준과 사회적 책임','170~177쪽','국가 AI 윤리기준 · 개발자·관리자·사용자','활동 ⑧ 토론 입론서']
+  ['8','Ⅲ-04 윤리 기준과 사회적 책임','170~177쪽','국가 AI 윤리기준 · 개발자·관리자·사용자','활동 ⑧ 개별 문서']
 ];
 (function(){
   var t = $('u3flow'); if(!t) return;
@@ -2211,7 +2387,10 @@ var DILEMMA = [
   draw();
 })();
 
-/* ══ ⑧ 토론 입론서 ════════════════════════════════════════ */
+/* ══ ⑧ 개별 문서 (A~D부) ══════════════════════════════════
+   칸 하나하나가 채점기준표의 «25점(만점) 조건»에서 나왔다.
+   FIELDS 의 순서가 곧 제출 시트의 열 순서다 — 여기를 고치면
+   제출연동_코드.gs 의 debate.head / debate.row 도 같이 고쳐야 한다. */
 var TOPICS = [
   { t:'AI 디지털교과서를 학교 수업에 도입해야 하는가', l:'교육 · Ⅲ-02 맞춤형 서비스 · Ⅲ-04 편향성' },
   { t:'학교 과제에 생성형 AI 사용을 허용해야 하는가', l:'학습 윤리 · Ⅲ-04 사용자 윤리' },
@@ -2224,13 +2403,34 @@ var TOPICS = [
   { t:'인공지능 챗봇이 청소년 정신건강 상담을 맡아도 되는가', l:'의료 · Ⅲ-03 인간 중심 AI' },
   { t:'딥페이크 제작 도구 자체를 법으로 금지해야 하는가', l:'디지털 성범죄 · Ⅲ-04 딜레마' }
 ];
+var VIEWS = ['투명성', '공정성', '책임성', '인간 존엄성', '사회의 공공선'];
+/* [입력칸 id, 상태 이름, 사람이 읽을 이름] — 26칸 */
+var FIELDS = [
+  ['dbV1','v1','A-3 첫 관점 쟁점'], ['dbV2','v2','A-3 둘째 관점 쟁점'],
+  ['dbCl','cl','A-4 주장'],
+  ['dbR1','r1','A-5 근거 1'], ['dbS1','s1','근거 1 출처'],
+  ['dbR2','r2','A-5 근거 2'], ['dbS2','s2','근거 2 출처'],
+  ['dbR3','r3','A-5 근거 3'], ['dbS3','s3','근거 3 출처'],
+  ['dbSp','sp','A-6 입론 발표 메모'],
+  ['dbB1','b1','B-1 상대가 펼 주장'],
+  ['dbQ1','q1','B-2 질문 ①'], ['dbQ2','q2','B-2 질문 ②'], ['dbQ3','q3','B-2 질문 ③'],
+  ['dbB3','b3','B-3 나에게 올 반론'], ['dbB4','b4','B-4 재반박 새 근거'],
+  ['dbN1','n1','C-1 오간 논점 ①'], ['dbN2','n2','C-2 오간 논점 ②'],
+  ['dbFn','fn','C-3 최종 정리 발언 원고'],
+  ['dbP1','p1','D-1 개발자 관점'], ['dbP2','p2','D-2 사용자 관점'], ['dbP3','p3','D-3 운영·관리자 관점'],
+  ['dbW1','w1','D-4 반박당한 지점'], ['dbW2','w2','D-5 주장 수정·보완'],
+  ['dbX1','x1','D-6 실천 방안 ①'], ['dbX2','x2','D-6 실천 방안 ②']
+];
 var RUB = [
-  '논제와 관련된 Ⅲ단원 개념을 근거로 썼는가?',
-  '상대의 반론을 가장 강한 형태로 예상했는가?',
-  '사람이 할 일(공존 방안)까지 제시했는가?'
+  '윤리 관점을 <b>두 가지 이상</b>으로 나누어 썼는가?',
+  '근거 <b>세 가지 모두</b>에 출처(기관·연도 또는 수치)를 붙였는가?',
+  '토론에서 <b>오간 논점 두 가지</b>를 인용해 원고를 썼는가?',
+  '실천 방안을 <b>「누가 무엇을 한다」</b>로 두 가지 이상 썼는가?'
 ];
 (function(){
   var box = $('dbTopic'); if(!box) return;
+
+  /* ── 논제 ── */
   function drawTopic(){
     box.innerHTML = TOPICS.map(function(t, i){
       return '<button type="button" class="tp' + (U3.topic === i ? ' on' : '') + '" data-i="' + i + '">' +
@@ -2239,10 +2439,11 @@ var RUB = [
   }
   box.addEventListener('click', function(e){
     var b = e.target.closest('button[data-i]'); if(!b) return;
-    U3.topic = +b.getAttribute('data-i'); save(); drawTopic();
+    U3.topic = +b.getAttribute('data-i'); save(); drawTopic(); fill();
   });
   drawTopic();
 
+  /* ── 입장 ── */
   var side = $('dbSide');
   function drawSide(){
     [].slice.call(side.children).forEach(function(b){
@@ -2253,15 +2454,87 @@ var RUB = [
   }
   side.addEventListener('click', function(e){
     var b = e.target.closest('button[data-s]'); if(!b) return;
-    U3.side = +b.getAttribute('data-s'); save(); drawSide();
+    U3.side = +b.getAttribute('data-s'); save(); drawSide(); fill();
   });
   drawSide();
 
-  ['d1','d2','d3','d4','d5','d6'].forEach(function(f){ bind(f, f); });
+  /* ── A~D부 탭 ── */
+  var tabs = [].slice.call(document.querySelectorAll('.dpb[data-dp]'));
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var k = t.getAttribute('data-dp');
+      tabs.forEach(function(o){ o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+      [].slice.call(document.querySelectorAll('[data-dpp]')).forEach(function(p){
+        p.hidden = p.getAttribute('data-dpp') !== k;
+      });
+    });
+  });
 
+  /* ── 윤리 관점 (여러 개 고를 수 있다) ── */
+  var vb = $('dbViews');
+  function drawViews(){
+    vb.innerHTML = VIEWS.map(function(v){
+      return '<button type="button" data-v="' + esc(v) + '" aria-pressed="' +
+        (U3.views.indexOf(v) >= 0 ? 'true' : 'false') + '">' + esc(v) + '</button>';
+    }).join('');
+    var c = $('dbViewCnt'), n = U3.views.length;
+    c.textContent = n === 0 ? '아직 고르지 않았습니다' :
+      (n + '가지 고름 — ' + U3.views.join(' · ') + (n < 2 ? '  (하나 더 골라야 만점 조건)' : '  만점 조건 충족'));
+    c.className = 'cnt' + (n >= 2 ? ' ok' : '');
+  }
+  vb.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-v]'); if(!b) return;
+    var v = b.getAttribute('data-v'), k = U3.views.indexOf(v);
+    if(k >= 0) U3.views.splice(k, 1); else U3.views.push(v);
+    save(); drawViews(); fill();
+  });
+  drawViews();
+
+  /* ── 글칸 ── */
+  FIELDS.forEach(function(f){ bind(f[0], f[1]); });
+  FIELDS.forEach(function(f){
+    var el = $(f[0]); if(el) el.addEventListener('input', fill);
+  });
+
+  /* 최종 정리 발언 원고 글자 수 (1분 ≒ 300~350자) */
+  var fnEl = $('dbFn'), fnC = $('dbFnCnt');
+  function drawFn(){
+    var n = (U3.fn || '').replace(/\s/g, '').length;
+    fnC.textContent = n + '자' + (n === 0 ? '' : n < 300 ? '  — 1분을 채우려면 300자 이상' :
+      n <= 380 ? '  — 1분에 딱 맞습니다' : '  — 1분을 넘길 수 있어요');
+    fnC.className = 'cnt' + (n >= 300 && n <= 380 ? ' ok' : (n > 380 ? ' over' : ''));
+  }
+  if(fnEl){ fnEl.addEventListener('input', drawFn); drawFn(); }
+
+  /* ── C-4 말했는가 / 원고인가 ── */
+  var spk = $('dbSpoke');
+  function drawSpoke(){
+    [].slice.call(spk.children).forEach(function(b){
+      b.setAttribute('aria-pressed', +b.getAttribute('data-k') === U3.spoke ? 'true' : 'false');
+    });
+  }
+  spk.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-k]'); if(!b) return;
+    U3.spoke = +b.getAttribute('data-k'); save(); drawSpoke();
+  });
+  drawSpoke();
+
+  /* ── 얼마나 채웠나 ── */
+  function fill(){
+    var n = 0;
+    FIELDS.forEach(function(f){ if((U3[f[1]] || '').trim()) n++; });
+    var pct = Math.round(n / FIELDS.length * 100);
+    $('dbFillN').textContent = n + ' / ' + FIELDS.length + '칸';
+    var b = $('dbFillB');
+    b.style.width = pct + '%';
+    b.className = n === FIELDS.length ? 'full' : '';
+  }
+  fill();
+
+  /* ── 스스로 점검 ── */
   var rb = $('dbRub');
   rb.innerHTML = RUB.map(function(t, i){
-    return '<label class="rbl"><span>' + esc(t) + '</span>' +
+    return '<label class="rbl"><span>' + t + '</span>' +
       '<span class="pick rbp" data-i="' + i + '">' +
       ['아직','조금','충분히'].map(function(v, k){
         return '<button type="button" data-v="' + k + '" aria-pressed="' +
@@ -2277,6 +2550,7 @@ var RUB = [
     });
   });
 
+  /* ── 분반 · 이름 ── */
   $('dbGroup').value = U3.group || '';
   $('dbGroup').addEventListener('input', function(){ U3.group = this.value; save(); });
   $('dbCls').addEventListener('click', function(e){
@@ -2291,20 +2565,22 @@ var RUB = [
     if(cb) cb.setAttribute('aria-pressed', 'true');
   }
 
+  /* ── 복사용 글 ── */
   function report(){
-    var t = U3.topic >= 0 ? TOPICS[U3.topic].t : '(논제 미선택)';
-    var sd = U3.side === 0 ? '찬성' : (U3.side === 1 ? '반대' : '(입장 미선택)');
-    return ['════════ 토론 입론서 ════════',
-      '수행평가 ① 인공지능 윤리 쟁점 토론', '',
-      '분반 : ' + (U3.cls || '(미선택)'), '모둠 : ' + (U3.group || '(미입력)'), '',
-      '논제 : ' + t, '입장 : ' + sd, '',
-      '주장 : ' + (U3.d1 || '(미작성)'),
-      '근거 1 : ' + (U3.d2 || '(미작성)'),
-      '근거 2 : ' + (U3.d3 || '(미작성)'),
-      '예상 반론 : ' + (U3.d4 || '(미작성)'),
-      '재반박 : ' + (U3.d5 || '(미작성)'),
-      '공존 방안 : ' + (U3.d6 || '(미작성)'),
-      '══════════════════════════════════'].join('\n');
+    var L = ['════════ 수행평가 ① 개별 문서 ════════',
+      '인공지능 윤리 토론', '',
+      '분반 : ' + (U3.cls || '(미선택)'),
+      '이름 : ' + (U3.group || '(미입력)'), '',
+      '논제 : ' + (U3.topic >= 0 ? TOPICS[U3.topic].t : '(미선택)'),
+      '입장 : ' + (U3.side === 0 ? '찬성' : U3.side === 1 ? '반대' : '(미선택)'),
+      '윤리 관점 : ' + (U3.views.length ? U3.views.join(' · ') : '(미선택)'), ''];
+    FIELDS.forEach(function(f){
+      L.push(f[2] + ' : ' + ((U3[f[1]] || '').trim() || '(미작성)'));
+    });
+    L.push('');
+    L.push('최종 정리 발언 : ' + (U3.spoke === 0 ? '직접 말함' : U3.spoke === 1 ? '원고 제출' : '(미선택)'));
+    L.push('══════════════════════════════════');
+    return L.join('\n');
   }
   function clip(txt, btn){
     var ok = function(){ btn.textContent = '복사했어요';
@@ -2315,28 +2591,36 @@ var RUB = [
   }
   function manual(txt, btn){
     var ta = document.createElement('textarea');
-    ta.value = txt; ta.readOnly = true; ta.className = 'copyout'; ta.rows = 10;
+    ta.value = txt; ta.readOnly = true; ta.className = 'copyout'; ta.rows = 12;
     btn.parentElement.appendChild(ta); ta.select();
     btn.textContent = '아래에서 직접 복사';
   }
   $('dbCopy').addEventListener('click', function(){ clip(report(), this); });
 
+  /* ── 제출 ── */
   $('dbSend').addEventListener('click', function(){
     var btn = this, msg = $('dbSendMsg');
-    if(U3.topic < 0){ msg.className = 'sendmsg wait'; msg.textContent = '논제를 먼저 고르세요'; return; }
-    if(U3.side < 0){ msg.className = 'sendmsg wait'; msg.textContent = '입장을 골라 주세요'; return; }
-    if(!U3.cls){ msg.className = 'sendmsg wait'; msg.textContent = '분반을 골라 주세요'; return; }
-    if(!(U3.group || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '모둠(또는 이름)을 적어 주세요'; return; }
-    if(!(U3.d1 || '').trim()){ msg.className = 'sendmsg wait'; msg.textContent = '주장을 먼저 적어 주세요'; return; }
+    function stop(t){ msg.className = 'sendmsg wait'; msg.textContent = t; }
+    if(U3.topic < 0) return stop('배정받은 논제를 골라 주세요');
+    if(U3.side < 0) return stop('배정받은 입장을 골라 주세요');
+    if(!U3.cls) return stop('분반을 골라 주세요');
+    if(!(U3.group || '').trim()) return stop('이름을 적어 주세요');
+    if(!(U3.cl || '').trim()) return stop('A-4 주장을 먼저 적어 주세요');
     btn.disabled = true;
     msg.className = 'sendmsg wait'; msg.textContent = '보내는 중…';
-    var body = JSON.stringify({
-      key:SUBMIT_KEY, type:'debate', cls:U3.cls, group:U3.group.trim(),
-      topic:TOPICS[U3.topic].t, side:(U3.side === 0 ? '찬성' : '반대'),
-      claim:U3.d1, r1:U3.d2, r2:U3.d3, counter:U3.d4, rebut:U3.d5, coexist:U3.d6
-    });
+
+    var done = 0;
+    FIELDS.forEach(function(f){ if((U3[f[1]] || '').trim()) done++; });
+    var d = { key:SUBMIT_KEY, type:'debate', cls:U3.cls, group:U3.group.trim(),
+              topic:TOPICS[U3.topic].t, side:(U3.side === 0 ? '찬성' : '반대'),
+              views:U3.views.join(' · '),
+              spoke:(U3.spoke === 0 ? '직접 말함' : U3.spoke === 1 ? '원고 제출' : ''),
+              done:done + ' / ' + FIELDS.length };
+    FIELDS.forEach(function(f){ d[f[1]] = U3[f[1]] || ''; });
+    var body = JSON.stringify(d);
+
     var good = function(x){ msg.className = 'sendmsg ok';
-      msg.textContent = '제출했습니다' + (x || '');
+      msg.textContent = '제출했습니다 (' + done + '/' + FIELDS.length + '칸)' + (x || '');
       btn.textContent = '다시 제출하기'; btn.disabled = false; };
     var bad = function(){ msg.className = 'sendmsg bad';
       msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
