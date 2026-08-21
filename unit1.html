@@ -7586,7 +7586,10 @@ while open_list:
       }
       btn.disabled = true;
       msg.className = 'sendmsg wait'; msg.textContent = '불러오는 중…';
-      fetch(SUBMIT_URL + '?list=rulegame&key=' + encodeURIComponent(SUBMIT_KEY))
+      /* 같은 주소를 그대로 부르면 예전 응답이 캐시에서 나올 수 있다.
+             (실제로 재배포 직후 옛 버전 응답이 돌아온 적이 있다) */
+          fetch(SUBMIT_URL + '?list=rulegame&key=' + encodeURIComponent(SUBMIT_KEY) +
+                '&t=' + Date.now())
         .then(function(r){ return r.json(); })
         .then(function(j){
           btn.disabled = false;
