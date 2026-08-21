@@ -53,7 +53,7 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
   --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
-  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --disp:'AIDisp','AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
     system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -95,7 +95,11 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
 html{scroll-behavior:smooth}
 body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
   font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
-  -webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;
+  /* 한국어는 어절을 통째로 넘긴다. 이게 없으면 «진행됩니 / 다» 처럼
+     낱말 한가운데가 잘려 문장이 깨져 보인다.
+     아주 긴 주소나 영어 낱말만 anywhere 로 흘려보낸다. */
+  word-break:keep-all; overflow-wrap:anywhere}
 .wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
 .n{font-variant-numeric:tabular-nums}
 ::selection{background:var(--blue); color:#fff}
@@ -124,7 +128,7 @@ h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem);
   margin:0 0 16px; color:var(--blue-d)}
 h1 em{font-style:normal; display:block; color:var(--ink)}
 .lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
-.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(132px,100%),1fr)); gap:11px; margin-top:30px}
 .fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
   box-shadow:var(--sh)}
 .fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
@@ -144,8 +148,8 @@ b,strong{font-weight:700; color:var(--ink)}
 
 .card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:24px; box-shadow:var(--sh)}
-.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px}
-.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:13px}
 .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
   border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
 table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
@@ -211,7 +215,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
   background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
 .chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
-.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:10px 0}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:10px; margin:10px 0}
 .four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
 .four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
 .four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
@@ -348,7 +352,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .wsline input:focus{outline:2px solid var(--blue); outline-offset:1px}
 .wsline input.good{border-color:var(--good); background:var(--good-bg)}
 .wsline input.bad{border-color:var(--warm); background:var(--warm-bg)}
-.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:10px; margin:10px 0}
 .wsans{margin-top:12px; padding:13px 16px; border-radius:14px; background:var(--good-bg);
   border:1px solid var(--good); font-size:0.9062rem; line-height:1.7; color:var(--ink)}
 .wsans b{color:var(--good)}
@@ -380,7 +384,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
 
 /* ── 용어 ────────────────────────────────── */
-.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:13px}
 .term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
 .term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
 .term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
@@ -421,7 +425,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   background:var(--blue-xl); border-radius:99px; padding:8px 16px}
 
 /* ① AI 판별 카드 */
-.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-bottom:16px}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:10px; margin-bottom:16px}
 .acard{text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:600; line-height:1.5;
   background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:13px 15px;
   color:var(--ink); cursor:pointer; transition:.15s; position:relative}
@@ -439,7 +443,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   margin-top:8px; padding-top:8px; border-top:1px dashed var(--line)}
 
 /* ② 튜링 테스트 */
-.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:12px}
 .steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
 .steps3 b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
 .steps3 span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
@@ -457,7 +461,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 .qall{margin:12px 0 0; padding-left:22px; font-size:0.875rem; color:var(--ink2); line-height:1.85}
 
 /* ③ 네 가지 특성 */
-.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px}
 .tcell{text-align:left; font-family:var(--sans); background:var(--tint);
   border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
 .tcell:hover{border-color:var(--blue-l)}
@@ -553,14 +557,19 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 .rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
   background:var(--fill); border-radius:99px; padding:4px 13px}
 .frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
-.fld{flex:0 1 220px; display:block}
+/* min-width:0 이 없으면 안에 든 글자 길이만큼 칸이 버텨서
+   좁은 화면에서 줄 전체가 화면 밖으로 밀려난다. */
+.fld{flex:0 1 220px; display:block; min-width:0}
 .fld.grow{flex:1 1 260px}
 .fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
   color:var(--blue-d); margin-bottom:6px}
-.fld input, .fld textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+.fld input, .fld textarea, .fld select{width:100%; max-width:100%; box-sizing:border-box;
+  font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
   color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
   padding:11px 14px; resize:vertical}
-.fld input:focus, .fld textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.fld select{padding-right:10px}
+.fld input:focus, .fld textarea:focus, .fld select:focus{outline:none;
+  border-color:var(--blue); background:var(--white)}
 .fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
 .secretbox{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px;
   background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px; padding:14px 18px}
@@ -578,7 +587,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 table.tlog{min-width:520px; font-size:0.875rem}
 table.tlog td.q{font-weight:700; color:var(--blue-d); white-space:normal; min-width:150px}
 table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-nums; color:var(--muted)}
-.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0}
+.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:12px; margin:16px 0}
 .vbtn{display:block; text-align:left; font-family:var(--sans); background:var(--tint);
   border:2px solid var(--line); border-radius:16px; padding:16px 18px; cursor:pointer; transition:.15s}
 .vbtn:hover{border-color:var(--blue-l); background:var(--white)}
@@ -723,7 +732,7 @@ pre .k{color:var(--blue-d); font-weight:700}
 pre .s{color:var(--good)}
 
 /* ── 영상 ───────────────────────────────── */
-.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:12px}
 .vid{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
   box-shadow:var(--sh); display:flex; gap:12px; align-items:flex-start}
 .vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
@@ -734,7 +743,7 @@ pre .s{color:var(--good)}
 
 /* 슬라이드 안 이미지 */
 .slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
-.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:11px 0}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:12px; margin:11px 0}
 .imgrow figure{margin:0}
 .side{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; align-items:center; margin:11px 0}
 .side figure{margin:0}
@@ -745,7 +754,7 @@ pre .s{color:var(--good)}
 /* 탐색 설명 옆 낱말 카드 */
 .wordh{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
   margin:18px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
-.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:10px}
 .wd{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:13px 16px}
 .wd.key{background:var(--blue-xl); border-color:var(--blue-l)}
 .wd>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
@@ -886,7 +895,7 @@ body.ovbig-on{overflow:hidden}
 :root[data-theme="light"] .pz3 i{background:#F2D9A8; color:#5A3A0A}
 :root[data-theme="light"] .pz3 i.e{background:#FFFFFF}
 
-.btree{display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:8px; min-width:560px}
+.btree{display:grid; grid-template-columns:repeat(6,minmax(min(84px,100%),1fr)); gap:8px; min-width:560px}
 .bnode{background:var(--tint); border:2px solid var(--line); border-radius:12px;
   padding:6px 4px; text-align:center; transition:.15s}
 .bnode>b{display:block; font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--ink2)}
@@ -944,13 +953,13 @@ table.ftab tr.pick td b{color:var(--good)}
 .pzbar>i.full{background:var(--good)}
 
 /* 키워드 띠 */
-.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px; margin:0 0 20px}
+.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr)); gap:9px; margin:0 0 20px}
 .kw{background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:14px; padding:11px 13px}
 .kw>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d)}
 .kw>span{display:block; font-size:0.7812rem; color:var(--ink2); line-height:1.5; margin-top:2px}
 
 /* 수행 작업 비교 */
-.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:12px}
 .cmpc{font-family:var(--sans); background:var(--tint); border:2px solid var(--line);
   border-radius:16px; padding:14px; cursor:pointer; transition:.15s}
 .cmpc:hover{border-color:var(--blue-l)}
@@ -1033,7 +1042,7 @@ table.ftab tr.pick td b{color:var(--good)}
   border-radius:5px; padding:1px 5px}
 
 /* 보기 버튼 (추론 게임) */
-.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px}
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:9px}
 .mopts button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; line-height:1.45;
   padding:13px 12px; border-radius:13px; border:2px solid var(--line); background:var(--tint);
   color:var(--ink); cursor:pointer; transition:.15s}
@@ -1102,7 +1111,7 @@ table.ftab tr.pick td b{color:var(--good)}
   background:var(--blue-xl); color:var(--blue-d); font-size:0.6875rem; font-weight:800; width:auto}
 /* 게임 종류 고르기 */
 /* 만드는 순서 ① ② ③ */
-.gsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px;
+.gsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px;
   list-style:none; margin:0 0 18px; padding:0; counter-reset:gs}
 .gsteps li{counter-increment:gs; position:relative; padding:12px 14px 12px 46px;
   background:var(--tint); border:1px solid var(--line); border-radius:14px}
@@ -1129,7 +1138,7 @@ table.ftab tr.pick td b{color:var(--good)}
   background:var(--tint); color:var(--ink); resize:vertical}
 .peerbox textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
 .peerbox .sendmsg{display:block; margin-top:8px}
-.kindbar{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:8px; margin-bottom:12px}
+.kindbar{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(128px,100%),1fr)); gap:8px; margin-bottom:12px}
 .kbtn{display:flex; flex-direction:column; align-items:center; gap:3px; padding:11px 8px;
   font-family:var(--sans); font-size:0.8125rem; font-weight:800; line-height:1.3;
   color:var(--ink2); background:var(--white); border:2px solid var(--line); border-radius:14px; cursor:pointer}
@@ -1166,7 +1175,7 @@ table.ftab tr.pick td b{color:var(--good)}
 .guessrow input{flex:1 1 200px; font-family:var(--sans); font-size:0.9375rem; padding:9px 12px;
   border:1.5px solid var(--line); border-radius:11px; background:var(--white); color:var(--ink)}
 .guessrow input:focus{outline:none; border-color:var(--blue)}
-.oxwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:14px}
+.oxwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:10px; margin-bottom:14px}
 .oxcol{border-radius:14px; padding:12px 14px; border:2px solid var(--line); background:var(--white)}
 .oxcol>b{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:800; margin-bottom:7px}
 .oxcol span{display:block; font-family:var(--sans); font-size:0.9375rem; line-height:1.7; color:var(--ink)}

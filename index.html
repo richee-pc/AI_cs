@@ -54,7 +54,7 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
   --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
-  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --disp:'AIDisp','AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
     system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -105,7 +105,11 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
 html{scroll-behavior:smooth}
 body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
   font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
-  -webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;
+  /* 한국어는 어절을 통째로 넘긴다. 이게 없으면 «진행됩니 / 다» 처럼
+     낱말 한가운데가 잘려 문장이 깨져 보인다.
+     아주 긴 주소나 영어 낱말만 anywhere 로 흘려보낸다. */
+  word-break:keep-all; overflow-wrap:anywhere}
 .wrap{max-width:min(94vw,60rem); margin:0 auto; padding:0 22px}
 .n{font-variant-numeric:tabular-nums}
 ::selection{background:var(--blue); color:#fff}
@@ -144,7 +148,7 @@ h1{font-family:var(--disp); font-weight:400; font-size:clamp(2.375rem,8.4vw,4.5r
   letter-spacing:-.01em; margin:0 0 20px; color:var(--blue-d); text-wrap:balance}
 h1 em{font-style:normal; display:block; color:var(--ink)}
 .lede{font-size:clamp(0.9688rem,2.2vw,1.125rem); color:var(--ink2); margin:0; max-width:50ch; line-height:1.78}
-.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-top:38px}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr)); gap:12px; margin-top:38px}
 .stat{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:18px 20px;
   box-shadow:var(--sh)}
 .stat b{display:block; font-family:var(--disp); font-weight:400; font-size:2.25rem; line-height:1;
@@ -168,7 +172,7 @@ b,strong{font-weight:700; color:var(--ink)}
 /* ── card / table ────────────────────────── */
 .card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:26px; box-shadow:var(--sh)}
-.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(288px,1fr)); gap:16px}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(288px,100%),1fr)); gap:16px}
 .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
   border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
 table{border-collapse:collapse; width:100%; min-width:460px; font-size:0.9062rem}
@@ -205,7 +209,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 }
 
 /* ── months ──────────────────────────────── */
-.months{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px}
+.months{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr)); gap:16px}
 .mc{position:relative; overflow:hidden; background:var(--white); border:1px solid var(--line);
   border-radius:var(--r); padding:24px 26px; box-shadow:var(--sh); transition:.2s}
 .mc:hover{box-shadow:var(--sh2); transform:translateY(-3px)}
@@ -234,7 +238,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .legend{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px}
 
 /* ── 링크 카드 ───────────────────────────── */
-.links{display:grid; grid-template-columns:repeat(auto-fit,minmax(226px,1fr)); gap:13px}
+.links{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(226px,100%),1fr)); gap:13px}
 .link{display:flex; align-items:center; gap:14px; text-decoration:none; padding:18px 20px;
   border-radius:var(--r); border:1px solid var(--line); background:var(--white);
   box-shadow:var(--sh); color:var(--ink); transition:.18s}
@@ -352,7 +356,7 @@ summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
 details p{padding:0 22px 18px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 
 /* ── steps ───────────────────────────────── */
-.steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(206px,1fr)); gap:14px}
+.steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(206px,100%),1fr)); gap:14px}
 .step{background:var(--white); border:1px solid var(--line); border-radius:var(--r); padding:22px;
   box-shadow:var(--sh); transition:.2s}
 .step:hover{transform:translateY(-3px); box-shadow:var(--sh2)}
@@ -375,7 +379,7 @@ details p{padding:0 22px 18px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   border-radius:99px; white-space:nowrap}
 .qtext{font-family:var(--disp); font-weight:400; font-size:clamp(1.4375rem,3.6vw,2.25rem); line-height:1.45;
   margin:0 0 28px; text-wrap:balance; color:var(--ink)}
-.qopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:12px}
+.qopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(258px,100%),1fr)); gap:12px}
 .qopt{display:flex; gap:14px; align-items:flex-start; padding:18px 21px; border-radius:18px;
   border:1px solid var(--line); background:var(--tint);
   font-size:clamp(0.9688rem,2vw,1.125rem); line-height:1.55; transition:.22s}
@@ -613,8 +617,8 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
     <div class="tw"><table>
       <tr><th style="width:38%">일정</th><th>날짜</th></tr>
       <tr><td>총 차시</td><td class="d">50차시 (수 · 목 · 금)</td></tr>
-      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/9 · 9/10</td></tr>
-      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/11 · 9/16</b></td></tr>
+      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/9 (수) · 9/10 (목)</td></tr>
+      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/11 (금) · 9/16 (수)</b></td></tr>
       <tr><td>1차 정기고사</td><td class="d">10/2 (금), 10/6 (화) ~ 10/8 (목)</td></tr>
       <tr><td>AI 집중 수업 ① 데이터 분석</td><td class="d">10/15 · 10/16 · 10/21 · 10/22</td></tr>
       <tr><td>AI 집중 수업 ② 모델 만들기</td><td class="d">10/23 · 10/28 · 10/29 · 10/30</td></tr>
@@ -630,8 +634,8 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
     <div class="tw"><table>
       <tr><th style="width:38%">일정</th><th>날짜</th></tr>
       <tr><td>총 차시</td><td class="d">49차시 (월 · 화 · 금)</td></tr>
-      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/8 · 9/11</td></tr>
-      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/14 · 9/15</b></td></tr>
+      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/8 (화) · 9/11 (금)</td></tr>
+      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/14 (월) · 9/15 (화)</b></td></tr>
       <tr><td>1차 정기고사</td><td class="d">10/2 (금), 10/6 (화) ~ 10/8 (목)</td></tr>
       <tr><td>AI 집중 수업 ① 데이터 분석</td><td class="d">10/12 · 10/13 · 10/16 · 10/19</td></tr>
       <tr><td>AI 집중 수업 ② 모델 만들기</td><td class="d">10/23 · 10/26 · 10/27 · 10/30</td></tr>
@@ -647,8 +651,8 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
     <div class="tw"><table>
       <tr><th style="width:38%">일정</th><th>날짜</th></tr>
       <tr><td>총 차시</td><td class="d">50차시 (월 · 화 · 목)</td></tr>
-      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/8 · 9/10</td></tr>
-      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/14 · 9/15</b></td></tr>
+      <tr><td>수행평가 ① 준비 (11·12차시)</td><td class="d">9/8 (화) · 9/10 (목)</td></tr>
+      <tr><td><b>수행평가 ① 토론 (13·14차시)</b></td><td class="d"><b>9/14 (월) · 9/15 (화)</b></td></tr>
       <tr><td>1차 정기고사</td><td class="d">10/2 (금), 10/6 (화) ~ 10/8 (목)</td></tr>
       <tr><td>AI 집중 수업 ① 데이터 분석</td><td class="d">10/12 · 10/13 · 10/15 · 10/19</td></tr>
       <tr><td>AI 집중 수업 ② 모델 만들기</td><td class="d">10/22 · 10/26 · 10/27 · 10/29</td></tr>

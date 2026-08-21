@@ -53,7 +53,7 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
   --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
   --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
   --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
-  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --disp:'AIDisp','AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
   --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
     system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -95,7 +95,11 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
 html{scroll-behavior:smooth}
 body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
   font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
-  -webkit-font-smoothing:antialiased}
+  -webkit-font-smoothing:antialiased;
+  /* 한국어는 어절을 통째로 넘긴다. 이게 없으면 «진행됩니 / 다» 처럼
+     낱말 한가운데가 잘려 문장이 깨져 보인다.
+     아주 긴 주소나 영어 낱말만 anywhere 로 흘려보낸다. */
+  word-break:keep-all; overflow-wrap:anywhere}
 .wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
 .n{font-variant-numeric:tabular-nums}
 ::selection{background:var(--blue); color:#fff}
@@ -124,7 +128,7 @@ h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem);
   margin:0 0 16px; color:var(--blue-d)}
 h1 em{font-style:normal; display:block; color:var(--ink)}
 .lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
-.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:11px; margin-top:30px}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(132px,100%),1fr)); gap:11px; margin-top:30px}
 .fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
   box-shadow:var(--sh)}
 .fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
@@ -144,8 +148,8 @@ b,strong{font-weight:700; color:var(--ink)}
 
 .card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:24px; box-shadow:var(--sh)}
-.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px}
-.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:13px}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:13px}
 .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
   border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
 table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
@@ -211,7 +215,7 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
   background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
 .chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
-.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:10px 0}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:10px; margin:10px 0}
 .four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
 .four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
 .four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
@@ -348,7 +352,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .wsline input:focus{outline:2px solid var(--blue); outline-offset:1px}
 .wsline input.good{border-color:var(--good); background:var(--good-bg)}
 .wsline input.bad{border-color:var(--warm); background:var(--warm-bg)}
-.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin:10px 0}
+.wsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:10px; margin:10px 0}
 .wsans{margin-top:12px; padding:13px 16px; border-radius:14px; background:var(--good-bg);
   border:1px solid var(--good); font-size:0.9062rem; line-height:1.7; color:var(--ink)}
 .wsans b{color:var(--good)}
@@ -380,7 +384,7 @@ button[disabled]:hover{background:var(--white); color:var(--blue); border-color:
 .pz text{font-family:var(--mono); font-size:16px; font-weight:700; fill:var(--ink); text-anchor:middle}
 
 /* ── 용어 ────────────────────────────────── */
-.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:13px}
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:13px}
 .term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
 .term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
 .term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
@@ -421,7 +425,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   background:var(--blue-xl); border-radius:99px; padding:8px 16px}
 
 /* ① AI 판별 카드 */
-.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; margin-bottom:16px}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:10px; margin-bottom:16px}
 .acard{text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:600; line-height:1.5;
   background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:13px 15px;
   color:var(--ink); cursor:pointer; transition:.15s; position:relative}
@@ -439,7 +443,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
   margin-top:8px; padding-top:8px; border-top:1px dashed var(--line)}
 
 /* ② 튜링 테스트 */
-.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+.steps3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:12px}
 .steps3 div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:15px 17px}
 .steps3 b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
 .steps3 span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
@@ -457,7 +461,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 .qall{margin:12px 0 0; padding-left:22px; font-size:0.875rem; color:var(--ink2); line-height:1.85}
 
 /* ③ 네 가지 특성 */
-.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px}
+.traits{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px}
 .tcell{text-align:left; font-family:var(--sans); background:var(--tint);
   border:2px solid var(--line); border-radius:14px; padding:14px 16px; cursor:pointer; transition:.15s}
 .tcell:hover{border-color:var(--blue-l)}
@@ -553,14 +557,19 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 .rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
   background:var(--fill); border-radius:99px; padding:4px 13px}
 .frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
-.fld{flex:0 1 220px; display:block}
+/* min-width:0 이 없으면 안에 든 글자 길이만큼 칸이 버텨서
+   좁은 화면에서 줄 전체가 화면 밖으로 밀려난다. */
+.fld{flex:0 1 220px; display:block; min-width:0}
 .fld.grow{flex:1 1 260px}
 .fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
   color:var(--blue-d); margin-bottom:6px}
-.fld input, .fld textarea{width:100%; font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+.fld input, .fld textarea, .fld select{width:100%; max-width:100%; box-sizing:border-box;
+  font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
   color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
   padding:11px 14px; resize:vertical}
-.fld input:focus, .fld textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.fld select{padding-right:10px}
+.fld input:focus, .fld textarea:focus, .fld select:focus{outline:none;
+  border-color:var(--blue); background:var(--white)}
 .fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
 .secretbox{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px;
   background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px; padding:14px 18px}
@@ -578,7 +587,7 @@ details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
 table.tlog{min-width:520px; font-size:0.875rem}
 table.tlog td.q{font-weight:700; color:var(--blue-d); white-space:normal; min-width:150px}
 table.tlog td.rn{width:52px; text-align:center; font-variant-numeric:tabular-nums; color:var(--muted)}
-.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0}
+.votes{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:12px; margin:16px 0}
 .vbtn{display:block; text-align:left; font-family:var(--sans); background:var(--tint);
   border:2px solid var(--line); border-radius:16px; padding:16px 18px; cursor:pointer; transition:.15s}
 .vbtn:hover{border-color:var(--blue-l); background:var(--white)}
@@ -723,7 +732,7 @@ pre .k{color:var(--blue-d); font-weight:700}
 pre .s{color:var(--good)}
 
 /* ── 영상 ───────────────────────────────── */
-.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:12px}
 .vid{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
   box-shadow:var(--sh); display:flex; gap:12px; align-items:flex-start}
 .vid .pl{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--blue-xl);
@@ -734,7 +743,7 @@ pre .s{color:var(--good)}
 
 /* 슬라이드 안 이미지 */
 .slide img{max-width:100%; height:auto; border-radius:14px; border:1px solid var(--line); display:block; margin:0 auto}
-.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:11px 0}
+.imgrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:12px; margin:11px 0}
 .imgrow figure{margin:0}
 .side{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; align-items:center; margin:11px 0}
 .side figure{margin:0}
@@ -745,7 +754,7 @@ pre .s{color:var(--good)}
 /* 탐색 설명 옆 낱말 카드 */
 .wordh{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
   margin:18px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
-.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:10px}
 .wd{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:13px 16px}
 .wd.key{background:var(--blue-xl); border-color:var(--blue-l)}
 .wd>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem;
@@ -886,7 +895,7 @@ body.ovbig-on{overflow:hidden}
 :root[data-theme="light"] .pz3 i{background:#F2D9A8; color:#5A3A0A}
 :root[data-theme="light"] .pz3 i.e{background:#FFFFFF}
 
-.btree{display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:8px; min-width:560px}
+.btree{display:grid; grid-template-columns:repeat(6,minmax(min(84px,100%),1fr)); gap:8px; min-width:560px}
 .bnode{background:var(--tint); border:2px solid var(--line); border-radius:12px;
   padding:6px 4px; text-align:center; transition:.15s}
 .bnode>b{display:block; font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--ink2)}
@@ -944,13 +953,13 @@ table.ftab tr.pick td b{color:var(--good)}
 .pzbar>i.full{background:var(--good)}
 
 /* 키워드 띠 */
-.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:9px; margin:0 0 20px}
+.kwrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr)); gap:9px; margin:0 0 20px}
 .kw{background:var(--blue-xl); border:2px solid var(--blue-l); border-radius:14px; padding:11px 13px}
 .kw>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d)}
 .kw>span{display:block; font-size:0.7812rem; color:var(--ink2); line-height:1.5; margin-top:2px}
 
 /* 수행 작업 비교 */
-.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:12px}
 .cmpc{font-family:var(--sans); background:var(--tint); border:2px solid var(--line);
   border-radius:16px; padding:14px; cursor:pointer; transition:.15s}
 .cmpc:hover{border-color:var(--blue-l)}
@@ -1033,7 +1042,7 @@ table.ftab tr.pick td b{color:var(--good)}
   border-radius:5px; padding:1px 5px}
 
 /* 보기 버튼 (추론 게임) */
-.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px}
+.mopts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:9px}
 .mopts button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; line-height:1.45;
   padding:13px 12px; border-radius:13px; border:2px solid var(--line); background:var(--tint);
   color:var(--ink); cursor:pointer; transition:.15s}
@@ -1102,7 +1111,7 @@ table.ftab tr.pick td b{color:var(--good)}
   background:var(--blue-xl); color:var(--blue-d); font-size:0.6875rem; font-weight:800; width:auto}
 /* 게임 종류 고르기 */
 /* 만드는 순서 ① ② ③ */
-.gsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px;
+.gsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px;
   list-style:none; margin:0 0 18px; padding:0; counter-reset:gs}
 .gsteps li{counter-increment:gs; position:relative; padding:12px 14px 12px 46px;
   background:var(--tint); border:1px solid var(--line); border-radius:14px}
@@ -1129,7 +1138,7 @@ table.ftab tr.pick td b{color:var(--good)}
   background:var(--tint); color:var(--ink); resize:vertical}
 .peerbox textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
 .peerbox .sendmsg{display:block; margin-top:8px}
-.kindbar{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:8px; margin-bottom:12px}
+.kindbar{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(128px,100%),1fr)); gap:8px; margin-bottom:12px}
 .kbtn{display:flex; flex-direction:column; align-items:center; gap:3px; padding:11px 8px;
   font-family:var(--sans); font-size:0.8125rem; font-weight:800; line-height:1.3;
   color:var(--ink2); background:var(--white); border:2px solid var(--line); border-radius:14px; cursor:pointer}
@@ -1166,7 +1175,7 @@ table.ftab tr.pick td b{color:var(--good)}
 .guessrow input{flex:1 1 200px; font-family:var(--sans); font-size:0.9375rem; padding:9px 12px;
   border:1.5px solid var(--line); border-radius:11px; background:var(--white); color:var(--ink)}
 .guessrow input:focus{outline:none; border-color:var(--blue)}
-.oxwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:14px}
+.oxwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:10px; margin-bottom:14px}
 .oxcol{border-radius:14px; padding:12px 14px; border:2px solid var(--line); background:var(--white)}
 .oxcol>b{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:800; margin-bottom:7px}
 .oxcol span{display:block; font-family:var(--sans); font-size:0.9375rem; line-height:1.7; color:var(--ink)}
@@ -1386,7 +1395,7 @@ footer a{font-weight:700}
 .jt.no{background:var(--cut-bg,#FDE9E7); color:var(--cut,#C8362F)}
 
 /* ④ 생애별 */
-.life{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:11px}
+.life{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:11px}
 .lf{display:block}
 .lf>span{display:block; font-family:var(--sans); font-size:0.8125rem; font-weight:700;
   color:var(--blue-d); margin-bottom:5px}
@@ -1396,7 +1405,7 @@ footer a{font-weight:700}
 .lf textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
 
 /* ⑤ 저울 */
-.scale{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px}
+.scale{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:12px}
 .sc{border-radius:16px; padding:15px 18px; border:2px solid var(--line); background:var(--white)}
 .sc>b{display:block; font-family:var(--pop); font-weight:800; font-size:0.9375rem; margin-bottom:8px}
 .sc ul{margin:0; padding-left:19px; display:grid; gap:6px}
@@ -1407,7 +1416,7 @@ footer a{font-weight:700}
 .sc.bad>b{color:var(--warm)}
 
 /* ⑧ 입론서 */
-.rubric-hint{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:8px}
+.rubric-hint{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(158px,100%),1fr)); gap:8px}
 .rubric-hint span{background:var(--tint); border:1px solid var(--line); border-radius:11px;
   padding:9px 12px; font-family:var(--sans); font-size:0.8125rem; color:var(--ink2)}
 .rubric-hint b{font-family:var(--mono); color:var(--blue-d); margin-right:6px}
@@ -1776,7 +1785,7 @@ footer a{font-weight:700}
         <textarea id="s6why" rows="2" placeholder="한 문장으로 또렷하게 적어 보세요"></textarea></label>
       <label>나와 <b>다르게 고른 친구</b>의 이유는 무엇이었나요?
         <textarea id="s6other" rows="2" placeholder="모둠 토의에서 들은 것을 적어 보세요"></textarea></label>
-      <label>들어 보니 <b>내 생각이 바뀐 부분</b>이 있나요?
+      <label>들어 보니 <b>내 생각에서 달라진 부분</b>이 있나요?
         <textarea id="s6change" rows="2" placeholder="바뀌지 않았다면 «왜 바뀌지 않았는지»를 적으세요"></textarea></label>
     </div>
     <div class="note"><b>토론에서 이기는 법</b> 상대 입장을 <b>가장 강한 형태로</b> 말할 수 있어야 반박도 됩니다.
@@ -1803,7 +1812,7 @@ footer a{font-weight:700}
     </div>
 
     <div class="wfbox">
-      <h4 class="wfhead">먼저 읽으세요 — 토론 수행평가는 이렇게 흘러갑니다</h4>
+      <h4 class="wfhead">먼저 읽으세요 — 토론 수행평가는 이렇게 진행됩니다</h4>
       <p class="wfsub">여덟 단계입니다. <b>오늘이 몇 차시인지 눌러 보면</b> 지금 할 일만 밝게 보여 줍니다.
         각 단계의 <b>「이 칸으로」</b>를 누르면 채워야 할 곳으로 바로 넘어갑니다.</p>
       <div class="wfpick" id="wfPick">
@@ -1815,7 +1824,7 @@ footer a{font-weight:700}
       </div>
       <div id="wfSteps"></div>
 
-      <h4 class="step-h" style="margin-top:20px">이것만은 — 점수가 깎이는 다섯 가지</h4>
+      <h4 class="step-h" style="margin-top:20px">이것만은 — 점수를 잃는 다섯 가지</h4>
       <div class="wflose" id="wfLose"></div>
 
       <div class="ask" style="margin-top:16px"><b>점수와 함께 «그 점수를 준 기준 문장»을 받습니다</b>
@@ -1904,7 +1913,7 @@ footer a{font-weight:700}
           <textarea id="dbB1" rows="2" placeholder="약하게 적으면 준비도 약해집니다"></textarea></label>
       </div>
 
-      <h4 class="step-h" style="margin-top:20px">B-2 · 찌를 질문 세 개 <span class="tm">허점 지목</span></h4>
+      <h4 class="step-h" style="margin-top:20px">B-2 · 허점을 묻는 질문 세 개 <span class="tm">허점 지목</span></h4>
       <p class="desc">그냥 궁금한 것을 묻는 게 아닙니다.
         <b>「상대 주장 → 그 전제나 근거의 허점 → 질문」</b> 순서로 적으세요.
         세 개를 준비해야 하나가 막혀도 이어집니다.</p>
@@ -1972,8 +1981,8 @@ footer a{font-weight:700}
         <label><b>D-3 · 운영·관리자 관점의 쟁점</b> — <b>도입하고 관리하는 쪽</b>이 마주하는 문제는?
           <i>셋 다 있어야 25점, 둘이면 20점, 하나면 15점</i>
           <textarea id="dbP3" rows="2" placeholder=""></textarea></label>
-        <label><b>D-4 · 내가 반박당한 지점</b> — 토론에서 <b>막혔던 순간</b>을 솔직히.
-          <i>이게 만점 조건입니다 — 숨기면 점수가 깎여요</i>
+        <label><b>D-4 · 내가 반박당한 지점</b> — 토론에서 <b>막혔던 순간</b>을 있는 그대로.
+          <i>이게 만점 조건입니다 — 숨기면 오히려 점수를 잃어요</i>
           <textarea id="dbW1" rows="2" placeholder="예) «그럼 사람 면접관은 왜 괜찮냐»는 질문에 바로 답하지 못했다"></textarea></label>
         <label><b>D-5 · 주장의 수정·보완</b> — 그래서 내 생각을 <b>어떻게 고쳤는지</b>
           <textarea id="dbW2" rows="2" placeholder=""></textarea></label>
@@ -2509,12 +2518,12 @@ var WF = [
     d:'선생님이 화면 앞에서 <b>무작위로</b> 뽑습니다. 뽑힌 대로 아래 「배정받은 논제」와 「배정받은 입장」을 고르세요.',
     here:'아래 <b>배정받은 논제 · 입장</b>',
     warn:'내 생각과 달라도 <b>배정된 쪽</b>으로 씁니다. 바꿔 달라는 요청은 받지 않아요 — 그게 형평성입니다. 반대 입장을 맡아 보면 상대 논리를 잘 알게 되어 <b>반박 점수에 오히려 유리</b>합니다.' },
-  { g:0, n:'2', w:'11차시', t:'A부 — 쟁점을 나누고 근거를 모읍니다', tab:0,
+  { g:0, n:'2', w:'11차시', t:'A부 — 쟁점을 나누고 근거를 준비합니다', tab:0,
     d:'윤리 관점을 <b>둘 이상</b> 고르고 관점마다 쟁점을 씁니다. 그다음 주장 한 문장과 근거 세 가지를 채웁니다.',
     here:'<b>A부 · 입론</b>',
     warn:'근거 <b>세 가지 모두에 출처</b>(기관 이름과 연도, 또는 수치)를 붙여야 25점입니다. 둘이면 20점, 하나면 15점이에요.' },
-  { g:1, n:'3', w:'12차시', t:'B부 — 상대를 찌를 질문을 준비합니다', tab:1,
-    d:'상대가 펼 주장을 <b>가장 강한 형태로</b> 적고, 그 전제나 근거의 <b>허점을 찌르는 질문 세 개</b>를 만듭니다.',
+  { g:1, n:'3', w:'12차시', t:'B부 — 상대 논증의 허점을 묻는 질문을 만듭니다', tab:1,
+    d:'상대가 펼 주장을 <b>가장 강한 형태로</b> 적고, 그 전제나 근거의 <b>허점을 묻는 질문 세 개</b>를 만듭니다.',
     here:'<b>B부 · 질의 준비</b>',
     warn:'재반박에는 <b>A부에 안 쓴 새 근거</b>가 있어야 만점입니다. 같은 근거를 다시 말하면 점수가 오르지 않아요.' },
   { g:1, n:'4', w:'12차시 끝', t:'1차 제출 — 여기서 한 번 냅니다',
