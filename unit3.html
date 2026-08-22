@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 Ⅲ단원 인공지능의 사회적 영향 - 발전 연표, 편향성, 윤리적 딜레마, 수행평가 개별 문서">
+<meta name="description" content="「인공지능 기초」 Ⅲ단원 인공지능의 사회적 영향 - AI 발전 이야기, 인공지능과 우리 삶, 인공지능 윤리, 사회적 책임과 공정성">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Ⅲ. 인공지능의 사회적 영향 · 수업 자료">
-<meta property="og:description" content="발전 연표, 직업 대체 가능성, 편향성 구분, 윤리적 딜레마, 수행평가 개별 문서">
+<meta property="og:description" content="AI 발전 이야기, 인공지능 기술 여덟 갈래, 진로 로드맵, 편향성, 윤리적 딜레마, 사회적 책임과 공정성">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
@@ -1440,6 +1440,131 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* ① 발전 이야기 */
+.storyplay{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:15px 17px; box-shadow:var(--sh)}
+.spbar{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:13px}
+.spn{font-family:var(--mono); font-size:0.8125rem; font-weight:700; color:var(--blue-d)}
+.spdots{display:flex; gap:5px; margin-right:auto}
+.spd{width:11px; height:11px; border-radius:50%; border:1px solid var(--line);
+  background:var(--tint); cursor:pointer; padding:0}
+.spd.on{background:var(--fill); border-color:var(--fill); transform:scale(1.25)}
+.spd.done{background:var(--blue-l); border-color:var(--blue-l)}
+.spstage{border-radius:16px; padding:19px 21px; background:var(--tint)}
+/* 장면마다 «계절»을 색으로 준다. 겨울 장면만 색을 따로 두는데,
+   어두운 화면에서는 밝은 회색이 튀므로 어두운 값으로 바꿔 준다. */
+.spstage.mood-cold{background:#E7EEF6}
+.spstage.mood-boom{background:var(--good-bg)}
+.spstage.mood-now{background:var(--warm-bg)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .spstage.mood-cold{background:#16283B}
+}
+:root[data-theme="dark"] .spstage.mood-cold{background:#16283B}
+.sph{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:9px}
+.spe{font-size:1.625rem}
+.spa{font-family:var(--mono); font-size:0.75rem; font-weight:700; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:3px 11px}
+.spy{font-family:var(--mono); font-size:0.8125rem; font-weight:700; color:var(--muted)}
+.spt{display:block; font-family:var(--disp); font-weight:400; font-size:1.375rem;
+  color:var(--ink); margin-bottom:12px}
+.spl{margin:0 0 11px; font-size:0.9375rem; line-height:1.85; color:var(--ink2)}
+.spq{margin-top:14px; padding:10px 13px; background:var(--white); border-radius:11px;
+  font-size:0.8438rem; line-height:1.7; color:var(--ink2)}
+.spq b{color:var(--blue-d); margin-right:5px}
+
+/* Ⅲ-03 우리 삶 · Ⅲ-04 윤리 — 개념 구획 */
+.bigidea{background:var(--blue-xl); border-radius:var(--r); padding:17px 21px; margin:0 0 4px}
+.bigidea.warm{background:var(--warm-bg)}
+.bigidea>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem;
+  color:var(--blue-d); margin-bottom:8px}
+.bigidea.warm>b{color:var(--warm)}
+.bigidea p{margin:0 0 7px; font-size:0.9375rem; line-height:1.8; color:var(--ink2)}
+.bigidea p:last-child{margin-bottom:0}
+.bimini{font-size:0.8438rem !important; color:var(--muted) !important;
+  padding-top:8px; border-top:1px dashed var(--blue-l)}
+.bigidea.warm .bimini{border-top-color:var(--warm)}
+
+table.lftab{min-width:620px; font-size:0.875rem}
+table.lftab ul{margin:0; padding-left:17px}
+table.lftab li{line-height:1.7; margin-bottom:4px; color:var(--ink2)}
+table.lftab ul.bad li{color:var(--warm)}
+
+.accuracy{display:grid; gap:9px}
+.accr{display:grid; grid-template-columns:130px 1fr 62px; gap:11px; align-items:center}
+.acn{font-size:0.8438rem; font-weight:700; color:var(--ink2)}
+.acbar{height:22px; background:var(--tint); border-radius:99px; overflow:hidden}
+.acbar>i{display:block; height:100%; border-radius:99px; background:var(--blue-l)}
+.accr.hu .acbar>i{background:var(--blue)}
+.accr.both .acbar>i{background:var(--good)}
+.acv{font-family:var(--mono); font-weight:700; font-size:0.9375rem; color:var(--blue-d); text-align:right}
+.accr.both .acv{color:var(--good)}
+.acnote{margin:8px 0 0; font-size:0.75rem; color:var(--muted)}
+
+.qgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:10px}
+.qc{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
+.qc>span{font-size:1.375rem}
+.qc>p{margin:7px 0 6px; font-size:0.875rem; line-height:1.7; color:var(--ink); font-weight:600}
+.qc>i{font-style:normal; font-family:var(--mono); font-size:0.7188rem; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:2px 9px}
+
+.risklist{display:grid; gap:7px}
+.rk{display:grid; grid-template-columns:28px 1fr; gap:11px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-radius:12px; padding:11px 14px}
+.rk>span{width:26px; height:26px; border-radius:50%; background:var(--cut-bg); color:var(--cut);
+  font-family:var(--mono); font-size:0.8125rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+.rk b{display:block; font-size:0.9062rem; color:var(--ink)}
+.rk i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:2px}
+
+.cases3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:12px}
+.cs3{background:var(--white); border:1px solid var(--line); border-radius:15px; padding:15px 17px}
+.cs3h{display:flex; gap:9px; align-items:baseline; margin-bottom:9px; flex-wrap:wrap}
+.cs3h>b{font-family:var(--disp); font-weight:400; font-size:1.0312rem; color:var(--ink)}
+.cs3h>span{font-family:var(--mono); font-size:0.6875rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:2px 9px}
+.cs3>p{margin:0 0 10px; font-size:0.8438rem; line-height:1.8; color:var(--ink2)}
+.cs3>i{display:block; font-style:normal; font-size:0.8125rem; line-height:1.65;
+  color:var(--good); background:var(--good-bg); border-radius:10px; padding:8px 11px; font-weight:600}
+
+.flowarrow{display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-top:6px}
+.fb{font-size:0.8438rem; font-weight:700; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:11px; padding:9px 14px}
+.fb.last{background:var(--cut-bg); border-color:var(--cut-bg); color:var(--cut)}
+.fa{font-family:var(--mono); font-size:0.7188rem; color:var(--muted)}
+
+.tenreq{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:8px}
+.tenc{display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-radius:12px; padding:11px 13px}
+.tenc>span{width:24px; height:24px; border-radius:7px; background:var(--fill); color:var(--on-fill);
+  font-family:var(--mono); font-size:0.75rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+.tenc b{display:block; font-size:0.875rem; color:var(--ink)}
+.tenc i{display:block; font-style:normal; font-size:0.75rem; line-height:1.6;
+  color:var(--muted); margin-top:3px}
+
+.three{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr)); gap:12px}
+.thc{background:var(--white); border:1px solid var(--line); border-radius:15px; padding:15px 17px}
+.thh{display:flex; gap:9px; align-items:baseline; flex-wrap:wrap; margin-bottom:9px}
+.thh>span{font-size:1.375rem}
+.thh>b{font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--ink)}
+.thh>i{font-style:normal; font-family:var(--mono); font-size:0.6875rem; color:var(--muted)}
+.thj{margin:0 0 10px; font-size:0.8438rem; line-height:1.7; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:10px; padding:8px 11px; font-weight:600}
+.thc ul{margin:0; padding-left:18px}
+.thc li{font-size:0.8125rem; line-height:1.75; color:var(--ink2); margin-bottom:5px}
+
+.gcard{background:var(--white); border:2px solid var(--line); border-radius:15px; padding:15px 17px}
+.gcard.ok{border-color:var(--good)} .gcard.no{border-color:var(--cut)}
+.gcard>b{display:block; font-family:var(--disp); font-weight:400; font-size:1rem; margin-bottom:9px}
+.gcard.ok>b{color:var(--good)} .gcard.no>b{color:var(--cut)}
+.gcard ul{margin:0; padding-left:18px}
+.gcard li{font-size:0.8438rem; line-height:1.75; color:var(--ink2); margin-bottom:5px}
+
+@media (max-width:520px){
+  .accr{grid-template-columns:1fr; gap:4px}
+  .acv{text-align:left}
+}
+
 /* ② 인공지능 기술 카드 */
 .techgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(155px,100%),1fr)); gap:9px}
 .techc{display:block; text-align:left; background:var(--white); border:2px solid var(--line);
@@ -1557,6 +1682,13 @@ table.dlt tr:last-child td{border-bottom:none}
 @media (max-width:520px){
   .law{grid-template-columns:1fr}
   .law>p, .law>i{grid-column:1}
+  /* 딜레마 사실 표는 좁은 화면에서 옆으로 밀지 말고 세로로 쌓는다 */
+  table.dlt{min-width:0}
+  table.dlt, table.dlt tbody, table.dlt tr, table.dlt td{display:block; width:auto}
+  table.dlt tr{border-bottom:1px solid var(--line); padding:9px 0}
+  table.dlt tr:last-child{border-bottom:none}
+  table.dlt td{padding:2px 0; border:none}
+  table.dlt td.dlk{white-space:normal; margin-bottom:3px}
 }
 
 /* ⑧ 먼저 읽는 안내문 */
@@ -1647,6 +1779,8 @@ table.dlt tr:last-child td{border-bottom:none}
   <a href="#goal">배울 것</a>
   <a href="#flow">차시별 순서</a>
   <a href="#act">수업 활동</a>
+  <a href="#life">우리 삶</a>
+  <a href="#ethics">인공지능 윤리</a>
   <a href="#debate">토론 준비</a>
   <a href="#terms">핵심 용어</a>
   <a href="#check">확인 문제</a>
@@ -1697,6 +1831,7 @@ table.dlt tr:last-child td{border-bottom:none}
   <h2>수업 활동</h2>
   <p class="sub">여덟 가지입니다. 차시 순서대로 이어지고,
     <b>마지막 ⑧번이 수행평가 개별 문서</b>로 그대로 넘어갑니다.
+    <b>②·③번은 선생님께 제출</b>합니다.
     적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
@@ -1712,9 +1847,23 @@ table.dlt tr:last-child td{border-bottom:none}
 
   <!-- ① AI 발전 연표 -->
   <div class="actbox" data-u3p="0">
-    <h3>① 인공지능 발전 연표 <span class="tm">개인</span></h3>
-    <p class="desc">인공지능은 <b>한 번에 발전하지 않았습니다.</b> 기대가 몰렸다가 식고, 다시 몰리기를 되풀이했어요.
-      아래 카드를 <b>오래된 것부터</b> 눌러 연표를 완성해 보세요.</p>
+    <h3>① 인공지능 발전 이야기 <span class="tm">개인</span></h3>
+    <p class="desc">인공지능의 70년은 <b>«될 것 같다»와 «역시 안 되네»가 되풀이된 이야기</b>입니다.
+      먼저 <b>다섯 장면</b>으로 읽고, 그다음 연표를 직접 맞춰 보세요.</p>
+
+    <div class="storyplay">
+      <div class="spbar">
+        <span class="spn" id="stN">1 / 5</span>
+        <span class="spdots" id="stDots"></span>
+        <button type="button" class="mini gh" id="stPrev">← 이전</button>
+        <button type="button" class="mini" id="stNext">다음 →</button>
+      </div>
+      <div class="spstage" id="stStage"></div>
+    </div>
+
+    <h4 class="step-h" style="margin-top:26px">이제 직접 맞춰 보기</h4>
+    <p class="desc">아래 카드를 <b>오래된 것부터</b> 눌러 연표를 완성해 보세요.
+      이야기에서 본 장면들이 <b>몇 년도였는지</b> 떠올리면 됩니다.</p>
 
     <div class="tlbar">
       <span class="scorepill" id="tlCnt">0 / 11</span>
@@ -2275,6 +2424,167 @@ table.dlt tr:last-child td{border-bottom:none}
   </div>
 </div></section>
 
+
+<section id="life"><div class="wrap">
+  <p class="eyebrow">Ⅲ-03 · 9차시 · 교과서 156~161쪽</p>
+  <h2>인공지능과 우리 삶</h2>
+  <p class="sub">이 소단원은 <b>한 차시(50분)를 통째로</b> 씁니다.
+    Ⅲ단원에서 <b>가장 중요한 자리</b>예요 — 앞의 «무엇이 가능한가»에서
+    <b>«그래서 우리는 어떻게 할 것인가»</b>로 넘어가는 곳입니다.
+    <b>수행평가 토론의 뼈대</b>가 여기서 나옵니다.</p>
+
+  <div class="tw"><table id="lfPlan"></table></div>
+
+  <h3 class="step-h" style="margin-top:30px">1 · 인공지능에 대한 비판적 자세 <span class="tm">교과서 157쪽</span></h3>
+  <p class="desc">같은 기술이 <b>좋은 일도 하고 나쁜 일도 합니다.</b>
+    «인공지능이 올바른 목적으로 쓰이지 못한다면 우리의 삶과 사회에 심각한 피해와 위협이 될 수 있다»는 것이
+    교과서의 첫 문장이에요.</p>
+  <div class="tw"><table id="lfPro"></table></div>
+
+  <h3 class="step-h" style="margin-top:30px">2 · 인간 중심 인공지능 <span class="tm">교과서 158쪽</span></h3>
+  <div class="bigidea">
+    <b>인간 중심 인공지능 (Human-Centered AI)</b>
+    <p>인간을 <b>배제</b>하는 것이 아니라 <b>협력</b>하여, 인간을 돕고 인간의 능력을 <b>향상</b>시켜
+      다양한 과제를 성취하도록 돕는 접근 방식.</p>
+    <p class="bimini">인간과 인공지능이 협력하면 <b>어느 한쪽이 혼자 푸는 것보다</b> 사회 발전에 훨씬 더 크게 기여할 수 있다.</p>
+  </div>
+
+  <h4 class="mini-h" style="margin-top:20px">바람직한 공존을 위한 인공지능의 역할 <span class="tm">표 Ⅲ-1</span></h4>
+  <div class="g2" id="lfRole"></div>
+
+  <h4 class="mini-h" style="margin-top:24px">숫자로 보는 협력 — 톰 그루버의 암 진단 이야기 <span class="tm">더 알아보기</span></h4>
+  <p class="desc">미국의 컴퓨터 과학자 <b>톰 그루버</b>는 «인공지능은 인간과의 협력을 통해 인간을 도와야 한다»고 말하며
+    <b>암 진단</b>을 예로 들었습니다. 세 숫자를 나란히 보세요.</p>
+  <div class="accuracy" id="lfAcc"></div>
+  <div class="ask" style="margin-top:14px"><b>왜 합치면 더 높아질까</b>
+    <b>인간은 «틀린 진단»을 잘 찾아내고</b>, <b>인공지능은 «숨어 있는 경우»를 잘 찾아냅니다.</b>
+    서로 <b>다른 것을 잘하기 때문에</b> 합쳤을 때 초인적인 힘이 나옵니다.
+    이것이 «대체»가 아니라 <b>«협력»</b>이라는 말의 진짜 뜻이에요.
+    <b>진로 로드맵 활동에서 일을 셋으로 쪼갠 이유</b>가 바로 이것입니다.</div>
+
+  <h3 class="step-h" style="margin-top:30px">3 · 인간이 지녀야 할 비판적 태도 <span class="tm">교과서 159쪽</span></h3>
+  <p class="desc"><b>일방적인 수용도, 일방적인 거부도 아닙니다.</b>
+    «인공지능의 사용 목적, 수집하고 학습하는 데이터, 출력하는 결과»를 <b>늘 비판적으로</b> 바라보는 것입니다.</p>
+  <div class="qgrid" id="lfQ"></div>
+
+  <h4 class="mini-h" style="margin-top:24px">인공지능의 위험 요인 다섯 가지</h4>
+  <div class="risklist" id="lfRisk"></div>
+
+  <h3 class="step-h" style="margin-top:30px">4 · 읽을거리 · 인공지능의 환각 <span class="tm">교과서 161쪽</span></h3>
+  <div class="bigidea warm">
+    <b>환각 (Hallucination)</b>
+    <p>인공지능이 <b>사실이 아닌 내용을 마치 사실처럼 꾸며서</b> 답변하는 현상.
+      챗GPT 같은 <b>초거대 언어 모델(LLM)</b>에서 주로 생깁니다.</p>
+    <p class="bimini">사람의 «환각»은 없는 것을 본 것처럼 느끼는 것 — 인공지능의 환각도 <b>없는 사실을 있는 것처럼</b> 말하는 것입니다.</p>
+  </div>
+  <div class="cases3" id="lfHalu"></div>
+
+  <div class="note" style="margin-top:16px"><b>말투에 속지 마세요</b>
+    슈워츠 변호사가 속은 이유는 챗GPT가 <b>«실제 사건이다», «다른 법률 데이터베이스에서도 찾을 수 있다»고
+    끝까지 자신 있게 답했기</b> 때문입니다.
+    <b>«자신 있는 말투»는 «사실»이 아닙니다.</b> 이것이 팩트체크의 첫 번째 원칙이에요.</div>
+
+  <h4 class="mini-h" style="margin-top:24px">그래서 어떻게 확인하나 — 교차검증 세 가지</h4>
+  <div class="g3" id="lfCheck"></div>
+  <div class="ask" style="margin-top:14px"><b>진실을 가리는 세 원칙</b>
+    <b>①  의심한다</b> — 놀라운 내용일수록 먼저 의심합니다. ·
+    <b>②  출처를 확인한다</b> — 누가 언제 말했는지를 찾습니다. ·
+    <b>③  다시 검증한다</b> — 다른 곳에서도 같은 말을 하는지 봅니다.
+    <b>이 세 가지가 개별 문서 A-5 「근거의 출처」 칸을 채우는 방법</b>입니다.</div>
+
+  <h3 class="step-h" style="margin-top:30px">5 · 블랙박스와 설명 가능한 인공지능</h3>
+  <p class="desc">환각보다 더 근본적인 문제가 있습니다 — <b>인공지능이 왜 그렇게 답했는지 아무도 모른다</b>는 것.</p>
+  <div class="g2" id="lfBox"></div>
+  <div class="note" style="margin-top:14px"><b>왜 이게 윤리 문제인가</b>
+    이유를 설명하지 못하면 <b>틀렸는지 확인할 수 없고</b>, 확인할 수 없으면 <b>책임을 물을 수도 없습니다.</b>
+    다음 소단원의 <b>「책임성」</b>과 <b>「투명성」</b>이 바로 이 이야기예요.</div>
+</div></section>
+
+
+<section id="ethics"><div class="wrap">
+  <p class="eyebrow">Ⅲ-04 · 10차시 · 교과서 162~171쪽</p>
+  <h2>인공지능 윤리</h2>
+  <p class="sub">Ⅲ단원의 마지막이자 <b>수행평가 토론이 직접 딛고 서는 자리</b>입니다.
+    세 덩어리로 되어 있어요 — <b>① 편향성</b>, <b>② 윤리적 딜레마</b>, <b>③ 사회적 책임과 공정성</b>.</p>
+
+  <div class="ask"><b>생각 열기 · 장님이 코끼리 만지기 <span class="tm">교과서 162쪽</span></b>
+    코끼리 다리를 만진 사람은 «기둥», 귀를 만진 사람은 «부채»,
+    꼬리를 만진 사람은 «절굿공이»라고 했습니다. <b>모두 거짓말을 한 게 아닙니다.</b>
+    각자 <b>만져 본 부분</b>을 말했을 뿐이에요.
+    <b>인공지능에게 부분적인 데이터만 학습시킨다면 어떻게 될까요?</b></div>
+
+  <h3 class="step-h" style="margin-top:30px">1 · 편향성이란 <span class="tm">교과서 163쪽</span></h3>
+  <div class="bigidea">
+    <b>편향성 (bias)</b>
+    <p>중립적이지 못하고 <b>한쪽으로 치우친 성질.</b>
+      결과를 왜곡하거나 <b>특정 집단에 피해</b>를 줄 수 있습니다.</p>
+  </div>
+  <div class="g2" id="etTerm"></div>
+
+  <h3 class="step-h" style="margin-top:28px">2 · 데이터 편향성 <span class="tm">교과서 164쪽</span></h3>
+  <p class="desc"><b>«무엇을 배웠나»</b>가 문제인 경우입니다.
+    사람이나 사회의 편견 → 편향된 데이터 → 학습 → <b>편향된 인공지능</b> 순으로 옮아갑니다.</p>
+  <div class="flowarrow" id="etFlow"></div>
+  <h4 class="mini-h" style="margin-top:20px">실제로 벌어진 일 <span class="tm">그림 Ⅲ-4</span></h4>
+  <div class="cases3" id="etData"></div>
+
+  <h3 class="step-h" style="margin-top:28px">3 · 알고리즘 편향성 <span class="tm">교과서 165쪽</span></h3>
+  <p class="desc"><b>«어떻게 골라 주나»</b>가 문제인 경우입니다.
+    추천 알고리즘 덕분에 우리는 고민하는 수고를 아끼지만,
+    <b>취향이나 가치관이 한쪽으로 기우는 것을 더 빠르게</b> 만듭니다.</p>
+  <div class="cases3" id="etAlgo"></div>
+
+  <div class="note" style="margin-top:16px"><b>추천을 가장 크게 움직이는 신호는 «좋아요»가 아닙니다</b>
+    <b>오래 본 시간(체류 시간)</b>입니다. 끝까지 본 것이 곧 «좋아한 것»으로 계산돼요.
+    그래서 <b>자극적인 영상이 검증된 기사보다 훨씬 빨리</b> 퍼집니다.
+    그 사이에 <b>«사실 확인» 거름망은 처음부터 없었습니다.</b></div>
+
+  <h3 class="step-h" style="margin-top:30px">4 · 사회적 책임과 공정성 <span class="tm">교과서 170~171쪽</span></h3>
+  <p class="desc">인공지능 윤리 의식이 부족해 <b>예상치 못한 문제</b>가 생기자,
+    여러 나라와 기관이 <b>인공지능 윤리 지침</b>을 만들었습니다.
+    우리나라는 <b>2020년</b>에 «사람 중심 인공지능 구현을 위한 <b>국가 인공지능 윤리 기준</b>»을 마련했어요.</p>
+
+  <div class="bigidea">
+    <b>공정성</b>
+    <p>인공지능은 사람들의 <b>나이 · 장애 · 성별 · 인종 · 종교</b> 등
+      개인의 독특함을 나타내는 <b>차이를 존중</b>하고 <b>누구도 배제하지 않아야</b> 합니다.</p>
+  </div>
+
+  <h4 class="mini-h" style="margin-top:22px">국가 인공지능 윤리 기준 — 3대 원칙 <span class="tm">그림 Ⅲ-6</span></h4>
+  <div class="g3" id="etPrin"></div>
+  <h4 class="mini-h" style="margin-top:20px">10대 핵심 요건</h4>
+  <div class="tenreq" id="etTen"></div>
+  <p class="desc" style="margin-top:10px">출처 : 과학기술정보통신부</p>
+
+  <h4 class="mini-h" style="margin-top:24px">공정성을 지키기 위해 필요한 두 가지</h4>
+  <div class="g2" id="etFair"></div>
+
+  <div class="note" style="margin-top:16px"><b>16시간 만에 멈춘 챗봇 «테이»</b>
+    미국의 인공지능 챗봇 <b>테이(Tay)</b>는 사용자들의 <b>부적절한 데이터 입력을 그대로 학습</b>했고,
+    윤리적으로 문제가 되는 답변을 내놓아 <b>출시 16시간 만에 운영이 중단</b>되었습니다.
+    <b>«사용자 윤리»가 왜 필요한지</b>를 보여 준 사건이에요 — 만든 쪽만 잘해서 되는 일이 아닙니다.</div>
+
+  <h3 class="step-h" style="margin-top:30px">5 · 세 주체의 윤리 <span class="tm">교과서 171쪽</span></h3>
+  <p class="desc">«현재 사회를 살아가는 <b>사람 모두의 노력</b>이 필요하다»는 것이 교과서의 결론입니다.
+    <b>개발 → 운영 → 사용</b> 순서로 책임이 이어져요.
+    <b>수행평가 개별 문서 D부에서 «세 관점»으로 분석하라는 것이 바로 이것</b>입니다.</p>
+  <div class="three" id="etThree"></div>
+
+  <h4 class="mini-h" style="margin-top:24px">더 알아보기 · 기업의 인공지능 윤리 원칙</h4>
+  <p class="desc">기업들도 스스로 원칙을 만들어 지키려 합니다. <b>구글의 인공지능 원칙</b>을 봅시다.</p>
+  <div class="g2">
+    <div class="gcard ok"><b>AI 활용 목적 — 이런 데 쓴다</b><ul id="etGoodUse"></ul></div>
+    <div class="gcard no"><b>AI를 활용하지 않을 분야</b><ul id="etNoUse"></ul></div>
+  </div>
+
+  <div class="ask" style="margin-top:18px"><b>토론으로 가는 다리</b>
+    여기까지가 <b>«무엇이 옳은가»에 대한 사회의 답</b>입니다.
+    그런데 이 원칙들도 <b>구체적인 상황에 오면 서로 부딪힙니다</b> —
+    「투명성」을 지키려면 알고리즘을 공개해야 하는데, 그러면 기업의 기술이 새어 나가지요.
+    <b>그 부딪히는 자리가 수행평가 토론의 논제</b>입니다.
+    <a href="https://richee-pc.github.io/AI_cs/debate.html#topics" style="font-weight:800">논제 열 가지 보러 가기 →</a></div>
+</div></section>
+
 <section id="debate"><div class="wrap">
   <p class="eyebrow">수행평가 ①</p>
   <h2>인공지능 윤리 쟁점 토론</h2>
@@ -2471,13 +2781,13 @@ function sender(o){
 var FLOW = [
   ['8','Ⅲ-01 · Ⅲ-02 사회 변화와 삶·직업의 변화','144~155쪽',
    '발전 연표 · 사회 문제 · 추천 시스템 · 직업 변화 네 양상',
-   '활동 ① 발전 연표 · ② 사회 문제 해결 설계 · ③ 대체 가능성 · ④ 진로 로드맵'],
-  ['9','Ⅲ-03 활용의 장단점과 인간·AI 공존','156~161쪽',
-   '자율주행 · 의료 · 챗봇 · 인간 중심 인공지능 · 공존 방안',
-   '활동 ⑤ 장단점 저울 (마무리 칸까지)'],
-  ['10','Ⅲ-04 편향성 · 윤리적 딜레마 · 윤리 기준','162~177쪽',
-   '데이터/알고리즘 편향 · 딜레마 · 국가 AI 윤리기준 · 개발자·관리자·사용자',
-   '활동 ⑥ 편향성 · ⑦ 딜레마'],
+   '활동 ① 발전 이야기 · ② 사회 문제 해결 설계 · ③ 진로 로드맵'],
+  ['9','Ⅲ-03 인공지능과 우리 삶','156~161쪽',
+   '비판적 자세 · 인간 중심 인공지능 · 톰 그루버의 암 진단 · 위험 요인 다섯 · 환각',
+   '활동 ④ 장단점 저울 · ⑤ 드론 배달 서비스'],
+  ['10','Ⅲ-04 인공지능 윤리','162~177쪽',
+   '데이터/알고리즘 편향 · 확증 편향 · 필터 버블 · 윤리적 딜레마 · 국가 AI 윤리 기준 3원칙 10요건 · 세 주체의 윤리',
+   '활동 ⑥ 편향성 구분 · ⑦ 윤리적 딜레마 (아시모프 로봇 원칙)'],
   ['11·12','수행평가 ① 토론 준비','—',
    '논제·찬반 무작위 배정 · 개별 문서 A부(입론) · B부(질의 준비)',
    '활동 ⑧ 개별 문서 — 12차시 끝에 1차 제출'],
@@ -2512,6 +2822,75 @@ var FLOW = [
 })();
 
 /* ══ ① 인공지능 발전 연표 ═════════════════════════════════ */
+/* 발전 과정을 «장면»으로 먼저 읽힌다. 연도를 외우는 것이 아니라
+   «왜 기대가 몰렸고 왜 식었는가»의 흐름을 잡게 하려는 것이다. */
+var STORY = [
+  { n:'1막', y:'1950 ~ 1958', t:'질문 하나에서 시작됐다', e:'🤔',
+    mood:'spring',
+    lines:[
+      '<b>«기계가 생각할 수 있을까?»</b><br>1950년, 앨런 튜링이 논문에 이 한 줄을 적었습니다.',
+      '튜링은 답 대신 <b>시험 방법</b>을 내놨어요. 커튼 뒤에 사람과 기계를 두고 대화만 시켜 본다 — ' +
+      '<b>구별하지 못하면</b> 그 기계는 생각한다고 보자. 이것이 <b>튜링 테스트</b>입니다.',
+      '6년 뒤 다트머스 대학에 학자들이 모였습니다. 존 매카시가 이 분야에 이름을 붙였어요 — ' +
+      '<b>«인공지능(Artificial Intelligence)»</b>. 그들은 <b>«한 여름이면 큰 진전을 볼 것»</b>이라고 적었습니다.',
+      '1958년에는 프랭크 로센블래드가 <b>뇌신경을 흉내 낸 «퍼셉트론»</b>을 만듭니다. ' +
+      '신문은 «스스로 걷고 말하고 자신을 복제할 기계»라고 썼어요.'
+    ],
+    ask:'그 «한 여름»은 얼마나 걸렸을까요?' },
+  { n:'2막', y:'1970년대', t:'첫 번째 겨울', e:'🥶',
+    mood:'cold',
+    lines:[
+      '<b>여름은 오지 않았습니다.</b>',
+      '퍼셉트론은 아주 단순한 문제조차 풀지 못한다는 것이 밝혀졌어요. ' +
+      '번역기는 «정신은 강하나 육체는 약하다»를 러시아어로 옮겼다가 다시 영어로 되돌리자 ' +
+      '<b>«보드카는 좋지만 고기는 상했다»</b>가 되었다는 이야기가 돌았습니다.',
+      '기대가 컸던 만큼 실망도 컸습니다. <b>대규모 투자가 끊기고</b> 연구가 얼어붙었어요. ' +
+      '이때를 <b>«인공지능 암흑기(AI Winter)»</b>라고 부릅니다.',
+      '1980년대에 <b>전문가 시스템</b>으로 잠깐 봄이 오는 듯했지만 — ' +
+      '전문가의 지식을 일일이 규칙으로 적어 넣는 방식이라 <b>규칙 밖의 상황</b>에는 속수무책이었습니다. ' +
+      '<b>겨울은 한 번 더 왔습니다.</b>'
+    ],
+    ask:'규칙을 사람이 적어 주는 방식의 한계는 무엇이었을까요?' },
+  { n:'3막', y:'1989 ~ 1997', t:'조용히 쌓인 것들', e:'🌱',
+    mood:'spring',
+    lines:[
+      '겨울에도 몇몇은 연구를 멈추지 않았습니다.',
+      '1989년, 얀 레쿤과 요슈아 벤지오가 <b>합성곱 신경망(CNN)</b>의 초기 구조를 만듭니다. ' +
+      '<b>사람이 규칙을 적어 주는 대신</b>, 데이터를 보고 <b>스스로 특징을 찾게</b> 하는 방향이었어요.',
+      '1997년, IBM의 <b>딥블루</b>가 체스 세계 챔피언 가리 카스파로프를 이깁니다. ' +
+      '카스파로프는 «<b>이해할 수 없는 기계의 창의성</b>을 보았다»고 말했습니다.',
+      '하지만 딥블루는 <b>체스만</b> 둘 수 있었습니다. 아직은 «생각하는 기계»가 아니라 ' +
+      '<b>«한 가지를 아주 잘하는 기계»</b>였어요.'
+    ],
+    ask:'«한 가지만 잘하는 것»과 «생각하는 것»은 무엇이 다를까요?' },
+  { n:'4막', y:'2012 ~ 2016', t:'세 가지가 한꺼번에 갖춰졌다', e:'🚀',
+    mood:'boom',
+    lines:[
+      '2012년, 재프리 힌튼 교수팀의 <b>알렉스넷</b>이 이미지 인식 대회 <b>이미지넷</b>에서 우승합니다. ' +
+      '이전 우승자들을 <b>큰 차이로</b> 눌렀어요.',
+      '무엇이 달라졌을까요? <b>세 가지가 한꺼번에</b> 갖춰졌습니다 — ' +
+      '<b>①  쌓인 데이터</b>(인터넷) · <b>②  빨라진 계산</b>(그래픽카드) · <b>③  깊게 쌓는 방법</b>(딥러닝).',
+      '2014년에는 <b>생성적 적대 신경망(GAN)</b>이 나옵니다. ' +
+      '만드는 쪽과 가려내는 쪽이 <b>서로 겨루며</b> 실력을 올리는 방식이에요. ' +
+      '진짜 같은 가짜 이미지가 여기서 시작됩니다.',
+      '2016년 3월, <b>알파고</b>가 이세돌 9단을 4승 1패로 이겼습니다. ' +
+      '바둑의 경우의 수는 <b>10의 170제곱</b> — 우주의 원자 수보다 많습니다. ' +
+      '«바둑만은 아직»이라던 사람들이 조용해졌어요.'
+    ],
+    ask:'세 가지 중 하나라도 없었다면 어땠을까요?' },
+  { n:'5막', y:'2022 ~ 지금', t:'그리고 우리 차례', e:'✨',
+    mood:'now',
+    lines:[
+      '2022년부터 <b>생성형 인공지능</b>이 쏟아집니다. 글을 쓰고 그림을 그리고 노래를 만들어요. ' +
+      '«<b>아보카도 안락의자</b>»라고만 쓰면 그런 의자를 그려 줍니다.',
+      '그런데 같은 기술이 <b>딥페이크</b>를 만들고, <b>없는 판례</b>를 지어내고, ' +
+      '<b>내가 볼 것을 대신 골라</b> 줍니다.',
+      '70년 전 사람들은 <b>«될까?»</b>를 물었습니다. ' +
+      '지금 우리는 <b>«되는데, 그래서 어떻게 할까?»</b>를 물어야 합니다.',
+      '<b>그 질문이 이 단원 전체입니다.</b> 그리고 <b>수행평가 토론</b>이 그 답을 겨루는 자리예요.'
+    ],
+    ask:'지금의 생성형 인공지능도 «겨울»을 맞을까요? 아니면 이번엔 다를까요?' }
+];
 var TL = [
   { y:'1950', t:'튜링 테스트', d:'앨런 튜링이 기계에 지능이 있는지 판별하는 방법을 제안했다. 사람이 대화만으로 컴퓨터와 사람을 구별하지 못하면 지능이 있다고 본다.', u1:true },
   { y:'1956', t:'다트머스 회의', d:'미국 다트머스 대학교에 학자들이 모여 «지능을 가진 기계»를 논의했다. 존 매카시가 «인공지능»이라는 용어를 처음 제안했다.', u1:true },
@@ -2526,6 +2905,37 @@ var TL = [
   { y:'2022~', t:'생성형 인공지능', d:'요구에 따라 글 · 이미지 · 음악 등을 자동으로 만들어 내는 인공지능이 사회 여러 분야에 큰 영향을 끼치고 있다.' }
 ];
 (function(){
+  var stage = $('stStage'), dots = $('stDots'), num = $('stN');
+  if(stage){
+    var at = 0;
+    function drawStory(){
+      var x = STORY[at];
+      num.textContent = (at + 1) + ' / ' + STORY.length;
+      dots.innerHTML = STORY.map(function(_, i){
+        return '<button type="button" class="spd' + (i === at ? ' on' : (i < at ? ' done' : '')) +
+          '" data-i="' + i + '" aria-label="' + (i + 1) + '막"></button>';
+      }).join('');
+      stage.className = 'spstage mood-' + x.mood;
+      stage.innerHTML = '<div class="sph"><span class="spe">' + x.e + '</span>' +
+        '<span class="spa">' + esc(x.n) + '</span>' +
+        '<span class="spy">' + esc(x.y) + '</span></div>' +
+        '<b class="spt">' + esc(x.t) + '</b>' +
+        x.lines.map(function(l){ return '<p class="spl">' + l + '</p>'; }).join('') +
+        '<div class="spq"><b>생각해 볼 것</b> ' + esc(x.ask) + '</div>';
+      $('stPrev').disabled = (at === 0);
+      $('stNext').textContent = (at === STORY.length - 1) ? '처음으로 ↺' : '다음 →';
+    }
+    $('stPrev').addEventListener('click', function(){ if(at > 0){ at--; drawStory(); } });
+    $('stNext').addEventListener('click', function(){
+      at = (at + 1) % STORY.length; drawStory();
+    });
+    dots.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-i]'); if(!b) return;
+      at = +b.getAttribute('data-i'); drawStory();
+    });
+    drawStory();
+  }
+
   var pick = $('tlPick'); if(!pick) return;
   var line = $('tlLine'), cnt = $('tlCnt'), msg = $('tlMsg');
   var order = TL.map(function(_, i){ return i; }).sort(function(a, b){
@@ -3411,15 +3821,331 @@ var WFLOSE = [
   });
 })();
 
+/* ══ Ⅲ-03 인공지능과 우리 삶 (교과서 156~161쪽) ═══════════
+   이 소단원만 한 차시(50분)를 통째로 쓴다. 교과서 본문·표·읽을거리를
+   그대로 옮기되, 사례가 살아나도록 숫자와 실제 사건을 앞에 세웠다. */
+(function(){
+  var t = $('lfPlan');
+  if(t){
+    var rows = [
+      ['5분', '생각 열기', '인공지능 추천 시스템이 보여 주는 결과를 <b>항상 신뢰할 수 있을까?</b> — 같은 주식 추천으로 누구는 이득, 누구는 손해를 봤다 (156쪽)'],
+      ['10분', '비판적 자세', '자율주행·의료·챗봇의 <b>장단점 표</b>를 함께 읽기 → <b>활동 ④ 장단점 저울</b> (157쪽)'],
+      ['10분', '인간 중심 인공지능', '공존을 위한 <b>인공지능의 네 가지 역할</b> · 톰 그루버의 <b>암 진단 92.5 / 96.6 / 99.5</b> (158쪽)'],
+      ['10분', '인간의 태도', '비판적 태도 <b>네 가지 질문</b> · 인공지능의 <b>위험 요인 다섯</b> · 학교 경비 로봇 (159쪽)'],
+      ['10분', '활동', '<b>활동 ⑤ 드론 배달 서비스</b> — 긍정·부정을 다 적고 <b>인간의 역할</b> 쓰기 (160쪽)'],
+      ['5분', '읽을거리', '<b>인공지능의 환각</b> — 바드·슈워츠 변호사·딥드림 (161쪽)']
+    ];
+    t.innerHTML = '<tr><th>시간</th><th>무엇을</th><th>내용</th></tr>' + rows.map(function(r){
+      return '<tr><td class="d"><b>' + r[0] + '</b></td><td class="d">' + esc(r[1]) + '</td><td>' + r[2] + '</td></tr>';
+    }).join('');
+  }
+
+  var p = $('lfPro');
+  if(p){
+    var PRO = [
+      ['자율 주행 자동차',
+       ['교통 흐름이 좋아지고 교통사고가 준다', '장애인과 고령 운전자도 운전할 수 있다',
+        '운행 중 편의성이 높아진다', '친환경적이다'],
+       ['시스템 오류로 사고가 날 수 있다', '사고가 나면 <b>책임 소재</b>가 흐리다',
+        '개인 위치 정보가 노출된다']],
+      ['의료 산업',
+       ['수술 로봇이 까다로운 정밀 수술을 할 수 있다', '진단 로봇이 사람의 질병을 빠르게 진단한다'],
+       ['의료 사고가 나면 <b>책임 소재 논란</b>이 생긴다', '인공지능의 결정이 안전하지 않을 수 있다',
+        '의사의 결정권을 침해할 수 있다']],
+      ['챗봇',
+       ['언제 어디서나 궁금한 것을 빠르게 알려 준다', '창작과 문제 풀이에 도움을 준다'],
+       ['잘못된 데이터를 계속 학습시키면 <b>오류가 있는 답</b>을 한다',
+        '학습 데이터를 모으는 과정에서 <b>무단 사용</b> 문제가 생긴다']]
+    ];
+    p.className = 'lftab';
+    p.innerHTML = '<tr><th style="width:130px">분야</th><th>👍 좋은 점</th><th>⚠️ 걱정되는 점</th></tr>' +
+      PRO.map(function(x){
+        return '<tr><td class="d"><b>' + esc(x[0]) + '</b></td>' +
+          '<td><ul>' + x[1].map(function(y){ return '<li>' + y + '</li>'; }).join('') + '</ul></td>' +
+          '<td><ul class="bad">' + x[2].map(function(y){ return '<li>' + y + '</li>'; }).join('') + '</ul></td></tr>';
+      }).join('');
+  }
+
+  var r = $('lfRole');
+  if(r){
+    var ROLE = [
+      ['🦺', '인간의 안전성 향상',
+       'CCTV 영상 속 사람·차량·사물을 분석해 <b>위험도가 높아지면 경고음이나 문자로 알려</b> 산업 현장 사고를 예방한다.'],
+      ['🎬', '인간의 편의성 증진',
+       '인터넷 동영상 서비스가 <b>고객이 재밌게 볼 만한 영화</b>를 추천한다.'],
+      ['🌏', '인류의 문제 해결',
+       '<b>기후 변화 · 환경 오염 · 빈곤 · 인권</b> 같은 복잡하고 심각한 문제를 푸는 데 쓰인다.'],
+      ['📦', '업무 효율성과 생산성',
+       '물류센터 로봇이 물품을 자동 인식·분류하고 <b>최단 거리</b>로 찾아 인간 노동의 부담을 줄인다.']
+    ];
+    r.innerHTML = ROLE.map(function(x){
+      return '<div class="mcard"><span>' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + x[2] + '</p></div>';
+    }).join('');
+  }
+
+  var a = $('lfAcc');
+  if(a){
+    var ACC = [['인공지능 혼자', 92.5, 'ai'], ['사람 혼자', 96.6, 'hu'], ['사람 + 인공지능', 99.5, 'both']];
+    a.innerHTML = ACC.map(function(x){
+      return '<div class="accr ' + x[2] + '"><span class="acn">' + esc(x[0]) + '</span>' +
+        '<span class="acbar"><i style="width:' + ((x[1] - 88) / 12 * 100).toFixed(1) + '%"></i></span>' +
+        '<b class="acv">' + x[1] + '%</b></div>';
+    }).join('') + '<p class="acnote">가로 눈금은 88~100% 구간을 넓혀 그린 것입니다. 차이를 보기 쉽게 하려고요.</p>';
+  }
+
+  var q = $('lfQ');
+  if(q){
+    var Q = [
+      ['📷', '얼굴 정보는 나의 개인 정보인데 이렇게 수집되어도 괜찮을까?', '프라이버시'],
+      ['🔊', '인공지능 스피커에게 개인 정보가 담긴 이야기를 해도 될까?', '개인 정보'],
+      ['💬', '인공지능 챗봇이 하는 말이 다 맞을까?', '환각 · 신뢰'],
+      ['🔁', '동영상 알고리즘이 내 생각을 편협하게 만드는 것은 아닐까?', '필터 버블']
+    ];
+    q.innerHTML = Q.map(function(x){
+      return '<div class="qc"><span>' + x[0] + '</span><p>' + esc(x[1]) + '</p><i>' + esc(x[2]) + '</i></div>';
+    }).join('');
+  }
+
+  var rk = $('lfRisk');
+  if(rk){
+    var RISK = [
+      ['편견과 차별', '배운 자료에 사람의 편견이 섞여 있으면 결과도 그대로 치우친다'],
+      ['책임질 당사자를 특정하지 못함', '사고가 나도 누가 책임지는지 정해지지 않는다'],
+      ['불투명하고 설명할 수 없는 결과', '왜 그런 답이 나왔는지 아무도 모른다'],
+      ['사생활 침해', '얼굴·목소리·위치가 모르는 사이에 모인다'],
+      ['신뢰할 수 없고 안전하지 않은 결과', '그럴듯하지만 틀린 답이 나온다']
+    ];
+    rk.innerHTML = RISK.map(function(x, i){
+      return '<div class="rk"><span>' + (i + 1) + '</span><div><b>' + esc(x[0]) + '</b>' +
+        '<i>' + esc(x[1]) + '</i></div></div>';
+    }).join('');
+  }
+
+  var h = $('lfHalu');
+  if(h){
+    var HALU = [
+      { t:'구글 «바드»의 시연회 실수', y:'2023',
+        d:'«9살 아이에게 제임스웹 우주망원경의 새로운 발견을 어떻게 설명할까?»라는 질문에 바드는 세 가지 답을 내놓았습니다. ' +
+          '그중 <b>«제임스웹 우주망원경은 최초로 우리 태양계 밖의 행성 사진을 찍었다»</b>는 답은 <b>사실이 아니었습니다.</b> ' +
+          '제임스웹은 최초가 아니었어요.',
+        k:'시연회 자리에서 나온 오류 — 만든 회사조차 미리 걸러 내지 못했다' },
+      { t:'30년 경력 변호사가 낸 가짜 판례', y:'2023',
+        d:'미국의 스티븐 슈워츠 변호사가 챗GPT가 <b>지어낸 판례</b>를 인용해 법원에 의견서를 냈습니다. ' +
+          '『뉴욕 타임스』는 10쪽 의견서에 담긴 판례 중 <b>최소 6개가 거짓</b>이었다고 보도했어요. ' +
+          '상대 측이 «이 판례를 도저히 찾을 수 없다»고 지적하면서 들통났습니다.',
+        k:'챗GPT가 «실제 사건이다», «다른 데서도 찾을 수 있다»고 끝까지 답해 믿었다고 한다' },
+      { t:'일부러 만든 환각 — 딥드림', y:'2015',
+        d:'구글의 <b>딥드림(DeepDream)</b>은 <b>세상에 없는 이미지를 만들어 내는 것</b>을 목표로 했습니다. ' +
+          '고흐의 화풍을 배워 새 그림을 그렸어요. 환각을 <b>의도대로 응용하면</b> 예술·디자인·증강현실·데이터 증강에 쓸 수 있습니다.',
+        k:'같은 성질이 문제도 되고 도구도 된다 — 가르는 것은 «의도했는가»' }
+    ];
+    h.innerHTML = HALU.map(function(x){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(x.t) + '</b><span>' + esc(x.y) + '</span></div>' +
+        '<p>' + x.d + '</p><i>' + esc(x.k) + '</i></div>';
+    }).join('');
+  }
+
+  var c = $('lfCheck');
+  if(c){
+    var CHK = [
+      ['🔎', '출처를 본다', '누가 언제 말했나. <b>기관 이름과 연도</b>가 없으면 근거가 아닙니다.'],
+      ['🔗', '교차로 본다', '<b>다른 곳에서도</b> 같은 말을 하는가. 한 곳에만 있으면 의심합니다.'],
+      ['📄', '원본을 본다', '요약이 아니라 <b>원래 자료</b>를 찾습니다. 인공지능 요약은 원본이 아닙니다.']
+    ];
+    c.innerHTML = CHK.map(function(x){
+      return '<div class="mcard"><span>' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + x[2] + '</p></div>';
+    }).join('');
+  }
+
+  var b = $('lfBox');
+  if(b){
+    b.innerHTML =
+      '<div class="mcard"><span>📦</span><b>블랙박스 문제</b>' +
+      '<p>인공지능이 <b>답은 내놓는데 이유는 말하지 못하는</b> 상태입니다. ' +
+      '학습한 숫자가 너무 많고 복잡해서 만든 사람도 «왜 이 답이 나왔는지» 알기 어려워요. ' +
+      '채용에서 떨어져도, 대출이 거절돼도 <b>이유를 들을 수 없습니다.</b></p></div>' +
+      '<div class="mcard"><span>💡</span><b>설명 가능한 인공지능 (XAI)</b>' +
+      '<p>인공지능의 판단 이유를 <b>사람이 이해할 수 있는 방식으로</b> 내놓는 인공지능입니다. ' +
+      '«이 사진을 고양이로 본 이유는 <b>귀 모양과 수염</b>» 처럼요. ' +
+      '많은 기업·기관이 XAI를 도입해 <b>투명성</b>을 높이고 있습니다. <i>(교과서 170쪽)</i></p></div>';
+  }
+})();
+
+/* ══ Ⅲ-04 인공지능 윤리 (교과서 162~171쪽) ════════════════
+   특히 «사회적 책임과 공정성»(170~171쪽)은 국가 인공지능 윤리 기준의
+   3대 원칙과 10대 요건을 그림 Ⅲ-6 그대로 옮겨 담았다. */
+(function(){
+  var t = $('etTerm');
+  if(t){
+    t.innerHTML =
+      '<div class="mcard"><span>🙈</span><b>편견</b>' +
+      '<p>«첫째니까 책임감이 강하고 사람들을 잘 챙길 거야» — 사람은 살아가며 여러 편견을 갖습니다. ' +
+      '인공지능이 <b>편견이 담긴 데이터</b>를 배우면 편견을 가진 결과를 내놓고, 그것이 <b>차별</b>이 됩니다.</p></div>' +
+      '<div class="mcard"><span>🔍</span><b>확증 편향</b>' +
+      '<p>가설의 진위를 가리거나 문제를 풀 때 <b>자신의 신념과 일치하는 정보만 취하고 상반되는 정보는 무시하는</b> ' +
+      '무의식적 사고 성향. 보고 싶어 하는 주제만 계속 보여 주면 <b>확증 편향이 빨라집니다.</b></p></div>';
+  }
+
+  var f = $('etFlow');
+  if(f){
+    var FL = ['사람이나 사회의 편견', '데이터에 반영', '편향된 데이터', '학습', '편향된 인공지능'];
+    f.innerHTML = FL.map(function(x, i){
+      var arrow = (i % 2 === 1);
+      return arrow ? '<span class="fa">↓ ' + esc(x) + ' ↓</span>'
+                   : '<span class="fb' + (i === 4 ? ' last' : '') + '">' + esc(x) + '</span>';
+    }).join('');
+  }
+
+  var d = $('etData');
+  if(d){
+    var DATA = [
+      { t:'맥박 산소 측정기와 피부색', y:'의료',
+        d:'의료에 쓰이는 <b>맥박 산소 측정기</b>는 환자의 피부에 <b>빛을 비춰</b> 작동합니다. ' +
+          '그런데 인종별로 피부의 <b>멜라닌 색소값</b>이 다른데, 이 기기는 <b>백인 환자의 값을 표준</b>으로 삼았습니다. ' +
+          '따라서 <b>흑인 환자의 의료 수치를 잘못 보고할 가능성</b>이 있습니다.',
+        k:'표준을 누구에게 맞췄는가 — 그것이 곧 누구를 배제했는가' },
+      { t:'«눈을 감았습니다» — 뉴질랜드 여권 심사', y:'행정',
+        d:'한 <b>동양계 뉴질랜드인</b>이 여권 갱신을 위해 올린 사진이 ' +
+          '«<b>눈을 감았습니다</b>»라는 이유로 거부되었습니다. ' +
+          '당시 뉴질랜드 정부는 인공지능으로 여권 사진 심사를 자동화했는데, ' +
+          '상대적으로 <b>눈이 작은 아시아인의 사진</b>을 인식하지 못한 것입니다.',
+        k:'배우지 못한 얼굴은 «얼굴»로 세지 않는다' },
+      { t:'아마존의 채용 인공지능 폐기', y:'채용',
+        d:'미국의 한 기업이 인공지능 채용 프로그램을 썼습니다. 그런데 인공지능은 ' +
+          '<b>경력 10년 이상의 남성만 추천</b>하거나, «<b>여성</b> 체스 동아리»처럼 ' +
+          '<b>여성이라는 문구가 들어간 경력</b>이 있으면 대상에서 제외했습니다. ' +
+          '지난 <b>10년간의 이력서</b>를 배운 인공지능이 «남성이 더 적합하다»고 여긴 것입니다. 결국 폐기되었습니다.',
+        k:'과거의 차별을 배우면 미래에도 그대로 되풀이한다' }
+    ];
+    d.innerHTML = DATA.map(function(x){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(x.t) + '</b><span>' + esc(x.y) + '</span></div>' +
+        '<p>' + x.d + '</p><i>' + esc(x.k) + '</i></div>';
+    }).join('');
+  }
+
+  var a = $('etAlgo');
+  if(a){
+    var ALGO = [
+      { t:'평평한 지구를 믿게 된 농구 선수', y:'추천',
+        d:'미국의 유명 농구선수가 <b>지구가 평평하다</b>고 주장했습니다. ' +
+          '그는 «<b>평평한 지구 음모론</b>이 동영상 스트리밍 서비스에서 인공지능 추천 알고리즘에 의해 ' +
+          '<b>수억 번이나 추천</b>되었다»고 말했습니다.',
+        k:'많이 보이는 것이 «사실»처럼 느껴진다' },
+      { t:'«내 알고리즘이 걱정된다» — 개발자의 고백', y:'분극화',
+        d:'한 동영상 스트리밍 플랫폼 개발자는 «제가 작업한 알고리즘의 <b>필터 버블</b>이 ' +
+          '사회의 <b>분극화</b>를 더 심하게 만들어서 걱정된다»고 말했습니다. ' +
+          '미국의 한 연구소가 1만 명을 연구했더니, SNS 추천 알고리즘의 영향으로 ' +
+          '<b>지난 20년을 통틀어 가장 분극화</b>되었다고 합니다.',
+        k:'만든 사람도 멈추기 어려운 구조가 된다' },
+      { t:'얼굴 인식 정확도의 차이', y:'인식',
+        d:'인종과 성별에 따라 <b>인공지능 얼굴 인식 정확도가 다르다</b>는 연구 결과가 발표되었습니다. ' +
+          '<b>피부색이 검을수록, 남자보다 여자일수록</b> 오류 발생률이 더 높았습니다.',
+        k:'이 사례는 «데이터 편향»에 가깝습니다 — 활동 ⑥에서 왜 그런지 따져 보세요' }
+    ];
+    a.innerHTML = ALGO.map(function(x){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(x.t) + '</b><span>' + esc(x.y) + '</span></div>' +
+        '<p>' + x.d + '</p><i>' + esc(x.k) + '</i></div>';
+    }).join('');
+  }
+
+  var p = $('etPrin');
+  if(p){
+    var PRIN = [
+      ['🧍', '인간 존엄성 원칙', '인간은 물리적·정신적으로 해를 입지 않아야 하고, 인공지능은 <b>인간에게 무해한 목적</b>으로 활용되어야 한다.'],
+      ['🏛️', '사회의 공공선 원칙', '공동체의 <b>공익</b>을 우선하며, 사회적 약자와 취약 계층의 <b>접근성</b>을 보장해야 한다.'],
+      ['🎯', '기술의 합목적성 원칙', '인공지능 기술은 <b>인류의 삶에 필요한 도구</b>라는 목적에 맞게 개발·활용되어야 한다.']
+    ];
+    p.innerHTML = PRIN.map(function(x){
+      return '<div class="mcard"><span>' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + x[2] + '</p></div>';
+    }).join('');
+  }
+
+  var tn = $('etTen');
+  if(tn){
+    var TEN = [
+      ['인권 보장', '인간 중심 · 인간의 권리와 자유 보장 · 사람 중심 서비스'],
+      ['프라이버시 보호', '사생활 보호 · 개인 정보 오용 최소화'],
+      ['다양성 존중', '다양성 · 접근성 보장 · 비차별성 · 편향과 차별 최소화'],
+      ['침해 금지', '인간에 무해한 목적으로 활용'],
+      ['공공성', '공공성 증진 · 인류의 공동 이익 목적 · 순기능 극대화 · 교육'],
+      ['연대성', '집단 간 연대성 · 이해관계자의 참여 기회 보장 · 국제 사회 협력'],
+      ['데이터 관리', '목적 외 용도 활용 금지 · 데이터 편향 최소화 · 품질과 위험 관리'],
+      ['책임성', '책임의 명확화 · 주체별 책임'],
+      ['안전성', '잠재적 위험 방지 · 안전 보장'],
+      ['투명성', '설명 가능성 · 활용 내용 및 유의사항 사전 고지']
+    ];
+    tn.innerHTML = TEN.map(function(x, i){
+      return '<div class="tenc"><span>' + (i + 1) + '</span><div><b>' + esc(x[0]) + '</b>' +
+        '<i>' + esc(x[1]) + '</i></div></div>';
+    }).join('');
+  }
+
+  var fa = $('etFair');
+  if(fa){
+    fa.innerHTML =
+      '<div class="mcard"><span>🔍</span><b>투명성</b>' +
+      '<p>인공지능이 쓰는 <b>알고리즘과 수집한 데이터를 투명하게 공개</b>하여 ' +
+      '윤리적으로 잘못된 부분이 없다는 것을 보여 주어야 합니다. ' +
+      '많은 기업·기관이 <b>설명 가능한 인공지능(XAI)</b>을 도입해 투명성을 높이고 있어요.</p></div>' +
+      '<div class="mcard"><span>🌏</span><b>다양성 존중</b>' +
+      '<p><b>사투리를 포함한 음성 데이터</b>, <b>사회적 약자를 고려한 데이터</b> 등 ' +
+      '다양성을 존중할 수 있는 데이터를 모아서 인공지능을 개발해야 합니다.</p></div>';
+  }
+
+  var th = $('etThree');
+  if(th){
+    var THREE = [
+      { r:'개발자', e:'🛠️', when:'출시될 때까지',
+        job:'인공지능 서비스의 <b>사회적 영향을 예측</b>해야 한다',
+        li:['사용자들이 믿고 쓸 수 있도록 <b>신뢰할 수 있는</b> 인공지능을 개발한다',
+            '개발에 쓰는 데이터가 <b>편향되지 않았는지</b> 꼼꼼히 확인한다',
+            '출시 이후에도 프로그램을 <b>지속적으로 관리</b>하여 문제를 예방한다',
+            '개발 과정과 결과의 <b>책임을 공유</b>한다'] },
+      { r:'운영·관리자', e:'🏢', when:'서비스가 개발되면',
+        job:'사회적 책임과 공정성을 고려해 <b>어떻게 출시할지 결정</b>해야 한다',
+        li:['<b>사회적 합의</b>를 바탕으로 한 원칙을 세우고 그 기준에 맞는 인공지능을 도입한다',
+            '<b>공공의 이익</b>을 위한 인공지능 활용을 관리·감독한다',
+            '많은 사람에게 도움이 될 인공지능을 생각하고 사회에 적용하도록 노력한다'] },
+      { r:'사용자', e:'🙋', when:'서비스가 제공된 뒤',
+        job:'<b>윤리 원칙에 따라 행동</b>해야 한다',
+        li:['인공지능을 <b>원래 개발한 목적에 맞게</b> 사용한다',
+            '윤리적 문제가 생기면 <b>기업이 개선할 수 있도록 알린다</b>',
+            '인공지능 관련 <b>법률과 사용 지침을 지킨다</b>'] }
+    ];
+    th.innerHTML = THREE.map(function(x){
+      return '<div class="thc"><div class="thh"><span>' + x.e + '</span><b>' + esc(x.r) + '</b>' +
+        '<i>' + esc(x.when) + '</i></div><p class="thj">' + x.job + '</p>' +
+        '<ul>' + x.li.map(function(y){ return '<li>' + y + '</li>'; }).join('') + '</ul></div>';
+    }).join('');
+  }
+
+  var gu = $('etGoodUse'), nu = $('etNoUse');
+  if(gu) gu.innerHTML = [
+    '<b>사회적으로 유익</b>해야 한다',
+    '<b>불공정한 편견</b>을 만들거나 강화하지 않는다',
+    '<b>안전성</b>을 우선으로 설계·테스트되어야 한다',
+    '<b>인간을 위해 책임</b>을 다해야 한다',
+    '<b>개인 정보 보호</b>를 위한 설계 원칙을 적용한다',
+    '<b>과학적 우수성</b>에 대한 높은 기준을 유지한다',
+    '인공지능 <b>원칙에 부합하는 용도</b>에 활용되어야 한다'
+  ].map(function(x){ return '<li>' + x + '</li>'; }).join('');
+  if(nu) nu.innerHTML = [
+    '전반적으로 <b>피해를 유발하거나 해를 입힐</b> 가능성이 있는 기술',
+    '<b>인명 피해</b>를 야기하거나 촉진하는 무기 또는 기타 기술',
+    '<b>감시 목적</b>으로 정보를 수집하거나 사용하는 기술',
+    '<b>국제법 및 인권의 원칙</b>에 위배되는 목적을 가진 기술'
+  ].map(function(x){ return '<li>' + x + '</li>'; }).join('');
+})();
+
 /* ══ 논제 ↔ 단원 연결 표 ══════════════════════════════════ */
 (function(){
   var t = $('dbMap'); if(!t) return;
   var rows = [
-    ['자율주행차 사고 회피', 'Ⅲ-03 · Ⅲ-04', '활동 ⑤ 장단점 저울 · ⑦ 딜레마 ①',
+    ['자율주행차 사고 회피', 'Ⅲ-03 · Ⅲ-04', '활동 ④ 장단점 저울 · ⑦ 딜레마 ②',
      '인간 존엄성 원칙 · 책임 소재 · 공존 방안'],
-    ['AI 채용 심사 허용', 'Ⅲ-04', '활동 ⑥ 편향성 3번 사례',
+    ['AI 채용 심사 허용', 'Ⅲ-04', '활동 ⑥ 편향성 · 아마존 채용 인공지능 폐기 사례',
      '데이터 편향성 · 공정성 · 개발자 책임'],
-    ['생성형 AI 저작권', 'Ⅲ-04', '활동 ⑦ 딜레마 ③ 창작물 저작권',
+    ['생성형 AI 저작권', 'Ⅲ-04', '활동 ② 생성형 인공지능 카드 · ⑦ 윤리적 딜레마',
      '윤리적 딜레마 · 사용자 윤리 · 투명성']
   ];
   var h = '<tr><th>논제</th><th>소단원</th><th>여기서 재료를</th><th>쓸 만한 개념</th></tr>';
@@ -3504,9 +4230,9 @@ var CHECK = [
   { q:'다음은 어떤 직업 변화 양상인가?<br><i>단순 프로그래머에서 웹 개발자·앱 프로그래머·인공지능 소프트웨어 프로그래머 등으로 나뉘었다.</i>',
     o:['노동 생산성 증대','많은 직업이 사라짐','업무 시간 단축','직업의 세분화·전문화'],
     a:3, w:'한 직업이 <b>여러 전문 분야로 갈라진</b> 경우입니다.' },
-  { q:'인공지능의 영향으로 빠르게 성장할 직업이 <b>아닌</b> 것은?',
-    o:['정보 보안 분석가','핀테크 엔지니어','톨게이트 수납원','데이터 분석가'],
-    a:2, w:'요금 수납은 <b>저숙련 · 정형 업무</b>라 대체 가능성이 높습니다.' },
+  { q:'톰 그루버가 든 암 진단 사례에서 <b>가장 정확도가 높았던</b> 경우는?',
+    o:['인공지능 혼자 (92.5%)','사람 혼자 (96.6%)','사람과 인공지능의 협력 (99.5%)','셋 다 같았다'],
+    a:2, w:'<b>협력했을 때 99.5%</b>입니다. 인간은 «틀린 진단»을, 인공지능은 «숨은 경우»를 잘 찾아내기 때문이에요.' },
   { q:'빈칸에 들어갈 말은?<br><i>( )은 윤리적 설계를 통해 인간의 능력을 대체하지 않고 향상시키는 데 중점을 둔다.</i>',
     o:['인간 중심 인공지능','생성형 인공지능','설명 가능한 인공지능','지능형 서비스'],
     a:0, w:'<b>인간 중심 인공지능</b>입니다. 대체가 아니라 <b>협력</b>이 핵심이에요.' },
