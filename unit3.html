@@ -1440,6 +1440,39 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* 실제 사례 모음 · 내 피드 진단 */
+.csm{margin:0 0 8px !important; font-family:var(--mono); font-size:0.7188rem;
+  color:var(--muted) !important}
+.cssrc{margin:0 0 8px; font-size:0.75rem; color:var(--muted); line-height:1.6}
+.cssrc b{color:var(--blue-d); margin-right:5px}
+.fdbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:17px 19px; box-shadow:var(--sh)}
+.fdq{display:grid; grid-template-columns:1fr auto; gap:13px; align-items:center;
+  padding:11px 0; border-bottom:1px solid var(--line)}
+.fdq:last-child{border-bottom:none}
+.fdq p{margin:0; font-size:0.875rem; line-height:1.7; color:var(--ink2)}
+.fdresult{margin-top:15px; border-radius:15px; padding:15px 18px; background:var(--good-bg)}
+.fdresult.lv1{background:var(--warm-bg)}
+.fdresult.lv2{background:var(--cut-bg)}
+.fdgauge{display:grid; grid-template-columns:74px 1fr 40px; gap:11px; align-items:center;
+  margin-bottom:11px}
+.fdlab{font-size:0.75rem; font-weight:700; color:var(--muted)}
+.fdbar{height:18px; background:var(--white); border-radius:99px; overflow:hidden}
+.fdbar>i{display:block; height:100%; border-radius:99px; background:var(--good)}
+.fdresult.lv1 .fdbar>i{background:var(--warm)}
+.fdresult.lv2 .fdbar>i{background:var(--cut)}
+.fdgauge>b{font-family:var(--mono); font-size:1.0625rem; text-align:right; color:var(--good)}
+.fdresult.lv1 .fdgauge>b{color:var(--warm)}
+.fdresult.lv2 .fdgauge>b{color:var(--cut)}
+.fdt{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem;
+  color:var(--ink); margin-bottom:6px}
+.fdresult p{margin:0 0 8px; font-size:0.875rem; line-height:1.75; color:var(--ink2)}
+.fdnote{font-size:0.8125rem !important; color:var(--muted) !important; margin-bottom:0 !important}
+
+@media (max-width:520px){
+  .fdq{grid-template-columns:1fr; gap:8px}
+}
+
 /* ① 발전 이야기 */
 .storyplay{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
   padding:15px 17px; box-shadow:var(--sh)}
@@ -1781,6 +1814,8 @@ table.dlt tr:last-child td{border-bottom:none}
   <a href="#act">수업 활동</a>
   <a href="#life">우리 삶</a>
   <a href="#ethics">인공지능 윤리</a>
+  <a href="#cases">실제 사례</a>
+  <a href="#myfeed">내 피드 진단</a>
   <a href="#debate">토론 준비</a>
   <a href="#terms">핵심 용어</a>
   <a href="#check">확인 문제</a>
@@ -2583,6 +2618,50 @@ table.dlt tr:last-child td{border-bottom:none}
     「투명성」을 지키려면 알고리즘을 공개해야 하는데, 그러면 기업의 기술이 새어 나가지요.
     <b>그 부딪히는 자리가 수행평가 토론의 논제</b>입니다.
     <a href="https://richee-pc.github.io/AI_cs/debate.html#topics" style="font-weight:800">논제 열 가지 보러 가기 →</a></div>
+</div></section>
+
+
+<section id="cases"><div class="wrap">
+  <p class="eyebrow">근거 창고</p>
+  <h2>실제로 벌어진 일들</h2>
+  <p class="sub">이 단원의 모든 사례를 한곳에 모았습니다.
+    <b>토론에서 쓸 근거를 여기서 찾으세요</b> — 아래 단추로 갈래를 좁힐 수 있고,
+    카드마다 <b>어느 논제에 쓸 수 있는지</b> 적혀 있습니다.</p>
+
+  <div class="wfpick" id="csFilter"></div>
+  <p class="cnt" id="csCnt"></p>
+  <div class="cases3" id="csBox"></div>
+
+  <div class="note" style="margin-top:18px"><b>사례를 근거로 바꾸는 법</b>
+    사례를 그대로 옮기면 «이야기»일 뿐입니다. <b>근거</b>가 되려면 세 가지가 붙어야 해요 —
+    <b>①  누가 언제</b>(기관·연도) · <b>②  무슨 일이</b>(사실) · <b>③  그래서 내 주장이 왜 옳은가</b>(연결).
+    개별 문서 <b>A-5 근거 칸</b>이 정확히 이 모양입니다.</div>
+</div></section>
+
+<section id="myfeed"><div class="wrap">
+  <p class="eyebrow">스스로 해 보기</p>
+  <h2>내 피드는 얼마나 좁아져 있을까</h2>
+  <p class="sub">알고리즘 편향은 <b>남의 이야기가 아닙니다.</b>
+    여섯 문항에 솔직히 답하면 <b>내 노출 편향</b>이 나옵니다. 점수를 재는 게 아니라
+    <b>«내가 무엇을 안 보고 있는지»</b>를 알아채는 활동이에요.</p>
+
+  <div class="fdbox">
+    <div id="fdQ"></div>
+    <div class="fdresult" id="fdR" hidden></div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini gh" id="fdRe">다시 하기</button>
+      <span class="sendmsg" id="fdMsg">여섯 문항에 모두 답하면 결과가 나옵니다.</span>
+    </div>
+  </div>
+
+  <h3 class="step-h" style="margin-top:26px">역탐색 미션 — 오늘 해 볼 세 가지</h3>
+  <p class="desc">편향은 <b>일부러 반대편을 봐야</b> 줄어듭니다. 저절로 줄지 않아요.</p>
+  <div class="g3" id="fdMission"></div>
+
+  <div class="ask" style="margin-top:16px"><b>이것이 토론 준비이기도 합니다</b>
+    수행평가에서 <b>내 생각과 반대되는 입장</b>을 배정받을 수 있습니다.
+    평소에 반대편 자료를 찾아 두는 사람이 <b>「예상 반론을 가장 강한 형태로」</b> 적을 수 있어요 —
+    그게 개별 문서 <b>B-3 칸</b>이고 <b>요소 ② 25점</b>입니다.</div>
 </div></section>
 
 <section id="debate"><div class="wrap">
@@ -4135,6 +4214,200 @@ var WFLOSE = [
     '<b>감시 목적</b>으로 정보를 수집하거나 사용하는 기술',
     '<b>국제법 및 인권의 원칙</b>에 위배되는 목적을 가진 기술'
   ].map(function(x){ return '<li>' + x + '</li>'; }).join('');
+})();
+
+/* ══ 실제 사례 모음 ═══════════════════════════════════════
+   교과서 사례와 「인공지능 윤리 디지털 콘텐츠」 1·2차시에서 다루는 사례를
+   한곳에 모았다. 토론 근거로 바로 쓰라고 «쓸 만한 논제»를 붙여 두었다. */
+var CASE = [
+  { g:'편향', t:'아마존 채용 인공지능 폐기', y:'2018', w:'미국',
+    d:'지난 10년 이력서를 학습한 채용 인공지능이 <b>경력 10년 이상 남성만 추천</b>하고, ' +
+      '«<b>여성</b> 체스 동아리»처럼 여성이라는 문구가 든 경력을 <b>대상에서 제외</b>했다. 결국 폐기됐다.',
+    s:'로이터 보도 2018 · 교과서 164쪽',
+    u:'AI 채용 심사 도입을 허용해야 하는가' },
+  { g:'편향', t:'맥박 산소 측정기와 피부색', y:'—', w:'의료',
+    d:'피부에 빛을 비춰 재는 맥박 산소 측정기가 <b>백인의 멜라닌 색소값을 표준</b>으로 삼아, ' +
+      '<b>흑인 환자의 수치를 잘못 보고할 가능성</b>이 있다.',
+    s:'교과서 164쪽',
+    u:'AI 채용 심사 · 인공지능 챗봇의 청소년 상담' },
+  { g:'편향', t:'«눈을 감았습니다» — 뉴질랜드 여권 심사', y:'—', w:'행정',
+    d:'동양계 뉴질랜드인의 여권 사진이 «눈을 감았습니다»라는 이유로 거부됐다. ' +
+      '자동 심사 인공지능이 <b>눈이 작은 아시아인의 얼굴</b>을 인식하지 못한 것이다.',
+    s:'교과서 164쪽',
+    u:'공공장소의 실시간 얼굴 인식을 허용해야 하는가' },
+  { g:'편향', t:'얼굴 인식 정확도의 차이', y:'—', w:'인식',
+    d:'<b>피부색이 검을수록, 남자보다 여자일수록</b> 인공지능 얼굴 인식의 오류 발생률이 더 높다는 연구 결과.',
+    s:'교과서 165쪽',
+    u:'공공장소의 실시간 얼굴 인식 · AI 채용 심사' },
+  { g:'추천', t:'«평평한 지구»를 믿게 된 농구 선수', y:'—', w:'미디어',
+    d:'미국의 유명 농구선수가 지구가 평평하다고 주장하며, ' +
+      '«평평한 지구 음모론이 추천 알고리즘에 의해 <b>수억 번 추천</b>되었다»고 말했다.',
+    s:'교과서 165쪽',
+    u:'청소년에게는 추천 알고리즘을 제한해야 하는가' },
+  { g:'추천', t:'«내가 만든 알고리즘이 걱정된다»', y:'—', w:'분극화',
+    d:'동영상 플랫폼 개발자가 «내 알고리즘의 <b>필터 버블</b>이 사회의 <b>분극화</b>를 심하게 만든다»고 말했다. ' +
+      '미국의 한 연구소는 1만 명을 조사해 <b>지난 20년 중 가장 분극화</b>되었다고 밝혔다.',
+    s:'교과서 165쪽',
+    u:'청소년에게는 추천 알고리즘을 제한해야 하는가' },
+  { g:'추천', t:'추천을 움직이는 것은 «좋아요»가 아니다', y:'—', w:'구조',
+    d:'추천에 가장 크게 반영되는 신호는 <b>체류 시간</b>이다. 끝까지 본 것이 «좋아한 것»으로 계산된다. ' +
+      '그래서 자극적인 영상이 검증된 기사보다 <b>훨씬 빨리</b> 퍼지고, 그 사이에 <b>«사실 확인» 거름망은 없다.</b>',
+    s:'AI 윤리 디지털 콘텐츠 2차시',
+    u:'청소년 추천 알고리즘 제한 · AI 디지털교과서 도입' },
+  { g:'환각', t:'구글 바드의 시연회 오답', y:'2023', w:'생성형 AI',
+    d:'«제임스웹 우주망원경이 <b>최초로</b> 태양계 밖 행성 사진을 찍었다»고 답했으나 사실이 아니었다. ' +
+      '<b>공개 시연회</b>에서 나온 오류였다.',
+    s:'교과서 161쪽',
+    u:'학교 과제에 생성형 AI 사용을 허용해야 하는가' },
+  { g:'환각', t:'30년 경력 변호사가 낸 가짜 판례 6건', y:'2023', w:'법률',
+    d:'미국 변호사가 챗GPT가 <b>지어낸 판례</b>를 법원에 제출했다. 10쪽 의견서 중 <b>최소 6개가 거짓</b>. ' +
+      '챗GPT는 «실제 사건이다»라고 <b>끝까지 자신 있게</b> 답했다.',
+    s:'뉴욕 타임스 보도 2023 · 교과서 161쪽',
+    u:'재판에서 AI 양형 보조 허용 · 학교 과제 생성형 AI' },
+  { g:'환각', t:'딥드림 — 일부러 만든 환각', y:'2015', w:'예술',
+    d:'구글 딥드림은 <b>세상에 없는 이미지를 만드는 것</b>을 목표로 했다. 고흐 화풍을 배워 새 그림을 그렸다. ' +
+      '같은 성질이 <b>의도하면 도구</b>, 의도하지 않으면 문제가 된다.',
+    s:'교과서 161쪽',
+    u:'생성형 AI 학습에 쓰인 저작물의 창작자 보상' },
+  { g:'책임', t:'챗봇 «테이», 16시간 만에 중단', y:'2016', w:'미국',
+    d:'사용자들의 <b>부적절한 입력을 그대로 학습</b>해 윤리적으로 문제가 되는 답변을 내놓았고, ' +
+      '출시 <b>16시간 만에</b> 운영이 중단됐다. <b>만든 쪽만 잘해서 되는 일이 아니라는</b> 것을 보여 준 사건.',
+    s:'교과서 170쪽',
+    u:'학교 과제 생성형 AI · 청소년 AI 상담' },
+  { g:'책임', t:'백인 데이터로 배운 진단 AI의 오진', y:'—', w:'의료',
+    d:'백인 환자 데이터로 과다하게 훈련받은 진단 인공지능이 <b>흑인 환자를 오진</b>했을 때, ' +
+      '책임이 <b>개발 회사인지, 데이터 업체인지, 의사인지</b> 불분명하다.',
+    s:'교과서 167쪽',
+    u:'재판에서 AI 양형 보조 · 자율주행차 사고 책임' },
+  { g:'책임', t:'블랙박스 — 이유를 설명하지 못하는 AI', y:'—', w:'구조',
+    d:'답은 내놓는데 <b>왜 그런 답인지 만든 사람도 모른다.</b> ' +
+      '채용에서 떨어져도, 대출이 거절돼도 <b>이유를 들을 수 없다.</b> ' +
+      '설명하지 못하면 <b>틀렸는지 확인할 수 없고, 책임도 물을 수 없다.</b>',
+    s:'교과서 170쪽 · AI 윤리 디지털 콘텐츠 1차시',
+    u:'AI 채용 심사 · 재판에서 AI 양형 보조' },
+  { g:'딥페이크', t:'합성 영상이 단톡방에 도는 순간', y:'—', w:'디지털 성범죄',
+    d:'친구를 합성한 영상이 단톡방에 올라온다. <b>«재미로 한 번 공유»가 한 사람의 하루를 부순다.</b> ' +
+      '가짜 사진이 <b>속보처럼</b> 퍼져 증시가 흔들린 일도 있었다.',
+    s:'AI 윤리 디지털 콘텐츠 1차시',
+    u:'딥페이크 제작 도구 자체를 법으로 금지해야 하는가' },
+  { g:'딥페이크', t:'목소리를 흉내 내는 딥보이스 사기', y:'—', w:'음성',
+    d:'가족의 목소리를 합성해 «급하니 돈을 보내 달라»고 하는 사기가 실제로 일어난다. ' +
+      '<b>목소리는 더 이상 신분증이 아니다.</b>',
+    s:'AI 윤리 디지털 콘텐츠 1차시',
+    u:'딥페이크 제작 도구 금지 · 공공장소 얼굴 인식' },
+  { g:'공존', t:'톰 그루버의 암 진단 — 92.5 / 96.6 / 99.5', y:'—', w:'의료',
+    d:'인공지능 혼자 <b>92.5%</b>, 사람 혼자 <b>96.6%</b>, <b>둘이 함께 99.5%</b>. ' +
+      '인간은 «틀린 진단»을, 인공지능은 «숨은 경우»를 잘 찾기 때문이다.',
+    s:'교과서 158쪽',
+    u:'모든 논제의 «공존 방안» 칸에 쓸 수 있음' },
+  { g:'공존', t:'우편물의 98%는 기계가, 2%는 사람이', y:'—', w:'물류',
+    d:'미국 우편국은 기계학습으로 우편물의 <b>98% 이상</b>을 정확히 분류한다. ' +
+      '남는 <b>2%</b>는 찢어지고 젖고 글씨가 이상한 것들 — <b>사람 몫</b>이다.',
+    s:'교과서 147쪽',
+    u:'진로 로드맵 · 인간과 AI의 역할 나누기' }
+];
+(function(){
+  var box = $('csBox'), fb = $('csFilter'), cnt = $('csCnt');
+  if(!box) return;
+  var GROUPS = ['전체'];
+  CASE.forEach(function(c){ if(GROUPS.indexOf(c.g) < 0) GROUPS.push(c.g); });
+  var at = '전체';
+  function draw(){
+    fb.innerHTML = GROUPS.map(function(g){
+      return '<button type="button" data-g="' + esc(g) + '" aria-pressed="' +
+        (g === at ? 'true' : 'false') + '">' + esc(g) + '</button>';
+    }).join('');
+    var list = CASE.filter(function(c){ return at === '전체' || c.g === at; });
+    cnt.textContent = list.length + '개 사례';
+    cnt.className = 'cnt ok';
+    box.innerHTML = list.map(function(c){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(c.t) + '</b>' +
+        '<span>' + esc(c.g) + '</span></div>' +
+        '<p class="csm">' + esc(c.w) + (c.y !== '—' ? ' · ' + esc(c.y) : '') + '</p>' +
+        '<p>' + c.d + '</p>' +
+        '<div class="cssrc"><b>출처</b> ' + esc(c.s) + '</div>' +
+        '<i>쓸 만한 논제 — ' + esc(c.u) + '</i></div>';
+    }).join('');
+  }
+  fb.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-g]'); if(!b) return;
+    at = b.getAttribute('data-g'); draw();
+  });
+  draw();
+})();
+
+/* ══ 내 피드 자가 진단 ════════════════════════════════════
+   2차시 콘텐츠의 «편향 게이지»를 학생이 스스로 매겨 보는 형태로 옮겼다.
+   점수를 재는 것이 아니라 «내가 무엇을 안 보고 있는지»를 알아채게 한다. */
+var FDQ = [
+  '오늘 본 짧은 영상들이 <b>거의 같은 주제</b>였다',
+  '내 추천 목록에 <b>내 생각과 반대되는</b> 내용이 거의 없다',
+  '어떤 주제에 대해 <b>«다들 그렇게 생각한다»</b>고 느낀 적이 있다',
+  '친구와 같은 사건을 이야기했는데 <b>서로 들은 내용이 달랐다</b>',
+  '영상을 고를 때 <b>누가 만들었는지</b>는 거의 보지 않는다',
+  '«이거 진짜야?» 싶은 내용을 <b>다른 곳에서 확인해 본 적</b>이 별로 없다'
+];
+(function(){
+  var q = $('fdQ'); if(!q) return;
+  var ans = FDQ.map(function(){ return -1; });
+  /* 문항은 «한 번만» 그린다. 답을 고를 때마다 다시 그리면
+     누른 단추가 사라져 키보드 초점이 날아가고, 연달아 누를 수도 없다. */
+  q.innerHTML = FDQ.map(function(t, i){
+    return '<div class="fdq"><p>' + t + '</p><span class="pick fdp" data-i="' + i + '">' +
+      ['아니다','조금','그렇다'].map(function(v, k){
+        return '<button type="button" data-v="' + k + '" aria-pressed="false">' + v + '</button>';
+      }).join('') + '</span></div>';
+  }).join('');
+  function draw(){
+    [].slice.call(q.querySelectorAll('.fdp')).forEach(function(p, i){
+      [].slice.call(p.children).forEach(function(b){
+        b.setAttribute('aria-pressed', ans[i] === +b.getAttribute('data-v') ? 'true' : 'false');
+      });
+    });
+    var done = ans.filter(function(x){ return x >= 0; }).length;
+    var r = $('fdR'), m = $('fdMsg');
+    if(done < FDQ.length){
+      r.hidden = true;
+      m.className = 'sendmsg';
+      m.textContent = done + ' / ' + FDQ.length + '문항 답했습니다.';
+      return;
+    }
+    var sc = ans.reduce(function(a, b){ return a + b; }, 0);   // 0 ~ 12
+    var pct = Math.round(sc / (FDQ.length * 2) * 100);
+    var lv = pct >= 67 ? 2 : (pct >= 34 ? 1 : 0);
+    var TXT = [
+      ['넓은 편입니다', '반대편도 보고 출처도 확인하는 편이에요. 다만 <b>편향은 조용히 쌓입니다</b> — 아래 미션을 가끔 해 보세요.'],
+      ['조금 좁아져 있습니다', '아직 괜찮지만 <b>한쪽으로 기울기 시작한</b> 상태예요. 아래 미션 중 하나만 해도 달라집니다.'],
+      ['꽤 좁아져 있습니다', '<b>내가 고른 것 같지만 알고리즘이 세팅한 세상</b>일 수 있어요. 아래 미션을 오늘 안에 해 보세요.']
+    ];
+    r.hidden = false;
+    r.className = 'fdresult lv' + lv;
+    r.innerHTML = '<div class="fdgauge"><span class="fdlab">노출 편향</span>' +
+      '<span class="fdbar"><i style="width:' + pct + '%"></i></span>' +
+      '<b>' + pct + '</b></div>' +
+      '<b class="fdt">' + TXT[lv][0] + '</b><p>' + TXT[lv][1] + '</p>' +
+      '<p class="fdnote">이 숫자는 <b>성적과 아무 관계가 없습니다.</b> ' +
+      '스스로 답한 것을 더한 것일 뿐이에요 — 진짜 목적은 «<b>내가 무엇을 안 보고 있나</b>»를 한 번 생각해 보는 것입니다.</p>';
+    m.className = 'sendmsg ok'; m.textContent = '결과가 나왔습니다.';
+  }
+  q.addEventListener('click', function(e){
+    var b = e.target.closest('.fdp button'); if(!b) return;
+    ans[+b.parentElement.getAttribute('data-i')] = +b.getAttribute('data-v');
+    draw();
+  });
+  $('fdRe').addEventListener('click', function(){
+    ans = FDQ.map(function(){ return -1; }); draw();
+  });
+  draw();
+
+  var ms = $('fdMission');
+  if(ms) ms.innerHTML = [
+    ['🔎', '반대편 검색하기', '내가 관심 있는 주제를 <b>반대 입장 낱말</b>로 검색해 두 편 이상 읽어 보기'],
+    ['📰', '출처까지 보기', '영상을 볼 때 <b>누가 만들었는지</b> 한 번 확인하기. 기관 이름과 날짜를 찾아보기'],
+    ['🔗', '한 번 더 확인하기', '놀라운 내용을 봤을 때 <b>다른 곳에서도</b> 같은 말을 하는지 찾아보기']
+  ].map(function(x){
+    return '<div class="mcard"><span>' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + x[2] + '</p></div>';
+  }).join('');
 })();
 
 /* ══ 논제 ↔ 단원 연결 표 ══════════════════════════════════ */
