@@ -1440,6 +1440,125 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* ② 인공지능 기술 카드 */
+.techgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(155px,100%),1fr)); gap:9px}
+.techc{display:block; text-align:left; background:var(--white); border:2px solid var(--line);
+  border-radius:14px; padding:12px 13px; cursor:pointer; font-family:var(--sans)}
+.techc:hover{border-color:var(--blue-l)}
+.techc[aria-pressed="true"]{border-color:var(--blue-d); background:var(--blue-xl)}
+.techc .te{font-size:1.375rem; display:block; margin-bottom:5px}
+.techc>b{display:block; font-size:0.9062rem; font-weight:700; color:var(--ink)}
+.techc>i{display:block; font-style:normal; font-size:0.75rem; color:var(--muted); margin-top:2px}
+.techdet{margin-top:13px; background:var(--white); border:2px solid var(--blue-d);
+  border-radius:var(--r); padding:17px 19px}
+.tdh{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px}
+.tdh .te{font-size:1.625rem}
+.tdh>b{font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--ink)}
+.tdh>i{font-style:normal; font-size:0.8125rem; color:var(--muted); font-weight:600}
+.tdh>button{margin-left:auto}
+.tdd{margin:0 0 12px; font-size:0.9062rem; line-height:1.75; color:var(--ink2)}
+.tdrow{margin-bottom:11px}
+.tdk{display:block; font-family:var(--mono); font-size:0.7188rem; font-weight:700;
+  color:var(--blue-d); margin-bottom:5px}
+.tdrow ul{margin:0; padding-left:19px}
+.tdrow li{font-size:0.8438rem; line-height:1.75; color:var(--ink2); margin-bottom:3px}
+.tdrow>p{margin:0; font-size:0.8438rem; color:var(--ink2)}
+.tdwarn{background:var(--warm-bg); border-radius:11px; padding:10px 13px;
+  font-size:0.8438rem; line-height:1.7; color:var(--warm)}
+.tdwarn b{color:var(--warm)}
+.mcard>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.7188rem;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px;
+  padding:2px 9px; margin:4px 0 7px; width:fit-content}
+
+/* ③ 진로 로드맵 */
+.quote{margin:0 0 16px; background:var(--blue-xl); border-left:6px solid var(--blue-d);
+  border-radius:0 16px 16px 0; padding:18px 22px}
+.quote p{margin:0; font-family:var(--disp); font-weight:400; font-size:1.1875rem;
+  line-height:1.7; color:var(--ink)}
+.quote p b{color:var(--blue-d)}
+.quote cite{display:block; margin-top:9px; font-style:normal; font-size:0.8125rem;
+  color:var(--muted); font-weight:600}
+.split3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:11px}
+.spc{border:2px solid var(--line); border-radius:14px; padding:13px 15px; background:var(--white)}
+.spc>b{display:block; font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--ink)}
+.spc>i{display:block; font-style:normal; font-size:0.75rem; color:var(--muted); margin:2px 0 8px}
+.spex{margin:0 0 9px; font-size:0.75rem; line-height:1.65; color:var(--muted)}
+.spc textarea{width:100%; box-sizing:border-box; font-family:var(--sans); font-size:0.875rem;
+  line-height:1.6; color:var(--ink); background:var(--tint); border:1px solid var(--line);
+  border-radius:11px; padding:9px 11px; resize:vertical}
+.spc-ai{border-color:var(--warm)} .spc-ai>b{color:var(--warm)}
+.spc-with{border-color:var(--blue-l)} .spc-with>b{color:var(--blue-d)}
+.spc-me{border-color:var(--good)} .spc-me>b{color:var(--good)}
+.jobreal{display:grid; gap:8px}
+.jrd{background:var(--white); border:1px solid var(--line); border-radius:13px; overflow:hidden}
+.jrd summary{list-style:none; cursor:pointer; padding:12px 15px; font-size:0.9062rem;
+  font-weight:700; color:var(--ink); display:flex; gap:9px; align-items:center; flex-wrap:wrap}
+.jrd summary::-webkit-details-marker{display:none}
+.jrd summary::after{content:'＋'; margin-left:auto; font-family:var(--mono); color:var(--muted)}
+.jrd[open] summary::after{content:'－'}
+.jrf{font-family:var(--mono); font-size:0.7188rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:2px 10px}
+.jrd>div{padding:0 15px 14px}
+.jrd p{margin:0 0 8px; font-size:0.875rem; line-height:1.75; color:var(--ink2)}
+.jrk{background:var(--good-bg); border-radius:10px; padding:8px 11px;
+  font-size:0.8125rem; color:var(--good); font-weight:600}
+.capgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr)); gap:8px}
+.capc{text-align:left; background:var(--white); border:2px solid var(--line); border-radius:13px;
+  padding:11px 13px; cursor:pointer; font-family:var(--sans)}
+.capc:hover{border-color:var(--blue-l)}
+.capc[aria-pressed="true"]{border-color:var(--good); background:var(--good-bg)}
+.capc>span{font-size:1.25rem; display:block}
+.capc>b{display:block; font-size:0.875rem; color:var(--ink); margin-top:3px}
+.capc>i{display:block; font-style:normal; font-size:0.7188rem; color:var(--muted);
+  line-height:1.55; margin-top:3px}
+.capc[aria-pressed="true"]>b{color:var(--good)}
+
+/* ⑤ 드론 배달 */
+.storybox{background:var(--white); border:2px dashed var(--blue-l); border-radius:var(--r);
+  padding:17px 20px}
+.stag{display:inline-block; font-family:var(--mono); font-size:0.7188rem; font-weight:700;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:3px 11px; margin-bottom:9px}
+.storybox p{margin:0; font-size:0.9375rem; line-height:1.8; color:var(--ink2)}
+.ssub{margin-top:11px !important; font-weight:700; color:var(--blue-d) !important}
+.hintchips{display:flex; flex-wrap:wrap; gap:5px; margin:9px 0 10px}
+.hchip{font-family:var(--sans); font-size:0.75rem; font-weight:600; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px;
+  padding:5px 11px; cursor:pointer}
+.hchip:hover{border-color:var(--blue-l); color:var(--blue-d)}
+.hchip[aria-pressed="true"]{background:var(--blue-xl); border-color:var(--blue-l); color:var(--blue-d)}
+.sc textarea{width:100%; box-sizing:border-box; font-family:var(--sans); font-size:0.875rem;
+  line-height:1.65; color:var(--ink); background:var(--white); border:1px solid var(--line);
+  border-radius:11px; padding:10px 12px; resize:vertical}
+
+/* ⑦ 윤리적 딜레마 */
+.dlmeta{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:11px}
+.dlp{font-family:var(--mono); font-size:0.7188rem; font-weight:700; color:var(--muted);
+  background:var(--tint); border-radius:99px; padding:2px 10px}
+.dlv{font-size:0.75rem; font-weight:800; color:var(--blue-d); background:var(--blue-xl);
+  border-radius:99px; padding:3px 12px}
+.dlx{font-family:var(--mono); font-weight:700; color:var(--cut)}
+.dlfacts{margin:13px 0 0; overflow-x:auto}
+table.dlt{width:100%; min-width:340px; border-collapse:collapse; font-size:0.8438rem}
+table.dlt td{padding:9px 12px; border-bottom:1px solid var(--line); color:var(--ink2); vertical-align:top}
+table.dlt td.dlk{font-weight:700; color:var(--ink); white-space:nowrap}
+table.dlt tr:last-child td{border-bottom:none}
+.dlvalue{margin-top:14px; background:var(--good-bg); border-radius:13px; padding:13px 16px}
+.dlvalue>b{display:block; font-size:0.8125rem; color:var(--good); margin-bottom:6px}
+.dlvalue>span{display:block; font-size:0.875rem; line-height:1.8; color:var(--ink2)}
+.dlvalue>span b{color:var(--good)}
+.lawlist{display:grid; gap:9px}
+.law{display:grid; grid-template-columns:82px 1fr; gap:13px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-radius:13px; padding:13px 15px}
+.law.zero{border-color:var(--blue-d); background:var(--blue-xl)}
+.law>b{font-family:var(--mono); font-size:0.8125rem; font-weight:700; color:var(--blue-d)}
+.law>p{grid-column:2; margin:0; font-size:0.875rem; line-height:1.75; color:var(--ink2)}
+.law>i{grid-column:2; font-style:normal; font-size:0.7188rem; color:var(--muted); margin-top:5px}
+
+@media (max-width:520px){
+  .law{grid-template-columns:1fr}
+  .law>p, .law>i{grid-column:1}
+}
+
 /* ⑧ 먼저 읽는 안내문 */
 .wfbox{background:var(--tint); border:1px solid var(--line); border-radius:var(--r);
   padding:19px 21px; margin:0 0 20px}
@@ -1581,11 +1700,11 @@ footer a{font-weight:700}
     적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
-    <button class="atab" role="tab" data-u3="0" aria-selected="true"><i>Ⅲ-01</i>AI 발전 연표</button>
+    <button class="atab" role="tab" data-u3="0" aria-selected="true"><i>Ⅲ-01</i>AI 발전 이야기</button>
     <button class="atab" role="tab" data-u3="1" aria-selected="false"><i>Ⅲ-01</i>사회 문제 해결 설계</button>
-    <button class="atab" role="tab" data-u3="2" aria-selected="false"><i>Ⅲ-02</i>직업 대체 가능성</button>
-    <button class="atab" role="tab" data-u3="3" aria-selected="false"><i>Ⅲ-02</i>진로 로드맵</button>
-    <button class="atab" role="tab" data-u3="4" aria-selected="false"><i>Ⅲ-03</i>장단점 저울</button>
+    <button class="atab" role="tab" data-u3="2" aria-selected="false"><i>Ⅲ-02</i>진로 로드맵</button>
+    <button class="atab" role="tab" data-u3="3" aria-selected="false"><i>Ⅲ-03</i>장단점 저울</button>
+    <button class="atab" role="tab" data-u3="4" aria-selected="false"><i>Ⅲ-03</i>드론 배달 서비스</button>
     <button class="atab" role="tab" data-u3="5" aria-selected="false"><i>Ⅲ-04</i>편향성 구분</button>
     <button class="atab" role="tab" data-u3="6" aria-selected="false"><i>Ⅲ-04</i>윤리적 딜레마</button>
     <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>수행평가</i>개별 문서</button>
@@ -1618,86 +1737,132 @@ footer a{font-weight:700}
   <!-- ② 사회 문제 해결 설계 -->
   <div class="actbox" data-u3p="1" hidden>
     <h3>② 인공지능으로 더 나은 사회 만들기 <span class="tm">모둠</span></h3>
-    <p class="desc">교과서 149쪽 활동입니다. <b>우리 사회의 문제</b>를 하나 고르고,
+    <p class="desc">교과서 148~149쪽 활동입니다. <b>우리 사회의 문제</b>를 하나 고르고,
       <b>어떤 인공지능 기술</b>로 풀지 설계해 보세요.</p>
 
-    <div class="metaphor">
-      <h4 class="mini-h">교과서가 든 네 가지 사례</h4>
-      <div class="g2" id="u3cases"></div>
-    </div>
+    <div class="ask" style="margin:0 0 16px"><b>「어떤 기술로?」가 막히면 여기부터 보세요</b>
+      인공지능 기술이 <b>여덟 갈래</b>로 정리되어 있습니다.
+      카드를 누르면 <b>무엇을 하는 기술인지 · 실제로 쓰인 곳 · 이 기술로 푼 사회 문제</b>가 펼쳐집니다.
+      <b>이름을 몰라도 됩니다 — 하고 싶은 일에 가까운 카드를 고르세요.</b></div>
 
-    <div class="wsheet" style="margin-top:16px">
+    <h4 class="step-h">인공지능 기술 여덟 갈래</h4>
+    <div class="techgrid" id="techBox"></div>
+    <div class="techdet" id="techDet" hidden></div>
+
+    <h4 class="step-h" style="margin-top:24px">교과서가 든 네 가지 사례</h4>
+    <p class="desc">문제 하나에 기술 하나가 붙습니다. <b>어떤 기술이 붙었는지</b> 눈여겨보세요.</p>
+    <div class="g2" id="u3cases"></div>
+
+    <h4 class="step-h" style="margin-top:24px">우리 모둠의 설계</h4>
+    <div class="wsheet">
       <label>① 우리 사회에서 찾을 수 있는 <b>문제점</b>은 무엇인가요?
-        <textarea id="s1a" rows="2" placeholder="예) 이상 기후 · 일회용품 과다 사용 · 디지털 격차 · 해양 쓰레기"></textarea></label>
-      <label>② 그중 하나를 골라, <b>어떤 인공지능 기술</b>로 풀 수 있을까요?
+        <textarea id="s1a" rows="2" placeholder="예) 이상 기후 · 일회용품 과다 사용 · 디지털 격차 · 해양 쓰레기 · 학교 앞 교통사고"></textarea></label>
+      <label>② 위 여덟 갈래 중 <b>어떤 기술</b>을 쓸 건가요? <i>(카드를 누르면 이름이 여기 들어옵니다)</i>
+        <input type="text" id="s1t" placeholder="예) 컴퓨터 비전" autocomplete="off"></label>
+      <label>③ 그 기술로 <b>어떻게</b> 풀 수 있을까요?
         <textarea id="s1b" rows="2" placeholder="예) 컴퓨터 비전으로 해양 쓰레기를 자동 식별해 수거 로봇에게 위치를 알려 준다"></textarea></label>
-      <label>③ 그 해결책이 <b>잘 안 될 수도 있는 까닭</b>은 무엇일까요?
+      <label>④ 그 해결책이 <b>잘 안 될 수도 있는 까닭</b>은 무엇일까요?
         <textarea id="s1c" rows="2" placeholder="예) 물속 사진은 흐려서 인식률이 낮을 수 있다 · 수거 로봇이 물고기까지 건질 수 있다"></textarea></label>
+      <label>⑤ 실제로 인공지능이 <b>비슷한 문제를 푼 사례</b>를 하나 찾아 적어 보세요 <i>(교과서 149쪽 2단계)</i>
+        <textarea id="s1e" rows="2" placeholder="예) 네덜란드 오션클린업이 컴퓨터 비전으로 강의 쓰레기를 자동 수거한다"></textarea></label>
     </div>
-    <div class="ask"><b>③번이 중요합니다</b> Ⅰ단원 활동 ⑪의 「이 규칙이 틀릴 수 있는 경우」와 같은 질문이에요.
+    <div class="ask"><b>④번이 중요합니다</b> Ⅰ단원 활동 ⑪의 「이 규칙이 틀릴 수 있는 경우」와 같은 질문이에요.
       <b>좋은 점만 말하는 사람은 토론에서 집니다.</b></div>
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s1Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>모둠 (또는 이름)</span>
+        <input type="text" id="s1Group" placeholder="예) 3모둠 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s1Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s1Copy">내용 복사</button>
+      <span class="sendmsg" id="s1Msg"></span>
+    </div>
   </div>
 
-  <!-- ③ 직업 대체 가능성 -->
+  <!-- ③ 진로 로드맵 -->
   <div class="actbox" data-u3p="2" hidden>
-    <h3>③ 인공지능이 대신하기 쉬운 일은? <span class="tm">개인</span></h3>
-    <p class="desc">교과서 153쪽입니다. 일을 <b>두 가지 잣대</b>로 나눠 봅니다 —
-      <b>정해진 순서가 있는가(정형)</b>, 그리고 <b>배우는 데 오래 걸리는가(숙련도)</b>.
-      직업 카드를 눌러 알맞은 칸에 넣어 보세요.</p>
+    <h3>③ 진로 로드맵 만들기 <span class="tm">개인</span></h3>
 
-    <div class="jobwrap">
-      <div class="jobpick" id="jbPick"></div>
-      <div class="quad" id="jbQuad">
-        <div class="qaxis qy">숙련도 높음 ↑</div>
-        <div class="qaxis qx">정형 ← → 비정형</div>
-        <div class="qcell" data-q="0"><b>고숙련 · 정형</b><i>대체 가능성 중간</i><span class="drop"></span></div>
-        <div class="qcell" data-q="1"><b>고숙련 · 비정형</b><i>대체 가능성 낮음</i><span class="drop"></span></div>
-        <div class="qcell" data-q="2"><b>저숙련 · 정형</b><i>대체 가능성 높음</i><span class="drop"></span></div>
-        <div class="qcell" data-q="3"><b>저숙련 · 비정형</b><i>대체 가능성 낮음</i><span class="drop"></span></div>
-      </div>
-    </div>
-    <div class="simctl">
-      <span class="scorepill" id="jbCnt">0 / 8</span>
-      <button type="button" class="mini gh" id="jbRe">처음부터</button>
-      <span class="sendmsg" id="jbMsg">카드를 누른 뒤 넣을 칸을 누르세요.</span>
-    </div>
-    <div class="verdict" id="jbWhy" hidden></div>
+    <blockquote class="quote">
+      <p>인공지능은 당신을 대체하지 않는다.<br>
+        <b>인공지능을 이해하고 활용하는 사람이</b> 당신을 대체할 뿐이다.</p>
+      <cite>『비전공자도 이해할 수 있는 AI 지식』</cite>
+    </blockquote>
+    <div class="ask" style="margin:0 0 18px"><b>이 말을 뒤집어 읽으면</b>
+      «내 직업이 사라질까»는 <b>답이 없는 질문</b>입니다.
+      대신 <b>«내 일에서 인공지능이 가져갈 부분은 어디고, 내가 붙잡을 부분은 어디인가»</b>를 물으세요.
+      이 활동은 그 두 부분을 갈라 보는 연습입니다.</div>
 
-    <div class="ask" style="margin-top:16px"><b>여기서 놀랍니다</b>
-      <b>간병 · 육아 · 실버케어</b>는 «저숙련»으로 분류되지만 대체 가능성은 <b>낮습니다.</b>
-      상황이 매번 다르고 사람의 마음을 읽어야 하기 때문이에요.
-      <b>«쉬운 일 = 대체되기 쉬운 일»이 아닙니다.</b></div>
-  </div>
+    <p class="desc">교과서 154~155쪽입니다. 순서대로 채우면 로드맵 한 장이 완성됩니다.</p>
 
-  <!-- ④ 진로 로드맵 -->
-  <div class="actbox" data-u3p="3" hidden>
-    <h3>④ 진로 로드맵 만들기 <span class="tm">개인</span></h3>
-    <p class="desc">교과서 154~155쪽입니다. <b>내 희망 직업</b>이 인공지능 때문에
-      어떻게 바뀔지 생각해 보고, 생애별 계획을 세워 봅니다.</p>
-
+    <h4 class="step-h">1단계 · 내 희망 직업</h4>
     <div class="frow">
       <label class="fld grow"><span>희망 직업 (분야)</span>
-        <input type="text" id="s3job" placeholder="예) 경찰 (수사)" autocomplete="off"></label>
+        <input type="text" id="s3job" placeholder="예) 경찰 (수사) · 간호사 · 웹툰 작가 · 교사 · 요리사" autocomplete="off"></label>
     </div>
     <div class="wsheet">
       <label><b>비전 선언문</b> — 「( )분야에서 ( )일을 하며 ( )를 실현하고 싶다」
         <textarea id="s3vis" rows="2" placeholder="예) 수사 분야에서 경찰 일을 하며 지역 범죄율 감소를 실현하고 싶다"></textarea></label>
     </div>
 
-    <h4 class="step-h" style="margin-top:20px">생애별 진로 계획</h4>
+    <h4 class="step-h" style="margin-top:22px">2단계 · 내 일을 셋으로 갈라 보기 <span class="tm">핵심</span></h4>
+    <p class="desc">직업 하나는 <b>여러 가지 일</b>로 되어 있습니다. 통째로 「대체된다 / 안 된다」를 따지지 말고,
+      <b>일을 쪼개서</b> 어디가 어디로 가는지 보세요.</p>
+    <div class="split3" id="s3split"></div>
+
+    <h4 class="step-h" style="margin-top:22px">3단계 · 이 직업에 인공지능이 들어온 실제 모습</h4>
+    <p class="desc">비슷한 분야에서 <b>이미 벌어지고 있는 일</b>입니다. 하나를 눌러 읽어 보세요.</p>
+    <div class="jobreal" id="s3real"></div>
+
+    <h4 class="step-h" style="margin-top:22px">4단계 · 내가 기를 역량 고르기</h4>
+    <p class="desc">인공지능이 잘 못하는 자리에 있는 힘들입니다. <b>내 직업에 필요한 것</b>을 골라 보세요 (여러 개 가능).</p>
+    <div class="capgrid" id="s3caps"></div>
+    <span class="cnt" id="s3capCnt"></span>
+
+    <h4 class="step-h" style="margin-top:22px">5단계 · 생애별 진로 계획</h4>
     <div class="life" id="s3life"></div>
 
     <div class="wsheet" style="margin-top:18px">
-      <label>이 직업은 미래에 <b>인공지능을 활용</b>하게 될까요, <b>대체</b>될까요?
+      <label>이 직업은 미래에 <b>인공지능을 활용</b>하게 될까요, <b>대체</b>될까요? — 2단계에서 나눈 것을 근거로
         <textarea id="s3fut" rows="2" placeholder="예) 인공지능이 범죄 데이터 분석을 도와주지만, 예기치 못한 상황의 순간 대처는 사람이 해야 한다"></textarea></label>
-      <label>그렇다면 나는 <b>어떤 역량</b>을 길러야 할까요?
-        <textarea id="s3cap" rows="2" placeholder="예) 인공지능 분석 결과를 읽고 판단하는 능력 · 사람을 대하는 소통 능력"></textarea></label>
+      <label>그렇다면 나는 <b>어떤 역량</b>을 길러야 할까요? — 4단계에서 고른 것을 내 말로
+        <textarea id="s3cap" rows="2" placeholder="예) 인공지능 분석 결과를 읽고 «이건 이상한데»라고 말할 수 있는 판단력"></textarea></label>
+      <label><b>오늘부터 할 수 있는 일</b> 한 가지 <i>(작을수록 좋습니다)</i>
+        <textarea id="s3now" rows="2" placeholder="예) 내 분야에 인공지능이 쓰인 기사 한 편을 이번 주에 찾아 읽는다"></textarea></label>
+    </div>
+
+    <div class="note"><b>「AI를 활용하는 사람」이 된다는 것</b>
+      코딩을 잘하라는 뜻이 아닙니다. <b>인공지능이 내놓은 답을 그대로 믿지 않고</b>,
+      «이 데이터는 어디서 왔지?» «이 결과가 틀렸다면 누가 다치지?»를 물을 수 있는 사람입니다.
+      그게 이 단원 전체가 가르치는 것이고, <b>수행평가 토론에서 재는 것</b>이기도 합니다.</div>
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s3Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s3Group" placeholder="예) 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s3Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s3Copy">내용 복사</button>
+      <span class="sendmsg" id="s3Msg"></span>
     </div>
   </div>
 
-  <!-- ⑤ 장단점 저울 -->
-  <div class="actbox" data-u3p="4" hidden>
-    <h3>⑤ 인공지능 장단점 저울 <span class="tm">개인 → 모둠</span></h3>
+  <!-- ④ 장단점 저울 -->
+  <div class="actbox" data-u3p="3" hidden>
+    <h3>④ 인공지능 장단점 저울 <span class="tm">개인 → 모둠</span></h3>
     <p class="desc">교과서 157쪽입니다. 같은 기술이라도 <b>좋은 점과 걱정되는 점</b>이 함께 있습니다.
       하나를 골라 양쪽을 다 적어 보세요. <b>이 표가 개별 문서 A부의 뼈대</b>가 됩니다.</p>
 
@@ -1723,6 +1888,69 @@ footer a{font-weight:700}
     </div>
     <div class="note"><b>인간 중심 인공지능</b> 인공지능이 인간을 <b>대체</b>하는 것이 아니라
       <b>돕고 협력</b>하는 데 중점을 두는 관점입니다. 마지막 칸이 바로 그 이야기예요.</div>
+  </div>
+
+  <!-- ⑤ 드론 배달 서비스 -->
+  <div class="actbox" data-u3p="4" hidden>
+    <h3>⑤ 드론 배달 서비스, 도입해도 될까 <span class="tm">모둠 · 교과서 160쪽</span></h3>
+    <p class="desc">앞의 <b>저울</b>이 «이미 있는 기술»을 따져 본 것이라면,
+      이번엔 <b>«아직 안 들어온 기술을 들일지»</b>를 정합니다.
+      비판적 태도를 <b>실제 결정</b>에 써 보는 활동이에요.</p>
+
+    <div class="storybox">
+      <span class="stag">상황</span>
+      <p>◯◯ 피자 업체가 <b>피자 드론 배달 서비스</b>를 시작하려 합니다.
+        드론에 실린 인공지능은 데이터를 학습해 그 동네 경로를 스스로 찾습니다.
+        가까운 지점에서 만든 피자가 <b>드론 전용 배송함</b>에 담겨 도착지까지 <b>자율 비행</b>합니다.
+        업체는 «업체도 손님도 모두 이득»이라고 말합니다.</p>
+      <p class="ssub">우리 반이 이 동네의 <b>주민 대표 회의</b>라고 해 봅시다. 찬성할까요, 조건을 달까요?</p>
+    </div>
+
+    <h4 class="step-h" style="margin-top:20px">1단계 · 두 방향을 다 적어 보기</h4>
+    <p class="desc">힌트 칩을 누르면 칸에 들어갑니다. <b>내 말로 고쳐 쓰는 것</b>이 더 좋습니다.</p>
+    <div class="g2">
+      <div class="sc good"><b>👍 긍정적인 영향</b>
+        <div class="hintchips" id="drGood"></div>
+        <textarea id="s5g" rows="4" placeholder="예) 배송에 걸리는 시간을 크게 줄일 수 있다"></textarea></div>
+      <div class="sc bad"><b>⚠️ 부정적인 영향</b>
+        <div class="hintchips" id="drBad"></div>
+        <textarea id="s5b" rows="4" placeholder="예) 드론에 카메라가 달리면 사생활 침해 문제가 생길 수 있다"></textarea></div>
+    </div>
+
+    <h4 class="step-h" style="margin-top:22px">2단계 · 그래서 사람은 무엇을 해야 하나</h4>
+    <p class="desc">교과서가 묻는 <b>「인간의 역할」</b>입니다. 여기가 이 활동의 핵심이에요 —
+      <b>«쓰지 말자»도 «그냥 쓰자»도 답이 아닙니다.</b></p>
+    <div class="wsheet">
+      <label>부정적인 영향을 <b>줄이기 위해</b> 사람은 무엇을 해야 할까요?
+        <i>「누가 무엇을 한다」로 적으면 그대로 수행평가 D부 재료가 됩니다</i>
+        <textarea id="s5r" rows="3" placeholder="예) 업체는 드론 카메라를 배송함 안쪽만 보게 고정하고, 촬영 영상을 24시간 뒤 자동 삭제한다"></textarea></label>
+    </div>
+
+    <h4 class="step-h" style="margin-top:22px">3단계 · 우리 모둠의 결정</h4>
+    <div class="simctl">
+      <span class="pick" id="drVote">
+        <button type="button" data-v="0" aria-pressed="false">조건 없이 찬성</button>
+        <button type="button" data-v="1" aria-pressed="false">조건을 달고 찬성</button>
+        <button type="button" data-v="2" aria-pressed="false">지금은 반대</button>
+      </span>
+      <span class="sendmsg" id="drMsg"></span>
+    </div>
+    <div class="wsheet" style="margin-top:12px">
+      <label>그렇게 정한 <b>이유</b>
+        <textarea id="s5w" rows="2" placeholder="한 문장으로 또렷하게"></textarea></label>
+    </div>
+
+    <div class="ask" style="margin-top:16px"><b>스스로 점검 (교과서 160쪽 진단하기)</b>
+      ① 인공지능에 대해 <b>비판적 태도</b>를 지닐 수 있는가 ·
+      ② 인공지능을 대하는 <b>인간의 태도</b>를 제시할 수 있는가 ·
+      ③ 인공지능과 인간의 <b>바람직한 공존 방법</b>을 탐색할 수 있는가</div>
+
+    <div class="note" style="margin-top:14px"><b>학교로 옮겨 보면 (교과서 159쪽 스스로 해 보기)</b>
+      우리 학교에 <b>인공지능 경비 로봇</b>이 들어온다면?
+      좋은 점은 «외부인 출입을 막아 학교 보안이 높아진다»,
+      걱정되는 점은 «상담하러 온 학부모를 외부인으로 잘못 보고 막을 수 있다».
+      그래서 <b>10년 뒤</b>에는 «오작동 피해를 막는 법을 만들고, 사람과 교대하며 협력»하게 되겠지요.
+      <b>드론도 같은 틀로 생각하면 됩니다.</b></div>
   </div>
 
   <!-- ⑥ 편향성 구분 -->
@@ -1765,19 +1993,30 @@ footer a{font-weight:700}
   <!-- ⑦ 윤리적 딜레마 -->
   <div class="actbox" data-u3p="6" hidden>
     <h3>⑦ 윤리적 딜레마 <span class="tm">모둠 토의</span></h3>
-    <p class="desc">교과서 167~169쪽입니다. <b>여러 가치가 부딪혀</b> 쉽게 정할 수 없는 상황이에요.
-      정답을 맞히는 활동이 아닙니다. <b>어느 쪽을 고르든 근거가 있어야</b> 합니다.</p>
+    <p class="desc">교과서 166~169쪽입니다. <b>윤리적 딜레마</b>란 도덕적으로 결정을 해야 할 때
+      <b>여러 가치가 서로 부딪혀</b> 쉽게 정할 수 없는 난처한 상황을 말합니다.
+      정답을 맞히는 활동이 아니에요. <b>어느 쪽을 고르든 근거가 있어야</b> 합니다.</p>
+
+    <div class="note" style="margin:0 0 16px"><b>왜 이게 «인공지능» 문제인가</b>
+      인공지능은 사람이 설계한 <b>알고리즘대로</b> 움직입니다.
+      상황을 인식하고 «최적의 값»을 골라 프로그램된 대로 행동할 뿐이에요.
+      그런데 딜레마 상황에서는 <b>무엇을 «최적»으로 볼지가 사람마다 다릅니다.</b>
+      그래서 <b>충분한 사회적 논의</b>가 먼저 있어야 합니다 — 오늘 우리가 하는 게 그 논의예요.</div>
 
     <div class="simctl">
       <span class="pick" id="dlPick">
-        <button type="button" data-d="0" aria-pressed="true">① 의료 인공지능 오진</button>
-        <button type="button" data-d="1" aria-pressed="false">② 집안일 로봇의 명령</button>
+        <button type="button" data-d="0" aria-pressed="true">① 공항 도우미 로봇</button>
+        <button type="button" data-d="1" aria-pressed="false">② 의료 인공지능 오진</button>
+        <button type="button" data-d="2" aria-pressed="false">③ 집안일 로봇의 명령</button>
       </span>
     </div>
     <div class="ifcard">
+      <div class="dlmeta" id="dlMeta"></div>
       <p class="ifask" id="dlStory"></p>
+      <div class="dlfacts" id="dlFacts"></div>
       <p class="desc" id="dlAsk" style="margin:14px 0 10px"></p>
       <div class="mopts" id="dlOpts"></div>
+      <div class="dlvalue" id="dlValue" hidden></div>
     </div>
 
     <div class="wsheet" style="margin-top:16px">
@@ -1790,6 +2029,22 @@ footer a{font-weight:700}
     </div>
     <div class="note"><b>토론에서 이기는 법</b> 상대 입장을 <b>가장 강한 형태로</b> 말할 수 있어야 반박도 됩니다.
       세 번째 칸을 진지하게 채운 사람이 <b>수행평가에서 «반론·반박» 점수를 받습니다.</b></div>
+
+    <h4 class="step-h" style="margin-top:24px">더 알아보기 · 아시모프의 로봇 원칙 <span class="tm">교과서 169쪽</span></h4>
+    <p class="desc">미국 SF 소설가 <b>아이작 아시모프</b>가 소설 『런어라운드』(1942)에서 제시한
+      «로봇이 지켜야 할 원칙»입니다. 80년도 더 된 이야기인데,
+      <b>인공지능 윤리가 무엇을 고민해야 하는지</b>를 처음으로 또렷하게 보여 주었어요.</p>
+    <div class="lawlist" id="dlLaws"></div>
+    <div class="ask" style="margin-top:14px"><b>0원칙이 나중에 붙은 이유</b>
+      1985년 『로봇과 제국』에서 아시모프는 <b>제0원칙</b>을 앞에 새로 붙였습니다 —
+      «로봇은 <b>인류</b>를 해하는 행동을 해서는 안 되고, 인류가 해를 입도록 내버려 둬도 안 된다.»
+      <b>한 사람을 구하는 것</b>과 <b>인류 전체를 지키는 것</b>이 부딪힐 수 있다는 걸 뒤늦게 깨달은 것이지요.
+      위 <b>딜레마 ③</b>이 바로 제2원칙(명령 복종)과 제1원칙(해를 입히지 않음)이 부딪히는 상황입니다.</div>
+
+    <div class="note" style="margin-top:14px"><b>이 원칙만으로는 안 되는 이유</b>
+      «해»가 무엇인지, «인류»가 누구인지 <b>정해 주지 않습니다.</b>
+      게임을 못 하게 막는 것은 해일까요, 도움일까요? 소설 속 원칙이 <b>현실의 법과 지침</b>으로
+      바뀌어야 하는 이유가 여기 있습니다 — 다음 쪽 <b>국가 인공지능 윤리 기준</b>이 그 답입니다.</div>
   </div>
 
   <!-- ⑧ 개별 문서 -->
@@ -2104,9 +2359,12 @@ var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_M
 var SUBMIT_KEY = 'chosun-ai-2026';
 var KEY = 'ai_u3_v1';
 
-var U3 = { tl:[], jb:{}, bi:[], biAt:0, dl:[0,0], ck:[], ckAt:0, tech:0,
-           s1a:'', s1b:'', s1c:'', s3job:'', s3vis:'', s3life:['','','',''],
-           s3fut:'', s3cap:'', s4g:'', s4b:'', s4h:'',
+var U3 = { tl:[], bi:[], biAt:0, dl:[-1,-1,-1], ck:[], ckAt:0, tech:0,
+           s1a:'', s1t:'', s1b:'', s1c:'', s1e:'', s1cls:'', s1grp:'',
+           s3job:'', s3vis:'', s3life:['','','',''], s3split:['','',''],
+           s3caps:[], s3fut:'', s3cap:'', s3now:'', s3cls:'', s3grp:'',
+           s5g:'', s5b:'', s5r:'', s5w:'', s5v:-1,
+           s4g:'', s4b:'', s4h:'',
            s6why:'', s6other:'', s6change:'',
            topic:-1, side:-1, views:[], spoke:-1,
            v1:'', v2:'', cl:'', r1:'', s1:'', r2:'', s2:'', r3:'', s3:'', sp:'',
@@ -2124,6 +2382,87 @@ function bind(id, field){
   var el = $(id); if(!el) return;
   el.value = U3[field] || '';
   el.addEventListener('input', function(){ U3[field] = this.value; save(); });
+}
+
+/* ── 활동마다 되풀이되는 «분반 · 이름 · 제출»을 한곳에 모았다 ── */
+function clsPick(id, field){
+  var box = $(id); if(!box) return;
+  function draw(){
+    [].slice.call(box.children).forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-c') === U3[field] ? 'true' : 'false');
+    });
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-c]'); if(!b) return;
+    U3[field] = b.getAttribute('data-c'); save(); draw();
+  });
+  draw();
+}
+function nameBox(id, field){
+  var el = $(id); if(!el) return;
+  el.value = U3[field] || '';
+  el.addEventListener('input', function(){ U3[field] = this.value; save(); });
+}
+function clipText(txt, btn, label){
+  function done(){ btn.textContent = '복사했어요';
+    setTimeout(function(){ btn.textContent = label; }, 1600); }
+  function manual(){
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.readOnly = true; ta.className = 'copyout'; ta.rows = 10;
+    btn.parentElement.appendChild(ta); ta.select();
+    btn.textContent = '아래에서 직접 복사';
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, manual);
+  }else manual();
+}
+/* o = { btn, copy, msg, type, cls(), grp(), need[[상태이름, 안내]], title, fields[[보낼이름, 사람이 읽을 이름, 상태이름]] } */
+function sender(o){
+  var btn = $(o.btn), msg = $(o.msg), cp = $(o.copy);
+  if(!btn) return;
+  function report(){
+    var L = ['════════ ' + o.title + ' ════════',
+             '분반 : ' + (o.cls() || '(미선택)'),
+             '이름 : ' + (o.grp() || '(미입력)'), ''];
+    o.fields.forEach(function(f){
+      var v = U3[f[2]];
+      if(Array.isArray(v)) v = v.filter(function(x){ return x; }).join(' · ');
+      L.push(f[1] + ' : ' + (String(v || '').trim() || '(미작성)'));
+    });
+    L.push('══════════════════════════════');
+    return L.join('\n');
+  }
+  if(cp) cp.addEventListener('click', function(){ clipText(report(), this, '내용 복사'); });
+  btn.addEventListener('click', function(){
+    function stop(t){ msg.className = 'sendmsg wait'; msg.textContent = t; }
+    if(!o.cls()) return stop('분반을 골라 주세요');
+    if(!(o.grp() || '').trim()) return stop('이름을 적어 주세요');
+    for(var i = 0; i < o.need.length; i++)
+      if(!String(U3[o.need[i][0]] || '').trim()) return stop(o.need[i][1]);
+    btn.disabled = true;
+    msg.className = 'sendmsg wait'; msg.textContent = '보내는 중…';
+    var d = { key:SUBMIT_KEY, type:o.type, cls:o.cls(), group:o.grp().trim() };
+    o.fields.forEach(function(f){
+      var v = U3[f[2]];
+      if(Array.isArray(v)) v = v.filter(function(x){ return x; }).join(' · ');
+      d[f[0]] = v || '';
+    });
+    var good = function(x){ msg.className = 'sendmsg ok';
+      msg.textContent = '제출했습니다' + (x || '');
+      btn.textContent = '다시 제출하기'; btn.disabled = false; };
+    var bad = function(){ msg.className = 'sendmsg bad';
+      msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
+      btn.disabled = false; };
+    var body = JSON.stringify(d);
+    fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.ok) good(); else bad(); })
+      .catch(function(){
+        fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+              headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+          .then(function(){ good(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
+      });
+  });
 }
 
 /* ══ 차시별 순서 ══════════════════════════════════════════ */
@@ -2236,91 +2575,240 @@ var TL = [
   draw();
 })();
 
-/* ══ ② 사회 문제 해결 사례 ════════════════════════════════ */
+/* ══ ② 사회 문제 해결 설계 ════════════════════════════════
+   학생들이 «어떤 인공지능 기술이 있는지»를 아직 모른다.
+   그래서 기술을 여덟 갈래로 펼쳐 두고, 갈래마다
+   «무엇을 하나 · 실제로 어디에 쓰였나 · 어떤 사회 문제를 풀었나»를 붙였다. */
+var AITECH = [
+  { e:'👁️', n:'컴퓨터 비전', s:'보고 알아보는 기술',
+    d:'사진과 영상을 보고 «무엇이 있는지» 알아냅니다. 사람 얼굴, 물건, 글자, 움직임을 구분해요.',
+    use:['공장에서 불량품을 사람보다 빠르게 골라낸다 (교과서 147쪽)',
+         '공항 보안 검색대에서 가방 속 위험 물품을 판독한다 (교과서 148쪽)',
+         '휴대폰 사진첩이 «강아지»라고 검색하면 강아지 사진만 모아 준다'],
+    solved:'보안 문제 · 제조 불량 · 산업 현장 사고 예방',
+    warn:'피부색이 어두울수록, 남자보다 여자일수록 <b>얼굴 인식 오류가 더 많이</b> 납니다 (교과서 165쪽).' },
+  { e:'💬', n:'자연어 처리', s:'말과 글을 알아듣는 기술',
+    d:'사람이 쓰는 말을 <b>문맥과 상황에 맞게</b> 이해합니다. 번역, 요약, 대화가 모두 여기예요.',
+    use:['수화를 글자로 바꿔 주어 장애인과 비장애인의 소통을 돕는다 (교과서 148쪽)',
+         '긴 보고서에서 중요한 부분만 뽑아 요약해 준다',
+         '실시간 동시 통역으로 다른 나라 사람과 대화한다'],
+    solved:'장애인의 의사소통 · 언어 장벽 · 정보 과잉',
+    warn:'사실이 아닌 내용을 <b>사실처럼 그럴듯하게</b> 말하는 «환각»이 여기서 생깁니다.' },
+  { e:'📈', n:'기계학습 · 예측', s:'쌓인 자료에서 규칙을 찾는 기술',
+    d:'많은 자료를 분석해 <b>앞으로 어떻게 될지</b>를 내다봅니다. 숫자와 표가 재료예요.',
+    use:['질병 데이터를 분석해 전염병 확산을 예측하고 정부·병원·항공사에 알린다 (교과서 148쪽)',
+         '미국 우편국이 우편물의 98% 이상을 정확히 인식·분류한다 (교과서 147쪽)',
+         '은행이 이상한 카드 결제를 실시간으로 잡아낸다'],
+    solved:'팬데믹 대응 · 물류 지연 · 금융 사기',
+    warn:'배운 자료가 한쪽으로 쏠려 있으면 <b>예측도 그대로 쏠립니다</b>.' },
+  { e:'🎧', n:'음성 인식 · 합성', s:'듣고 말하는 기술',
+    d:'사람 목소리를 알아듣고, 사람처럼 말합니다. 인공지능 스피커와 자동 자막이 여기예요.',
+    use:['수업 영상에 자동으로 자막을 달아 준다',
+         '운전 중 손을 쓰지 않고 목소리로 길을 찾는다',
+         '시각 장애인에게 책과 화면을 읽어 준다'],
+    solved:'정보 접근성 · 운전 중 안전 · 학습 격차',
+    warn:'목소리를 흉내 내는 <b>딥보이스</b>로 가족을 사칭한 사기가 실제로 일어납니다.' },
+  { e:'🔁', n:'추천 시스템', s:'취향에 맞춰 골라 주는 기술',
+    d:'내가 무엇을 보고 얼마나 오래 봤는지를 기록해 <b>다음에 볼 것</b>을 고릅니다.',
+    use:['동영상 서비스가 재밌게 볼 만한 영화를 추천한다 (교과서 158쪽)',
+         '쇼핑몰이 나이·체형·취향에 맞는 옷을 추천한다 (교과서 165쪽)',
+         '학습 앱이 내가 틀린 유형의 문제를 더 많이 내 준다'],
+    solved:'선택 피로 · 맞춤 학습 · 정보 탐색 시간',
+    warn:'같은 것만 계속 보여 주면 <b>필터 버블</b>에 갇힙니다. 추천을 가장 크게 움직이는 신호는 «좋아요»가 아니라 <b>오래 본 시간</b>이에요.' },
+  { e:'✨', n:'생성형 인공지능', s:'없던 것을 만들어 내는 기술',
+    d:'글·그림·음악·영상을 <b>새로 만들어</b> 냅니다. 짧은 단어만 넣어도 결과가 나와요.',
+    use:['«아보카도 안락의자»라고 쓰면 그런 그림을 그려 준다 (교과서 144쪽)',
+         '소설·기사·작곡 초안을 만든다 (교과서 150쪽)',
+         '고흐 화풍을 배운 딥드림이 새 그림을 만든다 (교과서 161쪽)'],
+    solved:'창작 진입 장벽 · 시안 제작 시간',
+    warn:'학습에 쓰인 <b>원작자의 권리</b>와 <b>딥페이크</b> 문제가 함께 옵니다.' },
+  { e:'🤖', n:'로보틱스 · 자율주행', s:'스스로 움직이는 기술',
+    d:'보고 판단한 것을 <b>실제 움직임</b>으로 옮깁니다. 앞의 기술들이 몸을 얻은 셈이에요.',
+    use:['물류센터 로봇이 물품을 자동 인식·분류하고 최단 거리로 찾아간다 (교과서 158쪽)',
+         '노인 돌봄 로봇이 말벗이 되고 약 시간을 알려 주며 위급 시 119를 부른다 (교과서 148쪽)',
+         '자율주행차가 길을 예측해 최적 경로로 달린다 (교과서 146쪽)'],
+    solved:'고령화와 복지 일손 부족 · 물류 과부하 · 교통사고',
+    warn:'사고가 났을 때 <b>책임 소재</b>가 흐려집니다 — 제조사인가, 운전자인가.' },
+  { e:'🧩', n:'사물지능융합 (AIoT)', s:'주변 기기가 서로 연결되는 기술',
+    d:'인공지능 + 사물인터넷 + 클라우드. <b>여러 기기가 정보를 주고받으며</b> 알아서 움직입니다.',
+    use:['냉장고가 안에 있는 식재료를 알아보고 맞춤 식단과 요리법을 준다 (교과서 146쪽)',
+         '부족한 재료를 스스로 온라인 주문한다',
+         '교실 센서가 공기질을 재서 창문 환기 시점을 알려 준다'],
+    solved:'에너지 낭비 · 음식물 쓰레기 · 실내 공기질',
+    warn:'집 안 기기가 모두 연결되면 <b>사생활 정보</b>도 함께 흘러다닙니다.' }
+];
 var CASES = [
-  ['🦠','팬데믹 문제','기계학습이 질병 데이터를 학습·분석해 예측한 내용을 정부·병원·항공사에 제공한다. 전염병 확산을 미리 예측하고 방지할 기반을 마련한다.'],
-  ['🤟','장애인의 의사소통','자연어 처리로 수화를 텍스트로 바꾸는 서비스가 장애인과 비장애인의 소통을 돕는다. 의사소통의 장벽을 줄인다.'],
-  ['🛡️','보안 문제','컴퓨터 비전으로 위험 물품을 빠르고 정확하게 판독한다. 실시간 모니터링이 의심스러운 행동을 감지해 경고한다.'],
-  ['👵','고령화와 복지 일손','지능형 로봇이 노인의 말벗이 되고 식사·약 복용·운동을 알려 준다. 위급 상황에는 119를 호출한다.']
+  ['🦠','팬데믹 문제','기계학습 · 예측','기계학습이 질병 데이터를 학습·분석해 예측한 내용을 정부·병원·항공사에 제공한다. 전염병 확산을 미리 예측하고 방지할 기반을 마련한다.'],
+  ['🤟','장애인의 의사소통','자연어 처리','자연어 처리로 수화를 텍스트로 바꾸는 서비스가 장애인과 비장애인의 소통을 돕는다. 의사소통의 장벽을 줄인다.'],
+  ['🛡️','보안 문제','컴퓨터 비전','컴퓨터 비전으로 위험 물품을 빠르고 정확하게 판독한다. 실시간 모니터링이 의심스러운 행동을 감지해 경고한다.'],
+  ['👵','고령화와 복지 일손','로보틱스','지능형 로봇이 노인의 말벗이 되고 식사·약 복용·운동을 알려 준다. 위급 상황에는 119를 호출한다.']
 ];
 (function(){
-  var box = $('u3cases'); if(!box) return;
-  box.innerHTML = CASES.map(function(c){
+  var box = $('u3cases');
+  if(box) box.innerHTML = CASES.map(function(c){
     return '<div class="mcard"><span>' + c[0] + '</span><b>' + esc(c[1]) + '</b>' +
-           '<p>' + esc(c[2]) + '</p></div>';
+           '<i>' + esc(c[2]) + '</i><p>' + esc(c[3]) + '</p></div>';
   }).join('');
-  ['s1a','s1b','s1c'].forEach(function(f){ bind(f, f); });
-})();
 
-/* ══ ③ 직업 대체 가능성 4분면 ═════════════════════════════ */
-var JOBS = [
-  { n:'회계 사무', q:0 }, { n:'통·번역', q:0 },
-  { n:'의사 진단', q:1 }, { n:'상담·심리', q:1 },
-  { n:'단순 조립', q:2 }, { n:'요금 수납', q:2 },
-  { n:'간병·육아', q:3 }, { n:'실버케어', q:3 }
-];
-var QNAME = ['고숙련 · 정형','고숙련 · 비정형','저숙련 · 정형','저숙련 · 비정형'];
-(function(){
-  var pick = $('jbPick'); if(!pick) return;
-  var quad = $('jbQuad'), cnt = $('jbCnt'), msg = $('jbMsg'), why = $('jbWhy');
-  var sel = -1;
-  function draw(){
-    var put = U3.jb || {};
-    pick.innerHTML = JOBS.map(function(j, i){
-      if(put[i] !== undefined) return '';
-      return '<button type="button" class="jc' + (sel === i ? ' on' : '') + '" data-i="' + i + '">' +
-             esc(j.n) + '</button>';
-    }).join('') || '<span class="jbdone">카드를 모두 넣었습니다</span>';
-    [].slice.call(quad.querySelectorAll('.qcell')).forEach(function(c){
-      var q = +c.getAttribute('data-q');
-      var here = Object.keys(put).filter(function(i){ return put[i] === q; });
-      c.querySelector('.drop').innerHTML = here.map(function(i){
-        var ok = JOBS[i].q === q;
-        return '<span class="jt' + (ok ? ' ok' : ' no') + '">' + esc(JOBS[i].n) +
-               (ok ? '' : ' ✕') + '</span>';
-      }).join('');
+  var tb = $('techBox'), td = $('techDet');
+  if(tb){
+    var at = -1;
+    tb.innerHTML = AITECH.map(function(t, i){
+      return '<button type="button" class="techc" data-i="' + i + '">' +
+        '<span class="te">' + t.e + '</span><b>' + esc(t.n) + '</b><i>' + esc(t.s) + '</i></button>';
+    }).join('');
+    function drawDet(){
+      if(at < 0){ td.hidden = true; return; }
+      var t = AITECH[at];
+      td.hidden = false;
+      td.innerHTML = '<div class="tdh"><span class="te">' + t.e + '</span>' +
+        '<b>' + esc(t.n) + '</b><i>' + esc(t.s) + '</i>' +
+        '<button type="button" class="mini gh" id="techUse">이 기술로 정하기</button></div>' +
+        '<p class="tdd">' + t.d + '</p>' +
+        '<div class="tdrow"><span class="tdk">이렇게 쓰입니다</span><ul>' +
+        t.use.map(function(u){ return '<li>' + esc(u) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="tdrow"><span class="tdk">푼 사회 문제</span><p>' + esc(t.solved) + '</p></div>' +
+        '<div class="tdwarn"><b>같이 오는 걱정</b> ' + t.warn + '</div>';
+      var b = $('techUse');
+      if(b) b.addEventListener('click', function(){
+        var el = $('s1t'); if(!el) return;
+        el.value = AITECH[at].n; U3.s1t = AITECH[at].n; save();
+        el.scrollIntoView({ behavior:'smooth', block:'center' });
+        this.textContent = '넣었습니다'; var me = this;
+        setTimeout(function(){ me.textContent = '이 기술로 정하기'; }, 1500);
+      });
+    }
+    tb.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-i]'); if(!b) return;
+      var i = +b.getAttribute('data-i');
+      at = (at === i ? -1 : i);
+      [].slice.call(tb.children).forEach(function(x, k){
+        x.setAttribute('aria-pressed', k === at ? 'true' : 'false');
+      });
+      drawDet();
     });
-    var n = Object.keys(put).length;
-    cnt.textContent = n + ' / ' + JOBS.length;
-    if(n === JOBS.length){
-      var right = Object.keys(put).filter(function(i){ return JOBS[i].q === put[i]; }).length;
-      why.className = 'verdict ' + (right === JOBS.length ? 'ok' : 'mid');
-      why.innerHTML = '<b>' + right + ' / ' + JOBS.length + ' 맞았습니다</b><span>' +
-        '<b>정형</b>은 «정해진 순서대로 하는 일», <b>비정형</b>은 «상황마다 달라지는 일»입니다. ' +
-        '인공지능이 가장 잘 대신하는 것은 <b>정형 업무</b>예요. ' +
-        '간병·육아처럼 «저숙련»으로 분류돼도 상황이 매번 다르면 대체가 어렵습니다.</span>';
-      why.hidden = false;
-    }else{ why.hidden = true; }
   }
-  pick.addEventListener('click', function(e){
-    var b = e.target.closest('button[data-i]'); if(!b) return;
-    sel = +b.getAttribute('data-i');
-    msg.className = 'sendmsg wait';
-    msg.innerHTML = '<b>' + esc(JOBS[sel].n) + '</b> — 어느 칸에 넣을까요?';
-    draw();
+
+  ['s1a','s1t','s1b','s1c','s1e'].forEach(function(f){ bind(f, f); });
+  clsPick('s1Cls', 's1cls');
+  nameBox('s1Group', 's1grp');
+  sender({
+    btn:'s1Send', copy:'s1Copy', msg:'s1Msg', type:'u3sol',
+    cls:function(){ return U3.s1cls; }, grp:function(){ return U3.s1grp; },
+    need:[['s1a','사회 문제를 먼저 적어 주세요'], ['s1b','해결 방법을 적어 주세요']],
+    title:'② 인공지능으로 더 나은 사회 만들기',
+    fields:[['problem','사회 문제','s1a'], ['tech','고른 기술','s1t'],
+            ['how','해결 방법','s1b'], ['risk','안 될 수도 있는 까닭','s1c'],
+            ['ex','실제 사례','s1e']]
   });
-  quad.addEventListener('click', function(e){
-    var c = e.target.closest('.qcell'); if(!c) return;
-    if(sel < 0){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 위에서 카드를 고르세요.'; return; }
-    var q = +c.getAttribute('data-q');
-    if(!U3.jb) U3.jb = {};
-    U3.jb[sel] = q; save();
-    var ok = JOBS[sel].q === q;
-    msg.className = 'sendmsg ' + (ok ? 'ok' : 'bad');
-    msg.innerHTML = ok ? '<b>' + esc(JOBS[sel].n) + '</b> 맞아요.'
-      : '<b>' + esc(JOBS[sel].n) + '</b>은(는) <b>' + QNAME[JOBS[sel].q] + '</b>입니다.';
-    sel = -1; draw();
-  });
-  $('jbRe').addEventListener('click', function(){
-    U3.jb = {}; sel = -1; save(); draw();
-    msg.className = 'sendmsg'; msg.textContent = '카드를 누른 뒤 넣을 칸을 누르세요.';
-  });
-  draw();
 })();
 
-/* ══ ④ 진로 로드맵 ════════════════════════════════════════ */
+/* ══ ③ 진로 로드맵 ════════════════════════════════════════ */
 var LIFE = ['고등학교 시기','20세의 나','30세의 나','40세 이후의 나'];
+var SPLIT = [
+  { k:'ai', t:'인공지능이 가져갈 일', s:'되풀이되고 규칙이 뚜렷한 일',
+    ex:'예) 서류를 종류별로 나누기 · 같은 문장을 번역하기 · 사진에서 이상한 부분 찾아내기',
+    ph:'내 직업에서 «매번 같은 방식으로 하는 일»을 적어 보세요' },
+  { k:'with', t:'함께 하게 될 일', s:'인공지능이 초안을 내고 사람이 고르는 일',
+    ex:'예) 인공지능이 뽑아 준 후보 다섯 개 중에서 고르기 · 분석 결과를 읽고 판단하기',
+    ph:'«인공지능이 도와주면 훨씬 빨라질 일»을 적어 보세요' },
+  { k:'me', t:'끝까지 내가 할 일', s:'상황이 매번 다르고 사람을 상대하는 일',
+    ex:'예) 우는 사람 달래기 · 처음 보는 상황에서 결정하기 · 책임지고 사과하기',
+    ph:'«기계에 맡기면 안 될 것 같은 일»을 적어 보세요' }
+];
+var JOBREAL = [
+  { f:'의료 · 간호', t:'진단은 인공지능, 설명은 사람',
+    d:'인공지능 암 판별기의 정확도는 <b>92.5%</b>, 사람 의사는 <b>96.6%</b>였습니다. 그런데 <b>둘이 함께</b> 판단했더니 <b>99.5%</b>가 되었어요. 인공지능은 <b>숨은 것</b>을 잘 찾고, 사람은 <b>틀린 진단</b>을 잘 찾아냅니다.',
+    k:'남는 일 — 환자에게 결과를 설명하고, 인공지능이 틀렸을 때 알아채는 일' },
+  { f:'법 · 경찰', t:'판례 검색은 몇 초, 판단은 사람',
+    d:'인공지능 검색 엔진이 비슷한 판결을 몇 초 만에 찾아 줍니다. 하지만 미국의 한 변호사는 챗GPT가 <b>지어낸 가짜 판례</b> 6개를 법원에 냈다가 들통났어요. 인공지능이 «실제 사건이다»라고 끝까지 우겼기 때문입니다.',
+    k:'남는 일 — 찾아 준 것이 진짜인지 확인하고, 사람의 사정을 헤아리는 일' },
+  { f:'창작 · 디자인', t:'초안은 1분, 고르는 건 사람',
+    d:'«아보카도 안락의자»라고 쓰면 그림 수십 장이 나옵니다. 그런데 <b>어떤 게 좋은지</b>, <b>누구에게 보여 줄 것인지</b>는 여전히 사람이 정합니다. 학습에 쓰인 원작자에게 <b>보상해야 하는가</b>도 사람이 정할 문제예요.',
+    k:'남는 일 — 무엇을 왜 만들지 정하고, 결과에 책임지는 일' },
+  { f:'교육 · 상담', t:'문제는 맞춤 출제, 마음은 사람',
+    d:'학습 앱이 내가 틀린 유형만 골라 내 줍니다. 하지만 «왜 공부가 하기 싫은지»는 묻지 않아요. 인공지능 챗봇 상담은 <b>말 꺼내기 어려운 사람에게 문턱이 낮지만</b>, 위기 신호를 놓치면 돌이킬 수 없습니다.',
+    k:'남는 일 — 표정과 말투에서 신호를 읽고, 곁에 있어 주는 일' },
+  { f:'제조 · 물류', t:'분류는 로봇, 예외는 사람',
+    d:'물류센터 로봇이 물품을 자동으로 알아보고 최단 거리로 옮깁니다. 미국 우편국은 우편물의 <b>98% 이상</b>을 기계가 정확히 분류해요. 남는 <b>2%</b>는? 찢어지고 젖고 글씨가 이상한 것들 — 사람 몫입니다.',
+    k:'남는 일 — 기계가 «모르겠다»고 한 것을 처리하고, 시스템을 고치는 일' },
+  { f:'요리 · 서비스', t:'주문은 자동, 맛과 눈치는 사람',
+    d:'키오스크와 서빙 로봇이 늘었습니다. 그런데 «오늘 재료가 유난히 좋다»를 알아채거나, 손님 표정을 보고 «맵기를 줄일까요?»라고 묻는 건 아직 사람입니다.',
+    k:'남는 일 — 그날그날 달라지는 것을 감각으로 잡아내는 일' }
+];
+var CAPS = [
+  ['🔍','비판적으로 읽기','인공지능이 준 답에 «이 자료 어디서 왔지?»를 묻는 힘'],
+  ['🧭','판단하고 책임지기','여러 답 중에 고르고 그 결과를 떠안는 힘'],
+  ['💬','사람과 소통하기','말과 표정으로 마음을 주고받는 힘'],
+  ['🧩','문제를 새로 정의하기','«이게 진짜 문제인가»를 다시 묻는 힘'],
+  ['🤝','협업하고 조율하기','서로 다른 사람들을 모아 일을 굴리는 힘'],
+  ['⚖️','윤리적으로 따지기','«해도 되는 일인가»를 판단하는 힘'],
+  ['🛠️','도구를 다루기','인공지능에 무엇을 어떻게 시킬지 아는 힘'],
+  ['🌱','계속 배우기','기술이 바뀌어도 다시 배우는 힘']
+];
 (function(){
+  var sp = $('s3split');
+  if(sp){
+    sp.innerHTML = SPLIT.map(function(x, i){
+      return '<div class="spc spc-' + x.k + '"><b>' + esc(x.t) + '</b><i>' + esc(x.s) + '</i>' +
+        '<p class="spex">' + esc(x.ex) + '</p>' +
+        '<textarea data-i="' + i + '" rows="3" placeholder="' + esc(x.ph) + '"></textarea></div>';
+    }).join('');
+    [].slice.call(sp.querySelectorAll('textarea')).forEach(function(el){
+      var i = +el.getAttribute('data-i');
+      el.value = (U3.s3split && U3.s3split[i]) || '';
+      el.addEventListener('input', function(){
+        if(!U3.s3split) U3.s3split = ['','',''];
+        U3.s3split[i] = this.value; save();
+      });
+    });
+  }
+
+  var jr = $('s3real');
+  if(jr){
+    jr.innerHTML = JOBREAL.map(function(x, i){
+      return '<details class="jrd"><summary><span class="jrf">' + esc(x.f) + '</span>' +
+        esc(x.t) + '</summary><div><p>' + x.d + '</p>' +
+        '<p class="jrk">' + esc(x.k) + '</p></div></details>';
+    }).join('');
+  }
+
+  var cb = $('s3caps');
+  if(cb){
+    function drawCaps(){
+      cb.innerHTML = CAPS.map(function(c){
+        return '<button type="button" class="capc" data-n="' + esc(c[1]) + '" aria-pressed="' +
+          (U3.s3caps.indexOf(c[1]) >= 0 ? 'true' : 'false') + '">' +
+          '<span>' + c[0] + '</span><b>' + esc(c[1]) + '</b><i>' + esc(c[2]) + '</i></button>';
+      }).join('');
+      var c = $('s3capCnt'), n = U3.s3caps.length;
+      c.textContent = n ? (n + '가지 고름 — ' + U3.s3caps.join(' · ')) : '아직 고르지 않았습니다';
+      c.className = 'cnt' + (n ? ' ok' : '');
+    }
+    cb.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-n]'); if(!b) return;
+      var n = b.getAttribute('data-n'), k = U3.s3caps.indexOf(n);
+      if(k >= 0) U3.s3caps.splice(k, 1); else U3.s3caps.push(n);
+      save(); drawCaps();
+    });
+    drawCaps();
+  }
+
+  clsPick('s3Cls', 's3cls');
+  nameBox('s3Group', 's3grp');
+  sender({
+    btn:'s3Send', copy:'s3Copy', msg:'s3Msg', type:'career',
+    cls:function(){ return U3.s3cls; }, grp:function(){ return U3.s3grp; },
+    need:[['s3job','희망 직업을 먼저 적어 주세요'], ['s3vis','비전 선언문을 적어 주세요']],
+    title:'③ 진로 로드맵',
+    fields:[['job','희망 직업','s3job'], ['vision','비전 선언문','s3vis'],
+            ['split','일 나누기 (AI / 함께 / 나)','s3split'],
+            ['caps','기를 역량','s3caps'],
+            ['life','생애별 계획','s3life'],
+            ['future','활용인가 대체인가','s3fut'], ['grow','기를 역량 서술','s3cap'],
+            ['today','오늘부터 할 일','s3now']]
+  });
+
   var box = $('s3life'); if(!box) return;
   box.innerHTML = LIFE.map(function(t, i){
     return '<label class="lf"><span>' + esc(t) + '</span>' +
@@ -2334,10 +2822,10 @@ var LIFE = ['고등학교 시기','20세의 나','30세의 나','40세 이후의
       U3.s3life[i] = this.value; save();
     });
   });
-  ['s3job','s3vis','s3fut','s3cap'].forEach(function(f){ bind(f, f); });
+  ['s3job','s3vis','s3fut','s3cap','s3now'].forEach(function(f){ bind(f, f); });
 })();
 
-/* ══ ⑤ 장단점 저울 ════════════════════════════════════════ */
+/* ══ ④ 장단점 저울 ════════════════════════════════════════ */
 var TECH = [
   { good:['교통 흐름이 좋아지고 사고가 줄어든다','운전이 어려운 노약자·장애인에게 이동 수단이 된다','이동하면서 다른 일을 할 수 있다'],
     bad:['시스템 오류로 사고가 날 수 있다','사고가 나면 책임이 누구에게 있는지 다투게 된다','내 위치 정보가 새어 나갈 수 있다'] },
@@ -2430,44 +2918,162 @@ var BIAS = [
   draw();
 })();
 
-/* ══ ⑦ 윤리적 딜레마 ══════════════════════════════════════ */
-var DILEMMA = [
-  { s:'인공지능은 맞춤 의료와 정밀 진료에 널리 쓰인다. 그런데 백인 환자 데이터로 과다하게 훈련받은 진단 인공지능이 흑인 환자를 오진했다면, 책임은 누구에게 있을까?',
-    q:'책임이 가장 큰 쪽은 어디라고 생각하나요?',
-    o:['인공지능 개발 회사','데이터 수집 업체','최종 판단을 내린 의료진','도입을 결정한 병원'] },
-  { s:'가정용 로봇 A는 «주인의 명령에 복종한다»는 원칙을 지켜야 한다. 부모님이 A에게 철수의 컴퓨터 사용을 금지하라고 했는데, 철수가 A에게 컴퓨터를 켜 달라고 명령했다.',
-    q:'A는 어떻게 해야 할까요?',
-    o:['부모님의 명령을 따른다','철수의 명령을 따른다','둘 다 따르지 않고 알린다','판단을 미루고 기다린다'] }
+/* ══ ⑤ 드론 배달 서비스 (교과서 160쪽) ════════════════════ */
+var DRONE = {
+  good:['배송 시간을 크게 줄일 수 있다', '도로가 막혀도 영향을 받지 않는다',
+        '섬·산간처럼 차가 못 가는 곳에도 닿는다', '배달 노동자의 사고 위험이 준다',
+        '자동차 배송보다 탄소 배출이 적다'],
+  bad:['드론에 카메라가 달리면 사생활 침해가 생긴다', '떨어지면 사람이 다칠 수 있다',
+       '소음이 늘어난다', '배달 일자리가 줄어든다',
+       '사고가 났을 때 책임이 업체인지 제조사인지 흐리다', '해킹당하면 경로가 바뀔 수 있다']
+};
+(function(){
+  var g = $('drGood'), b = $('drBad');
+  if(g && b){
+    function chips(box, list, target){
+      box.innerHTML = list.map(function(t){
+        return '<button type="button" class="hchip">' + esc(t) + '</button>';
+      }).join('');
+      box.addEventListener('click', function(e){
+        var btn = e.target.closest('.hchip'); if(!btn) return;
+        var el = $(target), t = btn.textContent;
+        var cur = (el.value || '').trim();
+        if(cur.indexOf(t) >= 0) return;
+        el.value = cur ? (cur + '\n· ' + t) : ('· ' + t);
+        U3[target] = el.value; save();
+        btn.setAttribute('aria-pressed', 'true');
+      });
+    }
+    chips(g, DRONE.good, 's5g');
+    chips(b, DRONE.bad, 's5b');
+  }
+  ['s5g','s5b','s5r','s5w'].forEach(function(f){ bind(f, f); });
+
+  var v = $('drVote');
+  if(v){
+    var TXT = ['«그냥 쓰자»도 하나의 답입니다. 다만 <b>왜 걱정이 없는지</b>를 말할 수 있어야 해요.',
+               '가장 많이 나오는 답입니다. <b>어떤 조건</b>인지가 이 답의 전부예요 — 2단계 칸을 꼭 채우세요.',
+               '«쓰지 말자»도 답입니다. 다만 <b>그래서 원래 문제는 어떻게 풀지</b>도 말해야 합니다.'];
+    function drawV(){
+      [].slice.call(v.children).forEach(function(x){
+        x.setAttribute('aria-pressed', +x.getAttribute('data-v') === U3.s5v ? 'true' : 'false');
+      });
+      var m = $('drMsg');
+      m.className = 'sendmsg' + (U3.s5v >= 0 ? ' ok' : '');
+      m.innerHTML = U3.s5v >= 0 ? TXT[U3.s5v] : '';
+    }
+    v.addEventListener('click', function(e){
+      var x = e.target.closest('button[data-v]'); if(!x) return;
+      U3.s5v = +x.getAttribute('data-v'); save(); drawV();
+    });
+    drawV();
+  }
+})();
+
+/* ══ ⑦ 윤리적 딜레마 (교과서 166~169쪽) ═══════════════════
+   교과서 상황을 그대로 쓰되, 학생이 «무엇과 무엇이 부딪히는지»
+   바로 보이도록 수치와 입장을 표로 펼쳐 두었다. */
+var DL = [
+  { n:'① 공항 도우미 로봇', p:'교과서 166쪽',
+    v:['효율성', '배려'],
+    story:'공항에서 짐 옮기는 것을 도와주는 인공지능 로봇이 있습니다. 이용자들은 스마트폰 앱으로 로봇에게 도움을 요청할 수 있어요. ' +
+          '설계자가 <b>«요청이 동시에 들어오면 누구부터 가는가»</b>를 프로그램에 넣어야 합니다. ' +
+          '그런데 지금, <b>두 요청이 같은 순간에</b> 들어왔습니다.',
+    facts:[['요청 1 · 젊은 청년', '거리 100m', '짐 10kg'],
+           ['요청 2 · 임산부', '거리 800m', '짐 15kg']],
+    ask:'로봇은 어느 요청을 먼저 수락해야 할까요?',
+    opts:['가까운 청년부터 — 더 많은 사람을 도울 수 있다',
+          '임산부부터 — 도움이 더 필요한 사람이 우선이다',
+          '요청이 들어온 순서대로 — 사람이 판단하면 차별이 생긴다'],
+    why:'<b>효율성</b>을 따르면 가까운 청년이 맞습니다. 같은 시간에 더 많은 사람을 도울 수 있으니까요. ' +
+        '<b>배려</b>라는 가치를 넣으면 임산부가 맞습니다. 짐이 더 무겁고 몸이 더 불편하니까요. ' +
+        '<b>어느 쪽도 틀리지 않습니다.</b> 다만 <b>누군가는 이 값을 정해서 코드에 써넣어야</b> 하고, ' +
+        '그 순간 <b>사회의 가치가 프로그램이 됩니다.</b>' },
+  { n:'② 의료 인공지능 오진', p:'교과서 167쪽',
+    v:['책임 소재', '기술 발전'],
+    story:'인공지능이 맞춤 의료와 정밀 진료에 널리 쓰이고 있습니다. 그런데 <b>백인 환자 데이터로 과다하게 훈련받은</b> 진단 인공지능이 ' +
+          '<b>흑인 환자를 오진</b>했습니다. 환자는 치료 시기를 놓쳤습니다.',
+    facts:[['인공지능 회사', '알고리즘을 만들었다', '«우리는 데이터를 준 대로 만들었다»'],
+           ['데이터 수집 업체', '치우친 자료를 모았다', '«그때는 그 자료밖에 없었다»'],
+           ['담당 의사', '권고를 받아들였다', '«전문가 시스템을 믿었다»']],
+    ask:'책임은 누구에게 있을까요?',
+    opts:['인공지능 개발 회사 — 만든 사람이 책임진다',
+          '데이터 수집 업체 — 치우친 재료를 준 쪽이 책임진다',
+          '담당 의사 — 최종 결정을 내린 사람이 책임진다',
+          '셋이 나누어 진다 — 아무도 혼자 다 알 수 없었다'],
+    why:'교과서는 이렇게 못 박습니다 — <b>«개별 환자들은 해명을 들을 권리가 있고, 책임질 대상이 없다면 실수가 계속 이어질 것»</b>이다. ' +
+        '누가 얼마나 지느냐보다 <b>«책임질 사람이 정해져 있는가»</b>가 먼저입니다. ' +
+        '이것이 국가 인공지능 윤리 기준의 <b>「책임성」</b>이고, 왜 <b>설명 가능한 인공지능(XAI)</b>이 필요한지의 이유예요.' },
+  { n:'③ 집안일 로봇의 명령', p:'교과서 168쪽',
+    v:['명령 복종', '주인의 이익'],
+    story:'A는 철수네 집안일을 도와주는 가정용 인공지능 로봇입니다. A에게는 <b>«주인의 명령에 복종해야 한다»</b>는 원칙이 있어요. ' +
+          '고등학생 철수는 컴퓨터 게임을 너무 많이 해서 성적이 떨어졌고, 부모님은 컴퓨터에 <b>비밀번호를 걸어 두고</b> ' +
+          'A에게 <b>철수의 컴퓨터 사용을 금지</b>하도록 했습니다. 그런데 철수가 A에게 <b>비밀번호를 풀어 달라</b>고 합니다.',
+    facts:[['철수', '지금 집에 있는 주인', '«나도 이 집 주인이야. 명령이야.»'],
+           ['부모님', 'A를 사 온 사람', '«철수의 사용을 금지하라고 했잖아.»'],
+           ['A의 원칙', '주인의 명령에 복종', '누가 «주인»인지는 안 정해져 있다']],
+    ask:'A는 어떻게 행동해야 할까요?',
+    opts:['비밀번호를 풀어 준다 — 지금 앞에 있는 주인의 명령이다',
+          '풀어 주지 않는다 — 먼저 받은 명령이 우선이다',
+          '부모님께 확인한 뒤 정한다 — 스스로 정하지 않는다',
+          '거절하고 그 이유를 철수에게 설명한다'],
+    why:'아시모프의 <b>제2원칙</b>(명령 복종)과 <b>제1원칙</b>(해를 입히지 않음)이 부딪히는 상황입니다. ' +
+        '게임을 못 하게 막는 것은 철수에게 <b>«해»일까요, «도움»일까요?</b> ' +
+        '그리고 <b>«주인»이 누구인지</b>를 A는 스스로 정할 수 없습니다. ' +
+        '이렇게 <b>원칙만으로는 풀리지 않는 자리</b>가 남기 때문에, 아래 <b>국가 인공지능 윤리 기준</b>처럼 ' +
+        '더 촘촘한 약속이 필요합니다.' }
+];
+var LAWS = [
+  ['제0원칙', '로봇은 <b>인류</b>를 해하는 행동을 해서는 안 되고, 인류가 해를 입도록 내버려 둬도 안 된다.', '1985 『로봇과 제국』에서 나중에 추가'],
+  ['제1원칙', '로봇은 <b>인간에게 해를 입혀서는 안 되고</b>, 인간이 해를 입도록 내버려 둬도 안 된다.', '1942 『런어라운드』'],
+  ['제2원칙', '로봇은 인간의 명령이 <b>첫 번째 원칙에 어긋나지 않는 한</b> 그 명령에 복종해야 한다.', '1942 『런어라운드』'],
+  ['제3원칙', '로봇은 <b>첫째·둘째 원칙에 어긋나지 않는 한</b> 자신을 보호해야 한다.', '1942 『런어라운드』']
 ];
 (function(){
   var pick = $('dlPick'); if(!pick) return;
-  var cur = 0;
+  var meta = $('dlMeta'), story = $('dlStory'), facts = $('dlFacts'),
+      ask = $('dlAsk'), opts = $('dlOpts'), val = $('dlValue');
+  var at = 0;
   function draw(){
-    var d = DILEMMA[cur];
-    $('dlStory').innerHTML = esc(d.s);
-    $('dlAsk').innerHTML = '<b>' + esc(d.q) + '</b> 정답은 없습니다. <b>고르고 근거를 대는 것</b>이 활동이에요.';
-    var box = $('dlOpts');
-    box.innerHTML = '';
-    d.o.forEach(function(t, i){
-      var b = document.createElement('button');
-      b.type = 'button'; b.textContent = t;
-      b.setAttribute('aria-pressed', (U3.dl && U3.dl[cur]) === i + 1 ? 'true' : 'false');
-      b.addEventListener('click', function(){
-        if(!U3.dl) U3.dl = [0,0];
-        U3.dl[cur] = i + 1; save(); draw();
-      });
-      box.appendChild(b);
-    });
-    [].slice.call(pick.children).forEach(function(b){
-      b.setAttribute('aria-pressed', +b.getAttribute('data-d') === cur ? 'true' : 'false');
+    var d = DL[at];
+    meta.innerHTML = '<span class="dlp">' + esc(d.p) + '</span>' +
+      d.v.map(function(x){ return '<span class="dlv">' + esc(x) + '</span>'; }).join('<span class="dlx">↔</span>');
+    story.innerHTML = d.story;
+    facts.innerHTML = '<table class="dlt">' + d.facts.map(function(f){
+      return '<tr>' + f.map(function(c, i){
+        return '<td' + (i === 0 ? ' class="dlk"' : '') + '>' + esc(c) + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</table>';
+    ask.innerHTML = '<b>' + esc(d.ask) + '</b>';
+    opts.innerHTML = d.opts.map(function(o, i){
+      return '<button type="button" class="mopt' + (U3.dl[at] === i ? ' on' : '') +
+        '" data-i="' + i + '">' + esc(o) + '</button>';
+    }).join('');
+    val.hidden = !(typeof U3.dl[at] === 'number' && U3.dl[at] >= 0);   // 고르기 전엔 해설을 감춘다
+    val.innerHTML = '<b>무엇과 무엇이 부딪히나 — ' + esc(d.v.join(' ↔ ')) + '</b><span>' + d.why + '</span>';
+    [].slice.call(pick.children).forEach(function(b, i){
+      b.setAttribute('aria-pressed', i === at ? 'true' : 'false');
     });
   }
   pick.addEventListener('click', function(e){
     var b = e.target.closest('button[data-d]'); if(!b) return;
-    cur = +b.getAttribute('data-d'); draw();
+    at = +b.getAttribute('data-d'); draw();
   });
-  ['s6why','s6other','s6change'].forEach(function(f){ bind(f, f); });
+  opts.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]'); if(!b) return;
+    if(!Array.isArray(U3.dl)) U3.dl = [-1, -1, -1];
+    U3.dl[at] = +b.getAttribute('data-i'); save(); draw();
+  });
+  if(!Array.isArray(U3.dl) || U3.dl.length < 3) U3.dl = [-1, -1, -1];
   draw();
+
+  var lw = $('dlLaws');
+  if(lw) lw.innerHTML = LAWS.map(function(l){
+    return '<div class="law' + (l[0] === '제0원칙' ? ' zero' : '') + '">' +
+      '<b>' + esc(l[0]) + '</b><p>' + l[1] + '</p><i>' + esc(l[2]) + '</i></div>';
+  }).join('');
+
+  ['s6why','s6other','s6change'].forEach(function(f){ bind(f, f); });
 })();
 
 /* ══ ⑧ 개별 문서 (A~D부) ══════════════════════════════════
