@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v12
+ * 인공지능 기초 활동지 수집기  v13
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -10,8 +10,16 @@
  *   · 우리동네등굣길    ← Ⅰ-04 활동 ⑧
  *   · 학교안길찾기      ← Ⅰ-05 활동 ⑨
  *   · 추론게임          ← Ⅰ-06 활동 ⑪
- *   · 사회문제해결      ← Ⅲ-01 활동 ② (인공지능 기술로 사회 문제 풀기)
- *   · 진로로드맵        ← Ⅲ-02 활동 ③
+ *   ── Ⅲ단원 수업 활동 (차시마다 학생이 쓰고 그때그때 냅니다) ──
+ *   · Ⅲ 발전이야기      ← 활동 ①
+ *   · Ⅲ 사회문제해결    ← 활동 ②
+ *   · Ⅲ 진로로드맵      ← 활동 ③
+ *   · Ⅲ 장단점저울      ← 활동 ④
+ *   · Ⅲ 드론배달        ← 활동 ⑤
+ *   · Ⅲ 편향성구분      ← 활동 ⑥
+ *   · Ⅲ 윤리딜레마      ← 활동 ⑦
+ *   · Ⅲ 데이터편향실습  ← 활동 ⑧
+ *   · Ⅲ 활동모아보기    ← 선생님이 «수행평가» 메뉴에서 만드는 한 장 요약
  *   · 토론입론서        ← Ⅲ-04 활동 ⑧ 개별 문서 A~D부 (수행평가 ① 윤리 토론)
  *   · 토론채점          ← 선생님이 «수행평가» 메뉴에서 만드는 채점표
  *   · 채점기준          ← 채점표가 «채점 근거» 문장을 가져오는 곳 (원문 5단계)
@@ -30,7 +38,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 12;
+var VER = 13;
 
 var SHEETS = {
 
@@ -138,8 +146,74 @@ var SHEETS = {
     }
   },
 
+  story: {
+    name: 'Ⅲ 발전이야기',
+    head: ['제출 시각', '분반', '이름', '인상 깊었던 장면',
+           '세 가지 중 하나가 없었다면', '또 겨울이 올까'],
+    width: [140, 70, 110, 380, 380, 400],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.scene || '', d.three || '', d.winter || ''];
+    }
+  },
+
+  scale: {
+    name: 'Ⅲ 장단점저울',
+    head: ['제출 시각', '분반', '이름', '내가 생각한 좋은 점',
+           '내가 생각한 걱정되는 점', '사람이 해야 할 일'],
+    width: [140, 70, 110, 360, 360, 400],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.good || '', d.bad || '', d.human || ''];
+    }
+  },
+
+  drone: {
+    name: 'Ⅲ 드론배달',
+    head: ['제출 시각', '분반', '이름', '긍정적인 영향', '부정적인 영향',
+           '인간의 역할', '그렇게 정한 이유'],
+    width: [140, 70, 110, 340, 340, 400, 320],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.good || '', d.bad || '', d.role || '', d.why || ''];
+    }
+  },
+
+  bias: {
+    name: 'Ⅲ 편향성구분',
+    head: ['제출 시각', '분반', '이름', '헷갈렸던 사례',
+           '내 주변의 편향', '데이터인가 알고리즘인가'],
+    width: [140, 70, 110, 360, 380, 400],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.hard || '', d.mine || '', d.kind || ''];
+    }
+  },
+
+  dilemma: {
+    name: 'Ⅲ 윤리딜레마',
+    head: ['제출 시각', '분반', '이름', '내가 그렇게 고른 이유',
+           '다르게 고른 친구의 이유', '내 생각에서 달라진 부분'],
+    width: [140, 70, 110, 380, 380, 400],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.why || '', d.other || '', d.change || ''];
+    }
+  },
+
+  databias: {
+    name: 'Ⅲ 데이터편향실습',
+    head: ['제출 시각', '분반', '이름', '처음 데이터의 특징', '못 맞힌 경우',
+           '그 까닭', '고치는 방법', '교과서 사례와 잇기'],
+    width: [140, 70, 110, 340, 340, 340, 340, 400],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '',
+              d.feature || '', d.fail || '', d.why || '', d.fix || '', d.link || ''];
+    }
+  },
+
   u3sol: {
-    name: '사회문제해결',
+    name: 'Ⅲ 사회문제해결',
     head: ['제출 시각', '분반', '모둠(이름)', '사회 문제', '고른 기술',
            '해결 방법', '안 될 수도 있는 까닭', '실제 사례'],
     width: [140, 70, 130, 280, 130, 360, 360, 320],
@@ -150,7 +224,7 @@ var SHEETS = {
   },
 
   career: {
-    name: '진로로드맵',
+    name: 'Ⅲ 진로로드맵',
     head: ['제출 시각', '분반', '이름', '희망 직업', '비전 선언문',
            '일 나누기 (AI / 함께 / 나)', '기를 역량(고른 것)', '생애별 계획',
            '활용인가 대체인가', '기를 역량 서술', '오늘부터 할 일'],
@@ -339,6 +413,108 @@ function headDiffers(sh, kind) {
 }
 
 
+
+/* ══════════════════════════════════════════════════════════
+   Ⅲ단원 활동 모아보기
+   활동 탭이 여덟 개로 흩어져 있어 한 학생이 무엇을 썼는지 보려면
+   탭을 여덟 번 옮겨 다녀야 한다. 그래서 «학생 한 명 = 한 줄»로
+   모아 주는 표를 따로 만든다. 세특 쓸 때 이 표만 보면 된다.
+   ══════════════════════════════════════════════════════════ */
+
+var U3_SHEET = 'Ⅲ 활동모아보기';
+/* [탭 열쇠, 짧은 이름, 모아 볼 열(머리글 기준 0부터), …] */
+var U3_ACTS = [
+  ['story',    '① 발전이야기',   [3, 5]],
+  ['u3sol',    '② 사회문제',     [3, 5]],
+  ['career',   '③ 진로',         [3, 10]],
+  ['scale',    '④ 저울',         [5]],
+  ['drone',    '⑤ 드론',         [5]],
+  ['bias',     '⑥ 편향',         [4, 5]],
+  ['dilemma',  '⑦ 딜레마',       [3, 5]],
+  ['databias', '⑧ 편향실습',     [5, 7]]
+];
+
+function Ⅲ단원활동모으기() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var who = {};      // '분반|이름' → { cls, name, at:{활동:내용} }
+  var found = 0;
+
+  U3_ACTS.forEach(function (a) {
+    var cfg = SHEETS[a[0]];
+    if (!cfg) return;
+    var sh = ss.getSheetByName(cfg.name);
+    if (!sh || sh.getLastRow() < 2) return;
+    found++;
+    var v = sh.getRange(2, 1, sh.getLastRow() - 1, sh.getLastColumn()).getValues();
+    for (var i = 0; i < v.length; i++) {
+      var cls = String(v[i][1] || '').trim();
+      var nm = String(v[i][2] || '').trim();
+      if (!nm) continue;
+      var k = cls + '|' + nm;
+      if (!who[k]) who[k] = { cls: cls, name: nm, at: {} };
+      // 같은 학생이 여러 번 냈으면 마지막 것으로 덮어쓴다 (아래로 갈수록 최신)
+      var parts = [];
+      a[2].forEach(function (c) {
+        var t = String(v[i][c] || '').trim();
+        if (t) parts.push(t);
+      });
+      who[k].at[a[1]] = parts.join('  /  ');
+    }
+  });
+
+  if (!found) {
+    SpreadsheetApp.getUi().alert('아직 제출된 Ⅲ단원 활동이 없습니다.');
+    return;
+  }
+
+  var keys = Object.keys(who).sort(function (a, b) {
+    var A = who[a], B = who[b];
+    return A.cls === B.cls ? (A.name < B.name ? -1 : 1) : (A.cls < B.cls ? -1 : 1);
+  });
+
+  var sh = ss.getSheetByName(U3_SHEET);
+  if (sh) { sh.clear(); sh.clearConditionalFormatRules(); }
+  else sh = ss.insertSheet(U3_SHEET);
+
+  var head = ['분반', '이름', '낸 활동 수'].concat(U3_ACTS.map(function (a) { return a[1]; }));
+  sh.getRange(1, 1, 1, head.length).setValues([head])
+    .setFontWeight('bold').setBackground('#DCEBFF').setFontColor('#1B49B8')
+    .setVerticalAlignment('middle').setWrap(true);
+  sh.setFrozenRows(1);
+  sh.setFrozenColumns(2);
+
+  var body = keys.map(function (k) {
+    var p = who[k];
+    var cells = U3_ACTS.map(function (a) { return p.at[a[1]] || ''; });
+    var n = cells.filter(function (x) { return x; }).length;
+    return [p.cls, p.name, n + ' / ' + U3_ACTS.length].concat(cells);
+  });
+  if (body.length) {
+    sh.getRange(2, 1, body.length, head.length).setValues(body)
+      .setWrap(true).setVerticalAlignment('top').setFontSize(9);
+    sh.getRange(2, 3, body.length, 1)
+      .setHorizontalAlignment('center').setFontWeight('bold').setFontSize(10);
+    // 하나도 안 낸 학생이 눈에 띄게
+    sh.setConditionalFormatRules([
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextStartsWith('0 /')
+        .setBackground('#FDE9E7').setFontColor('#C8362F')
+        .setRanges([sh.getRange(2, 3, body.length, 1)]).build()
+    ]);
+  }
+
+  var w = [70, 110, 80];
+  for (var i = 0; i < U3_ACTS.length; i++) w.push(300);
+  for (var j = 0; j < w.length; j++) sh.setColumnWidth(j + 1, w[j]);
+
+  SpreadsheetApp.getUi().alert(
+    'Ⅲ단원 활동을 한 장으로 모았습니다.\n\n' +
+    '학생 ' + body.length + '명 · 활동 탭 ' + found + '개에서 모음\n\n' +
+    '학생 한 명이 한 줄입니다. 세특을 쓰거나 누가 안 냈는지 볼 때\n' +
+    '이 표만 보면 됩니다.\n\n' +
+    '학생이 다시 제출하면 «다시 실행»해서 새로 고치세요.');
+}
+
 /* ══════════════════════════════════════════════════════════
    토론 채점표 · 채점 기준 · 세특 도우미
    「토론입론서」 탭에 들어온 제출물에서 명단을 뽑아 채점표를 만든다.
@@ -388,6 +564,8 @@ function onOpen() {
     .createMenu('수행평가')
     .addItem('① 토론 채점표 만들기 / 명단 새로고침', '토론채점표만들기')
     .addItem('② 세특 초안 만들기 / 새로 고치기', '세특초안만들기')
+    .addSeparator()
+    .addItem('Ⅲ단원 수업 활동 한 장으로 모으기', 'Ⅲ단원활동모으기')
     .addSeparator()
     .addItem('채점 결과 요약 보기', '토론채점요약')
     .addToUi();

@@ -1440,6 +1440,91 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* 움직이는 그림 — 필터 버블 · 다음 낱말 예측 */
+.vizbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:16px 18px; margin:16px 0; box-shadow:var(--sh)}
+.vizhd{margin-bottom:13px}
+.vizhd>b{display:block; font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--ink)}
+.vizhd>span{display:block; font-size:0.8125rem; color:var(--muted); margin-top:3px}
+.fbstage{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));
+  gap:16px; align-items:center}
+.fbstage svg{width:100%; height:auto; display:block}
+.fbgauge{display:grid; grid-template-columns:64px 1fr 34px; gap:9px; align-items:center;
+  margin-bottom:11px}
+.fbgauge>span:first-child{font-size:0.75rem; font-weight:700; color:var(--muted)}
+.fbbar{height:16px; background:var(--tint); border-radius:99px; overflow:hidden}
+.fbbar>i{display:block; height:100%; width:0; border-radius:99px; background:var(--good);
+  transition:width .35s ease, background .35s ease}
+.fbbar>i.warm{background:var(--warm)} .fbbar>i.hot{background:var(--cut)}
+.fbgauge>b{font-family:var(--mono); font-size:0.9375rem; text-align:right; color:var(--blue-d)}
+.fbtxt{margin:0 0 12px; font-size:0.875rem; line-height:1.75; color:var(--ink2); min-height:3.4em}
+
+.tokline{background:var(--tint); border-radius:13px; padding:14px 16px; min-height:3.2em;
+  display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.tw{font-family:var(--disp); font-size:1.0625rem; color:var(--ink);
+  background:var(--white); border-radius:9px; padding:4px 11px}
+.tw.fresh{background:var(--blue-xl); color:var(--blue-d); font-weight:700}
+.tw.odd{background:var(--cut-bg); color:var(--cut); font-weight:700}
+.tcur{font-family:var(--mono); font-size:1.0625rem; color:var(--muted);
+  animation:tblink 1s steps(2) infinite}
+@keyframes tblink{50%{opacity:.25}}
+.tokopts{margin-top:12px}
+.tokq{display:block; font-family:var(--mono); font-size:0.7188rem; font-weight:700;
+  color:var(--muted); margin-bottom:7px}
+.tok{display:grid; grid-template-columns:minmax(0,110px) 1fr 44px; gap:10px;
+  align-items:center; margin-bottom:6px}
+.tok>b{font-size:0.875rem; color:var(--ink2)}
+.tok.pick>b{color:var(--blue-d)}
+.tokbar{height:14px; background:var(--tint); border-radius:99px; overflow:hidden}
+.tokbar>i{display:block; height:100%; border-radius:99px; background:var(--blue-l)}
+.tok.pick .tokbar>i{background:var(--fill)}
+.tok>em{font-style:normal; font-family:var(--mono); font-size:0.75rem;
+  text-align:right; color:var(--muted)}
+.tok.pick>em{color:var(--blue-d); font-weight:700}
+
+@media (max-width:520px){
+  .fbgauge{grid-template-columns:56px 1fr 30px}
+  .tok{grid-template-columns:minmax(0,86px) 1fr 40px}
+}
+
+/* ⑧ 데이터 편향 실습 (퀵드로우 수집기) */
+.labgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:14px}
+.labcard{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:16px 18px; box-shadow:var(--sh)}
+.labcanvas{width:100%; max-width:280px; aspect-ratio:1/1; display:block; margin:0 auto;
+  background:#fff; border:2px solid var(--blue-l); border-radius:14px;
+  touch-action:none; cursor:crosshair}
+.labinfo{margin-top:9px; text-align:center; font-family:var(--mono); font-size:0.75rem;
+  color:var(--muted)}
+.labstat{display:grid; gap:7px; margin-top:13px}
+.lst{display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  background:var(--tint); border-radius:11px; padding:9px 13px}
+.lst>span{font-size:0.8125rem; color:var(--muted); font-weight:600}
+.lst>b{font-family:var(--mono); font-size:0.9375rem; color:var(--blue-d)}
+.biashint{margin-top:9px; border-radius:11px; padding:9px 13px; font-size:0.8125rem;
+  line-height:1.65; font-weight:600; background:var(--tint); color:var(--muted)}
+.biashint.warn{background:var(--warm-bg); color:var(--warm)}
+.biashint.ok{background:var(--good-bg); color:var(--good)}
+.labpred{margin-top:12px; border-radius:12px; padding:11px 14px; background:var(--blue-xl);
+  font-size:0.875rem; line-height:1.65; color:var(--blue-d); font-weight:600}
+.labpred .okp{color:var(--good)} .labpred .nop{color:var(--cut)}
+.predwhy{display:block; margin-top:6px; font-family:var(--mono); font-size:0.75rem;
+  font-weight:400; color:var(--muted); line-height:1.6}
+.predwhy b{color:var(--blue-d)}
+.labgallery{display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; max-height:320px; overflow-y:auto}
+.thmb{display:flex; flex-direction:column; align-items:center; gap:2px}
+.thmb canvas{width:56px; height:56px; border:1px solid var(--line); border-radius:8px;
+  background:#fff; image-rendering:pixelated}
+.thmb span{font-family:var(--mono); font-size:0.5625rem; color:var(--muted);
+  max-width:58px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.labsteps{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:8px}
+.lstp{display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-radius:12px; padding:10px 13px}
+.lstp>span{width:24px; height:24px; border-radius:50%; background:var(--fill); color:var(--on-fill);
+  font-family:var(--mono); font-size:0.75rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+.lstp>p{margin:0; font-size:0.8438rem; line-height:1.65; color:var(--ink2)}
+
 /* 깊이 보기 — 왜 «당당하게» 틀리는가 */
 .steps8{display:grid; gap:7px}
 .s8{display:grid; grid-template-columns:30px 1fr; gap:12px; align-items:start;
@@ -1907,8 +1992,8 @@ table.dlt tr:last-child td{border-bottom:none}
   <p class="eyebrow">손으로 하는 것</p>
   <h2>수업 활동</h2>
   <p class="sub">여덟 가지입니다. 차시 순서대로 이어지고,
-    <b>마지막 ⑧번이 수행평가 개별 문서</b>로 그대로 넘어갑니다.
-    <b>②·③번은 선생님께 제출</b>합니다.
+    <b>마지막 ⑨번이 수행평가 개별 문서</b>로 그대로 넘어갑니다.
+    <b>활동은 모두 선생님께 제출</b>합니다 — 차시마다 쓰고 그때그때 내면 됩니다.
     적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
@@ -1919,7 +2004,8 @@ table.dlt tr:last-child td{border-bottom:none}
     <button class="atab" role="tab" data-u3="4" aria-selected="false"><i>Ⅲ-03</i>드론 배달 서비스</button>
     <button class="atab" role="tab" data-u3="5" aria-selected="false"><i>Ⅲ-04</i>편향성 구분</button>
     <button class="atab" role="tab" data-u3="6" aria-selected="false"><i>Ⅲ-04</i>윤리적 딜레마</button>
-    <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>수행평가</i>개별 문서</button>
+    <button class="atab" role="tab" data-u3="7" aria-selected="false"><i>Ⅲ-04</i>데이터 편향 실습</button>
+    <button class="atab" role="tab" data-u3="8" aria-selected="false"><i>수행평가</i>개별 문서</button>
   </div>
 
   <!-- ① AI 발전 연표 -->
@@ -1958,6 +2044,31 @@ table.dlt tr:last-child td{border-bottom:none}
       1970년대와 1980년대에 <b>암흑기</b>가 두 번 왔습니다.
       기대가 컸다가 성과가 안 나오자 투자가 끊긴 것이에요.
       지금의 생성형 인공지능은 어떨까요? <b>토론 논제로 이어집니다.</b></div>
+
+    <h4 class="step-h" style="margin-top:22px">오늘의 정리 <span class="tm">제출</span></h4>
+    <div class="wsheet">
+      <label>① 다섯 장면 중 <b>가장 인상 깊었던 장면</b>과 그 까닭은?
+        <textarea id="s0a" rows="2" placeholder="예) 2막. «한 여름이면 된다»고 했는데 겨울이 두 번이나 온 게 놀라웠다"></textarea></label>
+      <label>② 2012년에 <b>세 가지가 한꺼번에</b> 갖춰졌다고 했습니다. 셋 중 하나가 없었다면 어땠을까요?
+        <textarea id="s0b" rows="2" placeholder="예) 데이터가 없었다면 아무리 계산이 빨라도 배울 게 없었을 것이다"></textarea></label>
+      <label>③ 지금의 생성형 인공지능도 <b>«겨울»을 맞을까요?</b> 내 생각과 까닭을 적어 보세요
+        <textarea id="s0c" rows="2" placeholder="정답이 없는 질문입니다. 근거를 갖춘 «내 생각»을 적으세요"></textarea></label>
+    </div>
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s0Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s0Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s0Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s0Copy">내용 복사</button>
+      <span class="sendmsg" id="s0Msg"></span>
+    </div>
   </div>
 
   <!-- ② 사회 문제 해결 설계 -->
@@ -2114,6 +2225,21 @@ table.dlt tr:last-child td{border-bottom:none}
     </div>
     <div class="note"><b>인간 중심 인공지능</b> 인공지능이 인간을 <b>대체</b>하는 것이 아니라
       <b>돕고 협력</b>하는 데 중점을 두는 관점입니다. 마지막 칸이 바로 그 이야기예요.</div>
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s4Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s4Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s4Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s4Copy">내용 복사</button>
+      <span class="sendmsg" id="s4Msg"></span>
+    </div>
   </div>
 
   <!-- ⑤ 드론 배달 서비스 -->
@@ -2171,6 +2297,22 @@ table.dlt tr:last-child td{border-bottom:none}
       ② 인공지능을 대하는 <b>인간의 태도</b>를 제시할 수 있는가 ·
       ③ 인공지능과 인간의 <b>바람직한 공존 방법</b>을 탐색할 수 있는가</div>
 
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s5Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s5Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s5Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s5Copy">내용 복사</button>
+      <span class="sendmsg" id="s5Msg"></span>
+    </div>
     <div class="note" style="margin-top:14px"><b>학교로 옮겨 보면 (교과서 159쪽 스스로 해 보기)</b>
       우리 학교에 <b>인공지능 경비 로봇</b>이 들어온다면?
       좋은 점은 «외부인 출입을 막아 학교 보안이 높아진다»,
@@ -2214,6 +2356,31 @@ table.dlt tr:last-child td{border-bottom:none}
 
     <div class="ask" style="margin-top:16px"><b>가르는 기준 한 줄</b>
       <b>«무엇을 배웠나»</b>가 문제면 데이터 편향, <b>«어떻게 골라 주나»</b>가 문제면 알고리즘 편향입니다.</div>
+
+    <h4 class="step-h" style="margin-top:22px">오늘의 정리 <span class="tm">제출</span></h4>
+    <div class="wsheet">
+      <label>① 가장 <b>헷갈렸던 사례</b>와 그 까닭은?
+        <textarea id="s6a" rows="2" placeholder="예) 얼굴 인식 정확도 차이. 추천이 아닌데 왜 데이터 편향인지 헷갈렸다"></textarea></label>
+      <label>② 내 주변에서 <b>편향이라고 느낀 것</b>을 하나 적어 보세요
+        <textarea id="s6b" rows="2" placeholder="예) 내 추천 목록에 비슷한 영상만 뜬다 · 번역기가 «의사»를 남자로 옮긴다"></textarea></label>
+      <label>③ 그것은 <b>데이터 편향</b>일까요, <b>알고리즘 편향</b>일까요? 왜 그렇게 보나요?
+        <textarea id="s6c" rows="2" placeholder="«무엇을 배웠나» 문제인지 «어떻게 골라 주나» 문제인지로 따져 보세요"></textarea></label>
+    </div>
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s6Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s6Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s6Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s6Copy">내용 복사</button>
+      <span class="sendmsg" id="s6Msg"></span>
+    </div>
   </div>
 
   <!-- ⑦ 윤리적 딜레마 -->
@@ -2256,6 +2423,22 @@ table.dlt tr:last-child td{border-bottom:none}
     <div class="note"><b>토론에서 이기는 법</b> 상대 입장을 <b>가장 강한 형태로</b> 말할 수 있어야 반박도 됩니다.
       세 번째 칸을 진지하게 채운 사람이 <b>수행평가에서 «반론·반박» 점수를 받습니다.</b></div>
 
+
+    <div class="frow" style="margin-top:18px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s7Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s7Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s7Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s7Copy">내용 복사</button>
+      <span class="sendmsg" id="s7Msg"></span>
+    </div>
     <h4 class="step-h" style="margin-top:24px">더 알아보기 · 아시모프의 로봇 원칙 <span class="tm">교과서 169쪽</span></h4>
     <p class="desc">미국 SF 소설가 <b>아이작 아시모프</b>가 소설 『런어라운드』(1942)에서 제시한
       «로봇이 지켜야 할 원칙»입니다. 80년도 더 된 이야기인데,
@@ -2273,9 +2456,109 @@ table.dlt tr:last-child td{border-bottom:none}
       바뀌어야 하는 이유가 여기 있습니다 — 다음 쪽 <b>국가 인공지능 윤리 기준</b>이 그 답입니다.</div>
   </div>
 
-  <!-- ⑧ 개별 문서 -->
+  <!-- ⑧ 데이터 편향 실습 -->
   <div class="actbox" data-u3p="7" hidden>
-    <h3>⑧ 개별 문서 쓰기 <span class="tm">수행평가 ①</span></h3>
+    <h3>⑧ 데이터 편향 실습 <span class="tm">직접 만들어 보기</span></h3>
+    <p class="desc">앞에서는 <b>남이 만든 인공지능이 편향된 사례</b>를 읽었습니다.
+      이번엔 <b>내가 직접 데이터를 모아</b> 인공지능을 만들어 봅니다.
+      <b>내가 모은 데이터가 치우치면 내 인공지능도 치우친다</b>는 걸 손으로 확인하는 활동이에요.</p>
+
+    <div class="ask" style="margin:0 0 16px"><b>먼저 이렇게 합니다</b>
+      <b>①</b> 학습할 물체를 하나 정합니다 (기본값 <b>car</b> — 반 전체가 같은 것으로).
+      <b>②</b> 이름을 적고 <b>자유롭게</b> 여러 장 그립니다 — <b>어떻게 그리라는 힌트는 없습니다.</b>
+      <b>③</b> 「로컬 모델 학습」을 누르고 새 그림으로 테스트해 봅니다.
+      <b>④</b> 반 전체 그림을 모아 보며 <b>무엇이 닮았는지</b> 이야기합니다.</div>
+
+    <div class="labgrid">
+      <section class="labcard">
+        <h4 class="mini-h">1 · 데이터 모으기</h4>
+        <div class="frow">
+          <label class="fld"><span>학습할 물체 <i style="font-weight:500;color:var(--muted)">(영어 권장)</i></span>
+            <input type="text" id="qdObj" value="car" autocomplete="off"></label>
+          <label class="fld grow"><span>이름</span>
+            <input type="text" id="qdWho" placeholder="예: 김다은" autocomplete="off"></label>
+        </div>
+        <div class="simctl" style="margin-top:12px">
+          <button type="button" class="mini gh" id="qdClear">지우기</button>
+          <button type="button" class="mini" id="qdAdd">샘플 추가</button>
+        </div>
+        <div class="labstat">
+          <div class="lst"><span>내 샘플 수</span><b id="qdN">0</b></div>
+          <div class="lst"><span>먹의 양 평균 / 흩어진 정도</span><b id="qdStat">—</b></div>
+        </div>
+        <div class="biashint" id="qdBias">샘플을 모아 주세요.</div>
+
+        <h4 class="mini-h" style="margin-top:18px">2 · 학습하고 시험하기</h4>
+        <div class="simctl">
+          <button type="button" class="mini" id="qdTrain">로컬 모델 학습</button>
+          <button type="button" class="mini" id="qdTest">지금 그림 테스트</button>
+        </div>
+        <div class="labpred" id="qdPred">아직 테스트 전</div>
+        <p class="desc" style="margin-top:10px; font-size:0.8125rem">
+          «로컬»은 <b>이 화면 안에서만</b> 돈다는 뜻입니다. 그림은 서버로 학습되지 않아요.</p>
+      </section>
+
+      <section class="labcard">
+        <canvas id="qdCanvas" width="280" height="280" class="labcanvas"
+                aria-label="그림 그리는 칸"></canvas>
+        <div class="labinfo" id="qdInfo">획이 없습니다.</div>
+
+        <h4 class="mini-h" style="margin-top:16px">3 · 반 전체와 견주기</h4>
+        <div class="simctl">
+          <button type="button" class="mini gh" id="qdSend">내 샘플 전체 제출</button>
+          <button type="button" class="mini" id="qdLoad">전체 그림 모아 보기</button>
+          <button type="button" class="mini gh" id="qdSave">내 데이터 내려받기</button>
+        </div>
+        <div class="sendmsg" id="qdMsg" style="margin-top:10px">아직 불러오지 않았어요.</div>
+        <div class="labgallery" id="qdGal"></div>
+      </section>
+    </div>
+
+    <h4 class="step-h" style="margin-top:24px">무엇을 관찰하면 좋을까요</h4>
+    <div class="g3" id="qdWatch"></div>
+
+    <h4 class="step-h" style="margin-top:22px">활동 순서</h4>
+    <div class="labsteps" id="qdSteps"></div>
+    <div class="note" style="margin-top:14px"><b>팁</b>
+      같은 물체라도 <b>모양 · 크기 · 그린 위치</b>가 다양할수록 인공지능도 더 잘 맞힐 가능성이 커집니다.</div>
+
+    <h4 class="step-h" style="margin-top:24px">4 · 관찰 기록 <span class="tm">제출</span></h4>
+    <div class="wsheet">
+      <label>① 처음 모은 데이터의 <b>특징</b>은? <i>(전체 그림을 모아 본 뒤 적으세요)</i>
+        <textarea id="s8a" rows="2" placeholder="예) 거의 모두 옆에서 본 자동차였다 · 바퀴 두 개에 네모 한 개"></textarea></label>
+      <label>② <b>못 맞힌 그림</b>이나 이상하게 나온 경우가 있었나요?
+        <textarea id="s8b" rows="2" placeholder="예) 위에서 내려다본 자동차를 «미학습 형태»라고 했다"></textarea></label>
+      <label>③ 그렇게 된 <b>까닭</b>은 무엇일까요?
+        <textarea id="s8c" rows="2" placeholder="예) 모은 그림에 위에서 본 자동차가 하나도 없어서"></textarea></label>
+      <label>④ 데이터를 <b>어떻게 고치면</b> 나아질까요?
+        <textarea id="s8d" rows="2" placeholder="예) 앞·뒤·위에서 본 모습, 큰 차와 작은 차를 골고루 넣는다"></textarea></label>
+      <label>⑤ 이 실습과 <b>교과서 사례</b>를 이어 보세요 <i>(맥박 산소 측정기 · 여권 심사 · 아마존 채용 중 하나)</i>
+        <textarea id="s8e" rows="2" placeholder="예) 우리가 옆모습만 모은 것처럼, 그 회사는 남성 이력서만 모았다"></textarea></label>
+    </div>
+    <div class="frow" style="margin-top:16px">
+      <label class="fld"><span>분반</span>
+        <span class="pick" id="s8Cls">
+          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+        </span></label>
+      <label class="fld grow"><span>이름</span>
+        <input type="text" id="s8Group" placeholder="예: 김다은" autocomplete="off"></label>
+    </div>
+    <div class="simctl" style="margin-top:14px">
+      <button type="button" class="mini" id="s8Send">선생님께 제출하기</button>
+      <button type="button" class="mini gh" id="s8Copy">내용 복사</button>
+      <span class="sendmsg" id="s8Msg"></span>
+    </div>
+
+    <div class="ask" style="margin-top:18px"><b>여기서 얻은 문장이 토론 근거가 됩니다</b>
+      «데이터가 치우치면 결과도 치우친다»는 말을 <b>직접 해 본 사람</b>이 하면 힘이 다릅니다.
+      ⑤번 칸에 적은 것을 개별 문서 <b>A-5 근거</b>에 그대로 옮겨 쓸 수 있어요.</div>
+  </div>
+
+  <!-- ⑨ 개별 문서 -->
+  <div class="actbox" data-u3p="8" hidden>
+    <h3>⑨ 개별 문서 쓰기 <span class="tm">수행평가 ①</span></h3>
     <p class="desc"><b>9월 3주 인공지능 윤리 토론(20%)</b>에 내는 문서입니다.
       <b>네 부분(A~D부)</b>이 <b>채점 요소 네 가지</b>와 하나씩 맞물립니다.
       각 칸의 안내문은 <b>채점기준표의 25점(만점) 조건을 그대로 옮긴 것</b>이에요.</p>
@@ -2606,6 +2889,25 @@ table.dlt tr:last-child td{border-bottom:none}
   <div class="cases3" id="etData"></div>
 
   <h3 class="step-h" style="margin-top:28px">3 · 알고리즘 편향성 <span class="tm">교과서 165쪽</span></h3>
+
+  <div class="vizbox">
+    <div class="vizhd"><b>움직여 보기 · 필터 버블이 두꺼워지는 과정</b>
+      <span>「좋아요」를 눌러 보세요. 무슨 일이 생기는지 보입니다.</span></div>
+    <div class="fbstage">
+      <svg id="fbSvg" viewBox="0 0 420 240" role="img" aria-label="필터 버블이 두꺼워지는 그림"></svg>
+      <div class="fbside">
+        <div class="fbgauge"><span>노출 편향</span>
+          <span class="fbbar"><i id="fbFill"></i></span><b id="fbNum">0</b></div>
+        <p class="fbtxt" id="fbTxt">아직 아무것도 안 봤습니다. 세상이 넓게 보이네요.</p>
+        <div class="simctl">
+          <button type="button" class="mini" id="fbLike">👍 비슷한 것에 좋아요</button>
+          <button type="button" class="mini gh" id="fbOther">🔎 반대편도 보기</button>
+          <button type="button" class="mini gh" id="fbReset">처음으로</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <p class="desc"><b>«어떻게 골라 주나»</b>가 문제인 경우입니다.
     추천 알고리즘 덕분에 우리는 고민하는 수고를 아끼지만,
     <b>취향이나 가치관이 한쪽으로 기우는 것을 더 빠르게</b> 만듭니다.</p>
@@ -2674,6 +2976,18 @@ table.dlt tr:last-child td{border-bottom:none}
   <h3 class="step-h">1 · 생성형 인공지능은 어떻게 답을 만드나</h3>
   <p class="desc">여덟 단계입니다. <b>6번째</b>가 모든 것의 열쇠예요.</p>
   <div class="steps8" id="inSteps"></div>
+
+  <div class="vizbox" style="margin-top:16px">
+    <div class="vizhd"><b>움직여 보기 · 인공지능이 다음 낱말을 고르는 순간</b>
+      <span>「다음 낱말」을 눌러 보세요. <b>사실인지는 한 번도 묻지 않습니다.</b></span></div>
+    <div class="tokline" id="tkLine"></div>
+    <div class="tokopts" id="tkOpts"></div>
+    <div class="simctl" style="margin-top:12px">
+      <button type="button" class="mini" id="tkNext">다음 낱말 →</button>
+      <button type="button" class="mini gh" id="tkReset">처음으로</button>
+      <span class="sendmsg" id="tkMsg"></span>
+    </div>
+  </div>
 
   <div class="bigidea warm" style="margin-top:18px">
     <b>«이해 없는 생성»</b>
@@ -2901,6 +3215,10 @@ var U3 = { tl:[], bi:[], biAt:0, dl:[-1,-1,-1], ck:[], ckAt:0, tech:0,
            s3job:'', s3vis:'', s3life:['','','',''], s3split:['','',''],
            s3caps:[], s3fut:'', s3cap:'', s3now:'', s3cls:'', s3grp:'',
            s5g:'', s5b:'', s5r:'', s5w:'', s5v:-1,
+           s8a:'', s8b:'', s8c:'', s8d:'', s8e:'', s8cls:'', s8grp:'',
+           s0a:'', s0b:'', s0c:'', s0cls:'', s0grp:'',
+           s4cls:'', s4grp:'', s5cls:'', s5grp:'', s7cls:'', s7grp:'',
+           s6a:'', s6b:'', s6c:'', s6cls:'', s6grp:'',
            s4g:'', s4b:'', s4h:'',
            s6why:'', s6other:'', s6change:'',
            topic:-1, side:-1, views:[], spoke:-1,
@@ -3713,7 +4031,271 @@ var LAWS = [
   ['s6why','s6other','s6change'].forEach(function(f){ bind(f, f); });
 })();
 
-/* ══ ⑧ 개별 문서 (A~D부) ══════════════════════════════════
+/* ══ ⑧ 데이터 편향 실습 (퀵드로우 수집기) ═════════════════
+   선생님이 예전에 만드신 「나만의 퀵드로우 수집기」를 그대로 옮겨 왔다.
+   그림 자료는 그때 쓰던 수집기 주소로 그대로 보낸다 — 반 전체 갤러리가
+   거기에 쌓여 있기 때문이다. 관찰 기록만 우리 시트로 따로 낸다.
+   28×28 로 줄여 «먹의 양(ink)»과 «무게중심»을 재고,
+   샘플들의 평균 그림에서 얼마나 떨어졌는지로 맞고 틀림을 가른다.       */
+var QD_URL = 'https://script.google.com/macros/s/AKfycbzPP6GHuqSHltZxutD8qyt8-TW_F5HNU1-2jLtkxEMPa-H8ufKdMzbl6GnCC1Lnq3pA/exec';
+var QD_CLASS = 'collector-submissions-2026';
+var QD_SHARED = 'shared-gallery-2026';
+(function(){
+  var cv = $('qdCanvas'); if(!cv) return;
+  var ctx = cv.getContext('2d');
+  var msg = $('qdMsg'), gal = $('qdGal'), pred = $('qdPred'), info = $('qdInfo');
+  var samples = [], model = null, drawing = false, strokes = 0;
+
+  function reset(){
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    strokes = 0;
+    info.textContent = '획이 없습니다.';
+  }
+  reset();
+
+  function at(e){
+    var r = cv.getBoundingClientRect();
+    return { x:(e.clientX - r.left) * (cv.width / r.width),
+             y:(e.clientY - r.top) * (cv.height / r.height) };
+  }
+  cv.addEventListener('pointerdown', function(e){
+    var p = at(e); drawing = true;
+    ctx.beginPath(); ctx.moveTo(p.x, p.y);
+    cv.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  cv.addEventListener('pointermove', function(e){
+    if(!drawing) return;
+    var p = at(e);
+    ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.strokeStyle = '#000000';
+    ctx.lineTo(p.x, p.y); ctx.stroke();
+    strokes++;
+    info.textContent = '그리는 중… (' + strokes + ')';
+    e.preventDefault();
+  });
+  function done(){
+    drawing = false;
+    if(strokes > 0) info.textContent = '그림 입력 완료 (획 ' + strokes + ')';
+  }
+  cv.addEventListener('pointerup', done);
+  cv.addEventListener('pointercancel', done);
+
+  /* 280×280 그림을 28×28 로 줄여 784개 숫자로 만든다 */
+  function toVec(){
+    var t = document.createElement('canvas');
+    t.width = 28; t.height = 28;
+    var tc = t.getContext('2d');
+    tc.drawImage(cv, 0, 0, 28, 28);
+    var d = tc.getImageData(0, 0, 28, 28).data, v = [];
+    for(var i = 0; i < d.length; i += 4) v.push((255 - d[i]) / 255);
+    return v;
+  }
+  function feat(v){
+    var sum = 0, cx = 0, cy = 0;
+    for(var y = 0; y < 28; y++) for(var x = 0; x < 28; x++){
+      var k = v[y * 28 + x]; sum += k; cx += x * k; cy += y * k;
+    }
+    return sum === 0 ? { ink:0, cx:0, cy:0 } : { ink:sum, cx:cx / sum, cy:cy / sum };
+  }
+  function l2(a, b){
+    var s = 0;
+    for(var i = 0; i < a.length; i++){ var d = a[i] - b[i]; s += d * d; }
+    return Math.sqrt(s);
+  }
+  function mean(vs){
+    var o = new Array(vs[0].length).fill(0);
+    vs.forEach(function(v){ for(var i = 0; i < v.length; i++) o[i] += v[i]; });
+    for(var i = 0; i < o.length; i++) o[i] /= vs.length;
+    return o;
+  }
+  function stats(){
+    $('qdN').textContent = samples.length;
+    var b = $('qdBias');
+    if(!samples.length){
+      $('qdStat').textContent = '—';
+      b.textContent = '샘플을 모아 주세요.'; b.className = 'biashint';
+      return;
+    }
+    var ink = samples.map(function(x){ return x.meta.ink; });
+    var m = ink.reduce(function(a, c){ return a + c; }, 0) / ink.length;
+    var vr = ink.reduce(function(a, c){ return a + (c - m) * (c - m); }, 0) / ink.length;
+    $('qdStat').textContent = m.toFixed(1) + ' / ' + vr.toFixed(1);
+    if(samples.length < 8 || vr < 12){
+      b.textContent = '비슷한 모양이 많을 수 있어요. 다양한 형태를 시도해 보세요.';
+      b.className = 'biashint warn';
+    }else{
+      b.textContent = '형태 다양성이 늘고 있어요.';
+      b.className = 'biashint ok';
+    }
+  }
+
+  $('qdClear').addEventListener('click', reset);
+  $('qdAdd').addEventListener('click', function(){
+    var v = toVec(), m = feat(v);
+    if(m.ink < 8){ pred.textContent = '그림이 너무 비어 있어요. 조금 더 진하게 그려 주세요.'; return; }
+    var rec = { label:($('qdObj').value || 'object').trim(),
+                studentId:($('qdWho').value || 'anonymous').trim(),
+                vec:v, meta:m, createdAt:new Date().toISOString() };
+    samples.push(rec);
+    pred.textContent = '샘플 추가 완료 (' + samples.length + '개)';
+    stats(); reset();
+    send([rec], true);
+  });
+  $('qdTrain').addEventListener('click', function(){
+    if(samples.length < 3){ pred.textContent = '샘플이 3개 이상 있어야 학습할 수 있어요.'; return; }
+    var vs = samples.map(function(x){ return x.vec; });
+    var c = mean(vs);
+    var d = vs.map(function(v){ return l2(v, c); }).sort(function(a, b){ return a - b; });
+    var q = d[Math.floor(d.length * 0.8)] || d[d.length - 1];
+    model = { label:($('qdObj').value || 'object').trim(), center:c, threshold:q * 1.2 };
+    pred.textContent = '학습 완료! 기준 거리 ' + model.threshold.toFixed(3) +
+                       ' (데이터 ' + samples.length + '개)';
+  });
+  $('qdTest').addEventListener('click', function(){
+    if(!model){ pred.textContent = '먼저 「로컬 모델 학습」을 눌러 주세요.'; return; }
+    var v = toVec();
+    if(feat(v).ink < 8){ pred.textContent = '먼저 그림을 그려 주세요.'; return; }
+    var dist = l2(v, model.center);
+    var score = Math.max(0, 1 - dist / (model.threshold * 2));
+    var ok = dist <= model.threshold;
+    /* 판정 근거를 그대로 보여 준다. «아슬아슬하게 갈리는 것»을 보는 것이
+       이 활동에서 가장 중요한 장면이다 — 기준을 어디에 둘지가 곧 설계다. */
+    var gap = Math.abs(dist - model.threshold) / model.threshold;
+    pred.innerHTML = '<b class="' + (ok ? 'okp' : 'nop') + '">' + (ok ? '인식 성공' : '인식 실패') +
+      '</b> · 예측 : ' + esc(ok ? model.label : '미학습 형태') +
+      ' · 닮은 정도 ' + (score * 100).toFixed(1) + '%' +
+      '<span class="predwhy">평균 그림에서 <b>' + dist.toFixed(2) + '</b> 떨어짐 · 기준은 <b>' +
+      model.threshold.toFixed(2) + '</b>' +
+      (gap < 0.12 ? ' — <b>아슬아슬합니다.</b> 기준을 조금만 옮겨도 결과가 뒤집혀요.' : '') +
+      '</span>';
+  });
+  $('qdSave').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify({
+      exportedAt:new Date().toISOString(),
+      objectName:($('qdObj').value || 'object').trim(),
+      sampleCount:samples.length, samples:samples
+    })], { type:'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'my_drawings.json';
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+
+  function toRemote(r){
+    return { studentId:r.studentId, vec:r.vec, meta:r.meta,
+             createdAt:r.createdAt, label:r.label,
+             originalObjectName:($('qdObj').value || 'object').trim() };
+  }
+  function send(recs, quiet){
+    return fetch(QD_URL, { method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify({ action:'append', classId:QD_CLASS,
+                            objectName:QD_SHARED, records:recs.map(toRemote) }) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(j){
+        if(j && j.ok === false) throw new Error(j.error || '저장 실패');
+        if(quiet){ msg.className = 'sendmsg ok';
+          msg.textContent = '저장했어요 ✓ (내 샘플 ' + samples.length + '개)'; }
+        return j;
+      })
+      .catch(function(e){
+        msg.className = 'sendmsg bad';
+        msg.textContent = '자동 저장이 안 됐어요 → 「내 샘플 전체 제출」을 눌러 주세요.';
+        throw e;
+      });
+  }
+  $('qdSend').addEventListener('click', function(){
+    if(!samples.length){ msg.className = 'sendmsg wait';
+      msg.textContent = '먼저 「샘플 추가」로 그림을 모아 주세요.'; return; }
+    msg.className = 'sendmsg wait'; msg.textContent = samples.length + '개 보내는 중…';
+    var i = 0, saved = 0;
+    (function next(){
+      if(i >= samples.length){
+        msg.className = 'sendmsg ok';
+        msg.textContent = '전체 제출 완료! ' + saved + '개 저장했어요. 이제 「모아 보기」를 눌러 보세요.';
+        return;
+      }
+      var chunk = samples.slice(i, i + 8); i += 8;
+      send(chunk).then(function(j){ saved += Number(j.saved) || chunk.length; next(); })
+                 .catch(function(){});
+    })();
+  });
+  $('qdLoad').addEventListener('click', function(){
+    msg.className = 'sendmsg wait'; msg.textContent = '불러오는 중…';
+    fetch(QD_URL + '?action=list&classId=' + encodeURIComponent(QD_CLASS) +
+          '&objectName=' + encodeURIComponent(QD_SHARED))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var recs = (d && d.records) || [];
+        if(!recs.length){ msg.className = 'sendmsg wait';
+          msg.textContent = '아직 올라온 그림이 없어요.'; gal.innerHTML = ''; return; }
+        gal.innerHTML = '';
+        recs.slice(-120).forEach(function(r){ gal.appendChild(thumb(r)); });
+        msg.className = 'sendmsg ok';
+        msg.textContent = '모두 ' + recs.length + '장 (최근 ' +
+          Math.min(120, recs.length) + '장 표시). 무엇이 닮았는지 찾아보세요.';
+      })
+      .catch(function(){ msg.className = 'sendmsg bad';
+        msg.textContent = '불러오지 못했어요. 잠시 뒤 다시 눌러 보세요.'; });
+  });
+  function thumb(r){
+    var w = document.createElement('div'); w.className = 'thmb';
+    var c = document.createElement('canvas'); c.width = 56; c.height = 56;
+    var x = c.getContext('2d');
+    var v = r.vec || [], img = x.createImageData(56, 56);
+    for(var yy = 0; yy < 56; yy++) for(var xx = 0; xx < 56; xx++){
+      var k = Number(v[(yy >> 1) * 28 + (xx >> 1)]) || 0;
+      var g = 255 - Math.round(Math.min(1, Math.max(0, k)) * 255);
+      var i2 = (yy * 56 + xx) * 4;
+      img.data[i2] = g; img.data[i2 + 1] = g; img.data[i2 + 2] = g; img.data[i2 + 3] = 255;
+    }
+    x.putImageData(img, 0, 0);
+    w.appendChild(c);
+    var cap = document.createElement('span');
+    cap.textContent = r.studentId || r.label || '익명';
+    w.appendChild(cap);
+    return w;
+  }
+
+  var wb = $('qdWatch');
+  if(wb) wb.innerHTML = [
+    ['📚','데이터가 많고 다양할수록', '인식이 <b>안정적</b>이 됩니다. 몇 장 안 되면 조금만 달라져도 못 알아봐요.'],
+    ['⚠️','비슷한 모양만 많으면', '성능이 <b>흔들립니다.</b> 새로운 형태가 들어오면 «미학습 형태»가 돼요.'],
+    ['🔬','같은 물체를 다르게 그리면', '결과가 <b>어떻게 달라지는지</b> 견주어 보세요. 그게 이 실습의 핵심입니다.'],
+    ['📏','«기준»은 누가 정하나', '이 모델은 <b>평균 그림에서 얼마나 떨어졌나</b>로 판정합니다. 기준을 조금만 옮겨도 결과가 뒤집혀요 — <b>그 기준을 정하는 것도 사람</b>입니다.']
+  ].map(function(x){
+    return '<div class="mcard"><span>' + x[0] + '</span><b>' + esc(x[1]) + '</b><p>' + x[2] + '</p></div>';
+  }).join('');
+
+  var sb = $('qdSteps');
+  if(sb) sb.innerHTML = [
+    '물체를 하나 정하고 그림 데이터를 모은다',
+    '각자 <b>자유롭게</b> 충분히 그린다 (힌트 없이)',
+    '「로컬 모델 학습」 → 새 그림으로 테스트해 <b>못 맞힌 경우</b>를 적어 둔다',
+    '모양·크기·위치를 바꿔 <b>더 모은다</b>',
+    '다시 테스트해서 <b>무엇이 달라졌는지</b> 견준다',
+    '«왜 성능이 달라졌는가»를 <b>한 줄</b>로 정리한다'
+  ].map(function(t, i){
+    return '<div class="lstp"><span>' + (i + 1) + '</span><p>' + t + '</p></div>';
+  }).join('');
+
+  ['s8a','s8b','s8c','s8d','s8e'].forEach(function(f){ bind(f, f); });
+  clsPick('s8Cls', 's8cls');
+  nameBox('s8Group', 's8grp');
+  sender({
+    btn:'s8Send', copy:'s8Copy', msg:'s8Msg', type:'databias',
+    cls:function(){ return U3.s8cls; }, grp:function(){ return U3.s8grp; },
+    need:[['s8a','처음 모은 데이터의 특징을 적어 주세요'],
+          ['s8c','그렇게 된 까닭을 적어 주세요']],
+    title:'⑧ 데이터 편향 실습',
+    fields:[['feature','처음 데이터의 특징','s8a'], ['fail','못 맞힌 경우','s8b'],
+            ['why','그 까닭','s8c'], ['fix','고치는 방법','s8d'],
+            ['link','교과서 사례와 잇기','s8e']]
+  });
+})();
+
+/* ══ ⑨ 개별 문서 (A~D부) ══════════════════════════════════
    칸 하나하나가 채점기준표의 «25점(만점) 조건»에서 나왔다.
    FIELDS 의 순서가 곧 제출 시트의 열 순서다 — 여기를 고치면
    제출연동_코드.gs 의 debate.head / debate.row 도 같이 고쳐야 한다. */
@@ -4046,6 +4628,59 @@ var WFLOSE = [
           .then(function(){ good(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
       });
   });
+})();
+
+/* ══ 활동마다 붙는 제출 ═══════════════════════════════════
+   차시마다 학생이 쓴 것을 그때그때 낼 수 있게 했다.
+   활동 하나에 시트 탭 하나 — 선생님이 열 이름만 보고 읽을 수 있게. */
+(function(){
+  /* ① 발전 이야기 */
+  ['s0a','s0b','s0c'].forEach(function(f){ bind(f, f); });
+  clsPick('s0Cls', 's0cls'); nameBox('s0Group', 's0grp');
+  sender({ btn:'s0Send', copy:'s0Copy', msg:'s0Msg', type:'story',
+    cls:function(){ return U3.s0cls; }, grp:function(){ return U3.s0grp; },
+    need:[['s0a','인상 깊었던 장면을 먼저 적어 주세요']],
+    title:'① AI 발전 이야기',
+    fields:[['scene','인상 깊었던 장면','s0a'], ['three','세 가지 중 하나가 없었다면','s0b'],
+            ['winter','또 겨울이 올까','s0c']] });
+
+  /* ④ 장단점 저울 */
+  clsPick('s4Cls', 's4cls'); nameBox('s4Group', 's4grp');
+  sender({ btn:'s4Send', copy:'s4Copy', msg:'s4Msg', type:'scale',
+    cls:function(){ return U3.s4cls; }, grp:function(){ return U3.s4grp; },
+    need:[['s4g','내가 생각한 좋은 점을 적어 주세요'], ['s4b','걱정되는 점을 적어 주세요']],
+    title:'④ 인공지능 장단점 저울',
+    fields:[['good','내가 생각한 좋은 점','s4g'], ['bad','내가 생각한 걱정되는 점','s4b'],
+            ['human','사람이 해야 할 일','s4h']] });
+
+  /* ⑤ 드론 배달 */
+  clsPick('s5Cls', 's5cls'); nameBox('s5Group', 's5grp');
+  sender({ btn:'s5Send', copy:'s5Copy', msg:'s5Msg', type:'drone',
+    cls:function(){ return U3.s5cls; }, grp:function(){ return U3.s5grp; },
+    need:[['s5g','긍정적인 영향을 적어 주세요'], ['s5r','인간의 역할을 적어 주세요']],
+    title:'⑤ 드론 배달 서비스',
+    fields:[['good','긍정적인 영향','s5g'], ['bad','부정적인 영향','s5b'],
+            ['role','인간의 역할','s5r'], ['why','그렇게 정한 이유','s5w']] });
+
+  /* ⑥ 편향성 구분 */
+  ['s6a','s6b','s6c'].forEach(function(f){ bind(f, f); });
+  clsPick('s6Cls', 's6cls'); nameBox('s6Group', 's6grp');
+  sender({ btn:'s6Send', copy:'s6Copy', msg:'s6Msg', type:'bias',
+    cls:function(){ return U3.s6cls; }, grp:function(){ return U3.s6grp; },
+    need:[['s6b','내 주변에서 느낀 편향을 적어 주세요']],
+    title:'⑥ 편향성 구분 훈련',
+    fields:[['hard','헷갈렸던 사례','s6a'], ['mine','내 주변의 편향','s6b'],
+            ['kind','데이터인가 알고리즘인가','s6c']] });
+
+  /* ⑦ 윤리적 딜레마 */
+  clsPick('s7Cls', 's7cls'); nameBox('s7Group', 's7grp');
+  sender({ btn:'s7Send', copy:'s7Copy', msg:'s7Msg', type:'dilemma',
+    cls:function(){ return U3.s7cls; }, grp:function(){ return U3.s7grp; },
+    need:[['s6why','내가 그렇게 고른 이유를 적어 주세요']],
+    title:'⑦ 윤리적 딜레마',
+    fields:[['why','내가 그렇게 고른 이유','s6why'],
+            ['other','다르게 고른 친구의 이유','s6other'],
+            ['change','내 생각에서 달라진 부분','s6change']] });
 })();
 
 /* ══ Ⅲ-03 인공지능과 우리 삶 (교과서 156~161쪽) ═══════════
@@ -4524,6 +5159,110 @@ var WFLOSE = [
           '<td class="d">' + esc(x[2]) + '</td><td>' + x[3] + '</td></tr>';
       }).join('');
   }
+})();
+
+/* ══ 움직이는 그림 두 가지 ═════════════════════════════════
+   글이 길어지면 눈이 미끄러진다. 개념이 가장 어려운 두 곳에
+   «직접 눌러 보는 그림»을 넣었다.                                */
+
+/* ① 필터 버블 — 좋아요를 누를수록 방이 두꺼워진다 */
+(function(){
+  var svg = $('fbSvg'); if(!svg) return;
+  var bias = 0;
+  var TXT = [
+    [0,  '아직 아무것도 안 봤습니다. 세상이 넓게 보이네요.'],
+    [20, '비슷한 것이 조금씩 늘고 있습니다.'],
+    [45, '피드가 한쪽으로 기울기 시작했어요.'],
+    [65, '<b>바깥 소리가 잘 안 들립니다.</b> 다들 나와 같은 생각인 것 같아요.'],
+    [85, '<b>«원래 다 이렇게 생각하는 거 아냐?»</b> — 내가 고른 줄 알았는데, 알고리즘이 세팅한 세상입니다.']
+  ];
+  function draw(){
+    var t = bias / 100;
+    var thick = 3 + t * 22;                 // 벽 두께
+    var blur = t * 3.2;                     // 바깥이 흐려지는 정도
+    var outer = [];
+    for(var i = 0; i < 14; i++){
+      var a = (i / 14) * Math.PI * 2;
+      var r = 96 + (i % 3) * 9;
+      outer.push('<circle cx="' + (210 + Math.cos(a) * r).toFixed(1) +
+                 '" cy="' + (120 + Math.sin(a) * r * 0.86).toFixed(1) +
+                 '" r="7" fill="var(--blue-l)" opacity="' + (0.85 - t * 0.72).toFixed(2) + '"/>');
+    }
+    var inner = [];
+    var n = 3 + Math.round(t * 7);
+    for(var j = 0; j < n; j++){
+      var b = (j / n) * Math.PI * 2 + 0.4;
+      inner.push('<circle cx="' + (210 + Math.cos(b) * 34).toFixed(1) +
+                 '" cy="' + (120 + Math.sin(b) * 30).toFixed(1) +
+                 '" r="8" fill="var(--fill)" opacity="0.9"/>');
+    }
+    svg.innerHTML =
+      '<defs><filter id="fbBlur"><feGaussianBlur stdDeviation="' + blur.toFixed(2) + '"/></filter></defs>' +
+      '<g filter="url(#fbBlur)">' + outer.join('') + '</g>' +
+      '<ellipse cx="210" cy="120" rx="' + (70 + t * 6).toFixed(0) + '" ry="' + (62 + t * 5).toFixed(0) +
+        '" fill="var(--white)" stroke="var(--blue-d)" stroke-width="' + thick.toFixed(1) +
+        '" opacity="' + (0.35 + t * 0.6).toFixed(2) + '"/>' +
+      inner.join('') +
+      '<text x="210" y="126" text-anchor="middle" font-size="13" font-weight="700" ' +
+        'fill="var(--blue-d)" font-family="sans-serif">나</text>' +
+      (t > 0.6 ? '<text x="210" y="228" text-anchor="middle" font-size="12" font-weight="700" ' +
+        'fill="var(--cut)" font-family="sans-serif">필터 버블</text>' : '');
+    $('fbFill').style.width = bias + '%';
+    $('fbFill').className = bias >= 65 ? 'hot' : (bias >= 35 ? 'warm' : '');
+    $('fbNum').textContent = bias;
+    var msg = TXT[0][1];
+    TXT.forEach(function(x){ if(bias >= x[0]) msg = x[1]; });
+    $('fbTxt').innerHTML = msg;
+  }
+  $('fbLike').addEventListener('click', function(){ bias = Math.min(100, bias + 17); draw(); });
+  $('fbOther').addEventListener('click', function(){ bias = Math.max(0, bias - 25); draw(); });
+  $('fbReset').addEventListener('click', function(){ bias = 0; draw(); });
+  draw();
+})();
+
+/* ② 다음 낱말 예측 — 확률로 고른다는 것을 눈으로 */
+var TOK = [
+  { got:'세종대왕은', opts:[['조선의', 41], ['한글을', 33], ['1397년에', 15], ['훈민정음을', 11]] },
+  { got:'조선의',     opts:[['제4대', 46], ['임금으로', 27], ['왕이자', 18], ['위대한', 9]] },
+  { got:'제4대',      opts:[['임금으로', 58], ['왕으로', 22], ['국왕이며', 13], ['군주로', 7]] },
+  { got:'임금으로',   opts:[['맥북을', 34], ['한글을', 31], ['집현전을', 22], ['훈민정음을', 13]] },
+  { got:'맥북을',     opts:[['던졌다는', 52], ['사용했다는', 26], ['만들었다는', 15], ['가졌다는', 7]] },
+  { got:'던졌다는',   opts:[['기록이', 61], ['이야기가', 21], ['일화가', 12], ['설화가', 6]] }
+];
+(function(){
+  var line = $('tkLine'), opts = $('tkOpts'); if(!line) return;
+  var at = 0, said = [];
+  function draw(){
+    line.innerHTML = said.map(function(w, i){
+      return '<span class="tw' + (i === said.length - 1 ? ' fresh' : '') +
+             (w === '맥북을' ? ' odd' : '') + '">' + esc(w) + '</span>';
+    }).join('') + (at < TOK.length ? '<span class="tcur">?</span>' : '');
+    if(at >= TOK.length){
+      opts.innerHTML = '';
+      $('tkMsg').className = 'sendmsg bad';
+      $('tkMsg').innerHTML = '완성 : <b>«세종대왕이 맥북을 던졌다»</b> — ' +
+        '한 번도 «사실인가»를 묻지 않고, <b>가장 그럴싸한 낱말</b>만 이어 붙인 결과입니다.';
+      return;
+    }
+    var o = TOK[at].opts;
+    opts.innerHTML = '<span class="tokq">다음에 올 낱말 후보</span>' + o.map(function(x, i){
+      return '<div class="tok' + (i === 0 ? ' pick' : '') + '">' +
+        '<b>' + esc(x[0]) + '</b>' +
+        '<span class="tokbar"><i style="width:' + x[1] + '%"></i></span>' +
+        '<em>' + x[1] + '%</em></div>';
+    }).join('');
+    $('tkMsg').className = 'sendmsg';
+    $('tkMsg').textContent = at === 0 ? '가장 확률 높은 낱말이 뽑힙니다.' :
+      (at === 4 ? '4번째에서 «맥북을»이 뽑혔습니다 — 여기서 사실과 멀어집니다.' : '');
+  }
+  $('tkNext').addEventListener('click', function(){
+    if(at >= TOK.length) return;
+    said.push(TOK[at].got);
+    at++;
+    draw();
+  });
+  $('tkReset').addEventListener('click', function(){ at = 0; said = []; draw(); });
+  draw();
 })();
 
 /* ══ 실제 사례 모음 ═══════════════════════════════════════
