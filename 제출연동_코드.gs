@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v13
+ * 인공지능 기초 활동지 수집기  v14
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -38,7 +38,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 13;
+var VER = 14;
 
 var SHEETS = {
 
@@ -462,8 +462,15 @@ function Ⅲ단원활동모으기() {
     }
   });
 
+  /* 활동 탭이 모두 비어 있어도 그냥 돌아가면 안 된다.
+     앞서 만들어 둔 요약표에 «지운 줄»이 그대로 남기 때문이다.
+     빈 표로 다시 그려서 원본과 어긋나지 않게 한다. */
   if (!found) {
-    SpreadsheetApp.getUi().alert('아직 제출된 Ⅲ단원 활동이 없습니다.');
+    var old = ss.getSheetByName(U3_SHEET);
+    if (old) { old.clear(); old.clearConditionalFormatRules(); }
+    SpreadsheetApp.getUi().alert(
+      '아직 제출된 Ⅲ단원 활동이 없습니다.' +
+      (old ? '\n\n먼저 만들어 둔 요약표는 비웠습니다 — 원본에 없는 줄이 남지 않도록요.' : ''));
     return;
   }
 
@@ -609,7 +616,16 @@ function 토론채점표만들기() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var src = ss.getSheetByName(SHEETS.debate.name);
   if (!src || src.getLastRow() < 2) {
-    SpreadsheetApp.getUi().alert('아직 제출된 문서가 없습니다.\n학생이 활동 ⑧에서 제출하면 명단이 채워집니다.');
+    /* 제출이 하나도 없는데 그냥 돌아가면, 앞서 만든 채점표에
+       «지운 학생»이 남는다. 점수를 이미 매겼을 수 있으니 지우지는 않고,
+       어긋나 있다는 것만 또렷이 알린다. */
+    var g0 = ss.getSheetByName(GRADE_SHEET);
+    var stale = g0 && g0.getLastRow() > 2;
+    SpreadsheetApp.getUi().alert(
+      '아직 제출된 문서가 없습니다.\n학생이 활동 ⑨에서 제출하면 명단이 채워집니다.' +
+      (stale ? '\n\n⚠ 이미 만들어 둔 채점표에 학생 ' + (g0.getLastRow() - 2) +
+               '명이 남아 있습니다.\n제출물을 지우셨다면 그 명단도 원본과 어긋난 상태입니다.\n' +
+               '매긴 점수가 있을 수 있어 자동으로 지우지는 않았습니다.' : ''));
     return;
   }
   채점기준시트(ss);
