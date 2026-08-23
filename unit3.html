@@ -2463,9 +2463,13 @@ table.dlt tr:last-child td{border-bottom:none}
       이번엔 <b>내가 직접 데이터를 모아</b> 인공지능을 만들어 봅니다.
       <b>내가 모은 데이터가 치우치면 내 인공지능도 치우친다</b>는 걸 손으로 확인하는 활동이에요.</p>
 
+    <div class="note" style="margin:0 0 14px"><b>이 실습의 그림은 우리 수업 것만 모입니다</b>
+      선생님 시트의 <b>「Ⅲ 편향실습그림」</b> 탭에 <b>분반과 이름</b>이 함께 쌓입니다.
+      다른 수업 자료와 섞이지 않고, <b>우리 반 것만 골라</b> 볼 수 있어요.</div>
+
     <div class="ask" style="margin:0 0 16px"><b>먼저 이렇게 합니다</b>
-      <b>①</b> 학습할 물체를 하나 정합니다 (기본값 <b>car</b> — 반 전체가 같은 것으로).
-      <b>②</b> 이름을 적고 <b>자유롭게</b> 여러 장 그립니다 — <b>어떻게 그리라는 힌트는 없습니다.</b>
+      <b>①</b> <b>분반</b>과 이름을 고르고, 학습할 물체를 정합니다 (기본값 <b>car</b> — 반 전체가 같은 것으로).
+      <b>②</b> <b>자유롭게</b> 여러 장 그립니다 — <b>어떻게 그리라는 힌트는 없습니다.</b>
       <b>③</b> 「로컬 모델 학습」을 누르고 새 그림으로 테스트해 봅니다.
       <b>④</b> 반 전체 그림을 모아 보며 <b>무엇이 닮았는지</b> 이야기합니다.</div>
 
@@ -2473,6 +2477,14 @@ table.dlt tr:last-child td{border-bottom:none}
       <section class="labcard">
         <h4 class="mini-h">1 · 데이터 모으기</h4>
         <div class="frow">
+          <label class="fld"><span>분반</span>
+            <span class="pick" id="qdCls">
+              <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+              <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+              <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+            </span></label>
+        </div>
+        <div class="frow" style="margin-top:10px">
           <label class="fld"><span>학습할 물체 <i style="font-weight:500;color:var(--muted)">(영어 권장)</i></span>
             <input type="text" id="qdObj" value="car" autocomplete="off"></label>
           <label class="fld grow"><span>이름</span>
@@ -2506,8 +2518,14 @@ table.dlt tr:last-child td{border-bottom:none}
         <h4 class="mini-h" style="margin-top:16px">3 · 반 전체와 견주기</h4>
         <div class="simctl">
           <button type="button" class="mini gh" id="qdSend">내 샘플 전체 제출</button>
-          <button type="button" class="mini" id="qdLoad">전체 그림 모아 보기</button>
+          <button type="button" class="mini" id="qdLoad">우리 반 그림 모아 보기</button>
           <button type="button" class="mini gh" id="qdSave">내 데이터 내려받기</button>
+        </div>
+        <div class="simctl" style="margin-top:8px">
+          <span class="pick" id="qdScope">
+            <button type="button" data-s="mine" aria-pressed="true">우리 반만</button>
+            <button type="button" data-s="all" aria-pressed="false">세 반 모두</button>
+          </span>
         </div>
         <div class="sendmsg" id="qdMsg" style="margin-top:10px">아직 불러오지 않았어요.</div>
         <div class="labgallery" id="qdGal"></div>
@@ -3216,6 +3234,7 @@ var U3 = { tl:[], bi:[], biAt:0, dl:[-1,-1,-1], ck:[], ckAt:0, tech:0,
            s3caps:[], s3fut:'', s3cap:'', s3now:'', s3cls:'', s3grp:'',
            s5g:'', s5b:'', s5r:'', s5w:'', s5v:-1,
            s8a:'', s8b:'', s8c:'', s8d:'', s8e:'', s8cls:'', s8grp:'',
+           qdcls:'', qdwho:'',
            s0a:'', s0b:'', s0c:'', s0cls:'', s0grp:'',
            s4cls:'', s4grp:'', s5cls:'', s5grp:'', s7cls:'', s7grp:'',
            s6a:'', s6b:'', s6c:'', s6cls:'', s6grp:'',
@@ -4037,9 +4056,22 @@ var LAWS = [
    거기에 쌓여 있기 때문이다. 관찰 기록만 우리 시트로 따로 낸다.
    28×28 로 줄여 «먹의 양(ink)»과 «무게중심»을 재고,
    샘플들의 평균 그림에서 얼마나 떨어졌는지로 맞고 틀림을 가른다.       */
-var QD_URL = 'https://script.google.com/macros/s/AKfycbzPP6GHuqSHltZxutD8qyt8-TW_F5HNU1-2jLtkxEMPa-H8ufKdMzbl6GnCC1Lnq3pA/exec';
-var QD_CLASS = 'collector-submissions-2026';
-var QD_SHARED = 'shared-gallery-2026';
+/* 그림은 «우리» 수집기(선생님 시트)로 보낸다. 예전 수업 자료와 섞이지 않게,
+   그리고 분반과 이름이 함께 쌓이도록. 28×28 값을 0~f 한 글자씩 784자로
+   줄여 보내면 시트 한 칸에 들어가고 그대로 되살릴 수 있다. */
+function pxPack(vec){
+  var s = '';
+  for(var i = 0; i < vec.length; i++){
+    var q = Math.round(Math.min(1, Math.max(0, vec[i])) * 15);
+    s += q.toString(16);
+  }
+  return s;
+}
+function pxUnpack(str){
+  var v = new Array(784).fill(0);
+  for(var i = 0; i < 784 && i < str.length; i++) v[i] = parseInt(str[i], 16) / 15;
+  return v;
+}
 (function(){
   var cv = $('qdCanvas'); if(!cv) return;
   var ctx = cv.getContext('2d');
@@ -4131,7 +4163,13 @@ var QD_SHARED = 'shared-gallery-2026';
   }
 
   $('qdClear').addEventListener('click', reset);
+  clsPick('qdCls', 'qdcls');
+  $('qdWho').value = U3.qdwho || '';
+  $('qdWho').addEventListener('input', function(){ U3.qdwho = this.value; save(); });
+
   $('qdAdd').addEventListener('click', function(){
+    if(!U3.qdcls){ pred.textContent = '먼저 분반을 골라 주세요.'; return; }
+    if(!($('qdWho').value || '').trim()){ pred.textContent = '먼저 이름을 적어 주세요.'; return; }
     var v = toVec(), m = feat(v);
     if(m.ink < 8){ pred.textContent = '그림이 너무 비어 있어요. 조금 더 진하게 그려 주세요.'; return; }
     var rec = { label:($('qdObj').value || 'object').trim(),
@@ -4182,59 +4220,83 @@ var QD_SHARED = 'shared-gallery-2026';
     a.click(); URL.revokeObjectURL(a.href);
   });
 
-  function toRemote(r){
-    return { studentId:r.studentId, vec:r.vec, meta:r.meta,
-             createdAt:r.createdAt, label:r.label,
-             originalObjectName:($('qdObj').value || 'object').trim() };
-  }
-  function send(recs, quiet){
-    return fetch(QD_URL, { method:'POST',
+  function sendOne(r){
+    return fetch(SUBMIT_URL, { method:'POST',
       headers:{ 'Content-Type':'text/plain;charset=utf-8' },
-      body:JSON.stringify({ action:'append', classId:QD_CLASS,
-                            objectName:QD_SHARED, records:recs.map(toRemote) }) })
-      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      body:JSON.stringify({ key:SUBMIT_KEY, type:'draw',
+        cls:U3.qdcls || '', group:r.studentId, obj:r.label,
+        ink:r.meta.ink.toFixed(1), cx:r.meta.cx.toFixed(1), cy:r.meta.cy.toFixed(1),
+        px:pxPack(r.vec) }) })
+      .then(function(x){ return x.json().catch(function(){ return {}; }); })
       .then(function(j){
         if(j && j.ok === false) throw new Error(j.error || '저장 실패');
-        if(quiet){ msg.className = 'sendmsg ok';
-          msg.textContent = '저장했어요 ✓ (내 샘플 ' + samples.length + '개)'; }
         return j;
-      })
-      .catch(function(e){
-        msg.className = 'sendmsg bad';
-        msg.textContent = '자동 저장이 안 됐어요 → 「내 샘플 전체 제출」을 눌러 주세요.';
-        throw e;
       });
   }
+  function send(recs, quiet){
+    var i = 0, saved = 0;
+    function step(){
+      if(i >= recs.length){
+        if(quiet){ msg.className = 'sendmsg ok';
+          msg.textContent = '저장했어요 ✓ (내 샘플 ' + samples.length + '개)'; }
+        return Promise.resolve(saved);
+      }
+      return sendOne(recs[i++]).then(function(){ saved++; return step(); });
+    }
+    return step().catch(function(e){
+      msg.className = 'sendmsg bad';
+      msg.textContent = '자동 저장이 안 됐어요 → 「내 샘플 전체 제출」을 눌러 주세요.';
+      throw e;
+    });
+  }
   $('qdSend').addEventListener('click', function(){
+    if(!U3.qdcls){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 분반을 골라 주세요.'; return; }
     if(!samples.length){ msg.className = 'sendmsg wait';
       msg.textContent = '먼저 「샘플 추가」로 그림을 모아 주세요.'; return; }
     msg.className = 'sendmsg wait'; msg.textContent = samples.length + '개 보내는 중…';
-    var i = 0, saved = 0;
-    (function next(){
-      if(i >= samples.length){
-        msg.className = 'sendmsg ok';
-        msg.textContent = '전체 제출 완료! ' + saved + '개 저장했어요. 이제 「모아 보기」를 눌러 보세요.';
-        return;
-      }
-      var chunk = samples.slice(i, i + 8); i += 8;
-      send(chunk).then(function(j){ saved += Number(j.saved) || chunk.length; next(); })
-                 .catch(function(){});
-    })();
+    send(samples).then(function(n){
+      msg.className = 'sendmsg ok';
+      msg.textContent = '전체 제출 완료! ' + n + '장 저장했어요. 이제 「모아 보기」를 눌러 보세요.';
+    }).catch(function(){});
   });
+
+  var scope = 'mine';
+  var sc = $('qdScope');
+  if(sc) sc.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-s]'); if(!b) return;
+    scope = b.getAttribute('data-s');
+    [].slice.call(sc.children).forEach(function(x){
+      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    });
+    $('qdLoad').textContent = scope === 'mine' ? '우리 반 그림 모아 보기' : '세 반 그림 모아 보기';
+  });
+
   $('qdLoad').addEventListener('click', function(){
+    if(scope === 'mine' && !U3.qdcls){
+      msg.className = 'sendmsg wait'; msg.textContent = '먼저 분반을 골라 주세요.'; return;
+    }
     msg.className = 'sendmsg wait'; msg.textContent = '불러오는 중…';
-    fetch(QD_URL + '?action=list&classId=' + encodeURIComponent(QD_CLASS) +
-          '&objectName=' + encodeURIComponent(QD_SHARED))
+    fetch(SUBMIT_URL + '?list=draw&key=' + encodeURIComponent(SUBMIT_KEY) +
+          (scope === 'mine' ? '&cls=' + encodeURIComponent(U3.qdcls) : '') +
+          '&t=' + Date.now())
       .then(function(r){ return r.json(); })
       .then(function(d){
-        var recs = (d && d.records) || [];
-        if(!recs.length){ msg.className = 'sendmsg wait';
-          msg.textContent = '아직 올라온 그림이 없어요.'; gal.innerHTML = ''; return; }
+        if(!d || !d.ok || !d.draws){
+          msg.className = 'sendmsg bad';
+          msg.textContent = '수집기가 아직 이 기능을 못 받았습니다. 선생님께 알려 주세요.';
+          return;
+        }
+        var recs = d.draws;
         gal.innerHTML = '';
-        recs.slice(-120).forEach(function(r){ gal.appendChild(thumb(r)); });
+        if(!recs.length){
+          msg.className = 'sendmsg wait';
+          msg.textContent = '아직 올라온 그림이 없어요.';
+          return;
+        }
+        recs.forEach(function(r){ gal.appendChild(thumb(r)); });
         msg.className = 'sendmsg ok';
-        msg.textContent = '모두 ' + recs.length + '장 (최근 ' +
-          Math.min(120, recs.length) + '장 표시). 무엇이 닮았는지 찾아보세요.';
+        msg.textContent = (scope === 'mine' ? U3.qdcls + ' ' : '세 반 모두 ') +
+          recs.length + '장. 무엇이 닮았는지 찾아보세요.';
       })
       .catch(function(){ msg.className = 'sendmsg bad';
         msg.textContent = '불러오지 못했어요. 잠시 뒤 다시 눌러 보세요.'; });
@@ -4243,7 +4305,7 @@ var QD_SHARED = 'shared-gallery-2026';
     var w = document.createElement('div'); w.className = 'thmb';
     var c = document.createElement('canvas'); c.width = 56; c.height = 56;
     var x = c.getContext('2d');
-    var v = r.vec || [], img = x.createImageData(56, 56);
+    var v = r.px ? pxUnpack(r.px) : (r.vec || []), img = x.createImageData(56, 56);
     for(var yy = 0; yy < 56; yy++) for(var xx = 0; xx < 56; xx++){
       var k = Number(v[(yy >> 1) * 28 + (xx >> 1)]) || 0;
       var g = 255 - Math.round(Math.min(1, Math.max(0, k)) * 255);
@@ -4253,7 +4315,7 @@ var QD_SHARED = 'shared-gallery-2026';
     x.putImageData(img, 0, 0);
     w.appendChild(c);
     var cap = document.createElement('span');
-    cap.textContent = r.studentId || r.label || '익명';
+    cap.textContent = (r.n || r.studentId || '익명') + (scope === 'all' && r.cls ? ' · ' + r.cls : '');
     w.appendChild(cap);
     return w;
   }

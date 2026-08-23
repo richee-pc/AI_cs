@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v14
+ * 인공지능 기초 활동지 수집기  v15
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -18,7 +18,8 @@
  *   · Ⅲ 드론배달        ← 활동 ⑤
  *   · Ⅲ 편향성구분      ← 활동 ⑥
  *   · Ⅲ 윤리딜레마      ← 활동 ⑦
- *   · Ⅲ 데이터편향실습  ← 활동 ⑧
+ *   · Ⅲ 데이터편향실습  ← 활동 ⑧ 관찰 기록
+ *   · Ⅲ 편향실습그림    ← 활동 ⑧ 에서 학생이 그린 그림 (한 장 = 한 줄)
  *   · Ⅲ 활동모아보기    ← 선생님이 «수행평가» 메뉴에서 만드는 한 장 요약
  *   · 토론입론서        ← Ⅲ-04 활동 ⑧ 개별 문서 A~D부 (수행평가 ① 윤리 토론)
  *   · 토론채점          ← 선생님이 «수행평가» 메뉴에서 만드는 채점표
@@ -27,8 +28,9 @@
  *   · 규칙게임          ← Ⅰ-06 활동 ⑪ «친구와 추론 게임 주고받기»
  *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
  *
- * 규칙게임 탭만은 학생 페이지가 «읽기»도 합니다. 친구들이 올린 게임을
- * 목록으로 보여 주어야 하기 때문입니다. 나머지 탭은 읽히지 않습니다.
+ * 규칙게임 탭과 편향실습그림 탭만은 학생 페이지가 «읽기»도 합니다.
+ * 친구들이 올린 게임과 그림을 목록으로 보여 주어야 하기 때문입니다.
+ * 나머지 탭은 읽히지 않습니다.
  * 부적절한 내용이 올라오면 시트에서 그 줄을 지우면 목록에서도 사라집니다.
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
@@ -38,7 +40,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 14;
+var VER = 15;
 
 var SHEETS = {
 
@@ -201,6 +203,19 @@ var SHEETS = {
     }
   },
 
+  draw: {
+    name: 'Ⅲ 편향실습그림',
+    // 그림 한 장을 28×28 로 줄이고 칸마다 0~f 한 글자로 적는다 → 784자.
+    // 이렇게 해야 시트 한 칸에 들어가고, 나중에 그대로 되살릴 수 있다.
+    head: ['제출 시각', '분반', '이름', '물체',
+           '먹의 양', '무게중심 x', '무게중심 y', '그림 (28×28, 16진수 784자)'],
+    width: [140, 70, 110, 90, 80, 90, 90, 300],
+    row: function (d) {
+      return [new Date(), d.cls || '', d.group || '', d.obj || '',
+              d.ink || '', d.cx || '', d.cy || '', d.px || ''];
+    }
+  },
+
   databias: {
     name: 'Ⅲ 데이터편향실습',
     head: ['제출 시각', '분반', '이름', '처음 데이터의 특징', '못 맞힌 경우',
@@ -343,7 +358,10 @@ function doGet(e) {
     if (p.key !== SUBMIT_KEY) {
       return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
     }
-    // 읽기를 허용하는 탭은 «규칙게임» 하나뿐입니다. 다른 탭은 열어 주지 않습니다.
+    // 읽기를 허용하는 탭은 «규칙게임»과 «편향실습그림» 둘뿐입니다.
+    if (p.list === 'draw') {
+      return out({ ok: true, ver: VER, draws: readDraws(p.cls || '') });
+    }
     if (p.list !== 'rulegame') {
       return out({ ok: false, error: '읽을 수 없는 목록입니다.' });
     }
@@ -1060,6 +1078,23 @@ function 토론채점요약() {
   SpreadsheetApp.getUi().alert(msg);
 }
 
+
+/** 편향 실습 그림을 최근 것부터 돌려준다. 분반을 주면 그 반 것만.
+    한 번에 너무 많이 보내면 학생 노트북이 버거우므로 240장에서 끊는다. */
+function readDraws(cls) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.draw.name);
+  if (!sh || sh.getLastRow() < 2) return [];
+  var v = sh.getRange(2, 1, sh.getLastRow() - 1, 8).getValues();
+  var out = [];
+  for (var i = v.length - 1; i >= 0 && out.length < 240; i--) {
+    var c = String(v[i][1] || '').trim();
+    if (cls && c !== cls) continue;
+    var px = String(v[i][7] || '');
+    if (px.length < 100) continue;          // 비었거나 깨진 줄은 건너뛴다
+    out.push({ cls: c, n: String(v[i][2] || ''), obj: String(v[i][3] || ''), px: px });
+  }
+  return out.reverse();
+}
 
 function out(obj) {
   return ContentService
