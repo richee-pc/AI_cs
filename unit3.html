@@ -1994,6 +1994,7 @@ table.dlt tr:last-child td{border-bottom:none}
   <p class="sub">여덟 가지입니다. 차시 순서대로 이어지고,
     <b>마지막 ⑨번이 수행평가 개별 문서</b>로 그대로 넘어갑니다.
     <b>활동은 모두 선생님께 제출</b>합니다 — 차시마다 쓰고 그때그때 내면 됩니다.
+    <b>분반과 이름은 한 번만 적으면</b> 모든 활동에 함께 들어갑니다.
     적은 내용은 <b>이 기기에 자동 저장</b>됩니다.</p>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
@@ -3229,15 +3230,12 @@ var SUBMIT_KEY = 'chosun-ai-2026';
 var KEY = 'ai_u3_v1';
 
 var U3 = { tl:[], bi:[], biAt:0, dl:[-1,-1,-1], ck:[], ckAt:0, tech:0,
-           s1a:'', s1t:'', s1b:'', s1c:'', s1e:'', s1cls:'', s1grp:'',
+           s1a:'', s1t:'', s1b:'', s1c:'', s1e:'',
            s3job:'', s3vis:'', s3life:['','','',''], s3split:['','',''],
-           s3caps:[], s3fut:'', s3cap:'', s3now:'', s3cls:'', s3grp:'',
+           s3caps:[], s3fut:'', s3cap:'', s3now:'',
            s5g:'', s5b:'', s5r:'', s5w:'', s5v:-1,
-           s8a:'', s8b:'', s8c:'', s8d:'', s8e:'', s8cls:'', s8grp:'',
-           qdcls:'', qdwho:'',
-           s0a:'', s0b:'', s0c:'', s0cls:'', s0grp:'',
-           s4cls:'', s4grp:'', s5cls:'', s5grp:'', s7cls:'', s7grp:'',
-           s6a:'', s6b:'', s6c:'', s6cls:'', s6grp:'',
+           s8a:'', s8b:'', s8c:'', s8d:'', s8e:'',
+           s0a:'', s0b:'', s0c:'', s6a:'', s6b:'', s6c:'',
            s4g:'', s4b:'', s4h:'',
            s6why:'', s6other:'', s6change:'',
            topic:-1, side:-1, views:[], spoke:-1,
@@ -3258,24 +3256,36 @@ function bind(id, field){
   el.addEventListener('input', function(){ U3[field] = this.value; save(); });
 }
 
-/* ── 활동마다 되풀이되는 «분반 · 이름 · 제출»을 한곳에 모았다 ── */
-function clsPick(id, field){
-  var box = $(id); if(!box) return;
-  function draw(){
+/* ── 활동마다 되풀이되는 «분반 · 이름 · 제출»을 한곳에 모았다 ──
+   분반과 이름은 «활동마다 따로»가 아니라 «한 사람의 것»이다.
+   그래서 값은 U3.cls / U3.group 하나만 두고, 화면의 여러 칸이 그것을
+   나눠 쓴다. 한 곳에서 고치면 나머지도 함께 바뀐다 —
+   학생이 아홉 번 이름을 적지 않도록.                                */
+var CLSBOX = [], NAMEBOX = [];
+function syncWho(){
+  CLSBOX.forEach(function(box){
     [].slice.call(box.children).forEach(function(b){
-      b.setAttribute('aria-pressed', b.getAttribute('data-c') === U3[field] ? 'true' : 'false');
+      b.setAttribute('aria-pressed', b.getAttribute('data-c') === U3.cls ? 'true' : 'false');
     });
-  }
+  });
+  NAMEBOX.forEach(function(el){
+    if(el.value !== (U3.group || '')) el.value = U3.group || '';
+  });
+}
+function clsPick(id){
+  var box = $(id); if(!box) return;
+  CLSBOX.push(box);
   box.addEventListener('click', function(e){
     var b = e.target.closest('button[data-c]'); if(!b) return;
-    U3[field] = b.getAttribute('data-c'); save(); draw();
+    U3.cls = b.getAttribute('data-c'); save(); syncWho();
   });
-  draw();
+  syncWho();
 }
-function nameBox(id, field){
+function nameBox(id){
   var el = $(id); if(!el) return;
-  el.value = U3[field] || '';
-  el.addEventListener('input', function(){ U3[field] = this.value; save(); });
+  NAMEBOX.push(el);
+  el.value = U3.group || '';
+  el.addEventListener('input', function(){ U3.group = this.value; save(); syncWho(); });
 }
 function clipText(txt, btn, label){
   function done(){ btn.textContent = '복사했어요';
@@ -3664,11 +3674,11 @@ var CASES = [
   }
 
   ['s1a','s1t','s1b','s1c','s1e'].forEach(function(f){ bind(f, f); });
-  clsPick('s1Cls', 's1cls');
-  nameBox('s1Group', 's1grp');
+  clsPick('s1Cls');
+  nameBox('s1Group');
   sender({
     btn:'s1Send', copy:'s1Copy', msg:'s1Msg', type:'u3sol',
-    cls:function(){ return U3.s1cls; }, grp:function(){ return U3.s1grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s1a','사회 문제를 먼저 적어 주세요'], ['s1b','해결 방법을 적어 주세요']],
     title:'② 인공지능으로 더 나은 사회 만들기',
     fields:[['problem','사회 문제','s1a'], ['tech','고른 기술','s1t'],
@@ -3768,11 +3778,11 @@ var CAPS = [
     drawCaps();
   }
 
-  clsPick('s3Cls', 's3cls');
-  nameBox('s3Group', 's3grp');
+  clsPick('s3Cls');
+  nameBox('s3Group');
   sender({
     btn:'s3Send', copy:'s3Copy', msg:'s3Msg', type:'career',
-    cls:function(){ return U3.s3cls; }, grp:function(){ return U3.s3grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s3job','희망 직업을 먼저 적어 주세요'], ['s3vis','비전 선언문을 적어 주세요']],
     title:'③ 진로 로드맵',
     fields:[['job','희망 직업','s3job'], ['vision','비전 선언문','s3vis'],
@@ -4163,13 +4173,12 @@ function pxUnpack(str){
   }
 
   $('qdClear').addEventListener('click', reset);
-  clsPick('qdCls', 'qdcls');
-  $('qdWho').value = U3.qdwho || '';
-  $('qdWho').addEventListener('input', function(){ U3.qdwho = this.value; save(); });
+  clsPick('qdCls');
+  nameBox('qdWho');
 
   $('qdAdd').addEventListener('click', function(){
-    if(!U3.qdcls){ pred.textContent = '먼저 분반을 골라 주세요.'; return; }
-    if(!($('qdWho').value || '').trim()){ pred.textContent = '먼저 이름을 적어 주세요.'; return; }
+    if(!U3.cls){ pred.textContent = '먼저 분반을 골라 주세요.'; return; }
+    if(!(U3.group || '').trim()){ pred.textContent = '먼저 이름을 적어 주세요.'; return; }
     var v = toVec(), m = feat(v);
     if(m.ink < 8){ pred.textContent = '그림이 너무 비어 있어요. 조금 더 진하게 그려 주세요.'; return; }
     var rec = { label:($('qdObj').value || 'object').trim(),
@@ -4224,7 +4233,7 @@ function pxUnpack(str){
     return fetch(SUBMIT_URL, { method:'POST',
       headers:{ 'Content-Type':'text/plain;charset=utf-8' },
       body:JSON.stringify({ key:SUBMIT_KEY, type:'draw',
-        cls:U3.qdcls || '', group:r.studentId, obj:r.label,
+        cls:U3.cls || '', group:r.studentId, obj:r.label,
         ink:r.meta.ink.toFixed(1), cx:r.meta.cx.toFixed(1), cy:r.meta.cy.toFixed(1),
         px:pxPack(r.vec) }) })
       .then(function(x){ return x.json().catch(function(){ return {}; }); })
@@ -4250,7 +4259,7 @@ function pxUnpack(str){
     });
   }
   $('qdSend').addEventListener('click', function(){
-    if(!U3.qdcls){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 분반을 골라 주세요.'; return; }
+    if(!U3.cls){ msg.className = 'sendmsg wait'; msg.textContent = '먼저 분반을 골라 주세요.'; return; }
     if(!samples.length){ msg.className = 'sendmsg wait';
       msg.textContent = '먼저 「샘플 추가」로 그림을 모아 주세요.'; return; }
     msg.className = 'sendmsg wait'; msg.textContent = samples.length + '개 보내는 중…';
@@ -4272,12 +4281,12 @@ function pxUnpack(str){
   });
 
   $('qdLoad').addEventListener('click', function(){
-    if(scope === 'mine' && !U3.qdcls){
+    if(scope === 'mine' && !U3.cls){
       msg.className = 'sendmsg wait'; msg.textContent = '먼저 분반을 골라 주세요.'; return;
     }
     msg.className = 'sendmsg wait'; msg.textContent = '불러오는 중…';
     fetch(SUBMIT_URL + '?list=draw&key=' + encodeURIComponent(SUBMIT_KEY) +
-          (scope === 'mine' ? '&cls=' + encodeURIComponent(U3.qdcls) : '') +
+          (scope === 'mine' ? '&cls=' + encodeURIComponent(U3.cls) : '') +
           '&t=' + Date.now())
       .then(function(r){ return r.json(); })
       .then(function(d){
@@ -4295,7 +4304,7 @@ function pxUnpack(str){
         }
         recs.forEach(function(r){ gal.appendChild(thumb(r)); });
         msg.className = 'sendmsg ok';
-        msg.textContent = (scope === 'mine' ? U3.qdcls + ' ' : '세 반 모두 ') +
+        msg.textContent = (scope === 'mine' ? U3.cls + ' ' : '세 반 모두 ') +
           recs.length + '장. 무엇이 닮았는지 찾아보세요.';
       })
       .catch(function(){ msg.className = 'sendmsg bad';
@@ -4343,11 +4352,11 @@ function pxUnpack(str){
   }).join('');
 
   ['s8a','s8b','s8c','s8d','s8e'].forEach(function(f){ bind(f, f); });
-  clsPick('s8Cls', 's8cls');
-  nameBox('s8Group', 's8grp');
+  clsPick('s8Cls');
+  nameBox('s8Group');
   sender({
     btn:'s8Send', copy:'s8Copy', msg:'s8Msg', type:'databias',
-    cls:function(){ return U3.s8cls; }, grp:function(){ return U3.s8grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s8a','처음 모은 데이터의 특징을 적어 주세요'],
           ['s8c','그렇게 된 까닭을 적어 주세요']],
     title:'⑧ 데이터 편향 실습',
@@ -4607,19 +4616,8 @@ var WFLOSE = [
   });
 
   /* ── 분반 · 이름 ── */
-  $('dbGroup').value = U3.group || '';
-  $('dbGroup').addEventListener('input', function(){ U3.group = this.value; save(); });
-  $('dbCls').addEventListener('click', function(e){
-    var b = e.target.closest('button[data-c]'); if(!b) return;
-    U3.cls = b.getAttribute('data-c'); save();
-    [].slice.call(this.children).forEach(function(o){
-      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-    });
-  });
-  if(U3.cls){
-    var cb = document.querySelector('#dbCls button[data-c="' + U3.cls + '"]');
-    if(cb) cb.setAttribute('aria-pressed', 'true');
-  }
+  clsPick('dbCls');
+  nameBox('dbGroup');
 
   /* ── 복사용 글 ── */
   function report(){
@@ -4698,27 +4696,27 @@ var WFLOSE = [
 (function(){
   /* ① 발전 이야기 */
   ['s0a','s0b','s0c'].forEach(function(f){ bind(f, f); });
-  clsPick('s0Cls', 's0cls'); nameBox('s0Group', 's0grp');
+  clsPick('s0Cls'); nameBox('s0Group');
   sender({ btn:'s0Send', copy:'s0Copy', msg:'s0Msg', type:'story',
-    cls:function(){ return U3.s0cls; }, grp:function(){ return U3.s0grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s0a','인상 깊었던 장면을 먼저 적어 주세요']],
     title:'① AI 발전 이야기',
     fields:[['scene','인상 깊었던 장면','s0a'], ['three','세 가지 중 하나가 없었다면','s0b'],
             ['winter','또 겨울이 올까','s0c']] });
 
   /* ④ 장단점 저울 */
-  clsPick('s4Cls', 's4cls'); nameBox('s4Group', 's4grp');
+  clsPick('s4Cls'); nameBox('s4Group');
   sender({ btn:'s4Send', copy:'s4Copy', msg:'s4Msg', type:'scale',
-    cls:function(){ return U3.s4cls; }, grp:function(){ return U3.s4grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s4g','내가 생각한 좋은 점을 적어 주세요'], ['s4b','걱정되는 점을 적어 주세요']],
     title:'④ 인공지능 장단점 저울',
     fields:[['good','내가 생각한 좋은 점','s4g'], ['bad','내가 생각한 걱정되는 점','s4b'],
             ['human','사람이 해야 할 일','s4h']] });
 
   /* ⑤ 드론 배달 */
-  clsPick('s5Cls', 's5cls'); nameBox('s5Group', 's5grp');
+  clsPick('s5Cls'); nameBox('s5Group');
   sender({ btn:'s5Send', copy:'s5Copy', msg:'s5Msg', type:'drone',
-    cls:function(){ return U3.s5cls; }, grp:function(){ return U3.s5grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s5g','긍정적인 영향을 적어 주세요'], ['s5r','인간의 역할을 적어 주세요']],
     title:'⑤ 드론 배달 서비스',
     fields:[['good','긍정적인 영향','s5g'], ['bad','부정적인 영향','s5b'],
@@ -4726,18 +4724,18 @@ var WFLOSE = [
 
   /* ⑥ 편향성 구분 */
   ['s6a','s6b','s6c'].forEach(function(f){ bind(f, f); });
-  clsPick('s6Cls', 's6cls'); nameBox('s6Group', 's6grp');
+  clsPick('s6Cls'); nameBox('s6Group');
   sender({ btn:'s6Send', copy:'s6Copy', msg:'s6Msg', type:'bias',
-    cls:function(){ return U3.s6cls; }, grp:function(){ return U3.s6grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s6b','내 주변에서 느낀 편향을 적어 주세요']],
     title:'⑥ 편향성 구분 훈련',
     fields:[['hard','헷갈렸던 사례','s6a'], ['mine','내 주변의 편향','s6b'],
             ['kind','데이터인가 알고리즘인가','s6c']] });
 
   /* ⑦ 윤리적 딜레마 */
-  clsPick('s7Cls', 's7cls'); nameBox('s7Group', 's7grp');
+  clsPick('s7Cls'); nameBox('s7Group');
   sender({ btn:'s7Send', copy:'s7Copy', msg:'s7Msg', type:'dilemma',
-    cls:function(){ return U3.s7cls; }, grp:function(){ return U3.s7grp; },
+    cls:function(){ return U3.cls; }, grp:function(){ return U3.group; },
     need:[['s6why','내가 그렇게 고른 이유를 적어 주세요']],
     title:'⑦ 윤리적 딜레마',
     fields:[['why','내가 그렇게 고른 이유','s6why'],
