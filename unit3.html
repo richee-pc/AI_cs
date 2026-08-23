@@ -1440,6 +1440,47 @@ footer a{font-weight:700}
 .copyout{width:100%; margin-top:10px; font-family:var(--mono); font-size:0.75rem;
   padding:10px; border:1px solid var(--line); border-radius:10px;
   background:var(--tint); color:var(--ink)}
+/* 깊이 보기 — 왜 «당당하게» 틀리는가 */
+.steps8{display:grid; gap:7px}
+.s8{display:grid; grid-template-columns:30px 1fr; gap:12px; align-items:start;
+  background:var(--white); border:1px solid var(--line); border-radius:12px; padding:11px 14px}
+.s8.key{border-color:var(--warm); background:var(--warm-bg)}
+.s8>span{width:28px; height:28px; border-radius:50%; background:var(--fill); color:var(--on-fill);
+  font-family:var(--mono); font-size:0.8125rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center}
+.s8.key>span{background:var(--warm)}
+.s8 b{display:block; font-size:0.9062rem; color:var(--ink)}
+.s8 i{display:block; font-style:normal; font-size:0.8125rem; line-height:1.7;
+  color:var(--ink2); margin-top:2px}
+.s8 em{display:inline-block; font-style:normal; margin-top:6px; font-size:0.75rem;
+  font-weight:700; color:var(--warm); background:var(--white);
+  border-radius:99px; padding:3px 11px}
+
+.halurate{display:grid; gap:9px}
+.hr{display:grid; grid-template-columns:minmax(0,1fr) 1.2fr 74px; gap:11px; align-items:center}
+.hrn{font-size:0.8438rem; font-weight:600; color:var(--ink2)}
+.hrb{height:20px; background:var(--tint); border-radius:99px; overflow:hidden}
+.hrb>i{display:block; height:100%; border-radius:99px; background:var(--good)}
+.hr.mid .hrb>i{background:var(--warm)}
+.hr.bad .hrb>i{background:var(--cut)}
+.hr>b{font-family:var(--mono); font-weight:700; font-size:0.9375rem; text-align:right; color:var(--good)}
+.hr.mid>b{color:var(--warm)} .hr.bad>b{color:var(--cut)}
+
+.mathbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:18px 20px; box-shadow:var(--sh)}
+.mathq{font-family:var(--mono); font-size:1.5rem; font-weight:700; color:var(--blue-d);
+  text-align:center; background:var(--tint); border-radius:14px; padding:16px; margin-bottom:14px}
+.mathbox>p{margin:0 0 13px; font-size:0.9062rem; line-height:1.8; color:var(--ink2)}
+.mathtry{margin:14px 0 0 !important; padding:10px 13px; background:var(--blue-xl);
+  border-radius:11px; font-size:0.8438rem !important; color:var(--blue-d) !important}
+.wsmall{font-size:0.8125rem !important; opacity:.85}
+
+@media (max-width:520px){
+  .hr{grid-template-columns:1fr; gap:4px}
+  .hr>b{text-align:left}
+  .mathq{font-size:1.1875rem}
+}
+
 /* 실제 사례 모음 · 내 피드 진단 */
 .csm{margin:0 0 8px !important; font-family:var(--mono); font-size:0.7188rem;
   color:var(--muted) !important}
@@ -1814,6 +1855,7 @@ table.dlt tr:last-child td{border-bottom:none}
   <a href="#act">수업 활동</a>
   <a href="#life">우리 삶</a>
   <a href="#ethics">인공지능 윤리</a>
+  <a href="#inside">왜 틀리나</a>
   <a href="#cases">실제 사례</a>
   <a href="#myfeed">내 피드 진단</a>
   <a href="#debate">토론 준비</a>
@@ -2620,6 +2662,112 @@ table.dlt tr:last-child td{border-bottom:none}
     <a href="https://richee-pc.github.io/AI_cs/debate.html#topics" style="font-weight:800">논제 열 가지 보러 가기 →</a></div>
 </div></section>
 
+
+
+<section id="inside"><div class="wrap">
+  <p class="eyebrow">깊이 보기 · 교사 연수 자료에서</p>
+  <h2>인공지능은 왜 «당당하게» 틀리는가</h2>
+  <p class="sub">여기까지는 <b>«무슨 일이 벌어졌나»</b>였습니다. 이제 <b>«왜 그런 일이 벌어지는가»</b>를 봅니다.
+    구조를 알면 <b>어디까지 믿고 어디부터 의심할지</b>가 또렷해져요.
+    이 구획은 교원 연수 자료 <b>『사례로 알아보는 윤리적인 AI』</b>(한국교육학술정보원)를 바탕으로 했습니다.</p>
+
+  <h3 class="step-h">1 · 생성형 인공지능은 어떻게 답을 만드나</h3>
+  <p class="desc">여덟 단계입니다. <b>6번째</b>가 모든 것의 열쇠예요.</p>
+  <div class="steps8" id="inSteps"></div>
+
+  <div class="bigidea warm" style="margin-top:18px">
+    <b>«이해 없는 생성»</b>
+    <p>인공지능의 답변은 사람처럼 의미를 <b>이해한 결과가 아닙니다.</b>
+      확률적으로 <b>가장 그럴싸한 단어들을 정교하게 연결한 통계적 예측의 산물</b>이에요.</p>
+    <p class="bimini">그래서 인공지능은 «모르겠다»고 말하는 대신
+      <b>가장 그럴싸한 답을 자신 있게</b> 내놓도록 설계되어 있습니다.
+      <b>자신 있는 말투 ≠ 정확함.</b> 검증의 책임은 <b>언제나 쓰는 사람</b>에게 있습니다.</p>
+  </div>
+
+  <h3 class="step-h" style="margin-top:28px">2 · 그래서 생기는 문제는 세 갈래</h3>
+  <p class="desc">윤리 문제는 한 지점에서 생기지 않습니다.
+    <b>설계되고 · 학습하고 · 사회에 퍼지는</b> 전 과정에서 서로 다른 성격의 문제가 겹쳐 나타나요.</p>
+  <div class="tw"><table id="inThree"></table></div>
+
+  <h3 class="step-h" style="margin-top:28px">3 · 환각과 불투명성은 다른 문제입니다</h3>
+  <p class="desc">둘 다 «인공지능을 못 믿겠다»로 뭉뚱그리기 쉽지만,
+    <b>묻는 질문이 다릅니다.</b> 토론에서 이 둘을 갈라 쓰면 논지가 훨씬 또렷해져요.</p>
+  <div class="tw"><table id="inVs"></table></div>
+
+  <h3 class="step-h" style="margin-top:28px">4 · 숫자로 보는 환각</h3>
+  <p class="desc">얼마나 자주 틀릴까요? <b>분야에 따라 크게 다릅니다.</b></p>
+  <div class="halurate" id="inRate"></div>
+  <div class="note" style="margin-top:14px"><b>이 숫자를 읽는 법</b>
+    최신 모델은 일반적인 요약 과제에서 <b>4%대</b>까지 내려왔지만,
+    <b>인물 정보를 요약</b>하게 하는 등 까다로운 과제에서는 <b>30%를 넘기도</b> 합니다.
+    중요한 건 «몇 퍼센트냐»가 아니라 — <b>0%가 아니라는 것</b>, 그리고
+    <b>의료·법률처럼 틀리면 크게 다치는 분야일수록 오히려 더 높다는 것</b>입니다.
+    <i>출처 : 『사례로 알아보는 윤리적인 AI』(한국교육학술정보원)에 인용된 Vectara 조사, 2024~2025</i></div>
+
+  <h3 class="step-h" style="margin-top:28px">5 · 우리나라에서 벌어진 일</h3>
+  <p class="desc">먼 나라 이야기가 아닙니다.</p>
+  <div class="cases3" id="inKo"></div>
+
+  <h3 class="step-h" style="margin-top:28px">6 · 직접 해 보는 시험 — 48 ÷ 2(9+3)</h3>
+  <div class="mathbox">
+    <div class="mathq">48 ÷ 2(9 + 3) = ?</div>
+    <p>이 수식은 <b>수학자들 사이에서도 의견이 갈리는 표기법 논쟁</b>입니다.
+      괄호를 먼저 계산하면 9+3=12. 그다음이 문제예요.</p>
+    <div class="g2">
+      <div class="mcard"><span>①</span><b>왼쪽에서 오른쪽으로</b>
+        <p>나눗셈과 곱셈은 <b>같은 우선순위</b>이므로 왼쪽부터 —
+          48÷2 = 24, 24×12 = <b>288</b></p></div>
+      <div class="mcard"><span>②</span><b>암묵적 곱셈을 먼저</b>
+        <p>2(9+3)을 <b>한 덩어리</b>로 보면 —
+          2×12 = 24, 48÷24 = <b>2</b></p></div>
+    </div>
+    <div class="dcfull" style="margin-top:14px"><b>여기서 중요한 것은 «답»이 아닙니다</b><br>
+      인공지능에게 이 질문을 던지면 <b>둘 중 하나를 자신 있게</b> 내놓습니다.
+      «표기가 모호해 해석에 따라 달라질 수 있다»고 먼저 알려 주는 경우도 있지만,
+      그냥 <b>하나로 확정해 답하는 경우가 많아요.</b>
+      이 수식이 논쟁적이라는 걸 모르는 사람은 <b>그대로 믿습니다.</b></div>
+    <p class="mathtry"><b>수업 중에 해 보세요</b> — 챗봇 두세 개에 같은 식을 넣어 보고
+      <b>답이 갈리는지</b>, <b>«논쟁이 있다»고 알려 주는지</b> 비교해 보면 오래 기억에 남습니다.</p>
+  </div>
+
+  <h3 class="step-h" style="margin-top:28px">7 · 인공지능이 사람처럼 보일 때</h3>
+  <p class="desc">인공지능 서비스는 점점 더 <b>사람처럼</b> 설계됩니다 —
+    이름을 붙이고, 감정이 있는 듯한 말투를 쓰고, 지난 대화를 기억해 친밀감을 만들어요.
+    이것을 <b>«의인화»</b>라고 합니다.</p>
+  <div class="g3" id="inAnth"></div>
+  <div class="note" style="margin-top:14px"><b>의인화와 의존이 만나면</b>
+    인공지능을 사람처럼 신뢰하게 되면 <b>오류나 편향을 걸러 내기 어려워집니다.</b>
+    친근한 존재가 해 주는 말은 낯선 출처의 말보다 <b>의심 없이 받아들여지기</b> 때문이에요.
+    <b>인공지능은 도구입니다. 감정이 없고, 책임지지 않으며, 관계를 맺지 않습니다.</b>
+    <b>잘 활용하는 것</b>과 <b>의존하는 것</b>은 다릅니다.</div>
+  <div class="ask" style="margin-top:14px"><b>«AI가 뭐라고 했어?»보다 «너는 어떻게 생각해?»</b>
+    스스로 생각하고 판단하는 과정을 인공지능에게 넘기지 않는 것 —
+    그것이 이 시대에 필요한 힘이라고 연수 자료는 못 박습니다.</div>
+
+  <h3 class="step-h" style="margin-top:28px">8 · 딥페이크 — 보이는 것을 믿을 수 없는 시대</h3>
+  <p class="desc"><b>딥러닝(Deep Learning) + 가짜(Fake)</b>. 예전엔 고도의 기술이 필요했지만
+    지금은 <b>스마트폰 앱 하나로</b> 누구나 만들 수 있습니다.</p>
+  <div class="cases3" id="inDeep"></div>
+  <div class="warnbox" style="margin-top:16px">
+    <b>⚠ 딥페이크 제작과 유포는 명백한 범죄입니다</b>
+    <p>국내에서 <b>학교 안 지인을 대상으로 한 딥페이크 성범죄</b> 피해가 잇따라 보고되었고,
+      <b>피해자 상당수가 청소년</b>이었습니다.</p>
+    <p>피해를 당했거나 목격했다면 <b>혼자 두지 마세요</b> —
+      <b>방송통신심의위원회 불법촬영물 신고</b> · <b>학교폭력 신고 117</b> ·
+      담임 선생님이나 상담 선생님께 바로 알리면 됩니다.</p>
+    <p class="wsmall">이 논제로 토론할 때는 <b>피해 사례를 자세히 묘사하지 않고 «제도»만 두고</b> 다툽니다.</p>
+  </div>
+
+  <h3 class="step-h" style="margin-top:28px">9 · 우리나라가 만들고 있는 약속</h3>
+  <p class="desc">교과서의 <b>국가 인공지능 윤리 기준</b>(2020) 이후에도 계속 나오고 있습니다.</p>
+  <div class="tw"><table id="inLaw"></table></div>
+  <div class="ask" style="margin-top:14px"><b>모든 지침이 결국 같은 말을 합니다</b>
+    <b>인공지능은 조력자일 뿐, 최종 판단과 책임은 사람에게 있다.</b>
+    전국 시도교육청 가이드라인이 공통으로 강조하는 것도 넷입니다 —
+    <b>①</b> 개인정보와 저작권 지키기 · <b>②</b> 환각과 편향을 경계하는 비판적 태도 ·
+    <b>③</b> 최종 판단은 사람 · <b>④</b> 어디까지 인공지능을 썼는지 <b>밝히기(출처 표기)</b>.
+    <b>우리 수행평가의 인공지능 활용 규칙</b>이 바로 이 넷을 학교 크기로 줄인 것입니다.</div>
+</div></section>
 
 <section id="cases"><div class="wrap">
   <p class="eyebrow">근거 창고</p>
@@ -4216,6 +4364,168 @@ var WFLOSE = [
   ].map(function(x){ return '<li>' + x + '</li>'; }).join('');
 })();
 
+/* ══ 깊이 보기 — 왜 «당당하게» 틀리는가 ═══════════════════
+   교원 연수 자료 『사례로 알아보는 윤리적인 AI』(한국교육학술정보원)에서
+   가져온 내용이다. 교과서가 «무슨 일이 있었나»를 다룬다면 이쪽은
+   «왜 그런 일이 생기나»를 다룬다. 출처는 화면에 밝혀 두었다. */
+(function(){
+  var st = $('inSteps');
+  if(st){
+    var STEP = [
+      ['방대한 데이터 학습', '인터넷의 글·그림·영상을 <b>수 페타바이트</b> 규모로 모은다'],
+      ['파운데이션 모델 구축', '트랜스포머 구조로 <b>딥러닝</b> 학습을 한다'],
+      ['수십억 개 매개변수 생성', '데이터 속 패턴과 관계를 <b>수십억 개 숫자</b>에 담는다'],
+      ['사용자가 질문을 넣는다', '질문을 <b>토큰</b>(낱말 단위)으로 쪼개어 받는다'],
+      ['문맥 파악', '낱말끼리의 관계를 수치로 재어 <b>중요한 곳에 집중</b>한다'],
+      ['다음 낱말을 «확률»로 고른다', '다음에 올 <b>가장 그럴싸한 낱말</b>을 통계로 고른다', true],
+      ['이어 붙이기', '고른 낱말을 다시 넣고 <b>되풀이해</b> 문장을 완성한다'],
+      ['답변 출력', '완성된 글을 사용자에게 내놓는다']
+    ];
+    st.innerHTML = STEP.map(function(x, i){
+      return '<div class="s8' + (x[2] ? ' key' : '') + '"><span>' + (i + 1) + '</span>' +
+        '<div><b>' + esc(x[0]) + '</b><i>' + x[1] + '</i>' +
+        (x[2] ? '<em>여기가 열쇠 — «사실인가»는 묻지 않는다</em>' : '') + '</div></div>';
+    }).join('');
+  }
+
+  var t3 = $('inThree');
+  if(t3){
+    var TH = [
+      ['알고리즘 이슈', '작동 구조 자체', '확률로 다음 낱말을 고르는 방식 · 수십억 개 매개변수',
+       '환각 · 불투명성(블랙박스)'],
+      ['데이터 이슈', '배우는 재료', '인터넷에서 무차별로 긁어모은 자료에 사회의 편견·불평등이 그대로 담겨 있음',
+       '편향 재생산 · 저작권 침해 · 개인정보 유출'],
+      ['사회적 이슈', '사회에 퍼질 때', '기술이 실제로 널리 쓰이면서 생기는 더 넓은 문제',
+       '일자리 변화 · 디지털 격차 · 허위 정보 · 인공지능 의존']
+    ];
+    t3.innerHTML = '<tr><th>갈래</th><th>어디서 생기나</th><th>왜</th><th>나타나는 문제</th></tr>' +
+      TH.map(function(x){
+        return '<tr><td class="d"><b>' + esc(x[0]) + '</b></td><td class="d">' + esc(x[1]) + '</td>' +
+          '<td>' + esc(x[2]) + '</td><td class="d">' + esc(x[3]) + '</td></tr>';
+      }).join('') +
+      '<tr><td colspan="4">세 가지는 <b>따로 놀지 않습니다.</b> 알고리즘의 오류가 데이터 편향과 만나 ' +
+      '사회에 크게 퍼질 때 그 영향이 훨씬 커집니다.</td></tr>';
+  }
+
+  var vs = $('inVs');
+  if(vs){
+    vs.innerHTML =
+      '<tr><th style="width:150px"></th><th>환각 (Hallucination)</th><th>불투명성 (블랙박스)</th></tr>' +
+      '<tr><td class="d"><b>묻는 질문</b></td><td><b>무엇이 틀렸는가?</b></td>' +
+      '<td><b>왜 저렇게 판단했는가?</b></td></tr>' +
+      '<tr><td class="d"><b>무슨 문제</b></td><td>인공지능이 <b>거짓 정보를 만들어 내는</b> 문제</td>' +
+      '<td>왜 그런 결론을 냈는지 <b>알 수 없는</b> 문제</td></tr>' +
+      '<tr><td class="d"><b>성격</b></td><td>결과물의 <b>정확성</b> 문제</td>' +
+      '<td><b>책임 소재</b>와 <b>설명 가능성</b> 문제</td></tr>' +
+      '<tr><td class="d"><b>예</b></td><td>없는 판례를 있다고 주장한다</td>' +
+      '<td>대출이 거절된 이유를 알 수 없다</td></tr>' +
+      '<tr><td class="d"><b>대책</b></td><td>교차검증 · 출처 확인</td>' +
+      '<td>설명 가능한 인공지능(XAI) · 책임 규정</td></tr>';
+  }
+
+  var rt = $('inRate');
+  if(rt){
+    var RATE = [
+      ['일반 요약 과제 · 최신 모델', 4.2, 'ok'],
+      ['의료 정보 분야 (평균)', 15.6, 'mid'],
+      ['법률 정보 분야 (평균)', 18.7, 'mid'],
+      ['인물 정보 요약 등 까다로운 과제', 40, 'bad']
+    ];
+    rt.innerHTML = RATE.map(function(x){
+      return '<div class="hr ' + x[2] + '"><span class="hrn">' + esc(x[0]) + '</span>' +
+        '<span class="hrb"><i style="width:' + (x[1] / 50 * 100).toFixed(0) + '%"></i></span>' +
+        '<b>' + (x[2] === 'bad' ? '30~48' : x[1]) + '%</b></div>';
+    }).join('');
+  }
+
+  var ko = $('inKo');
+  if(ko){
+    var KO = [
+      { t:'경찰 결정문에 «없는 판례»가 들어갔다', y:'2024 · 국정감사',
+        d:'경찰이 아동복지법 위반 사건의 <b>불송치 결정문</b>을 챗GPT로 작성했다가, ' +
+          '<b>실제로 존재하지 않는 판례와 법리</b>를 인용한 사실이 <b>2024년 국정감사</b>에서 드러났습니다. ' +
+          '공적 문서에 환각이 그대로 실린 <b>국내 대표 사례</b>입니다.',
+        k:'전문가도, 공공기관도 환각에 속는다' },
+      { t:'«형, 힘든 거 인정» — 성별을 기본값으로 가정한 챗봇', y:'2026 · 한겨레',
+        d:'여성 개발자가 챗GPT에 직장 고민을 털어놓자, 인공지능이 그를 <b>남성으로 가정</b>하고 ' +
+          '남성 이용자가 많은 사이트의 말투로 답했습니다. 지적을 받자 챗GPT는 ' +
+          '«IT 관련 대화에서 <b>무의식적으로 남성을 기본값</b>으로 가정했다»고 인정했어요.',
+        k:'직업과 성별을 고정관념으로 잇는 경향이 실제로 확인된다' },
+      { t:'«천 배의 격차» — 인공지능이 만든 학습 자료 속 편향', y:'2024 · Stanford HAI',
+        d:'연구팀이 인공지능에게 학습용 이야기를 만들게 하자, ' +
+          '«<b>도움이 필요한 학생</b>» 역할은 압도적으로 <b>소수인종이나 여성 이름</b>의 인물에게 돌아갔습니다. ' +
+          '일부 맥락에서 그 격차가 <b>1,000배</b>에 달했어요.',
+        k:'인공지능이 만든 «수업 자료»도 검토 없이 쓰면 안 된다' }
+    ];
+    ko.innerHTML = KO.map(function(x){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(x.t) + '</b><span>' + esc(x.y) + '</span></div>' +
+        '<p>' + x.d + '</p><i>' + esc(x.k) + '</i></div>';
+    }).join('');
+  }
+
+  var an = $('inAnth');
+  if(an){
+    an.innerHTML =
+      '<div class="mcard"><span>🎭</span><b>의인화의 요소</b><p>이름과 인격을 붙인다 · ' +
+      '공감하는 말투를 쓴다 · 지난 대화를 <b>기억</b>한다 · 사과와 감사를 표현한다</p></div>' +
+      '<div class="mcard"><span>🪢</span><b>의존의 세 가지 모습</b><p>' +
+      '<b>인지적 의존</b> — 과제와 글쓰기를 맡긴다 · ' +
+      '<b>정서적 의존</b> — 고민과 감정을 털어놓는다 · ' +
+      '<b>판단 의존</b> — 답변을 그대로 받아들인다</p></div>' +
+      '<div class="mcard"><span>📉</span><b>그래서 생기는 일</b><p>' +
+      '비판적 사고력이 자라지 못한다 · 글을 짓는 힘이 약해진다 · ' +
+      '사람과 갈등을 풀어 본 경험이 부족해진다 · 오류와 편향을 그대로 받아들인다</p></div>';
+  }
+
+  var dp = $('inDeep');
+  if(dp){
+    var DP = [
+      { t:'동의 없는 합성물', y:'디지털 성범죄',
+        d:'유명인이나 <b>일반인의 얼굴</b>을 성적 영상에 합성합니다. ' +
+          '국내에서 <b>학교 안 지인</b>을 대상으로 한 피해가 잇따라 보고되었고, ' +
+          '<b>피해자 상당수가 청소년</b>이었습니다.',
+        k:'가장 가까운 곳에서 벌어지고 있다' },
+      { t:'허위 정보 영상', y:'선거 · 정치',
+        d:'정치인이나 공인이 <b>실제로 하지 않은 발언</b>을 한 것처럼 만듭니다. ' +
+          '<b>2024년 여러 나라의 선거</b>에서 딥페이크 영상이 퍼져 혼란을 일으켰습니다.',
+        k:'민주주의와 공론장을 위협하는 문제가 된다' },
+      { t:'보이스피싱 — 목소리 복제', y:'금융 사기',
+        d:'지인이나 <b>가족의 목소리를 복제</b>해 돈을 요구하는 새로운 사기입니다. ' +
+          '음성 복제 기술이 좋아지면서 피해가 <b>빠르게 늘고</b> 있습니다.',
+        k:'목소리는 더 이상 신분증이 아니다' },
+      { t:'«진실의 위기»', y:'사회 전체',
+        d:'«보이는 것이 사실»이라는 믿음이 무너지면, <b>진짜 영상마저 가짜로 의심</b>받습니다. ' +
+          '이것은 <b>사회적 신뢰의 바탕 전체</b>를 흔드는 문제입니다.',
+        k:'가짜를 만드는 것보다 «아무것도 못 믿게 되는 것»이 더 무섭다' }
+    ];
+    dp.innerHTML = DP.map(function(x){
+      return '<div class="cs3"><div class="cs3h"><b>' + esc(x.t) + '</b><span>' + esc(x.y) + '</span></div>' +
+        '<p>' + x.d + '</p><i>' + esc(x.k) + '</i></div>';
+    }).join('');
+  }
+
+  var lw = $('inLaw');
+  if(lw){
+    var LAW = [
+      ['2020', '국가 인공지능 윤리 기준', '과학기술정보통신부',
+       '3대 원칙과 10대 핵심 요건 — <b>교과서 170쪽</b>에 실린 그것'],
+      ['2022', '교육 분야 인공지능 윤리 원칙', '교육부',
+       '위 기준을 <b>교육 영역에 맞춰</b> 구체화. <b>사람 · 공동체 · 기술</b> 세 영역 10대 원칙'],
+      ['2025', '수업 및 평가를 위한 생성형 AI 활용 가이드라인', '한국교육과정평가원',
+       '<b>5대 원칙</b> — 투명하게 · 안전하게 · 공정하게 · 책임지고 판단하라 · 협력적 파트너로 활용하라'],
+      ['2025', '수행평가 시 AI 활용 관리 방안', '교육부 · 시도교육청',
+       '<b>공정성 · 합목적성 · 투명성</b>을 수행평가 상황에 맞게 구체화'],
+      ['2026', '인공지능 기본법 시행', '국가',
+       '인공지능 시대를 위한 <b>법적 울타리</b>가 세워졌습니다']
+    ];
+    lw.innerHTML = '<tr><th>해</th><th>이름</th><th>만든 곳</th><th>무엇을 담았나</th></tr>' +
+      LAW.map(function(x){
+        return '<tr><td class="d"><b>' + esc(x[0]) + '</b></td><td class="d">' + esc(x[1]) + '</td>' +
+          '<td class="d">' + esc(x[2]) + '</td><td>' + x[3] + '</td></tr>';
+      }).join('');
+  }
+})();
+
 /* ══ 실제 사례 모음 ═══════════════════════════════════════
    교과서 사례와 「인공지능 윤리 디지털 콘텐츠」 1·2차시에서 다루는 사례를
    한곳에 모았다. 토론 근거로 바로 쓰라고 «쓸 만한 논제»를 붙여 두었다. */
@@ -4465,7 +4775,15 @@ var TERMS = [
   ['투명성','판단 과정과 근거를 밝히는 것','진단을 내린 이유를 설명한다'],
   ['개발자 윤리','신뢰할 수 있게 만들고, 데이터 편향을 확인하고, 출시 뒤에도 관리하며 책임을 공유한다','«지식 베이스가 추론한다»처럼 역할을 헷갈리지 말 것'],
   ['운영·관리자 윤리','사회적 합의에 따른 원칙을 세우고, 공공 이익을 위한 활용을 관리·감독한다',''],
-  ['사용자 윤리','원래 목적에 맞게 쓰고, 문제가 생기면 알리고, 관련 법률과 지침을 지킨다','']
+  ['사용자 윤리','원래 목적에 맞게 쓰고, 문제가 생기면 알리고, 관련 법률과 지침을 지킨다',''],
+  ['불투명성 (블랙박스)','답은 나오는데 왜 그런 답인지 사람이 알 수 없는 상태','대출이 거절된 이유를 들을 수 없다'],
+  ['확률적 토큰 예측','다음에 올 «가장 그럴싸한 낱말»을 통계로 고르는 방식','생성형 인공지능이 답을 만드는 원리'],
+  ['이해 없는 생성','뜻을 알아서가 아니라 통계로 이어 붙여 글을 만드는 것','그래서 «모르겠다»고 말하지 않는다'],
+  ['암기 리스크','한 번 학습된 정보를 나중에 골라 지우기 어려운 문제','개인정보가 한 번만 들어가도 남을 수 있다'],
+  ['대표성 부족','인터넷에서 목소리를 내기 어려운 집단이 학습 자료에도 적게 담기는 것','소수 언어 사용자, 장애인'],
+  ['딥페이크','딥러닝 + 가짜. 진짜처럼 보이는 가짜 영상·음성을 만드는 기술','제작과 유포는 명백한 범죄'],
+  ['인공지능의 의인화','인공지능에 사람의 특성을 부여하거나 사람처럼 받아들이는 현상','이름·말투·기억으로 친밀감이 생긴다'],
+  ['인공지능 기본법','2026년 시행된 인공지능 관련 기본 법률','국가가 세운 법적 울타리']
  ]]
 ];
 (function(){
