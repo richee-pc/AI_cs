@@ -113,8 +113,8 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 ├── run.html              # 딸림 — 붙여넣은 코드를 새 탭에서 실행
 ├── font/                 # 본문·제목·고정폭 웹폰트 6종
 ├── img/u1/               # Ⅰ단원 교과서 삽화 14장 (미래엔)
-├── img/bun.gif           # unit1 · pose 에서 쓰는 토끼
-├── snowball.gif          # 푸터 토끼 (교체용 원본 · 지금은 쓰지 않음)
+├── img/bun.gif           # 푸터 마크 토끼 — unit1 · pose 가 파일로 부른다
+├── snowball.gif          # 같은 토끼 원본 — index 는 이 그림을 base64 로 박아 넣었다
 ├── worksheets/           # 탐색 학습지 — 문제·정답 각각 HTML·PDF
 ├── 제출연동_안내.md        # 구글 스프레드시트 제출 연동 설명
 ├── 제출연동_코드.gs        # 위 연동에 붙이는 Apps Script
@@ -124,6 +124,21 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 ```
 
 각 HTML은 **그 자체로 완성된 문서**입니다. 파일을 브라우저로 바로 열어도 배포한 것과 똑같이 보입니다.
+
+### 푸터 마크
+
+쪽마다 맨 아래에 토끼 그림과 `made by ptp 🐰` 알약을 둡니다.
+
+```html
+<div class="sign">
+  <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+       alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+  <span class="ptp">made by ptp <span>🐰</span></span>
+</div>
+```
+
+`snowball.gif` 와 `img/bun.gif` 는 **같은 그림**입니다(293,740바이트로 바이트까지 같음).
+`index.html` 만 이 그림을 base64 로 박아 두었고, 나머지는 `img/bun.gif` 를 파일로 부릅니다.
 
 ### 단원 페이지 만드는 법
 
