@@ -248,6 +248,57 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 .rankhead select{font:inherit;font-size:15px;background:var(--tint);color:var(--ink);
   border:1.5px solid var(--line);border-radius:10px;padding:7px 12px}
 
+/* ── 결과 «짜잔» 창 ────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;
+  background:rgba(7,12,34,.74);overflow:auto;animation:mfade .28s ease-out}
+@keyframes mfade{from{opacity:0}}
+.mcard{width:min(580px,100%);border-radius:26px;padding:26px 24px 24px;margin:auto;
+  box-shadow:0 34px 90px -24px rgba(0,0,0,.6);position:relative;
+  animation:mpop .55s cubic-bezier(.16,1.5,.45,1) both}
+@keyframes mpop{from{transform:scale(.72) translateY(34px);opacity:0}}
+.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:26px}
+.cfi{position:absolute;top:-18px;width:9px;height:15px;border-radius:2px;
+  animation:cfall var(--dur) linear var(--dly) forwards}
+@keyframes cfall{
+  0%{opacity:1;transform:translateY(0) rotate(0)}
+  100%{opacity:0;transform:translateY(var(--fy)) rotate(var(--rot))}}
+
+.badge2{position:relative;display:grid;place-items:center;width:96px;height:96px;
+  border-radius:50%;font-size:2.7rem;margin:2px auto 14px;
+  background:radial-gradient(circle at 50% 35%,#FFF8E2,#FCE38C);
+  animation:bpop .55s cubic-bezier(.2,1.7,.45,1) .12s both}
+@keyframes bpop{from{transform:scale(.3) rotate(-20deg);opacity:0}}
+.badge2::after{content:'';position:absolute;inset:-12px;border-radius:50%;
+  border:3px solid #F3CC5C;animation:ring .9s ease-out .3s both}
+@keyframes ring{from{transform:scale(.85);opacity:.9} to{transform:scale(1.6);opacity:0}}
+@media (prefers-color-scheme:dark){
+  .badge2{background:radial-gradient(circle at 50% 35%,#5A4A18,#3B2F0E)}
+}
+.mcard .grade{text-align:center}
+.mcard #r-stage{text-align:center}
+.mcard .res .rc{animation:tile .45s ease-out both}
+.mcard .res .rc:nth-child(1){animation-delay:.30s}
+.mcard .res .rc:nth-child(2){animation-delay:.38s}
+.mcard .res .rc:nth-child(3){animation-delay:.46s}
+.mcard .res .rc:nth-child(4){animation-delay:.54s}
+@keyframes tile{from{transform:translateY(14px);opacity:0}}
+.mcard .weak,.mcard .sendbox,.mcard .go{animation:tile .45s ease-out .62s both}
+.mcard .go{justify-content:center}
+/* 자동으로 올라갔으면 입력칸은 접어 둔다 */
+.sendbox.sent .who,.sendbox.sent h2,.sendbox.sent .sub{display:none}
+.sendbox.sent{padding-top:12px}
+@media (max-width:560px){
+  .mcard{padding:20px 16px 18px;border-radius:20px}
+  .badge2{width:74px;height:74px;font-size:2.1rem;margin-bottom:10px}
+  .mcard .grade{font-size:1.18rem}
+  .mcard .res{gap:8px}
+  .mcard .rc{padding:10px 12px}
+  .mcard .rc .n{font-size:1.5rem}
+  .mcard .weak{font-size:14.5px;padding:11px 13px}
+  .mcard .go{gap:8px}
+  .mcard .go .btn{padding:11px 20px;font-size:1rem}
+}
+
 /* ── 게임 끝 알림 ── */
 .over{position:absolute;inset:0;display:grid;place-items:center;z-index:6;
   background:rgba(7,12,34,.86);color:#fff;text-align:center;animation:fadein .25s}
@@ -357,7 +408,10 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
   </section>
 
   <!-- ── 결과 ── -->
-  <section class="card hide" id="scr-end">
+  <div class="modal hide" id="scr-end">
+   <div class="card mcard">
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+    <div class="badge2" id="badge">🎉</div>
     <p class="grade" id="grade"></p>
     <p class="sub" id="r-stage" style="margin:-6px 0 14px"></p>
     <div class="res">
@@ -392,7 +446,8 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       <a class="btn ghost" href="https://richee-pc.github.io/AI_cs/"
          style="text-decoration:none;display:inline-flex;align-items:center">나가기</a>
     </div>
-  </section>
+   </div>
+  </div>
 
   <!-- ── 순위 ── -->
   <section class="card">
@@ -513,8 +568,43 @@ function drawKeys(){
 }
 function show(w){
   $('scr-start').classList.toggle('hide', w !== 'start');
-  $('scr-play').classList.toggle('hide', w !== 'play');
+  /* 결과 창이 뜰 때도 아케이드는 뒤에 남겨 둔다 — 덮어 씌우는 느낌이 나게 */
+  $('scr-play').classList.toggle('hide', w === 'start');
   $('scr-end').classList.toggle('hide', w !== 'end');
+  document.body.style.overflow = (w === 'end') ? 'hidden' : '';
+}
+
+/* 색종이 */
+function confetti(){
+  var box = $('confetti'); box.innerHTML = '';
+  var cols = ['#FDE68A','#86EFAC','#7DD3FC','#F0ABFC','#FCA5A5','#C4B5FD'];
+  for(var i = 0; i < 30; i++){
+    var d = document.createElement('i');
+    d.className = 'cfi';
+    d.style.left = Math.random() * 100 + '%';
+    d.style.background = cols[i % cols.length];
+    d.style.setProperty('--fy', (280 + Math.random() * 240) + 'px');
+    d.style.setProperty('--rot', (Math.random() * 900 - 450) + 'deg');
+    d.style.setProperty('--dur', (1.5 + Math.random() * 1.4) + 's');
+    d.style.setProperty('--dly', (Math.random() * 0.5) + 's');
+    box.appendChild(d);
+  }
+  setTimeout(function(){ box.innerHTML = ''; }, 3800);
+}
+
+/* 숫자가 0에서 차오르게 */
+function countUp(el, to, ms, suf){
+  suf = suf || '';
+  var t0 = null;
+  el.textContent = '0' + suf;
+  function step(now){
+    if(t0 === null) t0 = now;
+    var q = Math.min(1, (now - t0) / ms);
+    el.textContent = Math.round(to * (1 - Math.pow(1 - q, 3))) + suf;
+    if(q < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+  setTimeout(function(){ el.textContent = to + suf; }, ms + 150);   /* 못 그려도 값은 맞게 */
 }
 
 document.addEventListener('click', function(e){
@@ -758,10 +848,10 @@ function endShow(){
   var tries = G.cleared + G.typos;
   var acc = tries ? Math.round(G.cleared / tries * 100) : 100;
 
-  $('r-score').textContent = G.score;
-  $('r-wpm').textContent = wpm;
-  $('r-acc').textContent = acc + '%';
-  $('r-max').textContent = G.maxCombo;
+  countUp($('r-score'), G.score, 900);
+  countUp($('r-wpm'), wpm, 750);
+  countUp($('r-acc'), acc, 750, '%');
+  countUp($('r-max'), G.maxCombo, 600);
   $('r-stage').innerHTML = '<b>' + esc(G.stage.n + ' · ' + G.stage.t) + '</b>'
     + (G.mode === 'calm' ? ' · 연습 모드' : ' · 도전 모드');
 
@@ -769,10 +859,11 @@ function endShow(){
   if(isBest){ b[key] = G.score; setBest(b); }
   paintBest();
 
-  $('grade').textContent = isBest ? '🎉 내 최고 기록입니다!'
-    : G.score >= 800 ? '👏 손이 잘 풀렸습니다'
-    : G.score >= 300 ? '🙂 좋습니다, 한 번 더'
-    : '🌱 천천히 해도 됩니다';
+  $('grade').textContent = isBest ? '내 최고 기록입니다!'
+    : G.score >= 800 ? '손이 잘 풀렸습니다'
+    : G.score >= 300 ? '좋습니다, 한 번 더'
+    : '천천히 해도 됩니다';
+  $('badge').textContent = isBest ? '🎉' : G.score >= 800 ? '👏' : G.score >= 300 ? '🙂' : '🌱';
 
   var bad = Object.keys(G.bad).sort(function(a, c){ return G.bad[c] - G.bad[a]; }).slice(0, 3);
   var help = {}; KEYS.forEach(function(k){ help[k[0]] = k[1]; });
@@ -791,11 +882,13 @@ function endShow(){
     $('cls2').value = w0.cls || $('cls').value || '';
     $('nick2').value = w0.name || $('nick').value || '';
     $('sendmsg').textContent = ''; $('sendmsg').className = 'sendmsg';
+    $('sendbox').classList.remove('sent');
     $('btn-send').disabled = false;
     $('btn-send').textContent = '순위에 올리기';
     lastSent = { stage:G.stage.t, score:G.score, wpm:wpm, acc:acc, combo:G.maxCombo, missed:G.missed };
   }
   show('end');
+  confetti();
   /* 분반과 이름을 이미 적어 두었으면 알아서 올린다 */
   if(can && $('cls2').value && $('nick2').value.trim()) send(true);
 }
@@ -823,6 +916,7 @@ function send(auto){
       + (extra || '') + ' · ' + ROUND + '회차 순위에 반영됩니다';
     $('btn-send').textContent = '다시 올리기';
     $('btn-send').disabled = false;
+    if(auto) $('sendbox').classList.add('sent');   /* 다 됐으면 칸은 접는다 */
     loadRank();
   };
   var bad = function(){
