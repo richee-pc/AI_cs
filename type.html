@@ -219,18 +219,43 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 .sendmsg.bad{color:var(--bad)}
 .sendmsg.wait{color:var(--muted)}
 
-/* ── 순위표 ── */
-.rank{width:100%;border-collapse:collapse;font-size:15.5px}
-.rank th,.rank td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
-.rank th{font-size:13.5px;color:var(--muted);font-weight:500}
-.rank td.c{text-align:center;font-family:var(--mono)}
-.rank .me{background:var(--blue-xl)}
-.rank .medal{font-size:1.15rem}
-.rank tr.top td{font-weight:700}
-.rankwrap{overflow-x:auto}
+/* ── 순위 카드 (좁은 화면에서도 안 짜부라지게 표 대신 카드로) ── */
+.rlist{display:flex;flex-direction:column;gap:8px}
+.rrow{display:flex;align-items:center;gap:12px;padding:11px 14px;
+  background:var(--tint);border:1.5px solid var(--line);border-radius:14px}
+.rrow .medal{font-size:1.5rem;width:1.9em;text-align:center;flex:none;line-height:1}
+.rrow .medal.num{font-family:var(--mono);font-size:1.05rem;color:var(--muted);font-weight:700}
+.rrow .mid{flex:1;min-width:0}
+.rrow .who2{font-family:var(--disp);font-size:1.05rem;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow .meta{font-size:13.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow .pts{text-align:right;flex:none}
+.rrow .pts b{font-family:var(--mono);font-size:1.3rem;color:var(--blue-d);display:block;line-height:1.15}
+.rrow .pts span{font-size:12.5px;color:var(--muted)}
+.rrow.top1{background:linear-gradient(100deg,#FFF6DC,var(--tint));border-color:#F0C24B}
+.rrow.top2{background:linear-gradient(100deg,#F1F4F9,var(--tint));border-color:#BCC6D6}
+.rrow.top3{background:linear-gradient(100deg,#FBEEE3,var(--tint));border-color:#D6A97E}
+.rrow.me{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-xl)}
+.rrow .metag{font-size:12px;background:var(--fill);color:var(--on-fill);
+  border-radius:99px;padding:1px 9px;margin-left:6px;vertical-align:2px}
+.rempty{color:var(--muted);font-size:15px;padding:14px 4px}
+@media (prefers-color-scheme:dark){
+  .rrow.top1{background:linear-gradient(100deg,#3A3016,var(--tint));border-color:#8A6F2A}
+  .rrow.top2{background:linear-gradient(100deg,#232C3A,var(--tint));border-color:#4C5B70}
+  .rrow.top3{background:linear-gradient(100deg,#33251A,var(--tint));border-color:#7E5B3A}
+}
 .rankhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
 .rankhead select{font:inherit;font-size:15px;background:var(--tint);color:var(--ink);
   border:1.5px solid var(--line);border-radius:10px;padding:7px 12px}
+
+/* ── 게임 끝 알림 ── */
+.over{position:absolute;inset:0;display:grid;place-items:center;z-index:6;
+  background:rgba(7,12,34,.86);color:#fff;text-align:center;animation:fadein .25s}
+@keyframes fadein{from{opacity:0}}
+.over .big{font-family:var(--disp);font-weight:800;font-size:clamp(2.1rem,8vw,3.2rem);
+  text-shadow:0 0 34px rgba(125,211,252,.8);animation:pop2 .45s cubic-bezier(.2,1.5,.5,1)}
+@keyframes pop2{from{transform:scale(.6);opacity:0}}
+.over .why{margin-top:8px;font-size:1.05rem;color:#9FB6E8}
 
 .hide{display:none !important}
 .note{background:var(--tint);border:1px solid var(--line);border-radius:14px;
@@ -318,6 +343,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       <div class="field" id="field">
         <div class="danger" id="danger"></div>
         <div class="count hide" id="count"></div>
+        <div class="over hide" id="over"></div>
       </div>
 
       <div class="typebar">
@@ -333,6 +359,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
   <!-- ── 결과 ── -->
   <section class="card hide" id="scr-end">
     <p class="grade" id="grade"></p>
+    <p class="sub" id="r-stage" style="margin:-6px 0 14px"></p>
     <div class="res">
       <div class="rc"><div class="n" id="r-score">0</div><div class="l">점수</div></div>
       <div class="rc"><div class="n" id="r-wpm">0</div><div class="l">분당 타수</div></div>
@@ -360,12 +387,14 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     </div>
 
     <div class="go">
-      <button class="btn" type="button" id="btn-again">한 번 더</button>
+      <button class="btn" type="button" id="btn-again">🔄 한 번 더</button>
       <button class="btn ghost" type="button" id="btn-home">단계 고르기</button>
+      <a class="btn ghost" href="https://richee-pc.github.io/AI_cs/"
+         style="text-decoration:none;display:inline-flex;align-items:center">나가기</a>
     </div>
   </section>
 
-  <!-- ── 순위표 ── -->
+  <!-- ── 순위 ── -->
   <section class="card">
     <div class="rankhead">
       <h2 style="margin:0">🏆 이번 회차 순위</h2>
@@ -378,7 +407,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       <button class="btn ghost" type="button" id="btn-rank" style="padding:8px 18px;font-size:15px">새로고침</button>
       <span class="hint" id="rank-note"></span>
     </div>
-    <div class="rankwrap"><table class="rank" id="ranktbl"><tbody></tbody></table></div>
+    <div class="rlist" id="ranklist"></div>
   </section>
 </div>
 
@@ -500,7 +529,7 @@ document.addEventListener('click', function(e){
     return;
   }
   if(t.id === 'btn-start' || t.id === 'btn-again'){ countdown(); return; }
-  if(t.id === 'btn-quit'){ finish(); return; }
+  if(t.id === 'btn-quit'){ finish('quit'); return; }
   if(t.id === 'btn-home'){ show('start'); return; }
   if(t.id === 'btn-send'){ send(); return; }
   if(t.id === 'btn-rank'){ loadRank(); return; }
@@ -534,6 +563,7 @@ function start(){
   var S = STAGES[stageIx];
   G = { stage:S, mode:mode, words:[], score:0, combo:0, maxCombo:0, life:3,
         left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false };
+  $('over').classList.add('hide');
   $('type').value = ''; $('type').className = '';
   say(''); paintHud();
   Array.prototype.forEach.call($('field').querySelectorAll('.blip,.gain,.spark'),
@@ -551,7 +581,7 @@ function start(){
 function second(){
   if(!G || G.over) return;
   G.left--; paintHud();
-  if(G.left <= 0) finish();
+  if(G.left <= 0) finish('time');
 }
 
 function paintHud(){
@@ -615,7 +645,7 @@ function loop(now){
         $('arcade').classList.remove('shake'); void $('arcade').offsetWidth;
         $('arcade').classList.add('shake');
         say('«' + esc(w.text) + '» 를 놓쳤습니다.');
-        if(G.life <= 0){ paintHud(); finish(); return; }
+        if(G.life <= 0){ paintHud(); finish('life'); return; }
       }
       paintHud();
     }
@@ -665,7 +695,7 @@ $('type').addEventListener('input', function(){
 });
 $('type').addEventListener('keydown', function(e){
   if(e.key === 'Enter'){ e.preventDefault(); this.value = ''; this.dispatchEvent(new Event('input')); }
-  if(e.key === 'Escape'){ e.preventDefault(); finish(); }
+  if(e.key === 'Escape'){ e.preventDefault(); finish('quit'); }
 });
 $('scr-play').addEventListener('click', function(e){
   if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') $('type').focus();
@@ -704,12 +734,25 @@ function clear(ix){
 }
 
 /* ── 끝 ── */
-function finish(){
+/* 끝날 때 갑자기 화면이 바뀌면 놀라므로, 잠깐 «끝!» 을 보여 준 뒤 결과로 넘어간다 */
+function finish(reason){
   if(!G || G.over) return;
   G.over = true;
   clearInterval(tick); cancelAnimationFrame(raf);
   $('danger').classList.remove('hot');
 
+  var ov = $('over');
+  var head = reason === 'life' ? '생명 끝!' : reason === 'quit' ? '그만하기' : '시간 종료!';
+  var why  = reason === 'life' ? '떨어지는 것을 세 번 놓쳤어요'
+           : reason === 'quit' ? '' : '60초를 다 썼습니다';
+  ov.innerHTML = '<div><div class="big">' + head + '</div>'
+    + (why ? '<div class="why">' + why + '</div>' : '')
+    + '<div class="why" style="margin-top:12px">결과를 정리하는 중…</div></div>';
+  ov.classList.remove('hide');
+  setTimeout(function(){ ov.classList.add('hide'); endShow(); }, reason === 'quit' ? 350 : 1400);
+}
+
+function endShow(){
   var used = Math.max(1, 60 - G.left);
   var wpm = Math.round(G.chars / used * 60);
   var tries = G.cleared + G.typos;
@@ -719,6 +762,8 @@ function finish(){
   $('r-wpm').textContent = wpm;
   $('r-acc').textContent = acc + '%';
   $('r-max').textContent = G.maxCombo;
+  $('r-stage').innerHTML = '<b>' + esc(G.stage.n + ' · ' + G.stage.t) + '</b>'
+    + (G.mode === 'calm' ? ' · 연습 모드' : ' · 도전 모드');
 
   var b = best(), key = G.stage.id, isBest = G.score > (b[key] || 0);
   if(isBest){ b[key] = G.score; setBest(b); }
@@ -751,19 +796,22 @@ function finish(){
     lastSent = { stage:G.stage.t, score:G.score, wpm:wpm, acc:acc, combo:G.maxCombo, missed:G.missed };
   }
   show('end');
+  /* 분반과 이름을 이미 적어 두었으면 알아서 올린다 */
+  if(can && $('cls2').value && $('nick2').value.trim()) send(true);
 }
 
 /* ── 순위에 올리기 ── */
-function send(){
+function send(auto){
   if(!lastSent) return;
   var cls = $('cls2').value, name = $('nick2').value.trim();
   var msg = $('sendmsg');
-  if(!cls){ msg.className = 'sendmsg bad'; msg.textContent = '분반을 골라 주세요.'; return; }
-  if(!name){ msg.className = 'sendmsg bad'; msg.textContent = '이름을 적어 주세요.'; return; }
+  if(!cls){ if(!auto){ msg.className = 'sendmsg bad'; msg.textContent = '분반을 골라 주세요.'; } return; }
+  if(!name){ if(!auto){ msg.className = 'sendmsg bad'; msg.textContent = '이름을 적어 주세요.'; } return; }
   setWho({cls:cls, name:name});
 
   $('btn-send').disabled = true;
-  msg.className = 'sendmsg wait'; msg.textContent = '보내는 중…';
+  msg.className = 'sendmsg wait';
+  msg.textContent = auto ? '기록을 올리는 중…' : '보내는 중…';
 
   var d = { key:SUBMIT_KEY, type:'typing', round:ROUND, cls:cls, name:name,
             stage:lastSent.stage, score:lastSent.score, wpm:lastSent.wpm,
@@ -771,7 +819,8 @@ function send(){
   var body = JSON.stringify(d);
   var good = function(extra){
     msg.className = 'sendmsg ok';
-    msg.textContent = '올렸습니다' + (extra || '') + ' · ' + ROUND + '회차';
+    msg.textContent = (auto ? '✅ 자동으로 올렸습니다' : '올렸습니다')
+      + (extra || '') + ' · ' + ROUND + '회차 순위에 반영됩니다';
     $('btn-send').textContent = '다시 올리기';
     $('btn-send').disabled = false;
     loadRank();
@@ -794,34 +843,34 @@ function send(){
 /* ── 순위표 ── */
 function loadRank(){
   var cls = $('rank-cls').value;
-  var tb = $('ranktbl').querySelector('tbody');
+  var box = $('ranklist');
   $('rank-note').textContent = '불러오는 중…';
   var url = SUBMIT_URL + '?list=typing&key=' + encodeURIComponent(SUBMIT_KEY)
           + '&round=' + ROUND + (cls ? '&cls=' + encodeURIComponent(cls) : '');
-  fetch(url).then(function(r){ return r.json(); }).then(function(j){
+  return fetch(url).then(function(r){ return r.json(); }).then(function(j){
     if(!j || !j.ok || !j.rows){ throw new Error('no'); }
     var me = who();
     var rows = j.rows.slice(0, 20);
     if(!rows.length){
-      tb.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">아직 기록이 없습니다. 첫 번째가 되어 보세요!</td></tr>';
+      box.innerHTML = '<p class="rempty">아직 기록이 없습니다. 첫 번째가 되어 보세요!</p>';
       $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ')';
       return;
     }
-    var medal = ['🥇','🥈','🥉','4','5'];
-    tb.innerHTML = '<tr><th>등수</th><th>이름</th><th>분반</th><th>단계</th>'
-      + '<th style="text-align:center">점수</th><th style="text-align:center">타수</th></tr>'
-      + rows.map(function(r, i){
-        var mine = me.name && r.name === me.name && (!me.cls || r.cls === me.cls);
-        return '<tr class="' + (i < 5 ? 'top ' : '') + (mine ? 'me' : '') + '">'
-          + '<td class="medal">' + (i < 5 ? medal[i] : (i + 1)) + '</td>'
-          + '<td>' + esc(r.name) + '</td><td>' + esc(r.cls) + '</td>'
-          + '<td style="color:var(--muted);font-size:14.5px">' + esc(r.stage) + '</td>'
-          + '<td class="c"><b>' + r.score + '</b></td><td class="c">' + r.wpm + '</td></tr>';
-      }).join('');
+    var medal = ['🥇','🥈','🥉'];
+    box.innerHTML = rows.map(function(r, i){
+      var mine = me.name && r.name === me.name && (!me.cls || r.cls === me.cls);
+      var cls2 = 'rrow' + (i < 3 ? ' top' + (i + 1) : '') + (mine ? ' me' : '');
+      var mk = i < 3 ? '<span class="medal">' + medal[i] + '</span>'
+                     : '<span class="medal num">' + (i + 1) + '</span>';
+      return '<div class="' + cls2 + '">' + mk
+        + '<div class="mid"><div class="who2">' + esc(r.name)
+        +   (mine ? '<span class="metag">나</span>' : '') + '</div>'
+        +   '<div class="meta">' + esc(r.cls) + ' · ' + esc(r.stage) + ' · ' + r.wpm + '타</div></div>'
+        + '<div class="pts"><b>' + r.score + '</b><span>점</span></div></div>';
+    }).join('');
     $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다';
   }).catch(function(){
-    tb.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">'
-      + '순위를 불러오지 못했습니다. 잠시 뒤 «새로고침»을 눌러 보세요.</td></tr>';
+    box.innerHTML = '<p class="rempty">순위를 불러오지 못했습니다. 잠시 뒤 «새로고침»을 눌러 보세요.</p>';
     $('rank-note').textContent = ROUND + '회차';
   });
 }
