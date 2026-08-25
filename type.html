@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="자판 깨우기 - 코딩 타자 워밍업. 수업 시작 전 2분, 파이썬 낱말과 기호를 게임으로">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="자판 깨우기 · 코딩 타자 워밍업">
+<meta property="og:description" content="수업 시작 전 2분, 파이썬 낱말과 기호를 게임으로">
+<meta property="og:type" content="website">
+<link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/mono.woff2?v=4e9fb374" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌨️</text></svg>">
+<title>자판 깨우기 · 코딩 타자 워밍업</title>
+<style>
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=f5a931b2') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f5f08870') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=69ddb123') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8143db88') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=4e9fb374') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --bad:#B3261E; --bad-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --bad:#F2A29B; --bad-bg:#3A1714;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:linear-gradient(180deg,var(--sky-bg),var(--sky-bg2));
+  color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--blue-d)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+.wrap{max-width:980px;margin:0 auto;padding:22px 18px 64px}
+
+/* ── 머리말 ── */
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.back{font-size:14.5px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink2)}
+h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
+  margin:6px 0 4px;letter-spacing:-.02em}
+.lead{margin:0;color:var(--ink2);font-size:16.5px;max-width:62ch}
+.best{margin-left:auto;font-size:14.5px;color:var(--muted);background:var(--white);
+  border:1px solid var(--line);border-radius:99px;padding:6px 15px;white-space:nowrap}
+.best b{color:var(--blue-d);font-family:var(--mono)}
+
+/* ── 카드 ── */
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--sh);padding:22px;margin-top:18px}
+.card h2{font-family:var(--disp);font-size:1.22rem;font-weight:700;margin:0 0 4px}
+.card .sub{margin:0 0 16px;color:var(--muted);font-size:15px}
+
+/* ── 단계 고르기 ── */
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.stage{text-align:left;background:var(--tint);border:1.5px solid var(--line);border-radius:14px;
+  padding:15px 16px;display:flex;flex-direction:column;gap:5px;transition:border-color .15s,background .15s}
+.stage:hover{border-color:var(--blue-l);background:var(--blue-xl)}
+.stage[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-xl);box-shadow:var(--sh)}
+.stage .n{font-size:13px;color:var(--muted);letter-spacing:.06em}
+.stage .t{font-family:var(--disp);font-size:1.06rem;font-weight:700}
+.stage .ex{font-family:var(--mono);font-size:14px;color:var(--blue-d);word-break:break-all}
+.stage .d{font-size:14px;color:var(--muted);line-height:1.55}
+
+.modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.mbtn{background:var(--tint);border:1.5px solid var(--line);border-radius:99px;
+  padding:8px 18px;font-size:15px;color:var(--ink2)}
+.mbtn[aria-pressed="true"]{background:var(--fill);border-color:var(--fill);color:var(--on-fill);font-weight:700}
+.modes .hint{font-size:14px;color:var(--muted);margin-left:4px}
+
+.go{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--fill);border:0;color:var(--on-fill);border-radius:99px;
+  padding:13px 30px;font-family:var(--disp);font-size:1.08rem;font-weight:700;box-shadow:var(--sh2)}
+.btn:hover{background:var(--fill-d)}
+.btn.ghost{background:var(--white);color:var(--blue-d);border:1.5px solid var(--line);box-shadow:none}
+.btn.ghost:hover{background:var(--tint)}
+
+/* ── 게임 ── */
+.hud{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chip{background:var(--white);border:1px solid var(--line);border-radius:99px;
+  padding:6px 15px;font-size:15px;color:var(--ink2);white-space:nowrap}
+.chip b{font-family:var(--mono);color:var(--blue-d);font-size:16px}
+.chip.combo b{color:var(--warm)}
+.chip.life{letter-spacing:2px}
+.timebar{flex:1;min-width:120px;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.timebar i{display:block;height:100%;background:var(--fill);width:100%;border-radius:99px}
+.timebar.warn i{background:var(--warm)}
+
+.field{position:relative;height:min(46vh,340px);background:var(--tint);
+  border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.field::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 20px)}
+.word{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:1.28rem;
+  background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:5px 13px;
+  white-space:pre;box-shadow:var(--sh);color:var(--ink)}
+.word .hit{color:var(--good);font-weight:700}
+.word.lock{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-xl),var(--sh)}
+.word.low{border-color:var(--warm);color:var(--warm)}
+.pop{position:absolute;transform:translateX(-50%);font-family:var(--disp);font-weight:800;
+  color:var(--good);pointer-events:none;animation:pop .55s ease-out forwards}
+@keyframes pop{to{opacity:0;transform:translate(-50%,-34px) scale(1.25)}}
+
+.typebar{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.typebar input{flex:1;min-width:200px;font-family:var(--mono);font-size:1.25rem;
+  background:var(--white);color:var(--ink);border:2px solid var(--line);
+  border-radius:12px;padding:12px 16px}
+.typebar input:focus{outline:0;border-color:var(--blue)}
+.typebar input.ko{border-color:var(--bad);background:var(--bad-bg)}
+.typebar input.miss{border-color:var(--warm)}
+.say{min-height:24px;margin:10px 0 0;font-size:15.5px;color:var(--muted)}
+.say.ko{color:var(--bad);font-weight:700}
+.say.ok{color:var(--good)}
+
+/* ── 기호 도움말 ── */
+.keys{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.key{display:inline-flex;align-items:center;gap:7px;background:var(--white);
+  border:1px solid var(--line);border-radius:99px;padding:5px 13px;font-size:14px;color:var(--ink2)}
+.key b{font-family:var(--mono);font-size:16px;color:var(--blue-d)}
+
+/* ── 결과 ── */
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:4px 0 18px}
+.rc{background:var(--tint);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rc .n{font-family:var(--mono);font-size:1.9rem;font-weight:700;line-height:1.15;color:var(--blue-d)}
+.rc .l{font-size:13.5px;color:var(--muted)}
+.weak{background:var(--warm-bg);border:1px solid var(--line);border-radius:14px;
+  padding:13px 16px;font-size:15.5px;color:var(--ink2);line-height:1.7}
+.weak b{font-family:var(--mono);font-size:18px;color:var(--warm)}
+.grade{font-family:var(--disp);font-size:1.3rem;font-weight:800;margin:0 0 10px}
+
+.hide{display:none !important}
+.note{background:var(--tint);border:1px solid var(--line);border-radius:14px;
+  padding:13px 16px;font-size:15px;color:var(--ink2);line-height:1.7;margin-top:16px}
+.note b{color:var(--ink)}
+.note code{font-family:var(--mono);font-size:14.5px;background:var(--white);
+  border:1px solid var(--line);border-radius:5px;padding:0 5px}
+
+footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px solid var(--line);margin-top:34px}
+.sign{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:26px}
+.bun-gif{width:clamp(120px,26vw,164px);height:auto;display:block;border-radius:18px}
+.ptp{display:inline-flex;align-items:center;gap:8px;font-family:var(--disp);font-size:1.0625rem;
+  color:var(--blue-d);background:var(--white);border:1px solid var(--line);border-radius:99px;
+  padding:8px 20px;box-shadow:var(--sh);letter-spacing:.01em}
+.ptp span{font-size:1.1875rem;line-height:1}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <a class="back" href="https://richee-pc.github.io/AI_cs/">← 인공지능 기초 수업 자료</a>
+      <h1>자판 깨우기 ⌨️</h1>
+      <p class="lead">수업 시작 전 <b>2분</b>, 파이썬에서 쓰는 낱말과 기호로 손을 풉니다.
+        떨어지는 것을 그대로 쳐서 터뜨리세요.</p>
+    </div>
+    <span class="best">최고 기록 <b id="best">0</b></span>
+  </div>
+
+  <!-- ── 시작 화면 ── -->
+  <section class="card" id="scr-start">
+    <h2>무엇으로 풀까요</h2>
+    <p class="sub">셋 다 파이썬 실습에서 실제로 치게 되는 것들입니다.</p>
+    <div class="stages" id="stages"></div>
+
+    <div class="modes">
+      <button class="mbtn" type="button" data-mode="fall" aria-pressed="true">🎮 도전 (떨어짐)</button>
+      <button class="mbtn" type="button" data-mode="calm" aria-pressed="false">🧘 연습 (안 떨어짐)</button>
+      <span class="hint">처음이라면 연습부터 해도 됩니다.</span>
+    </div>
+
+    <div class="go">
+      <button class="btn" type="button" id="btn-start">시작하기</button>
+      <span class="hint" style="font-size:14.5px;color:var(--muted)">60초 · 생명 3개</span>
+    </div>
+
+    <div class="note">
+      <b>영문 상태에서 치세요.</b> 한글로 쳐지면 바로 알려 드립니다 —
+      <code>한/영</code> 키는 스페이스바 오른쪽에 있습니다.
+      기호가 어디 있는지 모르면 게임 화면 아래 <b>기호 찾기</b>를 보세요.
+    </div>
+  </section>
+
+  <!-- ── 게임 화면 ── -->
+  <section class="card hide" id="scr-play">
+    <div class="hud">
+      <span class="chip">점수 <b id="hud-score">0</b></span>
+      <span class="chip combo">연속 <b id="hud-combo">0</b></span>
+      <span class="chip life" id="hud-life">♥♥♥</span>
+      <span class="chip">남은 시간 <b id="hud-time">60</b></span>
+      <div class="timebar" id="timebar"><i></i></div>
+    </div>
+
+    <div class="field" id="field"></div>
+
+    <div class="typebar">
+      <input id="type" type="text" autocomplete="off" autocapitalize="off"
+             autocorrect="off" spellcheck="false" placeholder="여기에 그대로 치세요"
+             aria-label="타자 입력칸">
+      <button class="btn ghost" type="button" id="btn-quit">그만하기</button>
+    </div>
+    <p class="say" id="say"></p>
+
+    <div class="keys" id="keys"></div>
+  </section>
+
+  <!-- ── 결과 화면 ── -->
+  <section class="card hide" id="scr-end">
+    <p class="grade" id="grade"></p>
+    <div class="res">
+      <div class="rc"><div class="n" id="r-score">0</div><div class="l">점수</div></div>
+      <div class="rc"><div class="n" id="r-wpm">0</div><div class="l">분당 타수</div></div>
+      <div class="rc"><div class="n" id="r-acc">0%</div><div class="l">정확도</div></div>
+      <div class="rc"><div class="n" id="r-max">0</div><div class="l">최고 연속</div></div>
+    </div>
+    <div class="weak" id="weak"></div>
+    <div class="go">
+      <button class="btn" type="button" id="btn-again">한 번 더</button>
+      <button class="btn ghost" type="button" id="btn-home">단계 고르기</button>
+      <a class="btn ghost" href="https://richee-pc.github.io/AI_cs/colab.html"
+         style="text-decoration:none;display:inline-flex;align-items:center">코랩 공부하러 가기 →</a>
+    </div>
+  </section>
+</div>
+
+<footer><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <p style="margin:0;text-align:center">조선대학교부속고등학교 · 2026학년도 2학기 · 인공지능 기초</p>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+         alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+"use strict";
+
+/* ══════════════════════════════════════════════════════════════
+   자판 깨우기 — 코딩 타자 워밍업
+   떨어지는 낱말을 그대로 쳐서 터뜨린다. 60초, 생명 3개.
+   ══════════════════════════════════════════════════════════════ */
+
+var $ = function(id){ return document.getElementById(id); };
+
+/* ── 문제 꾸러미 ─────────────────────────────────── */
+var STAGES = [
+  { id:'word', n:'1단계', t:'파이썬 낱말', ex:'print  input  range',
+    d:'실습에서 가장 자주 치는 영문 낱말입니다. 영타가 처음이라면 여기부터.',
+    speed:26, gap:1500, pool:[
+      'print','input','int','str','float','len','range','sum','max','min',
+      'for','if','else','elif','while','def','return','import','list','append',
+      'True','False','None','and','or','not','in','type','round','sorted',
+      'name','age','score','data','total','result','count','value','index','item'
+    ]},
+  { id:'sym', n:'2단계', t:'기호', ex:'( )  " "  :  [ ]  ==',
+    d:'키보드에서 찾는 데 제일 오래 걸리는 것들. 이것만 익혀도 절반은 끝납니다.',
+    speed:22, gap:1700, pool:[
+      '(',')','[',']','{','}','"',"'",':',';',',','.','_','#','=','==','!=',
+      '>=','<=','>','<','+','-','*','/','//','%','+=','-=','()','[]','""',
+      '#','_','"','(',')',':','=','=='
+    ]},
+  { id:'line', n:'3단계', t:'코드 한 줄', ex:'age = int(input())',
+    d:'낱말과 기호가 섞인 진짜 코드입니다. 띄어쓰기까지 똑같이 쳐야 합니다.',
+    speed:15, gap:2600, pool:[
+      'print("hi")','age = 17','name = "kim"','x = y + 1','total += 1',
+      'if x >= 90:','for i in range(5):','while n > 0:','def f(a, b):','return a * b',
+      'scores = [88, 92]','print(len(data))','n = int(input())','print(f"{x}")',
+      'data.append(1)','sum(a) / len(a)','df.head()','x, y = 1, 2','print(a[0])','a = [1, 2, 3]'
+    ]}
+];
+
+var KEYS = [
+  ['"','Shift + ’'], ['(','Shift + 9'], [')','Shift + 0'], [':','Shift + ;'],
+  ['_','Shift + -'], ['#','Shift + 3'], ['%','Shift + 5'], ['[ ]','P 오른쪽'],
+  ['{ }','Shift + [ ]'], ['< >','Shift + , .'], ['=','백스페이스 왼쪽'], ['*','Shift + 8']
+];
+
+var KO = /[ㄱ-ㆎ가-힣]/;
+var BEST_KEY = 'ai-type-best';
+
+/* ── 상태 ────────────────────────────────────────── */
+var stageIx = 0, mode = 'fall';
+var G = null, raf = 0, tick = 0;
+
+function best(){ try{ return JSON.parse(localStorage.getItem(BEST_KEY) || '{}'); }catch(e){ return {}; } }
+function setBest(o){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(o)); }catch(e){} }
+function paintBest(){
+  var b = best(), s = STAGES[stageIx].id;
+  $('best').textContent = b[s] || 0;
+}
+
+/* ── 시작 화면 ───────────────────────────────────── */
+function drawStages(){
+  $('stages').innerHTML = STAGES.map(function(s, i){
+    return '<button class="stage" type="button" data-i="' + i + '" aria-pressed="' + (i === stageIx) + '">'
+      + '<span class="n">' + s.n + '</span>'
+      + '<span class="t">' + s.t + '</span>'
+      + '<span class="ex">' + s.ex.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>'
+      + '<span class="d">' + s.d + '</span></button>';
+  }).join('');
+}
+function drawKeys(){
+  $('keys').innerHTML = '<span class="key" style="background:var(--blue-xl);border-color:var(--blue-l)">기호 찾기</span>'
+    + KEYS.map(function(k){
+        return '<span class="key"><b>' + k[0].replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</b>' + k[1] + '</span>';
+      }).join('');
+}
+
+document.addEventListener('click', function(e){
+  var st = e.target.closest ? e.target.closest('.stage') : null;
+  if(st){ stageIx = +st.dataset.i; drawStages(); paintBest(); return; }
+  var mb = e.target.closest ? e.target.closest('.mbtn') : null;
+  if(mb){
+    mode = mb.dataset.mode;
+    Array.prototype.forEach.call(document.querySelectorAll('.mbtn'), function(b){
+      b.setAttribute('aria-pressed', b === mb ? 'true' : 'false');
+    });
+    return;
+  }
+  if(e.target.id === 'btn-start' || e.target.id === 'btn-again'){ start(); return; }
+  if(e.target.id === 'btn-quit'){ finish(); return; }
+  if(e.target.id === 'btn-home'){ show('start'); return; }
+});
+
+function show(which){
+  $('scr-start').classList.toggle('hide', which !== 'start');
+  $('scr-play').classList.toggle('hide', which !== 'play');
+  $('scr-end').classList.toggle('hide', which !== 'end');
+}
+
+/* ── 한 판 시작 ──────────────────────────────────── */
+function start(){
+  var S = STAGES[stageIx];
+  G = {
+    stage:S, mode:mode, words:[], score:0, combo:0, maxCombo:0, life:3,
+    left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false
+  };
+  show('play');
+  $('type').value = '';
+  $('type').className = '';
+  $('say').textContent = '';
+  $('say').className = 'say';
+  $('field').innerHTML = '';
+  drawKeys();
+  paintHud();
+  $('type').focus();
+  clearInterval(tick);
+  tick = setInterval(second, 1000);
+  cancelAnimationFrame(raf);
+  G.last = performance.now();
+  raf = requestAnimationFrame(loop);
+  spawn();
+  if(G.mode === 'fall') spawn();   /* 연습 모드는 한 번에 하나만 */
+}
+
+function second(){
+  if(!G || G.over) return;
+  G.left--;
+  paintHud();
+  if(G.left <= 0) finish();
+}
+
+function paintHud(){
+  $('hud-score').textContent = G.score;
+  $('hud-combo').textContent = G.combo;
+  $('hud-life').textContent = '♥'.repeat(Math.max(0, G.life)) + '♡'.repeat(Math.max(0, 3 - G.life));
+  $('hud-time').textContent = G.left;
+  var bar = $('timebar');
+  bar.querySelector('i').style.width = (G.left / 60 * 100) + '%';
+  bar.classList.toggle('warn', G.left <= 10);
+}
+
+/* ── 낱말 떨어뜨리기 ─────────────────────────────── */
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function spawn(){
+  if(!G || G.over) return;
+  var pool = G.stage.pool;
+  var text = pool[Math.floor(Math.random() * pool.length)];
+  /* 같은 것이 동시에 두 개 뜨면 헷갈리므로 피한다 */
+  for(var t = 0; t < 8 && G.words.some(function(w){ return w.text === text; }); t++){
+    text = pool[Math.floor(Math.random() * pool.length)];
+  }
+  var el = document.createElement('div');
+  el.className = 'word';
+  el.innerHTML = esc(text);
+  $('field').appendChild(el);
+  var fw = $('field').clientWidth;
+  var half = Math.min(el.offsetWidth / 2 + 8, fw / 2 - 8);
+  var w = {
+    text:text, el:el, id:++G.id,
+    x: half + Math.random() * Math.max(1, fw - half * 2),
+    y: -30,
+    v: G.stage.speed * (G.mode === 'calm' ? 0 : 1) * (1 + Math.min(G.cleared, 20) * 0.03)
+  };
+  el.style.left = w.x + 'px';
+  el.style.top = w.y + 'px';
+  G.words.push(w);
+}
+
+function loop(now){
+  if(!G || G.over) return;
+  var dt = Math.min((now - G.last) / 1000, 0.05);
+  G.last = now;
+  var h = $('field').clientHeight;
+
+  for(var i = G.words.length - 1; i >= 0; i--){
+    var w = G.words[i];
+    w.y += w.v * dt;
+    w.el.style.top = w.y + 'px';
+    w.el.classList.toggle('low', w.y > h * 0.68);
+    if(w.y > h - 26){
+      /* 바닥에 닿음 */
+      w.el.remove();
+      G.words.splice(i, 1);
+      G.missed++;
+      G.combo = 0;
+      if(G.mode === 'fall'){
+        G.life--;
+        say('«' + w.text + '» 를 놓쳤습니다.', '');
+        if(G.life <= 0){ paintHud(); finish(); return; }
+      }
+      paintHud();
+    }
+  }
+
+  /* 새로 띄우기 */
+  var want = G.mode === 'calm' ? 1 : 3;
+  var gap = G.stage.gap * (G.mode === 'calm' ? 1 : Math.max(0.55, 1 - G.cleared * 0.02));
+  if(G.words.length < want && now - G.spawnAt > gap){ G.spawnAt = now; spawn(); }
+
+  raf = requestAnimationFrame(loop);
+}
+
+function say(msg, cls){
+  $('say').textContent = msg;
+  $('say').className = 'say ' + (cls || '');
+}
+
+/* ── 입력 ────────────────────────────────────────── */
+$('type').addEventListener('input', function(){
+  if(!G || G.over) return;
+  var v = this.value;
+
+  /* 한글 감지 */
+  if(KO.test(v)){
+    this.classList.remove('miss');
+    this.classList.add('ko');
+    say('한글로 쳐지고 있어요. 스페이스바 오른쪽 «한/영» 키를 한 번 누르세요.', 'ko');
+    return;
+  }
+  this.classList.remove('ko');
+
+  /* 정확히 맞은 낱말이 있나 */
+  var hitIx = -1;
+  for(var i = 0; i < G.words.length; i++){ if(G.words[i].text === v){ hitIx = i; break; } }
+  if(hitIx >= 0){ clear(hitIx); this.value = ''; this.classList.remove('miss'); return; }
+
+  /* 앞부분이 맞는 낱말 표시 */
+  var any = false;
+  G.words.forEach(function(w){
+    var ok = v.length > 0 && w.text.indexOf(v) === 0;
+    if(ok) any = true;
+    w.el.classList.toggle('lock', ok);
+    w.el.innerHTML = ok ? '<span class="hit">' + esc(v) + '</span>' + esc(w.text.slice(v.length))
+                        : esc(w.text);
+  });
+
+  if(v.length === 0){ this.classList.remove('miss'); say(''); return; }
+  if(any){
+    this.classList.remove('miss');
+    say('');
+  } else {
+    this.classList.add('miss');
+    var ch = v.charAt(v.length - 1);
+    G.bad[ch] = (G.bad[ch] || 0) + 1;
+    G.typos++;
+    say('맞는 것이 없어요. 지우고 다시 — 백스페이스는 엔터 위에 있습니다.', '');
+  }
+});
+
+/* 엔터로 지우기 */
+$('type').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ e.preventDefault(); this.value = ''; this.dispatchEvent(new Event('input')); }
+  if(e.key === 'Escape'){ e.preventDefault(); finish(); }
+});
+
+/* 어디를 눌러도 입력칸으로 */
+$('scr-play').addEventListener('click', function(e){
+  if(e.target.tagName !== 'BUTTON') $('type').focus();
+});
+
+function clear(ix){
+  var w = G.words[ix];
+  G.chars += w.text.length;
+  G.cleared++;
+  G.combo++;
+  if(G.combo > G.maxCombo) G.maxCombo = G.combo;
+  var gain = w.text.length * 10 * Math.min(G.combo, 5);
+  G.score += gain;
+
+  var p = document.createElement('div');
+  p.className = 'pop';
+  p.textContent = '+' + gain;
+  p.style.left = w.x + 'px';
+  p.style.top = w.y + 'px';
+  $('field').appendChild(p);
+  setTimeout(function(){ p.remove(); }, 600);
+
+  w.el.remove();
+  G.words.splice(ix, 1);
+  say(G.combo >= 3 ? G.combo + '연속! 좋아요' : '', 'ok');
+  paintHud();
+  if(G.words.length === 0) spawn();
+}
+
+/* ── 끝 ──────────────────────────────────────────── */
+function finish(){
+  if(!G || G.over) return;
+  G.over = true;
+  clearInterval(tick);
+  cancelAnimationFrame(raf);
+
+  var used = Math.max(1, 60 - G.left);
+  var wpm = Math.round(G.chars / used * 60);
+  var tries = G.cleared + G.typos;
+  var acc = tries ? Math.round(G.cleared / tries * 100) : 100;
+
+  $('r-score').textContent = G.score;
+  $('r-wpm').textContent = wpm;
+  $('r-acc').textContent = acc + '%';
+  $('r-max').textContent = G.maxCombo;
+
+  var b = best(), key = G.stage.id, isBest = G.score > (b[key] || 0);
+  if(isBest){ b[key] = G.score; setBest(b); }
+  paintBest();
+
+  $('grade').textContent = isBest ? '🎉 최고 기록입니다!'
+    : G.score >= 800 ? '👏 손이 잘 풀렸습니다'
+    : G.score >= 300 ? '🙂 좋습니다, 한 번 더'
+    : '🌱 천천히 해도 됩니다';
+
+  /* 자주 틀린 글자 */
+  var bad = Object.keys(G.bad).sort(function(a, c){ return G.bad[c] - G.bad[a]; }).slice(0, 3);
+  var help = {};
+  KEYS.forEach(function(k){ help[k[0]] = k[1]; });
+  $('weak').innerHTML = bad.length
+    ? '<b>' + bad.map(esc).join('</b> <b>') + '</b> 에서 자주 멈췄습니다. '
+      + bad.map(function(c){ return help[c] ? esc(c) + ' 는 ' + help[c] : null; })
+           .filter(Boolean).join(' · ')
+      + (G.missed ? '<br>놓친 것 ' + G.missed + '개.' : '')
+    : (G.missed ? '오타는 거의 없었습니다. 놓친 것 ' + G.missed + '개 — 조금만 더 빨리!'
+                : '오타도 놓친 것도 없습니다. 완벽해요!');
+
+  show('end');
+}
+
+/* ── 첫 화면 ── */
+drawStages();
+drawKeys();
+paintBest();
+show('start');
+</script>
+</body>
+</html>
