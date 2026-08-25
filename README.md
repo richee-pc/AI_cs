@@ -92,6 +92,14 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 | `pose.html` | **동작으로 하는 게임 만들기** — 티처블 머신 포즈 인식 · 15분 실습 |
 | (예정) `unit2.html` · `unit4.html` | Ⅱ · Ⅳ단원 |
 
+코랩 노트북은 깃허브에 두고 코랩이 바로 열게 합니다.
+
+| 파일 | 여는 주소 |
+|---|---|
+| `notebooks/00_colab_first_steps.ipynb` | `colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/00_colab_first_steps.ipynb` |
+
+저장소가 공개라서 학생이 따로 권한을 받을 필요가 없습니다. 학생은 **파일 → 드라이브에 사본 저장** 을 눌러야 고친 것이 남습니다.
+
 차림표에는 없고 다른 쪽이 불러 쓰는 딸림 쪽입니다.
 
 | 주소 | 내용 |
@@ -106,6 +114,7 @@ ch25 + 1 + 반(2자리) + 번호(2자리) + @gsuite.gen.go.kr
 ├── index.html            # 2학기 안내
 ├── unit1.html            # Ⅰ단원 수업 자료
 ├── colab.html            # 코랩 파이썬 첫걸음 (Ⅱ단원 실습 준비)
+├── notebooks/            # 코랩이 바로 여는 .ipynb
 ├── unit3.html            # Ⅲ단원 수업 자료
 ├── debate.html           # 수행평가 ① 토론 안내
 ├── pose.html             # 동작 게임 만들기 (티처블 머신)

@@ -486,6 +486,23 @@ button{font:inherit;color:inherit;cursor:pointer}
   border-radius:999px;padding:5px 13px;font-size:14.5px;color:var(--ink-2);white-space:nowrap}
 .pill:hover{border-color:var(--ink-3);color:var(--ink)}
 .pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+/* 진짜 코랩으로 건너가는 단추 */
+.pill.go-colab{text-decoration:none;border-color:var(--colab);color:var(--colab-dark);font-weight:500}
+.pill.go-colab:hover{background:var(--colab);border-color:var(--colab);color:#3a2c00}
+:root[data-theme="dark"] .pill.go-colab{color:var(--colab)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pill.go-colab{color:var(--colab)}}
+
+/* 마지막 단원 끝의 건너가기 안내 */
+.gonext{margin-top:18px;background:var(--surface);border:1px solid var(--line);
+  border-left:4px solid var(--colab);border-radius:var(--r-m);padding:16px 18px}
+.gonext h4{margin:0 0 6px;font-size:18px;font-weight:600}
+.gonext p{margin:0 0 13px;font-size:15.5px;color:var(--ink-2);line-height:1.7}
+.gonext .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  background:var(--colab);color:#3a2c00;border-radius:999px;padding:10px 20px;
+  font-size:16px;font-weight:600}
+.gonext .btn:hover{filter:brightness(1.06)}
+.gonext .mins{margin-left:10px;font-size:14px;color:var(--ink-3)}
+
 /* 인공지능 기초 수업 사이트로 돌아가는 길 */
 .backlink{display:inline-block;font-size:13.5px;color:var(--ink-3);text-decoration:none;
   margin:0 0 5px;padding:1px 0;border-bottom:1px solid transparent}
@@ -761,6 +778,9 @@ button{font:inherit;color:inherit;cursor:pointer}
     </div>
     <div class="head-meta">
       <span class="tag">고2 인공지능 기초 · 코랩 실습 전 2차시</span>
+      <a class="pill go-colab" target="_blank" rel="noopener"
+         href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/00_colab_first_steps.ipynb"
+         title="진짜 코랩에서 10분 실습">🚀 진짜 코랩에서</a>
       <button class="pill" type="button" id="btn-level" title="학습 수준 다시 고르기">수준 <span id="lv-now">–</span></button>
       <button class="pill" type="button" id="btn-err">🚑 에러 사전</button>
       <button class="pill" type="button" id="btn-report">📋 활동 기록</button>
@@ -2044,7 +2064,14 @@ const U_UNIT2 = {
        note:'BMI 열에 빈칸이 <b>1개</b> 있습니다. file2.csv 의 계약번호 11번 줄이에요. 다음 줄의 <code>dropna()</code> 가 이 줄을 통째로 버립니다.'},
 
       {md:true, h:'그래서 오늘 배운 것으로 어디까지 읽히나',
-       p:'스물다섯 줄 중 <b>pandas 명령 이름</b>(read_csv · concat · dropna · corr …)만 새로 외우면, 나머지 문법은 전부 오늘 다룬 것입니다. 다음 시간에 모르는 줄을 만나면 <b>「코드 읽어내기」 모드에서 했던 것처럼 한 줄씩 짚어</b> 보세요.'}
+       p:'스물다섯 줄 중 <b>pandas 명령 이름</b>(read_csv · concat · dropna · corr …)만 새로 외우면, 나머지 문법은 전부 오늘 다룬 것입니다. 다음 시간에 모르는 줄을 만나면 <b>「코드 읽어내기」 모드에서 했던 것처럼 한 줄씩 짚어</b> 보세요.'
+        + '<div class="gonext"><h4>마지막으로, 진짜 코랩에서 10분</h4>'
+        + '<p>여기까지가 흉내였다면 이제 <b>진짜 코랩</b>입니다. 지금까지 한 것 중 꼭 필요한 것만 골라 담은 '
+        + '짧은 노트북을 열어 두었습니다. 링크를 누르면 코랩이 바로 열립니다 — '
+        + '<b>맨 위 「파일 → 드라이브에 사본 저장」</b> 부터 누르세요.</p>'
+        + '<a class="btn" target="_blank" rel="noopener" '
+        + 'href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/00_colab_first_steps.ipynb">'
+        + '🚀 코랩에서 열기</a><span class="mins">약 10분 · 준비물 없음</span></div>'}
     ]
   }
 };
