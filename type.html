@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="자판 깨우기 - 코딩 타자 워밍업. 수업 시작 전 2분, 파이썬 낱말과 기호를 게임으로">
+<meta name="description" content="자판 깨우기 - 코딩 타자 워밍업. 수업 시작 전 2분, 파이썬 낱말과 기호를 게임으로. 2주마다 순위">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="자판 깨우기 · 코딩 타자 워밍업">
-<meta property="og:description" content="수업 시작 전 2분, 파이썬 낱말과 기호를 게임으로">
+<meta property="og:description" content="파이썬 낱말과 기호가 떨어집니다. 그대로 쳐서 터뜨리세요.">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
@@ -60,91 +60,149 @@ body{margin:0;background:linear-gradient(180deg,var(--sky-bg),var(--sky-bg2));
 button{font:inherit;color:inherit;cursor:pointer}
 a{color:var(--blue-d)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
-
-.wrap{max-width:980px;margin:0 auto;padding:22px 18px 64px}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 18px 64px}
 
 /* ── 머리말 ── */
-.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.top{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .back{font-size:14.5px;color:var(--muted);text-decoration:none}
 .back:hover{color:var(--ink2)}
 h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
   margin:6px 0 4px;letter-spacing:-.02em}
-.lead{margin:0;color:var(--ink2);font-size:16.5px;max-width:62ch}
-.best{margin-left:auto;font-size:14.5px;color:var(--muted);background:var(--white);
+.lead{margin:0;color:var(--ink2);font-size:16.5px;max-width:60ch}
+.topright{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pillbox{font-size:14.5px;color:var(--muted);background:var(--white);
   border:1px solid var(--line);border-radius:99px;padding:6px 15px;white-space:nowrap}
-.best b{color:var(--blue-d);font-family:var(--mono)}
+.pillbox b{color:var(--blue-d);font-family:var(--mono)}
 
-/* ── 카드 ── */
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
-  box-shadow:var(--sh);padding:22px;margin-top:18px}
+  box-shadow:var(--sh);padding:22px;margin-top:16px}
 .card h2{font-family:var(--disp);font-size:1.22rem;font-weight:700;margin:0 0 4px}
 .card .sub{margin:0 0 16px;color:var(--muted);font-size:15px}
 
-/* ── 단계 고르기 ── */
+/* ── 단계 · 모드 ── */
 .stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 .stage{text-align:left;background:var(--tint);border:1.5px solid var(--line);border-radius:14px;
-  padding:15px 16px;display:flex;flex-direction:column;gap:5px;transition:border-color .15s,background .15s}
-.stage:hover{border-color:var(--blue-l);background:var(--blue-xl)}
+  padding:15px 16px;display:flex;flex-direction:column;gap:5px;transition:border-color .15s,background .15s,transform .12s}
+.stage:hover{border-color:var(--blue-l);background:var(--blue-xl);transform:translateY(-2px)}
 .stage[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-xl);box-shadow:var(--sh)}
 .stage .n{font-size:13px;color:var(--muted);letter-spacing:.06em}
 .stage .t{font-family:var(--disp);font-size:1.06rem;font-weight:700}
 .stage .ex{font-family:var(--mono);font-size:14px;color:var(--blue-d);word-break:break-all}
 .stage .d{font-size:14px;color:var(--muted);line-height:1.55}
-
 .modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
 .mbtn{background:var(--tint);border:1.5px solid var(--line);border-radius:99px;
   padding:8px 18px;font-size:15px;color:var(--ink2)}
 .mbtn[aria-pressed="true"]{background:var(--fill);border-color:var(--fill);color:var(--on-fill);font-weight:700}
-.modes .hint{font-size:14px;color:var(--muted);margin-left:4px}
+.hint{font-size:14px;color:var(--muted)}
+
+.who{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px;
+  padding-top:16px;border-top:1px solid var(--line)}
+.who label{font-size:15px;color:var(--ink2)}
+.who select,.who input{font:inherit;font-size:15px;background:var(--tint);color:var(--ink);
+  border:1.5px solid var(--line);border-radius:10px;padding:8px 12px}
+.who input{width:150px}
+.who select:focus,.who input:focus{outline:0;border-color:var(--blue)}
 
 .go{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .btn{background:var(--fill);border:0;color:var(--on-fill);border-radius:99px;
   padding:13px 30px;font-family:var(--disp);font-size:1.08rem;font-weight:700;box-shadow:var(--sh2)}
 .btn:hover{background:var(--fill-d)}
+.btn:disabled{opacity:.5;cursor:default}
 .btn.ghost{background:var(--white);color:var(--blue-d);border:1.5px solid var(--line);box-shadow:none}
 .btn.ghost:hover{background:var(--tint)}
 
-/* ── 게임 ── */
-.hud{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.chip{background:var(--white);border:1px solid var(--line);border-radius:99px;
-  padding:6px 15px;font-size:15px;color:var(--ink2);white-space:nowrap}
-.chip b{font-family:var(--mono);color:var(--blue-d);font-size:16px}
-.chip.combo b{color:var(--warm)}
-.chip.life{letter-spacing:2px}
-.timebar{flex:1;min-width:120px;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-.timebar i{display:block;height:100%;background:var(--fill);width:100%;border-radius:99px}
-.timebar.warn i{background:var(--warm)}
+/* ══ 아케이드 ══════════════════════════════════════ */
+.arcade{--f1:#7DD3FC; --f2:#A78BFA; --f3:#FDE68A;
+  position:relative;border-radius:18px;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% -10%,#1B2C55 0%,#0B1330 55%,#070C22 100%);
+  border:1.5px solid #24345F;box-shadow:inset 0 0 60px rgba(0,0,0,.55)}
+.arcade::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(1.4px 1.4px at 12% 22%,#cfe4ff 50%,transparent 51%),
+    radial-gradient(1.2px 1.2px at 68% 14%,#a9c9ff 50%,transparent 51%),
+    radial-gradient(1.6px 1.6px at 35% 62%,#dbeafe 50%,transparent 51%),
+    radial-gradient(1.1px 1.1px at 84% 48%,#93c5fd 50%,transparent 51%),
+    radial-gradient(1.3px 1.3px at 22% 84%,#bfdbfe 50%,transparent 51%),
+    radial-gradient(1.1px 1.1px at 57% 36%,#e0f2fe 50%,transparent 51%),
+    radial-gradient(1.4px 1.4px at 92% 78%,#c7d2fe 50%,transparent 51%)}
+.arcade.shake{animation:shake .34s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)}
+  40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(3px)}}
 
-.field{position:relative;height:min(46vh,340px);background:var(--tint);
-  border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
-.field::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
-  background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 20px)}
-.word{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:1.28rem;
-  background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:5px 13px;
-  white-space:pre;box-shadow:var(--sh);color:var(--ink)}
-.word .hit{color:var(--good);font-weight:700}
-.word.lock{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-xl),var(--sh)}
-.word.low{border-color:var(--warm);color:var(--warm)}
-.pop{position:absolute;transform:translateX(-50%);font-family:var(--disp);font-weight:800;
-  color:var(--good);pointer-events:none;animation:pop .55s ease-out forwards}
-@keyframes pop{to{opacity:0;transform:translate(-50%,-34px) scale(1.25)}}
+/* HUD */
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px;
+  background:rgba(9,15,38,.72);border-bottom:1px solid #24345F;color:#DCE9FF}
+.bar .score{font-family:var(--mono);font-size:1.9rem;font-weight:700;line-height:1;
+  color:#fff;text-shadow:0 0 18px rgba(125,211,252,.6);min-width:3.6ch}
+.bar .score.bump{animation:bump .3s}
+@keyframes bump{50%{transform:scale(1.22);color:#FDE68A}}
+.bar .lab{font-size:12.5px;color:#8FA8D8;letter-spacing:.08em;display:block;line-height:1.2}
+.hearts{font-size:1.15rem;letter-spacing:3px;color:#FF7A85;text-shadow:0 0 12px rgba(255,122,133,.55)}
+.hearts .off{color:#3A4A75;text-shadow:none}
+.combo{min-width:112px}
+.combo .cnum{font-family:var(--mono);font-size:1.05rem;color:#FDE68A;font-weight:700}
+.cgauge{height:6px;background:#22315A;border-radius:99px;overflow:hidden;margin-top:4px}
+.cgauge i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#FDE68A,#FB923C);transition:width .18s}
+.twrap{flex:1;min-width:130px}
+.tgauge{height:8px;background:#22315A;border-radius:99px;overflow:hidden;margin-top:5px}
+.tgauge i{display:block;height:100%;width:100%;border-radius:99px;background:linear-gradient(90deg,#38BDF8,#818CF8)}
+.tgauge.warn i{background:linear-gradient(90deg,#FB923C,#F87171)}
 
-.typebar{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.typebar input{flex:1;min-width:200px;font-family:var(--mono);font-size:1.25rem;
-  background:var(--white);color:var(--ink);border:2px solid var(--line);
-  border-radius:12px;padding:12px 16px}
-.typebar input:focus{outline:0;border-color:var(--blue)}
-.typebar input.ko{border-color:var(--bad);background:var(--bad-bg)}
-.typebar input.miss{border-color:var(--warm)}
-.say{min-height:24px;margin:10px 0 0;font-size:15.5px;color:var(--muted)}
-.say.ko{color:var(--bad);font-weight:700}
-.say.ok{color:var(--good)}
+/* 필드 */
+.field{position:relative;height:min(48vh,360px)}
+.danger{position:absolute;left:0;right:0;bottom:0;height:64px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(248,113,113,.16));
+  border-bottom:2px solid rgba(248,113,113,.5)}
+.danger.hot{background:linear-gradient(180deg,transparent,rgba(248,113,113,.42));
+  animation:dpulse .7s infinite}
+@keyframes dpulse{50%{border-bottom-color:rgba(248,113,113,1)}}
 
-/* ── 기호 도움말 ── */
+.blip{position:absolute;transform:translateX(-50%);font-family:var(--mono);
+  font-size:1.3rem;font-weight:700;padding:7px 16px;border-radius:12px;white-space:pre;
+  color:#EAF3FF;background:linear-gradient(180deg,rgba(40,58,110,.96),rgba(24,36,78,.96));
+  border:1.5px solid var(--bc,#4C7DF0);box-shadow:0 0 22px -4px var(--bc,#4C7DF0),0 6px 18px rgba(0,0,0,.45)}
+.blip .hit{color:#86EFAC;text-shadow:0 0 10px rgba(134,239,172,.75)}
+.blip.lock{border-color:#86EFAC;box-shadow:0 0 30px -2px rgba(134,239,172,.8),0 6px 18px rgba(0,0,0,.45);
+  transform:translateX(-50%) scale(1.06)}
+.blip.low{border-color:#F87171;box-shadow:0 0 26px -2px rgba(248,113,113,.85);animation:wob .5s infinite}
+@keyframes wob{50%{transform:translateX(-50%) rotate(-2.5deg)}}
+
+.spark{position:absolute;width:8px;height:8px;border-radius:99px;pointer-events:none;
+  background:var(--sc,#FDE68A);animation:spark .6s ease-out forwards}
+@keyframes spark{to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}}
+.gain{position:absolute;transform:translateX(-50%);font-family:var(--disp);font-weight:800;
+  font-size:1.25rem;color:#FDE68A;text-shadow:0 0 14px rgba(253,230,138,.8);
+  pointer-events:none;animation:gain .7s ease-out forwards}
+@keyframes gain{to{opacity:0;transform:translate(-50%,-46px) scale(1.3)}}
+
+.count{position:absolute;inset:0;display:grid;place-items:center;z-index:5;
+  background:rgba(7,12,34,.82);color:#fff;font-family:var(--disp);font-weight:800;
+  font-size:clamp(3rem,14vw,6rem);text-shadow:0 0 40px rgba(125,211,252,.8)}
+.count small{display:block;font-size:1.1rem;font-weight:600;color:#9FB6E8;margin-top:10px;text-shadow:none}
+
+/* 입력 */
+.typebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;
+  background:rgba(9,15,38,.72);border-top:1px solid #24345F}
+.typebar input{flex:1;min-width:190px;font-family:var(--mono);font-size:1.25rem;
+  background:#0E1838;color:#EAF3FF;border:2px solid #2F4478;border-radius:12px;padding:12px 16px}
+.typebar input::placeholder{color:#5C74AC}
+.typebar input:focus{outline:0;border-color:#7DD3FC;box-shadow:0 0 0 4px rgba(125,211,252,.18)}
+.typebar input.ko{border-color:#F87171;background:#2A1220}
+.typebar input.miss{border-color:#FB923C}
+.typebar .qbtn{background:transparent;border:1.5px solid #2F4478;color:#AFC4F0;
+  border-radius:99px;padding:9px 18px;font-size:15px}
+.typebar .qbtn:hover{border-color:#7DD3FC;color:#fff}
+.say{min-height:22px;margin:0;padding:0 16px 12px;font-size:15px;color:#8FA8D8;
+  background:rgba(9,15,38,.72)}
+.say.ko{color:#FCA5A5;font-weight:700}
+.say.ok{color:#86EFAC}
+
 .keys{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
 .key{display:inline-flex;align-items:center;gap:7px;background:var(--white);
   border:1px solid var(--line);border-radius:99px;padding:5px 13px;font-size:14px;color:var(--ink2)}
 .key b{font-family:var(--mono);font-size:16px;color:var(--blue-d)}
+.key.head{background:var(--blue-xl);border-color:var(--blue-l);color:var(--blue-d);font-weight:700}
 
 /* ── 결과 ── */
 .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:4px 0 18px}
@@ -154,7 +212,25 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 .weak{background:var(--warm-bg);border:1px solid var(--line);border-radius:14px;
   padding:13px 16px;font-size:15.5px;color:var(--ink2);line-height:1.7}
 .weak b{font-family:var(--mono);font-size:18px;color:var(--warm)}
-.grade{font-family:var(--disp);font-size:1.3rem;font-weight:800;margin:0 0 10px}
+.grade{font-family:var(--disp);font-size:1.35rem;font-weight:800;margin:0 0 10px}
+.sendbox{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.sendmsg{margin:10px 0 0;font-size:15px;min-height:22px}
+.sendmsg.ok{color:var(--good);font-weight:700}
+.sendmsg.bad{color:var(--bad)}
+.sendmsg.wait{color:var(--muted)}
+
+/* ── 순위표 ── */
+.rank{width:100%;border-collapse:collapse;font-size:15.5px}
+.rank th,.rank td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+.rank th{font-size:13.5px;color:var(--muted);font-weight:500}
+.rank td.c{text-align:center;font-family:var(--mono)}
+.rank .me{background:var(--blue-xl)}
+.rank .medal{font-size:1.15rem}
+.rank tr.top td{font-weight:700}
+.rankwrap{overflow-x:auto}
+.rankhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.rankhead select{font:inherit;font-size:15px;background:var(--tint);color:var(--ink);
+  border:1.5px solid var(--line);border-radius:10px;padding:7px 12px}
 
 .hide{display:none !important}
 .note{background:var(--tint);border:1px solid var(--line);border-radius:14px;
@@ -181,13 +257,16 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     <div>
       <a class="back" href="https://richee-pc.github.io/AI_cs/">← 인공지능 기초 수업 자료</a>
       <h1>자판 깨우기 ⌨️</h1>
-      <p class="lead">수업 시작 전 <b>2분</b>, 파이썬에서 쓰는 낱말과 기호로 손을 풉니다.
-        떨어지는 것을 그대로 쳐서 터뜨리세요.</p>
+      <p class="lead">파이썬 낱말과 기호가 떨어집니다. <b>그대로 쳐서 터뜨리세요.</b>
+        수업 시작 전 손 푸는 시간입니다.</p>
     </div>
-    <span class="best">최고 기록 <b id="best">0</b></span>
+    <div class="topright">
+      <span class="pillbox" id="roundchip">회차 <b>–</b></span>
+      <span class="pillbox">내 최고 <b id="best">0</b></span>
+    </div>
   </div>
 
-  <!-- ── 시작 화면 ── -->
+  <!-- ── 시작 ── -->
   <section class="card" id="scr-start">
     <h2>무엇으로 풀까요</h2>
     <p class="sub">셋 다 파이썬 실습에서 실제로 치게 되는 것들입니다.</p>
@@ -196,12 +275,25 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     <div class="modes">
       <button class="mbtn" type="button" data-mode="fall" aria-pressed="true">🎮 도전 (떨어짐)</button>
       <button class="mbtn" type="button" data-mode="calm" aria-pressed="false">🧘 연습 (안 떨어짐)</button>
-      <span class="hint">처음이라면 연습부터 해도 됩니다.</span>
+      <span class="hint">순위에는 <b>도전</b>만 올라갑니다.</span>
+    </div>
+
+    <div class="who">
+      <label for="cls">분반</label>
+      <select id="cls">
+        <option value="">고르기</option>
+        <option value="인기A">인기A</option>
+        <option value="인기D">인기D</option>
+        <option value="인기E">인기E</option>
+      </select>
+      <label for="nick">이름</label>
+      <input id="nick" type="text" maxlength="12" placeholder="김하늘" autocomplete="off">
+      <span class="hint">순위에 올릴 때만 씁니다. 지금 안 적어도 됩니다.</span>
     </div>
 
     <div class="go">
       <button class="btn" type="button" id="btn-start">시작하기</button>
-      <span class="hint" style="font-size:14.5px;color:var(--muted)">60초 · 생명 3개</span>
+      <span class="hint">60초 · 생명 3개</span>
     </div>
 
     <div class="note">
@@ -211,30 +303,34 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     </div>
   </section>
 
-  <!-- ── 게임 화면 ── -->
-  <section class="card hide" id="scr-play">
-    <div class="hud">
-      <span class="chip">점수 <b id="hud-score">0</b></span>
-      <span class="chip combo">연속 <b id="hud-combo">0</b></span>
-      <span class="chip life" id="hud-life">♥♥♥</span>
-      <span class="chip">남은 시간 <b id="hud-time">60</b></span>
-      <div class="timebar" id="timebar"><i></i></div>
+  <!-- ── 게임 ── -->
+  <section class="card hide" id="scr-play" style="padding:0;overflow:hidden;border:0;background:transparent;box-shadow:none">
+    <div class="arcade" id="arcade">
+      <div class="bar">
+        <div><span class="lab">점수</span><span class="score" id="hud-score">0</span></div>
+        <div class="combo"><span class="lab">연속 <b class="cnum" id="hud-combo">0</b></span>
+          <div class="cgauge"><i id="cgauge"></i></div></div>
+        <div><span class="lab">생명</span><span class="hearts" id="hud-life"></span></div>
+        <div class="twrap"><span class="lab">남은 시간 <b class="cnum" id="hud-time">60</b></span>
+          <div class="tgauge" id="tgauge"><i></i></div></div>
+      </div>
+
+      <div class="field" id="field">
+        <div class="danger" id="danger"></div>
+        <div class="count hide" id="count"></div>
+      </div>
+
+      <div class="typebar">
+        <input id="type" type="text" autocomplete="off" autocapitalize="off" autocorrect="off"
+               spellcheck="false" placeholder="여기에 그대로 치세요" aria-label="타자 입력칸">
+        <button class="qbtn" type="button" id="btn-quit">그만하기</button>
+      </div>
+      <p class="say" id="say"></p>
     </div>
-
-    <div class="field" id="field"></div>
-
-    <div class="typebar">
-      <input id="type" type="text" autocomplete="off" autocapitalize="off"
-             autocorrect="off" spellcheck="false" placeholder="여기에 그대로 치세요"
-             aria-label="타자 입력칸">
-      <button class="btn ghost" type="button" id="btn-quit">그만하기</button>
-    </div>
-    <p class="say" id="say"></p>
-
     <div class="keys" id="keys"></div>
   </section>
 
-  <!-- ── 결과 화면 ── -->
+  <!-- ── 결과 ── -->
   <section class="card hide" id="scr-end">
     <p class="grade" id="grade"></p>
     <div class="res">
@@ -244,12 +340,45 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       <div class="rc"><div class="n" id="r-max">0</div><div class="l">최고 연속</div></div>
     </div>
     <div class="weak" id="weak"></div>
+
+    <div class="sendbox" id="sendbox">
+      <h2 style="font-size:1.05rem;margin:0 0 4px">이번 회차 순위에 올리기</h2>
+      <p class="sub" style="margin-bottom:12px">같은 회차에 여러 번 내도 <b>가장 높은 기록</b>만 남습니다.</p>
+      <div class="who" style="border:0;padding-top:0;margin-top:0">
+        <label for="cls2">분반</label>
+        <select id="cls2">
+          <option value="">고르기</option>
+          <option value="인기A">인기A</option>
+          <option value="인기D">인기D</option>
+          <option value="인기E">인기E</option>
+        </select>
+        <label for="nick2">이름</label>
+        <input id="nick2" type="text" maxlength="12" placeholder="김하늘" autocomplete="off">
+        <button class="btn" type="button" id="btn-send" style="padding:10px 24px">순위에 올리기</button>
+      </div>
+      <p class="sendmsg" id="sendmsg"></p>
+    </div>
+
     <div class="go">
       <button class="btn" type="button" id="btn-again">한 번 더</button>
       <button class="btn ghost" type="button" id="btn-home">단계 고르기</button>
-      <a class="btn ghost" href="https://richee-pc.github.io/AI_cs/colab.html"
-         style="text-decoration:none;display:inline-flex;align-items:center">코랩 공부하러 가기 →</a>
     </div>
+  </section>
+
+  <!-- ── 순위표 ── -->
+  <section class="card">
+    <div class="rankhead">
+      <h2 style="margin:0">🏆 이번 회차 순위</h2>
+      <select id="rank-cls">
+        <option value="">전체</option>
+        <option value="인기A">인기A</option>
+        <option value="인기D">인기D</option>
+        <option value="인기E">인기E</option>
+      </select>
+      <button class="btn ghost" type="button" id="btn-rank" style="padding:8px 18px;font-size:15px">새로고침</button>
+      <span class="hint" id="rank-note"></span>
+    </div>
+    <div class="rankwrap"><table class="rank" id="ranktbl"><tbody></tbody></table></div>
   </section>
 </div>
 
@@ -268,13 +397,35 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
 /* ══════════════════════════════════════════════════════════════
    자판 깨우기 — 코딩 타자 워밍업
    떨어지는 낱말을 그대로 쳐서 터뜨린다. 60초, 생명 3개.
+   기록은 선생님 구글 시트로 보내 2주에 한 회차씩 순위를 매긴다.
    ══════════════════════════════════════════════════════════════ */
 
 var $ = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
 
-/* ── 문제 꾸러미 ─────────────────────────────────── */
+/* ── 제출 (다른 활동지와 같은 수집기를 씁니다) ── */
+var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
+var SUBMIT_KEY = 'chosun-ai-2026';
+
+/* ── 회차 : 2학기 첫날부터 2주씩 ── */
+var ROUND_START = new Date(2026, 7, 12);        // 2026-08-12 (1차시)
+var ROUND_DAYS = 14;
+function roundNo(when){
+  var d = when || new Date();
+  var days = Math.floor((d - ROUND_START) / 86400000);
+  return Math.max(1, Math.floor(days / ROUND_DAYS) + 1);
+}
+function roundSpan(n){
+  var a = new Date(ROUND_START.getTime() + (n - 1) * ROUND_DAYS * 86400000);
+  var b = new Date(a.getTime() + (ROUND_DAYS - 1) * 86400000);
+  var f = function(x){ return (x.getMonth() + 1) + '/' + x.getDate(); };
+  return f(a) + ' ~ ' + f(b);
+}
+var ROUND = roundNo();
+
+/* ── 문제 꾸러미 ── */
 var STAGES = [
-  { id:'word', n:'1단계', t:'파이썬 낱말', ex:'print  input  range',
+  { id:'word', n:'1단계', t:'파이썬 낱말', ex:'print  input  range', hue:'#4C7DF0',
     d:'실습에서 가장 자주 치는 영문 낱말입니다. 영타가 처음이라면 여기부터.',
     speed:26, gap:1500, pool:[
       'print','input','int','str','float','len','range','sum','max','min',
@@ -282,14 +433,14 @@ var STAGES = [
       'True','False','None','and','or','not','in','type','round','sorted',
       'name','age','score','data','total','result','count','value','index','item'
     ]},
-  { id:'sym', n:'2단계', t:'기호', ex:'( )  " "  :  [ ]  ==',
+  { id:'sym', n:'2단계', t:'기호', ex:'( )  " "  :  [ ]  ==', hue:'#A78BFA',
     d:'키보드에서 찾는 데 제일 오래 걸리는 것들. 이것만 익혀도 절반은 끝납니다.',
     speed:22, gap:1700, pool:[
       '(',')','[',']','{','}','"',"'",':',';',',','.','_','#','=','==','!=',
       '>=','<=','>','<','+','-','*','/','//','%','+=','-=','()','[]','""',
       '#','_','"','(',')',':','=','=='
     ]},
-  { id:'line', n:'3단계', t:'코드 한 줄', ex:'age = int(input())',
+  { id:'line', n:'3단계', t:'코드 한 줄', ex:'age = int(input())', hue:'#38BDF8',
     d:'낱말과 기호가 섞인 진짜 코드입니다. 띄어쓰기까지 똑같이 쳐야 합니다.',
     speed:15, gap:2600, pool:[
       'print("hi")','age = 17','name = "kim"','x = y + 1','total += 1',
@@ -307,72 +458,86 @@ var KEYS = [
 
 var KO = /[ㄱ-ㆎ가-힣]/;
 var BEST_KEY = 'ai-type-best';
+var WHO_KEY = 'ai-type-who';
 
-/* ── 상태 ────────────────────────────────────────── */
 var stageIx = 0, mode = 'fall';
-var G = null, raf = 0, tick = 0;
+var G = null, raf = 0, tick = 0, lastSent = null;
 
+/* ── 저장 ── */
 function best(){ try{ return JSON.parse(localStorage.getItem(BEST_KEY) || '{}'); }catch(e){ return {}; } }
 function setBest(o){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(o)); }catch(e){} }
-function paintBest(){
-  var b = best(), s = STAGES[stageIx].id;
-  $('best').textContent = b[s] || 0;
-}
+function who(){ try{ return JSON.parse(localStorage.getItem(WHO_KEY) || '{}'); }catch(e){ return {}; } }
+function setWho(o){ try{ localStorage.setItem(WHO_KEY, JSON.stringify(o)); }catch(e){} }
+function paintBest(){ $('best').textContent = best()[STAGES[stageIx].id] || 0; }
 
-/* ── 시작 화면 ───────────────────────────────────── */
+/* ── 시작 화면 ── */
 function drawStages(){
   $('stages').innerHTML = STAGES.map(function(s, i){
     return '<button class="stage" type="button" data-i="' + i + '" aria-pressed="' + (i === stageIx) + '">'
-      + '<span class="n">' + s.n + '</span>'
-      + '<span class="t">' + s.t + '</span>'
-      + '<span class="ex">' + s.ex.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>'
-      + '<span class="d">' + s.d + '</span></button>';
+      + '<span class="n">' + s.n + '</span><span class="t">' + s.t + '</span>'
+      + '<span class="ex">' + esc(s.ex) + '</span><span class="d">' + s.d + '</span></button>';
   }).join('');
 }
 function drawKeys(){
-  $('keys').innerHTML = '<span class="key" style="background:var(--blue-xl);border-color:var(--blue-l)">기호 찾기</span>'
-    + KEYS.map(function(k){
-        return '<span class="key"><b>' + k[0].replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</b>' + k[1] + '</span>';
-      }).join('');
+  $('keys').innerHTML = '<span class="key head">기호 찾기</span>'
+    + KEYS.map(function(k){ return '<span class="key"><b>' + esc(k[0]) + '</b>' + k[1] + '</span>'; }).join('');
+}
+function show(w){
+  $('scr-start').classList.toggle('hide', w !== 'start');
+  $('scr-play').classList.toggle('hide', w !== 'play');
+  $('scr-end').classList.toggle('hide', w !== 'end');
 }
 
 document.addEventListener('click', function(e){
-  var st = e.target.closest ? e.target.closest('.stage') : null;
+  var t = e.target;
+  var st = t.closest ? t.closest('.stage') : null;
   if(st){ stageIx = +st.dataset.i; drawStages(); paintBest(); return; }
-  var mb = e.target.closest ? e.target.closest('.mbtn') : null;
+  var mb = t.closest ? t.closest('.mbtn') : null;
   if(mb){
     mode = mb.dataset.mode;
     Array.prototype.forEach.call(document.querySelectorAll('.mbtn'), function(b){
-      b.setAttribute('aria-pressed', b === mb ? 'true' : 'false');
-    });
+      b.setAttribute('aria-pressed', b === mb ? 'true' : 'false'); });
     return;
   }
-  if(e.target.id === 'btn-start' || e.target.id === 'btn-again'){ start(); return; }
-  if(e.target.id === 'btn-quit'){ finish(); return; }
-  if(e.target.id === 'btn-home'){ show('start'); return; }
+  if(t.id === 'btn-start' || t.id === 'btn-again'){ countdown(); return; }
+  if(t.id === 'btn-quit'){ finish(); return; }
+  if(t.id === 'btn-home'){ show('start'); return; }
+  if(t.id === 'btn-send'){ send(); return; }
+  if(t.id === 'btn-rank'){ loadRank(); return; }
+});
+document.addEventListener('change', function(e){
+  if(e.target.id === 'rank-cls'){ loadRank(); return; }
+  if(e.target.id === 'cls' || e.target.id === 'nick'){
+    setWho({cls:$('cls').value, name:$('nick').value.trim()});
+  }
+  if(e.target.id === 'cls2' || e.target.id === 'nick2'){
+    setWho({cls:$('cls2').value, name:$('nick2').value.trim()});
+  }
 });
 
-function show(which){
-  $('scr-start').classList.toggle('hide', which !== 'start');
-  $('scr-play').classList.toggle('hide', which !== 'play');
-  $('scr-end').classList.toggle('hide', which !== 'end');
+/* ── 3 · 2 · 1 ── */
+function countdown(){
+  show('play');
+  drawKeys();
+  var c = $('count'), k = 3;
+  c.classList.remove('hide');
+  c.innerHTML = '3<small>준비!</small>';
+  var iv = setInterval(function(){
+    k--;
+    if(k > 0){ c.innerHTML = k + '<small>' + (k === 2 ? '곧 시작' : '자!') + '</small>'; }
+    else { clearInterval(iv); c.classList.add('hide'); start(); }
+  }, 700);
 }
 
-/* ── 한 판 시작 ──────────────────────────────────── */
+/* ── 한 판 ── */
 function start(){
   var S = STAGES[stageIx];
-  G = {
-    stage:S, mode:mode, words:[], score:0, combo:0, maxCombo:0, life:3,
-    left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false
-  };
-  show('play');
-  $('type').value = '';
-  $('type').className = '';
-  $('say').textContent = '';
-  $('say').className = 'say';
-  $('field').innerHTML = '';
-  drawKeys();
-  paintHud();
+  G = { stage:S, mode:mode, words:[], score:0, combo:0, maxCombo:0, life:3,
+        left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false };
+  $('type').value = ''; $('type').className = '';
+  say(''); paintHud();
+  Array.prototype.forEach.call($('field').querySelectorAll('.blip,.gain,.spark'),
+    function(el){ el.remove(); });
   $('type').focus();
   clearInterval(tick);
   tick = setInterval(second, 1000);
@@ -380,49 +545,50 @@ function start(){
   G.last = performance.now();
   raf = requestAnimationFrame(loop);
   spawn();
-  if(G.mode === 'fall') spawn();   /* 연습 모드는 한 번에 하나만 */
+  if(G.mode === 'fall') spawn();
 }
 
 function second(){
   if(!G || G.over) return;
-  G.left--;
-  paintHud();
+  G.left--; paintHud();
   if(G.left <= 0) finish();
 }
 
 function paintHud(){
-  $('hud-score').textContent = G.score;
+  var s = $('hud-score');
+  if(s.textContent !== String(G.score)){
+    s.textContent = G.score;
+    s.classList.remove('bump'); void s.offsetWidth; s.classList.add('bump');
+  }
   $('hud-combo').textContent = G.combo;
-  $('hud-life').textContent = '♥'.repeat(Math.max(0, G.life)) + '♡'.repeat(Math.max(0, 3 - G.life));
+  $('cgauge').style.width = Math.min(100, G.combo / 5 * 100) + '%';
+  $('hud-life').innerHTML = '♥'.repeat(Math.max(0, G.life))
+    + '<span class="off">' + '♥'.repeat(Math.max(0, 3 - G.life)) + '</span>';
   $('hud-time').textContent = G.left;
-  var bar = $('timebar');
-  bar.querySelector('i').style.width = (G.left / 60 * 100) + '%';
-  bar.classList.toggle('warn', G.left <= 10);
+  $('tgauge').querySelector('i').style.width = (G.left / 60 * 100) + '%';
+  $('tgauge').classList.toggle('warn', G.left <= 10);
 }
 
-/* ── 낱말 떨어뜨리기 ─────────────────────────────── */
-function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function say(msg, cls){ $('say').innerHTML = msg; $('say').className = 'say ' + (cls || ''); }
 
+/* ── 낱말 ── */
 function spawn(){
   if(!G || G.over) return;
   var pool = G.stage.pool;
   var text = pool[Math.floor(Math.random() * pool.length)];
-  /* 같은 것이 동시에 두 개 뜨면 헷갈리므로 피한다 */
-  for(var t = 0; t < 8 && G.words.some(function(w){ return w.text === text; }); t++){
+  for(var t = 0; t < 8 && G.words.some(function(w){ return w.text === text; }); t++)
     text = pool[Math.floor(Math.random() * pool.length)];
-  }
+
   var el = document.createElement('div');
-  el.className = 'word';
-  el.innerHTML = esc(text);
+  el.className = 'blip';
+  el.style.setProperty('--bc', G.stage.hue);
+  el.textContent = text;
   $('field').appendChild(el);
   var fw = $('field').clientWidth;
-  var half = Math.min(el.offsetWidth / 2 + 8, fw / 2 - 8);
-  var w = {
-    text:text, el:el, id:++G.id,
-    x: half + Math.random() * Math.max(1, fw - half * 2),
-    y: -30,
-    v: G.stage.speed * (G.mode === 'calm' ? 0 : 1) * (1 + Math.min(G.cleared, 20) * 0.03)
-  };
+  var half = Math.min(el.offsetWidth / 2 + 10, fw / 2 - 10);
+  var w = { text:text, el:el,
+    x: half + Math.random() * Math.max(1, fw - half * 2), y:-34,
+    v: G.stage.speed * (G.mode === 'calm' ? 0 : 1) * (1 + Math.min(G.cleared, 20) * 0.03) };
   el.style.left = w.x + 'px';
   el.style.top = w.y + 'px';
   G.words.push(w);
@@ -432,61 +598,52 @@ function loop(now){
   if(!G || G.over) return;
   var dt = Math.min((now - G.last) / 1000, 0.05);
   G.last = now;
-  var h = $('field').clientHeight;
+  var h = $('field').clientHeight, hot = false;
 
   for(var i = G.words.length - 1; i >= 0; i--){
     var w = G.words[i];
     w.y += w.v * dt;
     w.el.style.top = w.y + 'px';
-    w.el.classList.toggle('low', w.y > h * 0.68);
-    if(w.y > h - 26){
-      /* 바닥에 닿음 */
-      w.el.remove();
-      G.words.splice(i, 1);
-      G.missed++;
-      G.combo = 0;
+    var low = w.y > h * 0.66;
+    w.el.classList.toggle('low', low);
+    if(low) hot = true;
+    if(w.y > h - 28){
+      w.el.remove(); G.words.splice(i, 1);
+      G.missed++; G.combo = 0;
       if(G.mode === 'fall'){
         G.life--;
-        say('«' + w.text + '» 를 놓쳤습니다.', '');
+        $('arcade').classList.remove('shake'); void $('arcade').offsetWidth;
+        $('arcade').classList.add('shake');
+        say('«' + esc(w.text) + '» 를 놓쳤습니다.');
         if(G.life <= 0){ paintHud(); finish(); return; }
       }
       paintHud();
     }
   }
+  $('danger').classList.toggle('hot', hot);
 
-  /* 새로 띄우기 */
   var want = G.mode === 'calm' ? 1 : 3;
   var gap = G.stage.gap * (G.mode === 'calm' ? 1 : Math.max(0.55, 1 - G.cleared * 0.02));
   if(G.words.length < want && now - G.spawnAt > gap){ G.spawnAt = now; spawn(); }
-
   raf = requestAnimationFrame(loop);
 }
 
-function say(msg, cls){
-  $('say').textContent = msg;
-  $('say').className = 'say ' + (cls || '');
-}
-
-/* ── 입력 ────────────────────────────────────────── */
+/* ── 입력 ── */
 $('type').addEventListener('input', function(){
   if(!G || G.over) return;
   var v = this.value;
 
-  /* 한글 감지 */
   if(KO.test(v)){
-    this.classList.remove('miss');
-    this.classList.add('ko');
-    say('한글로 쳐지고 있어요. 스페이스바 오른쪽 «한/영» 키를 한 번 누르세요.', 'ko');
+    this.classList.remove('miss'); this.classList.add('ko');
+    say('한글로 쳐지고 있어요. 스페이스바 오른쪽 <b>한/영</b> 키를 한 번 누르세요.', 'ko');
     return;
   }
   this.classList.remove('ko');
 
-  /* 정확히 맞은 낱말이 있나 */
-  var hitIx = -1;
-  for(var i = 0; i < G.words.length; i++){ if(G.words[i].text === v){ hitIx = i; break; } }
-  if(hitIx >= 0){ clear(hitIx); this.value = ''; this.classList.remove('miss'); return; }
+  for(var i = 0; i < G.words.length; i++){
+    if(G.words[i].text === v){ clear(i); this.value = ''; this.classList.remove('miss'); return; }
+  }
 
-  /* 앞부분이 맞는 낱말 표시 */
   var any = false;
   G.words.forEach(function(w){
     var ok = v.length > 0 && w.text.indexOf(v) === 0;
@@ -496,60 +653,62 @@ $('type').addEventListener('input', function(){
                         : esc(w.text);
   });
 
-  if(v.length === 0){ this.classList.remove('miss'); say(''); return; }
-  if(any){
-    this.classList.remove('miss');
-    say('');
-  } else {
+  if(!v.length){ this.classList.remove('miss'); say(''); return; }
+  if(any){ this.classList.remove('miss'); say(''); }
+  else {
     this.classList.add('miss');
     var ch = v.charAt(v.length - 1);
     G.bad[ch] = (G.bad[ch] || 0) + 1;
     G.typos++;
-    say('맞는 것이 없어요. 지우고 다시 — 백스페이스는 엔터 위에 있습니다.', '');
+    say('맞는 것이 없어요. 지우고 다시 — 백스페이스는 엔터 위에 있습니다.');
   }
 });
-
-/* 엔터로 지우기 */
 $('type').addEventListener('keydown', function(e){
   if(e.key === 'Enter'){ e.preventDefault(); this.value = ''; this.dispatchEvent(new Event('input')); }
   if(e.key === 'Escape'){ e.preventDefault(); finish(); }
 });
-
-/* 어디를 눌러도 입력칸으로 */
 $('scr-play').addEventListener('click', function(e){
-  if(e.target.tagName !== 'BUTTON') $('type').focus();
+  if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') $('type').focus();
 });
 
 function clear(ix){
   var w = G.words[ix];
-  G.chars += w.text.length;
-  G.cleared++;
-  G.combo++;
+  G.chars += w.text.length; G.cleared++; G.combo++;
   if(G.combo > G.maxCombo) G.maxCombo = G.combo;
   var gain = w.text.length * 10 * Math.min(G.combo, 5);
   G.score += gain;
 
-  var p = document.createElement('div');
-  p.className = 'pop';
-  p.textContent = '+' + gain;
-  p.style.left = w.x + 'px';
-  p.style.top = w.y + 'px';
-  $('field').appendChild(p);
-  setTimeout(function(){ p.remove(); }, 600);
+  var g = document.createElement('div');
+  g.className = 'gain'; g.textContent = '+' + gain;
+  g.style.left = w.x + 'px'; g.style.top = w.y + 'px';
+  $('field').appendChild(g);
+  setTimeout(function(){ g.remove(); }, 750);
 
-  w.el.remove();
-  G.words.splice(ix, 1);
-  say(G.combo >= 3 ? G.combo + '연속! 좋아요' : '', 'ok');
+  var hues = ['#FDE68A','#86EFAC','#7DD3FC','#F0ABFC'];
+  for(var k = 0; k < 8; k++){
+    var p = document.createElement('div');
+    p.className = 'spark';
+    var a = Math.PI * 2 * k / 8, d = 34 + Math.random() * 26;
+    p.style.setProperty('--dx', Math.cos(a) * d + 'px');
+    p.style.setProperty('--dy', Math.sin(a) * d + 'px');
+    p.style.setProperty('--sc', hues[k % hues.length]);
+    p.style.left = w.x + 'px'; p.style.top = w.y + 'px';
+    $('field').appendChild(p);
+    (function(el){ setTimeout(function(){ el.remove(); }, 650); })(p);
+  }
+
+  w.el.remove(); G.words.splice(ix, 1);
+  say(G.combo >= 3 ? '🔥 ' + G.combo + '연속!' : '', 'ok');
   paintHud();
-  if(G.words.length === 0) spawn();
+  if(!G.words.length) spawn();
 }
 
-/* ── 끝 ──────────────────────────────────────────── */
+/* ── 끝 ── */
 function finish(){
   if(!G || G.over) return;
   G.over = true;
-  clearInterval(tick);
-  cancelAnimationFrame(raf);
+  clearInterval(tick); cancelAnimationFrame(raf);
+  $('danger').classList.remove('hot');
 
   var used = Math.max(1, 60 - G.left);
   var wpm = Math.round(G.chars / used * 60);
@@ -565,31 +724,120 @@ function finish(){
   if(isBest){ b[key] = G.score; setBest(b); }
   paintBest();
 
-  $('grade').textContent = isBest ? '🎉 최고 기록입니다!'
+  $('grade').textContent = isBest ? '🎉 내 최고 기록입니다!'
     : G.score >= 800 ? '👏 손이 잘 풀렸습니다'
     : G.score >= 300 ? '🙂 좋습니다, 한 번 더'
     : '🌱 천천히 해도 됩니다';
 
-  /* 자주 틀린 글자 */
   var bad = Object.keys(G.bad).sort(function(a, c){ return G.bad[c] - G.bad[a]; }).slice(0, 3);
-  var help = {};
-  KEYS.forEach(function(k){ help[k[0]] = k[1]; });
+  var help = {}; KEYS.forEach(function(k){ help[k[0]] = k[1]; });
   $('weak').innerHTML = bad.length
     ? '<b>' + bad.map(esc).join('</b> <b>') + '</b> 에서 자주 멈췄습니다. '
-      + bad.map(function(c){ return help[c] ? esc(c) + ' 는 ' + help[c] : null; })
-           .filter(Boolean).join(' · ')
+      + bad.map(function(c){ return help[c] ? esc(c) + ' 는 ' + help[c] : null; }).filter(Boolean).join(' · ')
       + (G.missed ? '<br>놓친 것 ' + G.missed + '개.' : '')
     : (G.missed ? '오타는 거의 없었습니다. 놓친 것 ' + G.missed + '개 — 조금만 더 빨리!'
                 : '오타도 놓친 것도 없습니다. 완벽해요!');
 
+  /* 연습 모드는 떨어지지 않으므로 순위에 올리지 않습니다 */
+  var can = G.mode === 'fall';
+  $('sendbox').classList.toggle('hide', !can);
+  if(can){
+    var w0 = who();
+    $('cls2').value = w0.cls || $('cls').value || '';
+    $('nick2').value = w0.name || $('nick').value || '';
+    $('sendmsg').textContent = ''; $('sendmsg').className = 'sendmsg';
+    $('btn-send').disabled = false;
+    $('btn-send').textContent = '순위에 올리기';
+    lastSent = { stage:G.stage.t, score:G.score, wpm:wpm, acc:acc, combo:G.maxCombo, missed:G.missed };
+  }
   show('end');
 }
 
+/* ── 순위에 올리기 ── */
+function send(){
+  if(!lastSent) return;
+  var cls = $('cls2').value, name = $('nick2').value.trim();
+  var msg = $('sendmsg');
+  if(!cls){ msg.className = 'sendmsg bad'; msg.textContent = '분반을 골라 주세요.'; return; }
+  if(!name){ msg.className = 'sendmsg bad'; msg.textContent = '이름을 적어 주세요.'; return; }
+  setWho({cls:cls, name:name});
+
+  $('btn-send').disabled = true;
+  msg.className = 'sendmsg wait'; msg.textContent = '보내는 중…';
+
+  var d = { key:SUBMIT_KEY, type:'typing', round:ROUND, cls:cls, name:name,
+            stage:lastSent.stage, score:lastSent.score, wpm:lastSent.wpm,
+            acc:lastSent.acc, combo:lastSent.combo, missed:lastSent.missed };
+  var body = JSON.stringify(d);
+  var good = function(extra){
+    msg.className = 'sendmsg ok';
+    msg.textContent = '올렸습니다' + (extra || '') + ' · ' + ROUND + '회차';
+    $('btn-send').textContent = '다시 올리기';
+    $('btn-send').disabled = false;
+    loadRank();
+  };
+  var bad = function(){
+    msg.className = 'sendmsg bad';
+    msg.textContent = '보내지 못했습니다. 다시 눌러 보세요.';
+    $('btn-send').disabled = false;
+  };
+  fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(j && j.ok) good(); else bad(); })
+    .catch(function(){
+      fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
+            headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+        .then(function(){ good(' (반영까지 잠시 걸릴 수 있어요)'); }).catch(bad);
+    });
+}
+
+/* ── 순위표 ── */
+function loadRank(){
+  var cls = $('rank-cls').value;
+  var tb = $('ranktbl').querySelector('tbody');
+  $('rank-note').textContent = '불러오는 중…';
+  var url = SUBMIT_URL + '?list=typing&key=' + encodeURIComponent(SUBMIT_KEY)
+          + '&round=' + ROUND + (cls ? '&cls=' + encodeURIComponent(cls) : '');
+  fetch(url).then(function(r){ return r.json(); }).then(function(j){
+    if(!j || !j.ok || !j.rows){ throw new Error('no'); }
+    var me = who();
+    var rows = j.rows.slice(0, 20);
+    if(!rows.length){
+      tb.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">아직 기록이 없습니다. 첫 번째가 되어 보세요!</td></tr>';
+      $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ')';
+      return;
+    }
+    var medal = ['🥇','🥈','🥉','4','5'];
+    tb.innerHTML = '<tr><th>등수</th><th>이름</th><th>분반</th><th>단계</th>'
+      + '<th style="text-align:center">점수</th><th style="text-align:center">타수</th></tr>'
+      + rows.map(function(r, i){
+        var mine = me.name && r.name === me.name && (!me.cls || r.cls === me.cls);
+        return '<tr class="' + (i < 5 ? 'top ' : '') + (mine ? 'me' : '') + '">'
+          + '<td class="medal">' + (i < 5 ? medal[i] : (i + 1)) + '</td>'
+          + '<td>' + esc(r.name) + '</td><td>' + esc(r.cls) + '</td>'
+          + '<td style="color:var(--muted);font-size:14.5px">' + esc(r.stage) + '</td>'
+          + '<td class="c"><b>' + r.score + '</b></td><td class="c">' + r.wpm + '</td></tr>';
+      }).join('');
+    $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다';
+  }).catch(function(){
+    tb.innerHTML = '<tr><td colspan="6" style="color:var(--muted)">'
+      + '순위를 불러오지 못했습니다. 잠시 뒤 «새로고침»을 눌러 보세요.</td></tr>';
+    $('rank-note').textContent = ROUND + '회차';
+  });
+}
+
 /* ── 첫 화면 ── */
-drawStages();
-drawKeys();
-paintBest();
-show('start');
+(function init(){
+  drawStages(); drawKeys(); paintBest();
+  $('roundchip').innerHTML = '회차 <b>' + ROUND + '</b>';
+  $('roundchip').title = roundSpan(ROUND);
+  var w0 = who();
+  if(w0.cls) $('cls').value = w0.cls;
+  if(w0.name) $('nick').value = w0.name;
+  if(w0.cls) $('rank-cls').value = w0.cls;
+  show('start');
+  loadRank();
+})();
 </script>
 </body>
 </html>

@@ -40,7 +40,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 15;
+var VER = 16;
 
 var SHEETS = {
 
@@ -319,6 +319,20 @@ var SHEETS = {
       return [new Date(), d.cls || '', d.group || '',
               d.q1 || '', d.q2 || '', d.q3 || '', d.q4 || '', d.q5 || ''];
     }
+  },
+
+  // 타자 게임 기록. 2주에 한 회차씩 끊어 순위를 매깁니다.
+  // 연습 모드는 떨어지지 않아 기록이 될 수 없으므로 학생 페이지에서 보내지 않습니다.
+  typing: {
+    name: '자판깨우기',
+    head: ['제출 시각', '회차', '분반', '이름', '단계',
+           '점수', '분당 타수', '정확도(%)', '최고 연속', '놓친 것'],
+    width: [140, 60, 70, 100, 110, 80, 90, 90, 90, 80],
+    row: function (d) {
+      return [new Date(), Number(d.round) || 0, d.cls || '', d.name || '', d.stage || '',
+              Number(d.score) || 0, Number(d.wpm) || 0, Number(d.acc) || 0,
+              Number(d.combo) || 0, Number(d.missed) || 0];
+    }
   }
 };
 
@@ -362,6 +376,9 @@ function doGet(e) {
     if (p.list === 'draw') {
       return out({ ok: true, ver: VER, draws: readDraws(p.cls || '') });
     }
+    if (p.list === 'typing') {
+      return out({ ok: true, ver: VER, rows: readTyping(p.cls || '', Number(p.round) || 0) });
+    }
     if (p.list !== 'rulegame') {
       return out({ ok: false, error: '읽을 수 없는 목록입니다.' });
     }
@@ -392,6 +409,40 @@ function readGames(cls) {
     });
   }
   return list;
+}
+
+/** «자판깨우기» 탭을 읽어 점수가 높은 순으로 돌려준다.
+ *  cls 를 주면 그 분반만, round 를 주면 그 회차만.
+ *  한 사람이 여러 번 냈으면 «가장 높은 기록» 하나만 남긴다. */
+function readTyping(cls, round) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
+  if (!sh) return [];
+  var last = sh.getLastRow();
+  if (last < 2) return [];
+  var MAX = 1200;
+  var n = Math.min(last - 1, MAX);
+  var rows = sh.getRange(last - n + 1, 1, n, 10).getValues();
+
+  var best = {};
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i];
+    var rd = Number(r[1]) || 0, c = String(r[2] || ''), nm = String(r[3] || '').trim();
+    if (!nm) continue;
+    if (round && rd !== round) continue;
+    if (cls && c !== cls) continue;
+    var key = c + '/' + nm;
+    var one = {
+      round: rd, cls: c, name: nm, stage: String(r[4] || ''),
+      score: Number(r[5]) || 0, wpm: Number(r[6]) || 0,
+      acc: Number(r[7]) || 0, combo: Number(r[8]) || 0
+    };
+    if (!best[key] || one.score > best[key].score) best[key] = one;
+  }
+
+  var list = [];
+  for (var k in best) list.push(best[k]);
+  list.sort(function (a, b) { return b.score - a.score; });
+  return list.slice(0, 50);
 }
 
 function sheet(kind) {
