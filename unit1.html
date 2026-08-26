@@ -208,6 +208,25 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
   padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
 .note b{color:var(--warm)}
+/* 영상 카드 — index · unit3 와 같은 모양. 새 창에서 열립니다. */
+.video{display:flex; align-items:center; gap:22px; text-decoration:none; padding:22px 24px;
+  border-radius:var(--r); border:1px solid var(--line); background:var(--tint);
+  box-shadow:var(--sh); color:var(--ink); transition:.2s}
+.video:hover{border-color:var(--blue-l); box-shadow:var(--sh2); transform:translateY(-3px)}
+.video:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.video .play{flex:0 0 auto; width:58px; height:58px; border-radius:50%;
+  background:linear-gradient(140deg,var(--fill),var(--fill-d)); display:grid; place-items:center}
+.video .play svg{width:22px; height:22px; fill:#fff; margin-left:4px}
+.video b{display:block; font-family:var(--disp); font-weight:600; font-size:1.15rem; color:var(--ink)}
+.video em{display:block; font-style:normal; font-size:0.9375rem; color:var(--ink2); margin-top:3px}
+.video i{display:block; font-style:normal; font-size:0.7812rem; color:var(--muted); margin-top:5px;
+  word-break:break-all}
+@media (max-width:560px){
+  .video{padding:18px; gap:14px}
+  .video .play{width:48px; height:48px}
+  .video b{font-size:1.05rem}
+}
+
 .ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
   padding:15px 20px; font-size:0.9688rem; margin:14px 0}
 .ask b{color:var(--good)}
@@ -3035,6 +3054,28 @@ while open_list:
     ③ 코드는 몰라도 됩니다. <b>순서를 정확히 적는 연습</b>만 해 두세요 (활동 ⑩)</div>
 </div>
   </details>
+</div></section>
+
+<section id="tonext"><div class="wrap">
+  <p class="eyebrow">Ⅲ단원 들어가기 전에</p>
+  <h2>인공지능이 바꾸는 «일»</h2>
+  <p class="sub">Ⅰ단원은 «인공지능이 <b>어떻게 판단하는가</b>»였습니다.
+    Ⅲ단원은 «그래서 <b>우리 삶과 직업은 어떻게 달라지는가</b>»입니다.
+    그 사이를 이어 줄 영상을 한 편 보고 넘어갑니다.</p>
+
+  <a class="video" href="https://youtu.be/-cAPZWT3ShA" target="_blank" rel="noopener noreferrer">
+    <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z"/></svg></span>
+    <span>
+      <b>«스펙보다 이것» — 엔비디아 젠슨 황이 말하는 인재</b>
+      <em>유 퀴즈 온 더 블럭 · 디글(tvN) · 18분 45초</em>
+      <i>youtu.be/-cAPZWT3ShA &middot; YouTube 새 창에서 열립니다</i>
+    </span>
+  </a>
+
+  <div class="ask" style="margin-top:20px"><b>보면서 생각해 볼 것</b>
+    ① 인공지능이 잘하는 일과 <b>사람에게 남는 일</b>은 각각 무엇일까?<br>
+    ② «똑똑한 사람»의 기준이 달라진다면, <b>무엇이 새 기준</b>이 될까?<br>
+    ③ 내가 하고 싶은 일은 10년 뒤 <b>어떻게 달라져 있을까?</b> — Ⅲ-02 진로 로드맵에서 다시 씁니다</div>
 </div></section>
 
 <div class="present" id="present" hidden role="dialog" aria-modal="true" aria-label="슬라이드 화면 가득 보기">
