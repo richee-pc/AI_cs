@@ -367,7 +367,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     <div class="modes">
       <button class="mbtn" type="button" data-mode="fall" aria-pressed="true">🎮 도전 (떨어짐)</button>
       <button class="mbtn" type="button" data-mode="calm" aria-pressed="false">🧘 연습 (안 떨어짐)</button>
-      <span class="hint">순위에는 <b>도전</b>만 올라갑니다.</span>
+      <span class="hint" id="mode-hint">순위에는 <b>도전</b>만 올라갑니다.</span>
     </div>
 
     <div class="who">
@@ -468,7 +468,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
   <!-- ── 순위 ── -->
   <section class="card">
     <div class="rankhead">
-      <h2 style="margin:0">🏆 이번 회차 순위</h2>
+      <h2 style="margin:0" id="rank-title">🏆 이번 회차 순위</h2>
       <select id="rank-cls">
         <option value="">전체</option>
         <option value="인기A">인기A</option>
@@ -507,21 +507,26 @@ var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;
 var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
 var SUBMIT_KEY = 'chosun-ai-2026';
 
-/* ── 회차 : 2학기 첫날부터 2주씩 ── */
-var ROUND_START = new Date(2026, 7, 12);        // 2026-08-12 (1차시)
+/* ── 회차 : 2026-08-31(월)부터 2주씩 ──
+   1회차 8/31(월)~9/13(일) · 2회차 9/14(월)~9/27(일) · …
+   시작일 전에 친 기록은 «연습 기간»(0회차)으로 따로 담긴다.       */
+var ROUND_START = new Date(2026, 7, 31);        // 2026-08-31 (월)
 var ROUND_DAYS = 14;
 function roundNo(when){
   var d = when || new Date();
   var days = Math.floor((d - ROUND_START) / 86400000);
-  return Math.max(1, Math.floor(days / ROUND_DAYS) + 1);
+  if(days < 0) return 0;                        // 아직 시작 전
+  return Math.floor(days / ROUND_DAYS) + 1;
 }
 function roundSpan(n){
+  if(n <= 0) return '8/31 전';
   var a = new Date(ROUND_START.getTime() + (n - 1) * ROUND_DAYS * 86400000);
   var b = new Date(a.getTime() + (ROUND_DAYS - 1) * 86400000);
   var f = function(x){ return (x.getMonth() + 1) + '/' + x.getDate(); };
   return f(a) + ' ~ ' + f(b);
 }
 var ROUND = roundNo();
+var WARMUP = ROUND === 0;                       // 연습 기간인가
 
 /* ── 문제 꾸러미 ── */
 var STAGES = [
@@ -928,8 +933,9 @@ function send(auto){
   var body = JSON.stringify(d);
   var good = function(extra){
     msg.className = 'sendmsg ok';
-    msg.textContent = (auto ? '✅ 자동으로 올렸습니다' : '올렸습니다')
-      + (extra || '') + ' · ' + ROUND + '회차 순위에 반영됩니다';
+    msg.textContent = (auto ? '✅ 자동으로 올렸습니다' : '올렸습니다') + (extra || '')
+      + (WARMUP ? ' · 지금은 연습 기간이라 순위에는 들어가지 않습니다'
+                : ' · ' + ROUND + '회차 순위에 반영됩니다');
     $('btn-send').textContent = '다시 올리기';
     $('btn-send').disabled = false;
     if(auto) $('sendbox').classList.add('sent');   /* 다 됐으면 칸은 접는다 */
@@ -962,8 +968,10 @@ function loadRank(){
     var me = who();
     var rows = j.rows.slice(0, 20);
     if(!rows.length){
-      box.innerHTML = '<p class="rempty">아직 기록이 없습니다. 첫 번째가 되어 보세요!</p>';
-      $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ')';
+      box.innerHTML = '<p class="rempty">' + (WARMUP
+        ? '아직 기록이 없습니다. 지금은 연습 기간이라 순위에 들어가지 않습니다.'
+        : '아직 기록이 없습니다. 첫 번째가 되어 보세요!') + '</p>';
+      $('rank-note').textContent = noteText();
       return;
     }
     var medal = ['🥇','🥈','🥉'];
@@ -978,18 +986,28 @@ function loadRank(){
         +   '<div class="meta">' + esc(r.cls) + ' · ' + esc(r.stage) + ' · ' + r.wpm + '타</div></div>'
         + '<div class="pts"><b>' + r.score + '</b><span>점</span></div></div>';
     }).join('');
-    $('rank-note').textContent = ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다';
+    $('rank-note').textContent = noteText();
   }).catch(function(){
     box.innerHTML = '<p class="rempty">순위를 불러오지 못했습니다. 잠시 뒤 «새로고침»을 눌러 보세요.</p>';
-    $('rank-note').textContent = ROUND + '회차';
+    $('rank-note').textContent = noteText();
   });
+}
+function noteText(){
+  return WARMUP
+    ? '연습 기간 · 8/31(월)부터 1회차가 시작됩니다 (1회차 8/31~9/13)'
+    : ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다';
 }
 
 /* ── 첫 화면 ── */
 (function init(){
   drawStages(); drawKeys(); paintBest();
-  $('roundchip').innerHTML = '회차 <b>' + ROUND + '</b>';
-  $('roundchip').title = roundSpan(ROUND);
+  if(WARMUP){
+    $('rank-title').textContent = '🏃 연습 기간';
+    $('mode-hint').innerHTML = '순위에는 <b>도전</b>만 올라갑니다. '
+      + '<b>8/31(월)부터 1회차</b>가 시작됩니다 — 그때까지는 연습입니다.';
+  }
+  $('roundchip').innerHTML = WARMUP ? '<b>연습 기간</b>' : '회차 <b>' + ROUND + '</b>';
+  $('roundchip').title = WARMUP ? '8/31(월)부터 1회차가 시작됩니다' : roundSpan(ROUND);
   var w0 = who();
   if(w0.cls) $('cls').value = w0.cls;
   if(w0.name) $('nick').value = w0.name;

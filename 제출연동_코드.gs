@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v16
+ * 인공지능 기초 활동지 수집기  v17
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -29,7 +29,11 @@
  *                        (규칙 하나 · 규칙 사슬 · 스무고개 · 범인 찾기 · 규칙 맞히기)
  *   · 탐색학습지        ← Ⅰ단원 탐색 학습지 (worksheets/)
  *   ── 수업 밖 활동 ──
- *   · 자판깨우기        ← type.html 타자 게임. 2주에 한 회차씩 순위를 매깁니다.
+ *   · 자판깨우기        ← type.html 타자 게임.
+ *                        2026-08-31(월)부터 2주에 한 회차씩 순위를 매깁니다.
+ *                        (1회차 8/31~9/13 · 2회차 9/14~9/27 · …)
+ *                        회차는 «제출 시각»으로 가르므로, 시작일 전에 친
+ *                        기록은 저절로 «연습 기간»으로 빠집니다.
  *
  * 규칙게임 · 편향실습그림 · 자판깨우기 셋만은 학생 페이지가 «읽기»도 합니다.
  * 친구들이 올린 게임과 그림, 그리고 이번 회차 순위를 보여 주어야 하기 때문입니다.
@@ -43,7 +47,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 16;
+var VER = 17;
 
 var SHEETS = {
 
@@ -380,7 +384,9 @@ function doGet(e) {
       return out({ ok: true, ver: VER, draws: readDraws(p.cls || '') });
     }
     if (p.list === 'typing') {
-      return out({ ok: true, ver: VER, rows: readTyping(p.cls || '', Number(p.round) || 0) });
+      var wantRound = (p.round === undefined || p.round === '')
+        ? typeRoundOf(new Date()) : Number(p.round);
+      return out({ ok: true, ver: VER, rows: readTyping(p.cls || '', wantRound) });
     }
     if (p.list !== 'rulegame') {
       return out({ ok: false, error: '읽을 수 없는 목록입니다.' });
@@ -414,8 +420,21 @@ function readGames(cls) {
   return list;
 }
 
+// 타자 게임 회차 기준. 학생 페이지(type.html)의 ROUND_START 와 같아야 합니다.
+var TYPE_ROUND_START = new Date(2026, 7, 31);   // 2026-08-31 (월)
+var TYPE_ROUND_DAYS = 14;
+
+/** 제출 시각이 몇 회차인지. 시작일 전이면 0(연습 기간). */
+function typeRoundOf(when) {
+  if (!when) return 0;
+  var days = Math.floor((new Date(when) - TYPE_ROUND_START) / 86400000);
+  return days < 0 ? 0 : Math.floor(days / TYPE_ROUND_DAYS) + 1;
+}
+
 /** «자판깨우기» 탭을 읽어 점수가 높은 순으로 돌려준다.
  *  cls 를 주면 그 분반만, round 를 주면 그 회차만.
+ *  회차는 학생이 보낸 번호가 아니라 «제출 시각»으로 다시 계산한다 —
+ *  회차 기준일이 바뀌어도 옛 기록이 새 회차에 섞이지 않는다.
  *  한 사람이 여러 번 냈으면 «가장 높은 기록» 하나만 남긴다. */
 function readTyping(cls, round) {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
@@ -429,9 +448,10 @@ function readTyping(cls, round) {
   var best = {};
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i];
-    var rd = Number(r[1]) || 0, c = String(r[2] || ''), nm = String(r[3] || '').trim();
+    var rd = typeRoundOf(r[0]);                  // 저장된 번호가 아니라 제출 시각으로
+    var c = String(r[2] || ''), nm = String(r[3] || '').trim();
     if (!nm) continue;
-    if (round && rd !== round) continue;
+    if (rd !== round) continue;                  // 0(연습 기간)도 정확히 가른다
     if (cls && c !== cls) continue;
     var key = c + '/' + nm;
     var one = {
