@@ -287,6 +287,22 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 /* 자동으로 올라갔으면 입력칸은 접어 둔다 */
 .sendbox.sent .who,.sendbox.sent h2,.sendbox.sent .sub{display:none}
 .sendbox.sent{padding-top:12px}
+/* 화면이 짧거나 좁으면 여백을 줄여 단추까지 한 화면에 들어오게 (감추지는 않는다) */
+@media (max-height:900px){
+  .badge2{width:58px;height:58px;font-size:1.7rem;margin-bottom:6px}
+  .mcard{padding:18px 18px 16px}
+  .mcard .grade{font-size:1.15rem;margin-bottom:4px}
+  .mcard #r-stage{margin-bottom:10px !important}
+  .mcard .res{gap:7px;margin:0 0 10px}
+  .mcard .rc{padding:8px 11px}
+  .mcard .rc .n{font-size:1.35rem}
+  .mcard .weak{padding:10px 12px;font-size:14px}
+  .mcard .sendbox{padding-top:10px;margin-top:10px}
+  .mcard .sendbox h2{font-size:0.98rem}
+  .mcard .sendbox .sub{margin-bottom:8px;font-size:13.5px}
+  .mcard .who{margin-top:8px;padding-top:0;border:0}
+  .mcard .go{margin-top:12px}
+}
 @media (max-width:560px){
   .mcard{padding:20px 16px 18px;border-radius:20px}
   .badge2{width:74px;height:74px;font-size:2.1rem;margin-bottom:10px}
