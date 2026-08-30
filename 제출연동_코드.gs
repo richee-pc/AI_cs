@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v18
+ * 인공지능 기초 활동지 수집기  v19
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -51,6 +51,10 @@
  * 걸린 기록도 «지우지 않고» 그대로 남기되 순위에서만 빼 둡니다.
  * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
  * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
+ *
+ * v19 — «검증» 칸이 없는 옛 기록에도 점수 상한을 적용합니다.
+ * 점수는 «분당 타수 × 50» 을 넘을 수 없습니다(뒤의 typeImpossible 참고).
+ * 이 판을 올리기 전에 점수를 크게 적어 보낸 줄이 있으면 저절로 빠집니다.
  * 부적절한 내용이 올라오면 시트에서 그 줄을 지우면 목록에서도 사라집니다.
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
@@ -60,7 +64,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 18;
+var VER = 19;
 
 var SHEETS = {
 
@@ -570,6 +574,23 @@ function typeRoundOf(when) {
   return days < 0 ? 0 : Math.floor(days / TYPE_ROUND_DAYS) + 1;
 }
 
+/** 저장된 숫자만으로도 «있을 수 없는 기록»인가.
+ *
+ *  낱말 하나를 터뜨릴 때 얻는 점수가 «글자 수 × 10 × min(연속, 5)» 이므로
+ *      점수 ≤ 친 글자 수 × 50
+ *  이고, 한 판은 60초를 넘지 않으므로
+ *      친 글자 수 = 분당 타수 × 걸린 초 / 60 ≤ 분당 타수
+ *  입니다. 둘을 이으면 어떤 기록이든
+ *      점수 ≤ 분당 타수 × 50
+ *  을 넘을 수 없습니다. 검증 칸이 없는 옛 기록도 이것으로 거를 수 있습니다.  */
+function typeImpossible(score, wpm, acc, combo) {
+  if (wpm > 450) return true;                 // 사람 손의 한계 밖
+  if (score > wpm * 50) return true;          // 점수를 손으로 키운 기록
+  if (acc < 0 || acc > 100) return true;
+  if (score < 0 || wpm < 0 || combo < 0) return true;
+  return false;
+}
+
 /** «자판깨우기» 탭을 읽어 점수가 높은 순으로 돌려준다.
  *  cls 를 주면 그 분반만, round 를 주면 그 회차만.
  *  회차는 학생이 보낸 번호가 아니라 «제출 시각»으로 다시 계산한다 —
@@ -593,16 +614,19 @@ function readTyping(cls, round) {
     if (!nm) continue;
     if (rd !== round) continue;                  // 0(연습 기간)도 정확히 가른다
     if (cls && c !== cls) continue;
-    // «의심» 인 줄은 순위에서 뺍니다. 칸이 비어 있으면(옛 기록) 그대로 셉니다.
+    // «의심» 인 줄은 순위에서 뺍니다.
     if (String(r[10] || '').indexOf('의심') === 0) continue;
+    var sc = Number(r[5]) || 0, wp = Number(r[6]) || 0;
+    var ac = Number(r[7]) || 0, cb = Number(r[8]) || 0;
+    // 검증 칸이 없는 옛 기록도 «있을 수 없는 숫자»면 뺍니다.
+    if (String(r[10] || '') === '' && typeImpossible(sc, wp, ac, cb)) continue;
     var key = c + '/' + nm;
     var one = {
       round: rd, cls: c,
       name: maskName(nm),                        // 전체 이름은 내보내지 않는다
       h: nameKey(c, nm),                         // «나»를 찾을 때 쓰는 표
       stage: String(r[4] || ''),
-      score: Number(r[5]) || 0, wpm: Number(r[6]) || 0,
-      acc: Number(r[7]) || 0, combo: Number(r[8]) || 0
+      score: sc, wpm: wp, acc: ac, combo: cb
     };
     if (!best[key] || one.score > best[key].score) best[key] = one;
   }

@@ -1135,7 +1135,14 @@ function loadRank(){
   return fetch(url).then(function(r){ return r.json(); }).then(function(j){
     if(!j || !j.ok || !j.rows){ throw new Error('no'); }
     var me = who();
-    var rows = j.rows.slice(0, 20);
+    /* 있을 수 없는 숫자는 보여 주지 않습니다.
+       점수는 «분당 타수 × 50» 을 넘을 수 없습니다 — 한 낱말 점수가
+       «글자 수 × 10 × min(연속,5)» 이고 한 판이 60초이기 때문입니다.
+       수집기도 같은 것을 보지만, 여기서도 한 번 더 걸러 둡니다.        */
+    var rows = j.rows.filter(function(r){
+      return !(Number(r.wpm) > 450 || Number(r.score) > Number(r.wpm) * 50
+               || Number(r.acc) < 0 || Number(r.acc) > 100);
+    }).slice(0, 20);
     if(!rows.length){
       box.innerHTML = '<p class="rempty">' + (WARMUP
         ? '아직 기록이 없습니다. 지금은 연습 기간이라 순위에 들어가지 않습니다.'
