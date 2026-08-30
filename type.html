@@ -1130,8 +1130,12 @@ function loadRank(){
   var cls = $('rank-cls').value;
   var box = $('ranklist');
   $('rank-note').textContent = '불러오는 중…';
+  /* 같은 주소를 그대로 부르면 «예전 응답»이 캐시에서 나옵니다.
+     방금 올린 내 기록이 순위표에 안 보이는 일이 이것 때문에 생깁니다.
+     (unit1·unit3 도 같은 이유로 t 를 붙이고 있습니다.)              */
   var url = SUBMIT_URL + '?list=typing&key=' + encodeURIComponent(SUBMIT_KEY)
-          + '&round=' + ROUND + (cls ? '&cls=' + encodeURIComponent(cls) : '');
+          + '&round=' + ROUND + (cls ? '&cls=' + encodeURIComponent(cls) : '')
+          + '&t=' + Date.now();
   return fetch(url).then(function(r){ return r.json(); }).then(function(j){
     if(!j || !j.ok || !j.rows){ throw new Error('no'); }
     var me = who();
