@@ -215,6 +215,14 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 .grade{font-family:var(--disp);font-size:1.35rem;font-weight:800;margin:0 0 10px}
 .sendbox{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
 .sendmsg{margin:10px 0 0;font-size:15px;min-height:22px}
+/* 이 이름이 맞나요 — 공용 컴퓨터에서 브라우저마다 한 번만 뜹니다 */
+.mecheck{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:10px 14px;margin-top:12px;padding:12px 14px;border-radius:14px;
+  background:var(--warm-bg);color:var(--warm);font-size:15px;line-height:1.5}
+.mecheck b{color:var(--ink)}
+.mecheck .mebtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.mecheck .btn{padding:8px 16px;font-size:14.5px}
+.sendbox.sent .mecheck{display:none}
 .sendmsg.ok{color:var(--good);font-weight:700}
 .sendmsg.bad{color:var(--bad)}
 .sendmsg.wait{color:var(--muted)}
@@ -380,7 +388,8 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       </select>
       <label for="nick">이름</label>
       <input id="nick" type="text" maxlength="12" placeholder="김하늘" autocomplete="off">
-      <span class="hint">순위에 올릴 때만 씁니다. 지금 안 적어도 됩니다.</span>
+      <span class="hint">순위에 올릴 때만 씁니다. 지금 안 적어도 됩니다.<br>
+        순위표에는 <b>김○늘</b> 처럼 <b>가려서</b> 나옵니다 — 전체 이름은 선생님만 봅니다.</span>
     </div>
 
     <div class="go">
@@ -392,6 +401,10 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
       <b>영문 상태에서 치세요.</b> 한글로 쳐지면 바로 알려 드립니다 —
       <code>한/영</code> 키는 스페이스바 오른쪽에 있습니다.
       기호가 어디 있는지 모르면 게임 화면 아래 <b>기호 찾기</b>를 보세요.
+      <br><br>
+      <b>순위는 손으로 친 기록만 받습니다.</b> 붙여넣기와 자동 입력(매크로)은
+      게임이 알아차려 순위에서 빠집니다 — 기록이 지워지지는 않으니
+      잘못 걸렸다 싶으면 선생님께 말씀해 주세요.
     </div>
   </section>
 
@@ -453,6 +466,16 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
         <input id="nick2" type="text" maxlength="12" placeholder="김하늘" autocomplete="off">
         <button class="btn" type="button" id="btn-send" style="padding:10px 24px">순위에 올리기</button>
       </div>
+
+      <!-- 공용 컴퓨터에서 앞사람 이름으로 올라가지 않게, 브라우저마다 한 번만 묻습니다 -->
+      <div class="mecheck hide" id="mecheck">
+        <span><b id="mename">–</b> 이름으로 올릴게요. 맞나요?</span>
+        <span class="mebtns">
+          <button class="btn" type="button" id="btn-me-yes">네, 맞아요</button>
+          <button class="btn ghost" type="button" id="btn-me-no">내가 아니에요</button>
+        </span>
+      </div>
+
       <p class="sendmsg" id="sendmsg"></p>
     </div>
 
@@ -506,6 +529,36 @@ var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;
 /* ── 제출 (다른 활동지와 같은 수집기를 씁니다) ── */
 var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
 var SUBMIT_KEY = 'chosun-ai-2026';
+
+/* 기록이 «게임 화면을 거쳐 온 것»인지 확인하는 검사값의 소금.
+   수집기(제출연동_코드.gs)의 TYPE_SALT 와 반드시 같아야 합니다.
+   완전한 자물쇠는 아닙니다 — 주소만 알아내 아무 숫자나 던져 넣는 것을 막습니다. */
+var SIGN_SALT = 'ptp-2026-jaban-v1';
+
+/* 순위표에 쓰는 «가린 이름». 수집기의 maskName 과 규칙이 같아야 합니다.
+   김하늘 → 김○늘 · 남궁하늘 → 남○○늘 */
+function maskName(nm){
+  nm = String(nm || '').trim();
+  if(nm.length < 2) return nm;
+  if(nm.length === 2) return nm.charAt(0) + '○';
+  return nm.charAt(0) + new Array(nm.length - 1).join('○') + nm.charAt(nm.length - 1);
+}
+function hash36(str){
+  var h1 = 5381, h2 = 52711, i, c;
+  for(i = 0; i < str.length; i++){
+    c = str.charCodeAt(i);
+    h1 = ((h1 * 33) ^ c) >>> 0;
+    h2 = ((h2 * 31) + c * (i + 1)) >>> 0;
+  }
+  return h1.toString(36) + h2.toString(36);
+}
+/* 순위표에서 «나»를 찾을 때 쓰는 표. 이름 자체는 오가지 않습니다. */
+function nameKey(cls, nm){ return hash36('n|' + cls + '|' + String(nm).trim() + '|' + SIGN_SALT); }
+function sign(o){
+  return hash36([o.round, o.cls, o.name, o.stage, o.score, o.wpm, o.acc, o.combo,
+                 o.missed, o.chars, o.secs, o.keys, o.cleared, o.typos].join('|')
+                + '|' + SIGN_SALT);
+}
 
 /* ── 회차 : 2026-08-31(월)부터 2주씩 ──
    1회차 8/31(월)~9/13(일) · 2회차 9/14(월)~9/27(일) · …
@@ -564,6 +617,14 @@ var KEYS = [
 var KO = /[ㄱ-ㆎ가-힣]/;
 var BEST_KEY = 'ai-type-best';
 var WHO_KEY = 'ai-type-who';
+/* 공용 실습실 컴퓨터 대비 — 브라우저를 새로 열면 «네가 맞니?»를 한 번 묻는다.
+   sessionStorage 라서 탭을 닫으면 사라집니다.                       */
+var SEEN_KEY = 'ai-type-ok';
+
+/* 이 브라우저가 beforeinput 을 주는가. 못 주면 키 입력 수를 셀 수 없으므로
+   그 검사만 건너뜁니다(오래된 브라우저에서 애먼 학생이 걸리지 않게). */
+var HAS_BI = (typeof HTMLInputElement !== 'undefined')
+             && ('onbeforeinput' in HTMLInputElement.prototype);
 
 var stageIx = 0, mode = 'fall';
 var G = null, raf = 0, tick = 0, lastSent = null;
@@ -642,16 +703,19 @@ document.addEventListener('click', function(e){
   if(t.id === 'btn-start' || t.id === 'btn-again'){ countdown(); return; }
   if(t.id === 'btn-quit'){ finish('quit'); return; }
   if(t.id === 'btn-home'){ show('start'); return; }
-  if(t.id === 'btn-send'){ send(); return; }
+  if(t.id === 'btn-send'){ okMe(); send(); return; }
+  if(t.id === 'btn-me-yes'){ okMe(); send(true); return; }
+  if(t.id === 'btn-me-no'){ forgetMe(); return; }
   if(t.id === 'btn-rank'){ loadRank(); return; }
 });
 document.addEventListener('change', function(e){
   if(e.target.id === 'rank-cls'){ loadRank(); return; }
+  /* 학생이 직접 적었다면 그 사람이 맞는 것이니 더 묻지 않습니다 */
   if(e.target.id === 'cls' || e.target.id === 'nick'){
-    setWho({cls:$('cls').value, name:$('nick').value.trim()});
+    setWho({cls:$('cls').value, name:$('nick').value.trim()}); okMe();
   }
   if(e.target.id === 'cls2' || e.target.id === 'nick2'){
-    setWho({cls:$('cls2').value, name:$('nick2').value.trim()});
+    setWho({cls:$('cls2').value, name:$('nick2').value.trim()}); okMe();
   }
 });
 
@@ -673,7 +737,13 @@ function countdown(){
 function start(){
   var S = STAGES[stageIx];
   G = { stage:S, mode:mode, words:[], score:0, combo:0, maxCombo:0, life:3,
-        left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false };
+        left:60, chars:0, typos:0, missed:0, cleared:0, bad:{}, spawnAt:0, id:0, over:false,
+        /* ── 사람이 친 것인지 확인할 자취 ── */
+        keys:0,        /* 실제로 들어온 글자 수 */
+        gaps:[],       /* 글자와 글자 사이 시간(ms) */
+        lastKey:0,
+        pasted:0,      /* 붙여넣기·끌어놓기 시도 */
+        ghost:0 };     /* 사람이 누르지 않았는데 들어온 입력 */
   $('over').classList.add('hide');
   $('type').value = ''; $('type').className = '';
   say(''); paintHud();
@@ -770,19 +840,27 @@ function loop(now){
 }
 
 /* ── 입력 ── */
-$('type').addEventListener('input', function(){
+$('type').addEventListener('input', function(e){
   if(!G || G.over) return;
-  var v = this.value;
+  /* 사람이 친 것이 아니라 스크립트가 만들어 낸 사건 */
+  if(e && e.isTrusted === false){ G.ghost++; return; }
+  onType(this.value);
+});
+
+/** 칸에 들어온 글자를 보고 화면을 맞춘다. (사람이 친 것만 여기까지 옵니다) */
+function onType(v){
+  var box = $('type');
 
   if(KO.test(v)){
-    this.classList.remove('miss'); this.classList.add('ko');
+    box.classList.remove('miss'); box.classList.add('ko');
     say('한글로 쳐지고 있어요. 스페이스바 오른쪽 <b>한/영</b> 키를 한 번 누르세요.', 'ko');
     return;
   }
-  this.classList.remove('ko');
+  box.classList.remove('ko');
 
   for(var i = 0; i < G.words.length; i++){
-    if(G.words[i].text === v){ clear(i); this.value = ''; this.classList.remove('miss'); return; }
+    if(G.words[i].text === v){ clear(i); box.value = '';
+                               box.classList.remove('miss'); return; }
   }
 
   var any = false;
@@ -794,19 +872,54 @@ $('type').addEventListener('input', function(){
                         : esc(w.text);
   });
 
-  if(!v.length){ this.classList.remove('miss'); say(''); return; }
-  if(any){ this.classList.remove('miss'); say(''); }
+  if(!v.length){ box.classList.remove('miss'); say(''); return; }
+  if(any){ box.classList.remove('miss'); say(''); }
   else {
-    this.classList.add('miss');
+    box.classList.add('miss');
     var ch = v.charAt(v.length - 1);
     G.bad[ch] = (G.bad[ch] || 0) + 1;
     G.typos++;
     say('맞는 것이 없어요. 지우고 다시 — 백스페이스는 엔터 위에 있습니다.');
   }
-});
+}
 $('type').addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){ e.preventDefault(); this.value = ''; this.dispatchEvent(new Event('input')); }
+  /* 가짜 input 사건을 만들지 않습니다 — 그래야 «스크립트가 만든 입력»을
+     사건의 진짜/가짜만 보고 가려낼 수 있습니다. */
+  if(e.key === 'Enter'){ e.preventDefault(); this.value = ''; onType(''); }
   if(e.key === 'Escape'){ e.preventDefault(); finish('quit'); }
+});
+
+/* ── 손으로 친 것만 받는다 ──────────────────────────────────
+   · 붙여넣기와 끌어놓기는 막습니다 (낱말을 통째로 떨어뜨리는 길이라서)
+   · 글자 하나가 들어올 때마다 시각을 적어 «간격»을 남깁니다
+   · 스크립트가 만들어 낸 입력(isTrusted 가 아닌 것)은 따로 셉니다
+   막기만 하고 벌하지 않습니다 — 이상한 자취는 선생님께만 표시됩니다. */
+$('type').addEventListener('beforeinput', function(e){
+  if(!G || G.over) return;
+  var it = e.inputType || '';
+  if(it === 'insertFromPaste' || it === 'insertFromDrop'){
+    e.preventDefault(); G.pasted++;
+    say('붙여넣기로는 칠 수 없어요. 손으로 한 글자씩 쳐 보세요.', 'ko');
+    return;
+  }
+  if(!e.isTrusted){ G.ghost++; return; }
+  if(it.indexOf('insert') === 0){
+    var len = (e.data == null) ? 1 : String(e.data).length;
+    /* 한 번에 여러 글자가 들어오면 손이 아닙니다.
+       다만 휴대전화 자판의 «자동완성·조합»은 원래 그러므로 빼 줍니다. */
+    if(len > 2 && it !== 'insertCompositionText' && it !== 'insertReplacementText') G.ghost++;
+    var t = performance.now();
+    if(G.lastKey) G.gaps.push(t - G.lastKey);
+    G.lastKey = t;
+    G.keys += (len || 1);
+  }
+});
+['paste','drop'].forEach(function(ev){
+  $('type').addEventListener(ev, function(e){
+    e.preventDefault();
+    if(G && !G.over){ G.pasted++;
+      say('붙여넣기로는 칠 수 없어요. 손으로 한 글자씩 쳐 보세요.', 'ko'); }
+  });
 });
 $('scr-play').addEventListener('click', function(e){
   if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') $('type').focus();
@@ -863,6 +976,25 @@ function finish(reason){
   setTimeout(function(){ ov.classList.add('hide'); endShow(); }, reason === 'quit' ? 350 : 1400);
 }
 
+/** 한 판 동안 어떻게 쳤는지를 숫자 몇 개로 요약한다.
+    med  : 글자와 글자 사이 시간의 가운뎃값(ms) — 사람은 보통 100~400
+    dev  : 그 간격이 얼마나 들쭉날쭉한가(%) — 사람은 40 이상, 매크로는 0에 가깝다 */
+function evidence(used){
+  var g = G.gaps.slice().sort(function(a, b){ return a - b; });
+  var med = g.length ? g[g.length >> 1] : -1;
+  var dev = -1, i, m = 0, sq = 0;
+  if(g.length > 8){
+    for(i = 0; i < g.length; i++) m += g[i];
+    m /= g.length;
+    for(i = 0; i < g.length; i++) sq += (g[i] - m) * (g[i] - m);
+    dev = m > 0 ? Math.round(Math.sqrt(sq / g.length) / m * 100) : 0;
+  }
+  return { chars:G.chars, secs:used, cleared:G.cleared, typos:G.typos,
+           keys: HAS_BI ? G.keys : -1,
+           med: med < 0 ? -1 : Math.round(med), dev:dev,
+           pasted:G.pasted, ghost:G.ghost };
+}
+
 function endShow(){
   var used = Math.max(1, 60 - G.left);
   var wpm = Math.round(G.chars / used * 60);
@@ -895,8 +1027,9 @@ function endShow(){
     : (G.missed ? '오타는 거의 없었습니다. 놓친 것 ' + G.missed + '개 — 조금만 더 빨리!'
                 : '오타도 놓친 것도 없습니다. 완벽해요!');
 
-  /* 연습 모드는 떨어지지 않으므로 순위에 올리지 않습니다 */
-  var can = G.mode === 'fall';
+  /* 연습 모드는 떨어지지 않으므로 순위에 올리지 않습니다.
+     한 개도 못 맞힌 판도 올리지 않습니다(그만두기로 끝낸 경우). */
+  var can = G.mode === 'fall' && G.cleared > 0;
   $('sendbox').classList.toggle('hide', !can);
   if(can){
     var w0 = who();
@@ -906,12 +1039,36 @@ function endShow(){
     $('sendbox').classList.remove('sent');
     $('btn-send').disabled = false;
     $('btn-send').textContent = '순위에 올리기';
-    lastSent = { stage:G.stage.t, score:G.score, wpm:wpm, acc:acc, combo:G.maxCombo, missed:G.missed };
+    lastSent = { stage:G.stage.t, score:G.score, wpm:wpm, acc:acc,
+                 combo:G.maxCombo, missed:G.missed, ev:evidence(used) };
+    $('mecheck').classList.add('hide');
   }
   show('end');
   confetti();
-  /* 분반과 이름을 이미 적어 두었으면 알아서 올린다 */
-  if(can && $('cls2').value && $('nick2').value.trim()) send(true);
+  /* 분반과 이름을 이미 적어 두었으면 알아서 올린다.
+     다만 «이 브라우저에서 처음»이면 한 번 물어봅니다 — 공용 컴퓨터에서
+     앞사람 이름으로 올라가는 일을 막기 위해서입니다.                */
+  if(can && $('cls2').value && $('nick2').value.trim()){
+    if(confirmedMe()) send(true);
+    else {
+      $('mename').textContent = $('cls2').value + ' ' + $('nick2').value.trim();
+      $('mecheck').classList.remove('hide');
+    }
+  }
+}
+
+/* ── 이 컴퓨터를 쓰는 사람이 정말 그 사람인가 ── */
+function confirmedMe(){ try{ return sessionStorage.getItem(SEEN_KEY) === '1'; }catch(e){ return true; } }
+function okMe(){ try{ sessionStorage.setItem(SEEN_KEY, '1'); }catch(e){}
+                 $('mecheck').classList.add('hide'); }
+function forgetMe(){
+  try{ localStorage.removeItem(WHO_KEY); sessionStorage.removeItem(SEEN_KEY); }catch(e){}
+  $('cls').value = ''; $('nick').value = '';
+  $('cls2').value = ''; $('nick2').value = '';
+  $('mecheck').classList.add('hide');
+  $('sendmsg').className = 'sendmsg wait';
+  $('sendmsg').textContent = '분반과 이름을 새로 적고 «순위에 올리기»를 눌러 주세요.';
+  $('nick2').focus();
 }
 
 /* ── 순위에 올리기 ── */
@@ -927,18 +1084,30 @@ function send(auto){
   msg.className = 'sendmsg wait';
   msg.textContent = auto ? '기록을 올리는 중…' : '보내는 중…';
 
+  var ev = lastSent.ev || {};
   var d = { key:SUBMIT_KEY, type:'typing', round:ROUND, cls:cls, name:name,
             stage:lastSent.stage, score:lastSent.score, wpm:lastSent.wpm,
-            acc:lastSent.acc, combo:lastSent.combo, missed:lastSent.missed };
+            acc:lastSent.acc, combo:lastSent.combo, missed:lastSent.missed,
+            chars:ev.chars, secs:ev.secs, cleared:ev.cleared, typos:ev.typos,
+            keys:ev.keys, med:ev.med, dev:ev.dev,
+            pasted:ev.pasted, ghost:ev.ghost };
+  d.sig = sign(d);
   var body = JSON.stringify(d);
-  var good = function(extra){
+  var good = function(extra, j){
     msg.className = 'sendmsg ok';
     msg.textContent = (auto ? '✅ 자동으로 올렸습니다' : '올렸습니다') + (extra || '')
       + (WARMUP ? ' · 지금은 연습 기간이라 순위에는 들어가지 않습니다'
                 : ' · ' + ROUND + '회차 순위에 반영됩니다');
+    /* 수집기가 «확인이 필요하다»고 하면 그대로 알려 줍니다.
+       기록은 지워지지 않고, 선생님이 보고 풀어 줄 수 있습니다. */
+    if(j && j.flag){
+      msg.className = 'sendmsg wait';
+      msg.textContent = '기록은 저장했지만 확인할 것이 있어 순위에는 바로 오르지 않습니다. '
+                      + '선생님께 말씀해 주세요.';
+    }
     $('btn-send').textContent = '다시 올리기';
     $('btn-send').disabled = false;
-    if(auto) $('sendbox').classList.add('sent');   /* 다 됐으면 칸은 접는다 */
+    if(auto && !(j && j.flag)) $('sendbox').classList.add('sent');   /* 다 됐으면 칸은 접는다 */
     loadRank();
   };
   var bad = function(){
@@ -948,7 +1117,7 @@ function send(auto){
   };
   fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
     .then(function(r){ return r.json(); })
-    .then(function(j){ if(j && j.ok) good(); else bad(); })
+    .then(function(j){ if(j && j.ok) good('', j); else bad(); })
     .catch(function(){
       fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
             headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
@@ -976,7 +1145,8 @@ function loadRank(){
     }
     var medal = ['🥇','🥈','🥉'];
     box.innerHTML = rows.map(function(r, i){
-      var mine = me.name && r.name === me.name && (!me.cls || r.cls === me.cls);
+      /* 수집기가 이름을 가려서 보내 주므로, «나»는 이름이 아니라 표로 찾습니다. */
+      var mine = !!(me.name && r.h && r.h === nameKey(r.cls, me.name));
       var cls2 = 'rrow' + (i < 3 ? ' top' + (i + 1) : '') + (mine ? ' me' : '');
       var mk = i < 3 ? '<span class="medal">' + medal[i] + '</span>'
                      : '<span class="medal num">' + (i + 1) + '</span>';
@@ -993,9 +1163,10 @@ function loadRank(){
   });
 }
 function noteText(){
-  return WARMUP
+  return (WARMUP
     ? '연습 기간 · 8/31(월)부터 1회차가 시작됩니다 (1회차 8/31~9/13)'
-    : ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다';
+    : ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다')
+    + ' · 이름은 가려서 보여 줍니다';
 }
 
 /* ── 첫 화면 ── */

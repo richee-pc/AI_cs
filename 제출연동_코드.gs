@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v17
+ * 인공지능 기초 활동지 수집기  v18
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -38,6 +38,19 @@
  * 규칙게임 · 편향실습그림 · 자판깨우기 셋만은 학생 페이지가 «읽기»도 합니다.
  * 친구들이 올린 게임과 그림, 그리고 이번 회차 순위를 보여 주어야 하기 때문입니다.
  * 나머지 탭은 읽히지 않습니다.
+ *
+ * ── 개인정보 (v18) ──────────────────────────────────────────
+ * 학생 페이지 주소와 열쇠말은 «누구나 볼 수 있는 것»입니다(브라우저에 그대로
+ * 담겨 있으니까요). 그래서 읽기로 나가는 이름은 모두 «김○늘» 처럼 가려서
+ * 내보냅니다. 전체 이름은 이 시트 안에만 남고, 밖으로 나가지 않습니다.
+ * 순위표에서 «나»를 찾는 것은 이름 대신 짧은 표(h)로 맞춥니다.
+ *
+ * ── 자판깨우기 검증 (v18) ───────────────────────────────────
+ * 기록마다 «검증» 칸이 붙습니다. 숫자끼리 아귀가 맞는지, 사람 손으로 낼 수
+ * 있는 값인지, 붙여넣기나 자동 입력(매크로) 자취가 없는지를 봅니다.
+ * 걸린 기록도 «지우지 않고» 그대로 남기되 순위에서만 빼 둡니다.
+ * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
+ * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
  * 부적절한 내용이 올라오면 시트에서 그 줄을 지우면 목록에서도 사라집니다.
  *
  * 쓰는 법은 같은 폴더의 «제출연동_안내.md» 를 보세요.
@@ -47,7 +60,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 17;
+var VER = 18;
 
 var SHEETS = {
 
@@ -332,16 +345,121 @@ var SHEETS = {
   // 연습 모드는 떨어지지 않아 기록이 될 수 없으므로 학생 페이지에서 보내지 않습니다.
   typing: {
     name: '자판깨우기',
+    // 뒤쪽 여섯 칸은 «사람이 친 기록인가»를 판단한 근거입니다.
+    // 검증이 «의심» 인 줄은 순위에서 빠집니다. 확인 후 «정상» 으로 고치면 들어갑니다.
     head: ['제출 시각', '회차', '분반', '이름', '단계',
-           '점수', '분당 타수', '정확도(%)', '최고 연속', '놓친 것'],
-    width: [140, 60, 70, 100, 110, 80, 90, 90, 90, 80],
+           '점수', '분당 타수', '정확도(%)', '최고 연속', '놓친 것',
+           '검증', '걸린 이유', '친 글자', '키 입력', '간격 가운뎃값(ms)', '간격 고름(%)'],
+    width: [140, 60, 70, 100, 110, 80, 90, 90, 90, 80,
+            70, 300, 80, 80, 130, 110],
     row: function (d) {
+      var why = (d.__why === undefined) ? checkTyping(d) : d.__why;
       return [new Date(), Number(d.round) || 0, d.cls || '', d.name || '', d.stage || '',
               Number(d.score) || 0, Number(d.wpm) || 0, Number(d.acc) || 0,
-              Number(d.combo) || 0, Number(d.missed) || 0];
+              Number(d.combo) || 0, Number(d.missed) || 0,
+              why ? '의심' : '정상', why,
+              Number(d.chars) || 0, Number(d.keys),
+              Number(d.med), Number(d.dev)];
     }
   }
 };
+
+/* ══════════════════════════════════════════════════════════════
+   개인정보와 기록 검증에 쓰는 작은 도구들
+   ══════════════════════════════════════════════════════════════ */
+
+// 학생 페이지(type.html)의 SIGN_SALT 와 반드시 같아야 합니다.
+var TYPE_SALT = 'ptp-2026-jaban-v1';
+
+/** 이름 가리기. 김하늘 → 김○늘 · 남궁하늘 → 남○○늘 */
+function maskName(nm) {
+  nm = String(nm || '').trim();
+  if (nm.length < 2) return nm;
+  if (nm.length === 2) return nm.charAt(0) + '○';
+  return nm.charAt(0) + new Array(nm.length - 1).join('○') + nm.charAt(nm.length - 1);
+}
+
+/** 문자열을 짧은 표로. 학생 페이지의 hash36 과 결과가 같아야 합니다. */
+function hash36(str) {
+  var h1 = 5381, h2 = 52711, i, c;
+  str = String(str);
+  for (i = 0; i < str.length; i++) {
+    c = str.charCodeAt(i);
+    h1 = ((h1 * 33) ^ c) >>> 0;
+    h2 = ((h2 * 31) + c * (i + 1)) >>> 0;
+  }
+  return h1.toString(36) + h2.toString(36);
+}
+
+/** 순위표에서 «나»를 찾을 때 쓰는 표. 이름 자체는 내보내지 않습니다. */
+function nameKey(cls, nm) {
+  return hash36('n|' + cls + '|' + String(nm).trim() + '|' + TYPE_SALT);
+}
+
+/** 기록이 게임 화면을 거쳐 왔는지 보는 검사값. */
+function typeSign(d) {
+  return hash36([d.round, d.cls, d.name, d.stage, d.score, d.wpm, d.acc, d.combo,
+                 d.missed, d.chars, d.secs, d.keys, d.cleared, d.typos].join('|')
+                + '|' + TYPE_SALT);
+}
+
+/** 자판 기록이 «사람이 손으로 친 것»으로 볼 수 있는가.
+ *  '' 이면 정상, 아니면 걸린 이유를 이어 붙인 문장.
+ *
+ *  숫자끼리의 아귀가 핵심입니다. 한 낱말을 터뜨릴 때 얻는 점수는
+ *  «글자 수 × 10 × min(연속, 5)» 이므로, 아무리 잘해도
+ *      친 글자 × 10  ≤  점수  ≤  친 글자 × 50
+ *  을 벗어날 수 없습니다. 점수만 크게 적어 보내면 여기서 걸립니다.  */
+function checkTyping(d) {
+  var why = [];
+
+  var score = Number(d.score) || 0, wpm = Number(d.wpm) || 0;
+  var acc = Number(d.acc) || 0, combo = Number(d.combo) || 0;
+  var chars = Number(d.chars) || 0, secs = Number(d.secs) || 0;
+  var cleared = Number(d.cleared) || 0;
+  var keys = Number(d.keys); if (isNaN(keys)) keys = -1;
+  var med = Number(d.med);   if (isNaN(med)) med = -1;
+  var dev = Number(d.dev);   if (isNaN(dev)) dev = -1;
+
+  // ① 게임 화면을 거쳐 왔는가 (주소로 바로 던져 넣은 기록 걸러내기)
+  if (d.sig === undefined) why.push('검사값 없음(옛 페이지이거나 직접 보냄)');
+  else if (String(d.sig) !== typeSign(d)) why.push('검사값 불일치');
+
+  // ② 숫자끼리 아귀가 맞는가
+  if (secs < 1 || secs > 62) why.push('시간이 이상함(' + secs + '초)');
+  if (cleared < 1 || chars < 1) why.push('맞힌 것이 없음');
+  if (acc < 0 || acc > 100) why.push('정확도가 범위 밖(' + acc + ')');
+  if (combo > cleared) why.push('최고 연속이 맞힌 수보다 많음');
+  if (chars > 0 && (score > chars * 50 || score < chars * 10))
+    why.push('점수와 친 글자 수가 안 맞음(' + score + ' / ' + chars + '자)');
+  if (secs > 0 && Math.abs(chars - wpm * secs / 60) > Math.max(2, chars * 0.05))
+    why.push('타수와 친 글자 수가 안 맞음');
+
+  // ③ 사람 손의 한계
+  if (wpm > 450) why.push('타수가 사람 한계를 넘음(' + wpm + ')');
+  if (keys >= 0 && keys < chars) why.push('키를 누르지 않고 글자가 들어감');
+  if (med >= 0 && med < 30) why.push('글자 사이가 너무 짧음(' + med + 'ms)');
+  if (dev >= 0 && dev < 12 && keys > 25) why.push('글자 사이가 기계처럼 일정함(' + dev + '%)');
+  if (Number(d.pasted) > 0) why.push('붙여넣기');
+  if (Number(d.ghost) > 0) why.push('사람이 치지 않은 입력');
+
+  return why.join(' · ');
+}
+
+/* 한 번에 보낼 수 있는 크기. 그림 한 장이 800자 남짓, 토론 입론서가 길어야
+   수만 자이므로 넉넉합니다. 이보다 크면 잘못 보낸 것이거나 장난입니다. */
+var MAX_BODY = 300000;      // 한 번에 보내는 전체 크기(글자)
+var MAX_CELL = 45000;       // 한 칸에 넣을 수 있는 크기 (시트 한도 5만)
+
+/** 시트 한 칸에 안 들어가는 긴 글은 잘라 둡니다. 통째로 실패하는 것보다 낫습니다. */
+function trimCells(row) {
+  for (var i = 0; i < row.length; i++) {
+    if (typeof row[i] === 'string' && row[i].length > MAX_CELL) {
+      row[i] = row[i].slice(0, MAX_CELL - 20) + '…(잘림)';
+    }
+  }
+  return row;
+}
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -354,15 +472,27 @@ function doPost(e) {
     if (!e || !e.postData || !e.postData.contents) {
       return out({ ok: false, error: '보낸 내용이 비어 있습니다.' });
     }
+    if (e.postData.contents.length > MAX_BODY) {
+      return out({ ok: false, error: '보낸 내용이 너무 큽니다.' });
+    }
     var d = JSON.parse(e.postData.contents);
     if (d.key !== SUBMIT_KEY) {
       return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
     }
 
-    // type 이 없으면 예전 페이지에서 온 것이므로 튜링테스트로 본다
-    var kind = SHEETS[d.type] || SHEETS.turing;
-    sheet(kind).appendRow(kind.row(d));
-    return out({ ok: true, ver: VER, sheet: kind.name });
+    // type 이 없으면 예전 페이지에서 온 것이므로 튜링테스트로 본다.
+    // 다만 «모르는 이름»이 오면 엉뚱한 탭에 쌓이지 않게 되돌려보낸다.
+    var kind;
+    if (d.type === undefined || d.type === '') kind = SHEETS.turing;
+    else if (SHEETS[d.type]) kind = SHEETS[d.type];
+    else return out({ ok: false, error: '모르는 활동입니다 : ' + String(d.type).slice(0, 40) });
+
+    // 자판 기록은 «사람이 친 것인가»를 먼저 살펴 그 결과를 함께 적는다
+    var why = '';
+    if (kind === SHEETS.typing) { why = checkTyping(d); d.__why = why; }
+
+    sheet(kind).appendRow(trimCells(kind.row(d)));
+    return out({ ok: true, ver: VER, sheet: kind.name, flag: why ? true : false });
 
   } catch (err) {
     return out({ ok: false, error: String(err) });
@@ -382,6 +512,9 @@ function doGet(e) {
     // 읽기를 허용하는 탭은 «규칙게임»과 «편향실습그림» 둘뿐입니다.
     if (p.list === 'draw') {
       return out({ ok: true, ver: VER, draws: readDraws(p.cls || '') });
+    }
+    if (p.list === 'ping') {                       // 연결 확인용 (아무것도 안 내보냄)
+      return out({ ok: true, ver: VER });
     }
     if (p.list === 'typing') {
       var wantRound = (p.round === undefined || p.round === '')
@@ -411,9 +544,15 @@ function readGames(cls) {
     var js = String(r[6] || '').trim();
     if (!js) continue;                             // 원본이 없으면 되살릴 수 없다
     if (cls && String(r[1] || '') !== cls) continue;
+    // 밖으로 나가는 이름은 가립니다. 게임 원본(JSON) 안의 이름도 함께.
+    var who = maskName(r[2]);
+    try {
+      var g = JSON.parse(js);
+      if (g && g.n) { g.n = maskName(g.n); js = JSON.stringify(g); }
+    } catch (err) { /* 못 읽는 원본은 그대로 둔다 */ }
     list.push({
       t: r[0] ? new Date(r[0]).getTime() : 0,
-      cls: String(r[1] || ''), n: String(r[2] || ''),
+      cls: String(r[1] || ''), n: who,
       kind: String(r[3] || ''), json: js
     });
   }
@@ -443,7 +582,8 @@ function readTyping(cls, round) {
   if (last < 2) return [];
   var MAX = 1200;
   var n = Math.min(last - 1, MAX);
-  var rows = sh.getRange(last - n + 1, 1, n, 10).getValues();
+  var cols = Math.min(16, Math.max(10, sh.getLastColumn()));
+  var rows = sh.getRange(last - n + 1, 1, n, cols).getValues();
 
   var best = {};
   for (var i = 0; i < rows.length; i++) {
@@ -453,9 +593,14 @@ function readTyping(cls, round) {
     if (!nm) continue;
     if (rd !== round) continue;                  // 0(연습 기간)도 정확히 가른다
     if (cls && c !== cls) continue;
+    // «의심» 인 줄은 순위에서 뺍니다. 칸이 비어 있으면(옛 기록) 그대로 셉니다.
+    if (String(r[10] || '').indexOf('의심') === 0) continue;
     var key = c + '/' + nm;
     var one = {
-      round: rd, cls: c, name: nm, stage: String(r[4] || ''),
+      round: rd, cls: c,
+      name: maskName(nm),                        // 전체 이름은 내보내지 않는다
+      h: nameKey(c, nm),                         // «나»를 찾을 때 쓰는 표
+      stage: String(r[4] || ''),
       score: Number(r[5]) || 0, wpm: Number(r[6]) || 0,
       acc: Number(r[7]) || 0, combo: Number(r[8]) || 0
     };
@@ -667,7 +812,40 @@ function onOpen() {
     .addItem('Ⅲ단원 수업 활동 한 장으로 모으기', 'Ⅲ단원활동모으기')
     .addSeparator()
     .addItem('채점 결과 요약 보기', '토론채점요약')
+    .addSeparator()
+    .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
     .addToUi();
+}
+
+/** 자판깨우기에서 «의심» 으로 걸린 기록을 모아 보여 준다.
+ *  걸렸다고 곧바로 부정행위는 아닙니다 — 옛 페이지에서 보냈거나
+ *  브라우저가 특이한 경우에도 걸릴 수 있습니다. 확인하고 문제가 없으면
+ *  그 줄의 «검증» 칸을 «정상» 으로 고치면 바로 순위에 들어갑니다.       */
+function 자판의심기록보기() {
+  var ui = SpreadsheetApp.getUi();
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
+  if (!sh || sh.getLastRow() < 2) { ui.alert('자판 기록이 아직 없습니다.'); return; }
+  var cols = Math.min(16, Math.max(10, sh.getLastColumn()));
+  if (cols < 11) { ui.alert('검증 칸이 아직 없습니다. 학생이 한 판 올리면 생깁니다.'); return; }
+
+  var v = sh.getRange(2, 1, sh.getLastRow() - 1, cols).getValues();
+  var lines = [], all = 0;
+  for (var i = v.length - 1; i >= 0 && lines.length < 40; i--) {
+    if (String(v[i][10] || '').indexOf('의심') !== 0) continue;
+    all++;
+    lines.push('· ' + Utilities.formatDate(new Date(v[i][0]),
+                 Session.getScriptTimeZone(), 'MM/dd HH:mm')
+      + '  ' + v[i][2] + ' ' + v[i][3]
+      + '  ' + v[i][5] + '점 / ' + v[i][6] + '타'
+      + '\n    → ' + v[i][11]);
+  }
+  if (!lines.length) { ui.alert('의심 기록이 없습니다. 모두 정상입니다.'); return; }
+  ui.alert('자판 깨우기 · 의심 기록',
+    '모두 ' + all + '건입니다 (최근 것부터 ' + lines.length + '건).\n\n'
+    + lines.join('\n\n')
+    + '\n\n확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로\n'
+    + '고쳐 주세요. 바로 순위에 들어갑니다.',
+    ui.ButtonSet.OK);
 }
 
 /* ── 채점기준 탭 ──────────────────────────────────────────
@@ -1165,7 +1343,7 @@ function readDraws(cls) {
     if (cls && c !== cls) continue;
     var px = String(v[i][7] || '');
     if (px.length < 100) continue;          // 비었거나 깨진 줄은 건너뛴다
-    out.push({ cls: c, n: String(v[i][2] || ''), obj: String(v[i][3] || ''), px: px });
+    out.push({ cls: c, n: maskName(v[i][2]), obj: String(v[i][3] || ''), px: px });
   }
   return out.reverse();
 }
