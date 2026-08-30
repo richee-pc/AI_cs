@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v19
+ * 인공지능 기초 활동지 수집기  v20
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -52,6 +52,14 @@
  * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
  * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
  *
+ * v20 — «개시표». 학생 페이지 코드는 누구나 읽을 수 있으므로,
+ * «학생 페이지에 없는 열쇠»를 하나 둡니다. 이 열쇠는 수집기의
+ * 스크립트 속성에만 있고 저장소에도 학생 페이지에도 들어가지 않습니다.
+ * 판을 시작할 때 수집기가 이 열쇠로 서명한 «개시표»를 내주고,
+ * 기록을 낼 때 돌려받아 맞춰 봅니다. 코드를 다 읽어도 개시표는
+ * 지어낼 수 없고, «언제 시작했는지»가 서버 시계에 박힙니다.
+ *   → 처음 한 번 메뉴 «수행평가 → 자판 깨우기 · 개시표 열쇠 만들기»
+ *
  * v19 — «검증» 칸이 없는 옛 기록에도 점수 상한을 적용합니다.
  * 점수는 «분당 타수 × 50» 을 넘을 수 없습니다(뒤의 typeImpossible 참고).
  * 이 판을 올리기 전에 점수를 크게 적어 보낸 줄이 있으면 저절로 빠집니다.
@@ -64,7 +72,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 19;
+var VER = 20;
 
 var SHEETS = {
 
@@ -353,9 +361,10 @@ var SHEETS = {
     // 검증이 «의심» 인 줄은 순위에서 빠집니다. 확인 후 «정상» 으로 고치면 들어갑니다.
     head: ['제출 시각', '회차', '분반', '이름', '단계',
            '점수', '분당 타수', '정확도(%)', '최고 연속', '놓친 것',
-           '검증', '걸린 이유', '친 글자', '키 입력', '간격 가운뎃값(ms)', '간격 고름(%)'],
+           '검증', '걸린 이유', '친 글자', '키 입력', '간격 가운뎃값(ms)', '간격 고름(%)',
+           '개시표'],
     width: [140, 60, 70, 100, 110, 80, 90, 90, 90, 80,
-            70, 300, 80, 80, 130, 110],
+            70, 300, 80, 80, 130, 110, 190],
     row: function (d) {
       var why = (d.__why === undefined) ? checkTyping(d) : d.__why;
       return [new Date(), Number(d.round) || 0, d.cls || '', d.name || '', d.stage || '',
@@ -363,7 +372,8 @@ var SHEETS = {
               Number(d.combo) || 0, Number(d.missed) || 0,
               why ? '의심' : '정상', why,
               Number(d.chars) || 0, Number(d.keys),
-              Number(d.med), Number(d.dev)];
+              Number(d.med), Number(d.dev),
+              String(d.tok || '')];
     }
   }
 };
@@ -450,6 +460,66 @@ function checkTyping(d) {
   return why.join(' · ');
 }
 
+/* ══════════════════════════════════════════════════════════════
+   개시표 — 학생 페이지에 없는 열쇠로 «판을 시작했다»를 증명한다
+   ══════════════════════════════════════════════════════════════
+   왜 필요한가. 학생 페이지(type.html)는 학생 브라우저에서 도는 것이라
+   코드가 통째로 보입니다. 거기 적힌 열쇠말은 «공개된 것»으로 봐야 합니다.
+   그래서 학생 페이지에 **없는** 열쇠가 하나 필요합니다.
+
+   이 열쇠는 스프레드시트의 «스크립트 속성»에만 둡니다.
+   깃허브 저장소에도, 학생 페이지에도 들어가지 않습니다.
+   메뉴 «수행평가 → 자판 깨우기 · 개시표 열쇠 만들기» 를 한 번 누르면
+   저절로 만들어져 저장됩니다.                                          */
+
+var GATE_PROP = 'TYPE_GATE_SECRET';
+
+function gateSecret() {
+  try { return PropertiesService.getScriptProperties().getProperty(GATE_PROP) || ''; }
+  catch (e) { return ''; }
+}
+
+/** 바이트를 16진수 글자로. */
+function toHex(bytes) {
+  var s = '';
+  for (var i = 0; i < bytes.length; i++) {
+    var b = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
+    s += (b < 16 ? '0' : '') + b.toString(16);
+  }
+  return s;
+}
+
+function gateMac(t, key) {
+  return toHex(Utilities.computeHmacSha256Signature(String(t) + '|typing', key)).slice(0, 24);
+}
+
+/** 판을 시작할 때 내주는 개시표. «시각.서명» 모양입니다. */
+function gateIssue() {
+  var key = gateSecret();
+  if (!key) return '';                       // 열쇠를 아직 안 만들었으면 안 내줌
+  var t = new Date().getTime();
+  return t + '.' + gateMac(t, key);
+}
+
+/** 돌려받은 개시표가 이 수집기가 낸 것인가, 그리고 시각이 말이 되는가.
+ *  '' 이면 정상, 아니면 걸린 이유.
+ *  secs 는 학생이 «이만큼 쳤다»고 말한 시간입니다. 서버가 개시표를 내준
+ *  뒤 그만큼도 지나지 않았다면, 그 판은 실제로 치지 않은 것입니다.      */
+function gateCheck(tok, secs) {
+  var key = gateSecret();
+  if (!key) return '';                       // 열쇠 없음 — 아직 안 켠 것이므로 통과
+  if (!tok) return '개시표 없음';
+  var p = String(tok).split('.');
+  if (p.length !== 2) return '개시표 모양이 틀림';
+  var t = Number(p[0]);
+  if (!t || gateMac(t, key) !== p[1]) return '개시표가 이 수집기 것이 아님';
+  var gone = (new Date().getTime() - t) / 1000;
+  if (gone < 0) return '개시표 시각이 앞섬';
+  if (gone + 3 < (Number(secs) || 0)) return '한 판을 칠 시간이 지나지 않음';
+  if (gone > 1800) return '개시표가 너무 오래됨(30분)';
+  return '';
+}
+
 /* 한 번에 보낼 수 있는 크기. 그림 한 장이 800자 남짓, 토론 입론서가 길어야
    수만 자이므로 넉넉합니다. 이보다 크면 잘못 보낸 것이거나 장난입니다. */
 var MAX_BODY = 300000;      // 한 번에 보내는 전체 크기(글자)
@@ -493,7 +563,12 @@ function doPost(e) {
 
     // 자판 기록은 «사람이 친 것인가»를 먼저 살펴 그 결과를 함께 적는다
     var why = '';
-    if (kind === SHEETS.typing) { why = checkTyping(d); d.__why = why; }
+    if (kind === SHEETS.typing) {
+      why = checkTyping(d);
+      var gw = gateCheck(d.tok, d.secs);       // 개시표부터 — 이건 지어낼 수 없습니다
+      if (gw) why = why ? (gw + ' · ' + why) : gw;
+      d.__why = why;
+    }
 
     sheet(kind).appendRow(trimCells(kind.row(d)));
     return out({ ok: true, ver: VER, sheet: kind.name, flag: why ? true : false });
@@ -509,6 +584,13 @@ function doPost(e) {
 // ?list=rulegame 이면 «규칙게임» 탭을 읽어 목록으로 돌려준다.
 function doGet(e) {
   var p = (e && e.parameter) || {};
+
+  // 판을 시작할 때 학생 페이지가 개시표를 받아 갑니다.
+  if (p.start === 'typing') {
+    if (p.key !== SUBMIT_KEY) return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
+    return out({ ok: true, ver: VER, tok: gateIssue() });
+  }
+
   if (p.list) {
     if (p.key !== SUBMIT_KEY) {
       return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
@@ -603,7 +685,7 @@ function readTyping(cls, round) {
   if (last < 2) return [];
   var MAX = 1200;
   var n = Math.min(last - 1, MAX);
-  var cols = Math.min(16, Math.max(10, sh.getLastColumn()));
+  var cols = Math.min(17, Math.max(10, sh.getLastColumn()));
   var rows = sh.getRange(last - n + 1, 1, n, cols).getValues();
 
   var best = {};
@@ -838,7 +920,36 @@ function onOpen() {
     .addItem('채점 결과 요약 보기', '토론채점요약')
     .addSeparator()
     .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
+    .addItem('자판 깨우기 · 개시표 열쇠 만들기', '개시표열쇠만들기')
     .addToUi();
+}
+
+/** 개시표에 쓸 열쇠를 만들어 «스크립트 속성»에 넣는다.
+ *  이 열쇠는 여기에만 있습니다 — 저장소에도, 학생 페이지에도 없습니다.
+ *  그래서 학생이 코드를 다 읽어도 개시표를 지어낼 수 없습니다.
+ *  한 번만 누르면 됩니다. 다시 누르면 열쇠가 바뀌고, 그 순간
+ *  이미 나가 있던 개시표는 못 쓰게 됩니다(판을 치던 학생은 다시 시작).  */
+function 개시표열쇠만들기() {
+  var ui = SpreadsheetApp.getUi();
+  var props = PropertiesService.getScriptProperties();
+  var had = !!props.getProperty(GATE_PROP);
+  if (had) {
+    var ans = ui.alert('개시표 열쇠 바꾸기',
+      '이미 열쇠가 있습니다. 새로 만들면 지금 판을 치고 있는 학생의 기록이\n'
+      + '«개시표가 이 수집기 것이 아님» 으로 걸립니다.\n\n그래도 새로 만들까요?',
+      ui.ButtonSet.YES_NO);
+    if (ans !== ui.Button.YES) return;
+  }
+  var key = toHex(Utilities.computeHmacSha256Signature(
+    Utilities.getUuid() + new Date().getTime(), Utilities.getUuid()));
+  props.setProperty(GATE_PROP, key);
+  ui.alert('개시표 열쇠를 ' + (had ? '새로 만들었습니다.' : '만들었습니다.'),
+    '이제 자판 기록은 «수집기에서 받아 온 개시표»가 있어야 정상으로 셉니다.\n\n'
+    + '· 이 열쇠는 이 스프레드시트의 스크립트 속성에만 있습니다.\n'
+    + '· 깃허브 저장소에도, 학생 페이지에도 들어가지 않습니다.\n'
+    + '· 그래서 학생이 코드를 다 읽어도 개시표는 지어낼 수 없습니다.\n\n'
+    + '따로 적어 두실 필요 없습니다.',
+    ui.ButtonSet.OK);
 }
 
 /** 자판깨우기에서 «의심» 으로 걸린 기록을 모아 보여 준다.
@@ -849,7 +960,7 @@ function 자판의심기록보기() {
   var ui = SpreadsheetApp.getUi();
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
   if (!sh || sh.getLastRow() < 2) { ui.alert('자판 기록이 아직 없습니다.'); return; }
-  var cols = Math.min(16, Math.max(10, sh.getLastColumn()));
+  var cols = Math.min(17, Math.max(10, sh.getLastColumn()));
   if (cols < 11) { ui.alert('검증 칸이 아직 없습니다. 학생이 한 판 올리면 생깁니다.'); return; }
 
   var v = sh.getRange(2, 1, sh.getLastRow() - 1, cols).getValues();

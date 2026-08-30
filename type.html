@@ -629,6 +629,25 @@ var HAS_BI = (typeof HTMLInputElement !== 'undefined')
 var stageIx = 0, mode = 'fall';
 var G = null, raf = 0, tick = 0, lastSent = null;
 
+/* ── 개시표 ────────────────────────────────────────────────
+   이 페이지의 코드는 누구나 읽을 수 있습니다. 그래서 «여기 없는 열쇠»가
+   필요합니다 — 판을 시작할 때 수집기에서 개시표를 하나 받아 두었다가
+   기록을 낼 때 그대로 돌려줍니다. 개시표에는 수집기만 아는 열쇠로 찍은
+   서명과 «내준 시각»이 들어 있어서, 이 코드를 다 읽어도 지어낼 수 없습니다.
+   (열쇠는 선생님 수집기 안에만 있습니다.)                              */
+var gate = null;              /* 이번 판의 개시표 */
+var gateWait = null;          /* 아직 오는 중이면 그 약속 */
+
+function getGate(){
+  gate = null;
+  gateWait = fetch(SUBMIT_URL + '?start=typing&key=' + encodeURIComponent(SUBMIT_KEY)
+                   + '&t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(j && j.ok && j.tok) gate = j.tok; return gate; })
+    .catch(function(){ return null; });
+  return gateWait;
+}
+
 /* ── 저장 ── */
 function best(){ try{ return JSON.parse(localStorage.getItem(BEST_KEY) || '{}'); }catch(e){ return {}; } }
 function setBest(o){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(o)); }catch(e){} }
@@ -723,6 +742,7 @@ document.addEventListener('change', function(e){
 function countdown(){
   show('play');
   drawKeys();
+  getGate();                  /* 세는 동안 미리 받아 둡니다 */
   var c = $('count'), k = 3;
   c.classList.remove('hide');
   c.innerHTML = '3<small>준비!</small>';
@@ -1084,6 +1104,16 @@ function send(auto){
   msg.className = 'sendmsg wait';
   msg.textContent = auto ? '기록을 올리는 중…' : '보내는 중…';
 
+  /* 개시표가 아직 오는 중이면 기다렸다가 보냅니다 */
+  if(gate === null && gateWait){
+    gateWait.then(function(){ gateWait = null; reallySend(auto, cls, name, msg); });
+    return;
+  }
+  reallySend(auto, cls, name, msg);
+}
+
+function reallySend(auto, cls, name, msg){
+
   var ev = lastSent.ev || {};
   var d = { key:SUBMIT_KEY, type:'typing', round:ROUND, cls:cls, name:name,
             stage:lastSent.stage, score:lastSent.score, wpm:lastSent.wpm,
@@ -1092,6 +1122,7 @@ function send(auto){
             keys:ev.keys, med:ev.med, dev:ev.dev,
             pasted:ev.pasted, ghost:ev.ghost };
   d.sig = sign(d);
+  d.tok = gate || '';         /* 수집기가 내준 개시표를 그대로 돌려줍니다 */
   var body = JSON.stringify(d);
   var good = function(extra, j){
     msg.className = 'sendmsg ok';
