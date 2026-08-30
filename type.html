@@ -617,8 +617,10 @@ var KEYS = [
 var KO = /[ㄱ-ㆎ가-힣]/;
 var BEST_KEY = 'ai-type-best';
 var WHO_KEY = 'ai-type-who';
-/* 공용 실습실 컴퓨터 대비 — 브라우저를 새로 열면 «네가 맞니?»를 한 번 묻는다.
-   sessionStorage 라서 탭을 닫으면 사라집니다.                       */
+/* «이 이름이 맞나요» 를 한 번 묻고, 그 뒤로는 안 묻는다.
+   학생마다 교육청에서 받은 개인 노트북을 쓰므로 «이 노트북에서 한 번»이면
+   충분합니다. 남의 노트북을 잠깐 빌려 쓴 경우를 위해 «내가 아니에요»는
+   그대로 두었습니다.                                                */
 var SEEN_KEY = 'ai-type-ok';
 
 /* 이 브라우저가 beforeinput 을 주는가. 못 주면 키 입력 수를 셀 수 없으므로
@@ -1078,11 +1080,11 @@ function endShow(){
 }
 
 /* ── 이 컴퓨터를 쓰는 사람이 정말 그 사람인가 ── */
-function confirmedMe(){ try{ return sessionStorage.getItem(SEEN_KEY) === '1'; }catch(e){ return true; } }
-function okMe(){ try{ sessionStorage.setItem(SEEN_KEY, '1'); }catch(e){}
+function confirmedMe(){ try{ return localStorage.getItem(SEEN_KEY) === '1'; }catch(e){ return true; } }
+function okMe(){ try{ localStorage.setItem(SEEN_KEY, '1'); }catch(e){}
                  $('mecheck').classList.add('hide'); }
 function forgetMe(){
-  try{ localStorage.removeItem(WHO_KEY); sessionStorage.removeItem(SEEN_KEY); }catch(e){}
+  try{ localStorage.removeItem(WHO_KEY); localStorage.removeItem(SEEN_KEY); }catch(e){}
   $('cls').value = ''; $('nick').value = '';
   $('cls2').value = ''; $('nick2').value = '';
   $('mecheck').classList.add('hide');
