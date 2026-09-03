@@ -3260,6 +3260,32 @@ table.dlt tr:last-child td{border-bottom:none}
 
 var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
 var SUBMIT_KEY = 'chosun-ai-2026';
+
+  /* ── 제출 봉인 ──────────────────────────────────────────
+     보내기 직전에 수집기에서 «개시표»를 받아 함께 붙입니다.
+     개시표는 이 페이지에 «없는» 열쇠로 서명된 것이라, 코드를 다 읽어도
+     지어낼 수 없습니다. 주소만 알아내 가짜 제출을 밀어 넣는 것을 막습니다.
+
+     못 받았을 때도 그냥 보냅니다 — 수집기가 «확인필요» 탭으로 받아 두므로
+     학생이 쓴 글은 사라지지 않습니다. (인터넷이 잠깐 끊겨도 마찬가지) */
+  function postSealed(body, noCors){
+    var d = null;
+    try{ d = JSON.parse(body); }catch(e){}
+    var kind = (d && d.type) ? d.type : '';
+    var send = function(b){
+      var o = { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:b };
+      if(noCors) o.mode = 'no-cors';
+      return fetch(SUBMIT_URL, o);
+    };
+    if(!kind || !SUBMIT_URL) return send(body);
+    return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) +
+                 '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.tok){ d.tok = j.tok; body = JSON.stringify(d); } })
+      .catch(function(){})
+      .then(function(){ return send(body); });
+  }
+
 var KEY = 'ai_u3_v1';
 
 var U3 = { tl:[], bi:[], biAt:0, dl:[-1,-1,-1], ck:[], ckAt:0, tech:0,
@@ -3371,12 +3397,11 @@ function sender(o){
       msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
       btn.disabled = false; };
     var body = JSON.stringify(d);
-    fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+    postSealed(body)
       .then(function(r){ return r.json(); })
       .then(function(j){ if(j && j.ok) good(); else bad(); })
       .catch(function(){
-        fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
-              headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+        postSealed(body, true)
           .then(function(){ good(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
       });
   });
@@ -4263,12 +4288,10 @@ function pxUnpack(str){
   });
 
   function sendOne(r){
-    return fetch(SUBMIT_URL, { method:'POST',
-      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
-      body:JSON.stringify({ key:SUBMIT_KEY, type:'draw',
+    return postSealed(JSON.stringify({ key:SUBMIT_KEY, type:'draw',
         cls:U3.cls || '', group:r.studentId, obj:r.label,
         ink:r.meta.ink.toFixed(1), cx:r.meta.cx.toFixed(1), cy:r.meta.cy.toFixed(1),
-        px:pxPack(r.vec) }) })
+        px:pxPack(r.vec) }))
       .then(function(x){ return x.json().catch(function(){ return {}; }); })
       .then(function(j){
         if(j && j.ok === false) throw new Error(j.error || '저장 실패');
@@ -4712,12 +4735,11 @@ var WFLOSE = [
     var bad = function(){ msg.className = 'sendmsg bad';
       msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
       btn.disabled = false; };
-    fetch(SUBMIT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+    postSealed(body)
       .then(function(r){ return r.json(); })
       .then(function(j){ if(j && j.ok) good(); else bad(); })
       .catch(function(){
-        fetch(SUBMIT_URL, { method:'POST', mode:'no-cors',
-              headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body })
+        postSealed(body, true)
           .then(function(){ good(' (선생님 시트에서 확인해 주세요)'); }).catch(bad);
       });
   });

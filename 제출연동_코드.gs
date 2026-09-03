@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v22
+ * 인공지능 기초 활동지 수집기  v23
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -52,6 +52,17 @@
  * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
  * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
  *
+ * v23 — 개시표를 «모든 활동»으로 넓혔습니다. 지금까지는 자판만 잠겨
+ * 있었고 나머지는 주소만 알면 줄을 넣을 수 있었습니다. 토론채점표가
+ * «토론입론서» 탭의 이름으로 명단을 만들기 때문에, 거기 가짜 줄이 들어가면
+ * 수행평가 채점에 섞입니다.
+ *
+ * 개시표가 없거나 맞지 않는 제출은 **거절하지 않고** «확인필요» 탭으로
+ * 받아 둡니다. 학생이 쓴 글이 사라지지 않게 하려는 것입니다 —
+ * 인터넷 사정으로 개시표를 못 받는 일도 있으니까요.
+ * 메뉴 «수행평가 → 제출 확인필요 보기» 에서 살펴보고, 진짜 학생 것이면
+ * 그 줄을 원래 탭으로 옮겨 주시면 됩니다.
+ *
  * v22 — 이름 칸 규칙. 학생 페이지의 maxlength 는 화면에서만 막습니다.
  * 개발자 콘솔로 지우면 아무 길이·아무 글자나 들어갑니다.
  * 이제 수집기가 이름을 12자로 자르고, 꺾쇠(< >)나 줄바꿈이 섞인 «이름이
@@ -85,7 +96,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 22;
+var VER = 23;
 
 var SHEETS = {
 
@@ -522,35 +533,58 @@ function toHex(bytes) {
   return s;
 }
 
-function gateMac(t, key) {
-  return toHex(Utilities.computeHmacSha256Signature(String(t) + '|typing', key)).slice(0, 24);
+function gateMac(t, key, kind) {
+  return toHex(Utilities.computeHmacSha256Signature(
+    String(t) + '|' + (kind || 'typing'), key)).slice(0, 24);
 }
 
-/** 판을 시작할 때 내주는 개시표. «시각.서명» 모양입니다. */
-function gateIssue() {
+/** 제출하기 직전(자판은 판을 시작할 때) 내주는 개시표. «시각.서명» 모양.
+ *  활동마다 다른 서명이라 하나를 얻어 다른 활동에 쓸 수 없습니다.        */
+function gateIssue(kind) {
   var key = gateSecret();
   if (!key) return '';                       // 열쇠를 아직 안 만들었으면 안 내줌
   var t = new Date().getTime();
-  return t + '.' + gateMac(t, key);
+  return t + '.' + gateMac(t, key, kind);
 }
 
 /** 돌려받은 개시표가 이 수집기가 낸 것인가, 그리고 시각이 말이 되는가.
  *  '' 이면 정상, 아니면 걸린 이유.
  *  secs 는 학생이 «이만큼 쳤다»고 말한 시간입니다. 서버가 개시표를 내준
  *  뒤 그만큼도 지나지 않았다면, 그 판은 실제로 치지 않은 것입니다.      */
-function gateCheck(tok, secs) {
+function gateCheck(tok, secs, kind) {
   var key = gateSecret();
   if (!key) return '';                       // 열쇠 없음 — 아직 안 켠 것이므로 통과
   if (!tok) return '개시표 없음';
   var p = String(tok).split('.');
   if (p.length !== 2) return '개시표 모양이 틀림';
   var t = Number(p[0]);
-  if (!t || gateMac(t, key) !== p[1]) return '개시표가 이 수집기 것이 아님';
+  if (!t || gateMac(t, key, kind) !== p[1]) return '개시표가 이 수집기 것이 아님';
   var gone = (new Date().getTime() - t) / 1000;
   if (gone < 0) return '개시표 시각이 앞섬';
   if (gone + 3 < (Number(secs) || 0)) return '한 판을 칠 시간이 지나지 않음';
   if (gone > 1800) return '개시표가 너무 오래됨(30분)';
   return '';
+}
+
+/* 개시표를 통과하지 못한 제출이 모이는 탭. 원래 탭에는 안 들어갑니다. */
+var HOLD_SHEET = '확인필요';
+
+/** 통과 못 한 제출을 원본 그대로 받아 둔다. 버리지 않는다. */
+function 확인필요에담기(활동, 이유, 원본) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(HOLD_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(HOLD_SHEET);
+    sh.appendRow(['받은 시각', '어느 활동', '걸린 이유', '보낸 내용(원본)']);
+    sh.getRange(1, 1, 1, 4).setFontWeight('bold')
+      .setBackground('#FFF1DF').setFontColor('#9C5409');
+    sh.setFrozenRows(1);
+    sh.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm');
+    [140, 130, 220, 620].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  }
+  var 글 = String(원본 || '');
+  if (글.length > MAX_CELL) 글 = 글.slice(0, MAX_CELL - 20) + '…(잘림)';
+  sh.appendRow([new Date(), 활동, 이유, 글]);
 }
 
 /* 한 번에 보낼 수 있는 크기. 그림 한 장이 800자 남짓, 토론 입론서가 길어야
@@ -594,17 +628,28 @@ function doPost(e) {
     else if (SHEETS[d.type]) kind = SHEETS[d.type];
     else return out({ ok: false, error: '모르는 활동입니다 : ' + String(d.type).slice(0, 40) });
 
-    // 자판 기록은 «사람이 친 것인가»를 먼저 살펴 그 결과를 함께 적는다
-    var why = '';
+    // 개시표부터. 학생 페이지에 없는 열쇠로 서명된 것이라 지어낼 수 없습니다.
+    var gw = gateCheck(d.tok, d.secs, d.type);
+
     if (kind === SHEETS.typing) {
-      why = checkTyping(d);
-      var gw = gateCheck(d.tok, d.secs);       // 개시표부터 — 이건 지어낼 수 없습니다
+      // 자판은 «검증» 칸이 있으므로 제자리에 두고 표시만 합니다.
+      var why = checkTyping(d);
       if (gw) why = why ? (gw + ' · ' + why) : gw;
       d.__why = why;
+      sheet(kind).appendRow(trimCells(kind.row(d)));
+      return out({ ok: true, ver: VER, sheet: kind.name, flag: why ? true : false });
+    }
+
+    if (gw) {
+      // 나머지 활동은 «검증» 칸이 없으므로, 통과 못 한 것은 원래 탭에 넣지 않고
+      // «확인필요» 탭으로 받아 둡니다. 버리지는 않습니다 — 진짜 학생 글일 수도
+      // 있으니(인터넷 사정으로 개시표를 못 받는 일이 있습니다).
+      확인필요에담기(kind.name, gw, e.postData.contents);
+      return out({ ok: true, ver: VER, sheet: HOLD_SHEET, flag: true });
     }
 
     sheet(kind).appendRow(trimCells(kind.row(d)));
-    return out({ ok: true, ver: VER, sheet: kind.name, flag: why ? true : false });
+    return out({ ok: true, ver: VER, sheet: kind.name, flag: false });
 
   } catch (err) {
     return out({ ok: false, error: String(err) });
@@ -618,10 +663,11 @@ function doPost(e) {
 function doGet(e) {
   var p = (e && e.parameter) || {};
 
-  // 판을 시작할 때 학생 페이지가 개시표를 받아 갑니다.
-  if (p.start === 'typing') {
+  // 제출 직전(자판은 판을 시작할 때) 학생 페이지가 개시표를 받아 갑니다.
+  if (p.start) {
     if (p.key !== SUBMIT_KEY) return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
-    return out({ ok: true, ver: VER, tok: gateIssue() });
+    if (!SHEETS[p.start]) return out({ ok: false, error: '모르는 활동입니다.' });
+    return out({ ok: true, ver: VER, tok: gateIssue(p.start) });
   }
 
   if (p.list) {
@@ -956,7 +1002,38 @@ function onOpen() {
     .addSeparator()
     .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
     .addItem('자판 깨우기 · 개시표 열쇠 만들기', '개시표열쇠만들기')
+    .addItem('제출 확인필요 보기', '확인필요보기')
     .addToUi();
+}
+
+/** «확인필요» 탭에 무엇이 들어와 있는지 알려 준다.
+ *  진짜 학생 것이면 그 줄의 «보낸 내용»을 보고 원래 탭으로 옮겨 주세요.  */
+function 확인필요보기() {
+  var ui = SpreadsheetApp.getUi();
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(HOLD_SHEET);
+  if (!sh || sh.getLastRow() < 2) {
+    ui.alert('확인필요 줄이 없습니다.',
+      '모든 제출이 개시표를 제대로 달고 들어왔습니다.', ui.ButtonSet.OK);
+    return;
+  }
+  var v = sh.getRange(2, 1, sh.getLastRow() - 1, 3).getValues();
+  var 셈 = {}, 줄 = [];
+  for (var i = v.length - 1; i >= 0; i--) {
+    var k = String(v[i][1]) + ' — ' + String(v[i][2]);
+    셈[k] = (셈[k] || 0) + 1;
+    if (줄.length < 12) {
+      줄.push('· ' + Utilities.formatDate(new Date(v[i][0]),
+                Session.getScriptTimeZone(), 'MM/dd HH:mm')
+              + '  ' + v[i][1] + '  → ' + v[i][2]);
+    }
+  }
+  var 요약 = [];
+  for (var k2 in 셈) 요약.push('· ' + k2 + '  ' + 셈[k2] + '건');
+  ui.alert('제출 확인필요 — 모두 ' + v.length + '건',
+    요약.join('\n') + '\n\n최근 것부터\n' + 줄.join('\n')
+    + '\n\n«확인필요» 탭의 «보낸 내용»을 보고 진짜 학생 것이면\n'
+    + '해당 탭으로 옮겨 주세요. 장난이면 그 줄을 지우시면 됩니다.',
+    ui.ButtonSet.OK);
 }
 
 /** 개시표에 쓸 열쇠를 만들어 «스크립트 속성»에 넣는다.
