@@ -623,6 +623,26 @@ var WHO_KEY = 'ai-type-who';
    그대로 두었습니다.                                                */
 var SEEN_KEY = 'ai-type-ok';
 
+/* 이 노트북을 가리키는 무작위 여덟 글자. 학생마다 개인 노트북을 쓰므로
+   «한 이름 = 한 노트북»이 정상입니다. 한 이름이 여러 노트북에서 올라오면
+   선생님 시트에 그대로 보입니다.
+   기기 정보가 아니라 그냥 무작위 값입니다 — 이것으로 누구인지, 어떤
+   기계인지 알 수 없습니다.                                           */
+var DEV_KEY = 'ai-type-dev';
+function devId(){
+  var v = '';
+  try{ v = localStorage.getItem(DEV_KEY) || ''; }catch(e){}
+  if(!/^[0-9a-f]{8}$/.test(v)){
+    var r = new Uint8Array(4), i;
+    if(window.crypto && crypto.getRandomValues) crypto.getRandomValues(r);
+    else for(i = 0; i < 4; i++) r[i] = Math.floor(Math.random() * 256);
+    v = '';
+    for(i = 0; i < 4; i++) v += (r[i] < 16 ? '0' : '') + r[i].toString(16);
+    try{ localStorage.setItem(DEV_KEY, v); }catch(e){}
+  }
+  return v;
+}
+
 /* 이 브라우저가 beforeinput 을 주는가. 못 주면 키 입력 수를 셀 수 없으므로
    그 검사만 건너뜁니다(오래된 브라우저에서 애먼 학생이 걸리지 않게). */
 var HAS_BI = (typeof HTMLInputElement !== 'undefined')
@@ -1125,6 +1145,7 @@ function reallySend(auto, cls, name, msg){
             pasted:ev.pasted, ghost:ev.ghost };
   d.sig = sign(d);
   d.tok = gate || '';         /* 수집기가 내준 개시표를 그대로 돌려줍니다 */
+  d.dev = devId();            /* 이 노트북 표 (무작위 여덟 글자) */
   var body = JSON.stringify(d);
   var good = function(extra, j){
     msg.className = 'sendmsg ok';

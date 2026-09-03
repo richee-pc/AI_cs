@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v20
+ * 인공지능 기초 활동지 수집기  v21
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -52,6 +52,12 @@
  * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
  * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
  *
+ * v21 — «노트북» 칸. 학생마다 개인 노트북을 쓰므로 «한 이름 = 한 노트북»이
+ * 정상입니다. 한 이름이 여러 노트북에서 올라오면 남의 이름으로 넣었을 수
+ * 있습니다 — 메뉴 «의심 기록 보기» 아래쪽에 함께 나옵니다.
+ * (막지는 못합니다. 이름이 «학생이 적는 글자»인 한 원리상 막을 수 없고,
+ *  그것까지 막으려면 구글 로그인으로 이름을 받아야 합니다.)
+ *
  * v20 — «개시표». 학생 페이지 코드는 누구나 읽을 수 있으므로,
  * «학생 페이지에 없는 열쇠»를 하나 둡니다. 이 열쇠는 수집기의
  * 스크립트 속성에만 있고 저장소에도 학생 페이지에도 들어가지 않습니다.
@@ -72,7 +78,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 20;
+var VER = 21;
 
 var SHEETS = {
 
@@ -362,9 +368,9 @@ var SHEETS = {
     head: ['제출 시각', '회차', '분반', '이름', '단계',
            '점수', '분당 타수', '정확도(%)', '최고 연속', '놓친 것',
            '검증', '걸린 이유', '친 글자', '키 입력', '간격 가운뎃값(ms)', '간격 고름(%)',
-           '개시표'],
+           '개시표', '노트북'],
     width: [140, 60, 70, 100, 110, 80, 90, 90, 90, 80,
-            70, 300, 80, 80, 130, 110, 190],
+            70, 300, 80, 80, 130, 110, 190, 90],
     row: function (d) {
       var why = (d.__why === undefined) ? checkTyping(d) : d.__why;
       return [new Date(), Number(d.round) || 0, d.cls || '', d.name || '', d.stage || '',
@@ -373,7 +379,7 @@ var SHEETS = {
               why ? '의심' : '정상', why,
               Number(d.chars) || 0, Number(d.keys),
               Number(d.med), Number(d.dev),
-              String(d.tok || '')];
+              String(d.tok || ''), String(d.dev || '')];
     }
   }
 };
@@ -685,7 +691,7 @@ function readTyping(cls, round) {
   if (last < 2) return [];
   var MAX = 1200;
   var n = Math.min(last - 1, MAX);
-  var cols = Math.min(17, Math.max(10, sh.getLastColumn()));
+  var cols = Math.min(18, Math.max(10, sh.getLastColumn()));
   var rows = sh.getRange(last - n + 1, 1, n, cols).getValues();
 
   var best = {};
@@ -960,7 +966,7 @@ function 자판의심기록보기() {
   var ui = SpreadsheetApp.getUi();
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
   if (!sh || sh.getLastRow() < 2) { ui.alert('자판 기록이 아직 없습니다.'); return; }
-  var cols = Math.min(17, Math.max(10, sh.getLastColumn()));
+  var cols = Math.min(18, Math.max(10, sh.getLastColumn()));
   if (cols < 11) { ui.alert('검증 칸이 아직 없습니다. 학생이 한 판 올리면 생깁니다.'); return; }
 
   var v = sh.getRange(2, 1, sh.getLastRow() - 1, cols).getValues();
@@ -974,13 +980,53 @@ function 자판의심기록보기() {
       + '  ' + v[i][5] + '점 / ' + v[i][6] + '타'
       + '\n    → ' + v[i][11]);
   }
-  if (!lines.length) { ui.alert('의심 기록이 없습니다. 모두 정상입니다.'); return; }
-  ui.alert('자판 깨우기 · 의심 기록',
-    '모두 ' + all + '건입니다 (최근 것부터 ' + lines.length + '건).\n\n'
-    + lines.join('\n\n')
-    + '\n\n확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로\n'
-    + '고쳐 주세요. 바로 순위에 들어갑니다.',
-    ui.ButtonSet.OK);
+  // 한 이름이 여러 노트북에서 올라왔나 — 남의 이름으로 넣은 흔적일 수 있다
+  var multi = 여러노트북(v, cols);
+
+  if (!lines.length && !multi) {
+    ui.alert('의심 기록이 없습니다. 모두 정상입니다.'); return;
+  }
+  var msg = '';
+  if (lines.length) {
+    msg += '「의심」으로 걸린 기록 — 모두 ' + all + '건'
+        + (all > lines.length ? ' (최근 ' + lines.length + '건만 보입니다)' : '') + '\n\n'
+        + lines.join('\n\n')
+        + '\n\n확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로\n'
+        + '고쳐 주세요. 바로 순위에 들어갑니다.\n';
+  } else {
+    msg += '「의심」으로 걸린 기록은 없습니다.\n';
+  }
+  if (multi) {
+    msg += '\n────────────────────\n'
+        + '한 이름이 여러 노트북에서 올라왔습니다.\n'
+        + '학생마다 개인 노트북을 쓰므로, 남의 이름으로 넣었을 수 있습니다.\n'
+        + '(노트북을 바꿨거나 브라우저를 지운 경우에도 이렇게 됩니다.)\n\n'
+        + multi;
+  }
+  ui.alert('자판 깨우기 · 확인할 것', msg, ui.ButtonSet.OK);
+}
+
+/** 같은 회차에서 한 사람 이름이 두 대 이상의 노트북에서 올라왔는지. */
+function 여러노트북(v, cols) {
+  if (cols < 18) return '';                     // 노트북 칸이 아직 없음
+  var by = {};
+  for (var i = 0; i < v.length; i++) {
+    var nm = String(v[i][3] || '').trim(), c = String(v[i][2] || '');
+    var dev = String(v[i][17] || '').trim();
+    if (!nm || !dev) continue;
+    var key = typeRoundOf(v[i][0]) + '|' + c + '|' + nm;
+    if (!by[key]) by[key] = {};
+    by[key][dev] = (by[key][dev] || 0) + 1;
+  }
+  var out = [];
+  for (var k in by) {
+    var devs = Object.keys(by[k]);
+    if (devs.length < 2) continue;
+    var b = k.split('|');
+    out.push('· ' + (b[0] === '0' ? '연습 기간' : b[0] + '회차') + '  ' + b[1] + ' ' + b[2]
+             + '  → 노트북 ' + devs.length + '대 (' + devs.join(' · ') + ')');
+  }
+  return out.slice(0, 20).join('\n');
 }
 
 /* ── 채점기준 탭 ──────────────────────────────────────────
