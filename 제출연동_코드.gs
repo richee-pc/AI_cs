@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v21
+ * 인공지능 기초 활동지 수집기  v22
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -52,6 +52,13 @@
  * 확인해 보고 문제가 없으면 그 줄의 «검증» 칸을 «정상» 으로 고치면
  * 바로 순위에 들어갑니다. 메뉴 «수행평가 → 자판 깨우기 의심 기록 보기».
  *
+ * v22 — 이름 칸 규칙. 학생 페이지의 maxlength 는 화면에서만 막습니다.
+ * 개발자 콘솔로 지우면 아무 길이·아무 글자나 들어갑니다.
+ * 이제 수집기가 이름을 12자로 자르고, 꺾쇠(< >)나 줄바꿈이 섞인 «이름이
+ * 아닌 것»은 «의심»으로 표시합니다. 이미 들어와 있는 그런 줄도 순위에서
+ * 빠집니다. (순위표는 이름을 글자로만 그리므로 태그를 넣어도 실행되지
+ *  않습니다 — 확인했습니다. 다만 누가 해 봤는지는 보이는 편이 낫습니다.)
+ *
  * v21 — «노트북» 칸. 학생마다 개인 노트북을 쓰므로 «한 이름 = 한 노트북»이
  * 정상입니다. 한 이름이 여러 노트북에서 올라오면 남의 이름으로 넣었을 수
  * 있습니다 — 메뉴 «의심 기록 보기» 아래쪽에 함께 나옵니다.
@@ -78,7 +85,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 21;
+var VER = 22;
 
 var SHEETS = {
 
@@ -373,7 +380,8 @@ var SHEETS = {
             70, 300, 80, 80, 130, 110, 190, 90],
     row: function (d) {
       var why = (d.__why === undefined) ? checkTyping(d) : d.__why;
-      return [new Date(), Number(d.round) || 0, d.cls || '', d.name || '', d.stage || '',
+      return [new Date(), Number(d.round) || 0, d.cls || '',
+              String(d.name || '').slice(0, NAME_MAX), d.stage || '',
               Number(d.score) || 0, Number(d.wpm) || 0, Number(d.acc) || 0,
               Number(d.combo) || 0, Number(d.missed) || 0,
               why ? '의심' : '정상', why,
@@ -423,6 +431,21 @@ function typeSign(d) {
                 + '|' + TYPE_SALT);
 }
 
+/* 이름 칸에 넣을 수 있는 길이. 학생 페이지의 maxlength 와 같습니다. */
+var NAME_MAX = 12;
+
+/** 이름이 «이름답지 않은가». '' 이면 괜찮고, 아니면 걸린 이유.
+ *  꺾쇠가 들어오면 태그를 넣어 본 것입니다 — 순위표는 글자로만 그리므로
+ *  실행되지는 않지만, 누가 해 봤는지는 보이는 편이 낫습니다.            */
+function badName(nm) {
+  nm = String(nm == null ? '' : nm);
+  if (!nm.trim()) return '이름이 비었음';
+  if (nm.length > NAME_MAX) return '이름이 너무 김(' + nm.length + '자)';
+  if (/[<>]/.test(nm)) return '이름에 꺾쇠(< >)가 들어 있음';
+  if (/[\u0000-\u001F\u007F]/.test(nm)) return '이름에 보이지 않는 글자가 있음';
+  return '';
+}
+
 /** 자판 기록이 «사람이 손으로 친 것»으로 볼 수 있는가.
  *  '' 이면 정상, 아니면 걸린 이유를 이어 붙인 문장.
  *
@@ -445,7 +468,11 @@ function checkTyping(d) {
   if (d.sig === undefined) why.push('검사값 없음(옛 페이지이거나 직접 보냄)');
   else if (String(d.sig) !== typeSign(d)) why.push('검사값 불일치');
 
-  // ② 숫자끼리 아귀가 맞는가
+  // ② 이름이 이름다운가
+  var bn = badName(d.name);
+  if (bn) why.push(bn);
+
+  // ③ 숫자끼리 아귀가 맞는가
   if (secs < 1 || secs > 62) why.push('시간이 이상함(' + secs + '초)');
   if (cleared < 1 || chars < 1) why.push('맞힌 것이 없음');
   if (acc < 0 || acc > 100) why.push('정확도가 범위 밖(' + acc + ')');
@@ -455,7 +482,7 @@ function checkTyping(d) {
   if (secs > 0 && Math.abs(chars - wpm * secs / 60) > Math.max(2, chars * 0.05))
     why.push('타수와 친 글자 수가 안 맞음');
 
-  // ③ 사람 손의 한계
+  // ④ 사람 손의 한계
   if (wpm > 450) why.push('타수가 사람 한계를 넘음(' + wpm + ')');
   if (keys >= 0 && keys < chars) why.push('키를 누르지 않고 글자가 들어감');
   if (med >= 0 && med < 30) why.push('글자 사이가 너무 짧음(' + med + 'ms)');
@@ -708,6 +735,8 @@ function readTyping(cls, round) {
     var ac = Number(r[7]) || 0, cb = Number(r[8]) || 0;
     // 검증 칸이 없는 옛 기록도 «있을 수 없는 숫자»면 뺍니다.
     if (String(r[10] || '') === '' && typeImpossible(sc, wp, ac, cb)) continue;
+    // 이름답지 않은 것은 회차와 상관없이 순위에서 뺍니다(이미 들어온 줄 포함).
+    if (badName(nm)) continue;
     var key = c + '/' + nm;
     var one = {
       round: rd, cls: c,
