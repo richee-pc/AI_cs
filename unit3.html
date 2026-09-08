@@ -701,6 +701,15 @@ a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
   background:var(--warm); color:var(--white); font-style:normal; font-size:0.75rem; font-weight:700}
 .pwarn{display:block; margin-top:12px; font-size:0.8438rem; line-height:1.65; color:var(--muted)}
 .pwarn b{color:var(--warm)}
+/* 낱말 사이에 <b> 가 섞이므로 grid 를 쓰면 <b> 하나하나가 따로 칸이 된다.
+   번호만 자리를 잡아 두고 글월은 그냥 흐르게 한다. */
+.wfkeep{margin:12px 0}
+.wfkeep p{position:relative; margin:0 0 10px; padding-left:32px;
+  font-size:0.8438rem; line-height:1.75}
+.wfkeep p:last-child{margin-bottom:0}
+.wfkeep i{position:absolute; left:0; top:3px; display:grid; place-items:center;
+  width:22px; height:22px; border-radius:50%; background:var(--warm); color:var(--white);
+  font-style:normal; font-size:0.75rem; font-weight:700}
 .pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
 .pick button{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:7px 15px; border-radius:99px;
   border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
@@ -2654,6 +2663,22 @@ table.dlt tr:last-child td{border-bottom:none}
       <h4 class="wfhead">먼저 읽으세요 — 토론 수행평가는 이렇게 진행됩니다</h4>
       <p class="wfsub">여덟 단계입니다. <b>오늘이 몇 차시인지 눌러 보면</b> 지금 할 일만 밝게 보여 줍니다.
         각 단계의 <b>「이 칸으로」</b>를 누르면 채워야 할 곳으로 바로 넘어갑니다.</p>
+
+      <div class="note" style="margin-top:14px"><b>시작하기 전에 — 쓴 글이 사라지지 않게 하는 두 가지</b>
+        적은 내용은 <b>글자 하나 칠 때마다</b> 저장됩니다. 「저장」을 따로 누를 필요가 없어요.
+        다만 저장되는 자리가 서버가 아니라 <b>지금 쓰는 이 노트북, 이 브라우저 안</b>입니다.
+        <div class="wfkeep">
+          <p><i>1</i><b>늘 같은 브라우저로 여세요.</b>
+            크롬으로 쓰다가 엣지로 열면 <b>빈 화면</b>입니다.
+            시크릿(비공개) 창은 창을 닫는 순간 사라지니 쓰지 마세요.</p>
+          <p><i>2</i><b>공용 노트북을 쓸 때는 옮기고, 지우고 나오세요.</b>
+            배터리가 없어 학교 공용 노트북을 써야 하면
+            <a href="#port">위쪽 「노트북을 바꿔야 하면 여기서 옮기세요」</a>의
+            내려받기·불러오기로 옮기고, <b>자리를 뜨기 전에 「내 기록 지우기」</b>를 누르세요 —
+            안 누르면 다음 사람이 내 개별 문서를 그대로 봅니다.</p>
+        </div>
+        그리고 <b>차시가 끝날 때마다 맨 아래 「선생님께 제출하기」</b>를 눌러 두면,
+        무슨 일이 생겨도 선생님이 되살려 줄 수 있습니다.</div>
       <div class="wfpick" id="wfPick">
         <button type="button" data-g="all" aria-pressed="true">전체 보기</button>
         <button type="button" data-g="0" aria-pressed="false">11차시</button>
