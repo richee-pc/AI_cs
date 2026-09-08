@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v23
+ * 인공지능 기초 활동지 수집기  v24
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -96,7 +96,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 23;
+var VER = 24;
 
 var SHEETS = {
 
@@ -322,7 +322,8 @@ var SHEETS = {
            'C-4 말함 / 원고',
            'D-1 개발자 관점', 'D-2 사용자 관점', 'D-3 운영·관리자 관점',
            'D-4 반박당한 지점', 'D-5 주장 수정·보완',
-           'D-6 실천 방안 ①', 'D-6 실천 방안 ②'],
+           'D-6 실천 방안 ①', 'D-6 실천 방안 ②',
+           '되살리기 열쇠'],
     width: [140, 70, 120, 300, 60, 80,
             160,
             300, 300, 300,
@@ -334,7 +335,8 @@ var SHEETS = {
             100,
             280, 280, 280,
             300, 300,
-            300, 300],
+            300, 300,
+            130],
     row: function (d) {
       return [new Date(), d.cls || '', d.group || '', d.topic || '', d.side || '', d.done || '',
               d.views || '',
@@ -347,7 +349,10 @@ var SHEETS = {
               d.spoke || '',
               d.p1 || '', d.p2 || '', d.p3 || '',
               d.w1 || '', d.w2 || '',
-              d.x1 || '', d.x2 || ''];
+              d.x1 || '', d.x2 || '',
+              // 학생이 정한 여섯 자리는 «그대로 적지 않습니다» — 표만 남깁니다.
+              // 시트를 열어 봐도 열쇠 자체는 알 수 없어야 하니까요.
+              pinHash(d.cls, d.group, d.pin)];
     }
   },
 
@@ -433,6 +438,111 @@ function hash36(str) {
 /** 순위표에서 «나»를 찾을 때 쓰는 표. 이름 자체는 내보내지 않습니다. */
 function nameKey(cls, nm) {
   return hash36('n|' + cls + '|' + String(nm).trim() + '|' + TYPE_SALT);
+}
+
+/* ── 되살리기 (토론 개별 문서) ──────────────────────────────────
+   학생이 노트북을 바꾸거나 브라우저 기록을 지워 글을 잃었을 때,
+   «본인이 낸 것»만 다시 받아 갈 수 있게 하는 길입니다.
+
+   왜 이렇게까지 하는가 — 개별 문서에는 B-2 «상대에게 찌를 질문»과
+   A-5 «근거와 출처»가 들어 있습니다. 이름만 알면 읽히는 구조라면
+   토론 전에 상대 팀 것을 볼 수 있어 평가가 무너집니다. 그래서
+   ① 학생이 정한 여섯 자리 «되살리기 열쇠»가 맞아야 하고,
+   ② 선생님이 «되살리기 창»을 연 동안에만 답합니다.
+   ③ 누가 언제 무엇을 받아 갔는지 «되살리기기록» 탭에 남습니다.
+
+   소금(salt)은 저장소에도 학생 페이지에도 두지 않습니다 — 이 파일은
+   깃허브에 공개돼 있으니까요. 처음 쓸 때 스스로 만들어 스크립트
+   속성에만 넣어 둡니다(개시표 열쇠와 같은 방식).                */
+var RESTORE_SALT_PROP = 'RESTORE_SALT';
+var RESTORE_OPEN_PROP = 'RESTORE_OPEN_UNTIL';
+var RESTORE_LOG = '되살리기기록';
+var RESTORE_MINUTES = 30;
+
+/** 소금을 가져온다. 없으면 그 자리에서 만들어 넣는다. */
+function restoreSalt() {
+  var props = PropertiesService.getScriptProperties();
+  var s = props.getProperty(RESTORE_SALT_PROP);
+  if (!s) {
+    s = Utilities.getUuid() + '|' + new Date().getTime();
+    props.setProperty(RESTORE_SALT_PROP, s);
+  }
+  return s;
+}
+
+/** 열쇠를 시트에 적을 표로. 열쇠가 없으면 빈 칸(= 되살릴 수 없음). */
+function pinHash(cls, nm, pin) {
+  pin = String(pin == null ? '' : pin).trim();
+  if (!pin) return '';
+  return hash36('p|' + String(cls || '').trim() + '|' + String(nm || '').trim() +
+                '|' + pin + '|' + restoreSalt());
+}
+
+/** 지금 되살리기 창이 열려 있는가. 닫혀 있으면 아무것도 내보내지 않는다. */
+function restoreIsOpen() {
+  var till = Number(PropertiesService.getScriptProperties()
+                      .getProperty(RESTORE_OPEN_PROP) || 0);
+  return till > new Date().getTime();
+}
+
+/** 되살리기 시도를 한 줄 남긴다. 성공도 실패도 남긴다. */
+function 되살리기기록(cls, nm, 결과) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(RESTORE_LOG);
+  if (!sh) {
+    sh = ss.insertSheet(RESTORE_LOG);
+    sh.appendRow(['시각', '분반', '이름', '결과']);
+    sh.getRange(1, 1, 1, 4).setFontWeight('bold')
+      .setBackground('#DCEBFF').setFontColor('#1B49B8');
+    sh.setFrozenRows(1);
+    sh.getRange('A:A').setNumberFormat('yyyy-mm-dd hh:mm');
+    [140, 70, 120, 260].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  }
+  sh.appendRow([new Date(), cls || '', nm || '', 결과 || '']);
+}
+
+/** 분반·이름·열쇠가 맞는 «가장 최근» 제출을 찾아 학생 페이지가 읽을 꼴로.
+ *  못 찾으면 null. 어느 쪽이 틀렸는지는 알려 주지 않습니다 — 이름을
+ *  넣어 보며 «있는 이름인지» 떠보는 것을 막기 위해서입니다.          */
+function 되살릴것찾기(cls, nm, pin) {
+  var kind = SHEETS.debate;
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(kind.name);
+  if (!sh || sh.getLastRow() < 2) return null;
+
+  var n = kind.head.length;
+  var rows = sh.getRange(2, 1, sh.getLastRow() - 1, n).getValues();
+  var want = pinHash(cls, nm, pin);
+  if (!want) return null;
+
+  cls = String(cls || '').trim();
+  nm = String(nm || '').trim();
+
+  for (var i = rows.length - 1; i >= 0; i--) {      // 뒤에서부터 = 최신부터
+    var r = rows[i];
+    if (String(r[1]).trim() !== cls) continue;
+    if (String(r[2]).trim() !== nm) continue;
+    if (String(r[n - 1]).trim() !== want) continue;
+
+    // 시트는 논제·입장·관점을 «글자»로 갖고 있습니다. 번호로 되돌리는 일은
+    // 학생 페이지가 합니다 — 논제 목록을 두 곳에 두면 어긋나기 때문입니다.
+    return {
+      cls: String(r[1]), group: String(r[2]),
+      topicText: String(r[3]), sideText: String(r[4]), viewsText: String(r[6]),
+      spokeText: String(r[26]),
+      v1: String(r[7]), v2: String(r[8]), cl: String(r[9]),
+      r1: String(r[10]), s1: String(r[11]), r2: String(r[12]), s2: String(r[13]),
+      r3: String(r[14]), s3: String(r[15]), sp: String(r[16]),
+      b1: String(r[17]), q1: String(r[18]), q2: String(r[19]), q3: String(r[20]),
+      b3: String(r[21]), b4: String(r[22]),
+      n1: String(r[23]), n2: String(r[24]), fn: String(r[25]),
+      p1: String(r[27]), p2: String(r[28]), p3: String(r[29]),
+      w1: String(r[30]), w2: String(r[31]),
+      x1: String(r[32]), x2: String(r[33]),
+      제출시각: Utilities.formatDate(new Date(r[0]),
+                Session.getScriptTimeZone(), 'M월 d일 HH:mm')
+    };
+  }
+  return null;
 }
 
 /** 기록이 게임 화면을 거쳐 왔는지 보는 검사값. */
@@ -668,6 +778,25 @@ function doGet(e) {
     if (p.key !== SUBMIT_KEY) return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
     if (!SHEETS[p.start]) return out({ ok: false, error: '모르는 활동입니다.' });
     return out({ ok: true, ver: VER, tok: gateIssue(p.start) });
+  }
+
+  // 잃어버린 토론 개별 문서를 «본인»이 다시 받아 가는 길.
+  // 선생님이 창을 열어 둔 동안, 열쇠가 맞는 사람에게만 답합니다.
+  if (p.restore) {
+    if (p.key !== SUBMIT_KEY) return out({ ok: false, error: '열쇠말이 맞지 않습니다.' });
+    if (p.restore !== 'debate') return out({ ok: false, error: '되살릴 수 없는 활동입니다.' });
+    if (!restoreIsOpen()) {
+      return out({ ok: false, closed: true,
+                   error: '지금은 되살리기 창이 닫혀 있습니다. 선생님께 열어 달라고 하세요.' });
+    }
+    var got = 되살릴것찾기(p.cls, p.name, p.pin);
+    되살리기기록(p.cls, p.name, got ? '되살림 (' + got.제출시각 + ' 제출분)' : '맞지 않음');
+    if (!got) {
+      // 무엇이 틀렸는지 알려 주지 않습니다 — 남의 이름을 떠보지 못하게.
+      return out({ ok: false,
+                   error: '분반 · 이름 · 열쇠가 맞는 제출이 없습니다. 셋 다 다시 확인해 주세요.' });
+    }
+    return out({ ok: true, ver: VER, doc: got, at: got.제출시각 });
   }
 
   if (p.list) {
@@ -1003,7 +1132,50 @@ function onOpen() {
     .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
     .addItem('자판 깨우기 · 개시표 열쇠 만들기', '개시표열쇠만들기')
     .addItem('제출 확인필요 보기', '확인필요보기')
+    .addSeparator()
+    .addItem('토론 문서 되살리기 · ' + RESTORE_MINUTES + '분 열기', '되살리기열기')
+    .addItem('토론 문서 되살리기 · 지금 닫기', '되살리기닫기')
+    .addItem('토론 문서 되살리기 · 기록 보기', '되살리기기록보기')
     .addToUi();
+}
+
+/* ── 되살리기 창 여닫기 ────────────────────────────────────────
+   평소에는 닫아 둡니다. 글을 잃은 학생이 생겼을 때만 잠깐 엽니다.
+   열려 있어도 «분반 · 이름 · 여섯 자리 열쇠»가 다 맞아야 나갑니다. */
+function 되살리기열기() {
+  var ui = SpreadsheetApp.getUi();
+  var till = new Date().getTime() + RESTORE_MINUTES * 60 * 1000;
+  PropertiesService.getScriptProperties().setProperty(RESTORE_OPEN_PROP, String(till));
+  ui.alert('되살리기 창을 열었습니다',
+    Utilities.formatDate(new Date(till), Session.getScriptTimeZone(), 'HH시 mm분') +
+    ' 까지 ' + RESTORE_MINUTES + '분 동안 열려 있습니다.\n\n' +
+    '학생은 Ⅲ단원 → 수업 활동 맨 위 「노트북을 바꿔야 하면 여기서 옮기세요」에서\n' +
+    '「선생님께 낸 것 불러오기」를 누르고 분반 · 이름 · 되살리기 열쇠를 넣으면 됩니다.\n\n' +
+    '· 열쇠를 넣지 않고 낸 제출은 되살릴 수 없습니다.\n' +
+    '· 누가 받아 갔는지는 「되살리기 기록 보기」에 남습니다.\n' +
+    '· 다 끝나면 「지금 닫기」를 눌러 주세요 (안 눌러도 ' + RESTORE_MINUTES + '분 뒤 저절로 닫힙니다).',
+    ui.ButtonSet.OK);
+}
+
+function 되살리기닫기() {
+  PropertiesService.getScriptProperties().deleteProperty(RESTORE_OPEN_PROP);
+  SpreadsheetApp.getUi().alert('되살리기 창을 닫았습니다',
+    '이제 아무도 문서를 받아 갈 수 없습니다.', SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+function 되살리기기록보기() {
+  var ui = SpreadsheetApp.getUi();
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(RESTORE_LOG);
+  var 상태 = restoreIsOpen() ? '지금 창이 «열려» 있습니다.' : '지금 창은 «닫혀» 있습니다.';
+  if (!sh || sh.getLastRow() < 2) {
+    ui.alert('되살리기 기록', 상태 + '\n\n아직 되살리기를 시도한 사람이 없습니다.', ui.ButtonSet.OK);
+    return;
+  }
+  sh.activate();
+  ui.alert('되살리기 기록',
+    상태 + '\n\n' + (sh.getLastRow() - 1) + '건이 있습니다. 「' + RESTORE_LOG + '」 탭을 띄웠습니다.\n\n' +
+    '«맞지 않음»이 한 사람 이름으로 여러 번 찍혀 있으면,\n' +
+    '열쇠를 잊은 것인지 남이 떠본 것인지 살펴봐 주세요.', ui.ButtonSet.OK);
 }
 
 /** «확인필요» 탭에 무엇이 들어와 있는지 알려 준다.
