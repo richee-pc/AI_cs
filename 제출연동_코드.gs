@@ -509,7 +509,11 @@ function 되살릴것찾기(cls, nm, pin) {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(kind.name);
   if (!sh || sh.getLastRow() < 2) return null;
 
+  // 열쇠 열은 «재배포 뒤 첫 제출»이 들어와야 생깁니다(그때 머리글이 맞춰짐).
+  // 그 전에 부르면 시트는 아직 34열이라, 35열을 달라고 하면 오류가 납니다.
   var n = kind.head.length;
+  if (sh.getLastColumn() < n) return null;      // 아직 열쇠 열이 없다 = 되살릴 것 없음
+
   var rows = sh.getRange(2, 1, sh.getLastRow() - 1, n).getValues();
   var want = pinHash(cls, nm, pin);
   if (!want) return null;
@@ -789,7 +793,15 @@ function doGet(e) {
       return out({ ok: false, closed: true,
                    error: '지금은 되살리기 창이 닫혀 있습니다. 선생님께 열어 달라고 하세요.' });
     }
-    var got = 되살릴것찾기(p.cls, p.name, p.pin);
+    // doGet 은 doPost 와 달리 감싸는 try 가 없어, 여기서 터지면 학생 화면에는
+    // 「연결하지 못했습니다」만 뜬다. 무엇이든 우리 말로 답하게 감싼다.
+    var got;
+    try {
+      got = 되살릴것찾기(p.cls, p.name, p.pin);
+    } catch (err) {
+      되살리기기록(p.cls, p.name, '오류 : ' + String(err).slice(0, 120));
+      return out({ ok: false, error: '되살리는 중에 문제가 생겼습니다. 선생님께 말씀해 주세요.' });
+    }
     되살리기기록(p.cls, p.name, got ? '되살림 (' + got.제출시각 + ' 제출분)' : '맞지 않음');
     if (!got) {
       // 무엇이 틀렸는지 알려 주지 않습니다 — 남의 이름을 떠보지 못하게.
