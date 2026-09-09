@@ -5617,12 +5617,30 @@ while open_list:
       return fetch(SUBMIT_URL, o);
     };
     if(!kind || !SUBMIT_URL) return send(body);
+    return gateToken(kind)
+      .then(function(tok){ if(tok){ d.tok = tok; body = JSON.stringify(d); } })
+      .catch(function(){})
+      .then(function(){ return send(body); });
+  }
+
+  /* 개시표는 «활동 종류»에만 매여 있고 30분 동안 쓸 수 있으므로, 제출
+     한 건마다 새로 받지 않고 받아 둔 것을 쓴다. 한 번에 여러 건을 보내는
+     활동에서 개시표 요청이 무더기로 나가 실패하는 것을 막는다 (unit3.html
+     에 같은 것이 있다 — 거기 주석에 2026-09-07 사례를 적어 두었다).
+     자판은 개시표 «시각»으로 한 판 길이를 재므로 뺀다.               */
+  var TOK_CACHE = {}, TOK_LIFE = 20 * 60 * 1000;   // 수집기 한도 30분보다 짧게
+  function gateToken(kind){
+    if(kind === 'typing') return Promise.resolve('');
+    var c = TOK_CACHE[kind];
+    if(c && Date.now() - c.at < TOK_LIFE) return Promise.resolve(c.tok);
     return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) +
                  '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
       .then(function(r){ return r.json(); })
-      .then(function(j){ if(j && j.tok){ d.tok = j.tok; body = JSON.stringify(d); } })
-      .catch(function(){})
-      .then(function(){ return send(body); });
+      .then(function(j){
+        if(j && j.tok){ TOK_CACHE[kind] = { tok:j.tok, at:Date.now() }; return j.tok; }
+        return '';
+      })
+      .catch(function(){ return ''; });
   }
 
 

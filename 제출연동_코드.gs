@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v24
+ * 인공지능 기초 활동지 수집기  v25
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -96,7 +96,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 24;
+var VER = 25;
 
 var SHEETS = {
 
@@ -1144,6 +1144,7 @@ function onOpen() {
     .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
     .addItem('자판 깨우기 · 개시표 열쇠 만들기', '개시표열쇠만들기')
     .addItem('제출 확인필요 보기', '확인필요보기')
+    .addItem('제출 확인필요 · 원래 탭으로 옮기기', '확인필요옮기기')
     .addSeparator()
     .addItem('토론 문서 되살리기 · ' + RESTORE_MINUTES + '분 열기', '되살리기열기')
     .addItem('토론 문서 되살리기 · 지금 닫기', '되살리기닫기')
@@ -1217,6 +1218,93 @@ function 확인필요보기() {
     요약.join('\n') + '\n\n최근 것부터\n' + 줄.join('\n')
     + '\n\n«확인필요» 탭의 «보낸 내용»을 보고 진짜 학생 것이면\n'
     + '해당 탭으로 옮겨 주세요. 장난이면 그 줄을 지우시면 됩니다.',
+    ui.ButtonSet.OK);
+}
+
+/* ── 확인필요 → 원래 탭으로 한 번에 옮기기 ──────────────────────
+   «확인필요» 줄에는 학생이 보낸 원본(JSON)이 통째로 들어 있으므로,
+   개시표만 없었을 뿐 내용은 온전하다. 그대로 다시 넣어 주면 된다.
+
+   옮기는 것은 «개시표 없음»과 «너무 오래됨» 둘뿐이다. 이 둘은 인터넷이
+   끊기거나 구글이 느릴 때 생기는, 학생 잘못이 아닌 이유다. 나머지
+   (모양이 틀림 · 시각이 앞섬 · 이 수집기 것이 아님)는 손댄 흔적일 수
+   있으므로 선생님이 직접 보시도록 그대로 둔다.
+
+   제출 시각은 «다시 넣은 시각»이 아니라 «학생이 낸 시각»으로 되돌린다.
+   row() 가 new Date() 를 쓰기 때문에 넣고 나서 A열만 덮어쓴다.       */
+function 확인필요옮기기() {
+  var ui = SpreadsheetApp.getUi();
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(HOLD_SHEET);
+  if (!sh || sh.getLastRow() < 2) {
+    ui.alert('옮길 것이 없습니다.', '«확인필요» 탭이 비어 있습니다.', ui.ButtonSet.OK);
+    return;
+  }
+
+  var v = sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues();
+  var 옮길것 = {}, 남길줄 = [], 셈 = {}, 남긴이유 = {};
+
+  for (var i = 0; i < v.length; i++) {
+    var 이유 = String(v[i][2] || '');
+    var 착함 = (이유.indexOf('개시표 없음') === 0 ||
+                이유.indexOf('개시표가 너무 오래됨') === 0);
+    var d = null;
+    if (착함) { try { d = JSON.parse(String(v[i][3] || '')); } catch (e) { d = null; } }
+
+    var kind = (d && d.key === SUBMIT_KEY && d.type) ? SHEETS[d.type] : null;
+    if (!착함 || !kind || kind === SHEETS.typing) {
+      var 왜 = !착함 ? 이유 : (d ? '모르는 활동' : '원본을 읽을 수 없음');
+      남긴이유[왜] = (남긴이유[왜] || 0) + 1;
+      남길줄.push(v[i]);
+      continue;
+    }
+    if (!옮길것[d.type]) 옮길것[d.type] = [];
+    옮길것[d.type].push({ row: trimCells(kind.row(d)), at: v[i][0] });
+    셈[kind.name] = (셈[kind.name] || 0) + 1;
+  }
+
+  var 옮길수 = 0, t;
+  for (t in 셈) 옮길수 += 셈[t];
+  if (!옮길수) {
+    ui.alert('옮길 것이 없습니다.',
+      '남은 ' + v.length + '건은 손댄 흔적일 수 있어 그대로 두었습니다.\n' +
+      '«확인필요» 탭의 «보낸 내용»을 직접 보고 판단해 주세요.', ui.ButtonSet.OK);
+    return;
+  }
+
+  var 목록 = [];
+  for (t in 셈) 목록.push('· ' + t + '  ' + 셈[t] + '건');
+  var 남김 = [];
+  for (t in 남긴이유) 남김.push('· ' + t + '  ' + 남긴이유[t] + '건');
+
+  var 답 = ui.alert('원래 탭으로 옮길까요?',
+    '옮길 것 — 모두 ' + 옮길수 + '건\n' + 목록.join('\n') +
+    (남김.length ? '\n\n그대로 둘 것 (직접 보셔야 합니다)\n' + 남김.join('\n') : '') +
+    '\n\n제출 시각은 학생이 낸 그 시각으로 들어갑니다.\n' +
+    '옮긴 줄은 «확인필요»에서 지웁니다.',
+    ui.ButtonSet.OK_CANCEL);
+  if (답 !== ui.Button.OK) return;
+
+  for (t in 옮길것) {
+    var k = SHEETS[t], arr = 옮길것[t], target = sheet(k);
+    var 시작 = target.getLastRow() + 1;
+    target.getRange(시작, 1, arr.length, k.head.length)
+          .setValues(arr.map(function (x) { return x.row; }));
+    target.getRange(시작, 1, arr.length, 1)
+          .setValues(arr.map(function (x) { return [x.at]; }));   // 낸 시각으로 되돌리기
+  }
+
+  sh.deleteRows(2, v.length);
+  if (남길줄.length) {
+    sh.insertRowsAfter(1, 남길줄.length);
+    sh.getRange(2, 1, 남길줄.length, 4).setValues(남길줄);
+  }
+
+  ui.alert('옮겼습니다',
+    옮길수 + '건을 원래 탭으로 옮겼습니다.\n' + 목록.join('\n') +
+    (남길줄.length
+      ? '\n\n«확인필요»에 ' + 남길줄.length + '건이 남아 있습니다 — 직접 보셔야 하는 것들입니다.'
+      : '\n\n«확인필요» 탭이 비었습니다.'),
     ui.ButtonSet.OK);
 }
 

@@ -3370,12 +3370,37 @@ var SUBMIT_KEY = 'chosun-ai-2026';
       return fetch(SUBMIT_URL, o);
     };
     if(!kind || !SUBMIT_URL) return send(body);
+    return gateToken(kind)
+      .then(function(tok){ if(tok){ d.tok = tok; body = JSON.stringify(d); } })
+      .catch(function(){})
+      .then(function(){ return send(body); });
+  }
+
+  /* 개시표는 «활동 종류»에만 매여 있고 30분 동안 쓸 수 있다. 그러니 제출
+     한 건마다 새로 받을 이유가 없다.
+
+     받아 두고 쓰지 않으면 그림 활동에서 터진다 — 그림은 «한 장 = 한 줄»
+     이라 학생 한 명이 「전체 제출」을 누르면 가진 장수만큼 제출이 나가고,
+     장마다 개시표를 받으면 반 전체가 몇 분 안에 수백 번을 두드린다.
+     제출은 자물쇠를 잡고 한 줄씩 처리되므로 그 줄이 길어지는 동안
+     개시표 요청이 밀려 실패하고, 실패하면 도장 없이 나가 «확인필요»로
+     떨어진다. 2026-09-07 수업에서 그림 163장이 실제로 그렇게 되었다.
+
+     자판은 뺀다 — 개시표 «시각»으로 「한 판 칠 시간이 지났는가」를 재기
+     때문에, 묵혀 둔 개시표를 쓰면 그 검사가 무의미해진다.            */
+  var TOK_CACHE = {}, TOK_LIFE = 20 * 60 * 1000;   // 수집기 한도 30분보다 짧게
+  function gateToken(kind){
+    if(kind === 'typing') return Promise.resolve('');
+    var c = TOK_CACHE[kind];
+    if(c && Date.now() - c.at < TOK_LIFE) return Promise.resolve(c.tok);
     return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) +
                  '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
       .then(function(r){ return r.json(); })
-      .then(function(j){ if(j && j.tok){ d.tok = j.tok; body = JSON.stringify(d); } })
-      .catch(function(){})
-      .then(function(){ return send(body); });
+      .then(function(j){
+        if(j && j.tok){ TOK_CACHE[kind] = { tok:j.tok, at:Date.now() }; return j.tok; }
+        return '';
+      })
+      .catch(function(){ return ''; });
   }
 
 var KEY = 'ai_u3_v1';
