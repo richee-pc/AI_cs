@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v28
+ * 인공지능 기초 활동지 수집기  v29
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -99,7 +99,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 28;
+var VER = 29;
 
 var SHEETS = {
 
@@ -1172,10 +1172,77 @@ function onOpen() {
     .addItem('제출 확인필요 보기', '확인필요보기')
     .addItem('제출 확인필요 · 원래 탭으로 옮기기', '확인필요옮기기')
     .addSeparator()
+    .addItem('지금 보고 있는 탭 · 칸 너비를 코드값으로 되돌리기', '칸너비맞추기')
+    .addSeparator()
     .addItem('토론 문서 되살리기 · ' + RESTORE_MINUTES + '분 열기', '되살리기열기')
     .addItem('토론 문서 되살리기 · 지금 닫기', '되살리기닫기')
     .addItem('토론 문서 되살리기 · 기록 보기', '되살리기기록보기')
     .addToUi();
+}
+
+/* ── 칸 너비 다시 맞추기 ───────────────────────────────────────
+   칸 너비는 «탭을 처음 만들 때»와 «머리글이 바뀔 때»만 적용됩니다.
+   선생님이 손으로 맞춰 둔 너비를 코드가 함부로 덮어쓰지 않게 하려는 것입니다.
+   그래서 코드에서 width 를 고쳐도 이미 있는 탭에는 반영되지 않는데,
+   이 메뉴로 «지금 보고 있는 탭 하나만» 골라서 되돌릴 수 있습니다.
+   다른 탭은 건드리지 않고, 적힌 줄도 하나도 건드리지 않습니다.        */
+function 칸너비맞추기() {
+  var ui = SpreadsheetApp.getUi();
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var 이름 = sh.getName();
+
+  // 지금 보고 있는 탭이 코드가 아는 활동인지 찾는다
+  var kind = null;
+  for (var k in SHEETS) if (SHEETS[k].name === 이름) { kind = SHEETS[k]; break; }
+
+  if (!kind) {
+    var 아는탭 = [];
+    for (var k2 in SHEETS) 아는탭.push('· ' + SHEETS[k2].name);
+    ui.alert('이 탭은 코드가 만든 탭이 아닙니다',
+      '지금 보고 있는 탭 : 「' + 이름 + '」\n\n' +
+      '칸 너비가 코드에 적혀 있는 탭에서만 쓸 수 있습니다.\n' +
+      '되돌리려는 탭을 먼저 연 뒤에 다시 눌러 주세요.\n\n' +
+      '─ 코드가 아는 탭 ─\n' + 아는탭.join('\n'),
+      ui.ButtonSet.OK);
+    return;
+  }
+
+  // 지금 너비와 코드값이 어떻게 다른지 먼저 보여 준다
+  var 칸수 = Math.min(kind.width.length, sh.getMaxColumns());
+  var 바뀔것 = [];
+  for (var i = 0; i < 칸수; i++) {
+    var 지금 = sh.getColumnWidth(i + 1);
+    if (지금 !== kind.width[i]) {
+      바뀔것.push('· ' + (kind.head[i] || (i + 1) + '번째 칸') +
+                  ' : ' + 지금 + ' → ' + kind.width[i]);
+    }
+  }
+
+  if (!바뀔것.length) {
+    ui.alert('이미 코드값과 같습니다',
+      '「' + 이름 + '」 탭의 칸 너비는 이미 코드에 적힌 것과 같습니다.\n' +
+      '바꿀 것이 없습니다.',
+      ui.ButtonSet.OK);
+    return;
+  }
+
+  var 답 = ui.alert('칸 너비를 코드값으로 되돌릴까요?',
+    '탭 : 「' + 이름 + '」\n' +
+    '바뀌는 칸 ' + 바뀔것.length + '개 (나머지는 그대로 둡니다)\n\n' +
+    바뀔것.join('\n') + '\n\n' +
+    '⚠ 손으로 맞춰 두신 너비가 있으면 그것도 함께 되돌아갑니다.\n' +
+    '· 다른 탭은 건드리지 않습니다.\n' +
+    '· 적힌 내용(줄)은 하나도 바뀌지 않습니다 — 너비만 바뀝니다.',
+    ui.ButtonSet.OK_CANCEL);
+  if (답 !== ui.Button.OK) return;
+
+  for (var j = 0; j < 칸수; j++) sh.setColumnWidth(j + 1, kind.width[j]);
+
+  ui.alert('맞췄습니다',
+    '「' + 이름 + '」 탭의 칸 ' + 바뀔것.length + '개를 코드값으로 되돌렸습니다.\n\n' +
+    '마음에 안 들면 실행 취소(Ctrl + Z)를 누르거나,\n' +
+    '열 경계선을 끌어 다시 맞추시면 됩니다.',
+    ui.ButtonSet.OK);
 }
 
 /* ── 되살리기 창 여닫기 ────────────────────────────────────────
