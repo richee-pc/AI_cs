@@ -492,6 +492,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
   <section class="card">
     <div class="rankhead">
       <h2 style="margin:0" id="rank-title">🏆 이번 회차 순위</h2>
+      <select id="rank-round" aria-label="회차 고르기"></select>
       <select id="rank-cls">
         <option value="">전체</option>
         <option value="인기A">인기A</option>
@@ -750,7 +751,7 @@ document.addEventListener('click', function(e){
   if(t.id === 'btn-rank'){ loadRank(); return; }
 });
 document.addEventListener('change', function(e){
-  if(e.target.id === 'rank-cls'){ loadRank(); return; }
+  if(e.target.id === 'rank-cls' || e.target.id === 'rank-round'){ loadRank(); return; }
   /* 학생이 직접 적었다면 그 사람이 맞는 것이니 더 묻지 않습니다 */
   if(e.target.id === 'cls' || e.target.id === 'nick'){
     setWho({cls:$('cls').value, name:$('nick').value.trim()}); okMe();
@@ -1182,13 +1183,15 @@ function reallySend(auto, cls, name, msg){
 /* ── 순위표 ── */
 function loadRank(){
   var cls = $('rank-cls').value;
+  var want = shownRound();
   var box = $('ranklist');
+  paintRankTitle(want);
   $('rank-note').textContent = '불러오는 중…';
   /* 같은 주소를 그대로 부르면 «예전 응답»이 캐시에서 나옵니다.
      방금 올린 내 기록이 순위표에 안 보이는 일이 이것 때문에 생깁니다.
      (unit1·unit3 도 같은 이유로 t 를 붙이고 있습니다.)              */
   var url = SUBMIT_URL + '?list=typing&key=' + encodeURIComponent(SUBMIT_KEY)
-          + '&round=' + ROUND + (cls ? '&cls=' + encodeURIComponent(cls) : '')
+          + '&round=' + want + (cls ? '&cls=' + encodeURIComponent(cls) : '')
           + '&t=' + Date.now();
   return fetch(url).then(function(r){ return r.json(); }).then(function(j){
     if(!j || !j.ok || !j.rows){ throw new Error('no'); }
@@ -1202,10 +1205,11 @@ function loadRank(){
                || Number(r.acc) < 0 || Number(r.acc) > 100);
     }).slice(0, 20);
     if(!rows.length){
-      box.innerHTML = '<p class="rempty">' + (WARMUP
-        ? '아직 기록이 없습니다. 지금은 연습 기간이라 순위에 들어가지 않습니다.'
+      box.innerHTML = '<p class="rempty">' + (
+          (want === 0) ? '연습 기간에 올라온 기록이 없습니다.'
+        : (want !== ROUND) ? (want + '회차에는 올라온 기록이 없습니다.')
         : '아직 기록이 없습니다. 첫 번째가 되어 보세요!') + '</p>';
-      $('rank-note').textContent = noteText();
+      $('rank-note').textContent = noteText(want);
       return;
     }
     var medal = ['🥇','🥈','🥉'];
@@ -1221,22 +1225,51 @@ function loadRank(){
         +   '<div class="meta">' + esc(r.cls) + ' · ' + esc(r.stage) + ' · ' + r.wpm + '타</div></div>'
         + '<div class="pts"><b>' + r.score + '</b><span>점</span></div></div>';
     }).join('');
-    $('rank-note').textContent = noteText();
+    $('rank-note').textContent = noteText(want);
   }).catch(function(){
     box.innerHTML = '<p class="rempty">순위를 불러오지 못했습니다. 잠시 뒤 «새로고침»을 눌러 보세요.</p>';
-    $('rank-note').textContent = noteText();
+    $('rank-note').textContent = noteText(want);
   });
 }
-function noteText(){
-  return (WARMUP
-    ? '연습 기간 · 8/31(월)부터 1회차가 시작됩니다 (1회차 8/31~9/13)'
-    : ROUND + '회차 (' + roundSpan(ROUND) + ') · 1~5등에게 상품이 있습니다')
-    + ' · 이름은 가려서 보여 줍니다';
+/* ── 어느 회차를 보고 있나 ─────────────────────────────
+   수집기는 처음부터 회차별로 내줄 수 있었습니다(?round=N).
+   지난 회차 기록은 그대로 남아 있으니 골라서 보면 됩니다.      */
+function fillRounds(){
+  var sel = $('rank-round'), o = [];
+  for(var r = ROUND; r >= 1 && ROUND - r < 8; r--){
+    o.push('<option value="' + r + '">' + r + '회차 (' + roundSpan(r) + ')'
+           + (r === ROUND ? ' · 지금' : '') + '</option>');
+  }
+  o.push('<option value="0">연습 기간 (8/31 전)</option>');
+  sel.innerHTML = o.join('');
+  sel.value = String(ROUND);
+}
+function shownRound(){
+  var v = $('rank-round') ? Number($('rank-round').value) : ROUND;
+  return isNaN(v) ? ROUND : v;
+}
+function paintRankTitle(r){
+  $('rank-title').textContent =
+      (r === 0) ? '🏃 연습 기간 기록'
+    : (r === ROUND) ? '🏆 이번 회차 순위'
+    : '🏁 지난 ' + r + '회차 순위';
+}
+function noteText(r){
+  if(r === undefined) r = shownRound();
+  var tail = ' · 이름은 가려서 보여 줍니다';
+  if(r === 0){
+    return (WARMUP
+      ? '연습 기간 · 8/31(월)부터 1회차가 시작됩니다 (1회차 8/31~9/13)'
+      : '연습 기간 — 1회차가 시작되기 전 기록입니다. 순위에는 안 들어갑니다') + tail;
+  }
+  if(r === ROUND) return r + '회차 (' + roundSpan(r) + ') · 1~5등에게 상품이 있습니다' + tail;
+  return r + '회차 (' + roundSpan(r) + ') · 이미 끝난 회차입니다' + tail;
 }
 
 /* ── 첫 화면 ── */
 (function init(){
   drawStages(); drawKeys(); paintBest();
+  fillRounds();
   if(WARMUP){
     $('rank-title').textContent = '🏃 연습 기간';
     $('mode-hint').innerHTML = '순위에는 <b>도전</b>만 올라갑니다. '
