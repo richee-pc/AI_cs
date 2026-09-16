@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v25
+ * 인공지능 기초 활동지 수집기  v26
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -96,7 +96,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 25;
+var VER = 26;
 
 var SHEETS = {
 
@@ -608,7 +608,10 @@ function checkTyping(d) {
     why.push('타수와 친 글자 수가 안 맞음');
 
   // ④ 사람 손의 한계
-  if (wpm > 450) why.push('타수가 사람 한계를 넘음(' + wpm + ')');
+  // «넘으면»이 아니라 «닿으면» 걸립니다. 450 은 사람 한계라서 고른 값이
+  // 아니라 우리가 그은 선이고, 거기에 정확히 붙었다는 것은 선을 찾아냈다는
+  // 뜻입니다. 실제로 잘 치는 학생은 300타 안팎이라 애먼 사람은 안 걸립니다.
+  if (wpm >= 450) why.push('타수가 검사 한계선에 붙어 있음(' + wpm + ')');
   if (keys >= 0 && keys < chars) why.push('키를 누르지 않고 글자가 들어감');
   if (med >= 0 && med < 30) why.push('글자 사이가 너무 짧음(' + med + 'ms)');
   if (dev >= 0 && dev < 12 && keys > 25) why.push('글자 사이가 기계처럼 일정함(' + dev + '%)');
@@ -886,7 +889,7 @@ function typeRoundOf(when) {
  *      점수 ≤ 분당 타수 × 50
  *  을 넘을 수 없습니다. 검증 칸이 없는 옛 기록도 이것으로 거를 수 있습니다.  */
 function typeImpossible(score, wpm, acc, combo) {
-  if (wpm > 450) return true;                 // 사람 손의 한계 밖
+  if (wpm >= 450) return true;                // 검사 한계선에 붙었거나 그 밖
   if (score > wpm * 50) return true;          // 점수를 손으로 키운 기록
   if (acc < 0 || acc > 100) return true;
   if (score < 0 || wpm < 0 || combo < 0) return true;
@@ -1142,6 +1145,7 @@ function onOpen() {
     .addItem('채점 결과 요약 보기', '토론채점요약')
     .addSeparator()
     .addItem('자판 깨우기 · 의심 기록 보기', '자판의심기록보기')
+    .addItem('자판 깨우기 · 천장에 붙은 기록 의심으로 표시', '천장기록표시')
     .addItem('자판 깨우기 · 개시표 열쇠 만들기', '개시표열쇠만들기')
     .addItem('제출 확인필요 보기', '확인필요보기')
     .addItem('제출 확인필요 · 원래 탭으로 옮기기', '확인필요옮기기')
@@ -1333,6 +1337,58 @@ function 개시표열쇠만들기() {
     + '· 깃허브 저장소에도, 학생 페이지에도 들어가지 않습니다.\n'
     + '· 그래서 학생이 코드를 다 읽어도 개시표는 지어낼 수 없습니다.\n\n'
     + '따로 적어 두실 필요 없습니다.',
+    ui.ButtonSet.OK);
+}
+
+/** 검사 한계선(타수 450)에 붙은 기록을 찾아 «검증» 칸에 «의심»을 적는다.
+ *
+ *  450 은 사람 한계라서 고른 숫자가 아니라 우리가 그은 선이다. 거기에
+ *  정확히 붙었다는 것은 «검사를 통과하는 최대치»를 찾아냈다는 뜻이다.
+ *  실제로 잘 치는 학생은 300타 안팎이라 한참 떨어져 있다.
+ *
+ *  줄을 지우지 않는다 — 나중에 아니라고 판단되면 그 칸을 «정상»으로
+ *  되돌리면 바로 순위에 다시 들어간다.                                */
+function 천장기록표시() {
+  var ui = SpreadsheetApp.getUi();
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETS.typing.name);
+  if (!sh || sh.getLastRow() < 2) { ui.alert('자판 기록이 아직 없습니다.'); return; }
+  var cols = Math.min(18, Math.max(10, sh.getLastColumn()));
+  if (cols < 12) { ui.alert('검증 칸이 아직 없습니다.'); return; }
+
+  var last = sh.getLastRow();
+  var v = sh.getRange(2, 1, last - 1, cols).getValues();
+  var 찾음 = [], 줄번호 = [];
+  for (var i = 0; i < v.length; i++) {
+    var wp = Number(v[i][6]) || 0;
+    if (wp < 450) continue;                                  // 선 아래는 그대로 둔다
+    if (String(v[i][10] || '').indexOf('의심') === 0) continue;   // 이미 표시된 것
+    줄번호.push(i + 2);
+    찾음.push('· ' + Utilities.formatDate(new Date(v[i][0]),
+                Session.getScriptTimeZone(), 'MM/dd HH:mm')
+              + '  ' + v[i][2] + ' ' + v[i][3]
+              + '  ' + v[i][5] + '점 / ' + wp + '타');
+  }
+  if (!찾음.length) {
+    ui.alert('천장에 붙은 기록이 없습니다.',
+      '타수 450에 닿은 기록이 하나도 없습니다.', ui.ButtonSet.OK);
+    return;
+  }
+  var ans = ui.alert('천장에 붙은 기록 ' + 찾음.length + '건',
+    찾음.join('\n') + '\n\n이 줄들의 «검증» 칸에 «의심»을 적을까요?\n'
+    + '순위에서 빠지고 다음 등수가 올라옵니다.\n'
+    + '줄은 지우지 않으니, 아니라고 판단되면 «정상»으로 되돌리면 됩니다.',
+    ui.ButtonSet.YES_NO);
+  if (ans !== ui.Button.YES) return;
+
+  for (var k = 0; k < 줄번호.length; k++) {
+    sh.getRange(줄번호[k], 11).setValue('의심');
+    var 옛 = String(sh.getRange(줄번호[k], 12).getValue() || '');
+    var 새 = '타수가 검사 한계선에 붙어 있음(선생님이 표시)';
+    sh.getRange(줄번호[k], 12).setValue(옛 ? (새 + ' · ' + 옛) : 새);
+  }
+  ui.alert('표시했습니다.',
+    찾음.length + '건을 «의심»으로 바꿨습니다.\n'
+    + '학생 페이지에서 새로고침하면 다음 등수가 올라와 있습니다.',
     ui.ButtonSet.OK);
 }
 
