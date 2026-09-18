@@ -702,6 +702,22 @@ a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
 .pwarn{display:block; margin-top:12px; font-size:0.8438rem; line-height:1.65; color:var(--muted)}
 .pwarn b{color:var(--warm)}
 .phr{border:0; border-top:1px solid var(--line); margin:18px 0 14px}
+/* 개별 문서 — 남은 빈 칸 */
+.blankbox{margin-top:14px; padding:12px 15px; border-radius:12px; background:var(--warm-bg);
+  font-size:0.8438rem; line-height:1.65}
+.blankbox>b{color:var(--warm)}
+.blankbox.done{background:var(--good-bg)}
+.blankbox.done>b{color:var(--good)}
+.blankbox .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:9px}
+.blankbox button{font-family:var(--sans); font-size:0.78rem; font-weight:700; cursor:pointer;
+  padding:4px 11px; border-radius:99px; border:1px solid var(--warm);
+  background:var(--white); color:var(--warm)}
+.blankbox button:hover{background:var(--warm); color:var(--white)}
+.blankbox button.mk{margin-left:4px; border-style:dashed}
+.blankbox button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+textarea.is-blank, input.is-blank{outline:2px dashed var(--warm); outline-offset:2px}
+.dpb .dpblank{display:inline-block; margin-left:6px; padding:0 7px; border-radius:99px;
+  background:var(--warm); color:var(--white); font-size:0.6875rem; font-weight:700; line-height:1.6}
 /* 낱말 사이에 <b> 가 섞이므로 grid 를 쓰면 <b> 하나하나가 따로 칸이 된다.
    번호만 자리를 잡아 두고 글월은 그냥 흐르게 한다. */
 .wfkeep{margin:12px 0}
@@ -2912,6 +2928,7 @@ table.dlt tr:last-child td{border-bottom:none}
       <b>낼 때마다 같은 여섯 자리</b>를 넣으세요(노트북에 저장하지 않으니 매번 입력).
       비워도 제출은 되지만, 그 제출은 나중에 되살릴 수 없습니다.
       생일·학번처럼 <b>친구가 아는 숫자는 피하세요.</b></div>
+    <div class="blankbox" id="dbBlank"></div>
     <div class="simctl" style="margin-top:14px">
       <button type="button" class="mini" id="dbSend">선생님께 제출하기</button>
       <button type="button" class="mini gh" id="dbCopy">내용 복사</button>
@@ -4784,6 +4801,73 @@ var WFLOSE = [
   }
   fill();
 
+  /* ── 남은 빈 칸 ─────────────────────────────────────────
+     A~D부가 탭으로 나뉘어 있어 빈 칸이 다른 탭에 숨으면 안 보인다.
+     그래서 제출 단추 위에 «아직 빈 칸» 목록을 늘 두고(누르면 그 탭을 열고
+     그 칸으로 데려간다), «표시»를 켜면 빈 칸에 노란 점선과 A~D부 탭에
+     «빈 N»을 붙인다. 표시는 ① 선생님께 낸 것을 불러온 직후, ② 빈 칸이
+     남은 채 제출했을 때 저절로 켜진다. 켜짐은 sessionStorage 에만 둔다 —
+     불러오기 뒤 새로 고쳐도 이어지고, 창을 닫으면 사라진다.            */
+  var MARK_KEY = 'ai_u3_markblank', mark = false;
+  try{ mark = sessionStorage.getItem(MARK_KEY) === '1'; }catch(e){}
+  function partOf(el){ var p = el && el.closest('[data-dpp]'); return p ? p.getAttribute('data-dpp') : null; }
+  function blanks(){ return FIELDS.filter(function(f){ return !String(U3[f[1]] || '').trim(); }); }
+  function drawBlank(){
+    var box = $('dbBlank'); if(!box) return;
+    var bl = blanks(), per = { '0':0, '1':0, '2':0, '3':0 };
+    FIELDS.forEach(function(f){
+      var el = $(f[0]); if(!el) return;
+      var empty = !String(U3[f[1]] || '').trim();
+      el.classList.toggle('is-blank', mark && empty);
+      if(empty){ var p = partOf(el); if(p !== null) per[p]++; }
+    });
+    [].slice.call(document.querySelectorAll('.dpb[data-dp]')).forEach(function(t){
+      var k = t.getAttribute('data-dp'), s = t.querySelector('.dpblank');
+      if(!s){ s = document.createElement('b'); s.className = 'dpblank'; t.appendChild(s); }
+      s.textContent = '빈 ' + per[k];
+      s.hidden = !(mark && per[k] > 0);
+    });
+    if(!bl.length){
+      box.className = 'blankbox done';
+      box.innerHTML = '<b>' + FIELDS.length + '칸을 모두 채웠어요 ✓</b> 이제 아래 「선생님께 제출하기」를 누르세요.';
+      return;
+    }
+    box.className = 'blankbox';
+    box.innerHTML = '<b>아직 빈 칸 ' + bl.length + '개</b> — 누르면 그 칸으로 갑니다.' +
+      '<button type="button" class="mk">' + (mark ? '노란 표시 끄기' : '빈 칸 노랗게 표시') + '</button>' +
+      '<div class="chips">' + bl.map(function(f){
+        return '<button type="button" data-go="' + f[0] + '">' + esc(f[2]) + '</button>';
+      }).join('') + '</div>';
+  }
+  function setMark(on){
+    mark = !!on;
+    try{ if(mark) sessionStorage.setItem(MARK_KEY, '1'); else sessionStorage.removeItem(MARK_KEY); }catch(e){}
+    drawBlank();
+  }
+  function goField(id){
+    var el = $(id); if(!el) return;
+    var p = partOf(el), t = p !== null && document.querySelector('.dpb[data-dp="' + p + '"]');
+    if(t && t.getAttribute('aria-selected') !== 'true') t.click();
+    el.scrollIntoView({ block:'center' });
+    el.focus();
+  }
+  $('dbBlank').addEventListener('click', function(e){
+    var g = e.target.closest('[data-go]');
+    if(g){ if(!mark) setMark(true); goField(g.getAttribute('data-go')); return; }
+    if(e.target.closest('.mk')) setMark(!mark);
+  });
+  FIELDS.forEach(function(f){ var el = $(f[0]); if(el) el.addEventListener('input', drawBlank); });
+  drawBlank();
+  // 불러오기(되살리기) 쪽이 «표시를 켜 달라»고 부를 때
+  document.addEventListener('u3:markblank', function(){
+    setMark(true);
+    var first = blanks()[0]; if(first) goField(first[0]);
+  });
+  // 불러온 뒤 새로 고쳐 들어왔으면 첫 빈 칸으로 데려간다(탭이 다 열린 뒤에)
+  if(mark) window.addEventListener('load', function(){
+    var first = blanks()[0]; if(first) setTimeout(function(){ goField(first[0]); }, 50);
+  });
+
   /* ── 스스로 점검 ── */
   var rb = $('dbRub');
   rb.innerHTML = RUB.map(function(t, i){
@@ -4877,6 +4961,11 @@ var WFLOSE = [
     var good = function(x){ msg.className = 'sendmsg ok';
       msg.textContent = '제출했습니다 (' + done + '/' + FIELDS.length + '칸)' + (x || '') +
         (pin ? '' : ' · 되살리기 열쇠 없이 냈어요 (이 제출은 나중에 되살릴 수 없음)');
+      if(done < FIELDS.length){
+        setMark(true);
+        msg.textContent += ' · 빈 칸 ' + (FIELDS.length - done) +
+          '개를 노랗게 표시했어요 — 채우고 다시 제출하세요';
+      }
       btn.textContent = '다시 제출하기'; btn.disabled = false; };
     var bad = function(){ msg.className = 'sendmsg bad';
       msg.textContent = '보내지 못했습니다. 다시 눌러 보세요. 계속 안 되면 «내용 복사»로 내면 됩니다.';
@@ -4961,14 +5050,24 @@ var WFLOSE = [
       U3.spoke = sk === '직접 말함' ? 0 : sk === '원고 제출' ? 1 : -1;
     }
     save();
+    var 남음 = FIELDS.filter(function(f){ return !String(U3[f[1]] || '').trim(); }).length;
     if(!n){
       var m = $('rsMsg');
       if(m){ m.className = 'sendmsg ok';
-        m.textContent = '채울 빈 칸이 없습니다 — 노트북에 이미 다 있어요. 개별 문서에서 「선생님께 제출하기」만 누르면 됩니다.'; }
+        m.textContent = 남음
+          ? '선생님께 낸 것에도 없는 칸이라 불러올 것이 없어요. 남은 빈 칸 ' + 남음 +
+            '개를 노랗게 표시했어요 — 직접 채우고 제출하세요.'
+          : '채울 빈 칸이 없습니다 — ' + FIELDS.length + '칸이 이미 다 있어요. ' +
+            '개별 문서에서 「선생님께 제출하기」만 누르면 됩니다.'; }
+      // 개별 문서 쪽에 «빈 칸 표시»를 켜 달라고 알린다(그쪽이 첫 빈 칸으로 데려감)
+      if(남음) document.dispatchEvent(new CustomEvent('u3:markblank'));
       return;
     }
+    // 새로 고친 뒤에도 빈 칸 표시가 켜진 채로 첫 빈 칸에서 시작하게
+    try{ if(남음) sessionStorage.setItem('ai_u3_markblank', '1'); }catch(e){}
     alert('빈 칸 ' + n + '개를 선생님께 낸 것(' + (at || '') + ')으로 채웠습니다.\n' +
           (이미 ? '이미 쓴 ' + 이미 + '칸은 그대로 두었습니다.\n' : '') +
+          (남음 ? '\n아직 빈 칸 ' + 남음 + '개는 노랗게 표시됩니다.\n' : '') +
           '\n화면을 새로 고칩니다. 나머지 칸을 채우고 다시 제출하세요.');
     location.reload();
   }
@@ -5013,6 +5112,7 @@ var WFLOSE = [
     if(!confirm('정말 지울까요?\n\n먼저 「파일로 내려받기」 나 「선생님께 제출하기」 를\n' +
                 '했는지 확인하세요.')) return;
     try{ localStorage.removeItem(KEY); }catch(e){}
+    try{ sessionStorage.removeItem('ai_u3_markblank'); }catch(e){}
     alert('지웠습니다. 화면을 새로 고칩니다.');
     location.reload();
   });
