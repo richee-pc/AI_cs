@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v29
+ * 인공지능 기초 활동지 수집기  v30
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -99,7 +99,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 29;
+var VER = 30;
 
 var SHEETS = {
 
@@ -481,6 +481,34 @@ var RESTORE_OPEN_PROP = 'RESTORE_OPEN_UNTIL';
 var RESTORE_LOG = '되살리기기록';
 var RESTORE_MINUTES = 30;
 
+/* 이 시각까지는 선생님이 창을 열지 않아도 늘 열려 있습니다.
+   2026-09 최종 제출이 조용히 막혀 주말 동안 학생들이 스스로 다시 내야 했고,
+   선생님이 주말 내내 창을 열어 줄 수 없어서 둔 것입니다.
+   지나면 저절로 «선생님이 여는 동안만»으로 돌아갑니다 — 고칠 것 없습니다.
+   다시 이런 때가 오면 이 날짜만 바꾸면 됩니다.
+
+   창이 늘 열려 있으면 친구 이름으로 열쇠를 계속 넣어 볼 수 있으므로,
+   «같은 분반·이름으로 RESTORE_FAIL_MAX 번 틀리면 그 이름을 잠급니다».
+   여섯 자리는 백만 가지라 다섯 번 안에 맞힐 확률은 20만분의 1입니다.
+   잠긴 이름은 메뉴 «토론 문서 되살리기 · 잠긴 이름 풀기»로 풉니다.   */
+var RESTORE_ALWAYS_UNTIL = new Date('2026-09-21T08:00:00+09:00').getTime();
+var RESTORE_FAIL_PROP = 'RESTORE_FAILS';
+var RESTORE_FAIL_MAX = 5;
+
+/** 틀린 횟수 표 { '분반|이름': 횟수 } */
+function restoreFails() {
+  try {
+    return JSON.parse(PropertiesService.getScriptProperties()
+                        .getProperty(RESTORE_FAIL_PROP) || '{}') || {};
+  } catch (e) { return {}; }
+}
+function restoreSaveFails(m) {
+  PropertiesService.getScriptProperties().setProperty(RESTORE_FAIL_PROP, JSON.stringify(m));
+}
+function restoreFailKey(cls, nm) {
+  return String(cls || '').trim() + '|' + String(nm || '').trim();
+}
+
 /** 소금을 가져온다. 없으면 그 자리에서 만들어 넣는다. */
 function restoreSalt() {
   var props = PropertiesService.getScriptProperties();
@@ -502,9 +530,11 @@ function pinHash(cls, nm, pin) {
 
 /** 지금 되살리기 창이 열려 있는가. 닫혀 있으면 아무것도 내보내지 않는다. */
 function restoreIsOpen() {
+  var now = new Date().getTime();
+  if (now < RESTORE_ALWAYS_UNTIL) return true;       // 정해 둔 기간에는 늘 열림
   var till = Number(PropertiesService.getScriptProperties()
                       .getProperty(RESTORE_OPEN_PROP) || 0);
-  return till > new Date().getTime();
+  return till > now;
 }
 
 /** 되살리기 시도를 한 줄 남긴다. 성공도 실패도 남긴다. */
@@ -818,22 +848,44 @@ function doGet(e) {
       return out({ ok: false, closed: true,
                    error: '지금은 되살리기 창이 닫혀 있습니다. 선생님께 열어 달라고 하세요.' });
     }
-    // doGet 은 doPost 와 달리 감싸는 try 가 없어, 여기서 터지면 학생 화면에는
-    // 「연결하지 못했습니다」만 뜬다. 무엇이든 우리 말로 답하게 감싼다.
-    var got;
+    // 틀린 횟수를 세고 고치는 일이 동시에 겹치면 다섯 번 제한을 넘겨 버릴 수
+    // 있으므로, 한 사람씩 차례로 처리한다(제출과 같은 자물쇠).
+    var lock = LockService.getScriptLock();
+    try { lock.waitLock(15000); }
+    catch (e) { return out({ ok: false, error: '잠시 붐빕니다. 조금 뒤 다시 눌러 주세요.' }); }
     try {
-      got = 되살릴것찾기(p.cls, p.name, p.pin);
-    } catch (err) {
-      되살리기기록(p.cls, p.name, '오류 : ' + String(err).slice(0, 120));
-      return out({ ok: false, error: '되살리는 중에 문제가 생겼습니다. 선생님께 말씀해 주세요.' });
+      var fk = restoreFailKey(p.cls, p.name), fails = restoreFails();
+      if ((fails[fk] || 0) >= RESTORE_FAIL_MAX) {
+        되살리기기록(p.cls, p.name, '잠김 — 이미 ' + RESTORE_FAIL_MAX + '번 틀림');
+        return out({ ok: false, locked: true,
+                     error: '열쇠를 여러 번 틀려서 이 이름은 잠겼습니다. 선생님께 말씀해 주세요.' });
+      }
+      // doGet 은 doPost 와 달리 감싸는 try 가 없어, 여기서 터지면 학생 화면에는
+      // 「연결하지 못했습니다」만 뜬다. 무엇이든 우리 말로 답하게 감싼다.
+      var got;
+      try {
+        got = 되살릴것찾기(p.cls, p.name, p.pin);
+      } catch (err) {
+        되살리기기록(p.cls, p.name, '오류 : ' + String(err).slice(0, 120));
+        return out({ ok: false, error: '되살리는 중에 문제가 생겼습니다. 선생님께 말씀해 주세요.' });
+      }
+      if (!got) {
+        fails[fk] = (fails[fk] || 0) + 1;
+        restoreSaveFails(fails);
+        되살리기기록(p.cls, p.name, '맞지 않음 (' + fails[fk] + '/' + RESTORE_FAIL_MAX + ')');
+        var left = RESTORE_FAIL_MAX - fails[fk];
+        // 무엇이 틀렸는지 알려 주지 않습니다 — 남의 이름을 떠보지 못하게.
+        return out({ ok: false,
+                     error: '분반 · 이름 · 열쇠가 맞는 제출이 없습니다. 셋 다 다시 확인해 주세요.' +
+                            (left > 0 ? ' (앞으로 ' + left + '번 더 틀리면 잠깁니다)'
+                                      : ' 이제 이 이름은 잠겼습니다. 선생님께 말씀해 주세요.') });
+      }
+      if (fails[fk]) { delete fails[fk]; restoreSaveFails(fails); }
+      되살리기기록(p.cls, p.name, '되살림 (' + got.제출시각 + ' 제출분)');
+      return out({ ok: true, ver: VER, doc: got, at: got.제출시각 });
+    } finally {
+      lock.releaseLock();
     }
-    되살리기기록(p.cls, p.name, got ? '되살림 (' + got.제출시각 + ' 제출분)' : '맞지 않음');
-    if (!got) {
-      // 무엇이 틀렸는지 알려 주지 않습니다 — 남의 이름을 떠보지 못하게.
-      return out({ ok: false,
-                   error: '분반 · 이름 · 열쇠가 맞는 제출이 없습니다. 셋 다 다시 확인해 주세요.' });
-    }
-    return out({ ok: true, ver: VER, doc: got, at: got.제출시각 });
   }
 
   if (p.list) {
@@ -1177,6 +1229,7 @@ function onOpen() {
     .addItem('토론 문서 되살리기 · ' + RESTORE_MINUTES + '분 열기', '되살리기열기')
     .addItem('토론 문서 되살리기 · 지금 닫기', '되살리기닫기')
     .addItem('토론 문서 되살리기 · 기록 보기', '되살리기기록보기')
+    .addItem('토론 문서 되살리기 · 잠긴 이름 풀기', '되살리기잠금풀기')
     .addToUi();
 }
 
@@ -1273,6 +1326,14 @@ function 되살리기기록보기() {
   var ui = SpreadsheetApp.getUi();
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(RESTORE_LOG);
   var 상태 = restoreIsOpen() ? '지금 창이 «열려» 있습니다.' : '지금 창은 «닫혀» 있습니다.';
+  if (new Date().getTime() < RESTORE_ALWAYS_UNTIL) {
+    상태 += '\n(' + Utilities.formatDate(new Date(RESTORE_ALWAYS_UNTIL),
+              Session.getScriptTimeZone(), 'M월 d일 HH시') +
+            ' 까지는 누르지 않아도 늘 열려 있습니다)';
+  }
+  var fm = restoreFails();
+  var 잠김 = Object.keys(fm).filter(function (k) { return fm[k] >= RESTORE_FAIL_MAX; });
+  if (잠김.length) 상태 += '\n\n잠긴 이름 ' + 잠김.length + '명 : ' + 잠김.join(', ');
   if (!sh || sh.getLastRow() < 2) {
     ui.alert('되살리기 기록', 상태 + '\n\n아직 되살리기를 시도한 사람이 없습니다.', ui.ButtonSet.OK);
     return;
@@ -1282,6 +1343,26 @@ function 되살리기기록보기() {
     상태 + '\n\n' + (sh.getLastRow() - 1) + '건이 있습니다. 「' + RESTORE_LOG + '」 탭을 띄웠습니다.\n\n' +
     '«맞지 않음»이 한 사람 이름으로 여러 번 찍혀 있으면,\n' +
     '열쇠를 잊은 것인지 남이 떠본 것인지 살펴봐 주세요.', ui.ButtonSet.OK);
+}
+
+/** 열쇠를 다섯 번 틀려 잠긴 이름을 풉니다. 누구누구인지 먼저 보여 줍니다.
+ *  한 이름이 잠겼다면 — 본인이 열쇠를 잊었거나, 남이 떠본 것입니다.
+ *  «되살리기기록» 탭에서 시각을 보면 어느 쪽인지 대개 짐작이 갑니다. */
+function 되살리기잠금풀기() {
+  var ui = SpreadsheetApp.getUi();
+  var m = restoreFails(), 잠김 = [], 틀림 = 0;
+  for (var k in m) { if (m[k] >= RESTORE_FAIL_MAX) 잠김.push(k); else 틀림++; }
+  if (!잠김.length && !틀림) {
+    ui.alert('잠긴 이름이 없습니다.', '열쇠를 틀린 기록도 없습니다.', ui.ButtonSet.OK);
+    return;
+  }
+  var 답 = ui.alert('잠긴 이름 풀기',
+    (잠김.length ? '잠긴 이름 ' + 잠김.length + '명\n· ' + 잠김.join('\n· ') + '\n\n' : '잠긴 이름은 없습니다.\n\n') +
+    (틀림 ? '몇 번 틀렸지만 아직 안 잠긴 이름 ' + 틀림 + '명\n\n' : '') +
+    '모두 풀고 틀린 횟수를 0으로 되돌릴까요?', ui.ButtonSet.OK_CANCEL);
+  if (답 !== ui.Button.OK) return;
+  PropertiesService.getScriptProperties().deleteProperty(RESTORE_FAIL_PROP);
+  ui.alert('풀었습니다', '이제 다시 되살리기를 할 수 있습니다.', ui.ButtonSet.OK);
 }
 
 /** «확인필요» 탭에 무엇이 들어와 있는지 알려 준다.
