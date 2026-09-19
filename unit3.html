@@ -702,6 +702,27 @@ a.mini.lnk{display:inline-flex; align-items:center; text-decoration:none}
 .pwarn{display:block; margin-top:12px; font-size:0.8438rem; line-height:1.65; color:var(--muted)}
 .pwarn b{color:var(--warm)}
 .phr{border:0; border-top:1px solid var(--line); margin:18px 0 14px}
+/* 개별 문서 — 다시 내기 상자 */
+.resub{margin:0 0 16px; padding:16px 18px; border-radius:14px; background:var(--sky-bg);
+  border:1px solid var(--line)}
+.resub-h{display:block; font-family:var(--disp); font-size:1.0625rem; color:var(--blue-d)}
+.resub-steps{margin:8px 0 0; padding-left:1.4em; font-size:0.9063rem; line-height:1.8}
+.resub-steps b{color:var(--blue-d)}
+.resub-left{display:inline-block; margin-left:6px; padding:0 9px; border-radius:99px;
+  background:var(--warm); color:var(--white); font-size:0.75rem; font-weight:700; line-height:1.7}
+.resub-left.done{background:var(--good)}
+.resub-left:empty{display:none}
+.resub-load{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line)}
+.resub-load>b{color:var(--blue-d)}
+/* 개별 문서 — 접어 둔 «먼저 읽으세요» */
+.wfdet{margin:0 0 6px}
+.wfdet>summary{cursor:pointer; list-style:none; padding:12px 16px; border-radius:12px;
+  background:var(--tint); border:1px solid var(--line); font-weight:700; color:var(--blue-d)}
+.wfdet>summary::-webkit-details-marker{display:none}
+.wfdet>summary::after{content:' ▾ 눌러서 펼치기'; font-weight:500; color:var(--muted); font-size:0.8125rem}
+.wfdet[open]>summary{margin-bottom:12px}
+.wfdet[open]>summary::after{content:' ▴ 접기'}
+.wfdet>summary:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
 /* 개별 문서 — 남은 빈 칸 */
 .blankbox{margin-top:14px; padding:12px 15px; border-radius:12px; background:var(--warm-bg);
   font-size:0.8438rem; line-height:1.65}
@@ -1478,6 +1499,8 @@ footer a{font-weight:700}
   padding:13px 15px; cursor:pointer; font-family:var(--sans)}
 .tp:hover{border-color:var(--blue-l)}
 .tp.on{border-color:var(--blue-d); background:var(--blue-xl)}
+/* 논제를 고른 뒤에는 고른 것만 — 목록 열 개가 1,000px 을 차지해 글 쓰는 칸이 멀었다 */
+.topics.picked .tp:not(.on){display:none}
 .tp:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
 .tp>b{grid-row:1/3; width:26px; height:26px; border-radius:50%; background:var(--fill);
   color:var(--on-fill); font-family:var(--mono); font-size:0.8125rem; font-weight:700;
@@ -2071,31 +2094,9 @@ table.dlt tr:last-child td{border-bottom:none}
       <b>내 이름과 개별 문서를 그대로 봅니다.</b> 공용 노트북에서는 꼭 지우고 나오세요.</span>
 
     <hr class="phr">
-    <b>파일도 없이 다 잃었다면 — 선생님께 낸 것을 되살립니다</b>
-    <span class="pwarn" style="margin-top:8px">수행평가 개별 문서만 됩니다.
-      <b>제출할 때 넣었던 「되살리기 열쇠」 여섯 자리</b>가 있어야 하고,
-      가장 <b>최근에 낸 것</b>이 옵니다.
-      <b>비어 있는 칸만 채우고, 이미 쓴 칸은 건드리지 않습니다</b> — 눌러도 지금 글이 지워지지 않아요.
-      「창이 닫혀 있다」고 나오면 선생님께 말씀하세요.<br>
-      <b>열쇠가 기억나지 않으면?</b> 여러 번 찍어 보지 마세요 — <b>5번 틀리면 이 이름의 불러오기가 잠깁니다.</b>
-      잠겨도 <b>노트북의 글은 그대로이고 제출도 그대로 됩니다.</b> 선생님께 말씀하면 풀어 드려요.</span>
-    <div class="frow" style="margin-top:12px">
-      <label class="fld"><span>분반</span>
-        <span class="pick" id="rsCls">
-          <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
-          <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
-          <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
-        </span></label>
-      <label class="fld"><span>이름</span>
-        <input type="text" id="rsName" placeholder="제출할 때 적은 이름" autocomplete="off"></label>
-      <label class="fld"><span>되살리기 열쇠</span>
-        <input type="text" id="rsPin" inputmode="numeric" maxlength="6"
-               placeholder="숫자 6자리" autocomplete="off"></label>
-    </div>
-    <div class="simctl" style="margin-top:10px; margin-bottom:0">
-      <button type="button" class="mini gh" id="rsGo">📥 선생님께 낸 것 불러오기</button>
-      <span class="sendmsg" id="rsMsg"></span>
-    </div></div>
+    <b>파일도 없이 다 잃었다면?</b>
+    <span class="pwarn" style="margin-top:6px">선생님께 낸 것을 되살리는 <b>「📥 선생님께 낸 것 불러오기」</b>는
+      <a href="#doc" id="toDoc"><b>「수행평가 개별 문서」 맨 위</b></a>로 옮겼어요 — 글 쓰는 칸 바로 곁입니다.</span></div>
 
   <div class="actbar" role="tablist" aria-label="수업 활동 선택">
     <button class="atab" role="tab" data-u3="0" aria-selected="true"><i>Ⅲ-01</i>AI 발전 이야기</button>
@@ -2691,6 +2692,49 @@ table.dlt tr:last-child td{border-bottom:none}
       <b>네 부분(A~D부)</b>이 <b>채점 요소 네 가지</b>와 하나씩 맞물립니다.
       각 칸의 안내문은 <b>채점기준표의 25점(만점) 조건을 그대로 옮긴 것</b>이에요.</p>
 
+    <!-- 다시 내기 : 절차 · 바로 가기 · 선생님께 낸 것 불러오기를 한 상자에.
+         전에는 불러오기가 활동 탭 위에 있어서 글 쓰는 첫 칸까지 4천 px 넘게,
+         제출 단추까지 6천 px 넘게 내려가야 했다(2026-09). -->
+    <div class="resub" id="resub">
+      <b class="resub-h">📌 다시 내는 순서</b>
+      <ol class="resub-steps">
+        <li><b>내 글이 보이는지</b> 확인하기 — 안 보이면 바로 아래 <b>📥 선생님께 낸 것 불러오기</b></li>
+        <li><b>26칸</b>을 모두 채우기 <span class="resub-left" id="resubLeft"></span></li>
+        <li>되살리기 열쇠 6자리 넣고 <b>선생님께 제출하기</b> → 초록색 <b>「26/26칸」</b> 확인</li>
+      </ol>
+      <div class="simctl" style="margin:10px 0 0">
+        <button type="button" class="mini" id="goWrite">✏️ 빈 칸으로 바로 가기</button>
+        <button type="button" class="mini gh" id="goSend">📮 제출하러 가기</button>
+      </div>
+
+      <div class="resub-load">
+        <b>📥 글이 안 보이면 — 선생님께 낸 것 불러오기</b>
+        <span class="pwarn" style="margin-top:6px">
+          <b>제출할 때 넣었던 「되살리기 열쇠」 여섯 자리</b>로, 선생님께 <b>가장 최근에 낸 것</b>을 가져옵니다.
+          <b>비어 있는 칸만 채우고, 이미 쓴 칸은 건드리지 않아요.</b>
+          「창이 닫혀 있다」고 나오면 선생님께 말씀하세요.<br>
+          <b>열쇠가 기억나지 않으면?</b> 여러 번 찍지 마세요 — <b>5번 틀리면 불러오기가 잠깁니다.</b>
+          잠겨도 <b>노트북의 글과 제출은 그대로</b>예요. 선생님께 말씀하면 풀어 드려요.</span>
+        <div class="frow" style="margin-top:12px">
+          <label class="fld"><span>분반</span>
+            <span class="pick" id="rsCls">
+              <button type="button" data-c="인기A" aria-pressed="false">인기A</button>
+              <button type="button" data-c="인기D" aria-pressed="false">인기D</button>
+              <button type="button" data-c="인기E" aria-pressed="false">인기E</button>
+            </span></label>
+          <label class="fld"><span>이름 (제출 때 그대로)</span>
+            <input type="text" id="rsName" placeholder="제출할 때 적은 이름" autocomplete="off"></label>
+          <label class="fld"><span>되살리기 열쇠</span>
+            <input type="text" id="rsPin" inputmode="numeric" maxlength="6"
+                   placeholder="숫자 6자리" autocomplete="off"></label>
+        </div>
+        <div class="simctl" style="margin-top:10px; margin-bottom:0">
+          <button type="button" class="mini gh" id="rsGo">📥 선생님께 낸 것 불러오기</button>
+          <span class="sendmsg" id="rsMsg"></span>
+        </div>
+      </div>
+    </div>
+
     <div class="ask" style="margin:0 0 14px"><b>채점기준표 전문과 토론 진행 방식은 따로 있습니다</b>
       <a href="https://richee-pc.github.io/AI_cs/debate.html#rubric" style="font-weight:800">
         수행평가 ① 안내 페이지 열기 →</a>
@@ -2703,6 +2747,9 @@ table.dlt tr:last-child td{border-bottom:none}
       <span><b>25</b> D부 · 윤리 분석과 공존</span>
     </div>
 
+    <!-- 여덟 단계 안내는 길어서(약 2,500px) 접어 둔다. 눌러서 펼친다. -->
+    <details class="wfdet">
+    <summary>📖 먼저 읽으세요 — 토론 수행평가는 이렇게 진행됩니다</summary>
     <div class="wfbox">
       <h4 class="wfhead">먼저 읽으세요 — 토론 수행평가는 이렇게 진행됩니다</h4>
       <p class="wfsub">여덟 단계입니다. <b>오늘이 몇 차시인지 눌러 보면</b> 지금 할 일만 밝게 보여 줍니다.
@@ -2740,10 +2787,12 @@ table.dlt tr:last-child td{border-bottom:none}
         <a href="https://richee-pc.github.io/AI_cs/debate.html#rubric" style="font-weight:800">
           채점기준표 5단계 전문 보기 →</a></div>
     </div>
+    </details>
 
     <h4 class="step-h" style="margin-top:20px">배정받은 논제</h4>
     <p class="desc">1차시에 <b>무작위로 배정받은</b> 논제를 고르세요. 직접 고르는 것이 아닙니다.</p>
     <div class="topics" id="dbTopic"></div>
+    <button type="button" class="mini gh" id="dbTopicMore" hidden style="margin-top:9px"></button>
 
     <h4 class="step-h" style="margin-top:20px">배정받은 입장</h4>
     <div class="simctl">
@@ -4701,16 +4750,25 @@ var WFLOSE = [
   var box = $('dbTopic'); if(!box) return;
 
   /* ── 논제 ── */
+  var more = $('dbTopicMore'), showAll = false;
   function drawTopic(){
     box.innerHTML = TOPICS.map(function(t, i){
       return '<button type="button" class="tp' + (U3.topic === i ? ' on' : '') + '" data-i="' + i + '">' +
         '<b>' + (i + 1) + '</b><span>' + esc(t.t) + '</span><i>' + esc(t.l) + '</i></button>';
     }).join('');
+    // 고른 뒤에는 고른 논제 하나만 보인다(다른 것은 «다른 논제 보기»로 펼친다)
+    var picked = U3.topic >= 0;
+    box.classList.toggle('picked', picked && !showAll);
+    if(more){
+      more.hidden = !picked;
+      more.textContent = showAll ? '▴ 고른 논제만 보기' : '▾ 다른 논제 보기 (바꾸려면)';
+    }
   }
   box.addEventListener('click', function(e){
     var b = e.target.closest('button[data-i]'); if(!b) return;
-    U3.topic = +b.getAttribute('data-i'); save(); drawTopic(); fill();
+    U3.topic = +b.getAttribute('data-i'); save(); showAll = false; drawTopic(); fill();
   });
+  if(more) more.addEventListener('click', function(){ showAll = !showAll; drawTopic(); });
   drawTopic();
 
   /* ── 입장 ── */
@@ -4827,6 +4885,11 @@ var WFLOSE = [
       s.textContent = '빈 ' + per[k];
       s.hidden = !(mark && per[k] > 0);
     });
+    var rl = $('resubLeft');                 // 맨 위 «다시 내는 순서»에도 남은 수를
+    if(rl){
+      rl.textContent = bl.length ? '아직 ' + bl.length + '칸 남음' : '✓ 다 채웠어요';
+      rl.className = 'resub-left' + (bl.length ? '' : ' done');
+    }
     if(!bl.length){
       box.className = 'blankbox done';
       box.innerHTML = '<b>' + FIELDS.length + '칸을 모두 채웠어요 ✓</b> 이제 아래 「선생님께 제출하기」를 누르세요.';
@@ -4858,6 +4921,23 @@ var WFLOSE = [
   });
   FIELDS.forEach(function(f){ var el = $(f[0]); if(el) el.addEventListener('input', drawBlank); });
   drawBlank();
+
+  /* 맨 위 «다시 내는 순서»의 바로 가기 두 개 — 스크롤 없이 쓰는 칸·제출 칸으로 */
+  $('goWrite').addEventListener('click', function(){
+    var first = blanks()[0];
+    if(first){ setMark(true); goField(first[0]); }
+    else { var p = $('dbPin'); p.scrollIntoView({ block:'center' }); p.focus(); }
+  });
+  $('goSend').addEventListener('click', function(){
+    var p = $('dbPin'); p.scrollIntoView({ block:'center' }); p.focus();
+  });
+  // 위쪽 «노트북 옮기기» 상자의 안내 링크 → 개별 문서 탭을 열고 이 상자로
+  var td = $('toDoc');
+  if(td) td.addEventListener('click', function(e){
+    e.preventDefault();
+    var t = document.querySelector('.atab[data-u3="8"]'); if(t) t.click();
+    $('resub').scrollIntoView({ block:'start' });
+  });
   // 불러오기(되살리기) 쪽이 «표시를 켜 달라»고 부를 때
   document.addEventListener('u3:markblank', function(){
     setMark(true);
