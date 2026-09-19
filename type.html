@@ -214,6 +214,7 @@ h1{font-family:var(--disp);font-size:clamp(1.6rem,4.6vw,2.2rem);font-weight:800;
 .weak b{font-family:var(--mono);font-size:18px;color:var(--warm)}
 .grade{font-family:var(--disp);font-size:1.35rem;font-weight:800;margin:0 0 10px}
 .sendbox{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.nosend{margin:16px 0 0;padding:12px 16px;border-radius:14px;background:var(--warm-bg);color:var(--warm);font-size:15px;line-height:1.6}
 .sendmsg{margin:10px 0 0;font-size:15px;min-height:22px}
 /* 이 이름이 맞나요 — 공용 컴퓨터에서 브라우저마다 한 번만 뜹니다 */
 .mecheck{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
@@ -451,6 +452,7 @@ footer{padding:40px 0 70px;color:var(--muted);font-size:0.875rem;border-top:1px 
     </div>
     <div class="weak" id="weak"></div>
 
+    <p class="nosend" id="nosend" hidden></p>
     <div class="sendbox" id="sendbox">
       <h2 style="font-size:1.05rem;margin:0 0 4px">이번 회차 순위에 올리기</h2>
       <p class="sub" style="margin-bottom:12px">같은 회차에 여러 번 내도 <b>가장 높은 기록</b>만 남습니다.</p>
@@ -1074,6 +1076,15 @@ function endShow(){
      한 개도 못 맞힌 판도 올리지 않습니다(그만두기로 끝낸 경우). */
   var can = G.mode === 'fall' && G.cleared > 0;
   $('sendbox').classList.toggle('hide', !can);
+  /* 올리지 않는 판이면 «왜 안 올라가는지»를 꼭 말해 줍니다. 전에는 올리기 칸이
+     말없이 사라져서, 연습 모드로 친 학생이 «업로드가 안 된다»고 여겼습니다. */
+  var ns = $('nosend');
+  if(ns){
+    ns.hidden = can;
+    if(!can) ns.innerHTML = G.mode !== 'fall'
+      ? '🧘 <b>연습 모드</b> 기록은 순위에 올라가지 않아요. 순위에 올리려면 <b>🎮 도전 모드</b>로 한 판 해 보세요!'
+      : '🌱 한 개도 터뜨리지 못한 판은 순위에 올리지 않아요. 한 번 더 해 볼까요?';
+  }
   if(can){
     var w0 = who();
     $('cls2').value = w0.cls || $('cls').value || '';
