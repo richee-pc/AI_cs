@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>토론 문서 다시 내기 · 인공지능 기초</title>
-<!-- 교실 화면에 띄우는 안내 한 장. 메뉴에는 걸지 않고 주소로만 연다.
-     (2026-09 최종 제출이 조용히 막혔던 일 뒤에, 학생들에게 다시 내게 할 때 쓴다) -->
+<!-- 교실 화면에 띄워 두는 안내 한 장. 메뉴에는 걸지 않고 주소로만 연다.
+     학생이 «자기 화면에서 무엇을 찾아야 하는지» 바로 알아보도록,
+     실제 화면 조각(단추·노란 빈 칸·초록 완료 문구)을 그대로 흉내 내어 보인다.
+     (2026-09 최종 제출이 조용히 막혔던 일 뒤에 다시 내게 할 때 쓴다) -->
 <style>
 @font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=f5a931b2') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
@@ -20,102 +22,136 @@
   font-weight:400 700; font-style:normal; font-display:swap}
 
 :root{
-  --ground:#F5F7FC; --card:#FFFFFF; --ink:#0F1A31; --muted:#5A6884; --line:#DDE3F0;
-  --blue:#1B49B8; --blue-wash:#E6EDFF;
+  --ground:#F2F6FD; --card:#FFFFFF; --ink:#0F1A31; --muted:#5A6884; --line:#DCE4F2;
+  --blue:#1B49B8; --blue-deep:#123283; --blue-wash:#E6EDFF;
   --alert:#B4231D; --alert-wash:#FCEBE9;
-  --key:#8A5200; --key-wash:#FFF2D9;
-  --ok:#166B4A; --ok-wash:#E3F5EC;
+  --key:#8A5200; --key-wash:#FFF2D9; --key-line:#E3B15A;
+  --ok:#136B47; --ok-wash:#DFF3E9;
   --disp:'AIDisp','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
   --body:'AIBody','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
   --mono:'AIMono',ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#0C1120; --card:#141C30; --ink:#EDF1FA; --muted:#9AA8C4; --line:#27324C;
-    --blue:#7FA5FF; --blue-wash:#1A2748; --alert:#FF9A92; --alert-wash:#3A1D1B;
-    --key:#F0C173; --key-wash:#38290F; --ok:#6FD6A8; --ok-wash:#123325;
+    --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+    --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+    --alert:#FF9A92; --alert-wash:#3A1D1B;
+    --key:#F0C173; --key-wash:#38290F; --key-line:#6B4E1C;
+    --ok:#6FD6A8; --ok-wash:#123325;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#0C1120; --card:#141C30; --ink:#EDF1FA; --muted:#9AA8C4; --line:#27324C;
-  --blue:#7FA5FF; --blue-wash:#1A2748; --alert:#FF9A92; --alert-wash:#3A1D1B;
-  --key:#F0C173; --key-wash:#38290F; --ok:#6FD6A8; --ok-wash:#123325;
+  --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+  --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+  --alert:#FF9A92; --alert-wash:#3A1D1B;
+  --key:#F0C173; --key-wash:#38290F; --key-line:#6B4E1C;
+  --ok:#6FD6A8; --ok-wash:#123325;
 }
 
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
   background:var(--ground); color:var(--ink);
-  font-family:var(--body); font-weight:500; line-height:1.5;
-  padding:clamp(16px,2.8vw,40px);
+  font-family:var(--body); font-weight:500; line-height:1.45;
+  padding:clamp(12px,1.8vw,26px);
 }
-.wrap{max-width:1180px; margin:0 auto; display:flex; flex-direction:column; gap:clamp(12px,1.6vw,20px)}
+.wrap{max-width:1500px; margin:0 auto; display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px)}
 
-.top{display:flex; flex-direction:column; gap:8px}
+/* ── 머리 ── */
+.top{display:flex; align-items:center; gap:clamp(10px,1.4vw,18px); flex-wrap:wrap}
 .eyebrow{
-  align-self:flex-start; font-size:clamp(0.78rem,1.1vw,0.95rem); font-weight:700; letter-spacing:.12em;
+  font-size:clamp(0.72rem,0.95vw,0.9rem); font-weight:700; letter-spacing:.12em; white-space:nowrap;
   color:var(--blue); background:var(--blue-wash); padding:6px 14px; border-radius:99px;
 }
 h1{
   font-family:var(--disp); font-weight:800; margin:0;
-  font-size:clamp(2rem,5vw,3.7rem); line-height:1.12; letter-spacing:-.01em; text-wrap:balance;
+  font-size:clamp(1.7rem,3.6vw,3rem); line-height:1.1; letter-spacing:-.01em;
 }
 h1 em{font-style:normal; color:var(--blue)}
-.calm{margin:0; font-size:clamp(1rem,1.7vw,1.35rem); font-weight:600; color:var(--muted); text-wrap:balance}
+.calm{margin:0; font-size:clamp(0.9rem,1.25vw,1.15rem); font-weight:600; color:var(--muted)}
 .calm b{color:var(--ok)}
 
-.steps{display:flex; flex-direction:column; gap:clamp(10px,1.3vw,16px)}
+/* ── 본문 두 칸 ── */
+.main{display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(10px,1.3vw,18px); align-items:start}
+@media (max-width:900px){ .main{grid-template-columns:1fr} }
+
+.steps{display:flex; flex-direction:column; gap:clamp(8px,1vw,13px)}
 .step{
-  display:grid; grid-template-columns:clamp(50px,6vw,76px) 1fr; gap:clamp(14px,2vw,24px); align-items:start;
-  background:var(--card); border:1px solid var(--line); border-radius:16px;
-  padding:clamp(14px,1.9vw,22px) clamp(16px,2.3vw,28px);
+  display:grid; grid-template-columns:clamp(42px,3.6vw,58px) 1fr; gap:clamp(11px,1.3vw,18px);
+  align-items:start; background:var(--card); border:1px solid var(--line); border-radius:15px;
+  padding:clamp(11px,1.3vw,17px) clamp(13px,1.6vw,21px);
 }
 .num{
   font-family:var(--disp); font-weight:800; display:grid; place-items:center; aspect-ratio:1;
-  border-radius:14px; font-size:clamp(1.6rem,3.2vw,2.5rem); line-height:1;
+  border-radius:12px; font-size:clamp(1.25rem,2.2vw,1.9rem); line-height:1;
   background:var(--blue-wash); color:var(--blue);
 }
-.step.c .num{background:var(--blue); color:var(--card)}
-.what{margin:0; font-size:clamp(1.3rem,2.6vw,2rem); font-weight:700; line-height:1.28; text-wrap:balance}
+.step.c .num{background:var(--blue); color:#fff}
+.what{margin:0; font-size:clamp(1.05rem,1.85vw,1.5rem); font-weight:700; line-height:1.3; text-wrap:balance}
 .what b{color:var(--blue)}
-.link{
-  display:inline-block; margin-top:8px; font-family:var(--mono); font-weight:700;
-  font-size:clamp(1rem,1.75vw,1.4rem); color:var(--blue); background:var(--blue-wash);
-  padding:6px 14px; border-radius:10px; overflow-wrap:anywhere;
+.sub{margin:6px 0 0; font-size:clamp(0.82rem,1.05vw,0.98rem); font-weight:400; color:var(--muted)}
+.sub b{color:var(--ink); font-weight:700}
+.url{
+  display:inline-block; margin-top:7px; font-family:var(--mono); font-weight:700;
+  font-size:clamp(0.85rem,1.3vw,1.12rem); color:var(--blue-deep); background:var(--blue-wash);
+  padding:5px 12px; border-radius:9px; overflow-wrap:anywhere;
 }
-.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:clamp(9px,1.1vw,13px)}
-.chip{
-  display:flex; align-items:center; gap:8px; font-size:clamp(0.98rem,1.6vw,1.28rem); font-weight:700;
-  padding:8px 16px 8px 12px; border-radius:12px; background:var(--ground);
-}
-.chip i{font-style:normal; width:1.2em; text-align:center; line-height:1}
-.chip.ok{color:var(--ok); background:var(--ok-wash)}
-.chip.no{color:var(--alert); background:var(--alert-wash)}
-.chip.key{color:var(--key); background:var(--key-wash)}
-.note{margin:clamp(8px,1vw,12px) 0 0; font-size:clamp(0.86rem,1.25vw,1.05rem); font-weight:400; color:var(--muted)}
-.note b{color:var(--ink); font-weight:700}
 
-.help{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(10px,1.3vw,16px)}
-.hcard{border-radius:16px; padding:clamp(14px,1.8vw,20px) clamp(16px,2.2vw,24px); background:var(--alert-wash)}
+/* ── 오른쪽 : 화면에서 찾을 것 ── */
+.shots{
+  background:var(--card); border:1px solid var(--line); border-radius:15px;
+  padding:clamp(12px,1.4vw,18px); display:flex; flex-direction:column; gap:clamp(9px,1.1vw,14px);
+}
+.shots-h{
+  font-family:var(--disp); font-weight:800; font-size:clamp(0.95rem,1.35vw,1.2rem);
+  color:var(--blue-deep); margin:0;
+}
+.shot{display:flex; flex-direction:column; gap:5px}
+.cap{font-size:clamp(0.76rem,1vw,0.92rem); font-weight:700; color:var(--muted)}
+.cap b{color:var(--ink)}
+
+/* 화면 조각 흉내 */
+.mock{border:1px solid var(--line); border-radius:11px; padding:9px 11px; background:var(--ground)}
+.mock-h{font-size:clamp(0.78rem,1vw,0.93rem); font-weight:700; color:var(--blue-deep)}
+.mbtns{display:flex; gap:6px; flex-wrap:wrap; margin-top:7px}
+.mbtn{
+  font-size:clamp(0.74rem,0.98vw,0.9rem); font-weight:700; padding:5px 12px; border-radius:99px;
+  background:var(--blue); color:#fff; white-space:nowrap;
+}
+.mbtn.gh{background:var(--card); color:var(--blue); border:1px solid var(--line)}
+.mlabel{font-size:clamp(0.74rem,0.95vw,0.88rem); font-weight:700; color:var(--ink)}
+.mfield{
+  margin-top:5px; height:clamp(28px,3.4vw,40px); border-radius:9px; background:var(--card);
+  border:2px dashed var(--key-line);
+}
+.mdone{
+  display:inline-flex; align-items:center; gap:7px; font-weight:700; color:var(--ok);
+  background:var(--ok-wash); border-radius:9px; padding:7px 13px;
+  font-size:clamp(0.82rem,1.15vw,1.05rem);
+}
+
+/* ── 손 들기 ── */
+.help{display:grid; grid-template-columns:1fr 1fr; gap:clamp(9px,1.2vw,16px)}
+@media (max-width:760px){ .help{grid-template-columns:1fr} }
+.hcard{
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(9px,1.2vw,15px); align-items:center;
+  border-radius:15px; padding:clamp(11px,1.3vw,17px) clamp(13px,1.6vw,20px); background:var(--alert-wash);
+}
 .hcard.k{background:var(--key-wash)}
-.hq{margin:0; font-size:clamp(1.1rem,2vw,1.55rem); font-weight:700; color:var(--alert)}
+.hand{
+  font-size:clamp(1.5rem,2.6vw,2.2rem); line-height:1; background:var(--card);
+  border-radius:12px; padding:9px 12px;
+}
+.hq{margin:0; font-size:clamp(0.98rem,1.5vw,1.25rem); font-weight:700; color:var(--alert)}
 .hcard.k .hq{color:var(--key)}
-.hand{display:inline-block; margin-left:6px; padding:2px 12px; border-radius:99px; background:var(--card);
-  font-size:.82em; vertical-align:2px}
-.ha{margin:8px 0 0; font-size:clamp(0.9rem,1.35vw,1.1rem); line-height:1.6}
+.ha{margin:3px 0 0; font-size:clamp(0.78rem,1.02vw,0.95rem); line-height:1.5; color:var(--ink)}
 .ha b{font-weight:700}
 
-.sign{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:clamp(18px,2.4vw,30px)}
-.bun-gif{width:clamp(96px,16vw,130px); height:auto; display:block; border-radius:18px}
-.ptp{display:inline-flex; align-items:center; gap:8px; font-family:var(--disp); font-size:1.0625rem;
+.sign{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:2px}
+.bun-gif{width:clamp(52px,5vw,74px); height:auto; display:block; border-radius:12px}
+.ptp{display:inline-flex; align-items:center; gap:7px; font-family:var(--disp); font-size:0.9rem;
   color:var(--blue); background:var(--card); border:1px solid var(--line); border-radius:99px;
-  padding:8px 20px; letter-spacing:.01em}
-.ptp span{font-size:1.1875rem; line-height:1}
-
-@media (max-width:560px){
-  .step{grid-template-columns:44px 1fr; gap:12px}
-  .num{border-radius:11px}
-}
+  padding:6px 15px}
 </style>
 </head>
 <body>
@@ -124,57 +160,85 @@ h1 em{font-style:normal; color:var(--blue)}
   <div class="top">
     <span class="eyebrow">수행평가 ① 토론 · 개별 문서</span>
     <h1>오늘 <em>한 번만</em> 다시 내 주세요 🙏</h1>
-    <p class="calm">선생님 쪽 오류로 최종본이 안 들어온 친구가 많아요.
-      여러분 잘못이 아니고, <b>쓴 글은 노트북에 그대로 있어요.</b></p>
+    <p class="calm">선생님 쪽 오류예요. 여러분 잘못 아니고, <b>쓴 글은 노트북에 그대로 있어요.</b></p>
   </div>
 
-  <div class="steps">
-    <div class="step a">
-      <div class="num">1</div>
-      <div>
-        <p class="what"><b>쓰던 그 노트북 · 그 브라우저</b>로 개별 문서 열기</p>
-        <span class="link">richee-pc.github.io/AI_cs/unit3.html#doc</span>
-        <div class="chips">
-          <span class="chip ok"><i>✓</i>내 글이 보인다 → 2번으로</span>
-          <span class="chip no"><i>✋</i>안 보인다 → 손 들기</span>
+  <div class="main">
+
+    <div class="steps">
+      <div class="step a">
+        <div class="num">1</div>
+        <div>
+          <p class="what"><b>쓰던 그 노트북 · 그 브라우저</b>로 열기</p>
+          <span class="url">richee-pc.github.io/AI_cs/unit3.html#doc</span>
+          <p class="sub">크롬으로 썼으면 <b>크롬</b>으로. 다른 브라우저로 열면 빈 화면이에요.</p>
+        </div>
+      </div>
+
+      <div class="step b">
+        <div class="num">2</div>
+        <div>
+          <p class="what"><b>26칸</b>을 모두 채우기</p>
+          <p class="sub">맨 위 <b>「✏️ 빈 칸으로 바로 가기」</b>를 누르면 빈 칸으로 데려가요.<br>
+            <b>C-3 최종 정리 발언 원고</b>는 발표한 친구도 꼭 써야 해요.</p>
+        </div>
+      </div>
+
+      <div class="step c">
+        <div class="num">3</div>
+        <div>
+          <p class="what">열쇠 <b>6자리</b> 넣고 → <b>선생님께 제출하기</b></p>
+          <p class="sub">12차시에 정한 숫자요. 숫자가 <b>26보다 작으면</b> 채우고 한 번 더!</p>
         </div>
       </div>
     </div>
 
-    <div class="step b">
-      <div class="num">2</div>
-      <div>
-        <p class="what"><b>26칸</b>을 모두 채우기</p>
-        <div class="chips">
-          <span class="chip key"><i>✏️</i>맨 위 「빈 칸으로 바로 가기」를 누르면 비어 있는 칸으로 데려가요</span>
+    <div class="shots">
+      <p class="shots-h">🔎 내 화면에서 이걸 찾으세요</p>
+
+      <div class="shot">
+        <div class="mock">
+          <div class="mock-h">📌 다시 내는 순서</div>
+          <div class="mbtns">
+            <span class="mbtn">✏️ 빈 칸으로 바로 가기</span>
+            <span class="mbtn gh">📮 제출하러 가기</span>
+          </div>
         </div>
-        <p class="note"><b>C-3 최종 정리 발언 원고</b>는 발표한 친구도 꼭 써 주세요.</p>
+        <span class="cap">개별 문서 <b>맨 위</b>에 있어요</span>
+      </div>
+
+      <div class="shot">
+        <div class="mock">
+          <div class="mlabel">C-1 · 오간 논점 기록 ①</div>
+          <div class="mfield"></div>
+        </div>
+        <span class="cap"><b>노란 점선</b> = 아직 안 쓴 칸</span>
+      </div>
+
+      <div class="shot">
+        <span class="mdone">✅ 제출했습니다 (26/26칸)</span>
+        <span class="cap"><b>초록색</b>으로 이게 떠야 끝!</span>
       </div>
     </div>
 
-    <div class="step c">
-      <div class="num">3</div>
-      <div>
-        <p class="what">되살리기 열쇠 <b>6자리</b> 넣고 → <b>선생님께 제출하기</b></p>
-        <div class="chips">
-          <span class="chip ok"><i>🎉</i>초록색 「제출했습니다 (26/26칸)」 이 뜨면 끝!</span>
-        </div>
-        <p class="note">숫자가 <b>26보다 작으면</b> 빈 칸을 채우고 한 번 더 눌러 주세요.</p>
-      </div>
-    </div>
   </div>
 
   <div class="help">
     <div class="hcard">
-      <p class="hq">😱 글이 안 보이면? <span class="hand">손 들기 ✋</span></p>
-      <p class="ha">개별 문서 맨 위 📥 <b>「선생님께 낸 것 불러오기」</b>에
-        분반 · 이름(<b>제출 때 그대로</b>) · 열쇠를 넣어요.<br>
-        <b>쓴 칸은 안 지워지고, 빈 칸만 채워져요.</b></p>
+      <span class="hand">✋</span>
+      <div>
+        <p class="hq">😱 내 글이 안 보여요</p>
+        <p class="ha">손 들어 주세요. 맨 위 <b>📥 「선생님께 낸 것 불러오기」</b>로 되찾아요 —
+          <b>쓴 칸은 안 지워지고 빈 칸만 채워져요.</b></p>
+      </div>
     </div>
     <div class="hcard k">
-      <p class="hq">🔑 열쇠가 기억 안 나면? <span class="hand">손 들기 ✋</span></p>
-      <p class="ha"><b>여러 번 찍지 마세요</b> — 5번 틀리면 불러오기가 잠겨요.<br>
-        잠겨도 <b>내 글과 제출은 그대로</b>예요.</p>
+      <span class="hand">✋</span>
+      <div>
+        <p class="hq">🔑 열쇠가 기억 안 나요</p>
+        <p class="ha"><b>여러 번 찍지 말고</b> 손 들어 주세요. 5번 틀리면 잠겨요.
+          잠겨도 <b>내 글과 제출은 그대로</b>예요.</p>
+      </div>
     </div>
   </div>
 
