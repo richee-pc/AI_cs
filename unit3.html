@@ -5077,21 +5077,32 @@ var WFLOSE = [
       .then(function(r){ return r.json(); })
       .then(function(j){ if(j && j.ok) good('', j); else bad(); })
       .catch(function(){
-        /* 첫 번째가 실패하면 한 번 더 제대로 보내 보고, 그래도 안 되면 마지막으로
-           mode:'no-cors' 로 던진다. 그 답은 «열어 볼 수 없는 답»이라 들어갔는지
-           알 수 없다 — 그러니 초록색으로 «제출했습니다»라고 하지 않는다. */
-        postSealed(body)
-          .then(function(r){ return r.json(); })
-          .then(function(j2){ if(j2 && j2.ok) good('', j2); else throw new Error('no'); })
-          .catch(function(){
-            postSealed(body, true).then(function(){
-              msg.className = 'sendmsg wait';
-              msg.textContent = '보내긴 했는데 들어갔는지 확인이 안 됐어요 (' + done + '/' +
-                FIELDS.length + '칸). 글은 사라지지 않았어요 — ' +
-                '선생님께 «제출됐는지 봐 달라»고 말씀해 주세요.';
-              btn.textContent = '다시 제출하기'; btn.disabled = false;
-            }).catch(bad);
-          });
+        /* 통신이 끊겨 답을 못 받은 경우. 잠깐 쉬었다가 «제대로» 세 번까지 더 보낸다 —
+           2026-09-21 에 세 사람의 제출이 이렇게 사라졌다(수집기에 아예 닿지 않았다).
+           그래도 안 되면 마지막으로 mode:'no-cors' 로 던지는데, 그 답은 열어 볼 수
+           없어 들어갔는지 알 수 없다. 그러니 초록색으로 «제출했습니다»라고 하지 않는다. */
+        var tries = 0;
+        function 다시(){
+          tries++;
+          msg.className = 'sendmsg wait';
+          msg.textContent = '잘 안 가서 다시 보내는 중… (' + tries + '/3)';
+          return postSealed(body)
+            .then(function(r){ return r.json(); })
+            .then(function(j2){ if(j2 && j2.ok){ good('', j2); return; } throw new Error('no'); })
+            .catch(function(){
+              if(tries < 3){
+                return new Promise(function(done2){ setTimeout(done2, tries * 900); }).then(다시);
+              }
+              return postSealed(body, true).then(function(){
+                msg.className = 'sendmsg wait';
+                msg.textContent = '보내긴 했는데 들어갔는지 확인이 안 됐어요 (' + done + '/' +
+                  FIELDS.length + '칸). 글은 사라지지 않았어요 — ' +
+                  '선생님께 «제출됐는지 봐 달라»고 말씀해 주세요.';
+                btn.textContent = '다시 제출하기'; btn.disabled = false;
+              }).catch(bad);
+            });
+        }
+        다시();
       });
   });
 })();
