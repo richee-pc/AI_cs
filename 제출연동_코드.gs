@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v30
+ * 인공지능 기초 활동지 수집기  v31
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -99,7 +99,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 30;
+var VER = 31;
 
 var SHEETS = {
 
@@ -455,6 +455,17 @@ function hash36(str) {
     h2 = ((h2 * 31) + c * (i + 1)) >>> 0;
   }
   return h1.toString(36) + h2.toString(36);
+}
+
+/** 줄의 «제출 시각»(A열)을 숫자로. 못 읽으면 -1.
+ *  «마지막에 낸 것»을 고를 때 «시트에서 아래쪽 줄»로 판단하면 안 된다 —
+ *  «확인필요 → 원래 탭으로 옮기기» 가 옛 제출을 맨 아래에 붙이기 때문이다
+ *  (2026-09-21 에 채점표의 «채운 칸»이 토론입론서와 어긋난 까닭).          */
+function 낸때(v) {
+  if (v instanceof Date) { var t = v.getTime(); return isNaN(t) ? -1 : t; }
+  if (v === '' || v === null || v === undefined) return -1;
+  var d = new Date(v); var t2 = d.getTime();
+  return isNaN(t2) ? -1 : t2;
 }
 
 /** 순위표에서 «나»를 찾을 때 쓰는 표. 이름 자체는 내보내지 않습니다. */
@@ -1093,8 +1104,13 @@ function Ⅲ단원활동모으기() {
       var nm = String(v[i][2] || '').trim();
       if (!nm) continue;
       var k = cls + '|' + nm;
-      if (!who[k]) who[k] = { cls: cls, name: nm, at: {} };
-      // 같은 학생이 여러 번 냈으면 마지막 것으로 덮어쓴다 (아래로 갈수록 최신)
+      if (!who[k]) who[k] = { cls: cls, name: nm, at: {}, tm: {} };
+      /* 같은 학생이 여러 번 냈으면 «제출 시각이 가장 늦은 것»으로 덮어쓴다.
+         «아래로 갈수록 최신»이 아니다 — «확인필요 → 원래 탭으로 옮기기» 가
+         옛 제출을 맨 아래에 붙인다(2026-09-07 그림 163건이 그랬다).        */
+      var tt = 낸때(v[i][0]); if (tt < 0) tt = -1;
+      if (who[k].tm[a[1]] !== undefined && tt < who[k].tm[a[1]]) continue;
+      who[k].tm[a[1]] = tt;
       var parts = [];
       a[2].forEach(function (c) {
         var t = String(v[i][c] || '').trim();
@@ -1687,13 +1703,18 @@ function 토론채점표만들기() {
 
   // 제출물에서 (분반, 이름) 뽑기 — 같은 학생이 여러 번 냈으면 마지막 것만
   var rows = src.getRange(2, 1, src.getLastRow() - 1, 6).getValues();  // 시각·분반·이름·논제·입장·채운 칸
-  var seen = {}, list = [];
+  var seen = {}, list = [], 낸때표 = {};
   for (var i = 0; i < rows.length; i++) {
     var cls = String(rows[i][1] || '').trim();
     var nm = String(rows[i][2] || '').trim();
     if (!nm) continue;
     var key = cls + '|' + nm;
-    if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '', '']); }
+    if (seen[key] === undefined) { seen[key] = list.length; list.push([cls, nm, '', '', '']); 낸때표[key] = -2; }
+    // «마지막»은 시트에서 아래쪽 줄이 아니라 «제출 시각이 가장 늦은 줄»이다.
+    // 시각을 못 읽는 옛 줄(-1)은 줄 순서대로 뒤엣것이 이긴다.
+    var t = 낸때(rows[i][0]); if (t < 0) t = -1;
+    if (t < 낸때표[key]) continue;
+    낸때표[key] = t;
     list[seen[key]][2] = String(rows[i][3] || '');   // 논제
     list[seen[key]][3] = String(rows[i][4] || '');   // 입장
     list[seen[key]][4] = String(rows[i][5] || '');   // 채운 칸
@@ -1884,7 +1905,12 @@ function 세특초안만들기() {
     for (var i = 0; i < d.length; i++) {
       var nm = String(d[i][2] || '').trim();
       if (!nm) continue;
-      mine[String(d[i][1] || '').trim() + '|' + nm] = {
+      var k2 = String(d[i][1] || '').trim() + '|' + nm;
+      // 채점표와 같은 규칙 — «제출 시각이 가장 늦은 줄»을 쓴다
+      var t2 = 낸때(d[i][0]); if (t2 < 0) t2 = -1;
+      if (mine[k2] && t2 < mine[k2].at) continue;
+      mine[k2] = {
+        at: t2,
         views: String(d[i][6] || '').trim(),      // 윤리 관점
         act:   String(d[i][32] || '').trim(),     // D-6 실천 방안 ①
         beat:  String(d[i][30] || '').trim()      // D-4 반박당한 지점
