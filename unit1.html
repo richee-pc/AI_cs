@@ -5634,14 +5634,25 @@ while open_list:
     if(kind === 'typing') return Promise.resolve('');
     var c = TOK_CACHE[kind];
     if(c && Date.now() - c.at < TOK_LIFE) return Promise.resolve(c.tok);
-    return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) +
-                 '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        if(j && j.tok){ TOK_CACHE[kind] = { tok:j.tok, at:Date.now() }; return j.tok; }
-        return '';
-      })
-      .catch(function(){ return ''; });
+    /* 한 반이 동시에 낼 때 이 요청이 밀려 실패하곤 한다(혼자 불러도 2초쯤 걸린다).
+       실패하면 도장 없이 나가 «확인필요» 탭으로 떨어지므로, 조금 쉬었다가
+       세 번까지 다시 청한다. 그래도 안 되면 그냥 보낸다 — 제출은 막지 않는다. */
+    var tries = 0;
+    function ask(){
+      tries++;
+      return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) +
+                   '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          if(j && j.tok){ TOK_CACHE[kind] = { tok:j.tok, at:Date.now() }; return j.tok; }
+          throw new Error('no tok');
+        })
+        .catch(function(){
+          if(tries >= 3) return '';
+          return new Promise(function(done){ setTimeout(done, tries * 700); }).then(ask);
+        });
+    }
+    return ask();
   }
 
 
