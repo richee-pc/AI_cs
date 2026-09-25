@@ -662,14 +662,29 @@ var G = null, raf = 0, tick = 0, lastSent = null;
    (열쇠는 선생님 수집기 안에만 있습니다.)                              */
 var gate = null;              /* 이번 판의 개시표 */
 var gateWait = null;          /* 아직 오는 중이면 그 약속 */
+var gateSeq = 0;              /* 판마다 올라가는 번호 — 지난 판의 늦은 답이 새 판에 끼지 않게 */
 
+/* 개시표를 한 번에 못 받으면 판을 치는 동안 두 번 더 청합니다(2.5초 · 5초 뒤).
+   2026-09-13 한 학생의 기록 수십 건이 «개시표 없음»으로 걸렸습니다 — 판을 시작할
+   때 한 번 청한 것이 실패하면 그 판은 끝까지 개시표 없이 갔기 때문입니다.
+   늦게 받은 개시표는 시각이 몇 초 뒤라도 수집기의 여유(20초) 안에 듭니다. */
 function getGate(){
   gate = null;
-  gateWait = fetch(SUBMIT_URL + '?start=typing&key=' + encodeURIComponent(SUBMIT_KEY)
-                   + '&t=' + Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(j){ if(j && j.ok && j.tok) gate = j.tok; return gate; })
-    .catch(function(){ return null; });
+  var my = ++gateSeq;
+  var once = function(){
+    if(my !== gateSeq) return Promise.resolve(null);
+    return fetch(SUBMIT_URL + '?start=typing&key=' + encodeURIComponent(SUBMIT_KEY)
+                 + '&t=' + Date.now())
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if(my === gateSeq && j && j.ok && j.tok) gate = j.tok;
+        return my === gateSeq ? gate : null;
+      })
+      .catch(function(){ return null; });
+  };
+  var later = function(ms){ return function(g){
+    return g ? g : new Promise(function(ok){ setTimeout(ok, ms); }).then(once); }; };
+  gateWait = once().then(later(2500)).then(later(5000));
   return gateWait;
 }
 
