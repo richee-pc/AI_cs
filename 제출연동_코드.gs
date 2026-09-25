@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v31
+ * 인공지능 기초 활동지 수집기  v32
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -99,7 +99,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 31;
+var VER = 32;
 
 var SHEETS = {
 
@@ -731,6 +731,14 @@ function gateIssue(kind) {
  *  '' 이면 정상, 아니면 걸린 이유.
  *  secs 는 학생이 «이만큼 쳤다»고 말한 시간입니다. 서버가 개시표를 내준
  *  뒤 그만큼도 지나지 않았다면, 그 판은 실제로 치지 않은 것입니다.      */
+/* 개시표 시각 여유(초). 개시표의 시각은 «학생이 누른 때»가 아니라 «수집기가
+   요청을 처리한 때»입니다. 한가할 때는 1초 남짓이지만(2026-09-26 잰 값 0.6~1.3초),
+   반 전체가 한꺼번에 시작하면 요청이 줄을 서서 몇 초씩 늦게 찍힙니다.
+   여유가 3초일 때 60초를 다 친 정상 기록이 «한 판을 칠 시간이 지나지 않음»으로
+   걸렸습니다(한 학생 7건). 20초면 줄 서는 시간은 넉넉히 덮고, 60초 판을 몇 초 만에
+   내는 가짜는 여전히 걸립니다.                                          */
+var GATE_SLACK = 20;
+
 function gateCheck(tok, secs, kind) {
   var key = gateSecret();
   if (!key) return '';                       // 열쇠 없음 — 아직 안 켠 것이므로 통과
@@ -741,7 +749,7 @@ function gateCheck(tok, secs, kind) {
   if (!t || gateMac(t, key, kind) !== p[1]) return '개시표가 이 수집기 것이 아님';
   var gone = (new Date().getTime() - t) / 1000;
   if (gone < 0) return '개시표 시각이 앞섬';
-  if (gone + 3 < (Number(secs) || 0)) return '한 판을 칠 시간이 지나지 않음';
+  if (gone + GATE_SLACK < (Number(secs) || 0)) return '한 판을 칠 시간이 지나지 않음';
   if (gone > 1800) return '개시표가 너무 오래됨(30분)';
   return '';
 }
@@ -1590,16 +1598,22 @@ function 자판의심기록보기() {
   if (cols < 11) { ui.alert('검증 칸이 아직 없습니다. 학생이 한 판 올리면 생깁니다.'); return; }
 
   var v = sh.getRange(2, 1, sh.getLastRow() - 1, cols).getValues();
-  var lines = [], all = 0;
-  for (var i = v.length - 1; i >= 0 && lines.length < 40; i--) {
-    if (String(v[i][10] || '').indexOf('의심') !== 0) continue;
-    all++;
-    lines.push('· ' + Utilities.formatDate(new Date(v[i][0]),
-                 Session.getScriptTimeZone(), 'MM/dd HH:mm')
-      + '  ' + v[i][2] + ' ' + v[i][3]
-      + '  ' + v[i][5] + '점 / ' + v[i][6] + '타'
-      + '\n    → ' + v[i][11]);
+  // 줄 순서가 아니라 «제출 시각»으로 최근 것부터 봅니다 — 탭을 점수순으로
+  // 정렬해 두면 줄 순서로는 «점수 낮은 것»만 나왔습니다(2026-09-19).
+  // 모두 몇 건인지는 끝까지 세고, 보여 주는 것만 40건으로 자릅니다.
+  var sus = [];
+  for (var i = 0; i < v.length; i++) {
+    if (String(v[i][10] || '').indexOf('의심') === 0) sus.push(v[i]);
   }
+  sus.sort(function (a, b) { return new Date(b[0]) - new Date(a[0]); });
+  var all = sus.length;
+  var lines = sus.slice(0, 40).map(function (r) {
+    return '· ' + Utilities.formatDate(new Date(r[0]),
+                 Session.getScriptTimeZone(), 'MM/dd HH:mm')
+      + '  ' + r[2] + ' ' + r[3]
+      + '  ' + r[5] + '점 / ' + r[6] + '타'
+      + '\n    → ' + r[11];
+  });
   // 한 이름이 여러 노트북에서 올라왔나 — 남의 이름으로 넣은 흔적일 수 있다
   var multi = 여러노트북(v, cols);
 
