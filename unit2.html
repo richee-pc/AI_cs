@@ -373,6 +373,31 @@ pre .s{color:var(--good)}
 .ftip{font-size:0.8438rem; color:var(--ink2); line-height:1.6; margin:0}
 .ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
 
+/* ── 데이터 탐구: 차시별 AI 신호등 ──────── */
+.lt{display:inline-flex; align-items:center; gap:6px; font-size:0.7813rem; font-weight:800;
+  border-radius:99px; padding:3px 11px; margin:0 4px 4px 0; vertical-align:middle}
+.lt::before{content:''; width:9px; height:9px; border-radius:50%; background:currentColor; flex:none}
+.lt.r{color:var(--cut); background:var(--cut-bg)}
+.lt.y{color:var(--warm); background:var(--warm-bg)}
+.lt.g{color:var(--good); background:var(--good-bg)}
+#explore .fbody ul{margin:8px 0 0; padding-left:20px; font-size:0.9375rem; color:var(--ink2)}
+#explore .fbody li{margin:3px 0}
+
+/* ── 차시별 카드: 우리 반 · 오늘 표시 ──────── */
+.flowpick{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:0 0 14px}
+.flowpick>b{font-size:0.9375rem; color:var(--ink2)}
+.fcard .flt{margin-top:6px}
+.fgoal{margin:8px 0 0; font-size:0.9375rem; color:var(--ink); line-height:1.6}
+.fgoal::before{content:'오늘의 목표 '; font-weight:800; color:var(--blue-d)}
+.fout{margin:0 0 9px; font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.fout::before{content:'낼 것 '; font-weight:800; color:var(--good)}
+.fdays span.me{background:var(--fill); border-color:var(--fill); color:var(--on-fill); font-weight:700}
+.fdays span.me em{color:var(--on-fill)}
+.fcard.now{border:2px solid var(--fill); box-shadow:var(--sh2)}
+.fnowtag{display:inline-block; margin-left:8px; font-family:var(--sans); font-size:0.75rem; font-weight:800;
+  color:var(--warm-bg); background:var(--warm); border-radius:99px; padding:2px 10px; vertical-align:middle}
+.fcard.past{opacity:.72}
+
 /* ── 헷갈리는 것 O/X ──────────────────── */
 .oxwrap{display:grid; gap:11px}
 .oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
@@ -690,7 +715,9 @@ a.mini.gh:hover{color:var(--blue-d)}
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
   <span class="sep"></span>
   <a href="#plan">차시별 순서</a>
+  <a href="#flow">오늘 할 일</a>
   <a href="#map">소단원 한눈에</a>
+  <a href="#explore">데이터 탐구</a>
   <a href="#prep">전처리 체험</a>
   <a href="#kinds">학습 유형</a>
   <a href="#algo">알고리즘</a>
@@ -702,14 +729,14 @@ a.mini.gh:hover{color:var(--blue-d)}
 </div></div></nav>
 
 <div class="hero"><div class="wrap">
-  <p class="badge">2단원 · 9월과 11월, 두 번에 나누어 배웁니다</p>
+  <p class="badge">2단원 · 1차 정기고사가 끝난 10월 둘째 주부터 배웁니다</p>
   <h1>Ⅱ. 인공지능과 학습<em>수업 자료</em></h1>
   <p class="lede">Ⅰ단원에서는 <b>사람이 규칙을 적어 주었습니다.</b>
     Ⅱ단원에서는 그 규칙을 <b>컴퓨터가 데이터에서 직접 찾아냅니다.</b>
     읽기만 해서는 잘 안 와닿는 단원이라, <b>직접 눌러 보는 것</b>을 네 가지 두었습니다.</p>
   <div class="facts">
     <div class="fact"><b>7<span style="font-size:1.0rem"> 소단원</span></b><span>Ⅱ-01 ~ Ⅱ-07</span></div>
-    <div class="fact"><b>9~10<span style="font-size:1.0rem"> 차시</span></b><span>분반에 따라 다름</span></div>
+    <div class="fact"><b>12~13<span style="font-size:1.0rem"> 차시</span></b><span>데이터 탐구 4차시 포함</span></div>
     <div class="fact"><b>6<span style="font-size:1.0rem"> 개</span></b><span>성취기준</span></div>
     <div class="fact"><b>4<span style="font-size:1.0rem"> 개</span></b><span>직접 눌러 보는 것</span></div>
   </div>
@@ -729,8 +756,10 @@ a.mini.gh:hover{color:var(--blue-d)}
   </div>
   <p class="note" style="margin-top:20px"><b>단원 흐름.</b>
     「어떤 문제에 쓸지 정한다」 → 「데이터를 모으고 <b>치운다</b>」 → 「어떤 방식으로 배우게 할지 고른다」
-    → 「알고리즘을 고른다」 → <b>「만들고 점수를 매긴다」</b> → 「사람 뇌를 흉내 낸다」 → 「깊게 쌓아 만든다」.
-    앞의 넷은 <b>9월</b>에, 뒤의 셋은 <b>11월</b>에 배웁니다.</p>
+    → 「알고리즘을 고른다」 → <b>「만들고 점수를 매긴다」</b> → 「사람 뇌를 흉내 낸다」 → 「깊게 쌓아 만든다」.<br>
+    <b>10월 둘째 주</b>에 Ⅱ-01·03·04를 개념으로 배우고, 바로 이어서 <b>「데이터 탐구」 4차시</b>에서
+    Ⅱ-01·02를 <b>우리 모둠이 직접 찾은 진짜 데이터</b>로 해 봅니다.
+    Ⅱ-05는 <b>Ⅳ단원 프로젝트</b> 안에서 오렌지3로 직접 모델을 만들며 배우고, Ⅱ-06·07은 <b>11월</b>에 이어 갑니다.</p>
   <p class="ask"><b>Ⅰ단원과 이어지는 곳.</b>
     Ⅰ-06에서 「규칙은 항상 맞지 않는다」, 「전문가 지식을 다 모으기 어렵다」를 봤지요?
     <b>그 한계 때문에</b> 기계학습이 나왔습니다. 그리고 Ⅰ단원의 <b>h(n)</b>(목표에 얼마나 가까운가)은
@@ -741,7 +770,9 @@ a.mini.gh:hover{color:var(--blue-d)}
   <p class="eyebrow">차시 배정</p>
   <h2>우리 반은 언제 배우나</h2>
   <p class="sub">분반마다 수업 요일이 달라 날짜가 다릅니다.
-    <b>9월에 Ⅱ-01~04</b>를 배우고, 1차 고사와 프로젝트 수업을 지나 <b>11월에 Ⅱ-05~07</b>을 이어서 배웁니다.</p>
+    1차 정기고사가 끝나면 <b>Ⅱ-01·03·04 → 데이터 탐구 4차시</b>로 10월을 보내고,
+    Ⅳ단원 프로젝트에서 <b>Ⅱ-05</b>를 만난 뒤 <b>11월에 Ⅱ-06·07</b>을 이어서 배웁니다.
+    <b>10/20(화)은 전국연합평가</b>라 수업이 없습니다.</p>
   <div class="tabs" role="tablist" aria-label="분반 선택">
     <button class="tab" role="tab" id="uA" aria-controls="qA" aria-selected="true">인기A 수목금</button>
     <button class="tab" role="tab" id="uD" aria-controls="qD" aria-selected="false">인기D 월화금</button>
@@ -749,42 +780,72 @@ a.mini.gh:hover{color:var(--blue-d)}
   </div>
   <div id="qA" role="tabpanel" aria-labelledby="uA"><div class="tw"><table>
     <tr><th style="width:74px">차시</th><th style="width:104px">날짜</th><th>내용</th></tr>
-    <tr><td class="d">1</td><td class="d">9/10 (목)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집</td></tr>
-    <tr><td class="d">2</td><td class="d">9/11 (금)</td><td><b>Ⅱ-02</b> 데이터 가공과 핵심 속성 추출</td></tr>
-    <tr><td class="d">3</td><td class="d">9/23 (수)</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
-    <tr><td class="d">4</td><td class="d">9/30 (수)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘</td></tr>
-    <tr><td class="d">—</td><td class="d">10/14 (수)</td><td>데이터 편향과 공정성 <span style="color:var(--muted)">(Ⅱ-01·02 심화 · 인기A만)</span></td></tr>
-    <tr><td class="d">5</td><td class="d">11/4 (수)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· 오렌지3</span></td></tr>
-    <tr><td class="d">6</td><td class="d">11/5 (목)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
-    <tr><td class="d">7</td><td class="d">11/6 (금)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
-    <tr><td class="d">8~9</td><td class="d">11/26 · 11/27</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">1</td><td class="d">10/14 (수)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집 <span style="color:var(--muted)">· 데이터 편향</span></td></tr>
+    <tr><td class="d">2</td><td class="d">10/15 (목)</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
+    <tr><td class="d">3</td><td class="d">10/16 (금)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘 <span style="color:var(--muted)">· 탐구 준비</span></td></tr>
+    <tr><td class="d">4</td><td class="d">10/21 (수)</td><td><a href="#explore"><b>데이터 탐구 ①</b></a> 문제 정하기 <span class="lt r">빨강</span></td></tr>
+    <tr><td class="d">5</td><td class="d">10/22 (목)</td><td><a href="#explore"><b>데이터 탐구 ②</b></a> 데이터 찾기 <span class="lt g">초록</span></td></tr>
+    <tr><td class="d">6</td><td class="d">10/23 (금)</td><td><a href="#explore"><b>데이터 탐구 ③</b></a> 치우고 분석하기 <span style="color:var(--muted)">· Ⅱ-02</span> <span class="lt g">초록</span><span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">7</td><td class="d">10/28 (수)</td><td><a href="#explore"><b>데이터 탐구 ④</b></a> AI 반론 받고 발표 <span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">8</td><td class="d">11/5 (목)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· Ⅳ 프로젝트 ④에서 오렌지3로</span></td></tr>
+    <tr><td class="d">9</td><td class="d">11/6 (금)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
+    <tr><td class="d">10</td><td class="d">11/11 (수)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
+    <tr><td class="d">11</td><td class="d">11/27 (금)</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">12~13</td><td class="d">12/2 · 12/3</td><td><b>Ⅱ 종합 실습</b> 기계학습·딥러닝 성능 비교와 모델 선택</td></tr>
   </table></div></div>
   <div id="qD" role="tabpanel" aria-labelledby="uD" hidden><div class="tw"><table>
     <tr><th style="width:74px">차시</th><th style="width:104px">날짜</th><th>내용</th></tr>
-    <tr><td class="d">1</td><td class="d">9/8 (화)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집</td></tr>
-    <tr><td class="d">2</td><td class="d">9/11 (금)</td><td><b>Ⅱ-02</b> 데이터 가공과 핵심 속성 추출</td></tr>
-    <tr><td class="d">3</td><td class="d">9/21 (월)</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
-    <tr><td class="d">4</td><td class="d">9/22 (화)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘</td></tr>
-    <tr><td class="d">5</td><td class="d">11/2 (월)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· 오렌지3</span></td></tr>
-    <tr><td class="d">6</td><td class="d">11/3 (화)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
-    <tr><td class="d">7</td><td class="d">11/6 (금)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
-    <tr><td class="d">8~9</td><td class="d">11/24 · 11/27</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">1</td><td class="d">10/12 (월)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집 <span style="color:var(--muted)">· 데이터 편향</span></td></tr>
+    <tr><td class="d">2</td><td class="d">10/13 (화)</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
+    <tr><td class="d">3</td><td class="d">10/16 (금)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘 <span style="color:var(--muted)">· 탐구 준비</span></td></tr>
+    <tr><td class="d">4</td><td class="d">10/19 (월)</td><td><a href="#explore"><b>데이터 탐구 ①</b></a> 문제 정하기 <span class="lt r">빨강</span></td></tr>
+    <tr><td class="d">5</td><td class="d">10/23 (금)</td><td><a href="#explore"><b>데이터 탐구 ②</b></a> 데이터 찾기 <span class="lt g">초록</span></td></tr>
+    <tr><td class="d">6</td><td class="d">10/26 (월)</td><td><a href="#explore"><b>데이터 탐구 ③</b></a> 치우고 분석하기 <span style="color:var(--muted)">· Ⅱ-02</span> <span class="lt g">초록</span><span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">7</td><td class="d">10/27 (화)</td><td><a href="#explore"><b>데이터 탐구 ④</b></a> AI 반론 받고 발표 <span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">8</td><td class="d">11/6 (금)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· Ⅳ 프로젝트 ④에서 오렌지3로</span></td></tr>
+    <tr><td class="d">9</td><td class="d">11/9 (월)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
+    <tr><td class="d">10</td><td class="d">11/10 (화)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
+    <tr><td class="d">11</td><td class="d">11/30 (월)</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">12~13</td><td class="d">12/1 · 12/4</td><td><b>Ⅱ 종합 실습</b> 기계학습·딥러닝 성능 비교와 모델 선택</td></tr>
   </table></div></div>
   <div id="qE" role="tabpanel" aria-labelledby="uE" hidden><div class="tw"><table>
     <tr><th style="width:74px">차시</th><th style="width:104px">날짜</th><th>내용</th></tr>
-    <tr><td class="d">1</td><td class="d">9/8 (화)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집</td></tr>
-    <tr><td class="d">2</td><td class="d">9/10 (목)</td><td><b>Ⅱ-02</b> 데이터 가공과 핵심 속성 추출</td></tr>
-    <tr><td class="d">3~4</td><td class="d">9/21 · 9/22</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
-    <tr><td class="d">5</td><td class="d">9/28 (월)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘</td></tr>
-    <tr><td class="d">6</td><td class="d">11/2 (월)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· 오렌지3</span></td></tr>
-    <tr><td class="d">7</td><td class="d">11/3 (화)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
-    <tr><td class="d">8</td><td class="d">11/5 (목)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
-    <tr><td class="d">9~10</td><td class="d">11/24 · 11/26</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">1</td><td class="d">10/12 (월)</td><td><b>Ⅱ-01</b> 기계학습과 데이터 수집 <span style="color:var(--muted)">· 데이터 편향</span></td></tr>
+    <tr><td class="d">2</td><td class="d">10/13 (화)</td><td><b>Ⅱ-03</b> 기계학습의 유형</td></tr>
+    <tr><td class="d">3</td><td class="d">10/15 (목)</td><td><b>Ⅱ-04</b> 기계학습 알고리즘 <span style="color:var(--muted)">· 탐구 준비</span></td></tr>
+    <tr><td class="d">4</td><td class="d">10/19 (월)</td><td><a href="#explore"><b>데이터 탐구 ①</b></a> 문제 정하기 <span class="lt r">빨강</span></td></tr>
+    <tr><td class="d">5</td><td class="d">10/22 (목)</td><td><a href="#explore"><b>데이터 탐구 ②</b></a> 데이터 찾기 <span class="lt g">초록</span></td></tr>
+    <tr><td class="d">6</td><td class="d">10/26 (월)</td><td><a href="#explore"><b>데이터 탐구 ③</b></a> 치우고 분석하기 <span style="color:var(--muted)">· Ⅱ-02</span> <span class="lt g">초록</span><span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">7</td><td class="d">10/27 (화)</td><td><a href="#explore"><b>데이터 탐구 ④</b></a> AI 반론 받고 발표 <span class="lt y">노랑</span></td></tr>
+    <tr><td class="d">8</td><td class="d">11/5 (목)</td><td><b>Ⅱ-05</b> 모델 구현과 성능 평가 <span style="color:var(--muted)">· Ⅳ 프로젝트 ④에서 오렌지3로</span></td></tr>
+    <tr><td class="d">9</td><td class="d">11/9 (월)</td><td><b>Ⅱ-06</b> 인공신경망과 딥러닝</td></tr>
+    <tr><td class="d">10</td><td class="d">11/10 (화)</td><td><b>Ⅱ-07</b> 코랩 ① 데이터 불러오기·전처리</td></tr>
+    <tr><td class="d">11</td><td class="d">11/30 (월)</td><td><b>Ⅱ-07</b> 딥러닝 모델 구현 (심화)</td></tr>
+    <tr><td class="d">12~13</td><td class="d">12/1 · 12/3</td><td><b>Ⅱ 종합 실습</b> 기계학습·딥러닝 성능 비교와 모델 선택</td></tr>
   </table></div></div>
   <p class="note" style="margin-top:18px"><b>수업 준비물.</b>
-    전 차시 공통 — <b>교과서 · 개인 노트북 · 이 웹페이지</b>.
-    11월 <b>Ⅱ-05</b>에는 <b>오렌지3</b>(각자 설치)가, <b>Ⅱ-07</b>에는 <b>구글 코랩</b>(설치 불필요)이 필요합니다.
+    전 차시 공통 — <b>교과서 · 개인 노트북(충전해서) · 이 웹페이지 · 학교 구글 계정</b>.
+    <b>데이터 탐구 ③</b>과 <b>Ⅱ-07</b>에는 <b>구글 코랩</b>(설치 불필요)이,
+    <b>Ⅱ-05(프로젝트 ④)</b>에는 <b>오렌지3</b>가 필요합니다 — 오렌지3는 <b>10월 안에 각자 노트북에 설치</b>해 두세요.
     코랩이 처음이면 <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>을 먼저 한 번 열어 보세요.</p>
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <p class="eyebrow">수업 순서</p>
+  <h2>차시별로 무엇을 하나</h2>
+  <p class="sub">한 장이 한 차시입니다. <b>우리 반을 고르면</b> 오늘(또는 다음) 수업 카드가 빛나고,
+    카드 속 단추를 누르면 그 차시에 쓸 자료로 바로 넘어갑니다.
+    <b>오늘의 목표</b>를 먼저 읽고, 수업이 끝나면 <b>낼 것</b>을 챙겼는지 확인하세요.</p>
+  <div class="flowpick"><b>우리 반</b>
+    <span class="pick" id="flowPick">
+      <button type="button" data-c="인기A" aria-pressed="false">인기A 수목금</button>
+      <button type="button" data-c="인기D" aria-pressed="false">인기D 월화금</button>
+      <button type="button" data-c="인기E" aria-pressed="false">인기E 월화목</button>
+    </span></div>
+  <div class="ask" id="flowToday" style="margin:0 0 18px"></div>
+  <div class="flowlist" id="flowList"></div>
+  <p class="note" style="margin-top:18px"><b>7차시와 8차시 사이에는</b> Ⅳ단원 프로젝트 ①~③(SDGs 주제 정하기 · 구체화 · 계획)이 들어갑니다.
+    8차시(Ⅱ-05)는 <b>프로젝트 ④와 같은 시간</b>이라, 오렌지3로 우리 팀 모델을 만들면서 Ⅱ-05를 배웁니다.</p>
 </div></section>
 
 <section id="map"><div class="wrap">
@@ -796,11 +857,11 @@ a.mini.gh:hover{color:var(--blue-d)}
     <a class="ucard" href="#prep"><i>Ⅱ-01 · 60~69쪽</i><b>기계학습과 데이터 수집</b>
       <span>사람이 규칙을 적는 대신, 데이터를 주고 <b>규칙을 찾게</b> 합니다.
         그래서 «어떤 데이터를 모으는가»가 전부를 좌우합니다.</span>
-      <em>전통적 프로그래밍과의 차이 · 데이터 편향</em></a>
+      <em>전통적 프로그래밍과의 차이 · 데이터 편향 · 데이터 탐구 ①②</em></a>
     <a class="ucard" href="#prep"><i>Ⅱ-02 · 70~83쪽</i><b>데이터 가공과 핵심 속성 추출</b>
       <span>모은 데이터는 <b>그대로 쓸 수 없습니다.</b> 빈칸·이상한 값·중복·제각각인 표현을
         먼저 치웁니다. 이걸 전처리라고 합니다.</span>
-      <em>직접 눌러 봅니다 ↓</em></a>
+      <em>직접 눌러 봅니다 ↓ · 데이터 탐구 ③에서 내 데이터로</em></a>
     <a class="ucard" href="#kinds"><i>Ⅱ-03 · 84~91쪽</i><b>기계학습의 유형</b>
       <span>정답을 알려 주고 배우게 할지(<b>지도</b>), 정답 없이 묶게 할지(<b>비지도</b>),
         상과 벌로 익히게 할지(<b>강화</b>)를 고릅니다.</span>
@@ -812,7 +873,7 @@ a.mini.gh:hover{color:var(--blue-d)}
     <a class="ucard" href="#code"><i>Ⅱ-05 · 100~115쪽</i><b>기계학습 모델 구현</b>
       <span>데이터를 <b>훈련용과 테스트용으로 나누고</b>, 학습시키고, 점수를 매깁니다.
         공부한 문제만 잘 푸는 건 실력이 아니니까요.</span>
-      <em>오렌지3 · 코랩 코드 읽기</em></a>
+      <em>Ⅳ 프로젝트에서 오렌지3로 · 코랩 코드 읽기</em></a>
     <a class="ucard" href="#nn"><i>Ⅱ-06 · 116~123쪽</i><b>인공신경망과 딥러닝</b>
       <span>뇌의 신경 세포를 흉내 낸 <b>퍼셉트론</b> 하나에서 시작합니다.
         이걸 여러 층으로 쌓은 것이 딥러닝입니다.</span>
@@ -827,12 +888,100 @@ a.mini.gh:hover{color:var(--blue-d)}
     Ⅱ-05의 성능 평가가 모두 이 한 문장을 돌려 말한 것입니다.</div>
 </div></section>
 
+<section id="explore"><div class="wrap">
+  <p class="eyebrow">10월 · 모둠 탐구 4차시</p>
+  <h2>진짜 데이터로, 우리 모둠이 직접 해 봅니다</h2>
+  <p class="sub">Ⅱ-01·02에서 배운 «문제 정하기 → 데이터 모으기 → 치우기 → 핵심 속성 고르기»를
+    이번에는 교과서 예제가 아니라 <b>우리 모둠이 직접 찾은 데이터</b>로 합니다.
+    큰 주제는 <b>지속가능발전목표(SDGs)</b>입니다. 선생님이 그 안에서 <b>문제의 가닥</b>을 좁혀 드리고,
+    데이터를 찾고 치우고 해석하는 일은 <b>모둠이 스스로</b> 합니다.</p>
+
+  <div class="g2">
+    <div class="card"><p class="eyebrow" style="margin:0 0 6px">문제 가닥 A · SDG 3 건강과 웰빙</p>
+      <b style="font-family:var(--disp); font-size:1.125rem">무엇이 스트레스 정도를 가를까?</b>
+      <p style="margin:8px 0 0; color:var(--ink2)">수면·운동·생활 습관 같은 속성으로 스트레스 수준을 <b>분류</b>하려면
+        어떤 데이터가 필요할까요?</p></div>
+    <div class="card"><p class="eyebrow" style="margin:0 0 6px">문제 가닥 B · SDG 6 깨끗한 물</p>
+      <b style="font-family:var(--disp); font-size:1.125rem">물의 어떤 상태가 오염 여부를 가를까?</b>
+      <p style="margin:8px 0 0; color:var(--ink2)">수소이온농도·용존산소·탁도 같은 측정값으로 물이 마실 수 있는지를
+        <b>분류</b>하려면 어떤 데이터가 필요할까요?</p></div>
+  </div>
+  <p class="note" style="margin-top:14px"><b>가닥은 예시입니다.</b>
+    최종 가닥과 검색어는 <b>데이터 탐구 ①</b> 시간에 알려 드립니다.
+    같은 가닥을 골라도 <b>모둠마다 찾는 데이터가 다르면</b> 결론도 달라집니다 — 그게 이 활동의 재미입니다.</p>
+
+  <div class="flowlist" style="margin-top:22px">
+    <div class="fcard">
+      <div class="fnum">①<span>차시</span></div>
+      <div class="fbody"><b>문제 정하기 — 무엇을 맞힐 것인가</b>
+        <i><span class="lt r">빨강 · 내가 먼저</span> AI 없이 모둠이 직접 정합니다</i>
+        <ul>
+          <li>가닥을 고르고 모둠을 만듭니다.</li>
+          <li><b>탐구 질문 정의서</b>를 씁니다 — «무엇을 <b>분류</b>하거나 <b>예측</b>할 것인가»,
+            «그러려면 어떤 속성이 필요할 것 같은가»(가설).</li>
+          <li>Ⅱ-04에서 배운 분류·예측·군집 판별이 여기서 그대로 쓰입니다.</li>
+        </ul>
+        <div class="fgo" style="margin-top:10px"><a href="#kinds">유형 고르기 다시 보기</a><a href="#algo">알고리즘 다시 보기</a></div></div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">②<span>차시</span></div>
+      <div class="fbody"><b>데이터 찾기 — 출처까지 적는다</b>
+        <i><span class="lt g">초록 · 자유롭게</span> 배경지식 찾기와 자료 요약에 AI를 써도 됩니다</i>
+        <ul>
+          <li>선생님이 알려 준 검색어로 <b>공공데이터포털</b>(data.go.kr) · <b>국가통계포털</b>(kosis.kr)에서 찾습니다.</li>
+          <li>찾은 데이터마다 <b>제공 기관 · 데이터 이름 · 기준 연도 · 주소 · 이용 조건</b>과 속성표를 적습니다.</li>
+          <li><b>로그인이 필요한 곳</b>(AI 허브·캐글)의 데이터는 새로 가입하지 말고 선생님께 요청하세요 — 미리 받아 둡니다.</li>
+          <li>도저히 못 찾겠으면 <b>교과서 부록 데이터</b>로 시작해도 됩니다. 부끄러운 일이 아닙니다.</li>
+        </ul></div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">③<span>차시</span></div>
+      <div class="fbody"><b>치우고 분석하기 — 핵심 속성을 고른다</b>
+        <i><span class="lt g">초록</span><span class="lt y">노랑 · 물어보기만</span> 코드 오류는 «원인 설명»만 물어봅니다</i>
+        <ul>
+          <li>코랩과 판다스로 <b>결측치·이상치·중복</b>을 치웁니다 — 위 <a href="#prep">전처리 체험</a>에서 누른 순서 그대로입니다.</li>
+          <li><b>상관계수·히트맵</b>으로 정답과 관계가 깊은 속성을 찾고, <b>왜 그 속성을 골랐는지</b> 적습니다.</li>
+          <li>모둠원마다 슬라이드 한 장씩 — <b>내 그래프 · 내 해석</b>을 올립니다.</li>
+        </ul>
+        <div class="fgo" style="margin-top:10px"><a href="#prep">전처리 체험</a><a href="#lab">코랩 노트북</a></div></div>
+    </div>
+    <div class="fcard">
+      <div class="fnum">④<span>차시</span></div>
+      <div class="fbody"><b>AI 반론 받고 발표 — 내 판단을 지킨다</b>
+        <i><span class="lt y">노랑 · 물어보기만</span> AI는 반론을 주고, 결정은 우리가 합니다</i>
+        <ul>
+          <li>우리 모둠의 해석과 해결안을 AI에게 보여 주고 <b>반론</b>을 받습니다.</li>
+          <li>반론마다 <b>받아들일지 · 고칠지 · 거절할지</b> 정하고 이유를 씁니다.
+            <b>이유가 타당하면 거절도 좋은 결정</b>입니다.</li>
+          <li>모둠 발표 · 서로 피드백. 여기서 고른 <b>핵심 속성</b>은 Ⅳ단원 프로젝트의 «예상 데이터»로 이어집니다.</li>
+        </ul></div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:22px">
+    <div class="note" style="margin:0"><b>모둠 슬라이드 한 벌이 활동지이자 발표자료입니다.</b>
+      선생님이 모둠별로 미리 만들어 공유합니다.<br>
+      ① 첫 장 — 우리 모둠의 문제 정의<br>
+      ② 가운데 — <b>모둠원마다 한 장</b>: 내 그래프 · 분석 · 해석<br>
+      ③ 마지막 장 — 해결안과 AI가 보탠 것, 우리가 거절한 것<br>
+      여기에 <b>각자의 코랩 노트북</b>을 함께 냅니다.</div>
+    <div class="ask" style="margin:0"><b>AI를 쓸 때마다 한 줄씩 — 의사결정 기록</b><br>
+      쓴 도구 · 쓴 기능 · 내가 한 질문 · AI 답의 요지 · <b>받아들임/고침/거절</b> · <b>그렇게 한 이유</b>.<br>
+      이 기록은 결과물과 <b>같은 무게</b>로 봅니다. AI를 켜기 전에는 활동지의 «내 생각 먼저» 칸부터 채우세요.</div>
+  </div>
+  <p class="note" style="margin-top:14px"><b>꼭 지킬 세 가지.</b>
+    ① AI가 알려 준 숫자·통계·출처는 <b>원래 누리집 두 곳에서 직접 확인</b>하고 씁니다 — AI는 그럴듯한 가짜 숫자를 지어내기도 합니다.
+    ② AI에 <b>이름·연락처·사진·친구 정보</b>를 넣지 않습니다.
+    ③ 그래프를 그렸으면 «<b>이 데이터가 대표하지 못하는 사람·지역·기간은 누구인가?</b>»를 한 줄 적습니다 —
+    Ⅱ-01에서 배우는 확증·선택·역사적·생존자 편향이 바로 여기서 생깁니다.</p>
+</div></section>
+
 <section id="prep"><div class="wrap">
   <p class="eyebrow">직접 눌러 보기 ①</p>
   <h2>더러운 데이터를 치워 봅시다</h2>
   <p class="sub">교과서 <b>72~79쪽</b> 실습을 그대로 화면에 옮겼습니다.
     코랩을 켜지 않아도, <b>단추를 누르는 순서만</b> 알면 됩니다.
-    누를 때마다 실제 파이썬 코드가 아래에 쌓이니, 11월에 코랩에서 같은 코드를 만나면 반가울 거예요.</p>
+    누를 때마다 실제 파이썬 코드가 아래에 쌓이니, <a href="#explore">데이터 탐구 ③</a>에서 내 데이터로 같은 코드를 쓸 때 반가울 거예요.</p>
 
   <div class="tool">
     <h3>의료비 지출액을 예측하려고 합니다 <span class="tm">Ⅱ-02 · 72~79쪽</span></h3>
@@ -1151,7 +1300,7 @@ a.mini.gh:hover{color:var(--blue-d)}
     <p class="note"><b>어떤 손실함수를 쓰나요?</b> 무엇을 맞히려는지에 따라 다릅니다 —
       <b>숫자</b>를 맞히면 평균제곱오차(MSE), <b>둘 중 하나</b>를 고르면 이진 교차 엔트로피,
       <b>셋 이상</b>에서 고르면 범주형 교차 엔트로피를 씁니다.
-      11월 코랩 실습의 <code>loss='binary_crossentropy'</code>가 바로 이 이야기입니다.</p>
+      Ⅱ-07 코랩 실습의 <code>loss='binary_crossentropy'</code>가 바로 이 이야기입니다.</p>
     <div class="links" style="margin-top:16px">
       <a class="video" href="https://playground.tensorflow.org/" target="_blank" rel="noopener">
         <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
@@ -1164,7 +1313,7 @@ a.mini.gh:hover{color:var(--blue-d)}
 </div></section>
 
 <section id="code"><div class="wrap">
-  <p class="eyebrow">11월에 만날 코드</p>
+  <p class="eyebrow">코랩에서 만날 코드</p>
   <h2>코랩 코드, 미리 읽어 두기</h2>
   <p class="sub">실습에서 이 코드를 <b>처음부터 다 짜지는 않습니다.</b> 노트북에 거의 적혀 있고,
     여러분이 할 일은 <b>«이 줄이 무엇을 하는 줄인지 아는 것»</b>과 <b>빈칸을 채우는 것</b>입니다.
@@ -1280,7 +1429,7 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
 
   <div class="labs">
     <div class="lab">
-      <p class="labtag">Ⅱ-02 · 9월 · 교과서 72~79쪽</p>
+      <p class="labtag">Ⅱ-02 · 데이터 탐구 ③ 전에 · 교과서 72~79쪽</p>
       <h3>① 더러운 데이터를 치운다</h3>
       <p class="labdesc">위 <a href="#prep">전처리 체험</a>에서 단추로 눌러 본 여섯 단계를,
         이번에는 <b>직접 코드로</b> 씁니다. 13행 9열이 10행 6열이 되는 것을 눈으로 봅니다.</p>
@@ -1665,14 +1814,15 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
     <div class="br">
       <span class="brtag">Ⅳ단원 · 인공지능 프로젝트</span>
       <h4>여기서 한 일을, 이번엔 내 문제로 처음부터 끝까지</h4>
-      <p>Ⅳ단원에서는 <b>직접 고른 문제</b>로 모델을 만들어 발표합니다.
-        그때 하는 일이 Ⅱ단원의 다섯 단계와 <b>똑같습니다.</b></p>
+      <p>Ⅳ단원에서는 선생님이 큰 주제(SDGs)만 드리고, <b>문제를 찾는 것부터 모델을 만들어 고치는 것까지</b>
+        여러분이 합니다. 그때 하는 일이 Ⅱ단원의 다섯 단계와 <b>똑같습니다.</b></p>
       <ul>
-        <li><b>문제 정의 · 데이터 수집</b> → 프로젝트 기획서</li>
-        <li><b>알고리즘 선정 · 모델 구현</b> → 오렌지3와 코랩으로 두 번 만들어 견주기</li>
+        <li><b>데이터 탐구에서 고른 핵심 속성</b> → 개인 주제 제안서의 «예상 데이터»</li>
+        <li><b>문제 정의 · 데이터 수집</b> → 수행 계획서와 데이터 요약서</li>
+        <li><b>알고리즘 선정 · 모델 구현</b> → 오렌지3로 먼저 만들고(Ⅱ-05), 코랩으로 다시 만들어 견주기</li>
         <li><b>성능 평가</b> → 발표에서 반드시 나오는 질문 «그래서 정확도가 얼마인가요?»</li>
       </ul>
-      <p class="brtool">이어지는 평가 · <b>수행평가 ② 인공지능 프로젝트 30%</b> · 11/9~11/20</p>
+      <p class="brtool">이어지는 평가 · <b>수행평가 ② 인공지능 프로젝트 30%</b> · 10월 말 프로젝트 시작 ~ 11월 넷째 주 발표·구술</p>
     </div>
   </div>
   <div class="ask" style="margin-top:20px"><b>지금 해 두면 좋은 것</b>
@@ -1735,6 +1885,167 @@ function save(){
     });
   });
 });
+
+/* ══════════════════════════════════════════════════════════════
+   차시별로 무엇을 하나 — 한 장이 한 차시
+   · 날짜는 [인기A, 인기D, 인기E] 순서입니다(위 «우리 반은 언제 배우나» 표와 같게).
+   · 우리 반은 활동 기록지의 분반(S.cls)과 같은 값을 씁니다 — 한 번 고르면 두 곳이 함께 바뀝니다.
+   · lt: 데이터 탐구 차시의 AI 신호등(r·y·g). 신호등이 없는 차시는 비워 둡니다.
+   ══════════════════════════════════════════════════════════════ */
+var FLOW = [
+  { n:'1', sub:'Ⅱ-01 기계학습과 데이터 수집', t:'교과서 60~69쪽',
+    d:['10/14 (수)','10/12 (월)','10/12 (월)'],
+    goal:'규칙을 사람이 적는 전통적 프로그래밍과, 데이터에서 규칙을 찾는 기계학습의 차이를 말할 수 있다. 데이터 편향 네 가지(확증·선택·역사적·생존자)를 사례로 구별할 수 있다.',
+    go:[['#map','소단원 한눈에'],['#explore','데이터 탐구 미리 보기'],['#terms','핵심 용어']],
+    out:'나눠 주는 안내문은 보호자께 전달하기',
+    tip:'교과서 Ⅱ-1 그림(전통적 프로그래밍 vs 기계학습) → 기계학습 문제 해결 절차 → 데이터 편향 네 유형을 사례로. 편향 점검 질문 «이 데이터가 대표하지 못하는 사람·지역·기간은?»을 미리 던져 두면 데이터 탐구에서 그대로 씁니다.' },
+  { n:'2', sub:'Ⅱ-03 기계학습의 유형', t:'교과서 84~91쪽',
+    d:['10/15 (목)','10/13 (화)','10/13 (화)'],
+    goal:'정답이 있는지, 묶기만 하는지, 상과 벌로 배우는지에 따라 지도·비지도·강화 학습을 구분할 수 있다.',
+    go:[['#kinds','유형 고르기 12문제'],['#terms','핵심 용어']],
+    out:'유형 고르기 채점까지 — 활동 기록지 ②에 자동으로 들어갑니다',
+    tip:'12문제를 먼저 풀리고 틀린 문항 위주로 설명합니다. 10개 이상 맞히면 기록지 ②가 초록이 됩니다.' },
+  { n:'3', sub:'Ⅱ-04 기계학습 알고리즘', t:'교과서 92~99쪽',
+    d:['10/16 (금)','10/16 (금)','10/15 (목)'],
+    goal:'분류·예측·군집 알고리즘이 «어떻게 정하는지» 설명하고, 어떤 문제가 분류이고 어떤 문제가 예측인지 판별할 수 있다.',
+    go:[['#algo','k-최근접 이웃 · 선형 회귀'],['#kinds','유형 다시 보기'],['#explore','데이터 탐구 규칙']],
+    out:'k-최근접 이웃 · 선형 회귀 체험 — 활동 기록지 ③④',
+    tip:'k-NN에서 E를 끌어 k 1→3을 비교하고, 회귀는 MSE 7.7 아래로 내려 보게 합니다. 마지막 10분은 데이터 탐구 준비 — AI 신호등 · 1차 시도 원칙 · 의사결정 기록 6칸 안내, AI 탐구 교실 로그인 시험(심의 완료 후), 설문이 있으면 이 시간에 합니다.' },
+  { n:'4', sub:'데이터 탐구 ① 문제 정하기', t:'Ⅱ-01 적용 · 교과서 60~69쪽', lt:['r'],
+    d:['10/21 (수)','10/19 (월)','10/19 (월)'],
+    goal:'문제 가닥을 고르고, 우리 모둠이 «무엇을 분류하거나 예측할지»와 필요한 속성(가설)을 AI 없이 스스로 정의할 수 있다.',
+    go:[['#explore','데이터 탐구 ①'],['#kinds','분류냐 예측이냐']],
+    out:'모둠 슬라이드 첫 장 — 탐구 질문 정의서',
+    tip:'가닥 카드 제시 → 모둠 구성 → 정의서. 이 시간은 AI를 켜지 않습니다(빨강). 순회하며 «그래서 모델이 맞힐 정답(y)은 무엇인가?»를 묻습니다. ▶ 촬영' },
+  { n:'5', sub:'데이터 탐구 ② 데이터 찾기', t:'Ⅱ-01 적용 · 데이터 수집', lt:['g'],
+    d:['10/22 (목)','10/23 (금)','10/22 (목)'],
+    goal:'검색어로 공공 데이터를 찾아, 제공 기관·데이터 이름·기준 연도·주소·이용 조건과 속성표를 기록할 수 있다.',
+    go:[['#explore','데이터 탐구 ②'],['https://www.data.go.kr','공공데이터포털'],['https://kosis.kr','국가통계포털']],
+    out:'모둠 슬라이드 내 칸 — 데이터 출처 다섯 가지 · 속성표',
+    tip:'검색어 카드 배부. 로그인이 필요한 사이트(AI 허브·캐글) 데이터는 공유 폴더로 줍니다. 20분이 지나도 못 찾은 모둠에는 교과서 부록 데이터를 권합니다. ▶ 촬영' },
+  { n:'6', sub:'데이터 탐구 ③ 치우고 분석하기', t:'Ⅱ-02 적용 · 교과서 70~83쪽 · Ⅳ-02 예제 196~209쪽', lt:['g','y'],
+    d:['10/23 (금)','10/26 (월)','10/26 (월)'],
+    goal:'결측치·이상치·중복을 치우고, 상관계수와 히트맵을 근거로 핵심 속성을 골라 그 이유를 설명할 수 있다.',
+    go:[['#prep','전처리 체험'],['#lab','코랩 노트북 ①'],['#explore','데이터 탐구 ③']],
+    out:'각자의 코랩 노트북 · 모둠 슬라이드 내 장(그래프 · 해석)',
+    tip:'노트북 ① 구조를 자기 데이터에 그대로 옮깁니다. 한글 글꼴 셀부터 실행. 코드 오류는 AI에게 «원인 설명»만 묻게 합니다(노랑). ▶ 촬영' },
+  { n:'7', sub:'데이터 탐구 ④ AI 반론 받고 발표', t:'Ⅱ-01·02 종합', lt:['y'],
+    d:['10/28 (수)','10/27 (화)','10/27 (화)'],
+    goal:'AI의 반론을 받아들일지·고칠지·거절할지 근거를 들어 결정하고, 모둠의 해석과 해결안을 발표할 수 있다.',
+    go:[['#explore','데이터 탐구 ④']],
+    out:'의사결정 기록 · 모둠 발표 · 서로 피드백',
+    tip:'발표는 모둠당 3분 + 질문. 근거 있는 «거절»도 좋은 결정으로 칭찬합니다. 고른 핵심 속성이 Ⅳ 프로젝트 주제 제안서의 «예상 데이터»로 이어진다고 예고합니다. ▶ 촬영' },
+  { n:'8', sub:'Ⅱ-05 모델 구현과 성능 평가', t:'교과서 100~115쪽 · Ⅳ 프로젝트 ④와 같은 시간',
+    d:['11/5 (목)','11/6 (금)','11/5 (목)'],
+    goal:'데이터를 훈련용과 테스트용으로 나누어 오렌지3로 모델을 학습시키고, 성능 지표로 평가할 수 있다.',
+    go:[['#code','예측·분류 코드 읽기'],['#lab','코랩 노트북 ②']],
+    out:'오렌지3 프로토타입 — 프로젝트 슬라이드에 성능 캡처',
+    tip:'전복 워크플로로 5분 시범 → 우리 팀 데이터에 적용 → AI Critic 진단으로 개선. 진행은 Ⅳ단원 쪽 프로젝트 ④를 따릅니다. ▶ 촬영' },
+  { n:'9', sub:'Ⅱ-06 인공신경망과 딥러닝', t:'교과서 116~123쪽',
+    d:['11/6 (금)','11/9 (월)','11/9 (월)'],
+    goal:'퍼셉트론 하나로 풀리는 문제와 풀리지 않는 문제(XOR)를 구별하고, 은닉층이 왜 필요한지 설명할 수 있다.',
+    go:[['#nn','퍼셉트론 · XOR'],['#terms','핵심 용어']],
+    out:'퍼셉트론 맞추기 — 활동 기록지 ⑤',
+    tip:'AND·OR 성공 → XOR 실패 → 은닉층 넣기 순서로. 도입 10분에 설문이 있으면 먼저 합니다.' },
+  { n:'10', sub:'Ⅱ-07 코랩 ① 데이터 불러오기·전처리', t:'교과서 124~130쪽',
+    d:['11/11 (수)','11/10 (화)','11/10 (화)'],
+    goal:'코랩에서 데이터를 불러와 전처리하는 코드를 읽고 실행하며, 다음 시간 모델 코드의 자리를 찾을 수 있다.',
+    go:[['#code','딥러닝 코드 읽기'],['#lab','코랩 노트북 ③']],
+    out:'노트북 실행 확인 — 다음 시간부터 수행평가 ② 코랩 재구현',
+    tip:'다음 시간이 수행평가 ② 과정 평가(코랩 재구현)입니다. 빈칸 노트북 구조와 오렌지3↔코랩 대조표를 이 시간에 익히게 합니다.' },
+  { n:'11', sub:'Ⅱ-07 딥러닝 모델 구현 (심화)', t:'교과서 124~138쪽 · 부록 229~237쪽',
+    d:['11/27 (금)','11/30 (월)','11/30 (월)'],
+    goal:'층을 쌓아 딥러닝 모델을 만들고, 정규화가 성능을 어떻게 바꾸는지 비교할 수 있다.',
+    go:[['#lab','코랩 노트북 ③'],['#code','정규화 한 줄']],
+    out:'정확도 전·후 비교 한 줄',
+    tip:'정규화 전후 정확도(0.975 → 0.991)를 직접 확인시킵니다. 여유가 있으면 부록 «건강한 식사(CNN)»로 이미지 문제를 맛보기로.' },
+  { n:'12~13', sub:'Ⅱ 종합 실습 · 정리', t:'용어 · 오개념 · 확인 문제',
+    d:['12/2 · 12/3','12/1 · 12/4','12/1 · 12/3'],
+    goal:'기계학습과 딥러닝의 성능을 비교해 모델 선택 기준을 말하고, 단원 전체 개념을 스스로 점검할 수 있다.',
+    go:[['#terms','핵심 용어'],['#miscon','헷갈리는 것'],['#check','확인 문제'],['#hand','활동 기록지']],
+    out:'활동 기록지 제출 (마감)',
+    tip:'용어 → O/X → 확인 문제 순으로 닫고, 기록지에서 붉은 칸이 남은 학생은 그 자리로 돌려보냅니다.' },
+  { n:'◆', sub:'2차 지필평가 대비', t:'Ⅱ 전 영역 · 12/10부터 정기고사',
+    d:['12/4 · 12/9','12/7 · 12/8','12/7 · 12/8'],
+    goal:'성취기준 여섯 개를 기준으로 부족한 곳을 찾아 보충할 수 있다.',
+    go:[['#goal','성취기준 6개'],['#check','확인 문제']],
+    out:'',
+    tip:'정기고사 2주 전에 진도와 수행평가는 모두 끝나 있습니다. 이 두 시간은 문제 풀이와 보충에 씁니다.' }
+];
+var FLOW_CLS = ['인기A','인기D','인기E'];
+var LT_NAME = { r:'빨강 · 내가 먼저', y:'노랑 · 물어보기만', g:'초록 · 자유롭게' };
+
+function flowDates(s){               /* '12/2 · 12/3' → [Date, Date] (2026년) */
+  return (s.match(/\d{1,2}\/\d{1,2}/g) || []).map(function(md){
+    var p = md.split('/'); return new Date(2026, +p[0] - 1, +p[1]);
+  });
+}
+function flowDraw(){
+  var box = $('flowList'); if(!box) return;
+  var ci = FLOW_CLS.indexOf(S.cls);
+  var t0 = new Date(); t0.setHours(0, 0, 0, 0);
+  var now = -1, isToday = false;
+  if(ci >= 0){
+    for(var i = 0; i < FLOW.length; i++){
+      var ds = flowDates(FLOW[i].d[ci]);
+      var hit = ds.filter(function(x){ return x >= t0; });
+      if(hit.length){ now = i; isToday = ds.some(function(x){ return +x === +t0; }); break; }
+    }
+  }
+  box.innerHTML = FLOW.map(function(f, i){
+    var cls = 'fcard' + (i === now ? ' now' : (ci >= 0 && now >= 0 && i < now ? ' past' : ''));
+    var tag = i === now ? '<span class="fnowtag">' + (isToday ? '오늘' : '다음 수업') + '</span>' : '';
+    return '<div class="' + cls + '" id="flow-' + i + '">' +
+      '<div class="fnum">' + f.n + '<span>' + (f.n === '◆' ? '대비' : '차시') + '</span></div>' +
+      '<div class="fbody">' +
+        '<b>' + f.sub + tag + '</b><i>' + f.t + '</i>' +
+        (f.lt ? '<div class="flt">' + f.lt.map(function(c){
+          return '<span class="lt ' + c + '">' + LT_NAME[c] + '</span>'; }).join('') + '</div>' : '') +
+        '<p class="fgoal">' + f.goal + '</p>' +
+        '<div class="fdays">' + f.d.map(function(d, k){
+          return '<span' + (k === ci ? ' class="me"' : '') + '><em>' + FLOW_CLS[k] + '</em>' + d + '</span>'; }).join('') + '</div>' +
+        '<div class="fgo">' + f.go.map(function(g){
+          var ext = /^https?:/.test(g[0]);
+          return '<a href="' + g[0] + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + g[1] + (ext ? ' ↗' : '') + '</a>'; }).join('') + '</div>' +
+        (f.out ? '<p class="fout">' + f.out + '</p>' : '') +
+        '<p class="ftip">' + f.tip + '</p>' +
+      '</div></div>';
+  }).join('');
+
+  var note = $('flowToday');
+  if(note){
+    if(ci < 0){
+      note.innerHTML = '<b>우리 반을 먼저 골라 주세요.</b> 고르면 오늘(또는 다음) 수업 카드를 찾아 드립니다.';
+    }else if(now < 0){
+      note.innerHTML = '<b>' + S.cls + '</b> — Ⅱ단원 수업이 모두 끝났습니다. <a href="#hand">활동 기록지</a>를 냈는지 확인하세요.';
+    }else{
+      var f = FLOW[now];
+      note.innerHTML = '<b>' + S.cls + ' · ' + (isToday ? '오늘' : '다음 수업') + '</b> — ' +
+        f.d[ci] + ' · ' + (f.n === '◆' ? '' : f.n + '차시 ') + '<b>' + f.sub + '</b> ' +
+        '<a href="#flow-' + now + '" style="font-weight:700">카드로 가기 →</a>';
+    }
+  }
+  var pk = $('flowPick');
+  if(pk) [].slice.call(pk.children).forEach(function(o){
+    o.setAttribute('aria-pressed', o.getAttribute('data-c') === S.cls ? 'true' : 'false'); });
+}
+function flowPickClass(c){
+  S.cls = c; save();
+  var hc = $('hCls');                /* 활동 기록지 분반도 같이 */
+  if(hc) [].slice.call(hc.children).forEach(function(o){
+    o.setAttribute('aria-pressed', o.getAttribute('data-c') === c ? 'true' : 'false'); });
+  var tab = $({'인기A':'uA','인기D':'uD','인기E':'uE'}[c]);   /* 위 차시 표도 우리 반으로 */
+  if(tab) tab.click();
+  flowDraw();
+}
+if($('flowPick')) $('flowPick').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-c]'); if(b) flowPickClass(b.getAttribute('data-c'));
+});
+if(S.cls){
+  var tab0 = $({'인기A':'uA','인기D':'uD','인기E':'uE'}[S.cls]);
+  if(tab0) tab0.click();
+}
+flowDraw();
 
 /* ══════════════════════════════════════════════════════════════
    ① 전처리 체험 — 교과서 72~79쪽
@@ -2592,6 +2903,7 @@ $('hCls').addEventListener('click', function(e){
   S.cls = b.getAttribute('data-c'); save();
   [].slice.call(this.children).forEach(function(o){
     o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+  flowDraw();                        /* 위 «차시별로 무엇을 하나» 의 우리 반도 같이 */
 });
 if(S.cls){
   var cb = $('hCls').querySelector('button[data-c="' + S.cls + '"]');
