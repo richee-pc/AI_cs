@@ -1474,6 +1474,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <tr><td colspan="5" style="color:var(--muted)">결과 해석 — 무엇을 잘 맞히고 무엇을 틀리나? (혼동 행렬을 보고)</td></tr>
     </table></div></div></div>
 
+  <p class="hint"><b>막혔을 때</b> 선생님이 단계별 예시 → 학교 데이터셋과 완성 워크플로 → 성공 기준 조정안 순서로 도와줍니다. 첫 결과가 낮아도 괜찮아요 — 다음 활동이 «개선»입니다.
+    <b>먼저 끝낸 모둠</b>은 알고리즘을 두 가지 이상 Test and Score에 함께 이어 비교하고, 혼동 행렬로 무엇을 틀리는지 분석해 보세요.</p>
   <div class="tool">
     <h3>혼동 행렬로 내 점수 확인하기 <span class="tm">Confusion Matrix 숫자를 옮겨 적기</span></h3>
     <p class="desc">오렌지3 «Confusion Matrix» 위젯의 네 칸을 그대로 넣으면 정확도·재현율·정밀도를 계산해
@@ -1555,7 +1557,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <p class="eyebrow">수행평가 ② · 11월</p>
   <h2>같은 모델을 코랩으로 — 인공지능 모델 구현 프로젝트</h2>
   <p class="sub">프로젝트 ①~④에서 만든 것이 그대로 이어집니다. 100점 만점 · 30% 반영 ·
-    날짜는 위 <a href="#plan">우리 반 날짜</a>에서 확인하세요.</p>
+    날짜는 <a href="https://richee-pc.github.io/AI_cs/plan.html">📅 우리 반 수업 계획</a>에서 확인하세요.</p>
   <div class="stages">
     <div class="stg n"><i>1</i><b>코랩 재구현</b><span>오렌지3 위젯 순서를 그대로 코드로 — 불러오기 · 전처리 · 모델 정의 · 학습. 셀마다 대응하는 위젯을 주석으로.</span></div>
     <div class="stg n"><i>2</i><b>두 모델 비교와 개선</b><span>같은 지표로 오렌지3와 코랩 수치를 나란히. 개선 실험 1건 — 가설·조작·결과·해석.</span></div>
@@ -1566,6 +1568,14 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <span><b>채점 기준표 다섯 단계는 확정 후 공개합니다</b>
       평가 요소 네 개(각 25점)는 아래와 같고, 단계별 기준은 프로젝트를 시작하기 전에 수업 시간에 직접 나눠 줍니다.</span></div>
   <div id="pa2Rub"></div>
+  <div class="tool" style="margin-top:16px">
+    <h3>수행평가 ② 코랩 노트북 틀 <span class="tm">요소 2 · 3을 한 노트북에</span></h3>
+    <p class="desc">우리 팀 CSV를 올리고 빈칸(<code>____</code>)만 채우면 <b>불러오기 → 전처리 → 나누기·모델 정의 → 학습·점수</b> 네 단계가 돌아갑니다.
+      셀마다 <code># [오렌지3] 위젯 이름 · 담당: 이름</code> 주석 자리, <b>같은 지표 비교표</b>, <b>개선 실험 네 칸</b>, 제출 전 점검 목록까지 들어 있습니다.</p>
+    <div class="labgo"><a class="mini" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">코랩에서 열기 — 수행평가 ② 틀</a>
+      <a class="mini gh" href="https://richee-pc.github.io/AI_cs/unit2.html#lab">Ⅱ단원 코랩 노트북 ② (연습)</a></div>
+    <p class="hint">맨 먼저 <b>파일 → 드라이브에 사본 저장</b>(이름: <code>수행2_모둠번호_이름</code>). 제출은 공유 링크로 합니다.</p>
+  </div>
   <div class="note" style="margin-top:16px"><b>수행평가 ② 시간의 AI 사용</b> — 학교 평가 계획에 따라
     <b>자료 검색과 전문 학술 자료 요약에만</b> 씁니다. 코드와 보고서 문장을 AI가 만든 그대로 내면 그 요소는 <b>최하점</b>입니다.
     프로젝트 ①~④의 AI 로그와 의사결정 기록은 보고서의 «AI 활용 내역»으로 그대로 쓸 수 있으니 지우지 마세요.</div>
@@ -1654,6 +1664,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     1차(약식)는 프로젝트 ③에서 소크라틱 AI를 쓰기 전에 — 참여도·경청·설득·역할 수행.
     2차(본 평가)는 프로젝트 ④ 성찰 뒤에 — 참여도·인내·경청·설득·소통·조정·역할 수행.
     서로의 기여를 <b>구체적인 행동</b>으로 적어 주세요. 선생님이 피드백에만 씁니다.</div>
+  <div class="cgrid three" style="margin-top:14px">
+    <div class="cc"><b>결과물 · E</b><span>End product — 해결안과 개선된 모델, 발표자료. <b>모둠</b>이 함께 받습니다.</span></div>
+    <div class="cc"><b>과정 · P</b><span>Process — 활동지 ①~⑤, 회차별 변경 기록, AI 로그와 의사결정 기록, 데이터 점검. <b>나와 모둠</b>을 함께 봅니다.</span></div>
+    <div class="cc"><b>설명 · D</b><span>Defense — 선생님 발문에 대한 내 대답, 메타인지 성찰, 자기평가. <b>나 혼자</b>의 몫입니다.</span></div>
+  </div>
+  <p class="hint">결과물만 보지 않고 <b>과정과 내 설명</b>을 함께 봅니다(EPD). 이전 단계로 되돌아간 것은 감점이 아니라, 이유가 기록되면 성장의 증거입니다.</p>
 </div></section>
 
 <button type="button" class="totop" id="toTop" aria-label="맨 위로">↑</button>
@@ -2187,6 +2203,6 @@ quiz('l4Metric', ['정확도', '재현율', 'RMSE'], [
 })();
 </script>
 
-<script src="lessons.js?v=dbe0561c"></script>
+<script src="lessons.js?v=44e0c629"></script>
 </body>
 </html>
