@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅳ. 인공지능 프로젝트 · 수업 자료">
 <meta property="og:description" content="SDGs 문제를 우리 모둠이 만든 AI로 — 주제 정하기 · 계획 · 오렌지3 · 발표 · 수행평가 ②">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=130ab36a" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=cdac3f52" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=8eb44499" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=1cd9451a" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅳ. 인공지능 프로젝트 · 수업 자료</title>
@@ -29,13 +29,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2650f8dc') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=5415a49f') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=cdac3f52') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=1cd9451a') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=130ab36a') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=8eb44499') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=2dc81a1c') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=e9b23a11') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -841,6 +841,103 @@ nav a.plan:hover{background:var(--good); color:#fff}
 .hint{font-size:0.875rem; color:var(--ink2); line-height:1.6; margin:6px 0 0}
 .hint::before{content:'참고 '; font-weight:800; color:var(--blue-d)}
 @media (max-width:560px){ section{padding:44px 0} .card,.tool{padding:20px} .planbar a{width:100%; text-align:center} }
+
+/* ── 교과서로 배우기(#learn) ──────────────────────── */
+.lnav{display:flex; gap:7px; overflow-x:auto; padding:2px 2px 8px; margin:0 0 16px}
+.lnav button{flex:none; display:flex; flex-direction:column; align-items:flex-start; gap:0; font-family:var(--sans); font-size:0.9375rem;
+  font-weight:800; color:var(--ink); background:var(--white); border:2px solid var(--line); border-radius:15px; padding:8px 15px; cursor:pointer; transition:.15s}
+.lnav button i{font-style:normal; font-family:var(--pop); font-size:0.75rem; color:var(--blue-d)}
+.lnav button:hover{border-color:var(--blue-l)}
+.lnav button[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.lnav button[aria-selected="true"] i{color:var(--on-fill)}
+.lnav button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.lpane{background:var(--tint); border:1px solid var(--line); border-radius:26px; padding:24px; box-shadow:var(--sh)}
+.lhead{display:flex; gap:14px; align-items:center; margin-bottom:16px}
+.lno{flex:none; font-family:var(--pop); font-weight:800; font-size:1.125rem; color:var(--on-fill); background:var(--fill); border-radius:14px; padding:10px 14px}
+.lhead b{display:block; font-family:var(--disp); font-weight:700; font-size:clamp(1.375rem,3.6vw,1.875rem); color:var(--ink); line-height:1.3}
+.lhead span{font-size:0.875rem; color:var(--muted); font-weight:600}
+.qbig{background:var(--white); border:2px solid var(--blue-l); border-radius:18px; padding:16px 20px; font-size:1.0625rem; line-height:1.8; color:var(--ink); margin:0 0 6px}
+.qbig>b:first-child{display:block; font-family:var(--pop); font-size:0.875rem; color:var(--blue-d); margin-bottom:2px}
+.qbig u{text-decoration-color:var(--warm); text-decoration-thickness:3px; text-underline-offset:4px}
+.lh{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; font-family:var(--disp); font-weight:700; font-size:1.25rem; color:var(--blue-d); margin:26px 0 12px}
+.lh small{font-family:var(--sans); font-size:0.8125rem; font-weight:700; color:var(--muted)}
+.lpane .tool{margin:14px 0 0}
+.cgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:10px}
+.cgrid.three{grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.cc{background:var(--white); border:1px solid var(--line); border-top:4px solid var(--blue-l); border-radius:16px; padding:14px 16px; box-shadow:var(--sh)}
+.cc>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--ink); margin-bottom:5px}
+.cc>span{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.7}
+.cc.wide{border-top-color:var(--warm)}
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:12px}
+.cbox{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--sh)}
+.cbox>em{display:inline-block; font-style:normal; font-family:var(--pop); font-weight:800; font-size:0.9375rem; color:var(--muted); margin-bottom:8px}
+.cbox.ml>em{color:var(--good)}
+.cbox p{margin:10px 0 0; font-size:0.9375rem; color:var(--ink2)}
+.flow2{display:flex; flex-wrap:wrap; align-items:center; gap:6px}
+.flow2>span{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:7px 11px; font-size:0.875rem; color:var(--ink2); line-height:1.5}
+.flow2>span.out{background:var(--blue-xl); border-color:var(--blue-l)}
+.flow2>i{font-style:normal; font-weight:900; color:var(--blue-l)}
+.flow2.small>span{font-size:0.8125rem; padding:5px 9px}
+.flow2.big{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:14px; box-shadow:var(--sh)}
+.flow2.big>span{font-size:0.9375rem; text-align:center}
+.flow2 code, .cc code, .hint code{font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d)}
+.nextgo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:18px; padding-top:14px; border-top:2px dashed var(--line)}
+.nextgo>b{font-family:var(--pop); color:var(--good); margin-right:4px}
+.nextgo a{font-size:0.9062rem; font-weight:800; color:#fff; background:var(--good); border-radius:99px; padding:7px 15px; text-decoration:none}
+.nextgo a:hover{filter:brightness(1.08)}
+/* 스팸 규칙 */
+.chips button.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.chips button{cursor:pointer; font-family:var(--sans)}
+.mails{display:grid; gap:6px; margin:10px 0}
+.mail{display:flex; gap:10px; align-items:center; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:8px 12px; font-size:0.9062rem}
+.mail .tg{flex:none; font-size:0.75rem; font-weight:800; border-radius:99px; padding:2px 9px}
+.mail .tg.s{background:var(--cut-bg); color:var(--cut)} .mail .tg.h{background:var(--good-bg); color:var(--good)}
+.mail .res{margin-left:auto; flex:none; font-size:0.8125rem; font-weight:800}
+.mail.ok .res{color:var(--good)} .mail.ng .res{color:var(--cut)}
+.mail.ng{border-color:var(--cut)}
+/* 순서 맞추기 */
+.ordcards{display:flex; flex-wrap:wrap; gap:8px}
+.ordcards button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; background:var(--white); border:2px solid var(--line); border-radius:13px; padding:9px 14px; cursor:pointer; color:var(--ink)}
+.ordcards button:hover{border-color:var(--blue-l)}
+.ordcards button[disabled]{opacity:.35; cursor:default}
+.ordcards.code button{font-family:var(--mono); font-size:0.8125rem; text-align:left}
+.ordrow{display:grid; gap:6px; margin-top:12px; counter-reset:or}
+.ordrow>div{display:flex; gap:10px; align-items:center; background:var(--good-bg); border:1px solid var(--good); border-radius:12px; padding:8px 12px; font-size:0.9062rem; color:var(--ink)}
+.ordrow>div::before{counter-increment:or; content:counter(or); flex:none; width:26px; height:26px; border-radius:50%; background:var(--good); color:#fff; font-weight:800; display:grid; place-items:center; font-size:0.8125rem}
+.ordrow>div.bad{background:var(--cut-bg); border-color:var(--cut)}
+.ordrow>div.bad::before{background:var(--cut)}
+.ordrow>p{margin:4px 0 0; font-weight:800}
+/* O/X */
+.oxl{display:grid; gap:8px}
+.oxi{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; background:var(--white); border:2px solid var(--line); border-radius:14px; padding:10px 14px}
+.oxi>span{flex:1 1 260px; font-size:0.9688rem; color:var(--ink)}
+.oxi>em{flex:none; display:flex; gap:6px; font-style:normal}
+.oxi button{width:48px; height:38px; font-family:var(--disp); font-weight:700; font-size:1.125rem; border-radius:11px; border:2px solid var(--line); background:var(--tint); color:var(--ink2); cursor:pointer}
+.oxi.right{border-color:var(--good); background:var(--good-bg)} .oxi.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxi>p{flex:1 1 100%; margin:0; font-size:0.875rem; color:var(--ink2); line-height:1.65}
+.oxi>p b{color:inherit}
+/* 오분류표 */
+table.cmt{min-width:0; text-align:center}
+table.cmt th, table.cmt td{text-align:center}
+table.cmt td.tp{background:var(--good-bg); color:var(--good); font-weight:800}
+table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); font-weight:800}
+/* 의사결정트리 */
+.tree{display:grid; gap:8px; margin-top:8px}
+.tree .nd{display:flex; gap:10px; align-items:center; background:var(--white); border:2px solid var(--line); border-radius:13px; padding:9px 13px; font-size:0.9375rem}
+.tree .nd.on{border-color:var(--fill); background:var(--blue-xl)}
+.tree .nd.end{font-weight:800}
+.tree .nd.end.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.tree .nd.end.no{border-color:var(--cut); background:var(--cut-bg); color:var(--cut)}
+.tree .ans{margin-left:auto; font-size:0.8125rem; font-weight:800; color:var(--blue-d)}
+/* AI ⊃ 기계학습 ⊃ 딥러닝 */
+.nest{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:14px 0}
+.nest p{flex:1 1 220px; margin:0; color:var(--ink2)}
+.n1,.n2,.n3{border-radius:999px; font-weight:800; font-size:0.875rem; text-align:center}
+.n1{background:var(--blue-xl); color:var(--blue-d); padding:10px 14px 16px; border:2px solid var(--blue-l)}
+.n2{background:var(--good-bg); color:var(--good); padding:8px 12px 14px; margin-top:6px; border:2px solid var(--good)}
+.n3{background:var(--warm-bg); color:var(--warm); padding:8px 16px; margin-top:6px; border:2px solid var(--warm)}
+.lpane .kpick{flex-wrap:wrap; border-radius:16px; max-width:100%}
+.lpane .kpick button{white-space:normal; text-align:center}
 
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
 @media (max-width:560px){
@@ -1803,6 +1900,6 @@ tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' });
 })();
 </script>
 
-<script src="lessons.js?v=4cd0d9f6"></script>
+<script src="lessons.js?v=9f55f392"></script>
 </body>
 </html>

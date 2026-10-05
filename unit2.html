@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅱ. 인공지능과 학습 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅱ단원 인공지능과 학습 - 전처리 체험 · 학습 유형 · 알고리즘 · 퍼셉트론 · 코랩 코드 읽기">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=130ab36a" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=cdac3f52" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=8eb44499" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=1cd9451a" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅱ. 인공지능과 학습 · 수업 자료</title>
@@ -29,13 +29,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2650f8dc') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=5415a49f') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=cdac3f52') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=1cd9451a') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=130ab36a') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=8eb44499') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=2dc81a1c') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=e9b23a11') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -843,6 +843,103 @@ nav a.plan:hover{background:var(--good); color:#fff}
 .hint::before{content:'참고 '; font-weight:800; color:var(--blue-d)}
 @media (max-width:560px){ section{padding:44px 0} .card,.tool{padding:20px} .planbar a{width:100%; text-align:center} }
 
+/* ── 교과서로 배우기(#learn) ──────────────────────── */
+.lnav{display:flex; gap:7px; overflow-x:auto; padding:2px 2px 8px; margin:0 0 16px}
+.lnav button{flex:none; display:flex; flex-direction:column; align-items:flex-start; gap:0; font-family:var(--sans); font-size:0.9375rem;
+  font-weight:800; color:var(--ink); background:var(--white); border:2px solid var(--line); border-radius:15px; padding:8px 15px; cursor:pointer; transition:.15s}
+.lnav button i{font-style:normal; font-family:var(--pop); font-size:0.75rem; color:var(--blue-d)}
+.lnav button:hover{border-color:var(--blue-l)}
+.lnav button[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.lnav button[aria-selected="true"] i{color:var(--on-fill)}
+.lnav button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.lpane{background:var(--tint); border:1px solid var(--line); border-radius:26px; padding:24px; box-shadow:var(--sh)}
+.lhead{display:flex; gap:14px; align-items:center; margin-bottom:16px}
+.lno{flex:none; font-family:var(--pop); font-weight:800; font-size:1.125rem; color:var(--on-fill); background:var(--fill); border-radius:14px; padding:10px 14px}
+.lhead b{display:block; font-family:var(--disp); font-weight:700; font-size:clamp(1.375rem,3.6vw,1.875rem); color:var(--ink); line-height:1.3}
+.lhead span{font-size:0.875rem; color:var(--muted); font-weight:600}
+.qbig{background:var(--white); border:2px solid var(--blue-l); border-radius:18px; padding:16px 20px; font-size:1.0625rem; line-height:1.8; color:var(--ink); margin:0 0 6px}
+.qbig>b:first-child{display:block; font-family:var(--pop); font-size:0.875rem; color:var(--blue-d); margin-bottom:2px}
+.qbig u{text-decoration-color:var(--warm); text-decoration-thickness:3px; text-underline-offset:4px}
+.lh{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; font-family:var(--disp); font-weight:700; font-size:1.25rem; color:var(--blue-d); margin:26px 0 12px}
+.lh small{font-family:var(--sans); font-size:0.8125rem; font-weight:700; color:var(--muted)}
+.lpane .tool{margin:14px 0 0}
+.cgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:10px}
+.cgrid.three{grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.cc{background:var(--white); border:1px solid var(--line); border-top:4px solid var(--blue-l); border-radius:16px; padding:14px 16px; box-shadow:var(--sh)}
+.cc>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--ink); margin-bottom:5px}
+.cc>span{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.7}
+.cc.wide{border-top-color:var(--warm)}
+.cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:12px}
+.cbox{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--sh)}
+.cbox>em{display:inline-block; font-style:normal; font-family:var(--pop); font-weight:800; font-size:0.9375rem; color:var(--muted); margin-bottom:8px}
+.cbox.ml>em{color:var(--good)}
+.cbox p{margin:10px 0 0; font-size:0.9375rem; color:var(--ink2)}
+.flow2{display:flex; flex-wrap:wrap; align-items:center; gap:6px}
+.flow2>span{background:var(--tint); border:1px solid var(--line); border-radius:12px; padding:7px 11px; font-size:0.875rem; color:var(--ink2); line-height:1.5}
+.flow2>span.out{background:var(--blue-xl); border-color:var(--blue-l)}
+.flow2>i{font-style:normal; font-weight:900; color:var(--blue-l)}
+.flow2.small>span{font-size:0.8125rem; padding:5px 9px}
+.flow2.big{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:14px; box-shadow:var(--sh)}
+.flow2.big>span{font-size:0.9375rem; text-align:center}
+.flow2 code, .cc code, .hint code{font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d)}
+.nextgo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:18px; padding-top:14px; border-top:2px dashed var(--line)}
+.nextgo>b{font-family:var(--pop); color:var(--good); margin-right:4px}
+.nextgo a{font-size:0.9062rem; font-weight:800; color:#fff; background:var(--good); border-radius:99px; padding:7px 15px; text-decoration:none}
+.nextgo a:hover{filter:brightness(1.08)}
+/* 스팸 규칙 */
+.chips button.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.chips button{cursor:pointer; font-family:var(--sans)}
+.mails{display:grid; gap:6px; margin:10px 0}
+.mail{display:flex; gap:10px; align-items:center; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:8px 12px; font-size:0.9062rem}
+.mail .tg{flex:none; font-size:0.75rem; font-weight:800; border-radius:99px; padding:2px 9px}
+.mail .tg.s{background:var(--cut-bg); color:var(--cut)} .mail .tg.h{background:var(--good-bg); color:var(--good)}
+.mail .res{margin-left:auto; flex:none; font-size:0.8125rem; font-weight:800}
+.mail.ok .res{color:var(--good)} .mail.ng .res{color:var(--cut)}
+.mail.ng{border-color:var(--cut)}
+/* 순서 맞추기 */
+.ordcards{display:flex; flex-wrap:wrap; gap:8px}
+.ordcards button{font-family:var(--sans); font-size:0.9375rem; font-weight:700; background:var(--white); border:2px solid var(--line); border-radius:13px; padding:9px 14px; cursor:pointer; color:var(--ink)}
+.ordcards button:hover{border-color:var(--blue-l)}
+.ordcards button[disabled]{opacity:.35; cursor:default}
+.ordcards.code button{font-family:var(--mono); font-size:0.8125rem; text-align:left}
+.ordrow{display:grid; gap:6px; margin-top:12px; counter-reset:or}
+.ordrow>div{display:flex; gap:10px; align-items:center; background:var(--good-bg); border:1px solid var(--good); border-radius:12px; padding:8px 12px; font-size:0.9062rem; color:var(--ink)}
+.ordrow>div::before{counter-increment:or; content:counter(or); flex:none; width:26px; height:26px; border-radius:50%; background:var(--good); color:#fff; font-weight:800; display:grid; place-items:center; font-size:0.8125rem}
+.ordrow>div.bad{background:var(--cut-bg); border-color:var(--cut)}
+.ordrow>div.bad::before{background:var(--cut)}
+.ordrow>p{margin:4px 0 0; font-weight:800}
+/* O/X */
+.oxl{display:grid; gap:8px}
+.oxi{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; background:var(--white); border:2px solid var(--line); border-radius:14px; padding:10px 14px}
+.oxi>span{flex:1 1 260px; font-size:0.9688rem; color:var(--ink)}
+.oxi>em{flex:none; display:flex; gap:6px; font-style:normal}
+.oxi button{width:48px; height:38px; font-family:var(--disp); font-weight:700; font-size:1.125rem; border-radius:11px; border:2px solid var(--line); background:var(--tint); color:var(--ink2); cursor:pointer}
+.oxi.right{border-color:var(--good); background:var(--good-bg)} .oxi.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxi>p{flex:1 1 100%; margin:0; font-size:0.875rem; color:var(--ink2); line-height:1.65}
+.oxi>p b{color:inherit}
+/* 오분류표 */
+table.cmt{min-width:0; text-align:center}
+table.cmt th, table.cmt td{text-align:center}
+table.cmt td.tp{background:var(--good-bg); color:var(--good); font-weight:800}
+table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); font-weight:800}
+/* 의사결정트리 */
+.tree{display:grid; gap:8px; margin-top:8px}
+.tree .nd{display:flex; gap:10px; align-items:center; background:var(--white); border:2px solid var(--line); border-radius:13px; padding:9px 13px; font-size:0.9375rem}
+.tree .nd.on{border-color:var(--fill); background:var(--blue-xl)}
+.tree .nd.end{font-weight:800}
+.tree .nd.end.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.tree .nd.end.no{border-color:var(--cut); background:var(--cut-bg); color:var(--cut)}
+.tree .ans{margin-left:auto; font-size:0.8125rem; font-weight:800; color:var(--blue-d)}
+/* AI ⊃ 기계학습 ⊃ 딥러닝 */
+.nest{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:14px 0}
+.nest p{flex:1 1 220px; margin:0; color:var(--ink2)}
+.n1,.n2,.n3{border-radius:999px; font-weight:800; font-size:0.875rem; text-align:center}
+.n1{background:var(--blue-xl); color:var(--blue-d); padding:10px 14px 16px; border:2px solid var(--blue-l)}
+.n2{background:var(--good-bg); color:var(--good); padding:8px 12px 14px; margin-top:6px; border:2px solid var(--good)}
+.n3{background:var(--warm-bg); color:var(--warm); padding:8px 16px; margin-top:6px; border:2px solid var(--warm)}
+.lpane .kpick{flex-wrap:wrap; border-radius:16px; max-width:100%}
+.lpane .kpick button{white-space:normal; text-align:center}
+
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
 @media (max-width:560px){
   .hero{padding:38px 0 34px} section{padding:40px 0}
@@ -861,6 +958,7 @@ nav a.plan:hover{background:var(--good); color:#fff}
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
   <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
   <span class="sep"></span>
+  <a href="#learn">📘 교과서로 배우기</a>
   <a href="#explore">데이터 탐구</a>
   <a href="#prep">전처리</a>
   <a href="#kinds">학습 유형</a>
@@ -892,6 +990,7 @@ nav a.plan:hover{background:var(--good); color:#fff}
   <p class="tochead">이 쪽에서 바로 가기</p>
   <div class="toc">
     <a href="#goal"><span class="ic">🎯</span><span><b>배우는 목표</b><span>성취기준 6개 · 단원 흐름</span></span></a>
+    <a href="#learn"><span class="ic">📘</span><span><b>교과서로 배우기</b><span>Ⅱ-01 ~ Ⅱ-07 개념 · 예제 · 30초 확인</span><em>차시마다 1번</em></span></a>
     <a href="#map"><span class="ic">🗺️</span><span><b>소단원 한눈에</b><span>Ⅱ-01 ~ Ⅱ-07 일곱 걸음</span></span></a>
     <a href="#explore"><span class="ic">🔎</span><span><b>데이터 탐구 4차시</b><span>문제 정하기 → 데이터 → 분석 → 발표</span><em>모둠 활동</em></span></a>
     <a href="#prep"><span class="ic">🧹</span><span><b>전처리 체험</b><span>교과서 72~79쪽 · Ⅱ-02</span><em>직접 해 보기</em></span></a>
@@ -969,6 +1068,339 @@ nav a.plan:hover{background:var(--good); color:#fff}
   <div class="ask" style="margin-top:20px"><b>이 단원에서 가장 자주 나오는 한 문장.</b>
     «<b>데이터가 나쁘면 모델도 나쁘다.</b>» Ⅱ-01의 편향, Ⅱ-02의 전처리,
     Ⅱ-05의 성능 평가가 모두 이 한 문장을 돌려 말한 것입니다.</div>
+</div></section>
+
+<section id="learn"><div class="wrap">
+  <p class="eyebrow">교과서로 배우기 · Ⅱ-01 ~ Ⅱ-07</p>
+  <h2>오늘 배울 내용을 차례대로</h2>
+  <p class="sub">교과서 60~138쪽을 우리 수업에 맞게 다시 정리했습니다. 소단원마다
+    <b>오늘의 질문 → 핵심 개념 → 직접 해 보기 → 30초 확인 → 이어서 할 것</b> 순서입니다.
+    교과서를 옆에 펴 두고 쪽수를 맞춰 보며 읽으세요.</p>
+  <div class="lnav" role="tablist" aria-label="소단원">
+    <button type="button" role="tab" data-p="learn01" aria-selected="true"><i>Ⅱ-01</i>데이터 수집</button>
+    <button type="button" role="tab" data-p="learn02" aria-selected="false"><i>Ⅱ-02</i>전처리</button>
+    <button type="button" role="tab" data-p="learn03" aria-selected="false"><i>Ⅱ-03</i>학습 유형</button>
+    <button type="button" role="tab" data-p="learn04" aria-selected="false"><i>Ⅱ-04</i>알고리즘</button>
+    <button type="button" role="tab" data-p="learn05" aria-selected="false"><i>Ⅱ-05</i>모델 구현</button>
+    <button type="button" role="tab" data-p="learn06" aria-selected="false"><i>Ⅱ-06</i>신경망</button>
+    <button type="button" role="tab" data-p="learn07" aria-selected="false"><i>Ⅱ-07</i>딥러닝 구현</button>
+  </div>
+
+  <!-- ═════════ Ⅱ-01 ═════════ -->
+  <div class="lpane" id="learn01" role="tabpanel">
+    <div class="lhead"><span class="lno">Ⅱ-01</span><div><b>기계학습과 데이터 수집</b><span>교과서 60~69쪽 · 성취기준 02-01</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>머핀 사진과 치와와 사진을 가르는 규칙, <u>코드로 다 적을 수 있을까?</u>
+      «털이 있고, 눈이 둘이고…» 이렇게 적다 보면 끝이 없습니다. 그럼 컴퓨터가 <b>사진을 잔뜩 보고 스스로</b> 찾게 하면 어떨까요?</div>
+
+    <h3 class="lh">① 규칙을 적는 프로그래밍 vs 데이터에서 찾는 기계학습 <small>61~62쪽</small></h3>
+    <div class="cmp">
+      <div class="cbox"><em>전통적 프로그래밍</em>
+        <div class="flow2"><span>사람이 만든 <b>규칙</b></span><i>+</i><span><b>데이터</b></span><i>→</i><span class="out">컴퓨터 → <b>결과</b></span></div>
+        <p>사람이 절차를 하나하나 설계해 코드로 적습니다. <b>정렬</b>처럼 절차가 분명한 문제에 알맞습니다.</p></div>
+      <div class="cbox ml"><em>기계학습</em>
+        <div class="flow2"><span><b>데이터</b></span><i>+</i><span><b>정답(결과)</b></span><i>→</i><span class="out">컴퓨터 → <b>모델(규칙)</b></span></div>
+        <p>컴퓨터가 데이터에서 규칙을 찾아 <b>모델</b>을 만듭니다. <b>이미지 · 음성 인식, 추천</b>처럼 절차를 적기 어려운 문제에 알맞습니다.</p></div>
+    </div>
+
+    <div class="tool">
+      <h3>직접 해 보기 — 규칙으로 스팸 메일 거르기 <span class="tm">62쪽 표 Ⅱ-1</span></h3>
+      <p class="desc">걸러 낼 낱말을 골라 «스팸 규칙»을 만들어 보세요. 1주차 메일은 잘 걸러지는데…
+        <b>«2주 뒤 메일»</b>을 누르면 무슨 일이 생기는지 보세요.</p>
+      <div class="chips" id="lrSpamRules"></div>
+      <div class="simctl"><span class="pick" id="lrSpamWeek"><button type="button" data-w="1" aria-pressed="true">1주차 메일</button><button type="button" data-w="2" aria-pressed="false">2주 뒤 메일</button></span></div>
+      <div class="mails" id="lrSpamList"></div>
+      <div class="keyout" id="lrSpamOut"></div>
+    </div>
+
+    <h3 class="lh">② 기계학습으로 문제를 푸는 다섯 단계 <small>63쪽 그림 Ⅱ-3</small></h3>
+    <div class="tool">
+      <p class="desc" style="margin-bottom:12px">카드를 <b>올바른 순서대로</b> 눌러 보세요. 틀리면 처음부터 다시 쌓습니다.</p>
+      <div class="ordcards" id="lrOrder"></div>
+      <div class="ordrow" id="lrOrderOut"></div>
+      <p class="hint">순서대로 하기 어려우면 <b>앞 단계로 돌아가도 됩니다</b>(63쪽). 데이터 탐구에서 «②로 돌아가 데이터를 다시 찾기»가 바로 이것입니다.</p>
+    </div>
+
+    <h3 class="lh">③ 좋은 데이터의 네 기준 <small>63쪽 표 Ⅱ-2</small></h3>
+    <div class="cgrid">
+      <div class="cc"><b>정확성</b><span>오류가 없어야 한다. 잘못된 데이터 → 잘못된 학습.</span></div>
+      <div class="cc"><b>관련성</b><span>풀려는 문제와 관련 있어야 한다.</span></div>
+      <div class="cc"><b>시의성</b><span>시기가 적절해야 한다. 너무 옛것도, <u>극단적으로 최신인 것만</u>도 안 된다.</span></div>
+      <div class="cc"><b>다양성</b><span>여러 상황을 담아야 한다. 한 가지 상황만 배우면 다른 상황을 못 맞힌다.</span></div>
+    </div>
+    <div class="tool" style="margin-top:12px">
+      <h3>어느 기준을 어겼을까? <span class="tm">4문제</span></h3>
+      <div class="kcards" id="lrGood"></div>
+    </div>
+
+    <h3 class="lh">④ 데이터를 확보하는 두 가지 길 <small>64~67쪽</small></h3>
+    <div class="g2">
+      <div class="ws" style="margin:0"><b><i>길 1</i> 공개된 데이터 쓰기</b><div>
+        <ul><li><b>공공데이터포털</b> — 공공기관 데이터 통합 창구(예: 기상청 폭염일수)</li>
+          <li><b>AI 허브</b> — 인공지능 학습용 데이터</li>
+          <li><b>데이콘 · 캐글</b> — 대회용 · 학습용 데이터</li></ul>
+        <span class="eg">원저작자의 <b>사용 제한 범위를 지키고</b>, 결과물에 <b>출처</b>를 꼭 적습니다.
+          (우리 데이터 탐구 ②의 «출처 기록»이 이것)</span></div></div>
+      <div class="ws" style="margin:0"><b><i>길 2</i> 직접 모으기</b><div>
+        <div class="flow2 small"><span>목적 확인</span><i>→</i><span>방법 선정</span><i>→</i><span>데이터 저장</span><i>→</i><span>데이터 검증</span></div>
+        <span class="eg">설문·센서·카메라로 모을 때는 <b>필요한 것만</b>, 목적을 밝히고, <b>개인 정보 제공 동의서</b>를 받습니다.
+          동의서에 들어갈 네 가지 — 수집·이용 목적 · 수집 항목 · 보유 기간 · 거부할 권리(와 그 불이익).</span></div></div>
+    </div>
+
+    <h3 class="lh">⑤ 데이터 편향 — 데이터가 한쪽으로 치우치면 <small>66쪽</small></h3>
+    <div class="g2">
+      <div class="cc wide"><b>현실의 불공정이 데이터에 스며든 경우</b><span>예전 미인 대회 결과에 인종 차별이 쌓여 있었고, 그걸 배운 AI가 백인 지원자에게 유리하게 판정했다.
+        차별이 오래 있었던 집단은 데이터 자체가 적거나 불리하게 쌓여 있다.</span></div>
+      <div class="cc wide"><b>표본을 잘못 뽑은 경우</b><span>조사하는 사람이 일부러 또는 무심코 한쪽만 뽑으면 생긴다.
+        «구하기 쉬운 데이터만» 모으는 것도 여기에 해당한다.</span></div>
+    </div>
+    <div class="ws"><b><i>막는 법</i> 편향되지 않게 모으는 세 가지</b><div><ol>
+      <li><b>다양한 출처</b>에서 모으기 — 관광지 추천 앱이면 여러 나라 사람의 리뷰</li>
+      <li><b>다양한 요소</b>(나이·성별·지역…)를 처음부터 고려하기</li>
+      <li><b>수집자의 의도</b>가 끼어들지 않게 하기</li></ol></div></div>
+    <div class="tool">
+      <h3>이 조사, 무엇이 문제일까? <span class="tm">68~69쪽 활동을 우리 학교로</span></h3>
+      <div class="kcards" id="lrBias"></div>
+    </div>
+
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx01"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b>
+      <a href="#story">데이터 탐구 이야기 미리 읽기</a><a href="#terms">핵심 용어</a><a href="#check">확인 문제 1~3</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-02 ═════════ -->
+  <div class="lpane" id="learn02" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-02</span><div><b>데이터 가공과 핵심 속성 추출</b><span>교과서 70~83쪽 · 성취기준 02-02</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>회장과 부회장이 따로 생일을 걷었더니 — 중복도 있고, 빠진 사람도 있고, «3월 4일 · 0304 · 3/4»처럼 적는 법도 제각각입니다.
+      이대로 <u>생일 파티 명단</u>을 만들 수 있을까요?</div>
+    <h3 class="lh">① 전처리 네 가지 <small>71쪽</small></h3>
+    <div class="cgrid">
+      <div class="cc"><b>변환</b><span>표현을 통일 — «남자»→«남», 날짜를 YYYY-MM-DD로</span></div>
+      <div class="cc"><b>통합</b><span>여러 파일을 하나로 — 회장 명단 + 부회장 명단</span></div>
+      <div class="cc"><b>정제</b><span>이상치·결측치를 고치거나 지우기 — 2월 31일, 빈칸</span></div>
+      <div class="cc"><b>축소</b><span>필요 없는 열·행 빼기 — 생일 파티에 연락처는 필요 없다</span></div>
+    </div>
+    <h3 class="lh">② 이상치와 결측치 <small>71~76쪽</small></h3>
+    <div class="g2">
+      <div class="cc wide"><b>이상치 — 있긴 한데 말이 안 되는 값</b><span>나이 288세, 키 973cm. <b>상자그림</b>을 그리면 상자 바깥 점으로 보인다. 지우거나, 사람이 확인해 고친다.</span></div>
+      <div class="cc wide"><b>결측치 — 아예 비어 있는 값</b><span><code>isnull().sum()</code>으로 센다. 그 행을 <b>지우거나</b>, 평균·최빈값으로 <b>채운다</b>. 지우면 데이터 수(n)가 줄어드는 것을 기록한다.</span></div>
+    </div>
+    <h3 class="lh">③ 핵심 속성 고르기 — 상관계수 <small>78~79쪽</small></h3>
+    <div class="cc wide"><b>두 값이 함께 움직이는 정도(-1 ~ 1)</b><span>1에 가까우면 같이 오르고, -1에 가까우면 반대로 움직이고, 0이면 관계가 없다.
+      정답과 상관이 큰 속성을 모델의 입력으로 고른다(교과서 79쪽 BMI 0.75). <b>단, 함께 움직인다 ≠ 원인이다.</b></span></div>
+    <div class="tool" style="margin-top:12px">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx02"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="#prep">전처리 체험(단추로 직접)</a><a href="#lab">코랩 노트북 ①</a><a href="#explore">데이터 탐구 ③</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-03 ═════════ -->
+  <div class="lpane" id="learn03" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-03</span><div><b>기계학습의 유형</b><span>교과서 84~91쪽 · 성취기준 02-03</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>말은 <u>따라 하며</u>, 블록 맞추기는 <u>혼자 이리저리 해 보며</u>, 게임은 <u>점수를 보며</u> 배웠습니다.
+      컴퓨터도 배우는 방식이 여러 가지일까요?</div>
+    <h3 class="lh">① 세 가지 학습 방법 <small>85쪽 그림 Ⅱ-5</small></h3>
+    <div class="cgrid three">
+      <div class="cc"><b>지도학습</b><span>문제와 <b>정답(레이블)</b>을 함께 주고 공부시키기.<br>
+        → <b>분류</b>: 정해진 집단 중 고르기 (스팸/정상 = 이진 분류, 꽃 품종 = 다중 분류)<br>
+        → <b>예측</b>: 숫자 맞히기 (기온 → 아이스크림 판매량)</span></div>
+      <div class="cc"><b>비지도학습</b><span><b>정답 없이</b> 비슷한 것끼리 묶기.<br>
+        → <b>군집화</b>: 소비가 비슷한 고객끼리, 함께 사는 상품끼리(추천)<br>
+        분류와 달리 <b>집단을 미리 정하지 않는다.</b></span></div>
+      <div class="cc"><b>강화 학습</b><span>행동하고 <b>보상(상·벌)</b>을 받으며 점수가 최대가 되는 전략 익히기.<br>
+        → 바둑·게임, 자율 주행, 챗GPT의 RLHF<br>
+        <b>탐험</b>(새 길 시도)과 <b>이용</b>(아는 길) 사이의 균형이 핵심.</span></div>
+    </div>
+    <div class="tool" style="margin-top:12px">
+      <h3>독립변수와 종속변수 <span class="tm">87쪽</span></h3>
+      <p class="desc">예측에서 <b>힌트로 쓰는 값</b>이 독립변수(속성), <b>맞히려는 값</b>이 종속변수(정답)입니다. 각 문장에서 무엇이 정답일까요?</p>
+      <div class="kcards" id="lrVar"></div>
+    </div>
+    <div class="tool">
+      <h3>추천 시스템은 어떻게 고를까 <span class="tm">88쪽 · 협업 필터링</span></h3>
+      <p class="desc">A는 라면·콜라·생수를, B는 라면·콜라를 샀습니다. 둘은 «비슷한 사람»으로 묶입니다. B에게 무엇을 추천할까요?</p>
+      <div class="simctl" id="lrRec"><button type="button" class="mini gh" data-a="라면">라면</button><button type="button" class="mini gh" data-a="콜라">콜라</button><button type="button" class="mini gh" data-a="생수">생수</button></div>
+      <div class="keyout" id="lrRecOut">하나를 골라 보세요</div>
+    </div>
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx03"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="#kinds">유형 고르기 12문제</a><a href="#terms">핵심 용어</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-04 ═════════ -->
+  <div class="lpane" id="learn04" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-04</span><div><b>기계학습 알고리즘</b><span>교과서 92~99쪽 · 성취기준 02-03</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>«지도학습으로 분류해!»라고만 하면 컴퓨터는 <u>어떻게</u> 해야 할지 모릅니다.
+      «가장 가까운 이웃을 봐라», «선을 그어라», «질문을 던져 나눠라» — 구체적인 방법이 알고리즘입니다.</div>
+    <div class="tw"><table>
+      <tr><th style="width:24%">알고리즘</th><th style="width:14%">하는 일</th><th style="width:14%">학습 유형</th><th>한 줄로</th></tr>
+      <tr><td><b>k-최근접 이웃</b></td><td>분류</td><td>지도</td><td>가장 가까운 k개를 보고 다수결. k는 사람이 정하는 <b>하이퍼파라미터</b></td></tr>
+      <tr><td><b>로지스틱 회귀</b></td><td>분류</td><td>지도</td><td>S자 함수로 0~1 <b>확률</b>을 구해 50%를 기준으로 나눔</td></tr>
+      <tr><td><b>선형 회귀</b></td><td>예측</td><td>지도</td><td>오차(MSE)가 가장 작은 <b>직선</b>. 경사하강법으로 찾음</td></tr>
+      <tr><td><b>의사결정트리</b></td><td>분류·예측</td><td>지도</td><td>예/아니요 <b>질문</b>을 거듭해 나눔. 설명하기 쉽지만 정확도는 높지 않은 편</td></tr>
+      <tr><td><b>k-평균</b></td><td>군집</td><td>비지도</td><td>중심 k개를 잡고 «가까운 중심에 배정 → 중심 다시 계산»을 반복</td></tr>
+    </table></div>
+
+    <div class="tool" style="margin-top:16px">
+      <h3>로지스틱 회귀 — 이 거리에서 슛할까, 패스할까? <span class="tm">94쪽</span></h3>
+      <p class="desc">1·2·4m에서는 성공, 5·7m에서는 실패한 기록으로 만든 S자 곡선입니다. 거리를 움직여 보세요.
+        교과서 값(3m 약 81.2% · 6m 약 20.5% · 8m 약 3.8%)과 같게 맞췄습니다.</p>
+      <svg class="plot" id="lrLogi" viewBox="0 0 480 240" role="img" aria-label="거리에 따른 슛 성공 확률 곡선"></svg>
+      <label class="sl" style="margin-top:12px"><span>골대에서 거리 <b id="lrDistV">3.0 m</b></span>
+        <input type="range" id="lrDist" min="0" max="10" step="0.5" value="3"></label>
+      <div class="keyout" id="lrLogiOut"></div>
+    </div>
+
+    <div class="tool">
+      <h3>의사결정트리 — 대출을 승인할까? <span class="tm">96쪽</span></h3>
+      <p class="desc">교과서 트리는 질문이 두 개입니다. 신청자를 골라 트리를 따라가 보세요. 나이는 질문에 없다는 것도 눈여겨보세요.</p>
+      <div class="simctl" id="lrTreePick"></div>
+      <div class="tree" id="lrTree"></div>
+    </div>
+
+    <div class="tool">
+      <h3>k-평균 — 네 단계를 눌러 보기 <span class="tm">97쪽 그림 Ⅱ-15</span></h3>
+      <p class="desc">점 12개를 두 무리(k=2)로 묶습니다. 단추를 차례로 누르세요. 정답(레이블)은 한 번도 쓰지 않습니다 — 그래서 비지도학습입니다.</p>
+      <svg class="plot" id="lrKm" viewBox="0 0 480 260" role="img" aria-label="k-평균 군집화"></svg>
+      <div class="simctl" style="margin-top:12px"><button type="button" class="mini" id="lrKmStep">① 초기 중심 정하기</button><button type="button" class="mini gh" id="lrKmReset">처음으로</button></div>
+      <div class="saybox" id="lrKmSay"></div>
+    </div>
+
+    <div class="tool">
+      <h3>어떤 알고리즘을 쓸까? <span class="tm">98~99쪽</span></h3>
+      <div class="kcards" id="lrAlgo"></div>
+    </div>
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx04"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="#algo">k-최근접 이웃 · 선형 회귀 직접 움직이기</a><a href="#kinds">유형 다시 보기</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-05 ═════════ -->
+  <div class="lpane" id="learn05" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-05</span><div><b>기계학습 모델 구현</b><span>교과서 100~115쪽 · 성취기준 02-04 · 프로젝트 ③에서 오렌지3로</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>새 바지가 헐렁하면 입어 보고 줄이고, 또 입어 보고 줄입니다.
+      모델도 <u>입혀 보고(평가) 고치는(수정)</u> 일을 되풀이합니다. 그런데 «잘 맞는지»는 무엇으로 잴까요?</div>
+    <h3 class="lh">① 데이터를 세 갈래로 <small>101~102쪽</small></h3>
+    <div class="cgrid three">
+      <div class="cc"><b>훈련 데이터</b><span>모델이 공부하는 <b>학습지</b>. <code>fit()</code>에 넣는다.</span></div>
+      <div class="cc"><b>검증 데이터</b><span>공부하는 동안 실력을 재 보는 <b>모의고사</b>. (선택)</span></div>
+      <div class="cc"><b>테스트 데이터</b><span>마지막에 한 번 보는 <b>시험지</b>. 학습에 절대 쓰지 않는다.</span></div>
+    </div>
+    <p class="hint">구현 순서 — 데이터 분리 → 모델 학습 <code>fit()</code> → 모델 평가 <code>predict()</code> · <code>score()</code>. 점수가 모자라면 앞 단계로.</p>
+    <h3 class="lh">② 무엇으로 잴까 — 성능 지표 <small>106~112쪽</small></h3>
+    <div class="g2">
+      <div class="cc wide"><b>예측 모델(숫자)</b><span><b>평균제곱오차(MSE)</b> — 틀린 정도. 작을수록 좋다.<br>
+        <b>결정계수(R²)</b> — 1에 가까울수록 잘 맞힌다(교과서 청년 수 예측 0.64).</span></div>
+      <div class="cc wide"><b>분류 모델(범주)</b><span><b>정확도</b> — 전체 중 맞힌 비율.<br>
+        <b>정밀도</b> — «참»이라고 한 것 중 진짜 참. 헛경보가 곤란할 때(스팸함으로 보내기).<br>
+        <b>재현율</b> — 진짜 참 중 찾아낸 비율. 놓치면 안 될 때(악성 종양).</span></div>
+    </div>
+    <div class="tool" style="margin-top:12px">
+      <h3>예제 2 — 클래식 음악 분류기의 오분류표 <span class="tm">111쪽</span></h3>
+      <p class="desc">테스트 240개(클래식 120 · 아님 120)의 결과입니다. 빈칸을 채우고 «확인»을 누르세요.</p>
+      <div class="tw"><table class="cmt">
+        <tr><th></th><th>실제: 클래식 아님</th><th>실제: 클래식</th></tr>
+        <tr><th>예측: 클래식 아님</th><td>90</td><td class="fn">20</td></tr>
+        <tr><th>예측: 클래식</th><td class="fp">30</td><td class="tp">100</td></tr>
+      </table></div>
+      <div class="frow" style="margin-top:12px">
+        <label class="fld"><span>클래식을 클래식으로 맞힘</span><input id="lrC1" inputmode="numeric" placeholder="개"></label>
+        <label class="fld"><span>클래식인데 아니라고 함</span><input id="lrC2" inputmode="numeric" placeholder="개"></label>
+        <label class="fld"><span>정확도</span><input id="lrC3" inputmode="decimal" placeholder="예: 0.5"></label>
+      </div>
+      <div class="simctl"><button type="button" class="mini" id="lrCGo">확인</button></div>
+      <div class="keyout" id="lrCOut">세 칸을 채워 보세요</div>
+    </div>
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx05"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="https://richee-pc.github.io/AI_cs/unit4.html#p3">프로젝트 ③ 오렌지3 · 혼동 행렬 계산기</a><a href="#code">예측 · 분류 코드 읽기</a><a href="#lab">코랩 노트북 ②</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-06 ═════════ -->
+  <div class="lpane" id="learn06" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-06</span><div><b>인공신경망과 딥러닝</b><span>교과서 116~123쪽 · 성취기준 02-05</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>선형 회귀와 k-최근접 이웃으로는 사진 속 강아지를 잘 못 알아봅니다.
+      사람의 뇌는 어떻게 알아볼까요? 그 <u>뇌를 흉내 내면</u> 컴퓨터도 알아볼 수 있을까요?</div>
+    <div class="nest"><div class="n1">인공지능<div class="n2">기계학습<div class="n3">딥러닝</div></div></div>
+      <p>딥러닝은 기계학습의 한 종류 — <b>인공신경망</b>을 깊게 쌓아 배웁니다(117쪽).</p></div>
+    <h3 class="lh">① 뉴런 → 퍼셉트론 <small>117쪽 그림 Ⅱ-16</small></h3>
+    <div class="flow2 big"><span>입력 × <b>가중치</b></span><i>→</i><span>모두 더하고 + <b>편향</b></span><i>→</i><span><b>활성화 함수</b>(렐루·시그모이드)</span><i>→</i><span class="out"><b>임계값</b>을 넘으면 참</span></div>
+    <p class="hint">교과서 계산: 1×0.3 + 0×0.8 + 1×0.4 + (−0.1) = <b>0.6</b>. 직접 바꿔 보려면 아래 «퍼셉트론과 XOR»로.</p>
+    <h3 class="lh">② 층을 쌓으면 딥러닝 <small>118~119쪽</small></h3>
+    <div class="cgrid three">
+      <div class="cc"><b>입력층 · 은닉층 · 출력층</b><span>값이 들어오는 층, 사이에서 계산하는 층, 최종 답이 나오는 층. <b>은닉층이 여러 개</b>면 심층 신경망 = 딥러닝.</span></div>
+      <div class="cc"><b>손실함수</b><span>«얼마나 틀렸나»를 재는 함수. 0에 가까울수록 좋다. 숫자 예측 MSE · 이진 분류 이진 교차 엔트로피 · 다중 분류 범주형 교차 엔트로피.</span></div>
+      <div class="cc"><b>오차 역전파</b><span>출력층에서 입력층 쪽으로 <b>거꾸로</b> 가며 가중치와 편향을 고친다. 크게 틀릴수록 크게 고친다.</span></div>
+    </div>
+    <div class="tool" style="margin-top:12px">
+      <h3>이건 어느 분야일까? <span class="tm">120~121쪽</span></h3>
+      <div class="kcards" id="lrUse"></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="cc"><b>CNN 합성곱 신경망</b><span>이미지에서 특징을 찾는다. 합성곱층(필터) + 풀링층(대푯값)을 반복.</span></div>
+      <div class="cc"><b>RNN 순환 신경망</b><span>순서가 있는 데이터 — 문장, 시간에 따라 쌓인 값.</span></div>
+      <div class="cc"><b>GAN 생성적 적대 신경망</b><span>가짜를 만드는 쪽과 가려내는 쪽이 겨루며 이미지를 만든다.</span></div>
+    </div>
+    <div class="ws"><b><i>활동</i> 텐서플로 놀이터에서 신경망 만들어 보기 <span style="font-weight:600; color:var(--muted)">122쪽</span></b><div>
+      <a href="https://playground.tensorflow.org" target="_blank" rel="noopener">playground.tensorflow.org ↗</a>에서 <b>Spiral(소용돌이)</b> 데이터 · 모든 속성 선택 ·
+      은닉층 6-4-4로 만들고 에포크 600에서 멈춥니다. <b>훈련 손실과 테스트 손실</b>을 적어 보세요.
+      은닉층을 하나로 줄이면 어떻게 될까요?</div></div>
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx06"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="#nn">퍼셉트론과 XOR 직접 해 보기</a><a href="#terms">핵심 용어</a></div>
+  </div>
+
+  <!-- ═════════ Ⅱ-07 ═════════ -->
+  <div class="lpane" id="learn07" role="tabpanel" hidden>
+    <div class="lhead"><span class="lno">Ⅱ-07</span><div><b>딥러닝 모델 구현</b><span>교과서 124~138쪽 · 성취기준 02-06 · 수행평가 ② 바로 앞</span></div></div>
+    <div class="qbig"><b>오늘의 질문</b>버섯의 냄새 · 색 · 모양 22가지만 보고 <u>독버섯을 가려낼 수 있을까요?</u>
+      케라스로 층을 쌓아 직접 만들어 봅니다(교과서 정확도 0.975 → 정규화 뒤 0.991).</div>
+    <h3 class="lh">① 딥러닝 모델을 만드는 순서 <small>125쪽</small></h3>
+    <div class="flow2 big"><span><b>데이터 분리</b><br><code>train_test_split</code></span><i>→</i>
+      <span><b>모델 설계</b><br>생성 <code>Sequential()</code> → 층 추가 <code>add(Dense)</code> → 컴파일 <code>compile()</code></span><i>→</i>
+      <span><b>모델 학습</b><br><code>fit(epochs, batch_size)</code></span><i>→</i><span class="out"><b>모델 평가</b><br><code>evaluate()</code></span></div>
+    <div class="tool" style="margin-top:14px">
+      <h3>코드 줄 순서 맞추기 <span class="tm">126~129쪽 독버섯 분류</span></h3>
+      <p class="desc">아래 줄들을 실행할 순서대로 눌러 보세요.</p>
+      <div class="ordcards code" id="lrCode"></div>
+      <div class="ordrow" id="lrCodeOut"></div>
+    </div>
+    <div class="tool">
+      <h3>에포크와 배치 — 한 번에 몇 걸음? <span class="tm">128쪽</span></h3>
+      <p class="desc">버섯 8,124개 중 80%가 훈련 데이터입니다. <b>배치 사이즈</b>만큼 볼 때마다 가중치를 한 번 고칩니다(경사하강법 한 걸음).
+        교과서 실행 결과의 «26/26»이 어디서 나왔는지 확인해 보세요.</p>
+      <div class="sliderow">
+        <label class="sl"><span>에포크(전체 반복) <b id="lrEpV">15</b></span><input type="range" id="lrEp" min="1" max="50" value="15"></label>
+        <label class="sl"><span>배치 사이즈 <b id="lrBsV">256</b></span><input type="range" id="lrBs" min="0" max="5" value="3"></label>
+      </div>
+      <div class="keyout" id="lrEpOut"></div>
+    </div>
+    <div class="g2">
+      <div class="cc wide"><b>과적합</b><span>훈련 데이터에만 지나치게 맞춰져 <b>새 데이터를 못 맞히는</b> 것. 훈련 점수와 테스트 점수를 비교해 찾는다(129쪽).</span></div>
+      <div class="cc wide"><b>정규화</b><span>속성값 범위를 0~1로 맞추기(<code>MinMaxScaler</code>). 큰 값 쪽으로 치우치지 않게 — 독버섯 0.975 → 0.991(130쪽).</span></div>
+      <div class="cc wide"><b>하이퍼파라미터 튜닝</b><span>에포크 · 배치 · 은닉층 수 · 뉴런 수 · 활성화 함수 — 사람이 정하는 값을 바꿔 가며 가장 좋은 조합 찾기.</span></div>
+      <div class="cc wide"><b>딥러닝 vs 다른 기계학습</b><span>데이터가 많을수록 딥러닝이 유리하지만 <b>학습 시간이 더 걸린다.</b> 딥러닝은 특징을 <b>스스로</b> 찾는다(138쪽).</span></div>
+    </div>
+    <div class="ws"><b><i>코드 없이</i> 티처블 머신 · 오렌지로도 <span style="font-weight:600; color:var(--muted)">131~137쪽</span></b><div>
+      쓰레기 사진(플라스틱 · 유리 · 종이) 분류에서 생수병이 유리로 잘못 분류되면 — <b>여러 각도의 사진을 더 넣어</b> 다시 학습합니다.
+      클래스마다 <b>비슷한 개수</b>로 모아야 한쪽으로 치우치지 않습니다. 이 감각이 프로젝트 ③의 «데이터 점검»과 같습니다.</div></div>
+    <div class="tool">
+      <h3>30초 확인 <span class="tm">O / X</span></h3>
+      <div class="oxl" id="lrOx07"></div>
+    </div>
+    <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="#lab">코랩 노트북 ③</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
+  </div>
 </div></section>
 
 <section id="explore"><div class="wrap">
@@ -1393,7 +1825,8 @@ nav a.plan:hover{background:var(--good); color:#fff}
     <div class="calc" id="pCalc"></div>
     <div class="keyout" id="pOut"></div>
     <p class="note"><b>교과서 117쪽 그림과 같은 계산입니다.</b>
-      입력 1·0·1에 가중치 0.3·0.8·0.4를 곱해 더하고(0.7), 편향 -0.5를 더하면 0.2.
+      입력 1·0·1에 가중치 0.3·0.8·0.4를 곱해 더하면 0.7. 교과서는 편향이 <b>-0.1</b>이라 0.6이 됩니다
+      (여기서는 편향을 -0.5에서 시작하니 0.2 — 편향 손잡이를 -0.1로 옮기면 교과서 값과 같아집니다).
       이 값을 <b>활성화 함수</b>에 넣고, 나온 값이 <b>임계값</b>을 넘으면 «참», 못 넘으면 «거짓»을 내보냅니다.
       여기서는 교과서와 같이 렐루를 쓰고 임계값을 0으로 두었습니다.</p>
   </div>
@@ -3140,6 +3573,306 @@ function postSheet(payload, btn, msg, need){
 
 })();
 </script>
-<script src="lessons.js?v=4cd0d9f6"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   교과서로 배우기(#learn) — 소단원 탭과 작은 체험들
+   · lessons.js 가 차시를 열면 window.AIL_onFocus(자리 id 목록)을 부릅니다 → 그 소단원 탭을 엽니다.
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+var LN = document.querySelector('#learn .lnav'); if(!LN) return;
+function lr(id){ return document.getElementById(id); }
+function showPane(id){
+  [].slice.call(LN.children).forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-p') === id ? 'true' : 'false'); });
+  [].slice.call(document.querySelectorAll('#learn .lpane')).forEach(function(p){ p.hidden = p.id !== id; });
+}
+LN.addEventListener('click', function(e){ var b = e.target.closest('button[data-p]'); if(b) showPane(b.getAttribute('data-p')); });
+window.AIL_onFocus = function(ids){
+  var hit = (ids || []).filter(function(x){ return /^learn\d\d$/.test(x); })[0];
+  if(hit) showPane(hit);
+};
+/* 주소에 #learn03 처럼 오면 그 탭 */
+if(/^#learn\d\d$/.test(location.hash)) showPane(location.hash.slice(1));
+
+/* ── 고르기 문제(공통) ──────────────────────────── */
+function quiz(boxId, opts, items){
+  var box = lr(boxId), st = {};
+  function draw(){
+    box.innerHTML = items.map(function(it, i){
+      var a = st[i], ok = a === it[1];
+      return '<div class="kcard' + (a == null ? '' : ok ? ' right' : ' wrong') + '" data-i="' + i + '"><div class="kq"><b>' + (i + 1) + '</b>' + it[0] + '</div>' +
+        '<span class="kpick">' + (it[3] || opts).map(function(o, k){ return '<button type="button" data-k="' + k + '" aria-pressed="' + (a === k) + '">' + o + '</button>'; }).join('') + '</span>' +
+        (a == null ? '' : '<div class="kwhy"><b>' + (ok ? '맞아요. ' : '다시 보세요 — «' + (it[3] || opts)[it[1]] + '». ') + '</b>' + it[2] + '</div>') + '</div>';
+    }).join('');
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-k]'); if(!b) return;
+    st[+b.closest('.kcard').getAttribute('data-i')] = +b.getAttribute('data-k'); draw();
+  });
+  draw();
+}
+function ox(boxId, items){
+  var box = lr(boxId), st = {};
+  function draw(){
+    box.innerHTML = items.map(function(it, i){
+      var a = st[i], ok = a === it[1];
+      return '<div class="oxi' + (a == null ? '' : ok ? ' right' : ' wrong') + '" data-i="' + i + '"><span>' + it[0] + '</span><em>' +
+        '<button type="button" data-v="1">O</button><button type="button" data-v="0">X</button></em>' +
+        (a == null ? '' : '<p><b>' + (ok ? '정답! ' : '정답은 ' + (it[1] ? 'O' : 'X') + ' — ') + '</b>' + it[2] + '</p>') + '</div>';
+    }).join('');
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-v]'); if(!b) return;
+    st[+b.closest('.oxi').getAttribute('data-i')] = +b.getAttribute('data-v'); draw();
+  });
+  draw();
+}
+function order(boxId, outId, items, doneMsg){
+  var box = lr(boxId), out = lr(outId), got = [], bad = false;
+  var shuf = items.map(function(x, i){ return i; }).sort(function(){ return Math.random() - .5; });
+  function draw(){
+    box.innerHTML = shuf.map(function(i){ return '<button type="button" data-i="' + i + '"' + (got.indexOf(i) >= 0 ? ' disabled' : '') + '>' + items[i] + '</button>'; }).join('');
+    out.innerHTML = got.map(function(i, k){ return '<div' + (i !== k ? ' class="bad"' : '') + '>' + items[i] + '</div>'; }).join('') +
+      (bad ? '<p style="color:var(--cut)">순서가 어긋났어요 — 1초 뒤 처음부터 다시 쌓습니다.</p>' : got.length === items.length ? '<p style="color:var(--good)">' + doneMsg + '</p>' : '');
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-i]'); if(!b || bad) return;
+    var i = +b.getAttribute('data-i'); got.push(i);
+    if(i !== got.length - 1){ bad = true; draw(); setTimeout(function(){ got = []; bad = false; draw(); }, 1100); return; }
+    draw();
+  });
+  draw();
+}
+
+/* ══════════ Ⅱ-01 ══════════ */
+var RULES = ['무료', '당첨', '광고', '!!!', '긴급'], on = {};
+var MAILS = {
+  1:[['[광고] 무료 체험 당첨!!!', 1], ['무료 쿠폰 지금 받기', 1], ['당첨을 축하합니다 — 상품 수령 안내', 1], ['!!!긴급!!! 계정이 곧 정지됩니다', 1],
+     ['내일 수행평가 준비물 안내', 0], ['동아리 회의 — 무료 간식 있어요', 0], ['엄마: 저녁 먹고 와?', 0], ['학교 누리집 광고 수신 동의 확인', 0]],
+  2:[['ㅁㅜ료 기프티콘 드려요 ^^', 1], ['축하드려요, 1등으로 선정되셨어요', 1], ['보안 점검 필요 — 아래 링크 확인', 1], ['한정 수량 특가, 오늘만', 1],
+     ['내일 수행평가 준비물 안내', 0], ['동아리 회의 — 무료 간식 있어요', 0], ['엄마: 저녁 먹고 와?', 0], ['담임 선생님: 상담 일정', 0]]
+};
+var week = 1;
+function spamDraw(){
+  lr('lrSpamRules').innerHTML = '<span class="chip" style="border:none; background:none; padding-left:0">스팸 규칙 낱말 —</span>' +
+    RULES.map(function(r){ return '<button type="button" class="chip' + (on[r] ? ' on' : '') + '" data-r="' + r + '">' + r + '</button>'; }).join('');
+  var ok = 0;
+  lr('lrSpamList').innerHTML = MAILS[week].map(function(m){
+    var caught = RULES.some(function(r){ return on[r] && m[0].indexOf(r) >= 0; }), right = caught === !!m[1];
+    if(right) ok++;
+    return '<div class="mail ' + (right ? 'ok' : 'ng') + '"><span class="tg ' + (m[1] ? 's' : 'h') + '">' + (m[1] ? '진짜 스팸' : '보통 메일') + '</span>' + m[0] +
+      '<span class="res">' + (caught ? '스팸함으로' : '받은편지함') + (right ? ' ✓' : ' ✕') + '</span></div>';
+  }).join('');
+  var n = MAILS[week].length, o = lr('lrSpamOut'), any = RULES.some(function(r){ return on[r]; });
+  o.className = 'keyout' + (ok === n ? ' good' : any ? ' bad' : '');
+  o.innerHTML = !any ? '규칙 낱말을 골라 보세요' : ok + ' / ' + n + ' 맞게 걸렀습니다' +
+    (week === 1 ? '<small>«무료»를 고르면 동아리 메일까지 걸리죠? 규칙은 예외가 많습니다. 이제 «2주 뒤 메일»을 눌러 보세요.</small>'
+      : '<small>스팸 보내는 사람이 낱말을 바꿨습니다(«ㅁㅜ료»). 규칙은 사람이 <b>계속 다시 적어야</b> 합니다. 기계학습은 새 스팸 데이터를 <b>더 학습</b>해서 따라갑니다(62쪽 표 Ⅱ-1).</small>');
+}
+lr('lrSpamRules').addEventListener('click', function(e){ var b = e.target.closest('button[data-r]'); if(!b) return; var r = b.getAttribute('data-r'); on[r] = !on[r]; spamDraw(); });
+lr('lrSpamWeek').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-w]'); if(!b) return; week = +b.getAttribute('data-w');
+  [].slice.call(this.children).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); spamDraw();
+});
+spamDraw();
+order('lrOrder', 'lrOrderOut', ['문제 정의', '데이터 선정 · 수집 · 전처리', '기계학습 유형과 알고리즘 선정', '모델 생성(학습)', '성능 평가 및 수정'],
+  '완성! 모델을 만들려면 데이터가 필요하고, 데이터를 고르려면 문제가 분명해야 합니다.');
+quiz('lrGood', ['정확성', '관련성', '시의성', '다양성'], [
+  ['10년 전 조사 데이터로 올해 청소년의 스마트폰 사용 시간을 예측했다.', 2, '시기가 너무 오래되었습니다. 반대로 «이번 주 데이터만» 쓰는 것도 시의성 위반입니다.'],
+  ['입력할 때 «키 973cm»처럼 잘못 적힌 값이 많다.', 0, '오류가 있는 데이터는 잘못된 학습으로 이어집니다 — 전처리에서 이상치로 찾습니다.'],
+  ['급식 만족도를 예측하는데 학생들의 신발 사이즈를 넣었다.', 1, '풀려는 문제와 관련 없는 속성은 성능을 떨어뜨립니다. 상관계수로 확인할 수 있어요.'],
+  ['우리 반 학생만 조사해 전교생이 좋아하는 메뉴를 맞히려 한다.', 3, '한 가지 상황만 배우면 다른 상황을 못 맞힙니다. 학년·반을 고르게 담아야 합니다.']
+]);
+quiz('lrBias', ['현실의 불공정이 스며듦', '표본을 잘못 뽑음', '문제없음'], [
+  ['시민의 태블릿 보유를 알려고, 시 누리집 회원에게만 웹 설문을 보냈다.', 1, '누리집에 가입한 사람은 이미 인터넷을 잘 쓰는 사람입니다. 명단에서 <b>무작위로</b> 뽑아 직접 물어야 합니다(69쪽).'],
+  ['지난 10년 합격 기록으로 AI 면접관을 학습시켰는데, 그동안 합격자 대부분이 한 성별이었다.', 0, '과거의 차별이 데이터에 쌓여 있으면 AI도 그대로 배웁니다. Ⅲ단원 윤리 토론의 «AI 채용» 논제와 이어집니다.'],
+  ['급식 만족도를 알려고 전교생 명단에서 무작위로 60명을 뽑아 물었다.', 2, '모집단(전교생)을 고르게 대표하도록 무작위로 뽑았습니다. 표본 추출의 좋은 예입니다.'],
+  ['우리 반 취미를 알려고 축구부 친구들에게만 물었다.', 1, '구하기 쉬운 데이터만 모은 경우입니다. 결과가 «축구»로 쏠릴 수밖에 없습니다.']
+]);
+ox('lrOx01', [
+  ['기계학습은 사람이 규칙을 단계별로 정해 코드로 적는 방법이다.', 0, '그건 전통적 프로그래밍입니다. 기계학습은 컴퓨터가 데이터에서 규칙을 찾습니다(61쪽).'],
+  ['데이터를 고를 때는 무조건 최신 데이터를 고른다.', 0, '시의성은 «적절한 시기»입니다. 극단적으로 최신인 것만 써도 성능이 떨어집니다(63쪽).'],
+  ['데이터를 모을 때는 수집 목적에 맞아야 한다.', 1, '목적에 따라 대상 · 항목 · 방법이 달라집니다(68쪽 활동).'],
+  ['공개된 데이터를 쓸 때는 사용 범위를 지키고 출처를 밝힌다.', 1, '데이터 탐구 ②에서 출처와 이용 조건(공공누리 유형)을 적는 이유입니다.']
+]);
+
+/* ══════════ Ⅱ-02 ══════════ */
+ox('lrOx02', [
+  ['결측치는 정상 범주를 벗어난 값이다.', 0, '그건 이상치. 결측치는 비어 있는 값입니다.'],
+  ['전처리 순서와 결과는 언제나 똑같다.', 0, '데이터 사용 목적과 수집 상황에 따라 달라집니다(70쪽).'],
+  ['상관계수가 크면 한쪽이 다른 쪽의 원인이다.', 0, '함께 움직일 뿐입니다. 원인을 말하려면 다른 근거가 필요합니다.'],
+  ['분석에 필요 없는 열을 빼는 것은 «축소»다.', 1, '변환 · 통합 · 정제 · 축소 중 축소입니다.']
+]);
+
+/* ══════════ Ⅱ-03 ══════════ */
+quiz('lrVar', null, [
+  ['기온으로 아이스크림 판매량을 맞힌다.', 1, '맞히려는 값(판매량)이 종속변수 = 정답, 기온은 독립변수 = 속성입니다(87쪽).', ['기온', '아이스크림 판매량']],
+  ['도서관 수와 공연장 수로 지역의 청년 인구를 예측한다.', 0, '청년 인구가 정답(y)입니다. Ⅱ-05 코랩 실습의 y = df[["청년"]] 이 이것.', ['청년 인구', '도서관·공연장 수']],
+  ['주당 운동 횟수로 예상 수명을 예측한다.', 1, '예상 수명이 정답입니다.', ['운동 횟수', '예상 수명']]
+]);
+lr('lrRec').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-a]'); if(!b) return; var a = b.getAttribute('data-a'), o = lr('lrRecOut');
+  o.className = 'keyout ' + (a === '생수' ? 'good' : 'bad');
+  o.innerHTML = a === '생수' ? '생수! 비슷한 사람(A)이 샀는데 B는 아직 안 산 것을 추천합니다.<small>정답을 미리 정해 주지 않고 «비슷한 사람끼리» 묶어서 찾았으니 비지도학습(군집)의 예입니다.</small>'
+    : a + '는 B가 이미 샀어요.<small>비슷한 사람 A가 샀는데 B는 아직 안 산 것을 찾아보세요.</small>';
+});
+ox('lrOx03', [
+  ['비지도학습은 정답 없이 입력 데이터만 준다.', 1, '그래서 «무엇인지»가 아니라 «비슷한 것끼리»만 묶습니다.'],
+  ['강화 학습에는 입력과 정답을 함께 준다.', 0, '정답 대신 «보상»을 줍니다. 입력과 정답을 함께 주는 것은 지도학습.'],
+  ['분류와 군집화는 모두 지도학습이다.', 0, '분류는 지도, 군집화는 비지도. 시험 단골입니다.'],
+  ['반복문으로 같은 일을 되풀이하면 강화 학습이 된다.', 0, '강화 학습은 환경과 상호작용하며 보상을 최대화하는 행동을 익히는 것입니다(89쪽).']
+]);
+
+/* ══════════ Ⅱ-04 · 로지스틱 회귀 ══════════ */
+var LA = 4.281, LB = -0.9393;
+function pr(x){ return 1 / (1 + Math.exp(-(LA + LB * x))); }
+function logiDraw(){
+  var x = +lr('lrDist').value, p = pr(x), W = 480, H = 240, L = 46, R = 16, T = 14, B = 36;
+  var X = function(v){ return L + v / 10 * (W - L - R); }, Y = function(v){ return T + (1 - v) * (H - T - B); };
+  var d = ''; for(var v = 0; v <= 10.001; v += 0.1) d += (v ? 'L' : 'M') + X(v).toFixed(1) + ' ' + Y(pr(v)).toFixed(1);
+  var pts = [[1,1],[2,1],[4,1],[5,0],[7,0]];
+  var s = '<line class="axis" x1="' + L + '" y1="' + Y(0) + '" x2="' + (W - R) + '" y2="' + Y(0) + '"/><line class="axis" x1="' + L + '" y1="' + T + '" x2="' + L + '" y2="' + Y(0) + '"/>' +
+    '<line class="grid" x1="' + L + '" y1="' + Y(.5) + '" x2="' + (W - R) + '" y2="' + Y(.5) + '" stroke-dasharray="4 4"/>' +
+    '<text class="axn" x="' + (L - 22) + '" y="' + (Y(.5) + 4) + '">50%</text><text class="axn" x="' + (L - 22) + '" y="' + (Y(1) + 4) + '">100%</text>';
+  for(var k = 0; k <= 10; k += 2) s += '<text class="axn" x="' + X(k) + '" y="' + (H - 16) + '">' + k + 'm</text>';
+  s += '<path d="' + d + '" fill="none" stroke="var(--blue)" stroke-width="3"/>';
+  s += pts.map(function(q){ return '<circle cx="' + X(q[0]) + '" cy="' + Y(q[1]) + '" r="6" fill="' + (q[1] ? 'var(--good)' : 'var(--cut)') + '" stroke="var(--white)" stroke-width="2"/>'; }).join('');
+  s += '<line x1="' + X(x) + '" y1="' + Y(0) + '" x2="' + X(x) + '" y2="' + Y(p) + '" stroke="var(--warm)" stroke-width="2" stroke-dasharray="4 3"/>' +
+    '<circle cx="' + X(x) + '" cy="' + Y(p) + '" r="8" fill="var(--warm)" stroke="var(--white)" stroke-width="2.5"/>';
+  lr('lrLogi').innerHTML = s;
+  lr('lrDistV').textContent = x.toFixed(1) + ' m';
+  var o = lr('lrLogiOut'), good = p >= .5;
+  o.className = 'keyout ' + (good ? 'good' : 'bad');
+  o.innerHTML = '성공 확률 약 ' + (p * 100).toFixed(1) + '% → ' + (good ? '슛!' : '패스!') +
+    '<small>초록 점 = 성공, 빨간 점 = 실패한 기록. 로지스틱 함수는 어떤 값이든 0~1 사이로 바꿔 «확률»로 만들고, 50%를 기준으로 나눕니다.</small>';
+}
+lr('lrDist').addEventListener('input', logiDraw); logiDraw();
+
+/* ── 의사결정트리 ── */
+var APPL = [['22세 · 학생 · 소득 낮음', 0, 0], ['40세 · 직장인 · 소득 높음', 1, 1], ['33세 · 직장인 · 소득 낮음', 1, 0]];
+lr('lrTreePick').innerHTML = APPL.map(function(a, i){ return '<button type="button" class="mini gh" data-i="' + i + '">' + a[0] + '</button>'; }).join('');
+function treeDraw(i){
+  var a = i == null ? null : APPL[i];
+  var n1 = a !== null, job = a && a[1], inc = a && a[2];
+  var h = '<div class="nd' + (n1 ? ' on' : '') + '">❓ 직장인인가?' + (n1 ? '<span class="ans">' + (job ? '예' : '아니요') + '</span>' : '') + '</div>';
+  if(a && !job) h += '<div class="nd end no" style="margin-left:24px">대출 거절</div>';
+  if(a && job){
+    h += '<div class="nd on" style="margin-left:24px">❓ 소득이 높은가?<span class="ans">' + (inc ? '예' : '아니요') + '</span></div>';
+    h += '<div class="nd end ' + (inc ? 'ok' : 'no') + '" style="margin-left:48px">' + (inc ? '대출 승인' : '대출 거절') + '</div>';
+  }
+  if(!a) h += '<p class="hint" style="margin:6px 0 0">위에서 신청자를 고르세요.</p>';
+  else h += '<p class="hint" style="margin:6px 0 0">질문 두 번이면 답이 나옵니다. <b>왜 그렇게 판단했는지 설명하기 쉬운 것</b>이 의사결정트리의 장점입니다. 나이는 기준에 없어서 판단에 쓰이지 않았습니다.</p>';
+  lr('lrTree').innerHTML = h;
+}
+lr('lrTreePick').addEventListener('click', function(e){ var b = e.target.closest('button[data-i]'); if(b) treeDraw(+b.getAttribute('data-i')); });
+treeDraw(null);
+
+/* ── k-평균 ── */
+var KP = [[60,60],[80,90],[100,70],[70,120],[110,110],[95,140],[300,150],[330,120],[350,170],[320,190],[370,140],[340,210]];
+var km = { step:0, c:null, lab:null, done:false };
+var KC = ['#2F6FEC', '#C2570C'];
+function kmDraw(){
+  var s = '<rect x="0" y="0" width="480" height="260" fill="none"/>';
+  s += KP.map(function(p, i){ var l = km.lab ? km.lab[i] : -1;
+    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="9" fill="' + (l < 0 ? 'var(--muted)' : KC[l]) + '" stroke="var(--white)" stroke-width="2"/>'; }).join('');
+  if(km.c) s += km.c.map(function(c, k){ return '<g><rect x="' + (c[0] - 9) + '" y="' + (c[1] - 9) + '" width="18" height="18" fill="' + KC[k] + '" transform="rotate(45 ' + c[0] + ' ' + c[1] + ')" stroke="var(--ink)" stroke-width="2"/></g>'; }).join('');
+  lr('lrKm').innerHTML = s;
+}
+function kmStep(){
+  var say = lr('lrKmSay'), btn = lr('lrKmStep');
+  if(km.done) return;
+  if(km.step === 0){ km.c = [[90, 220], [150, 230]]; km.step = 1; say.innerHTML = '<b>① 초기 중심</b> — 중심 두 개(◆)를 아무 데나 둡니다. 일부러 아래쪽 엉뚱한 곳에 두었습니다.'; btn.textContent = '② 가까운 중심에 배정'; }
+  else if(km.step === 1){
+    km.lab = KP.map(function(p){ var d0 = Math.hypot(p[0] - km.c[0][0], p[1] - km.c[0][1]), d1 = Math.hypot(p[0] - km.c[1][0], p[1] - km.c[1][1]); return d0 <= d1 ? 0 : 1; });
+    km.step = 2; say.innerHTML = '<b>② 배정</b> — 점마다 더 가까운 중심의 색을 칠합니다.'; btn.textContent = '③ 중심 다시 계산';
+  } else {
+    var nc = [0, 1].map(function(k){ var m = KP.filter(function(p, i){ return km.lab[i] === k; }); if(!m.length) return km.c[k];
+      return [m.reduce(function(a, p){ return a + p[0]; }, 0) / m.length, m.reduce(function(a, p){ return a + p[1]; }, 0) / m.length]; });
+    var moved = nc.some(function(c, k){ return Math.hypot(c[0] - km.c[k][0], c[1] - km.c[k][1]) > .5; });
+    km.c = nc;
+    if(!moved){ km.done = true; say.innerHTML = '<b>④ 수렴</b> — 중심이 더 이상 움직이지 않습니다. 두 무리로 나뉘었습니다! 이 무리가 «무엇»인지는 사람이 해석합니다.'; btn.disabled = true; btn.textContent = '끝'; }
+    else { km.step = 1; say.innerHTML = '<b>③ 갱신</b> — 각 무리 점들의 <b>평균 위치</b>로 중심을 옮겼습니다. 이제 ②를 다시 합니다(④ 수렴할 때까지 반복).'; btn.textContent = '② 다시 배정'; }
+  }
+  kmDraw();
+}
+lr('lrKmStep').addEventListener('click', kmStep);
+lr('lrKmReset').addEventListener('click', function(){ km = { step:0, c:null, lab:null, done:false }; var b = lr('lrKmStep'); b.disabled = false; b.textContent = '① 초기 중심 정하기'; lr('lrKmSay').innerHTML = '점 12개, 정답 표시는 없습니다. ①부터 눌러 보세요.'; kmDraw(); });
+lr('lrKmSay').innerHTML = '점 12개, 정답 표시는 없습니다. ①부터 눌러 보세요.'; kmDraw();
+
+quiz('lrAlgo', ['k-최근접 이웃', '로지스틱 회귀', '선형 회귀', 'k-평균'], [
+  ['하루 보행량에 따라 의료비 지출이 얼마일지 예측한다.', 2, '숫자를 맞히고, 둘 사이가 직선 관계 — 선형 회귀(98쪽).'],
+  ['환자의 의료 기록을 비슷한 환자들과 비교해 질병 유무를 분류한다.', 0, '가까운 이웃들의 분류를 보고 정합니다 — k-최근접 이웃(98쪽).'],
+  ['소비 패턴과 연령대로 고객을 몇 무리로 나눠 마케팅 전략을 세운다.', 3, '정답 없이 비슷한 고객끼리 묶습니다 — k-평균(비지도).'],
+  ['슈팅 위치 좌표마다 슛 성공 확률을 구한다.', 1, '성공/실패를 0~1 확률로 — 로지스틱 회귀(99쪽 활동).'],
+  ['예상 강수량으로 우산을 몇 개 준비할지 맞힌다.', 2, '숫자를 예측합니다 — 선형 회귀(99쪽 활동).']
+]);
+ox('lrOx04', [
+  ['k-최근접 이웃의 k는 학습으로 자동 계산된다.', 0, '사람이 정하는 하이퍼파라미터입니다(94쪽).'],
+  ['경사하강법은 기울기의 반대 방향으로 조금씩 이동하기를 반복한다.', 1, '학습률이 너무 작으면 오래 걸리고, 너무 크면 실패할 수 있습니다.'],
+  ['k-평균은 분류 알고리즘이다.', 0, '군집 알고리즘이고 비지도학습입니다(98쪽).'],
+  ['로지스틱 회귀는 결과를 0~1 사이 확률로 바꿔 분류한다.', 1, 'S자(시그모이드) 함수를 씁니다.']
+]);
+
+/* ══════════ Ⅱ-05 ══════════ */
+lr('lrCGo').addEventListener('click', function(){
+  var a = +lr('lrC1').value, b = +lr('lrC2').value, c = parseFloat(lr('lrC3').value), o = lr('lrCOut');
+  var okA = a === 100, okB = b === 20, okC = c >= 0.78 && c <= 0.8;
+  o.className = 'keyout ' + (okA && okB && okC ? 'good' : 'bad');
+  o.innerHTML = (okA && okB && okC ? '모두 맞았어요!' : '다시 보세요') +
+    '<small>클래식을 맞힘 <b>100</b>개(초록 칸) · 클래식인데 아니라 함 <b>20</b>개 · 정확도 = (90 + 100) ÷ 240 = <b>0.79</b>. ' +
+    '클래식 재현율은 100 ÷ 120 = 0.83, 정밀도는 100 ÷ 130 = 0.77입니다.</small>';
+});
+ox('lrOx05', [
+  ['평가에 쓰려고 학습에서 떼어 두는 데이터를 «훈련 데이터»라고 한다.', 0, '그건 테스트 데이터. 훈련 데이터는 학습에 씁니다(103쪽).'],
+  ['평균제곱오차(MSE)는 클수록 좋은 모델이다.', 0, '틀린 정도이므로 작을수록 좋습니다.'],
+  ['악성 종양처럼 놓치면 안 될 때는 재현율을 본다.', 1, '진짜 참 중에서 몇 개를 찾았는지가 중요하니까요(112쪽).'],
+  ['결정계수(R²)는 1에 가까울수록 잘 맞히는 모델이다.', 1, '0에 가까우면 평균을 찍는 수준입니다(106쪽).']
+]);
+
+/* ══════════ Ⅱ-06 ══════════ */
+quiz('lrUse', ['컴퓨터 비전', '자연어 처리', '창작(생성)'], [
+  ['무인 편의점 카메라가 손님이 집은 상품을 알아본다.', 0, '이미지를 보고 이해하는 분야입니다(120쪽).'],
+  ['1970년대 영화를 4K 화질로 선명하게 바꾼다.', 0, '슈퍼 레졸루션 — 컴퓨터 비전입니다.'],
+  ['쇼핑몰 후기 글이 긍정인지 부정인지 가린다.', 1, '감성 분석 — Ⅱ-07에서 오렌지로 해 봅니다.'],
+  ['한국어 문장을 같은 뜻의 영어로 바꾼다.', 1, '기계 번역 — 자연어 처리입니다.'],
+  ['«비 오는 날의 학교» 그림을 그려 달라고 하면 그려 준다.', 2, '이미지 생성 — 창작 분야. 우리 수업의 AI 신호등을 기억하세요.'],
+  ['중고 거래 앱에 물건 사진을 올리면 카테고리를 추천한다.', 0, '사진을 분류하는 컴퓨터 비전입니다.']
+]);
+ox('lrOx06', [
+  ['뉴런을 본떠 만든 인공신경망의 최소 단위는 퍼셉트론이다.', 1, '입력 × 가중치 → 합 + 편향 → 활성화 함수 → 임계값.'],
+  ['은닉층이 여러 개인 신경망을 쓰는 기계학습을 딥러닝이라고 한다.', 1, '심층 신경망 = 딥러닝(119쪽).'],
+  ['오차 역전파는 입력층에서 출력층 방향으로 가중치를 고친다.', 0, '출력층에서 입력층 쪽, 즉 거꾸로 고칩니다.'],
+  ['딥러닝은 기계학습과 상관없는 다른 분야다.', 0, '인공지능 ⊃ 기계학습 ⊃ 딥러닝.']
+]);
+
+/* ══════════ Ⅱ-07 ══════════ */
+order('lrCode', 'lrCodeOut', [
+  "df = pd.read_csv('mushrooms.csv')",
+  'df[i] = le.fit_transform(df[i])   # 글자 → 숫자',
+  'x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)',
+  'model = keras.Sequential()',
+  "model.add(keras.layers.Dense(64, activation='relu'))",
+  "model.add(keras.layers.Dense(1, activation='sigmoid'))",
+  "model.compile(optimizer='adam', loss='binary_crossentropy', metrics='accuracy')",
+  'history = model.fit(x_train, y_train, epochs=15, batch_size=256)',
+  'model.evaluate(x_test, y_test)'
+], '완성! 불러오기 → 전처리 → 분리 → 설계(생성 · 층 · 컴파일) → 학습 → 평가. 오렌지3 위젯 순서와도 같습니다.');
+var BS = [32, 64, 128, 256, 512, 1024];
+function epDraw(){
+  var ep = +lr('lrEp').value, bs = BS[+lr('lrBs').value], tr = 6499, per = Math.ceil(tr / bs);
+  lr('lrEpV').textContent = ep; lr('lrBsV').textContent = bs;
+  var o = lr('lrEpOut'); o.className = 'keyout' + (bs === 256 ? ' good' : '');
+  o.innerHTML = '한 에포크에 ' + per + '걸음 × ' + ep + '에포크 = 가중치를 ' + (per * ep).toLocaleString() + '번 고칩니다' +
+    '<small>훈련 데이터 6,499개(8,124의 80%) ÷ 배치 ' + bs + ' = ' + per + '묶음.' + (bs === 256 ? ' 교과서 실행 결과의 <b>«26/26»</b>이 바로 이 숫자입니다.' : '') + '</small>';
+}
+['lrEp', 'lrBs'].forEach(function(id){ lr(id).addEventListener('input', epDraw); }); epDraw();
+ox('lrOx07', [
+  ['케라스에서 은닉층은 add()로 쌓는다.', 1, 'model.add(keras.layers.Dense(...)).'],
+  ['딥러닝은 다른 기계학습보다 학습 시간이 적게 든다.', 0, '더 오래 걸립니다. 대신 데이터가 많을수록 성능이 좋아집니다(138쪽).'],
+  ['과적합이면 훈련 점수는 높은데 테스트 점수는 낮다.', 1, '학습지만 외운 셈입니다. 프로젝트 ③에서 «Test on train data»로 비교해 보세요.'],
+  ['에포크 · 배치 사이즈 · 은닉층 수는 사람이 정하는 하이퍼파라미터다.', 1, '바꿔 가며 가장 좋은 조합을 찾는 것이 하이퍼파라미터 튜닝입니다.']
+]);
+})();
+</script>
+<script src="lessons.js?v=9f55f392"></script>
 </body>
 </html>
