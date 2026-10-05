@@ -1,0 +1,1805 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="「인공지능 기초」 Ⅳ단원 인공지능 프로젝트 - SDGs 주제 정하기, 모델 개발 계획, 오렌지3 프로토타입과 AI 반문으로 개선, 발표와 구술 설명, 수행평가 ② 코랩 재구현">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Ⅳ. 인공지능 프로젝트 · 수업 자료">
+<meta property="og:description" content="SDGs 문제를 우리 모둠이 만든 AI로 — 주제 정하기 · 계획 · 오렌지3 · 발표 · 수행평가 ②">
+<meta property="og:type" content="website">
+<link rel="preload" href="font/body-reg.woff2?v=130ab36a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=cdac3f52" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>Ⅳ. 인공지능 프로젝트 · 수업 자료</title>
+</head>
+<body>
+<style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
+   1280px 노트북에서 16px(지금 그대로) → 1920px 18.4px
+   → 2560px 20.8px → 그 이상 22px 에서 멈춘다.
+   교실 대형 화면에 띄워도 글자가 작아 보이지 않는다.            */
+:root{--sbh:clamp(28.75rem,80vh,57.5rem)}
+html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100%}
+
+/* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
+   제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
+   본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
+   강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
+   코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2650f8dc') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=cdac3f52') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=130ab36a') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=2dc81a1c') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
+  font-weight:400 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=4e9fb374') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
+    system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+:root[data-theme="dark"]{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}
+:root[data-theme="light"]{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
+  font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+  /* 한국어는 어절을 통째로 넘긴다. 이게 없으면 «진행됩니 / 다» 처럼
+     낱말 한가운데가 잘려 문장이 깨져 보인다.
+     아주 긴 주소나 영어 낱말만 anywhere 로 흘려보낸다. */
+  word-break:keep-all; overflow-wrap:anywhere}
+.wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
+.n{font-variant-numeric:tabular-nums}
+::selection{background:var(--blue); color:#fff}
+a{color:var(--blue)}
+
+/* ── 사이트 내비 ─────────────────────────── */
+nav{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--sky-bg) 82%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--line)}
+nav .row{display:flex; gap:4px; overflow-x:auto; padding:9px 0; scrollbar-width:none; align-items:center}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto; color:var(--ink2); text-decoration:none; font-size:0.8438rem; font-weight:600;
+  padding:7px 14px; border-radius:99px; white-space:nowrap; transition:.16s}
+nav a:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav a.here{background:var(--fill); color:var(--on-fill)}
+nav a.soon{opacity:.45; pointer-events:none}
+nav .sep{flex:0 0 auto; width:1px; height:20px; background:var(--line); margin:0 6px}
+
+/* ── 헤더 ────────────────────────────────── */
+.hero{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:radial-gradient(760px 340px at 8% -14%, var(--white) 0%, transparent 62%),
+             linear-gradient(180deg, var(--sky-bg2) 0%, var(--sky-bg) 100%)}
+.badge{display:inline-block; font-size:0.8125rem; font-weight:700; color:var(--blue-d);
+  background:var(--white); padding:7px 18px; border-radius:99px; margin:0 0 18px;
+  box-shadow:var(--sh); border:1px solid var(--line)}
+h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem); line-height:1.2;
+  margin:0 0 16px; color:var(--blue-d)}
+h1 em{font-style:normal; display:block; color:var(--ink)}
+.lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(132px,100%),1fr)); gap:11px; margin-top:30px}
+.fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
+  box-shadow:var(--sh)}
+.fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
+.fact span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:7px; font-weight:500}
+
+/* ── 섹션 ────────────────────────────────── */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{display:inline-block; font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:5px 15px; border-radius:99px; margin:0 0 13px}
+h2{font-family:var(--disp); font-weight:400; font-size:clamp(1.5625rem,4.3vw,2.25rem); line-height:1.3;
+  margin:0 0 10px; color:var(--ink)}
+.sub{color:var(--muted); font-size:0.9375rem; margin:0 0 26px; max-width:60ch; font-weight:500}
+h3{font-size:1.0625rem; font-weight:700; margin:0 0 11px}
+p{margin:0 0 12px}
+b,strong{font-weight:700; color:var(--ink)}
+
+.card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh)}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:13px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
+table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
+th,td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--tint); font-weight:700; font-size:0.8125rem; color:var(--blue-d); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
+
+.std{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--blue-l); border-radius:0 14px 14px 0; padding:15px 18px; box-shadow:var(--sh)}
+.std code{flex:0 0 auto; font-family:var(--mono); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:3px 9px; border-radius:7px}
+.std span{font-size:0.9062rem; line-height:1.65}
+
+/* ── 탭 ──────────────────────────────────── */
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{font-family:var(--sans); font-size:0.875rem; font-weight:700; padding:10px 19px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer;
+  transition:.16s; box-shadow:var(--sh)}
+.tab:hover{color:var(--blue); border-color:var(--blue-l)}
+.tab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.tab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.big{font-family:var(--disp); font-weight:400; font-size:clamp(1.625rem,4.4vw,2.625rem); line-height:1.35;
+  color:var(--ink); text-align:center; margin:14px 0}
+.def{background:var(--blue-xl); border-radius:16px; padding:16px 20px; margin:11px 0}
+.def b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
+.note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
+.note b{color:var(--warm)}
+/* 영상 카드 — index · unit3 와 같은 모양. 새 창에서 열립니다. */
+.video{display:flex; align-items:center; gap:22px; text-decoration:none; padding:22px 24px;
+  border-radius:var(--r); border:1px solid var(--line); background:var(--tint);
+  box-shadow:var(--sh); color:var(--ink); transition:.2s}
+.video:hover{border-color:var(--blue-l); box-shadow:var(--sh2); transform:translateY(-3px)}
+.video:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.video .play{flex:0 0 auto; width:58px; height:58px; border-radius:50%;
+  background:linear-gradient(140deg,var(--fill),var(--fill-d)); display:grid; place-items:center}
+.video .play svg{width:22px; height:22px; fill:#fff; margin-left:4px}
+.video b{display:block; font-family:var(--disp); font-weight:600; font-size:1.15rem; color:var(--ink)}
+.video .adtag{display:inline-block; font-size:0.7188rem; font-weight:700; letter-spacing:.04em;
+  color:#fff; background:var(--warm); border-radius:99px; padding:2px 9px; margin-right:7px;
+  vertical-align:2px}
+.video .adtag{background:var(--muted)}
+.video em{display:block; font-style:normal; font-size:0.9375rem; color:var(--ink2); margin-top:3px}
+.video i{display:block; font-style:normal; font-size:0.7812rem; color:var(--muted); margin-top:5px;
+  word-break:break-all}
+@media (max-width:560px){
+  .video{padding:18px; gap:14px}
+  .video .play{width:48px; height:48px}
+  .video b{font-size:1.05rem}
+}
+
+.ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9688rem; margin:14px 0}
+.ask b{color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+.chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
+.chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:10px; margin:10px 0}
+.four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
+.four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+figure{margin:13px 0; text-align:center}
+figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
+  border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
+figure svg{max-width:100%; height:auto}
+
+button.go{font-family:var(--sans); font-size:0.9062rem; font-weight:700; padding:11px 22px;
+  border-radius:99px; border:1px solid var(--fill); background:var(--fill); color:var(--on-fill);
+  cursor:pointer; transition:.16s}
+button.go:hover{background:var(--fill-d); border-color:var(--fill-d)}
+button.go:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.ghost{background:var(--white); color:var(--blue); border-color:var(--line)}
+button.ghost:hover{background:var(--blue-xl); color:var(--blue-d)}
+button[disabled]{opacity:.3; cursor:default}
+button[disabled]:hover{background:var(--white); color:var(--blue); border-color:var(--line)}
+
+
+/* ── 용어 ────────────────────────────────── */
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:13px}
+.term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
+.term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
+.term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
+
+/* ── 확인 문제 ───────────────────────────── */
+details{border:1px solid var(--line); border-radius:16px; background:var(--white);
+  margin-bottom:10px; box-shadow:var(--sh); overflow:hidden}
+summary{padding:16px 20px; cursor:pointer; font-weight:700; font-size:0.9688rem; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"답"; font-family:var(--disp); color:var(--blue); font-size:0.9375rem; flex:0 0 auto}
+details[open] summary{color:var(--blue)}
+details[open] summary::after{content:"닫기"}
+summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
+
+/* ── 수업 활동 ─────────────────────────── */
+.actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
+.atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  font-family:var(--sans); font-size:0.9375rem; font-weight:800; text-align:left;
+  padding:11px 18px; border-radius:15px; border:2px solid var(--line);
+  background:var(--white); color:var(--ink2); cursor:pointer; transition:.15s}
+.atab i{font-style:normal; font-size:0.7188rem; font-weight:700; letter-spacing:.04em; color:var(--muted)}
+.atab:hover{border-color:var(--blue-l); background:var(--tint)}
+.atab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill); box-shadow:var(--sh)}
+.atab[aria-selected="true"] i{color:var(--on-fill); opacity:.8}
+.atab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.actbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px; box-shadow:var(--sh)}
+.actbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.5rem; color:var(--blue-d); margin:0 0 8px}
+.actbox .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.actbox .desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px}
+.mini-h{font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d); margin:0 0 10px}
+.scorepill{font-family:var(--sans); font-size:0.875rem; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:8px 16px}
+
+.step-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin:0 0 14px}
+.rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:4px 13px}
+.frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+/* min-width:0 이 없으면 안에 든 글자 길이만큼 칸이 버텨서
+   좁은 화면에서 줄 전체가 화면 밖으로 밀려난다. */
+.fld{flex:0 1 220px; display:block; min-width:0}
+.fld.grow{flex:1 1 260px}
+.fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:6px}
+.fld input, .fld textarea, .fld select{width:100%; max-width:100%; box-sizing:border-box;
+  font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+  color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:11px 14px; resize:vertical}
+.fld select{padding-right:10px}
+.fld input:focus, .fld textarea:focus, .fld select:focus{outline:none;
+  border-color:var(--blue); background:var(--white)}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
+
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:0.9375rem;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
+.rubric{display:grid; gap:9px}
+.rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
+.rubric .rq{flex:1 1 260px; font-size:0.9062rem; color:var(--ink2)}
+
+.sendmsg{flex:1 1 200px; font-size:0.875rem; font-weight:700}
+.sendmsg.wait{color:var(--muted)}
+.sendmsg.ok{color:var(--good)}
+.sendmsg.bad{color:#A62727}
+@media (prefers-color-scheme:dark){.sendmsg.bad{color:#FF9B9B}}
+:root[data-theme="dark"] .sendmsg.bad{color:#FF9B9B}
+:root[data-theme="light"] .sendmsg.bad{color:#A62727}
+
+.simctl{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
+.pick button{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:7px 15px; border-radius:99px;
+  border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
+.pick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.pick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mini{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 17px; border-radius:99px;
+  border:1px solid var(--fill); background:var(--fill); color:var(--on-fill); cursor:pointer; transition:.15s}
+.mini:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.mini.gh{background:var(--white); color:var(--blue); border-color:var(--line)}
+.mini.gh:hover{background:var(--blue-xl); color:var(--blue-d)}
+.mini:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.mini[disabled]{opacity:.35; cursor:default}
+
+/* ── 코드 ───────────────────────────────── */
+.codebox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:18px}
+.codetop{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:13px 20px; background:var(--tint); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.codetop b{font-size:0.9375rem; color:var(--blue-d)}
+.codetop span{font-family:var(--mono); font-size:0.75rem; color:var(--muted)}
+pre{margin:0; padding:20px; overflow-x:auto; background:var(--white);
+  font-family:var(--mono); font-size:0.7812rem; line-height:1.7; color:var(--ink)}
+pre .c{color:var(--muted)}
+pre .k{color:var(--blue-d); font-weight:700}
+pre .s{color:var(--good)}
+
+/* ── 용어 사전 ─────────────────────────── */
+.tgroup{font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d);
+  margin:26px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line)}
+.tgroup:first-of-type{margin-top:0}
+.term em.ez{display:block; font-style:normal; font-size:0.8438rem; line-height:1.6;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:11px;
+  padding:9px 12px; margin:0 0 9px}
+.term em.ez::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.7188rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:2px}
+.term i{display:block; font-style:normal; font-size:0.8438rem; color:var(--muted);
+  line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
+
+/* ── 차시별 수업 흐름 ─────────────────── */
+.flowlist{display:grid; gap:12px}
+.fcard{display:flex; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px; box-shadow:var(--sh)}
+.fnum{flex:none; width:64px; text-align:center; font-family:var(--disp); font-weight:700;
+  font-size:1.625rem; line-height:1.1; color:var(--on-fill); background:var(--fill);
+  border-radius:14px; padding:12px 4px; align-self:flex-start}
+.fnum>span{display:block; font-family:var(--sans); font-size:0.6875rem; font-weight:700; opacity:.85}
+.fbody{flex:1 1 auto; min-width:0}
+.fbody>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d)}
+.fbody>i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:2px}
+.fdays{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0}
+.fdays span{display:inline-flex; align-items:center; gap:6px; font-size:0.8125rem; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  font-variant-numeric:tabular-nums}
+.fdays em{font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+.fgo{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px}
+.fgo a{font-size:0.8438rem; font-weight:700; color:var(--blue-d); background:var(--blue-xl);
+  border:1px solid var(--blue-l); border-radius:99px; padding:5px 13px; text-decoration:none;
+  transition:.15s}
+.fgo a:hover{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.ftip{font-size:0.8438rem; color:var(--ink2); line-height:1.6; margin:0}
+.ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+/* ── 데이터 탐구: 차시별 AI 신호등 ──────── */
+.lt{display:inline-flex; align-items:center; gap:6px; font-size:0.7813rem; font-weight:800;
+  border-radius:99px; padding:3px 11px; margin:0 4px 4px 0; vertical-align:middle}
+.lt::before{content:''; width:9px; height:9px; border-radius:50%; background:currentColor; flex:none}
+.lt.r{color:var(--cut); background:var(--cut-bg)}
+.lt.y{color:var(--warm); background:var(--warm-bg)}
+.lt.g{color:var(--good); background:var(--good-bg)}
+#explore .fbody ul{margin:8px 0 0; padding-left:20px; font-size:0.9375rem; color:var(--ink2)}
+#explore .fbody li{margin:3px 0}
+
+/* ── 차시별 카드: 우리 반 · 오늘 표시 ──────── */
+.flowpick{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:0 0 14px}
+.flowpick>b{font-size:0.9375rem; color:var(--ink2)}
+.fcard .flt{margin-top:6px}
+.fgoal{margin:8px 0 0; font-size:0.9375rem; color:var(--ink); line-height:1.6}
+.fgoal::before{content:'오늘의 목표 '; font-weight:800; color:var(--blue-d)}
+.fout{margin:0 0 9px; font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.fout::before{content:'낼 것 '; font-weight:800; color:var(--good)}
+.fdays span.me{background:var(--fill); border-color:var(--fill); color:var(--on-fill); font-weight:700}
+.fdays span.me em{color:var(--on-fill)}
+.fcard.now{border:2px solid var(--fill); box-shadow:var(--sh2)}
+.fnowtag{display:inline-block; margin-left:8px; font-family:var(--sans); font-size:0.75rem; font-weight:800;
+  color:var(--warm-bg); background:var(--warm); border-radius:99px; padding:2px 10px; vertical-align:middle}
+.fcard.past{opacity:.72}
+
+/* ── 헷갈리는 것 O/X ──────────────────── */
+.oxwrap{display:grid; gap:11px}
+.oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
+  transition:.15s}
+.oxc.right{border-color:var(--good); background:var(--good-bg)}
+.oxc.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxq{display:flex; gap:11px; font-size:0.9688rem; line-height:1.6; color:var(--ink); margin:0 0 11px}
+.oxn{flex:none; width:24px; height:24px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.oxb{display:flex; gap:9px}
+.oxb button{width:58px; height:42px; font-family:var(--disp); font-weight:700; font-size:1.25rem;
+  border-radius:12px; border:2px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.oxb button:hover:not([disabled]){border-color:var(--blue); color:var(--blue-d)}
+.oxb button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oxb button[disabled]{cursor:default}
+.oxb button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.oxw{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); font-size:0.9062rem;
+  line-height:1.7; color:var(--ink2)}
+.oxw>b{display:block; font-family:var(--disp); font-weight:700; font-size:1rem; margin-bottom:4px}
+.oxc.right .oxw>b{color:var(--good)}
+.oxc.wrong .oxw>b{color:var(--warm)}
+
+/* ── 확인 문제 ────────────────────────── */
+.extag{display:inline-block; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:4px 12px; margin-bottom:11px}
+.onum{display:inline-block; width:20px; font-weight:800; color:var(--blue-d)}
+.mopts button.ok .onum, .mopts button.no .onum{color:inherit}
+#exOpts{grid-template-columns:1fr}
+#exOpts button{text-align:left}
+
+/* ── 다음 단원 다리 ───────────────────── */
+.bridge{display:grid; gap:14px}
+.br{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:20px 24px; box-shadow:var(--sh)}
+.br:nth-child(2){border-left-color:var(--warm)}
+.br:nth-child(3){border-left-color:var(--good)}
+.brtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px}
+.br:nth-child(2) .brtag{color:var(--warm); background:var(--warm-bg)}
+.br:nth-child(3) .brtag{color:var(--good); background:var(--good-bg)}
+.br>h4{font-family:var(--disp); font-weight:700; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:10px 0 8px; line-height:1.45}
+.br>p{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 10px}
+.br ul{margin:0 0 10px; padding-left:20px; font-size:0.9062rem; line-height:1.85; color:var(--ink2)}
+.brtool{font-size:0.8438rem; color:var(--muted); margin:0; padding-top:9px;
+  border-top:1px dashed var(--line)}
+
+/* ── 접었다 펴는 구역 ──────────────────────── */
+.fold{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden}
+.fold>summary{list-style:none; cursor:pointer; padding:22px 26px; display:block; position:relative}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'▾'; position:absolute; right:26px; top:50%; transform:translateY(-50%);
+  font-size:1.375rem; color:var(--blue); transition:transform .2s}
+.fold[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+.fold>summary:hover{background:var(--tint)}
+.fold>summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+.feye{display:block; font-size:0.7812rem; font-weight:800; letter-spacing:.06em; color:var(--blue)}
+.fttl{display:block; font-family:var(--disp); font-weight:700;
+  font-size:clamp(1.375rem,3.6vw,1.875rem); line-height:1.3; color:var(--ink); margin:3px 0 5px;
+  padding-right:34px}
+.fsub{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.65; padding-right:34px}
+.foldbody{padding:0 26px 26px; border-top:1px solid var(--line); margin-top:4px; padding-top:22px}
+
+.sign{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:34px}
+.bun-gif{width:clamp(120px,26vw,164px); height:auto; display:block; border-radius:18px}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-family:var(--disp); font-size:1.0625rem;
+  color:var(--blue-d); background:var(--white); border:1px solid var(--line); border-radius:99px;
+  padding:8px 20px; box-shadow:var(--sh); letter-spacing:.01em}
+.ptp span{font-size:1.1875rem; line-height:1}
+footer{padding:42px 0 70px; color:var(--muted); font-size:0.8438rem; border-top:1px solid var(--line)}
+footer a{font-weight:700}
+/* ══════════════════════════════════════════════════════════════
+   여기부터는 unit2.html 에서 가져온 체험 도구 모양입니다(Ⅳ단원에서도 같이 씁니다).
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 소단원 지도 ─────────────────────────── */
+.umap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:12px}
+.ucard{display:block; text-align:left; text-decoration:none; background:var(--white);
+  border:1px solid var(--line); border-left:5px solid var(--blue-l); border-radius:0 16px 16px 0;
+  padding:16px 18px; box-shadow:var(--sh); transition:.16s; color:var(--ink); cursor:pointer;
+  font-family:var(--sans)}
+.ucard:hover{border-left-color:var(--blue); box-shadow:var(--sh2); transform:translateY(-2px)}
+.ucard:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.ucard>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+.ucard>i{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; letter-spacing:.04em;
+  color:var(--muted); margin-bottom:4px}
+.ucard>span{display:block; font-size:0.875rem; color:var(--ink2); line-height:1.6; margin-top:6px}
+.ucard>em{display:inline-block; font-style:normal; font-size:0.75rem; font-weight:700;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:3px 10px; margin-top:9px}
+
+/* ── 체험 도구 상자 ───────────────────────── */
+.tool{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh); margin-bottom:18px}
+.tool>h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.4375rem; color:var(--blue-d); margin:0 0 7px}
+.tool .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.tool>.desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px; line-height:1.7}
+.toolhead{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
+  margin:22px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
+.toolhead:first-of-type{margin-top:0}
+.statline{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin:14px 0}
+.statline .st{font-size:0.8125rem; font-weight:700; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:99px; padding:5px 13px; font-variant-numeric:tabular-nums}
+.statline .st b{color:var(--blue-d)}
+.statline .st.good{background:var(--good-bg); border-color:var(--good); color:var(--good)}
+.statline .st.good b{color:var(--good)}
+
+/* ── ① 전처리 체험 : 데이터 표 ─────────────── */
+.dwrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:16px; background:var(--white); box-shadow:var(--sh); margin-bottom:14px}
+table.dtbl{border-collapse:collapse; width:100%; min-width:540px; font-size:0.8438rem;
+  font-variant-numeric:tabular-nums}
+table.dtbl th{background:var(--tint); font-family:var(--sans); font-weight:700; font-size:0.75rem;
+  color:var(--blue-d); padding:9px 10px; text-align:center; white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+table.dtbl td{padding:8px 10px; text-align:center; border-bottom:1px solid var(--line);
+  color:var(--ink2); transition:background .3s, color .3s}
+table.dtbl tr:last-child td{border-bottom:none}
+table.dtbl th.src, table.dtbl td.src{font-size:0.7188rem; color:var(--muted)}
+table.dtbl td.mark{background:var(--warm-bg); color:var(--warm); font-weight:800}
+table.dtbl td.miss{background:var(--cut-bg); color:var(--cut); font-weight:800}
+table.dtbl td.fixed{background:var(--good-bg); color:var(--good); font-weight:800}
+table.dtbl tr.dead td{opacity:.32; text-decoration:line-through}
+table.dtbl col.gone, table.dtbl th.gone, table.dtbl td.gone{display:none}
+.dlegend{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:14px; font-size:0.7812rem}
+.dlegend span{display:inline-flex; align-items:center; gap:6px; color:var(--ink2)}
+.dlegend i{width:13px; height:13px; border-radius:4px; display:block; border:1px solid var(--line)}
+.dlegend i.m{background:var(--warm-bg); border-color:var(--warm)}
+.dlegend i.n{background:var(--cut-bg); border-color:var(--cut)}
+.dlegend i.f{background:var(--good-bg); border-color:var(--good)}
+
+/* 단계 단추 */
+.stepbtns{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(168px,100%),1fr));
+  gap:9px; margin-bottom:14px}
+.sbtn{display:block; text-align:left; font-family:var(--sans); font-size:0.875rem; font-weight:700;
+  line-height:1.45; background:var(--tint); border:2px solid var(--line); border-radius:14px;
+  padding:12px 14px; color:var(--ink); cursor:pointer; transition:.15s}
+.sbtn:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.sbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.sbtn>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.7188rem;
+  color:var(--warm); margin-top:4px; word-break:break-all}
+.sbtn.done{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.sbtn.done>i{color:var(--good)}
+.sbtn.done::after{content:' ✓'; font-weight:900}
+.sbtn[disabled]{cursor:default}
+.runlog{background:var(--white); border:1px solid var(--line); border-radius:16px;
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:14px}
+.runlog>b{display:block; padding:11px 18px; background:var(--tint);
+  border-bottom:1px solid var(--line); font-size:0.875rem; color:var(--blue-d)}
+.runlog pre{max-height:15rem; overflow:auto; font-size:0.75rem}
+.runlog pre .n{color:var(--muted); user-select:none}
+.saybox{background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:16px;
+  padding:14px 18px; font-size:0.9062rem; line-height:1.7; color:var(--ink2); margin-bottom:14px}
+.saybox b{color:var(--blue-d)}
+.saybox.warn{background:var(--warm-bg); border-color:var(--warm)}
+.saybox.warn b{color:var(--warm)}
+.saybox.done{background:var(--good-bg); border-color:var(--good)}
+.saybox.done b{color:var(--good)}
+
+/* 상관계수 표 */
+.corr td.hot{background:var(--blue-xl); color:var(--blue-d); font-weight:800}
+.corr td.self{color:var(--muted)}
+
+/* ── ② 유형 분류 놀이 ─────────────────────── */
+.kcards{display:grid; gap:10px; margin-bottom:16px}
+.kcard{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;
+  background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:14px 16px;
+  transition:.15s}
+.kcard.right{border-color:var(--good); background:var(--good-bg)}
+.kcard.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.kcard>.kq{flex:1 1 260px; font-size:0.9062rem; line-height:1.65; color:var(--ink)}
+.kcard>.kq>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9375rem;
+  color:var(--blue-d); margin-bottom:3px}
+.kpick{display:inline-flex; flex:0 0 auto; background:var(--white); border:1px solid var(--line);
+  border-radius:99px; padding:3px}
+.kpick button{font-family:var(--sans); font-size:0.8125rem; font-weight:700; padding:7px 13px;
+  border-radius:99px; border:none; background:transparent; color:var(--ink2); cursor:pointer;
+  transition:.15s; white-space:nowrap}
+.kpick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.kpick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.kwhy{flex:1 1 100%; margin-top:2px; padding-top:10px; border-top:1px dashed var(--line);
+  font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.kwhy>b{font-family:var(--disp); font-weight:700}
+.kcard.right .kwhy>b{color:var(--good)}
+.kcard.wrong .kwhy>b{color:var(--warm)}
+
+/* ── ③ 알고리즘 그림판 ────────────────────── */
+.plot{display:block; width:100%; height:auto; background:var(--white);
+  border:1px solid var(--line); border-radius:16px; box-shadow:var(--sh); touch-action:none}
+.axl{font-family:var(--sans); font-size:11px; font-weight:700; fill:var(--muted)}
+.axn{font-family:var(--mono); font-size:10px; fill:var(--muted); text-anchor:middle}
+.grid{stroke:var(--line); stroke-width:1}
+.axis{stroke:var(--muted); stroke-width:1.5}
+.pt{stroke:var(--white); stroke-width:2}
+.pt.cat{fill:#C8362F}
+.pt.dog{fill:#2F6FEC}
+.ptlab{font-family:var(--sans); font-size:11px; font-weight:800; fill:var(--ink); text-anchor:middle}
+.newpt{fill:var(--good); stroke:var(--white); stroke-width:2.5}
+.ring{fill:none; stroke:var(--good); stroke-width:2; stroke-dasharray:5 5; opacity:.85}
+.lnk{stroke:var(--good); stroke-width:2; opacity:.65}
+.fitline{stroke:var(--blue); stroke-width:3; stroke-linecap:round}
+.errline{stroke:var(--cut); stroke-width:1.6; opacity:.7}
+.bestline{stroke:var(--good); stroke-width:2.5; stroke-dasharray:7 5; opacity:.9}
+.sliderow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));
+  gap:14px; margin:14px 0}
+.sl{display:block}
+.sl>span{display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+  font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--blue-d); margin-bottom:5px}
+.sl>span>b{font-family:var(--mono); font-weight:700; font-size:0.875rem; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.sl input[type=range]{width:100%; accent-color:var(--blue); height:26px; cursor:pointer}
+.sl input[type=range]:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.keyout{font-family:var(--pop); font-weight:800; font-size:clamp(1.0625rem,2.6vw,1.375rem);
+  line-height:1.5; text-align:center; color:var(--ink); background:var(--blue-xl);
+  border-radius:16px; padding:16px 18px; margin:14px 0}
+.keyout.good{background:var(--good-bg); color:var(--good)}
+.keyout.bad{background:var(--warm-bg); color:var(--warm)}
+.keyout small{display:block; font-family:var(--sans); font-weight:600; font-size:0.875rem;
+  color:var(--ink2); margin-top:7px}
+
+/* ── ④ 퍼셉트론 ───────────────────────────── */
+.inrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:10px;
+  margin-bottom:14px}
+.inbtn{display:block; text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:700;
+  background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:12px 15px;
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.inbtn:hover{border-color:var(--blue-l)}
+.inbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.inbtn>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.75rem;
+  color:var(--muted); margin-top:3px}
+.inbtn[aria-pressed="true"]{border-color:var(--fill); background:var(--fill); color:var(--on-fill)}
+.inbtn[aria-pressed="true"]>i{color:var(--on-fill); opacity:.85}
+.calc{font-family:var(--mono); font-size:0.8125rem; line-height:2; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:15px 18px;
+  overflow-x:auto; margin-bottom:14px}
+.calc b{color:var(--blue-d)}
+.calc em{font-style:normal; color:var(--warm); font-weight:700}
+.tt{border-collapse:collapse; width:100%; min-width:360px; font-size:0.8438rem;
+  font-variant-numeric:tabular-nums}
+.tt th{background:var(--tint); font-family:var(--sans); font-weight:700; font-size:0.75rem;
+  color:var(--blue-d); padding:9px 10px; text-align:center; border-bottom:1px solid var(--line)}
+.tt td{padding:9px 10px; text-align:center; border-bottom:1px solid var(--line); color:var(--ink2)}
+.tt tr:last-child td{border-bottom:none}
+.tt td.ok{background:var(--good-bg); color:var(--good); font-weight:800}
+.tt td.no{background:var(--warm-bg); color:var(--warm); font-weight:800}
+.nnsvg{display:block; width:100%; height:auto; max-width:560px; margin:0 auto 14px}
+.nl{stroke:var(--blue-l); stroke-width:2}
+.nl.hot{stroke:var(--fill); stroke-width:3.5}
+.nl.cold{stroke:var(--line); stroke-width:1.2}
+.nn{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.nn.on{fill:var(--fill); stroke:var(--fill)}
+.nt{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.nt.on{fill:var(--on-fill)}
+.ncap{font-family:var(--sans); font-size:11px; font-weight:700; fill:var(--muted); text-anchor:middle}
+
+/* ── 제출 칸 ─────────────────────────────── */
+.gather{display:grid; gap:9px; margin-bottom:16px}
+.grow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--tint);
+  border:1px solid var(--line); border-radius:13px; padding:11px 15px; font-size:0.9062rem}
+.grow2>b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d);
+  flex:0 0 auto; min-width:150px}
+.grow2>span{color:var(--ink2); font-variant-numeric:tabular-nums}
+.grow2.miss{background:var(--warm-bg); border-color:var(--warm)}
+.grow2.miss>span{color:var(--warm); font-weight:700}
+.grow2.full{background:var(--good-bg); border-color:var(--good)}
+.grow2.full>span{color:var(--good); font-weight:700}
+.report{max-height:19rem; overflow:auto; white-space:pre-wrap; font-family:var(--mono);
+  font-size:0.75rem; line-height:1.75; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:14px; padding:15px 17px; margin-bottom:14px}
+
+/* ── 코랩 실습 칸 ─────────────────────────── */
+.labs{display:grid; gap:14px}
+.lab{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:22px 24px; box-shadow:var(--sh)}
+.lab:nth-child(2){border-left-color:var(--warm)}
+.lab:nth-child(3){border-left-color:var(--good)}
+.labtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px; margin:0}
+.lab:nth-child(2) .labtag{color:var(--warm); background:var(--warm-bg)}
+.lab:nth-child(3) .labtag{color:var(--good); background:var(--good-bg)}
+.lab>h3{font-family:var(--disp); font-weight:700; font-size:clamp(1.125rem,2.8vw,1.375rem);
+  color:var(--ink); margin:11px 0 8px; line-height:1.4}
+.labdesc{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 12px}
+.labdo{margin:0 0 12px; padding-left:20px; font-size:0.9062rem; line-height:1.8; color:var(--ink2)}
+.labdo code{font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d);
+  background:var(--tint); border-radius:6px; padding:1px 6px}
+.labdata{font-size:0.8438rem; color:var(--muted); margin:0 0 14px; padding-top:10px;
+  border-top:1px dashed var(--line)}
+.labdata code{font-family:var(--mono); font-size:0.7812rem; color:var(--ink2)}
+.labgo{display:flex; gap:9px; flex-wrap:wrap}
+a.mini{display:inline-block; text-decoration:none; line-height:1.4}
+a.mini:hover{color:var(--on-fill)}
+a.mini.gh:hover{color:var(--blue-d)}
+
+/* ══════════════════════════════════════════════════════════════
+   AI 수업 모형(연구 사업) 공통 — unit2 «데이터 탐구» · unit4 · teach 가 같이 씁니다.
+   신호등은 연구진 확정 규칙(2026-10)을 따릅니다:
+   초록 = 자율적 사용 · 노랑 = 유도적 사용 · 표시 없음 = AI 없이(사용 제한) ·
+   빨강(통제적 사용)은 이 수업에서 쓰지 않습니다.
+   ══════════════════════════════════════════════════════════════ */
+.lt.n{color:var(--muted); background:var(--tint); border:1px dashed var(--line)}
+.lt.n::before{background:transparent; border:2px solid currentColor; width:7px; height:7px}
+
+/* 모형 다섯 단계 띠 */
+.stages{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px; margin:6px 0 18px}
+.stg{position:relative; background:var(--white); border:1px solid var(--line); border-radius:16px;
+  padding:14px 15px 13px; box-shadow:var(--sh); border-top:5px solid var(--line)}
+.stg.g{border-top-color:var(--good)} .stg.y{border-top-color:var(--warm)} .stg.n{border-top-color:var(--blue-l)}
+.stg>i{display:block; font-style:normal; font-family:var(--disp); font-weight:700; font-size:1.5rem;
+  line-height:1; color:var(--blue-d)}
+.stg>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9688rem; line-height:1.4;
+  color:var(--ink); margin:6px 0 7px}
+.stg>span:not(.lt){display:block; font-size:0.8125rem; color:var(--ink2); line-height:1.55}
+.stg .lt{margin:0 4px 7px 0; line-height:1.35}
+
+/* 신호등 설명 네 칸 */
+.sigs{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:11px}
+.sigc{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:16px 18px;
+  box-shadow:var(--sh); border-left:6px solid var(--line)}
+.sigc.g{border-left-color:var(--good)} .sigc.y{border-left-color:var(--warm)}
+.sigc.n{border-left-color:var(--blue-l)} .sigc.r{border-left-color:var(--cut); opacity:.92}
+.sigc>b{display:flex; align-items:center; gap:9px; font-family:var(--disp); font-weight:700; font-size:1.0625rem}
+.sigc.g>b{color:var(--good)} .sigc.y>b{color:var(--warm)} .sigc.n>b{color:var(--blue-d)} .sigc.r>b{color:var(--cut)}
+.sigc>b::before{content:''; width:15px; height:15px; border-radius:50%; background:currentColor; flex:none}
+.sigc.n>b::before{background:transparent; border:3px solid currentColor; width:11px; height:11px}
+.sigc p{margin:7px 0 0; font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.sigc em{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:7px;
+  padding-top:7px; border-top:1px dashed var(--line)}
+
+/* 차시 안 흐름(분 단위) */
+.tline{display:grid; gap:7px; margin:12px 0 4px}
+.tl{display:grid; grid-template-columns:58px 1fr; gap:12px; align-items:start;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:10px 13px}
+.tl>em{font-style:normal; font-family:var(--disp); font-weight:700; font-size:1rem; color:var(--blue-d);
+  text-align:center; background:var(--white); border:1px solid var(--line); border-radius:10px; padding:5px 0;
+  font-variant-numeric:tabular-nums}
+.tl>div{min-width:0; font-size:0.9062rem; color:var(--ink2); line-height:1.6}
+.tl>div>b{color:var(--ink)}
+.tl>div .lt{margin:0 0 0 4px; vertical-align:1px}
+.tl.g{border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.tl.y{border-color:color-mix(in srgb,var(--warm) 45%,var(--line))}
+.tl small{display:block; font-size:0.8125rem; color:var(--muted); margin-top:3px}
+
+/* 스스로 점검(체크하면 이 노트북에만 저장) */
+.chk{display:grid; gap:7px; margin:10px 0}
+.chk label{display:flex; gap:10px; align-items:flex-start; background:var(--tint); border:1px solid var(--line);
+  border-radius:12px; padding:9px 13px; font-size:0.9062rem; line-height:1.55; color:var(--ink2); cursor:pointer}
+.chk input{flex:none; width:18px; height:18px; margin:2px 0 0; accent-color:var(--good)}
+.chk label:has(input:checked){background:var(--good-bg); border-color:var(--good); color:var(--ink)}
+.chk .grp{display:inline-block; min-width:62px; font-weight:800; color:var(--blue-d); font-size:0.8125rem}
+.chkstat{font-size:0.8438rem; font-weight:700; color:var(--muted)}
+.chkstat.ok{color:var(--good)}
+
+/* 활동지 모양 상자(무엇을 쓰는지) */
+.ws{background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--sh); overflow:hidden; margin:12px 0}
+.ws>b{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:11px 16px; background:var(--tint);
+  border-bottom:1px solid var(--line); font-size:0.9062rem; color:var(--blue-d)}
+.ws>b i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill);
+  border-radius:99px; padding:2px 10px}
+.ws>div{padding:13px 16px; font-size:0.9062rem; color:var(--ink2); line-height:1.7}
+.ws ol, .ws ul{margin:0; padding-left:20px}
+.ws .eg{display:block; font-size:0.8438rem; color:var(--muted); margin-top:2px}
+.ws table{min-width:0; font-size:0.8438rem}
+.ws th, .ws td{padding:8px 10px}
+
+/* 말 틀(복사해 쓰는 문장) */
+.frame{font-family:var(--sans); background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px;
+  padding:12px 16px; font-size:0.9375rem; color:var(--ink); line-height:1.75; margin:10px 0}
+.frame>b:first-child{display:block; font-size:0.75rem; font-weight:800; letter-spacing:.04em; color:var(--blue-d); margin-bottom:2px}
+.blank{display:inline-block; min-width:4.5em; border-bottom:2px solid var(--blue-l); margin:0 3px}
+details.card>summary::after{content:'펼치기'; font-family:var(--sans); font-size:0.8125rem}
+details.card[open]>summary::after{content:'접기'}
+[id]{scroll-margin-top:64px}
+.flowlist{grid-template-columns:minmax(0,1fr)}
+.fcard{min-width:0}
+
+/* 교사 메모 상자(학생도 보지만 교사용 안내) */
+.tnote{font-size:0.8438rem; color:var(--ink2); background:var(--warm-bg); border-radius:12px; padding:10px 14px; margin:10px 0 0; line-height:1.6}
+.tnote::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+.stag{display:inline-block; font-size:0.7188rem; font-weight:800; color:var(--on-fill); background:var(--warm);
+  border-radius:99px; padding:2px 9px; margin-left:6px; vertical-align:1px}
+
+/* ══════════════════════════════════════════════════════════════
+   가독성 개선 (2026-10) — unit2 · unit4 · plan 이 같이 씁니다.
+   글자 한 단계 크게 · 본문 색 진하게 · 여백 넉넉히 · 맨 위 바로 가기 목차
+   ══════════════════════════════════════════════════════════════ */
+html{font-size:clamp(16px, 12.6px + 0.34vw, 21px)}
+@media (prefers-color-scheme:light){:root{--ink2:#2B456B; --muted:#4A6384}}
+:root[data-theme="light"]{--ink2:#2B456B; --muted:#4A6384}
+body{line-height:1.78; letter-spacing:-.003em}
+.wrap{max-width:min(94vw,64rem)}
+section{padding:64px 0}
+h1{letter-spacing:-.02em}
+h2{font-weight:700; font-size:clamp(1.75rem,4.4vw,2.5rem); letter-spacing:-.015em; line-height:1.28}
+.eyebrow{font-size:0.8125rem; padding:6px 16px}
+.sub{font-size:1.0312rem; color:var(--ink2); max-width:62ch; line-height:1.8}
+.note,.ask{font-size:1rem; line-height:1.78; padding:17px 22px}
+.card,.tool{padding:28px; border-radius:22px}
+.tool>h3{font-weight:700}
+.std span{font-size:0.9688rem}
+nav .row{padding:10px 0; gap:5px}
+nav a{font-size:0.9062rem; padding:8px 15px}
+nav a.plan{background:var(--good-bg); color:var(--good); font-weight:800}
+nav a.plan:hover{background:var(--good); color:#fff}
+.hero{padding:52px 0 40px}
+
+/* 맨 위 «이 쪽에서 바로 가기» */
+.toc{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr)); gap:11px; margin-top:28px}
+.toc a{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-radius:18px; padding:14px 16px; text-decoration:none; color:var(--ink); box-shadow:var(--sh); transition:.16s}
+.toc a:hover{transform:translateY(-2px); border-color:var(--blue-l); box-shadow:var(--sh2)}
+.toc a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.toc .ic{flex:none; width:42px; height:42px; border-radius:13px; background:var(--blue-xl); display:grid; place-items:center; font-size:1.3rem}
+.toc b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d); line-height:1.35}
+.toc span{display:block; font-size:0.8438rem; color:var(--ink2); line-height:1.5; margin-top:3px}
+.toc em{display:inline-block; font-style:normal; font-size:0.6875rem; font-weight:800; color:var(--good);
+  background:var(--good-bg); border-radius:99px; padding:1px 8px; margin-top:6px}
+.tochead{font-family:var(--disp); font-weight:700; font-size:0.9375rem; color:var(--muted); margin:30px 0 -14px}
+
+/* 수업 계획으로 가는 띠 */
+.planbar{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 18px;
+  background:linear-gradient(135deg,var(--fill),var(--fill-d)); color:var(--on-fill); border-radius:20px;
+  padding:16px 22px; box-shadow:var(--sh2); margin-top:22px}
+.planbar>span{font-size:1rem; line-height:1.5}
+.planbar>span b{display:block; color:var(--on-fill); font-family:var(--disp); font-size:1.1875rem}
+.planbar a{flex:none; background:#fff; color:#1B49B8; font-weight:800; border-radius:99px; padding:11px 20px;
+  text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.planbar a:hover{background:#EAF3FF}
+
+/* 맨 위로 */
+.totop{position:fixed; right:18px; bottom:18px; z-index:60; width:48px; height:48px; border-radius:50%;
+  border:none; background:var(--fill); color:var(--on-fill); font-size:1.25rem; font-weight:900; cursor:pointer;
+  box-shadow:var(--sh2); opacity:0; pointer-events:none; transform:translateY(8px); transition:.2s}
+.totop.on{opacity:1; pointer-events:auto; transform:none}
+.totop:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
+.hint{font-size:0.875rem; color:var(--ink2); line-height:1.6; margin:6px 0 0}
+.hint::before{content:'참고 '; font-weight:800; color:var(--blue-d)}
+@media (max-width:560px){ section{padding:44px 0} .card,.tool{padding:20px} .planbar a{width:100%; text-align:center} }
+
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+@media (max-width:560px){
+  .hero{padding:38px 0 34px} section{padding:40px 0}
+  .tool{padding:18px} .grow2>b{min-width:0; flex:1 1 100%}
+}
+
+/* ══════════════════════════════════════════════════════════════
+   여기부터는 Ⅳ단원 쪽에만 있는 것들입니다.
+   ══════════════════════════════════════════════════════════════ */
+/* SDGs 17개 */
+.sdgs{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(132px,100%),1fr)); gap:8px; margin:6px 0 14px}
+.sdg{position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:96px;
+  text-align:left; font-family:var(--sans); border:none; border-radius:14px; padding:11px 12px; color:#fff;
+  cursor:pointer; box-shadow:var(--sh); transition:transform .15s, box-shadow .15s; background:var(--c);
+  text-shadow:0 1px 2px rgba(0,0,0,.38)}
+.sdg:hover{transform:translateY(-2px); box-shadow:var(--sh2)}
+.sdg:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
+.sdg>i{font-style:normal; font-family:var(--disp); font-weight:700; font-size:1.625rem; line-height:1}
+.sdg>b{font-size:0.8125rem; font-weight:700; line-height:1.4; color:#fff}
+.sdg>em{position:absolute; top:9px; right:10px; font-style:normal; font-size:0.6875rem; font-weight:800;
+  background:rgba(255,255,255,.92); color:#173252; border-radius:99px; padding:1px 7px}
+.sdg[aria-pressed="true"]{outline:4px solid var(--ink); outline-offset:2px}
+.sdgout{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--c,var(--blue));
+  border-radius:0 16px 16px 0; padding:16px 20px; box-shadow:var(--sh); font-size:0.9375rem; color:var(--ink2)}
+.sdgout>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--ink); margin-bottom:6px}
+.sdgout p{margin:5px 0}
+.p5{display:inline-block; font-size:0.75rem; font-weight:800; color:var(--blue-d); background:var(--blue-xl);
+  border-radius:99px; padding:2px 10px; margin-left:6px; vertical-align:2px}
+
+/* 오렌지3 흐름 */
+.oflow{display:flex; flex-wrap:wrap; align-items:stretch; gap:6px; margin:8px 0 12px}
+.onode{flex:1 1 120px; display:flex; flex-direction:column; gap:3px; text-align:left; font-family:var(--sans);
+  background:var(--white); border:2px solid var(--line); border-radius:14px; padding:10px 12px; cursor:pointer;
+  color:var(--ink); transition:.15s; box-shadow:var(--sh)}
+.onode>i{font-style:normal; font-size:0.6875rem; font-weight:800; color:var(--warm); letter-spacing:.03em}
+.onode>b{font-family:var(--mono); font-size:0.875rem; color:var(--blue-d)}
+.onode>span{font-size:0.7812rem; color:var(--muted); line-height:1.45}
+.onode:hover{border-color:var(--blue-l)}
+.onode[aria-pressed="true"]{border-color:var(--fill); background:var(--blue-xl)}
+.onode:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oarr{flex:0 0 auto; align-self:center; color:var(--blue-l); font-weight:900}
+@media (max-width:560px){ .oarr{display:none} }
+
+/* 혼동 행렬 계산기 */
+.cmgrid{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:440px; margin:8px 0 12px; align-items:center}
+.cmgrid>span{font-size:0.7812rem; font-weight:800; color:var(--blue-d); text-align:center}
+.cmgrid>span.rl{text-align:right; padding-right:6px}
+.cmgrid input{width:100%; font-family:var(--mono); font-size:1rem; text-align:center; padding:10px 6px;
+  border:2px solid var(--line); border-radius:12px; background:var(--tint); color:var(--ink)}
+.cmgrid input:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.cmgrid input.ok{border-color:var(--good)} .cmgrid input.bad{border-color:var(--warm)}
+
+/* 구술 연습 · 2분 타이머 */
+.qcard{font-family:var(--disp); font-weight:700; font-size:clamp(1.125rem,3vw,1.5rem); line-height:1.5; color:var(--ink);
+  background:var(--white); border:2px solid var(--blue-l); border-radius:18px; padding:20px 22px; min-height:5.5em;
+  box-shadow:var(--sh); margin:10px 0}
+.qcard small{display:block; font-family:var(--sans); font-weight:700; font-size:0.8125rem; color:var(--muted); margin-top:9px}
+.tmr{display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin:8px 0}
+.tmr>b{font-family:var(--disp); font-weight:700; font-size:2.5rem; line-height:1; color:var(--blue-d);
+  font-variant-numeric:tabular-nums; min-width:4ch}
+.tmr>b.late{color:var(--cut)}
+.tbar{display:flex; height:16px; border-radius:99px; overflow:hidden; border:1px solid var(--line); background:var(--tint); margin:8px 0}
+.tbar>i{display:block; height:100%; transition:width .3s}
+.tseg{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:7px; margin:8px 0}
+.tseg>span{font-size:0.8125rem; color:var(--ink2); background:var(--tint); border:1px solid var(--line);
+  border-radius:11px; padding:7px 10px}
+.tseg>span.on{background:var(--fill); color:var(--on-fill); border-color:var(--fill); font-weight:700}
+.tseg>span b{display:block; font-variant-numeric:tabular-nums}
+
+/* 수행평가 ② 채점 기준 */
+.rtab{width:100%; min-width:560px; font-size:0.8438rem}
+.rtab td.pt{font-family:var(--disp); font-weight:700; color:var(--blue-d); text-align:center; white-space:nowrap}
+.lockcard{display:flex; gap:14px; align-items:flex-start; background:var(--white); border:1px dashed var(--blue-l);
+  border-radius:var(--r); padding:18px 20px; color:var(--ink2); font-size:0.9062rem; box-shadow:var(--sh)}
+.lockcard b{display:block; color:var(--ink); margin-bottom:3px}
+
+/* 텍스트 칸 + 복사 */
+.tool .fld textarea{min-height:4.2em}
+.copyout{white-space:pre-wrap; font-size:0.8438rem; line-height:1.7; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:14px; padding:13px 15px; margin:10px 0; max-height:16rem; overflow:auto}
+.need4{display:flex; flex-wrap:wrap; gap:7px; margin:6px 0 12px}
+.need4>span{font-size:0.8125rem; font-weight:700; border-radius:99px; padding:4px 12px;
+  background:var(--warm-bg); color:var(--warm); border:1px solid var(--warm)}
+.need4>span.ok{background:var(--good-bg); color:var(--good); border-color:var(--good)}
+
+.tick{margin:0; padding-left:20px}
+.tick li{margin:4px 0; color:var(--ink2); font-size:0.9375rem}
+.card h4{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+</style>
+
+<nav><div class="wrap"><div class="row">
+  <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내</a>
+  <span class="sep"></span>
+  <a href="https://richee-pc.github.io/AI_cs/unit1.html">Ⅰ. 인공지능의 이해</a>
+  <a href="https://richee-pc.github.io/AI_cs/unit2.html">Ⅱ. 인공지능과 학습</a>
+  <a href="https://richee-pc.github.io/AI_cs/unit3.html">Ⅲ. 사회적 영향</a>
+  <a href="https://richee-pc.github.io/AI_cs/unit4.html" class="here">Ⅳ. 프로젝트</a>
+  <span class="sep"></span>
+  <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
+  <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
+  <span class="sep"></span>
+  <a href="#model">모형과 신호등</a>
+  <a href="#p1">① 주제</a>
+  <a href="#p2">② 계획</a>
+  <a href="#p3">③④ 오렌지3</a>
+  <a href="#p4">⑤ 발표·성찰</a>
+  <a href="#pa2">수행평가 ②</a>
+  <a href="#data">데이터 찾기</a>
+  <a href="#rules">꼭 지킬 것</a>
+</div></div></nav>
+
+<div class="hero"><div class="wrap">
+  <p class="badge">4단원 · 10월 마지막 주부터 · 수행평가 ②로 이어집니다</p>
+  <h1>Ⅳ. 인공지능 프로젝트<em>지속가능발전 문제를 우리 모둠의 AI로</em></h1>
+  <p class="lede">선생님은 <b>대주제(SDGs)만</b> 드립니다. 무엇을 풀지는 <b>여러분이 먼저</b> 정하고,
+    데이터를 모아 <b>오렌지3로 직접 모델을 만들고</b>, AI의 날카로운 질문으로 고친 뒤,
+    <b>왜 그렇게 만들었는지 내 말로</b> 설명합니다. 같은 모델을 11월에 코랩으로 다시 만들면 수행평가 ②가 끝납니다.</p>
+  <div class="facts">
+    <div class="fact"><b>4<span style="font-size:1.0rem"> 차시</span></b><span>프로젝트 ①~④ (연구 수업)</span></div>
+    <div class="fact"><b>5<span style="font-size:1.0rem"> 단계</span></b><span>문제 구체화 → 발표·성찰</span></div>
+    <div class="fact"><b>17<span style="font-size:1.0rem"> 개</span></b><span>지속가능발전목표</span></div>
+    <div class="fact"><b>30<span style="font-size:1.0rem"> %</span></b><span>수행평가 ② 반영</span></div>
+  </div>
+  <div class="planbar"><span><b>📅 우리 반은 언제 하나요?</b>날짜 · 오늘의 목표 · 낼 것은 «우리 반 수업 계획»에 모았습니다.</span>
+    <a href="https://richee-pc.github.io/AI_cs/plan.html">수업 계획 보기 →</a></div>
+  <p class="tochead">이 쪽에서 바로 가기</p>
+  <div class="toc">
+    <a href="#model"><span class="ic">🧩</span><span><b>모형과 AI 신호등</b><span>다섯 단계 · 언제 AI를 쓰나</span></span></a>
+    <a href="#p1"><span class="ic">🌏</span><span><b>① 주제 정하기</b><span>SDGs 17개 · 나의 주제 제안서</span><em>직접 해 보기</em></span></a>
+    <a href="#p2"><span class="ic">🗂️</span><span><b>② 계획과 성공 기준</b><span>지도·비지도 · 좋은 질문 · 성공 기준</span><em>직접 해 보기</em></span></a>
+    <a href="#p3"><span class="ic">🍊</span><span><b>③④ 오렌지3와 개선</b><span>위젯 흐름 · 혼동 행렬 계산기 · AI 반문</span><em>직접 해 보기</em></span></a>
+    <a href="#p4"><span class="ic">🎤</span><span><b>⑤ 발표와 구술</b><span>2분 타이머 · 구술 질문 연습</span><em>직접 해 보기</em></span></a>
+    <a href="#pa2"><span class="ic">⭐</span><span><b>수행평가 ②</b><span>코랩 재구현 · 대조표 · 평가 요소</span></span></a>
+    <a href="#data"><span class="ic">📊</span><span><b>데이터 찾기</b><span>누리집 · 못 찾았을 때 받는 데이터</span></span></a>
+    <a href="#rules"><span class="ic">🤝</span><span><b>AI와 함께할 때의 약속</b><span>매번 할 일 · 하지 않을 일 · 자기·동료평가</span></span></a>
+  </div>
+</div></div>
+
+<section id="goal"><div class="wrap">
+  <p class="eyebrow">배우는 목표</p>
+  <h2>이 단원이 끝나면</h2>
+  <p class="sub">「인공지능 기초」 Ⅳ단원 성취기준 네 개입니다. 교과서 <b>180~210쪽</b>,
+    Ⅱ-05(<b>100~115쪽</b>)를 프로젝트 안에서 함께 배웁니다.</p>
+  <div class="g2">
+    <div class="std"><code>04-01</code><span>지속가능발전목표를 해결하기 위해 <b>인공지능을 적용할 방안</b>을 탐색하고, 프로젝트에 <b>적합한 주제</b>를 도출한다.</span></div>
+    <div class="std"><code>04-02</code><span>인공지능 문제 해결 과정에 기반하여 <b>프로젝트 수행 계획</b>을 구안한다.</span></div>
+    <div class="std"><code>04-03</code><span><b>협력적인 문제 해결</b> 자세를 바탕으로 인공지능 소프트웨어를 개발한다.</span></div>
+    <div class="std"><code>04-04</code><span>인공지능의 <b>사회적 영향</b>을 고려하여 개발하고, <b>평가 결과를 반영하여 성능을 개선</b>한다.</span></div>
+  </div>
+  <p class="ask" style="margin-top:18px"><b>Ⅱ단원과 이어지는 곳.</b>
+    데이터 탐구에서 찾은 <b>데이터 사이의 관계</b>가 이번 모델의 <b>입력(특성)</b>을 고르는 근거가 됩니다.
+    Ⅱ-03(지도·비지도)은 계획 세우기에서, Ⅱ-05(훈련·테스트·성능 평가)는 오렌지3 시간에 그대로 씁니다.</p>
+</div></section>
+
+<section id="model"><div class="wrap">
+  <p class="eyebrow">수업 모형</p>
+  <h2>AI 모델링 기반 컴퓨팅 문제해결 모형</h2>
+  <p class="sub">다섯 단계로 진행합니다. 단계마다 <b>AI를 쓸 수 있는 범위가 다릅니다.</b>
+    언제나 <b>내 생각이 먼저</b>이고, AI는 그다음에 «찾아 주거나» «질문을 던질» 뿐입니다.
+    모델을 설계하고 학습시키는 판단과 책임은 <b>여러분</b>에게 있습니다.</p>
+  <div class="stages">
+    <div class="stg y"><i>①</i><b>AI 연계 문제 구체화</b><span class="lt n">개인 작성은 AI 없이</span><span class="lt y">노랑 · AI Co-Pilot</span>
+      <span>각자 관심사와 문제를 먼저 쓰고, 모둠 생각만 재료로 AI가 «연결 뼈대»와 질문을 줍니다.</span></div>
+    <div class="stg g"><i>②</i><b>AI 모델 개발 계획 수립</b><span class="lt g">초록 · AI 탐구 보조</span>
+      <span>모르는 개념만 AI로 보강하고, 출처를 확인해 내 말로 정리한 뒤 계획서를 씁니다.</span></div>
+    <div class="stg n"><i>③</i><b>프로토타입 개발</b><span class="lt n">수업 지원 AI 없음</span>
+      <span>오렌지3로 모델을 직접 설계·학습·평가합니다. 여러분이 만드는 모델은 «배우는 대상»입니다.</span></div>
+    <div class="stg y"><i>④</i><b>AI 비판적 문답 기반 반복 개선</b><span class="lt y">노랑 · 소크라틱 AI</span>
+      <span>AI Critic의 반문을 <b>테스트 결과로 확인</b>한 뒤 받아들이거나 고치거나 거절합니다.</span></div>
+    <div class="stg y"><i>⑤</i><b>AI 지원 메타인지 성찰 및 발표</b><span class="lt y">노랑 · AI Agent · 메타인지적 AI</span>
+      <span>내가 쓴 개요로 발표자료를 만들고, 발표·구술 뒤 AI의 질문에 답하며 돌아봅니다.</span></div>
+  </div>
+  <h3 style="margin-top:26px">AI 신호등 — 이번 프로젝트의 규칙</h3>
+  <div class="sigs">
+    <div class="sigc n"><b>표시 없음 · AI 없이</b>
+      <p>내 관심사, 문제, 판단, 모델 설계처럼 <b>나만 답할 수 있는 것</b>을 먼저 씁니다. AI를 켜지 않습니다.</p>
+      <em>① 개인 작성 · ③ 프로토타입</em></div>
+    <div class="sigc g"><b>초록 · 자율적 사용</b>
+      <p><b>이미 있는 지식</b>을 찾거나 설명을 듣습니다. 출처를 확인하고 <b>내 말로 한 줄</b> 바꿔 씁니다.</p>
+      <em>② AI 탐구 보조 — 개념·유사 사례</em></div>
+    <div class="sigc y"><b>노랑 · 유도적 사용</b>
+      <p>내가 이미 만든 생각에 AI가 <b>질문·반론</b>을 던집니다. 받아들일지·고칠지·거절할지 <b>이유와 함께</b> 정합니다.</p>
+      <em>① Co-Pilot · ④ 소크라틱 AI · ⑤ AI Agent · 메타인지적 AI</em></div>
+    <div class="sigc r"><b>빨강 · 쓰지 않음</b>
+      <p>내 주장·답·성찰을 AI가 <b>대신 만들어</b> 그대로 내는 것. 이 프로젝트에서는 <b>하지 않습니다.</b></p>
+      <em>예: «우리 계획서 써 줘» «성찰문 써 줘»</em></div>
+  </div>
+  <p class="note" style="margin-top:16px"><b>AI는 «AI 탐구 교실»(연구 플랫폼)에서만 씁니다.</b>
+    단계마다 쓸 수 있는 도구만 열려 있고, 대화는 선생님 화면에 그대로 남습니다.
+    선생님이 보려는 것은 <b>AI를 몇 번 썼는가가 아니라, AI를 쓸 때 어떻게 판단했는가</b>입니다.
+    처음 쓰는 도구는 <b>사전 프롬프팅 체험</b>(빈칸 채우기 3단계)을 거친 뒤 열립니다.</p>
+</div></section>
+
+<!-- ═══════════════ 프로젝트 ① ═══════════════ -->
+<section id="p1"><div class="wrap">
+  <p class="eyebrow">프로젝트 ① · ① AI 연계 문제 구체화</p>
+  <h2>무엇을 풀까 — 주제 정하기</h2>
+  <p class="sub">학습 목표 · 인공지능 서비스에서 <b>지능 에이전트</b>의 역할을 찾고, SDGs 문제 가운데
+    <b>기계학습으로 풀 수 있는 부분</b>을 구분해 <b>실현 가능한 주제</b>를 정할 수 있다. · 교과서 180~193쪽</p>
+
+  <div class="tline">
+    <div class="tl"><em>7′</em><div><b>도입</b> SDGs와 AI for Good 사례 — «이 AI는 무엇을 보고(입력), 어떻게 판단해서(처리), 무엇을 하나(출력)?» · 신호등과 AI 활용 윤리 체크리스트 확인</div></div>
+    <div class="tl"><em>10′</em><div><b>활동 1 · 나의 관심사와 문제</b> <span class="lt n">AI 없이</span><br>관심 있는 SDG와 발견한 문제 쓰기 → 입력-처리-출력으로 바꾸고, 기계학습으로 풀 수 있는지 판단</div></div>
+    <div class="tl y"><em>18′</em><div><b>활동 2 · AI Co-Pilot과 주제 좁히기</b> <span class="lt y">노랑</span><br>모둠장이 <b>모둠원 네 명의 생각을 모두</b> 입력 → AI가 준 연결 뼈대·질문마다 채택·수정·거절과 이유 기록</div></div>
+    <div class="tl"><em>10′</em><div><b>활동 3 · 주제 정의서</b> (활동지 ①) → 구현 가능성 체크리스트로 선생님 확인</div></div>
+    <div class="tl"><em>5′</em><div><b>정리</b> 모둠 주제 한 줄 공유 · 다음 차시 예고</div></div>
+  </div>
+
+  <div class="tool" style="margin-top:22px">
+    <h3>17개 목표 둘러보기 <span class="tm">교과서 181~183쪽</span></h3>
+    <p class="desc">목표를 누르면 무엇을 하려는 목표인지, AI가 도울 수 있는 예가 나옵니다.
+      <b>«학교 데이터»</b> 표시는 데이터를 못 구했을 때 선생님이 바로 줄 수 있는 목표입니다.</p>
+    <div class="sdgs" id="sdgGrid"></div>
+    <div class="sdgout" id="sdgOut"><b>목표를 하나 눌러 보세요</b>
+      <p>17개 목표는 인간·지구·번영·평화·협력, 다섯 영역(5P)으로 묶입니다(교과서 193쪽).</p></div>
+  </div>
+
+  <div class="tool">
+    <h3>나의 주제 제안서 <span class="tm">활동 1 · AI 없이 혼자</span></h3>
+    <p class="desc">여기에 쓰면 <b>이 노트북에만</b> 저장됩니다. 다 쓰면 «복사»를 눌러 모둠 슬라이드(개인 아이디어 칸)에 붙여 넣으세요.
+      <b>네 항목(세부 목표 번호 · 사용자 · 해결할 문제 · 예상 데이터)</b>은 수행평가 ② 첫 번째 요소의 채점 근거가 됩니다.</p>
+    <div class="need4" id="pNeed"></div>
+    <div class="frow">
+      <label class="fld"><span>SDG 세부 목표 번호</span><input id="pSdg" placeholder="예: 6.3 (수질 개선)"></label>
+      <label class="fld grow"><span>사용자 — 누구를 돕나</span><input id="pUser" placeholder="예: 약수터를 이용하는 동네 주민"></label>
+    </div>
+    <div class="frow">
+      <label class="fld grow"><span>해결할 문제</span><textarea id="pProb" rows="2" placeholder="예: 비가 많이 온 뒤 약수터 물이 마시기에 안전한지 바로 알기 어렵다."></textarea></label>
+    </div>
+    <div class="frow">
+      <label class="fld grow"><span>예상 데이터 (출처 후보까지)</span><textarea id="pData" rows="2" placeholder="예: 약수터 수질 검사 결과(일반세균·대장균군·질산성질소, 판정) — 공공데이터포털"></textarea></label>
+    </div>
+    <p class="mini-h" style="margin-top:6px">지능 에이전트로 보기 — 입력 → 처리 → 출력</p>
+    <div class="frow">
+      <label class="fld"><span>입력 (무엇을 보고)</span><input id="pIn" placeholder="예: 수질 측정값 6가지"></label>
+      <label class="fld"><span>처리 (무엇을 분류·예측하고)</span><input id="pProc" placeholder="예: 음용 적합/부적합 분류"></label>
+      <label class="fld"><span>출력 (무엇을 하나)</span><input id="pOut" placeholder="예: 부적합이면 안내문 알림"></label>
+    </div>
+    <p class="mini-h">기계학습으로 풀 수 있는 문제일까?</p>
+    <div class="chk" id="pMl">
+      <label><input type="checkbox" data-k="m1"> 정답(레이블)이 있거나 묶을 기준이 있는 데이터를 구할 수 있다</label>
+      <label><input type="checkbox" data-k="m2"> 같은 판단을 여러 번 반복해야 한다</label>
+      <label><input type="checkbox" data-k="m3"> 규칙만으로는 판단하기 어렵다</label>
+    </div>
+    <div class="keyout" id="pMlSay" style="font-size:1rem">세 가지를 확인해 보세요</div>
+    <div class="frow">
+      <label class="fld grow"><span>기계학습이 못 하는 일 — 사람·제도가 할 일</span><input id="pHuman" placeholder="예: 약수터 폐쇄 결정, 주민 안내는 구청이 한다"></label>
+    </div>
+    <div class="simctl"><button type="button" class="mini" id="pCopy">복사 — 슬라이드에 붙이기</button>
+      <button type="button" class="mini gh" id="pClear">모두 지우기</button><span class="sendmsg" id="pMsg"></span></div>
+  </div>
+
+  <div class="g2">
+    <div class="ws"><b><i>활동 2</i> AI Co-Pilot 쓰는 순서</b><div><ol>
+      <li>모둠원 <b>네 명의 관심사와 문제를 모두</b> 모은다 — 한 사람 것만 넣지 않기.</li>
+      <li>모둠장이 Co-Pilot에 넣는다. <b>«주제 만들어 줘»라고 하지 않는다.</b></li>
+      <li>AI가 준 <b>연결 뼈대</b>마다 채택·수정·거절과 이유를 적는다.</li></ol>
+      <span class="eg">예) «뼈대 2는 데이터를 구하기 어려워서 거절, 뼈대 1에 하천 수질 측정값을 붙인다.»</span></div></div>
+    <div class="ws"><b><i>활동 3</i> 주제 정의서 — 활동지 ①</b><div><ol>
+      <li>프로젝트 주제와 해결할 문제</li>
+      <li>입력 → 처리 → 출력</li>
+      <li>기계학습이 할 일 / 못 하는 일(사람·제도가 할 일)</li>
+      <li>필요한 데이터</li></ol>
+      <div class="chk" style="margin-top:10px" data-save="feas">
+        <label><input type="checkbox" data-k="f1"> <span><span class="grp">확인 1</span>데이터를 구할 수 있다</span></label>
+        <label><input type="checkbox" data-k="f2"> <span><span class="grp">확인 2</span>기계학습으로 풀 수 있는 부분이 있다</span></label>
+        <label><input type="checkbox" data-k="f3"> <span><span class="grp">확인 3</span>수업 시간 안에 만들 수 있다</span></label>
+      </div><span class="eg">셋 다 되면 선생님께 확인을 받습니다. 어렵다면 학교 데이터에 맞춘 대안 주제를 함께 찾습니다 — 주제를 좁히는 건 포기가 아니라 구체화예요.</span></div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════════ 프로젝트 ② ═══════════════ -->
+<section id="p2"><div class="wrap">
+  <p class="eyebrow">프로젝트 ② · ② AI 모델 개발 계획 수립</p>
+  <h2>어떻게 만들까 — 계획과 성공 기준</h2>
+  <p class="sub">학습 목표 · 문제와 데이터의 특성에 맞춰 <b>지도학습과 비지도학습</b>을 비교해 학습 유형을 고르고,
+    <b>측정할 수 있는 성공 기준</b>을 넣은 계획을 세울 수 있다. · 교과서 84~91쪽(유형) · 195~196쪽(협력·수행 계획)</p>
+  <div class="tline">
+    <div class="tl"><em>5′</em><div><b>도입</b> 이 문제는 지도학습일까, 비지도학습일까? — 판별 기준은 «정답(레이블)이 있는가»</div></div>
+    <div class="tl"><em>8′</em><div><b>활동 1 · 아는 것과 모르는 것</b> <span class="lt n">AI 없이 · 혼자</span><br>개념 체크 목록에 «안다 / 모른다» 정직하게 표시</div></div>
+    <div class="tl g"><em>12′</em><div><b>활동 2 · 개념 보강</b> <span class="lt g">초록</span><br>모르는 개념과 유사 사례만 AI 탐구 보조로 → 출처 점검 → <b>내 말로 한 줄</b></div></div>
+    <div class="tl"><em>18′</em><div><b>활동 3 · 계획서와 성공 기준</b> (활동지 ②) — 역할·일정·데이터 계획·학습 유형과 이유·AI 활용 계획 → 숫자로 된 성공 기준</div></div>
+    <div class="tl"><em>7′</em><div><b>정리</b> 학습 유형과 성공 기준 공유 · <b>다음 시간 전까지 데이터를 모둠 공유 폴더에</b></div></div>
+  </div>
+
+  <div class="tool" style="margin-top:22px">
+    <h3>지도일까, 비지도일까 <span class="tm">도입 · 6문제</span></h3>
+    <p class="desc">문장을 읽고 고르세요. 기준은 하나 — <b>맞힐 정답이 데이터에 붙어 있는가?</b></p>
+    <div class="kcards" id="tyCards"></div>
+    <div class="statline"><span class="st" id="tyStat">아직 안 풀었습니다</span>
+      <button type="button" class="mini gh" id="tyReset">다시 풀기</button></div>
+  </div>
+
+  <div class="g2">
+    <div class="ws"><b><i>활동 1</i> 개념 체크 — 안다 / 모른다</b><div>
+      <div class="chk" data-save="know">
+        <label><input type="checkbox" data-k="k1"> 학습 유형(지도·비지도) — Ⅱ-03</label>
+        <label><input type="checkbox" data-k="k2"> 특성 선택(무엇을 입력으로 쓸까)</label>
+        <label><input type="checkbox" data-k="k3"> 데이터 분할(훈련·테스트) — Ⅱ-05</label>
+        <label><input type="checkbox" data-k="k4"> 과적합</label>
+        <label><input type="checkbox" data-k="k5"> 평가 지표(정확도·재현율 등)</label>
+      </div><span class="eg">체크한 것 = 안다. 체크 못 한 것이 오늘 AI 탐구 보조에게 물을 것입니다. 모르는 걸 표시하는 게 계획의 출발이에요.</span></div></div>
+    <div class="ws"><b><i>활동 2</i> AI가 출처를 내밀면 — 점검 다섯 가지</b><div>
+      <div class="chk" data-save="crit">
+        <label><input type="checkbox" data-k="c1"> 진짜 존재하는 믿을 만한 출처인가요?</label>
+        <label><input type="checkbox" data-k="c2"> 지금도 맞는 최신 정보인가요?</label>
+        <label><input type="checkbox" data-k="c3"> 다른 검증된 자료와도 내용이 같은가요?</label>
+        <label><input type="checkbox" data-k="c4"> 내 질문의 의도에 제대로 답하고 있나요?</label>
+        <label><input type="checkbox" data-k="c5"> 내 언어로 쉽게 바꿔서 다시 설명할 수 있나요?</label>
+      </div><span class="eg">플랫폼에서는 이 점검을 마쳐야 다음 질문을 할 수 있습니다.</span></div></div>
+  </div>
+
+  <div class="tool">
+    <h3>좋은 질문일까, 맡기는 질문일까 <span class="tm">활동 2 전에</span></h3>
+    <p class="desc">초록 신호등에서도 <b>«대신 해 줘»</b>는 안 됩니다. 아래 질문을 골라 보세요.</p>
+    <div class="kcards" id="qaCards"></div>
+    <div class="statline"><span class="st" id="qaStat">아직 안 풀었습니다</span></div>
+  </div>
+
+  <div class="tool">
+    <h3>성공 기준 문장 만들기 <span class="tm">활동 3</span></h3>
+    <p class="desc">«잘 되면 성공»은 기준이 아닙니다. <b>무엇을, 몇 이상, 어떻게 재는지</b>가 들어가야 합니다.</p>
+    <div class="frow">
+      <label class="fld"><span>지표</span><select id="scMet">
+        <option value="acc">정확도 (분류)</option><option value="rec">재현율 (분류 · 놓치면 안 될 때)</option>
+        <option value="pre">정밀도 (분류 · 잘못 경보하면 안 될 때)</option><option value="f1">F1 (분류)</option>
+        <option value="rmse">RMSE (예측 · 작을수록 좋음)</option><option value="r2">R² (예측)</option></select></label>
+      <label class="fld"><span>목표값</span><input id="scVal" inputmode="decimal" placeholder="예: 0.8"></label>
+      <label class="fld grow"><span>대상 (어떤 정답에 대해)</span><input id="scCls" placeholder="예: «부적합» 판정 (재현율·정밀도일 때)"></label>
+    </div>
+    <div class="frame" id="scOut"><b>우리 모둠 성공 기준</b>지표와 목표값을 넣어 보세요.</div>
+    <p class="note" style="margin:8px 0 0" id="scWarn" hidden></p>
+  </div>
+
+  <div class="ws"><b><i>활동 3</i> 계획서 항목 — 활동지 ②</b><div><ol>
+    <li><b>학습 유형과 고른 이유</b> — «정답 열이 ○○라서 지도학습(분류)»</li>
+    <li><b>데이터 수집 계획</b> — 출처 · 양(몇 행) · 레이블(정답 열)</li>
+    <li><b>역할 분담과 일정</b> — 교과서 195쪽처럼 이끔이·챙김이·중심이·모음이, 한 사람에게 몰리지 않게</li>
+    <li><b>AI 활용 계획</b> — 단계 · 도구 · 신호등</li>
+    <li><b>성공 기준</b> — (지표)이(가) (목표값) 이상, 측정 방법 (  )</li></ol>
+    <span class="eg">이 계획서가 수행평가 ② 첫 번째 요소(주제 도출과 계획 수립)의 채점 근거입니다. <b>본인이 쓴 부분에 이름</b>을 남기세요.</span></div></div>
+</div></section>
+
+<!-- ═══════════════ 프로젝트 ③ ═══════════════ -->
+<section id="p3"><div class="wrap">
+  <p class="eyebrow">프로젝트 ③ · ③ 프로토타입 개발 → ④ AI 비판적 문답 기반 반복 개선 · Ⅱ-05</p>
+  <h2>만들고, 재고, 고친다 — 오렌지3</h2>
+  <p class="sub">학습 목표 · 데이터 윤리를 점검한 데이터로 모델을 학습시키고 성능을 평가하며,
+    <b>AI의 반문을 테스트 결과로 검증</b>해 모델을 고칠 수 있다. · 교과서 100~115쪽(Ⅱ-05), 208~209쪽(평가)</p>
+  <div class="tline">
+    <div class="tl"><em>5′</em><div><b>도입</b> 오렌지3 5분 시범(전복 순살 무게) — «훈련 데이터로 잰 점수와 테스트 데이터로 잰 점수는 왜 다를까?»</div></div>
+    <div class="tl"><em>7′</em><div><b>활동 1 · 데이터 점검</b> <span class="lt n">AI 없이</span> 개인정보 · 편향 · 저작권 · 양 (활동지 ③)</div></div>
+    <div class="tl"><em>18′</em><div><b>활동 2 · 프로토타입</b> <span class="lt n">수업 지원 AI 없음</span><br>오렌지3로 설계·학습·성능 평가, 기록(활동지 ④) 15′ → <b>1차 자기·동료평가</b>(약식) 3′ — 소크라틱 AI 쓰기 전에</div></div>
+    <div class="tl y"><em>15′</em><div><b>활동 3 · AI 반문으로 개선</b> <span class="lt y">노랑</span><br>활동지를 연동하고 소크라틱 AI Critic에 넣기 → 세 관점 반문 → <b>테스트로 확인</b>하고 채택·수정·거절 → 회차별 변경 기록(활동지 ⑤)</div></div>
+    <div class="tl"><em>5′</em><div><b>정리</b> 성공 기준 달성 여부와 가장 큰 개선 한 가지 · <b>다음 시간 전까지 모둠 슬라이드에 발표 개요</b>(모둠원마다 한 부분)</div></div>
+  </div>
+
+  <div class="tool" style="margin-top:22px">
+    <h3>오렌지3 기본 흐름 <span class="tm">위젯을 누르면 설명</span></h3>
+    <p class="desc">위젯 다섯 개를 왼쪽에서 오른쪽으로 잇습니다. 각 위젯이 Ⅱ-05의 어느 단계인지,
+      11월에 코랩으로 옮길 때 <b>어떤 코드가 되는지</b>까지 함께 봐 두세요.</p>
+    <div class="oflow" id="oFlow"></div>
+    <div class="saybox" id="oSay"><b>위젯을 하나 눌러 보세요.</b> 전복 예시: 길이·직경·두께·무게로 «순살 무게»를 예측합니다(예측 = 회귀).</div>
+  </div>
+
+  <div class="ws"><b><i>활동 1</i> 데이터 수집 점검 체크리스트 — 활동지 ③</b><div>
+    <div class="chk" data-save="dchk">
+      <label><input type="checkbox" data-k="d1"> <span><span class="grp">개인정보</span>개인을 알아볼 수 있는 열이 없다 (있으면 지우거나 가림)</span></label>
+      <label><input type="checkbox" data-k="d2"> <span><span class="grp">편향</span>특정 지역·집단·기간에 치우치지 않았다</span></label>
+      <label><input type="checkbox" data-k="d3"> <span><span class="grp">편향</span>레이블(정답)이 한쪽으로 몰리지 않았다</span></label>
+      <label><input type="checkbox" data-k="d4"> <span><span class="grp">저작권</span>이용 조건을 확인했고 출처를 표기한다</span></label>
+      <label><input type="checkbox" data-k="d5"> <span><span class="grp">양</span>학습·테스트에 충분한 행 수다</span></label>
+    </div><span class="chkstat" data-for="dchk"></span>
+    <span class="eg">«이 데이터에 빠진 지역이나 집단은 없나요?» — Ⅱ-01의 확증·선택·역사적·생존자 편향을 떠올리세요(수행평가 ② 세 번째 요소).</span></div></div>
+
+  <div class="ws"><b><i>활동 2</i> 성능 평가 기록 — 활동지 ④</b><div style="padding:0">
+    <div style="overflow-x:auto"><table>
+      <tr><th>알고리즘</th><th>훈련 : 테스트</th><th>사용한 특성</th><th>지표와 값</th><th>성공 기준 달성</th></tr>
+      <tr><td>예) Tree</td><td>70 : 30</td><td>일반세균, 총대장균군, 질산성질소</td><td>정확도 0.84 · «부적합» 재현율 0.61</td><td>정확도 ○ · 재현율 ✕</td></tr>
+      <tr><td colspan="5" style="color:var(--muted)">결과 해석 — 무엇을 잘 맞히고 무엇을 틀리나? (혼동 행렬을 보고)</td></tr>
+    </table></div></div></div>
+
+  <div class="tool">
+    <h3>혼동 행렬로 내 점수 확인하기 <span class="tm">Confusion Matrix 숫자를 옮겨 적기</span></h3>
+    <p class="desc">오렌지3 «Confusion Matrix» 위젯의 네 칸을 그대로 넣으면 정확도·재현율·정밀도를 계산해
+      위에서 만든 <b>성공 기준</b>과 비교합니다. 정확도가 높아도 <b>중요한 쪽을 많이 놓칠 수 있습니다.</b></p>
+    <div class="frow"><label class="fld"><span>중요한 쪽(찾아야 할 정답)</span><input id="cmPos" value="부적합"></label>
+      <label class="fld"><span>나머지</span><input id="cmNeg" value="적합"></label></div>
+    <div class="cmgrid" id="cmGrid"></div>
+    <div class="keyout" id="cmOut">네 칸에 숫자를 넣어 보세요</div>
+  </div>
+
+  <div class="g2">
+    <div class="ws"><b><i>활동 3</i> 소크라틱 AI Critic — 세 관점</b><div><ol>
+      <li><b>데이터</b> — 편향·불균형은 없나? 양이 모자라지 않나? 레이블 오류는?</li>
+      <li><b>코드·알고리즘</b> — 과적합은 아닌가? 다른 알고리즘이면? 특성을 빼거나 더하면?</li>
+      <li><b>윤리·안전</b> — 틀리면 누가 피해를 보나? 이 모델을 믿어도 되는 범위는?</li></ol>
+      <span class="eg">AI Critic은 고쳐 주지 않고 <b>질문으로 원인을 좁혀</b> 줍니다. 반문을 받으면 <b>먼저 테스트해 보고</b> 판단하세요.
+        근거 있는 거절도 좋은 판단입니다. 판단은 플랫폼 «의사결정 기록» 화면에도 남습니다.</span></div></div>
+    <div class="ws"><b><i>활동 3</i> 회차별 변경 기록 — 활동지 ⑤</b><div style="padding:0">
+      <div style="overflow-x:auto"><table>
+        <tr><th>회차</th><th>테스트 결과</th><th>원인 추정</th><th>개선한 것</th><th>다음 결과</th></tr>
+        <tr><td>1</td><td>정확도 0.84, «부적합» 재현율 0.61</td><td>«부적합» 데이터가 적다(불균형)</td><td>«부적합» 사례 보강</td><td>재현율 0.74</td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+      </table></div>
+      <div style="padding:10px 16px 13px"><span class="eg">성공 기준에 못 미쳐도 <b>이유를 기록하면</b> 다음 단계로 갑니다. 고친 과정 자체가 평가받는 증거예요.</span></div></div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════════ 프로젝트 ④ ═══════════════ -->
+<section id="p4"><div class="wrap">
+  <p class="eyebrow">프로젝트 ④ · ⑤ AI 지원 메타인지 성찰 및 발표</p>
+  <h2>설명할 수 있어야 내 것 — 발표와 구술</h2>
+  <p class="sub">학습 목표 · 과정과 결과를 근거와 함께 발표해 <b>모델의 동작 원리와 학습 유형을 고른 이유</b>를 구술로 설명하고,
+    AI와 협업한 경험을 돌아보며 <b>인간과 인공지능의 역할</b>을 분석할 수 있다.</p>
+  <div class="tline">
+    <div class="tl"><em>3′</em><div><b>도입</b> 발표 2분 + 질의 1분 · <b>선생님 질문은 발표하지 않은 모둠원에게도</b> 갑니다</div></div>
+    <div class="tl y"><em>15′</em><div><b>활동 1 · 개요와 발표자료</b> 개요 점검 4′ <span class="lt n">AI 없이</span> → 개요와 이미지를 AI Agent에 넣어 발표자료 6′ <span class="lt y">노랑</span> → 고친 곳 확인·마지막 장에 <b>데이터 출처와 AI 활용 범위</b> 5′</div></div>
+    <div class="tl"><em>24′</em><div><b>활동 2 · 모둠 발표와 구술 설명</b> 모둠당 발표 2분 + 선생님 발문 1분 · 다른 모둠에서 배운 점 메모</div></div>
+    <div class="tl y"><em>8′</em><div><b>활동 3 · AI와 함께한 나를 돌아보기</b> 메타인지적 AI의 질문에 <b>내 말로</b> 답하기 4′ <span class="lt y">노랑</span> → <b>2차 자기·동료평가</b> 3′ → 수행평가 ② 예고</div></div>
+  </div>
+
+  <div class="g2" style="margin-top:20px">
+    <div class="ws"><b><i>미리</i> 발표자료 개요 — 모둠원마다 한 부분</b><div><ol>
+      <li>문제와 주제 (SDG 세부 목표 · 사용자)</li>
+      <li>데이터 (출처 · 양 · 점검 결과)</li>
+      <li>모델과 학습 유형을 고른 이유</li>
+      <li>성능과 개선 과정 (회차별 기록 · AI 반문 처리)</li>
+      <li>한계와 다음 계획</li>
+      <li>(마지막 장) 데이터 출처와 AI 활용 범위(단계·용도)</li></ol>
+      <span class="eg"><b>개요가 없으면 AI Agent를 시작하지 않습니다.</b> AI가 바꾼 곳은 «채택·수정·거절 · 이유»로 기록합니다.</span></div></div>
+    <div class="ws"><b><i>활동 3</i> 메타인지적 AI가 묻는 것</b><div><ol>
+      <li>계획과 결과가 달라진 점과 그 이유는?</li>
+      <li>가장 중요했던 의사결정과 근거는?</li>
+      <li>다음에 바꿀 점은?</li></ol>
+      <span class="eg">AI는 질문만 합니다. 답은 <b>내 말로</b> — AI가 성찰문을 대신 쓰지 않습니다.</span>
+      <div class="frame" style="margin-top:10px"><b>성찰 한 줄 틀</b>AI가 잘한 일은 <span class="blank"></span>이고, 내가 끝까지 판단한 일은 <span class="blank"></span>이다.</div></div></div>
+  </div>
+
+  <div class="tool">
+    <h3>2분 발표 연습 타이머 <span class="tm">모둠 리허설용</span></h3>
+    <p class="desc">발표 순서 — <b>문제 정의 → 모델과 학습 유형 → 성능과 AI 반문으로 개선한 과정 → 한계</b>. 시연은 30초 안으로.</p>
+    <div class="tseg" id="tmSeg"></div>
+    <div class="tbar"><i id="tmBar" style="width:0; background:var(--fill)"></i></div>
+    <div class="tmr"><b id="tmClock">2:00</b>
+      <button type="button" class="mini" id="tmGo">시작</button>
+      <button type="button" class="mini gh" id="tmReset">처음으로</button></div>
+  </div>
+
+  <div class="tool">
+    <h3>구술 질문 연습 <span class="tm">누구나 답할 수 있게</span></h3>
+    <p class="desc">선생님은 발표하지 않은 친구에게도 묻습니다. 질문을 뽑아 모둠원끼리 돌아가며 <b>30초 안에, 근거(데이터·수치·기록)를 들어</b> 답해 보세요.</p>
+    <div class="qcard" id="qCard">«질문 뽑기»를 눌러 보세요.</div>
+    <div class="simctl"><button type="button" class="mini" id="qNext">질문 뽑기</button>
+      <span class="pick" id="qSet"><button type="button" data-s="p" aria-pressed="true">프로젝트 ④ 발표</button><button type="button" data-s="s" aria-pressed="false">수행평가 ② 구술</button></span></div>
+  </div>
+</div></section>
+
+<!-- ═══════════════ 수행평가 ② ═══════════════ -->
+<section id="pa2"><div class="wrap">
+  <p class="eyebrow">수행평가 ② · 11월</p>
+  <h2>같은 모델을 코랩으로 — 인공지능 모델 구현 프로젝트</h2>
+  <p class="sub">프로젝트 ①~④에서 만든 것이 그대로 이어집니다. 100점 만점 · 30% 반영 ·
+    날짜는 위 <a href="#plan">우리 반 날짜</a>에서 확인하세요.</p>
+  <div class="stages">
+    <div class="stg n"><i>1</i><b>코랩 재구현</b><span>오렌지3 위젯 순서를 그대로 코드로 — 불러오기 · 전처리 · 모델 정의 · 학습. 셀마다 대응하는 위젯을 주석으로.</span></div>
+    <div class="stg n"><i>2</i><b>두 모델 비교와 개선</b><span>같은 지표로 오렌지3와 코랩 수치를 나란히. 개선 실험 1건 — 가설·조작·결과·해석.</span></div>
+    <div class="stg n"><i>3</i><b>보고서와 최종 발표자료</b><span>본인 집필 구간 + AI 활용 내역(신호등 색 · 요청 내용 · 채택 여부). 발표자료는 캔바 템플릿.</span></div>
+    <div class="stg n"><i>4</i><b>발표 · 개인 구술 방어</b><span>전원 구술 2문항 — 담당 구간 1 · 무작위 1.</span></div>
+  </div>
+  <div class="lockcard" id="pa2Lock" hidden><span style="font-size:1.4rem">🔒</span>
+    <span><b>채점 기준표 다섯 단계는 확정 후 공개합니다</b>
+      평가 요소 네 개(각 25점)는 아래와 같고, 단계별 기준은 프로젝트를 시작하기 전에 수업 시간에 직접 나눠 줍니다.</span></div>
+  <div id="pa2Rub"></div>
+  <div class="note" style="margin-top:16px"><b>수행평가 ② 시간의 AI 사용</b> — 학교 평가 계획에 따라
+    <b>자료 검색과 전문 학술 자료 요약에만</b> 씁니다. 코드와 보고서 문장을 AI가 만든 그대로 내면 그 요소는 <b>최하점</b>입니다.
+    프로젝트 ①~④의 AI 로그와 의사결정 기록은 보고서의 «AI 활용 내역»으로 그대로 쓸 수 있으니 지우지 마세요.</div>
+
+  <div class="tool">
+    <h3>오렌지3 ↔ 코랩 대조표 <span class="tm">코드 셀 주석에 위젯 이름을</span></h3>
+    <p class="desc">수행평가 ② 두 번째 요소는 «각 코드 블록에 대응하는 오렌지3 위젯을 주석으로 적었는가»를 봅니다.
+      Ⅱ단원 <a href="https://richee-pc.github.io/AI_cs/unit2.html#lab">코랩 노트북 ②</a>와 같은 순서입니다.</p>
+    <div class="tw"><table>
+      <tr><th style="width:24%">오렌지3 위젯</th><th style="width:38%">코랩 코드</th><th>하는 일</th></tr>
+      <tr><td><code>File</code></td><td><code>df = pd.read_csv('우리팀.csv')</code></td><td>데이터 불러오기</td></tr>
+      <tr><td><code>Select Columns</code></td><td><code>X = df[['특성1','특성2']]</code><br><code>y = df['정답']</code></td><td>입력(특성)과 정답(레이블) 고르기</td></tr>
+      <tr><td><code>Impute</code> · <code>Preprocess</code></td><td><code>df = df.dropna()</code> · <code>df.drop_duplicates()</code></td><td>결측치·중복 처리(전처리)</td></tr>
+      <tr><td><code>Data Sampler</code></td><td><code>train_test_split(X, y, test_size=0.3)</code></td><td>훈련용과 테스트용으로 나누기</td></tr>
+      <tr><td><code>Tree</code> · <code>kNN</code></td><td><code>DecisionTreeClassifier()</code> · <code>KNeighborsClassifier()</code></td><td>분류 모델 정의</td></tr>
+      <tr><td><code>Logistic Regression</code></td><td><code>LogisticRegression()</code></td><td>분류(두 갈래) 모델 정의</td></tr>
+      <tr><td><code>Linear Regression</code></td><td><code>LinearRegression()</code></td><td>예측(회귀) 모델 정의</td></tr>
+      <tr><td><code>Neural Network</code></td><td><code>keras.Sequential([...])</code> · <code>model.fit()</code></td><td>신경망(Ⅱ-07)</td></tr>
+      <tr><td><code>Test and Score</code></td><td><code>model.fit(X_train, y_train)</code><br><code>model.score(X_test, y_test)</code></td><td>학습하고 테스트 점수 재기</td></tr>
+      <tr><td><code>Confusion Matrix</code></td><td><code>confusion_matrix(y_test, pred)</code></td><td>무엇을 틀렸는지 보기</td></tr>
+    </table></div>
+  </div>
+
+  <div class="g2">
+    <div class="ws"><b><i>요소 3</i> 개선 실험 한 건 — 네 칸</b><div>
+      <div class="frame" style="margin:0"><b>가설</b>«부적합» 사례가 적어서 재현율이 낮을 것이다.
+        <br><b style="display:inline">조작</b> «부적합» 데이터를 보강하고 같은 비율로 다시 나눈다.
+        <br><b style="display:inline">결과</b> 재현율 0.61 → 0.74, 정확도 0.84 → 0.83.
+        <br><b style="display:inline">해석</b> 놓치는 위험은 줄었고 정확도는 거의 그대로다.</div>
+      <span class="eg">학습 데이터의 편향 유형(<b>확증·선택·역사적·생존자</b>) 하나 이상을 지목해 개선에 반영하세요.</span></div></div>
+    <div class="ws"><b><i>요소 4</i> 보고서 — AI 활용 내역 적는 법</b><div>
+      <table><tr><th>단계</th><th>신호등</th><th>요청 내용</th><th>채택 여부와 이유</th></tr>
+        <tr><td>②</td><td>초록</td><td>«과적합을 예로 설명해 줘»</td><td>채택 — 출처 두 곳에서 확인</td></tr>
+        <tr><td>④</td><td>노랑</td><td>(AI Critic) «레이블이 한쪽에 몰렸나?»</td><td>채택 — 혼동 행렬로 확인</td></tr></table>
+      <span class="eg">본인 집필 구간에는 이름을 적습니다. 구술은 <b>담당 구간 1문항 + 무작위 1문항</b>.</span></div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════════ 데이터 ═══════════════ -->
+<section id="data"><div class="wrap">
+  <p class="eyebrow">데이터</p>
+  <h2>데이터 찾는 곳 · 못 찾았을 때</h2>
+  <p class="sub">계획서의 데이터는 <b>프로젝트 ③ 전까지</b> 모둠 공유 폴더에 올립니다.
+    출처 주소를 꼭 남기세요. 로그인이 필요한 사이트는 <b>새로 가입하지 말고</b> 선생님께 요청하세요.</p>
+  <div class="links-lite g3">
+    <a class="ucard" href="https://www.data.go.kr" target="_blank" rel="noopener"><i>국내 공공</i><b>공공데이터포털 ↗</b><span>정부·지자체 데이터 — 수질, 대기, 에너지, 교통</span></a>
+    <a class="ucard" href="https://kosis.kr" target="_blank" rel="noopener"><i>통계</i><b>국가통계포털 KOSIS ↗</b><span>청소년 건강, 인구, 환경 통계</span></a>
+    <a class="ucard" href="https://data.kma.go.kr" target="_blank" rel="noopener"><i>기상</i><b>기상자료개방포털 ↗</b><span>기온, 강수, 폭염일수</span></a>
+    <a class="ucard" href="https://www.airkorea.or.kr" target="_blank" rel="noopener"><i>대기</i><b>에어코리아 ↗</b><span>미세먼지·오존 측정값</span></a>
+    <a class="ucard" href="https://sdgs.un.org/goals" target="_blank" rel="noopener"><i>세계</i><b>UN SDGs 누리집 ↗</b><span>세부 목표 169개 원문 (교과서 185쪽)</span></a>
+    <a class="ucard" href="https://aiforgood.itu.int/" target="_blank" rel="noopener"><i>사례</i><b>AI for Good ↗</b><span>SDGs를 푸는 실제 AI 사례 (교과서 184쪽)</span></a>
+  </div>
+  <h3 style="margin-top:28px">못 찾았을 때 선생님이 바로 주는 데이터</h3>
+  <p class="sub" style="margin-bottom:14px">교과서 부록과 학교가 갖고 있는 데이터입니다. 공유 폴더로 나눠 줍니다.
+    <b>이걸 쓰는 것도 정당한 선택</b>이에요 — 대신 «왜 이 데이터로 이 문제를 풀 수 있는가»는 직접 설명해야 합니다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:60px">SDG</th><th>데이터</th><th style="width:110px">학습 유형</th><th>정답(레이블) · 크기</th></tr>
+    <tr><td><b>3</b></td><td>스트레스 정도 — 습도·체온·걸음 수 <span style="color:var(--muted)">(교과서 부록 213~218쪽)</span></td><td>분류 · kNN</td><td>스트레스 단계 0·1·2 · 약 2,000행</td></tr>
+    <tr><td><b>6</b></td><td>약수터 수질 — 일반세균·대장균군·질산성질소 등 <span style="color:var(--muted)">(부록 221~226쪽)</span></td><td>분류 · 로지스틱</td><td>판정 적합/부적합 · 약 380행</td></tr>
+    <tr><td><b>2</b></td><td>세계 기아 지수(GHI) <span style="color:var(--muted)">(교과서 199~208쪽)</span></td><td>예측 · 선형 회귀</td><td>나라별 연도 지수 · 약 130행</td></tr>
+    <tr><td><b>14</b></td><td>전복 — 길이·직경·두께·무게 <span style="color:var(--muted)">(오렌지3 시범 데이터)</span></td><td>예측 · 회귀</td><td>순살 무게 · 약 4,200행</td></tr>
+    <tr><td><b>3</b></td><td>당뇨 초기 증상 설문</td><td>분류</td><td>양성/음성 · 520행</td></tr>
+    <tr><td><b>13</b></td><td>나라별 이산화탄소 배출량 · 해수면 높이 변화</td><td>예측 · 회귀</td><td>연도별 값</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:14px"><b>데이터를 찾았으면 세 가지를 먼저 확인</b> —
+    ① 정답으로 쓸 열이 있는가(지도학습이라면) ② 행이 충분한가(적어도 수백 행) ③ 개인을 알아볼 수 있는 열이 없는가.</p>
+</div></section>
+
+<!-- ═══════════════ 규칙 ═══════════════ -->
+<section id="rules"><div class="wrap">
+  <p class="eyebrow">꼭 지킬 것</p>
+  <h2>AI와 함께할 때의 약속</h2>
+  <div class="g2">
+    <div class="card"><h4 style="margin:0 0 8px">매번 하는 일</h4><ul class="tick" style="margin:0; padding-left:20px; line-height:1.85">
+      <li><b>내 생각 먼저</b> — 활동지의 «내 생각» 칸을 채운 뒤에 AI를 켭니다.</li>
+      <li><b>의사결정 기록</b> — AI가 한 말 요지 · 채택/수정/거절 · 이유.</li>
+      <li>AI가 알려 준 숫자·출처는 <b>원래 누리집에서 직접 확인</b>합니다.</li>
+      <li>발표자료 마지막 장에 <b>데이터 출처와 AI 활용 범위</b>를 밝힙니다.</li></ul></div>
+    <div class="card"><h4 style="margin:0 0 8px">하지 않는 일</h4><ul class="tick" style="margin:0; padding-left:20px; line-height:1.85">
+      <li>AI에 <b>이름·연락처·사진·친구 정보</b>를 넣지 않습니다.</li>
+      <li>«계획서 써 줘» «성찰문 써 줘»처럼 <b>맡기는 질문</b>을 하지 않습니다.</li>
+      <li>학교가 허락하지 않은 AI 사이트에 <b>새로 가입</b>하지 않습니다.</li>
+      <li>모둠 친구의 아이디어를 <b>빼고</b> AI에 넣지 않습니다.</li></ul></div>
+  </div>
+  <div class="ask" style="margin-top:16px"><b>자기·동료평가는 두 번, 성적에 넣지 않습니다.</b>
+    1차(약식)는 프로젝트 ③에서 소크라틱 AI를 쓰기 전에 — 참여도·경청·설득·역할 수행.
+    2차(본 평가)는 프로젝트 ④ 성찰 뒤에 — 참여도·인내·경청·설득·소통·조정·역할 수행.
+    서로의 기여를 <b>구체적인 행동</b>으로 적어 주세요. 선생님이 피드백에만 씁니다.</div>
+</div></section>
+
+<button type="button" class="totop" id="toTop" aria-label="맨 위로">↑</button>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px"><a href="https://richee-pc.github.io/AI_cs/index.html" style="color:var(--blue-d); font-weight:700">← 2학기 안내로 돌아가기</a></p>
+  <p style="margin:0">2026학년도 2학기 「인공지능 기초」 · 조선대학교부속고등학교 2학년<br>
+    교과서 「인공지능 기초」(미래엔) Ⅳ단원과 «AI 모델링 기반 컴퓨팅 문제해결 모형» 수업지도안을 바탕으로 만들었습니다.</p>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+         alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════
+   Ⅳ. 인공지능 프로젝트 — 화면 동작
+   · 학생이 적은 것은 localStorage['ai_u4_v1'] 한 곳에 모읍니다(이 노트북에만, 제출 없음).
+   · 날짜와 차시별 계획은 plan.html(우리 반 수업 계획)에 있습니다.
+   · 수행평가 ② 채점 기준표 다섯 단계는 LOCK_PA2 가 false 일 때만 보입니다
+     (index.html 의 LOCK.pa2 와 함께 바꿀 것).
+   ══════════════════════════════════════════════════════════════ */
+var LOCK_PA2 = true;
+
+function $(id){ return document.getElementById(id); }
+function esc(x){ return String(x == null ? '' : x)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+var SKEY = 'ai_u4_v1';
+var S = { cls:'', prop:{}, chk:{}, ty:{}, qa:{}, sc:{ met:'acc', val:'', cls:'' }, cm:{}, qset:'p' };
+try{
+  var raw = localStorage.getItem(SKEY);
+  if(raw){ var o = JSON.parse(raw); for(var k in o) if(k in S) S[k] = o[k]; }
+  if(!S.cls){                         /* Ⅱ단원 쪽에서 고른 분반이 있으면 그대로 */
+    var u2 = JSON.parse(localStorage.getItem('ai_u2_v1') || '{}');
+    if(u2 && u2.cls) S.cls = u2.cls;
+  }
+}catch(e){}
+function save(){ try{ localStorage.setItem(SKEY, JSON.stringify(S)); }catch(e){} }
+
+/* ══════════════════════════════════════════════════════════════
+   17개 목표 — 이름은 교과서 181쪽, 5P 는 193쪽
+   data: 학교에 바로 줄 수 있는 데이터가 있는 목표(아래 «데이터» 표와 같게)
+   ══════════════════════════════════════════════════════════════ */
+var SDG = [
+  [1,'#E5243B','빈곤층 감소와 사회 안전망 강화','People','모든 형태의 빈곤을 끝낸다.','지역별 소득·주거 지표로 지원이 시급한 곳을 찾는 분류'],
+  [2,'#DDA63A','식량 안보 및 지속 가능한 농업 강화','People','기아를 끝내고 지속 가능한 농업을 늘린다.','위성 사진으로 작황 예측 · 기아 지수 추세 예측(교과서 예제)', 1],
+  [3,'#4C9F38','건강하고 행복한 삶 보장','People','모든 연령의 건강한 삶과 웰빙을 보장한다.','몸 상태 측정값으로 스트레스 단계 분류 · 증상 설문으로 질병 위험 분류', 1],
+  [4,'#C5192D','모두를 위한 양질의 교육','People','모두에게 양질의 교육과 평생 학습 기회를 준다.','학습 기록으로 도움이 필요한 학생을 일찍 찾는 맞춤형 학습'],
+  [5,'#FF3A21','성평등 보장','People','성평등을 이루고 모든 여성과 여아의 역량을 키운다.','채용·광고 데이터에서 성별 편향 찾기'],
+  [6,'#26BDE2','건강하고 안전한 물 관리','Planet','모두에게 깨끗한 물과 위생을 보장한다.','수질 측정값으로 음용 적합/부적합 분류 · 오염 경보', 1],
+  [7,'#FCC30B','에너지의 친환경적 생산과 소비','Prosperity','깨끗하고 저렴한 에너지를 보장한다.','날씨로 태양광 발전량 예측 · 건물 전력 사용량 예측'],
+  [8,'#A21942','좋은 일자리 확대와 경제 성장','Prosperity','지속 가능한 성장과 좋은 일자리를 늘린다.','지역 산업 데이터로 일자리 수요 예측'],
+  [9,'#FD6925','산업의 성장과 혁신 활성화 및 사회 기반 시설 구축','Prosperity','튼튼한 기반 시설과 혁신을 키운다.','센서 값으로 다리·도로 고장 위험 분류'],
+  [10,'#DD1367','모든 종류의 불평등 해소','Prosperity','나라 안과 나라 사이의 불평등을 줄인다.','공공 서비스 접근성 지도를 군집으로 묶어 사각지대 찾기'],
+  [11,'#FD9D24','지속 가능한 도시와 주거지 조성','Prosperity','안전하고 지속 가능한 도시를 만든다.','대기 측정값으로 미세먼지 나쁨 예측 · 교통량 예측'],
+  [12,'#BF8B2E','지속 가능한 생산과 소비','Planet','지속 가능한 소비와 생산을 늘린다.','급식 메뉴·날씨로 잔반량 예측 · 재활용품 이미지 분류'],
+  [13,'#3F7E44','기후 변화와 대응','Planet','기후 변화와 그 영향에 서둘러 대응한다.','배출량·기온 추세 예측 · 산불 위험 지역 분류', 1],
+  [14,'#0A97D9','해양 생태계 보전','Planet','해양과 해양 자원을 보전한다.','해양 쓰레기 사진 분류 · 수산 자원 크기로 무게 예측(전복)', 1],
+  [15,'#56C02B','육상 생태계 보전','Planet','육상 생태계를 보호하고 숲과 생물 다양성을 지킨다.','울음소리로 멸종위기종 식별 · 위성 사진으로 산림 훼손 찾기'],
+  [16,'#00689D','평화·정의·포용','Peace','평화롭고 포용적인 사회와 공정한 제도를 만든다.','악성 댓글 분류(편향과 표현의 자유를 함께 따지기)'],
+  [17,'#19486A','지구촌 협력 강화','Partnership','목표 달성을 위한 국제 협력을 강화한다.','나라별 공개 데이터를 모아 비교하는 협력 플랫폼']
+];
+var P5 = { People:'인간', Planet:'지구', Prosperity:'번영', Peace:'평화', Partnership:'협력' };
+var sg = $('sdgGrid');
+sg.innerHTML = SDG.map(function(s){
+  return '<button type="button" class="sdg" style="--c:' + s[1] + '" data-i="' + (s[0]-1) + '" aria-pressed="false">' +
+    '<i>' + s[0] + '</i><b>' + s[2] + '</b>' + (s[6] ? '<em>학교 데이터</em>' : '') + '</button>';
+}).join('');
+sg.addEventListener('click', function(e){
+  var b = e.target.closest('.sdg'); if(!b) return;
+  var s = SDG[+b.getAttribute('data-i')];
+  [].slice.call(sg.children).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+  var out = $('sdgOut'); out.style.setProperty('--c', s[1]);
+  out.innerHTML = '<b>목표 ' + s[0] + ' · ' + s[2] + '<span class="p5">' + P5[s[3]] + ' ' + s[3] + '</span></b>' +
+    '<p>' + s[4] + '</p><p><b style="color:var(--blue-d)">AI가 도울 수 있는 예</b> — ' + s[5] + '</p>' +
+    (s[6] ? '<p style="color:var(--good); font-weight:700">학교가 가진 데이터로도 시작할 수 있습니다 — 아래 «데이터 찾기» 표를 보세요.</p>' : '') +
+    '<p style="font-size:.8438rem; color:var(--muted)">세부 목표 번호(예: 6.3)는 <a href="https://sdgs.un.org/goals/goal' + s[0] + '" target="_blank" rel="noopener">UN 누리집 목표 ' + s[0] + ' ↗</a>에서 확인하세요.</p>';
+  if(!$('pSdg').value){ $('pSdg').placeholder = '예: ' + s[0] + '.○ (' + s[2].split(' ')[0] + ' …)'; }
+});
+
+/* ══════════════════════════════════════════════════════════════
+   나의 주제 제안서
+   ══════════════════════════════════════════════════════════════ */
+var PF = ['pSdg','pUser','pProb','pData','pIn','pProc','pOut','pHuman'];
+var NEED = [['pSdg','세부 목표 번호'],['pUser','사용자'],['pProb','해결할 문제'],['pData','예상 데이터']];
+PF.forEach(function(id){
+  var el = $(id); el.value = S.prop[id] || '';
+  el.addEventListener('input', function(){ S.prop[id] = el.value; save(); propDraw(); });
+});
+var mlBox = $('pMl');
+[].slice.call(mlBox.querySelectorAll('input')).forEach(function(x){
+  x.checked = !!S.prop[x.getAttribute('data-k')];
+  x.addEventListener('change', function(){ S.prop[x.getAttribute('data-k')] = x.checked; save(); propDraw(); });
+});
+function propDraw(){
+  $('pNeed').innerHTML = '<span style="background:none;border:none;color:var(--muted);padding-left:0">수행평가 ② 4항목</span>' +
+    NEED.map(function(n){ var ok = (S.prop[n[0]] || '').trim().length > 1;
+      return '<span class="' + (ok ? 'ok' : '') + '">' + (ok ? '✓ ' : '') + n[1] + '</span>'; }).join('');
+  var m = ['m1','m2','m3'].filter(function(k){ return S.prop[k]; }).length;
+  var say = $('pMlSay');
+  say.className = 'keyout' + (m === 3 ? ' good' : m ? ' bad' : '');
+  say.innerHTML = m === 3 ? '기계학습으로 풀 만한 문제입니다 👍<small>나머지는 사람·제도가 할 일로 아래에 적어 두세요.</small>'
+    : m ? '조금 더 좁혀 볼까요?<small>체크되지 않은 조건을 채우려면 무엇을 바꿔야 할지 — 데이터를 바꾸거나, 판단할 대상을 좁히거나.</small>'
+    : '세 가지를 확인해 보세요';
+  say.style.fontSize = '1rem';
+}
+propDraw();
+$('pCopy').addEventListener('click', function(){
+  var p = S.prop;
+  var txt = '[나의 주제 제안서]\n' +
+    '· SDG 세부 목표: ' + (p.pSdg || '') + '\n· 사용자: ' + (p.pUser || '') + '\n· 해결할 문제: ' + (p.pProb || '') +
+    '\n· 예상 데이터: ' + (p.pData || '') + '\n· 입력 → 처리 → 출력: ' + (p.pIn || '') + ' → ' + (p.pProc || '') + ' → ' + (p.pOut || '') +
+    '\n· 기계학습이 못 하는 일(사람·제도): ' + (p.pHuman || '');
+  var msg = $('pMsg');
+  function done(ok){ msg.className = 'sendmsg ' + (ok ? 'ok' : 'bad'); msg.textContent = ok ? '복사했습니다 — 슬라이드에 붙여 넣으세요' : '복사가 막혔습니다 — 직접 선택해서 복사하세요'; }
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){ done(true); }, function(){ done(false); });
+  else done(false);
+});
+$('pClear').addEventListener('click', function(){
+  if(!confirm('제안서 칸을 모두 지울까요?')) return;
+  S.prop = {}; save();
+  PF.forEach(function(id){ $(id).value = ''; });
+  [].slice.call(mlBox.querySelectorAll('input')).forEach(function(x){ x.checked = false; });
+  propDraw(); $('pMsg').textContent = '';
+});
+
+/* ── 체크 목록(이 노트북에만 저장) ──────────────────── */
+[].slice.call(document.querySelectorAll('.chk[data-save]')).forEach(function(box){
+  var key = box.getAttribute('data-save');
+  var st = S.chk[key] || (S.chk[key] = {});
+  var ins = [].slice.call(box.querySelectorAll('input'));
+  var stat = document.querySelector('.chkstat[data-for="' + key + '"]');
+  function upd(){
+    if(!stat) return;
+    var n = ins.filter(function(x){ return x.checked; }).length;
+    stat.className = 'chkstat' + (n === ins.length ? ' ok' : '');
+    stat.textContent = n === ins.length ? '모두 확인했습니다 ✓' : ins.length - n + '개 남았습니다';
+  }
+  ins.forEach(function(x){
+    x.checked = !!st[x.getAttribute('data-k')];
+    x.addEventListener('change', function(){ st[x.getAttribute('data-k')] = x.checked; save(); upd(); });
+  });
+  upd();
+});
+
+/* ══════════════════════════════════════════════════════════════
+   고르기 문제(지도·비지도 / 좋은 질문·맡기는 질문) — unit2 유형 고르기와 같은 모양
+   ══════════════════════════════════════════════════════════════ */
+function quiz(boxId, statId, store, opts, items){
+  var box = $(boxId);
+  function draw(){
+    box.innerHTML = items.map(function(it, i){
+      var a = store[i], st = a == null ? '' : (a === it[1] ? ' right' : ' wrong');
+      return '<div class="kcard' + st + '" data-i="' + i + '"><div class="kq"><b>' + (i + 1) + '</b>' + it[0] + '</div>' +
+        '<span class="kpick">' + opts.map(function(o, k){
+          return '<button type="button" data-k="' + k + '" aria-pressed="' + (a === k ? 'true' : 'false') + '">' + o + '</button>'; }).join('') + '</span>' +
+        (a == null ? '' : '<div class="kwhy"><b>' + (a === it[1] ? '맞아요. ' : '다시 보세요 — 답은 «' + opts[it[1]] + '». ') + '</b>' + it[2] + '</div>') + '</div>';
+    }).join('');
+    var done = Object.keys(store).length, ok = items.filter(function(it, i){ return store[i] === it[1]; }).length;
+    var s = $(statId);
+    s.className = 'st' + (done === items.length && ok === items.length ? ' good' : '');
+    s.innerHTML = done ? '<b>' + ok + '</b> / ' + items.length + ' 맞힘' + (done < items.length ? ' · ' + (items.length - done) + '문제 남음' : '') : '아직 안 풀었습니다';
+  }
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-k]'); if(!b) return;
+    var i = +b.closest('.kcard').getAttribute('data-i');
+    store[i] = +b.getAttribute('data-k'); save(); draw();
+  });
+  draw();
+  return function(){ for(var k in store) delete store[k]; save(); draw(); };
+}
+var tyReset = quiz('tyCards', 'tyStat', S.ty, ['지도 · 분류','지도 · 예측','비지도 · 군집'], [
+  ['메일을 «스팸»과 «정상»으로 나눈다.', 0, '정답(스팸/정상)이 붙은 메일로 배우고, 범주 중 하나를 고르니 분류입니다.'],
+  ['내일 미세먼지 농도가 몇 ㎍/㎥일지 맞힌다.', 1, '정답이 숫자(연속값)이므로 예측(회귀)입니다.'],
+  ['소비 습관이 비슷한 고객끼리 묶는다.', 2, '미리 정해진 정답이 없고 비슷한 것끼리 모으니 비지도학습(군집)입니다.'],
+  ['약수터 수질 측정값으로 «음용 적합/부적합»을 판정한다.', 0, '판정 열이 정답(레이블)이고 둘 중 하나를 고르니 분류 — 교과서 부록의 로지스틱 회귀 예제입니다.'],
+  ['전복의 길이·무게로 순살 무게를 맞힌다.', 1, '순살 무게는 숫자라서 예측입니다. 오렌지3 시범 예제예요.'],
+  ['정답 없이, 동네별 대기 측정값을 패턴이 비슷한 곳끼리 묶는다.', 2, '정답 열이 없으니 비지도학습입니다. 묶은 뒤 «왜 이렇게 묶였나»를 사람이 해석해야 합니다.']
+]);
+$('tyReset').addEventListener('click', tyReset);
+quiz('qaCards', 'qaStat', S.qa, ['좋은 질문','맡기는 질문'], [
+  ['«과적합이 무엇인지 고등학생 수준으로 예를 들어 설명해 줘.»', 0, '이미 있는 지식을 묻는 초록 질문. 답을 듣고 내 말로 한 줄 바꿔 씁니다.'],
+  ['«하천 수질로 오염 여부를 분류한 사례가 있어? 출처도 알려 줘.»', 0, '유사 사례 찾기. 출처가 진짜 있는지 점검 다섯 가지로 확인하세요.'],
+  ['«우리 계획서를 써 줘.»', 1, '계획은 우리가 판단할 일입니다. 위임형 질문은 대시보드에 표시되고 선생님이 바로 개입합니다.'],
+  ['«재현율과 정밀도의 차이를 예시로 비교해 줘.»', 0, '개념 보강 질문입니다. 우리 성공 기준을 정하는 데 도움이 되죠.'],
+  ['«우리 주제에 맞는 성공 기준을 정해 줘.»', 1, '기준을 정하는 판단을 맡기는 질문. 개념을 묻고, 기준은 모둠이 정합니다.'],
+  ['«kNN에서 k를 바꾸면 무엇이 달라지는지 알려 줘.»', 0, '알고리즘 개념 질문입니다. Ⅱ-04에서 E를 끌어 본 것을 떠올려 보세요.'],
+  ['«오렌지3 결과를 보고 해석을 대신 써 줘.»', 1, '해석은 «나만 답할 수 있는 것». 이렇게 쓰면 빨강(통제적 사용)이 됩니다.']
+]);
+
+/* ══════════════════════════════════════════════════════════════
+   성공 기준 만들기 · 혼동 행렬 계산
+   ══════════════════════════════════════════════════════════════ */
+var MET = { acc:['정확도',1], rec:['재현율',1], pre:['정밀도',1], f1:['F1',1], rmse:['RMSE',-1], r2:['R²',1] };
+$('scMet').value = S.sc.met || 'acc'; $('scVal').value = S.sc.val || ''; $('scCls').value = S.sc.cls || '';
+function scDraw(){
+  var m = MET[S.sc.met] || MET.acc, v = parseFloat(S.sc.val), cl = (S.sc.cls || '').trim();
+  var out = $('scOut'), warn = $('scWarn');
+  if(isNaN(v)){ out.innerHTML = '<b>우리 모둠 성공 기준</b>지표와 목표값을 넣어 보세요.'; warn.hidden = true; return; }
+  var who = (S.sc.met === 'rec' || S.sc.met === 'pre') && cl ? cl + '의 ' : '';
+  out.innerHTML = '<b>우리 모둠 성공 기준</b>테스트 데이터로 잰 <b>' + esc(who) + m[0] + '</b>이(가) <b>' + v + ' ' + (m[1] < 0 ? '이하' : '이상') + '</b>이면 성공 · ' +
+    '측정 방법: 오렌지3 <code>Test and Score</code>(훈련 70 : 테스트 30)';
+  var w = '';
+  if(m[1] > 0 && S.sc.met !== 'r2' && (v > 1 || v < 0)) w = '정확도·재현율·정밀도·F1은 0~1 사이 값입니다(0.8 = 80%).';
+  else if(S.sc.met === 'acc') w = '정답이 한쪽에 몰린 데이터라면 정확도만으로는 부족합니다 — «놓치면 안 되는 쪽»의 재현율도 함께 정해 보세요.';
+  else if(S.sc.met === 'rmse') w = 'RMSE는 정답과 같은 단위입니다(예: 순살 무게 g). 데이터의 값 범위를 보고 정하세요.';
+  else if((S.sc.met === 'rec' || S.sc.met === 'pre') && !cl) w = '재현율·정밀도는 «어느 쪽 정답에 대해서인지»를 함께 적어야 합니다.';
+  warn.hidden = !w; warn.innerHTML = '<b>잠깐.</b> ' + w;
+  cmDraw();
+}
+['scMet','scVal','scCls'].forEach(function(id){
+  $(id).addEventListener('input', function(){ S.sc = { met:$('scMet').value, val:$('scVal').value, cls:$('scCls').value }; save(); scDraw(); });
+});
+
+function cmLabels(){ return [($('cmPos').value || '중요한 쪽').trim(), ($('cmNeg').value || '나머지').trim()]; }
+function cmBuild(){
+  var L = cmLabels();
+  $('cmGrid').innerHTML = '<span></span><span>예측: ' + esc(L[0]) + '</span><span>예측: ' + esc(L[1]) + '</span>' +
+    '<span class="rl">실제: ' + esc(L[0]) + '</span><input id="cmTP" inputmode="numeric" aria-label="실제 ' + esc(L[0]) + ', 예측 ' + esc(L[0]) + '" class="ok">' +
+    '<input id="cmFN" inputmode="numeric" aria-label="실제 ' + esc(L[0]) + ', 예측 ' + esc(L[1]) + '" class="bad">' +
+    '<span class="rl">실제: ' + esc(L[1]) + '</span><input id="cmFP" inputmode="numeric" aria-label="실제 ' + esc(L[1]) + ', 예측 ' + esc(L[0]) + '" class="bad">' +
+    '<input id="cmTN" inputmode="numeric" aria-label="실제 ' + esc(L[1]) + ', 예측 ' + esc(L[1]) + '" class="ok">';
+  ['TP','FN','FP','TN'].forEach(function(k){
+    var el = $('cm' + k); el.value = S.cm[k] != null ? S.cm[k] : '';
+    el.addEventListener('input', function(){ S.cm[k] = el.value; save(); cmDraw(); });
+  });
+  cmDraw();
+}
+function cmDraw(){
+  var g = function(k){ var v = parseFloat(S.cm[k]); return isNaN(v) || v < 0 ? null : v; };
+  var tp = g('TP'), fn = g('FN'), fp = g('FP'), tn = g('TN'), out = $('cmOut'); if(!out) return;
+  if([tp, fn, fp, tn].some(function(x){ return x === null; })){ out.className = 'keyout'; out.innerHTML = '네 칸에 숫자를 넣어 보세요'; return; }
+  var all = tp + fn + fp + tn; if(!all){ out.className = 'keyout'; out.innerHTML = '모두 0이면 계산할 수 없어요'; return; }
+  var L = cmLabels();
+  var acc = (tp + tn) / all, rec = tp + fn ? tp / (tp + fn) : 0, pre = tp + fp ? tp / (tp + fp) : 0, f1 = rec + pre ? 2 * rec * pre / (rec + pre) : 0;
+  var f = function(x){ return (Math.round(x * 1000) / 1000).toFixed(3); };
+  var vals = { acc:acc, rec:rec, pre:pre, f1:f1 }, verdict = '';
+  var v = parseFloat(S.sc.val);
+  if(vals[S.sc.met] != null && !isNaN(v)){
+    var hit = vals[S.sc.met] >= v;
+    verdict = '<small style="color:' + (hit ? 'var(--good)' : 'var(--warm)') + '; font-weight:800">성공 기준(' + MET[S.sc.met][0] + ' ' + v + ' 이상) — ' + (hit ? '달성 ✓' : '아직 미달 · 회차별 기록에 원인 추정을 적어 보세요') + '</small>';
+  }
+  out.className = 'keyout' + (verdict ? (vals[S.sc.met] >= v ? ' good' : ' bad') : '');
+  out.innerHTML = '정확도 ' + f(acc) + ' · 재현율 ' + f(rec) + ' · 정밀도 ' + f(pre) + ' · F1 ' + f(f1) +
+    '<small>실제 «' + esc(L[0]) + '» ' + (tp + fn) + '개 중 ' + tp + '개를 찾았고 ' + fn + '개를 놓쳤습니다. «' + esc(L[0]) + '»(으)로 예측한 ' + (tp + fp) + '번 중 ' + fp + '번은 틀렸습니다(헛경보).</small>' + verdict;
+}
+['cmPos','cmNeg'].forEach(function(id){ $(id).addEventListener('change', cmBuild); });
+cmBuild(); scDraw();
+
+/* ══════════════════════════════════════════════════════════════
+   오렌지3 흐름
+   ══════════════════════════════════════════════════════════════ */
+var ORANGE = [
+  ['① 데이터','File','CSV 열기 · 정답 열 지정',
+   '<b>File</b> — 우리 모둠 CSV를 엽니다. 아래 열 목록에서 <b>정답 열의 Role을 «target»</b>으로 바꾸세요(이걸 안 하면 학습 위젯이 «정답이 없다»고 멈춥니다). 이름·번호처럼 학습에 쓰면 안 되는 열은 «skip». · 코랩: <code>pd.read_csv()</code>'],
+  ['② 나누기','Data Sampler','훈련 70 · 테스트 30',
+   '<b>Data Sampler</b> — «Fixed proportion of data» 70%. 나간 선 두 개 중 <b>Data Sample → Test and Score의 Data</b>, <b>Remaining Data → Test Data</b>로 잇습니다. 공부한 문제와 시험 문제를 나누는 일(Ⅱ-05). · 코랩: <code>train_test_split(X, y, test_size=0.3)</code>'],
+  ['③ 모델','Tree · kNN · Logistic','학습 위젯 여러 개 OK',
+   '<b>학습 위젯</b> — 분류라면 <code>Tree</code>·<code>kNN</code>·<code>Logistic Regression</code>, 예측(숫자)이라면 <code>Linear Regression</code>. 여러 개를 동시에 Test and Score에 이으면 한 번에 비교됩니다. 위젯을 두 번 눌러 설정(k, 나무 깊이)을 바꿔 보는 것이 «개선»의 시작. · 코랩: <code>DecisionTreeClassifier()</code> 등'],
+  ['④ 점수','Test and Score','«Test on test data»',
+   '<b>Test and Score</b> — 왼쪽에서 <b>«Test on test data»</b>를 고릅니다. 분류는 <b>CA(정확도)·Recall(재현율)·Precision(정밀도)·F1</b>, 예측은 <b>RMSE·R2</b>를 봅니다. «Test on train data»로 바꿔 점수 차이가 크면 <b>과적합</b>을 의심하세요. · 코랩: <code>model.score(X_test, y_test)</code>'],
+  ['⑤ 틀린 것','Confusion Matrix','무엇을 놓쳤나',
+   '<b>Confusion Matrix</b> — Test and Score에서 잇습니다. <b>행 = 실제, 열 = 예측</b>. 대각선 밖이 틀린 것입니다. 네 칸을 아래 계산기에 옮기면 성공 기준과 비교해 줍니다. 예측(회귀) 문제에는 쓰지 않습니다. · 코랩: <code>confusion_matrix(y_test, pred)</code>']
+];
+var of = $('oFlow');
+of.innerHTML = ORANGE.map(function(o, i){
+  return (i ? '<span class="oarr" aria-hidden="true">→</span>' : '') +
+    '<button type="button" class="onode" data-i="' + i + '" aria-pressed="false"><i>' + o[0] + '</i><b>' + o[1] + '</b><span>' + o[2] + '</span></button>';
+}).join('');
+of.addEventListener('click', function(e){
+  var b = e.target.closest('.onode'); if(!b) return;
+  [].slice.call(of.querySelectorAll('.onode')).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+  $('oSay').innerHTML = ORANGE[+b.getAttribute('data-i')][3];
+});
+
+/* ══════════════════════════════════════════════════════════════
+   2분 발표 타이머
+   ══════════════════════════════════════════════════════════════ */
+var TSEG = [['문제 정의',25,'#2F6FEC'],['모델과 학습 유형',30,'#11734C'],['성능과 AI 반문으로 개선',45,'#9C5409'],['한계',20,'#7D4BA8']];
+var TTOT = 120, tLeft = TTOT, tRun = null, tLast = 0;
+function tmDraw(){
+  var used = TTOT - tLeft, acc = 0, cur = TSEG.length - 1;
+  for(var i = 0; i < TSEG.length; i++){ if(used < acc + TSEG[i][1]){ cur = i; break; } acc += TSEG[i][1]; }
+  var clk = $('tmClock'), s = Math.ceil(Math.abs(tLeft));
+  clk.textContent = (tLeft < 0 ? '+' : '') + Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+  clk.className = tLeft < 0 ? 'late' : '';
+  var bar = $('tmBar'); bar.style.width = Math.min(100, used / TTOT * 100) + '%';
+  bar.style.background = tLeft < 0 ? 'var(--cut)' : TSEG[cur][2];
+  var a2 = 0;
+  $('tmSeg').innerHTML = TSEG.map(function(g, i){
+    var from = a2; a2 += g[1];
+    return '<span class="' + (tRun && i === cur && tLeft >= 0 ? 'on' : '') + '"><b>' + Math.floor(from / 60) + ':' + ('0' + from % 60).slice(-2) + '~</b>' + g[0] + ' (' + g[1] + '초)</span>';
+  }).join('');
+}
+function tmTick(){
+  var now = Date.now(); tLeft -= (now - tLast) / 1000; tLast = now; tmDraw();
+}
+$('tmGo').addEventListener('click', function(){
+  if(tRun){ clearInterval(tRun); tRun = null; this.textContent = '이어서'; tmDraw(); return; }
+  tLast = Date.now(); tRun = setInterval(tmTick, 200); this.textContent = '멈춤'; tmDraw();
+});
+$('tmReset').addEventListener('click', function(){
+  clearInterval(tRun); tRun = null; tLeft = TTOT; $('tmGo').textContent = '시작'; tmDraw();
+});
+tmDraw();
+
+/* ══════════════════════════════════════════════════════════════
+   구술 질문 연습
+   ══════════════════════════════════════════════════════════════ */
+var QS = {
+  p:[['여러분의 모델은 무엇을 입력받아 어떻게 판단하는 에이전트인가요?','입력 → 처리 → 출력으로'],
+     ['지도학습(또는 비지도학습)을 쓴 이유는요? 레이블이 없었다면 무엇이 달라졌을까요?','정답 열 이름을 들어서'],
+     ['이 문제에서 기계학습으로 해결되지 않는 부분은 어디인가요?','사람·제도가 할 일'],
+     ['수정한 뒤 모델이 나아졌다는 것을 무엇으로 확인했나요?','회차별 기록의 숫자로'],
+     ['받아들이지 않은 AI 반문과 그 이유는?','의사결정 기록에서'],
+     ['훈련 점수와 테스트 점수가 다르다면 왜일까요?','과적합'],
+     ['이 데이터가 대표하지 못하는 사람·지역·기간은 누구인가요?','편향 네 유형 중 하나로'],
+     ['이 모델이 틀리면 누가 피해를 보나요? 그래서 무엇을 정했나요?','재현율·정밀도와 성공 기준']],
+  s:[['내가 맡은 코드 셀은 오렌지3의 어느 위젯과 같은 일을 하나요?','담당 구간 · 대조표'],
+     ['test_size 를 그 값으로 정한 이유는? 바꾸면 무엇이 달라질까요?','훈련·테스트의 양'],
+     ['오렌지3와 코랩 점수가 다르게 나왔다면 왜일까요?','나누는 방법·설정·무작위'],
+     ['개선 실험을 가설 · 조작 · 결과 · 해석 순서로 30초 안에 말해 보세요.','네 칸'],
+     ['우리 데이터에서 찾은 편향은 어떤 유형이고, 개선에 어떻게 반영했나요?','확증·선택·역사적·생존자'],
+     ['보고서에 적은 AI 활용 가운데 거절한 것과 그 이유는?','신호등 색 · 요청 · 채택 여부'],
+     ['정확도 말고 다른 지표를 함께 본 이유는?','불균형 · 놓치면 안 되는 쪽'],
+     ['이 모델을 실제로 쓴다면 사람이 꼭 확인해야 할 부분은?','인간 중심 최종 판단']]
+};
+var qLast = -1;
+function qShow(){
+  var pool = QS[S.qset] || QS.p, i;
+  do{ i = Math.floor(Math.random() * pool.length); } while(pool.length > 1 && i === qLast);
+  qLast = i;
+  $('qCard').innerHTML = esc(pool[i][0]) + '<small>힌트 — ' + esc(pool[i][1]) + ' · 30초 안에, 근거를 들어</small>';
+}
+$('qNext').addEventListener('click', qShow);
+$('qSet').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-s]'); if(!b) return;
+  S.qset = b.getAttribute('data-s'); save(); qLast = -1;
+  [].slice.call(this.children).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+  qShow();
+});
+[].slice.call($('qSet').children).forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-s') === S.qset ? 'true' : 'false'); });
+
+/* ══════════════════════════════════════════════════════════════
+   수행평가 ② 채점 기준 — 「2026학년도 2학기 인공지능 기초 교수·학습 및 평가 운영 계획」 그대로
+   ══════════════════════════════════════════════════════════════ */
+var RUB = [
+  ['SDGs 연계 주제 도출 및 프로젝트 계획 수립', [
+    '개인 주제 제안서에 「SDGs 세부 목표 번호 · 사용자 · 해결할 문제 · 예상 데이터」 4항목을 모두 적고, 본인 집필 구간에 사용할 알고리즘과 데이터를 출처와 함께 제시하였으며, 모둠 주제로 통합될 때 자기 안이 채택되거나 수정된 이유를 설명함',
+    '4항목 중 3항목을 적고, 본인 집필 구간에 알고리즘과 데이터를 제시하여 실행 가능한 계획을 세움',
+    '4항목 중 2항목을 적었거나, 본인 집필 구간의 알고리즘과 데이터 중 하나가 해결할 문제와 맞지 않음',
+    '4항목 중 1항목만 적었고 본인 집필 구간이 한두 문장에 머무름',
+    '모둠이 정한 주제를 옮겨 적었고 집필자 표기가 없어 본인 구간을 확인할 수 없음']],
+  ['오렌지3 프로토타입의 코랩 재구현', [
+    '개인 계정 노트북에서 「데이터 불러오기 · 전처리 · 모델 정의 · 학습」 4단계가 오류 없이 실행되고, 각 코드 블록에 대응하는 오렌지3 위젯을 주석으로 적었으며 구술로도 설명함',
+    '4단계가 모두 오류 없이 실행되고 본인이 작성한 셀에 담당자 주석이 남아 있음',
+    '4단계 중 3단계가 실행되거나, 4단계가 실행되더라도 교사·동료의 도움을 받아 오류를 고침',
+    '4단계 중 2단계 이하만 실행되고 담당자 주석이 확인되지 않음',
+    '배부된 예제 노트북을 실행하여 결과를 확인함']],
+  ['두 모델의 성능 비교와 사회적 영향 반영 개선', [
+    '같은 지표(정확도·RMSE 등)로 오렌지3 모델과 코랩 모델의 수치를 비교표에 나란히 제시하고, 본인 개선 실험 1건의 「가설·조작·결과·해석」 4요소를 모두 기록하였으며, 학습 데이터의 편향 유형(확증·선택·역사적·생존자) 1가지 이상을 지목하여 개선에 반영함',
+    '같은 지표로 두 모델의 수치를 비교하고, 본인 개선 실험의 4요소 중 3요소를 기록하였으며 사회적 영향을 고려한 개선을 시도함',
+    '두 모델의 수치를 비교하였으나 지표가 서로 다르거나, 본인 개선 실험 기록이 2요소 이하임',
+    '본인 담당 구간의 성능 수치만 확인하고 두 모델의 비교나 개선 기록이 없음',
+    '안내에 따라 결과 화면을 확인함']],
+  ['프로젝트 보고서 집필과 개인별 구술 방어', [
+    '본인 집필 구간에 문제 정의부터 개선까지의 판단 근거와 AI 활용 내역(신호등 색 · 요청 내용 · 채택 여부)을 모두 서술하고, 구술 2문항(담당 구간 1 · 무작위 1)에 모두 근거를 들어 답함',
+    '본인 집필 구간에 판단 근거를 서술하고 AI 활용 내역을 밝혔으며, 담당 구간 문항에 답하고 무작위 문항에 부분적으로 답함',
+    '본인 집필 구간을 서술하였으나 판단 근거와 AI 활용 내역 중 하나가 빠졌고, 구술 2문항 중 1문항에만 답함',
+    '보고서를 제출하고 발표하였으나 구술 2문항에 모두 답하지 못함',
+    '발표에 참여하였으나 자신의 담당 부분을 설명하지 못함']]
+];
+var PTS = [25, 20, 15, 10, 5];
+$('pa2Lock').hidden = !LOCK_PA2;
+$('pa2Rub').innerHTML = LOCK_PA2
+  ? '<div class="mission-lite four" style="margin-top:14px">' + RUB.map(function(r, i){
+      return '<div><b>요소 ' + (i + 1) + ' · 25점</b><span>' + r[0] + '</span></div>'; }).join('') + '</div>'
+  : '<div class="tw" style="margin-top:14px"><table class="rtab"><tr><th style="width:22%">평가 요소</th><th>채점 기준(수행 수준)</th><th style="width:56px">배점</th></tr>' +
+    RUB.map(function(r){
+      return r[1].map(function(c, k){
+        return '<tr>' + (k ? '' : '<td rowspan="5"><b>' + r[0] + '</b><br><span style="color:var(--muted)">만점 25</span></td>') +
+          '<td>' + c + '</td><td class="pt">' + PTS[k] + '</td></tr>'; }).join('');
+    }).join('') + '</table></div>' +
+    '<p class="sub" style="margin:10px 0 0; font-size:.8438rem">자발적 미응시·미참여는 0점 · 분할 점수 A/B 90 · B/C 80 · C/D 70 · D/E 50</p>';
+
+/* 맨 위로 */
+var tt = $('toTop');
+addEventListener('scroll', function(){ tt.classList.toggle('on', scrollY > 700); }, { passive:true });
+tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' }); });
+})();
+</script>
+
+</body>
+</html>

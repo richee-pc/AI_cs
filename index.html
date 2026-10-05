@@ -10,8 +10,8 @@
 <meta property="og:title" content="인공지능 기초 · 2학기 안내">
 <meta property="og:description" content="2026학년도 2학기 「인공지능 기초」 학생 안내 - 월별 일정, 수행평가, 정기고사, AI 사용 규칙">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=69ddb123" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=f5f08870" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=130ab36a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=cdac3f52" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>인공지능 기초 · 2학기 안내</title>
@@ -28,13 +28,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=f5a931b2') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2650f8dc') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f5f08870') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=cdac3f52') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=69ddb123') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=130ab36a') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8143db88') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=2dc81a1c') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -332,6 +332,8 @@ td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
 .sy{background:var(--sig-y-bg); border-color:color-mix(in srgb,var(--sig-y) 28%,transparent)}
 .sy h3{color:var(--sig-y)} .sy .lamp{background:var(--sig-y); box-shadow:0 0 0 5px color-mix(in srgb,var(--sig-y) 18%,transparent)}
 .sg{background:var(--sig-g-bg); border-color:color-mix(in srgb,var(--sig-g) 28%,transparent)}
+.sn{background:var(--white); border:2px dashed var(--line)}
+.sn h3{color:var(--ink)} .sn .lamp{background:transparent; border:4px solid var(--muted); box-sizing:border-box}
 .sg h3{color:var(--sig-g)} .sg .lamp{background:var(--sig-g); box-shadow:0 0 0 5px color-mix(in srgb,var(--sig-g) 18%,transparent)}
 
 /* ── misc ────────────────────────────────── */
@@ -438,9 +440,11 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
 </style>
 
 <nav><div class="wrap"><div class="row">
-  <a href="https://richee-pc.github.io/AI_cs/unit1.html" class="unit">Ⅰ단원 수업 자료</a>
+  <a href="https://richee-pc.github.io/AI_cs/plan.html" class="unit">📅 우리 반 수업 계획</a>
+<a href="https://richee-pc.github.io/AI_cs/unit1.html" class="unit">Ⅰ단원 수업 자료</a>
 <a href="https://richee-pc.github.io/AI_cs/unit2.html" class="unit">Ⅱ단원 수업 자료</a>
 <a href="https://richee-pc.github.io/AI_cs/unit3.html" class="unit">Ⅲ단원 수업 자료</a>
+<a href="https://richee-pc.github.io/AI_cs/unit4.html" class="unit">Ⅳ단원 수업 자료</a>
 <a href="https://richee-pc.github.io/AI_cs/colab.html" class="unit">코랩 파이썬 첫걸음</a>
 <a href="https://richee-pc.github.io/AI_cs/type.html" class="unit">자판 깨우기</a>
 <a href="https://richee-pc.github.io/AI_cs/debate.html" class="unit">수행평가 ① 토론 안내</a>
@@ -536,14 +540,16 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
   <p class="note" style="margin-top:20px"><b>단원별 수업 자료를 따로 올려 두었습니다.</b>
     수업에서 쓴 슬라이드를 그대로 다시 볼 수 있고, 차시별 날짜와 핵심 용어, 확인 문제도 함께 있습니다.</p>
   <div class="links" style="margin-top:14px">
+    <a class="link" href="https://richee-pc.github.io/AI_cs/plan.html">
+      <span class="lg">📅</span><span><b>우리 반 수업 계획</b><span>오늘 수업 · 목표 · 낼 것 · 자료 바로 가기 · 10월~12월</span></span></a>
     <a class="link" href="https://richee-pc.github.io/AI_cs/unit1.html">
       <span class="lg">Ⅰ</span><span><b>인공지능의 이해</b><span>개념·특성 · 탐색 · 지식 표현 · 슬라이드 33장</span></span></a>
     <a class="link" href="https://richee-pc.github.io/AI_cs/unit2.html">
       <span class="lg">Ⅱ</span><span><b>인공지능과 학습</b><span>전처리 체험 · 학습 유형 · k-최근접 이웃과 회귀 · 퍼셉트론 · 코랩 노트북 3권</span></span></a>
     <a class="link" href="https://richee-pc.github.io/AI_cs/unit3.html">
       <span class="lg">Ⅲ</span><span><b>사회적 영향</b><span>AI 발전 이야기 · 인공지능 윤리 · 실제 사례 17개 · 편향 실습</span></span></a>
-    <span class="link" style="opacity:.5; cursor:default">
-      <span class="lg">Ⅳ</span><span><b>인공지능 프로젝트</b><span>준비 중</span></span></span>
+    <a class="link" href="https://richee-pc.github.io/AI_cs/unit4.html">
+      <span class="lg">Ⅳ</span><span><b>인공지능 프로젝트</b><span>SDGs 주제 · 계획과 성공 기준 · 오렌지3 · 발표·구술 · 수행평가 ②</span></span></a>
   </div>
 
   <p class="note" style="margin-top:20px"><b>Ⅱ단원 코랩 실습에 들어가기 전에 봅니다.</b>
@@ -815,31 +821,38 @@ footer{padding:46px 0 76px; color:var(--muted); font-size:0.8438rem; border-top:
 <section id="ai"><div class="wrap">
   <p class="eyebrow">AI 사용 규칙</p>
   <h2>AI 신호등</h2>
-  <p class="sub">AI를 금지하지 않습니다. 다만 <b>언제 쓰는지</b>가 정해져 있습니다.</p>
+  <p class="sub">AI를 금지하지 않습니다. 다만 <b>언제, 무엇에 쓰는지</b>가 정해져 있습니다.
+    기준은 하나 — <b>AI가 다루는 것이 «내 생각»인가, «이미 있는 지식»인가.</b></p>
   <div class="g2" style="margin-bottom:20px">
-    <div class="sig sr"><h3><span class="lamp"></span>빨강 · 내가 먼저</h3>
+    <div class="sig sn"><h3><span class="lamp"></span>표시 없음 · AI 없이</h3>
       <ul><li>문제 정의, 내 주장과 해결안 세우기</li>
-        <li>모델을 정의·학습·평가하는 <b>코드 작성</b></li>
-        <li>최종 결과물의 문장 쓰기</li></ul></div>
-    <div class="sig sy"><h3><span class="lamp"></span>노랑 · 물어보기만</h3>
-      <ul><li>오류 메시지가 왜 났는지 <b>설명</b> 요청</li>
-        <li>내 결과물의 약점·반론 요청</li>
-        <li>개선 방향 질문, 코드 리뷰</li></ul></div>
-    <div class="sig sg"><h3><span class="lamp"></span>초록 · 자유롭게</h3>
-      <ul><li>자료 검색, 학술 자료 요약</li>
+        <li>모델 설계, 정의·학습·평가하는 <b>코드 작성</b></li>
+        <li>해석, 최종 결과물의 문장, <b>성찰</b></li></ul></div>
+    <div class="sig sg"><h3><span class="lamp"></span>초록 · 자율적 사용</h3>
+      <ul><li>개념 설명, 예시, <b>자료 검색 · 학술 자료 요약</b></li>
         <li>라이브러리 문법 검색</li>
-        <li>데이터 불러오기 같은 반복 작업</li></ul></div>
-    <div class="card">
-      <h4>꼭 지켜야 할 두 가지</h4>
-      <ul class="tick">
-        <li><b>1차 시도 원칙</b> — AI를 켜기 전에 내 초안을 먼저 만듭니다.</li>
-        <li><b>의사결정 기록</b> — AI가 뭐라고 했고, 받아들였는지 아닌지, 왜 그렇게 판단했는지를 적어 냅니다.</li>
-      </ul>
-      <p style="margin:16px 0 0; font-size:13.5px; color:var(--sig-r); font-weight:700">
-        AI가 만든 문장이나 코드를 그대로 제출하면 해당 평가 요소는 최하점.</p>
-    </div>
+        <li>우리가 정한 기준대로 하는 반복 작업(전처리)</li></ul></div>
+    <div class="sig sy"><h3><span class="lamp"></span>노랑 · 유도적 사용</h3>
+      <ul><li><b>내가 먼저 만든</b> 초안에 반론·반례 요청</li>
+        <li>약점 진단, 오류가 <b>왜</b> 났는지 묻기</li>
+        <li>AI에게 설명해 보고 되묻는 질문 받기</li></ul></div>
+    <div class="sig sr"><h3><span class="lamp"></span>빨강 · 쓰지 않음</h3>
+      <ul><li>내 답·주장·성찰·코드를 <b>AI가 대신 만든 것</b></li>
+        <li>그것을 고치지 않고(말투만 다듬어) 그대로 내는 것</li></ul>
+      <p style="margin:12px 0 0; font-size:13.5px; color:var(--sig-r); font-weight:700">
+        AI가 만든 문장이나 코드를 그대로 제출하면 해당 평가 요소는 최하점.</p></div>
   </div>
-  <p class="note">신호등은 <b>차시마다 미리 알려 줍니다.</b> 활동지 위쪽에 오늘의 색이 적혀 있으니 확인하고 시작하세요.</p>
+  <div class="card">
+    <h4>꼭 지켜야 할 두 가지</h4>
+    <ul class="tick">
+      <li><b>1차 시도 원칙</b> — AI를 켜기 전에 내 초안을 먼저 만듭니다.</li>
+      <li><b>의사결정 기록</b> — AI가 뭐라고 했고, 받아들였는지·고쳤는지·거절했는지, 왜 그렇게 판단했는지를 적어 냅니다.</li>
+    </ul>
+  </div>
+  <p class="note" style="margin-top:16px"><b>신호등은 차시마다 미리 알려 줍니다.</b>
+    10~11월 AI 집중 수업(<a href="https://richee-pc.github.io/AI_cs/unit2.html#explore">데이터 탐구</a> ·
+    <a href="https://richee-pc.github.io/AI_cs/unit4.html">프로젝트 ①~④</a>)에서는 «AI 탐구 교실»(연구 플랫폼)에서만 AI를 쓰고,
+    대화는 선생님 화면에 남습니다. <b>수행평가 시간</b>에는 평가 계획대로 <b>자료 검색과 학술 자료 요약(초록)</b>에만 씁니다.</p>
 </div></section>
 
 <section id="tools"><div class="wrap">

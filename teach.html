@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="교사용 · AI 집중 수업 8차시 진행표와 교실 화면 타이머">
+<meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="font/body-reg.woff2?v=130ab36a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=cdac3f52" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱</text></svg>">
+<style>html,body{margin:0;padding:0}</style>
+<title>AI 집중 수업 운영판 · 교사용</title>
+</head>
+<body>
+<style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
+   1280px 노트북에서 16px(지금 그대로) → 1920px 18.4px
+   → 2560px 20.8px → 그 이상 22px 에서 멈춘다.
+   교실 대형 화면에 띄워도 글자가 작아 보이지 않는다.            */
+:root{--sbh:clamp(28.75rem,80vh,57.5rem)}
+html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100%}
+
+/* ── 글꼴 · 학교 폴더의 글꼴을 페이지에 필요한 글자만 남겨 담았습니다 ──
+   제목 : 엘리스 DX 넬리      · 또렷하고 둥근 제목용
+   본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
+   강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
+   코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2650f8dc') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=cdac3f52') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=130ab36a') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=2dc81a1c') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
+  font-weight:400 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIMono'; src:url('font/mono.woff2?v=4e9fb374') format('woff2');
+  font-weight:400 700; font-style:normal; font-display:swap}
+
+:root{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF;
+  --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+  --mono:'AIMono',ui-monospace,Consolas,'D2Coding',Menlo,monospace;
+  --disp:'AIDisp','AIBody','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --pop:'AIPop','AIDisp','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --sans:'AIBody','Apple SD Gothic Neo','Malgun Gothic',
+    system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}}
+:root[data-theme="dark"]{
+  --sky-bg:#0A1A2E; --sky-bg2:#0D2340; --white:#132B47; --tint:#173252;
+  --blue:#63ABFF; --blue-d:#9CCBFF; --blue-l:#4A7FC4; --blue-xl:#16345A;
+  --ink:#E8F2FF; --ink2:#AFC9E8; --muted:#7A9AC0; --line:#20415F;
+  --fill:#2E62C4; --fill-d:#20469A; --on-fill:#EAF3FF;
+  --warm:#F0B96B; --warm-bg:#33260F; --good:#5FDCA6; --good-bg:#0E3325;
+  --cut:#FF8E85; --cut-bg:#3A1A18;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -22px rgba(0,0,0,.9);
+  --sh2:0 2px 6px rgba(0,0,0,.45), 0 22px 44px -24px rgba(99,171,255,.55);
+}
+:root[data-theme="light"]{
+  --sky-bg:#E9F3FF; --sky-bg2:#DAEBFF; --white:#FFFFFF; --tint:#F2F8FF;
+  --blue:#2F6FEC; --blue-d:#1B49B8; --blue-l:#8FC5FB; --blue-xl:#DCEBFF;
+  --ink:#15294A; --ink2:#3F5C85; --muted:#516C8C; --line:#CFE2F8;
+  --fill:#2F6FEC; --fill-d:#1B49B8; --on-fill:#FFFFFF;
+  --warm:#9C5409; --warm-bg:#FFF1DF; --good:#11734C; --good-bg:#DDF6EB;
+  --cut:#C8362F; --cut-bg:#FDE9E7;
+  --sh:0 1px 2px rgba(27,73,184,.05), 0 10px 26px -18px rgba(27,73,184,.35);
+  --sh2:0 2px 6px rgba(27,73,184,.08), 0 20px 40px -22px rgba(47,111,236,.5);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--sky-bg); color:var(--ink); font-family:var(--sans);
+  font-size:1rem; line-height:1.72; font-weight:450; -webkit-text-size-adjust:100%;
+  -webkit-font-smoothing:antialiased;
+  /* 한국어는 어절을 통째로 넘긴다. 이게 없으면 «진행됩니 / 다» 처럼
+     낱말 한가운데가 잘려 문장이 깨져 보인다.
+     아주 긴 주소나 영어 낱말만 anywhere 로 흘려보낸다. */
+  word-break:keep-all; overflow-wrap:anywhere}
+.wrap{max-width:min(94vw,62.5rem); margin:0 auto; padding:0 22px}
+.n{font-variant-numeric:tabular-nums}
+::selection{background:var(--blue); color:#fff}
+a{color:var(--blue)}
+
+/* ── 사이트 내비 ─────────────────────────── */
+nav{position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--sky-bg) 82%,transparent);
+  backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--line)}
+nav .row{display:flex; gap:4px; overflow-x:auto; padding:9px 0; scrollbar-width:none; align-items:center}
+nav .row::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto; color:var(--ink2); text-decoration:none; font-size:0.8438rem; font-weight:600;
+  padding:7px 14px; border-radius:99px; white-space:nowrap; transition:.16s}
+nav a:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav a.here{background:var(--fill); color:var(--on-fill)}
+nav a.soon{opacity:.45; pointer-events:none}
+nav .sep{flex:0 0 auto; width:1px; height:20px; background:var(--line); margin:0 6px}
+
+/* ── 헤더 ────────────────────────────────── */
+.hero{position:relative; overflow:hidden; padding:56px 0 46px;
+  background:radial-gradient(760px 340px at 8% -14%, var(--white) 0%, transparent 62%),
+             linear-gradient(180deg, var(--sky-bg2) 0%, var(--sky-bg) 100%)}
+.badge{display:inline-block; font-size:0.8125rem; font-weight:700; color:var(--blue-d);
+  background:var(--white); padding:7px 18px; border-radius:99px; margin:0 0 18px;
+  box-shadow:var(--sh); border:1px solid var(--line)}
+h1{font-family:var(--disp); font-weight:400; font-size:clamp(2rem,6.5vw,3.5rem); line-height:1.2;
+  margin:0 0 16px; color:var(--blue-d)}
+h1 em{font-style:normal; display:block; color:var(--ink)}
+.lede{font-size:clamp(0.9375rem,2.2vw,1.0938rem); color:var(--ink2); margin:0; max-width:54ch; line-height:1.78}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(132px,100%),1fr)); gap:11px; margin-top:30px}
+.fact{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:15px 17px;
+  box-shadow:var(--sh)}
+.fact b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.8125rem; line-height:1; color:var(--blue)}
+.fact span{display:block; font-size:0.7812rem; color:var(--muted); margin-top:7px; font-weight:500}
+
+/* ── 섹션 ────────────────────────────────── */
+section{padding:56px 0}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{display:inline-block; font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:5px 15px; border-radius:99px; margin:0 0 13px}
+h2{font-family:var(--disp); font-weight:400; font-size:clamp(1.5625rem,4.3vw,2.25rem); line-height:1.3;
+  margin:0 0 10px; color:var(--ink)}
+.sub{color:var(--muted); font-size:0.9375rem; margin:0 0 26px; max-width:60ch; font-weight:500}
+h3{font-size:1.0625rem; font-weight:700; margin:0 0 11px}
+p{margin:0 0 12px}
+b,strong{font-weight:700; color:var(--ink)}
+
+.card{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh)}
+.g2{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:15px}
+.g3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:13px}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--white); box-shadow:var(--sh)}
+table{border-collapse:collapse; width:100%; min-width:440px; font-size:0.9062rem}
+th,td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--tint); font-weight:700; font-size:0.8125rem; color:var(--blue-d); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.d{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2)}
+
+.std{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-left:5px solid var(--blue-l); border-radius:0 14px 14px 0; padding:15px 18px; box-shadow:var(--sh)}
+.std code{flex:0 0 auto; font-family:var(--mono); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); padding:3px 9px; border-radius:7px}
+.std span{font-size:0.9062rem; line-height:1.65}
+
+/* ── 탭 ──────────────────────────────────── */
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{font-family:var(--sans); font-size:0.875rem; font-weight:700; padding:10px 19px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--ink2); cursor:pointer;
+  transition:.16s; box-shadow:var(--sh)}
+.tab:hover{color:var(--blue); border-color:var(--blue-l)}
+.tab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.tab:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.big{font-family:var(--disp); font-weight:400; font-size:clamp(1.625rem,4.4vw,2.625rem); line-height:1.35;
+  color:var(--ink); text-align:center; margin:14px 0}
+.def{background:var(--blue-xl); border-radius:16px; padding:16px 20px; margin:11px 0}
+.def b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin-bottom:6px}
+.note{background:var(--warm-bg); border-left:5px solid var(--warm); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9375rem; color:var(--ink2); margin:14px 0}
+.note b{color:var(--warm)}
+/* 영상 카드 — index · unit3 와 같은 모양. 새 창에서 열립니다. */
+.video{display:flex; align-items:center; gap:22px; text-decoration:none; padding:22px 24px;
+  border-radius:var(--r); border:1px solid var(--line); background:var(--tint);
+  box-shadow:var(--sh); color:var(--ink); transition:.2s}
+.video:hover{border-color:var(--blue-l); box-shadow:var(--sh2); transform:translateY(-3px)}
+.video:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.video .play{flex:0 0 auto; width:58px; height:58px; border-radius:50%;
+  background:linear-gradient(140deg,var(--fill),var(--fill-d)); display:grid; place-items:center}
+.video .play svg{width:22px; height:22px; fill:#fff; margin-left:4px}
+.video b{display:block; font-family:var(--disp); font-weight:600; font-size:1.15rem; color:var(--ink)}
+.video .adtag{display:inline-block; font-size:0.7188rem; font-weight:700; letter-spacing:.04em;
+  color:#fff; background:var(--warm); border-radius:99px; padding:2px 9px; margin-right:7px;
+  vertical-align:2px}
+.video .adtag{background:var(--muted)}
+.video em{display:block; font-style:normal; font-size:0.9375rem; color:var(--ink2); margin-top:3px}
+.video i{display:block; font-style:normal; font-size:0.7812rem; color:var(--muted); margin-top:5px;
+  word-break:break-all}
+@media (max-width:560px){
+  .video{padding:18px; gap:14px}
+  .video .play{width:48px; height:48px}
+  .video b{font-size:1.05rem}
+}
+
+.ask{background:var(--good-bg); border-left:5px solid var(--good); border-radius:0 14px 14px 0;
+  padding:15px 20px; font-size:0.9688rem; margin:14px 0}
+.ask b{color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+.chip{font-size:0.8438rem; font-weight:600; padding:6px 14px; border-radius:99px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink2)}
+.chip.on{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.four{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:10px; margin:10px 0}
+.four div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.four b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.1875rem; color:var(--blue-d); margin-bottom:5px}
+.four span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+figure{margin:13px 0; text-align:center}
+figure img{display:block; margin:0 auto; width:min(100%, var(--w,600px)); height:auto;
+  border-radius:14px; background:var(--tint); font-size:0.8125rem; color:var(--muted)}
+figure svg{max-width:100%; height:auto}
+
+button.go{font-family:var(--sans); font-size:0.9062rem; font-weight:700; padding:11px 22px;
+  border-radius:99px; border:1px solid var(--fill); background:var(--fill); color:var(--on-fill);
+  cursor:pointer; transition:.16s}
+button.go:hover{background:var(--fill-d); border-color:var(--fill-d)}
+button.go:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.ghost{background:var(--white); color:var(--blue); border-color:var(--line)}
+button.ghost:hover{background:var(--blue-xl); color:var(--blue-d)}
+button[disabled]{opacity:.3; cursor:default}
+button[disabled]:hover{background:var(--white); color:var(--blue); border-color:var(--line)}
+
+
+/* ── 용어 ────────────────────────────────── */
+.terms{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:13px}
+.term{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:var(--sh)}
+.term b:first-child{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d); margin-bottom:5px}
+.term span{font-size:0.875rem; color:var(--ink2); line-height:1.65}
+
+/* ── 확인 문제 ───────────────────────────── */
+details{border:1px solid var(--line); border-radius:16px; background:var(--white);
+  margin-bottom:10px; box-shadow:var(--sh); overflow:hidden}
+summary{padding:16px 20px; cursor:pointer; font-weight:700; font-size:0.9688rem; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"답"; font-family:var(--disp); color:var(--blue); font-size:0.9375rem; flex:0 0 auto}
+details[open] summary{color:var(--blue)}
+details[open] summary::after{content:"닫기"}
+summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+details p{padding:0 20px 17px; margin:0; font-size:0.9062rem; color:var(--ink2)}
+
+/* ── 수업 활동 ─────────────────────────── */
+.actbar{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 20px}
+.atab{display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  font-family:var(--sans); font-size:0.9375rem; font-weight:800; text-align:left;
+  padding:11px 18px; border-radius:15px; border:2px solid var(--line);
+  background:var(--white); color:var(--ink2); cursor:pointer; transition:.15s}
+.atab i{font-style:normal; font-size:0.7188rem; font-weight:700; letter-spacing:.04em; color:var(--muted)}
+.atab:hover{border-color:var(--blue-l); background:var(--tint)}
+.atab[aria-selected="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill); box-shadow:var(--sh)}
+.atab[aria-selected="true"] i{color:var(--on-fill); opacity:.8}
+.atab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.actbox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px; box-shadow:var(--sh)}
+.actbox h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.5rem; color:var(--blue-d); margin:0 0 8px}
+.actbox .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.actbox .desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px}
+.mini-h{font-family:var(--disp); font-weight:400; font-size:1.0625rem; color:var(--blue-d); margin:0 0 10px}
+.scorepill{font-family:var(--sans); font-size:0.875rem; font-weight:800; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:8px 16px}
+
+.step-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d); margin:0 0 14px}
+.rcount{font-family:var(--sans); font-size:0.7812rem; font-weight:800; color:var(--on-fill);
+  background:var(--fill); border-radius:99px; padding:4px 13px}
+.frow{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+/* min-width:0 이 없으면 안에 든 글자 길이만큼 칸이 버텨서
+   좁은 화면에서 줄 전체가 화면 밖으로 밀려난다. */
+.fld{flex:0 1 220px; display:block; min-width:0}
+.fld.grow{flex:1 1 260px}
+.fld>span{display:block; font-family:var(--disp); font-weight:400; font-size:1rem;
+  color:var(--blue-d); margin-bottom:6px}
+.fld input, .fld textarea, .fld select{width:100%; max-width:100%; box-sizing:border-box;
+  font-family:var(--sans); font-size:0.9375rem; line-height:1.6;
+  color:var(--ink); background:var(--tint); border:2px solid var(--line); border-radius:13px;
+  padding:11px 14px; resize:vertical}
+.fld select{padding-right:10px}
+.fld input:focus, .fld textarea:focus, .fld select:focus{outline:none;
+  border-color:var(--blue); background:var(--white)}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--muted)}
+
+.wsheet{display:grid; gap:14px; margin-bottom:16px}
+.wsheet label{display:block; font-family:var(--disp); font-weight:400; font-size:1.125rem; color:var(--blue-d)}
+.wsheet textarea{display:block; width:100%; margin-top:7px; font-family:var(--sans); font-size:0.9375rem;
+  line-height:1.65; color:var(--ink); background:var(--tint); border:2px solid var(--line);
+  border-radius:14px; padding:13px 15px; resize:vertical}
+.wsheet textarea:focus{outline:none; border-color:var(--blue); background:var(--white)}
+.wsheet textarea::placeholder{color:var(--muted)}
+.rubric{display:grid; gap:9px}
+.rubric .rrow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:13px 16px}
+.rubric .rq{flex:1 1 260px; font-size:0.9062rem; color:var(--ink2)}
+
+.sendmsg{flex:1 1 200px; font-size:0.875rem; font-weight:700}
+.sendmsg.wait{color:var(--muted)}
+.sendmsg.ok{color:var(--good)}
+.sendmsg.bad{color:#A62727}
+@media (prefers-color-scheme:dark){.sendmsg.bad{color:#FF9B9B}}
+:root[data-theme="dark"] .sendmsg.bad{color:#FF9B9B}
+:root[data-theme="light"] .sendmsg.bad{color:#A62727}
+
+.simctl{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.pick{display:inline-flex; background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:3px}
+.pick button{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:7px 15px; border-radius:99px;
+  border:none; background:transparent; color:var(--ink2); cursor:pointer; transition:.15s}
+.pick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.pick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.mini{font-family:var(--sans); font-size:0.8438rem; font-weight:700; padding:9px 17px; border-radius:99px;
+  border:1px solid var(--fill); background:var(--fill); color:var(--on-fill); cursor:pointer; transition:.15s}
+.mini:hover{background:var(--fill-d); border-color:var(--fill-d)}
+.mini.gh{background:var(--white); color:var(--blue); border-color:var(--line)}
+.mini.gh:hover{background:var(--blue-xl); color:var(--blue-d)}
+.mini:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.mini[disabled]{opacity:.35; cursor:default}
+
+/* ── 코드 ───────────────────────────────── */
+.codebox{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:18px}
+.codetop{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:13px 20px; background:var(--tint); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.codetop b{font-size:0.9375rem; color:var(--blue-d)}
+.codetop span{font-family:var(--mono); font-size:0.75rem; color:var(--muted)}
+pre{margin:0; padding:20px; overflow-x:auto; background:var(--white);
+  font-family:var(--mono); font-size:0.7812rem; line-height:1.7; color:var(--ink)}
+pre .c{color:var(--muted)}
+pre .k{color:var(--blue-d); font-weight:700}
+pre .s{color:var(--good)}
+
+/* ── 용어 사전 ─────────────────────────── */
+.tgroup{font-family:var(--disp); font-weight:400; font-size:1.25rem; color:var(--blue-d);
+  margin:26px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line)}
+.tgroup:first-of-type{margin-top:0}
+.term em.ez{display:block; font-style:normal; font-size:0.8438rem; line-height:1.6;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:11px;
+  padding:9px 12px; margin:0 0 9px}
+.term em.ez::before{content:"쉽게 말하면"; display:block; font-family:var(--pop);
+  font-size:0.7188rem; letter-spacing:.04em; color:var(--blue-d); opacity:.82; margin-bottom:2px}
+.term i{display:block; font-style:normal; font-size:0.8438rem; color:var(--muted);
+  line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px dashed var(--line)}
+
+/* ── 차시별 수업 흐름 ─────────────────── */
+.flowlist{display:grid; gap:12px}
+.fcard{display:flex; gap:16px; background:var(--white); border:1px solid var(--line);
+  border-radius:var(--r); padding:18px 20px; box-shadow:var(--sh)}
+.fnum{flex:none; width:64px; text-align:center; font-family:var(--disp); font-weight:700;
+  font-size:1.625rem; line-height:1.1; color:var(--on-fill); background:var(--fill);
+  border-radius:14px; padding:12px 4px; align-self:flex-start}
+.fnum>span{display:block; font-family:var(--sans); font-size:0.6875rem; font-weight:700; opacity:.85}
+.fbody{flex:1 1 auto; min-width:0}
+.fbody>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d)}
+.fbody>i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:2px}
+.fdays{display:flex; flex-wrap:wrap; gap:7px; margin:10px 0}
+.fdays span{display:inline-flex; align-items:center; gap:6px; font-size:0.8125rem; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  font-variant-numeric:tabular-nums}
+.fdays em{font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--blue-d)}
+.fgo{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:9px}
+.fgo a{font-size:0.8438rem; font-weight:700; color:var(--blue-d); background:var(--blue-xl);
+  border:1px solid var(--blue-l); border-radius:99px; padding:5px 13px; text-decoration:none;
+  transition:.15s}
+.fgo a:hover{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.ftip{font-size:0.8438rem; color:var(--ink2); line-height:1.6; margin:0}
+.ftip::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+/* ── 데이터 탐구: 차시별 AI 신호등 ──────── */
+.lt{display:inline-flex; align-items:center; gap:6px; font-size:0.7813rem; font-weight:800;
+  border-radius:99px; padding:3px 11px; margin:0 4px 4px 0; vertical-align:middle}
+.lt::before{content:''; width:9px; height:9px; border-radius:50%; background:currentColor; flex:none}
+.lt.r{color:var(--cut); background:var(--cut-bg)}
+.lt.y{color:var(--warm); background:var(--warm-bg)}
+.lt.g{color:var(--good); background:var(--good-bg)}
+#explore .fbody ul{margin:8px 0 0; padding-left:20px; font-size:0.9375rem; color:var(--ink2)}
+#explore .fbody li{margin:3px 0}
+
+/* ── 차시별 카드: 우리 반 · 오늘 표시 ──────── */
+.flowpick{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:0 0 14px}
+.flowpick>b{font-size:0.9375rem; color:var(--ink2)}
+.fcard .flt{margin-top:6px}
+.fgoal{margin:8px 0 0; font-size:0.9375rem; color:var(--ink); line-height:1.6}
+.fgoal::before{content:'오늘의 목표 '; font-weight:800; color:var(--blue-d)}
+.fout{margin:0 0 9px; font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.fout::before{content:'낼 것 '; font-weight:800; color:var(--good)}
+.fdays span.me{background:var(--fill); border-color:var(--fill); color:var(--on-fill); font-weight:700}
+.fdays span.me em{color:var(--on-fill)}
+.fcard.now{border:2px solid var(--fill); box-shadow:var(--sh2)}
+.fnowtag{display:inline-block; margin-left:8px; font-family:var(--sans); font-size:0.75rem; font-weight:800;
+  color:var(--warm-bg); background:var(--warm); border-radius:99px; padding:2px 10px; vertical-align:middle}
+.fcard.past{opacity:.72}
+
+/* ── 헷갈리는 것 O/X ──────────────────── */
+.oxwrap{display:grid; gap:11px}
+.oxc{background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:15px 18px;
+  transition:.15s}
+.oxc.right{border-color:var(--good); background:var(--good-bg)}
+.oxc.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.oxq{display:flex; gap:11px; font-size:0.9688rem; line-height:1.6; color:var(--ink); margin:0 0 11px}
+.oxn{flex:none; width:24px; height:24px; border-radius:50%; background:var(--fill);
+  color:var(--on-fill); font-family:var(--sans); font-size:0.7812rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center}
+.oxb{display:flex; gap:9px}
+.oxb button{width:58px; height:42px; font-family:var(--disp); font-weight:700; font-size:1.25rem;
+  border-radius:12px; border:2px solid var(--line); background:var(--white);
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.oxb button:hover:not([disabled]){border-color:var(--blue); color:var(--blue-d)}
+.oxb button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.oxb button[disabled]{cursor:default}
+.oxb button.ok{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.oxw{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); font-size:0.9062rem;
+  line-height:1.7; color:var(--ink2)}
+.oxw>b{display:block; font-family:var(--disp); font-weight:700; font-size:1rem; margin-bottom:4px}
+.oxc.right .oxw>b{color:var(--good)}
+.oxc.wrong .oxw>b{color:var(--warm)}
+
+/* ── 확인 문제 ────────────────────────── */
+.extag{display:inline-block; font-size:0.75rem; font-weight:800; letter-spacing:.03em;
+  color:var(--on-fill); background:var(--fill); border-radius:99px; padding:4px 12px; margin-bottom:11px}
+.onum{display:inline-block; width:20px; font-weight:800; color:var(--blue-d)}
+.mopts button.ok .onum, .mopts button.no .onum{color:inherit}
+#exOpts{grid-template-columns:1fr}
+#exOpts button{text-align:left}
+
+/* ── 다음 단원 다리 ───────────────────── */
+.bridge{display:grid; gap:14px}
+.br{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:20px 24px; box-shadow:var(--sh)}
+.br:nth-child(2){border-left-color:var(--warm)}
+.br:nth-child(3){border-left-color:var(--good)}
+.brtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px}
+.br:nth-child(2) .brtag{color:var(--warm); background:var(--warm-bg)}
+.br:nth-child(3) .brtag{color:var(--good); background:var(--good-bg)}
+.br>h4{font-family:var(--disp); font-weight:700; font-size:clamp(1.0625rem,2.6vw,1.3125rem);
+  color:var(--ink); margin:10px 0 8px; line-height:1.45}
+.br>p{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 10px}
+.br ul{margin:0 0 10px; padding-left:20px; font-size:0.9062rem; line-height:1.85; color:var(--ink2)}
+.brtool{font-size:0.8438rem; color:var(--muted); margin:0; padding-top:9px;
+  border-top:1px dashed var(--line)}
+
+/* ── 접었다 펴는 구역 ──────────────────────── */
+.fold{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--sh); overflow:hidden}
+.fold>summary{list-style:none; cursor:pointer; padding:22px 26px; display:block; position:relative}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:'▾'; position:absolute; right:26px; top:50%; transform:translateY(-50%);
+  font-size:1.375rem; color:var(--blue); transition:transform .2s}
+.fold[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+.fold>summary:hover{background:var(--tint)}
+.fold>summary:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
+.feye{display:block; font-size:0.7812rem; font-weight:800; letter-spacing:.06em; color:var(--blue)}
+.fttl{display:block; font-family:var(--disp); font-weight:700;
+  font-size:clamp(1.375rem,3.6vw,1.875rem); line-height:1.3; color:var(--ink); margin:3px 0 5px;
+  padding-right:34px}
+.fsub{display:block; font-size:0.9062rem; color:var(--ink2); line-height:1.65; padding-right:34px}
+.foldbody{padding:0 26px 26px; border-top:1px solid var(--line); margin-top:4px; padding-top:22px}
+
+.sign{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:34px}
+.bun-gif{width:clamp(120px,26vw,164px); height:auto; display:block; border-radius:18px}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-family:var(--disp); font-size:1.0625rem;
+  color:var(--blue-d); background:var(--white); border:1px solid var(--line); border-radius:99px;
+  padding:8px 20px; box-shadow:var(--sh); letter-spacing:.01em}
+.ptp span{font-size:1.1875rem; line-height:1}
+footer{padding:42px 0 70px; color:var(--muted); font-size:0.8438rem; border-top:1px solid var(--line)}
+footer a{font-weight:700}
+/* ══════════════════════════════════════════════════════════════
+   여기부터는 Ⅱ단원 쪽에만 있는 것들입니다.
+   위쪽은 unit1.html · unit3.html 과 같은 사이트 공통 모양입니다.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 소단원 지도 ─────────────────────────── */
+.umap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:12px}
+.ucard{display:block; text-align:left; text-decoration:none; background:var(--white);
+  border:1px solid var(--line); border-left:5px solid var(--blue-l); border-radius:0 16px 16px 0;
+  padding:16px 18px; box-shadow:var(--sh); transition:.16s; color:var(--ink); cursor:pointer;
+  font-family:var(--sans)}
+.ucard:hover{border-left-color:var(--blue); box-shadow:var(--sh2); transform:translateY(-2px)}
+.ucard:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.ucard>b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d)}
+.ucard>i{display:block; font-style:normal; font-size:0.7188rem; font-weight:800; letter-spacing:.04em;
+  color:var(--muted); margin-bottom:4px}
+.ucard>span{display:block; font-size:0.875rem; color:var(--ink2); line-height:1.6; margin-top:6px}
+.ucard>em{display:inline-block; font-style:normal; font-size:0.75rem; font-weight:700;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:3px 10px; margin-top:9px}
+
+/* ── 체험 도구 상자 ───────────────────────── */
+.tool{background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px; box-shadow:var(--sh); margin-bottom:18px}
+.tool>h3{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+  font-family:var(--disp); font-weight:400; font-size:1.4375rem; color:var(--blue-d); margin:0 0 7px}
+.tool .tm{font-family:var(--sans); font-size:0.7812rem; font-weight:700; color:var(--blue-d);
+  background:var(--blue-xl); border-radius:99px; padding:4px 12px}
+.tool>.desc{font-size:0.9375rem; color:var(--ink2); margin:0 0 18px; line-height:1.7}
+.toolhead{font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d);
+  margin:22px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
+.toolhead:first-of-type{margin-top:0}
+.statline{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin:14px 0}
+.statline .st{font-size:0.8125rem; font-weight:700; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:99px; padding:5px 13px; font-variant-numeric:tabular-nums}
+.statline .st b{color:var(--blue-d)}
+.statline .st.good{background:var(--good-bg); border-color:var(--good); color:var(--good)}
+.statline .st.good b{color:var(--good)}
+
+/* ── ① 전처리 체험 : 데이터 표 ─────────────── */
+.dwrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line);
+  border-radius:16px; background:var(--white); box-shadow:var(--sh); margin-bottom:14px}
+table.dtbl{border-collapse:collapse; width:100%; min-width:540px; font-size:0.8438rem;
+  font-variant-numeric:tabular-nums}
+table.dtbl th{background:var(--tint); font-family:var(--sans); font-weight:700; font-size:0.75rem;
+  color:var(--blue-d); padding:9px 10px; text-align:center; white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+table.dtbl td{padding:8px 10px; text-align:center; border-bottom:1px solid var(--line);
+  color:var(--ink2); transition:background .3s, color .3s}
+table.dtbl tr:last-child td{border-bottom:none}
+table.dtbl th.src, table.dtbl td.src{font-size:0.7188rem; color:var(--muted)}
+table.dtbl td.mark{background:var(--warm-bg); color:var(--warm); font-weight:800}
+table.dtbl td.miss{background:var(--cut-bg); color:var(--cut); font-weight:800}
+table.dtbl td.fixed{background:var(--good-bg); color:var(--good); font-weight:800}
+table.dtbl tr.dead td{opacity:.32; text-decoration:line-through}
+table.dtbl col.gone, table.dtbl th.gone, table.dtbl td.gone{display:none}
+.dlegend{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:14px; font-size:0.7812rem}
+.dlegend span{display:inline-flex; align-items:center; gap:6px; color:var(--ink2)}
+.dlegend i{width:13px; height:13px; border-radius:4px; display:block; border:1px solid var(--line)}
+.dlegend i.m{background:var(--warm-bg); border-color:var(--warm)}
+.dlegend i.n{background:var(--cut-bg); border-color:var(--cut)}
+.dlegend i.f{background:var(--good-bg); border-color:var(--good)}
+
+/* 단계 단추 */
+.stepbtns{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(168px,100%),1fr));
+  gap:9px; margin-bottom:14px}
+.sbtn{display:block; text-align:left; font-family:var(--sans); font-size:0.875rem; font-weight:700;
+  line-height:1.45; background:var(--tint); border:2px solid var(--line); border-radius:14px;
+  padding:12px 14px; color:var(--ink); cursor:pointer; transition:.15s}
+.sbtn:hover:not([disabled]){border-color:var(--blue-l); background:var(--white)}
+.sbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.sbtn>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.7188rem;
+  color:var(--warm); margin-top:4px; word-break:break-all}
+.sbtn.done{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.sbtn.done>i{color:var(--good)}
+.sbtn.done::after{content:' ✓'; font-weight:900}
+.sbtn[disabled]{cursor:default}
+.runlog{background:var(--white); border:1px solid var(--line); border-radius:16px;
+  box-shadow:var(--sh); overflow:hidden; margin-bottom:14px}
+.runlog>b{display:block; padding:11px 18px; background:var(--tint);
+  border-bottom:1px solid var(--line); font-size:0.875rem; color:var(--blue-d)}
+.runlog pre{max-height:15rem; overflow:auto; font-size:0.75rem}
+.runlog pre .n{color:var(--muted); user-select:none}
+.saybox{background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:16px;
+  padding:14px 18px; font-size:0.9062rem; line-height:1.7; color:var(--ink2); margin-bottom:14px}
+.saybox b{color:var(--blue-d)}
+.saybox.warn{background:var(--warm-bg); border-color:var(--warm)}
+.saybox.warn b{color:var(--warm)}
+.saybox.done{background:var(--good-bg); border-color:var(--good)}
+.saybox.done b{color:var(--good)}
+
+/* 상관계수 표 */
+.corr td.hot{background:var(--blue-xl); color:var(--blue-d); font-weight:800}
+.corr td.self{color:var(--muted)}
+
+/* ── ② 유형 분류 놀이 ─────────────────────── */
+.kcards{display:grid; gap:10px; margin-bottom:16px}
+.kcard{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;
+  background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:14px 16px;
+  transition:.15s}
+.kcard.right{border-color:var(--good); background:var(--good-bg)}
+.kcard.wrong{border-color:var(--warm); background:var(--warm-bg)}
+.kcard>.kq{flex:1 1 260px; font-size:0.9062rem; line-height:1.65; color:var(--ink)}
+.kcard>.kq>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9375rem;
+  color:var(--blue-d); margin-bottom:3px}
+.kpick{display:inline-flex; flex:0 0 auto; background:var(--white); border:1px solid var(--line);
+  border-radius:99px; padding:3px}
+.kpick button{font-family:var(--sans); font-size:0.8125rem; font-weight:700; padding:7px 13px;
+  border-radius:99px; border:none; background:transparent; color:var(--ink2); cursor:pointer;
+  transition:.15s; white-space:nowrap}
+.kpick button[aria-pressed="true"]{background:var(--fill); color:var(--on-fill)}
+.kpick button:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.kwhy{flex:1 1 100%; margin-top:2px; padding-top:10px; border-top:1px dashed var(--line);
+  font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.kwhy>b{font-family:var(--disp); font-weight:700}
+.kcard.right .kwhy>b{color:var(--good)}
+.kcard.wrong .kwhy>b{color:var(--warm)}
+
+/* ── ③ 알고리즘 그림판 ────────────────────── */
+.plot{display:block; width:100%; height:auto; background:var(--white);
+  border:1px solid var(--line); border-radius:16px; box-shadow:var(--sh); touch-action:none}
+.axl{font-family:var(--sans); font-size:11px; font-weight:700; fill:var(--muted)}
+.axn{font-family:var(--mono); font-size:10px; fill:var(--muted); text-anchor:middle}
+.grid{stroke:var(--line); stroke-width:1}
+.axis{stroke:var(--muted); stroke-width:1.5}
+.pt{stroke:var(--white); stroke-width:2}
+.pt.cat{fill:#C8362F}
+.pt.dog{fill:#2F6FEC}
+.ptlab{font-family:var(--sans); font-size:11px; font-weight:800; fill:var(--ink); text-anchor:middle}
+.newpt{fill:var(--good); stroke:var(--white); stroke-width:2.5}
+.ring{fill:none; stroke:var(--good); stroke-width:2; stroke-dasharray:5 5; opacity:.85}
+.lnk{stroke:var(--good); stroke-width:2; opacity:.65}
+.fitline{stroke:var(--blue); stroke-width:3; stroke-linecap:round}
+.errline{stroke:var(--cut); stroke-width:1.6; opacity:.7}
+.bestline{stroke:var(--good); stroke-width:2.5; stroke-dasharray:7 5; opacity:.9}
+.sliderow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));
+  gap:14px; margin:14px 0}
+.sl{display:block}
+.sl>span{display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+  font-family:var(--disp); font-weight:400; font-size:0.9375rem; color:var(--blue-d); margin-bottom:5px}
+.sl>span>b{font-family:var(--mono); font-weight:700; font-size:0.875rem; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.sl input[type=range]{width:100%; accent-color:var(--blue); height:26px; cursor:pointer}
+.sl input[type=range]:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.keyout{font-family:var(--pop); font-weight:800; font-size:clamp(1.0625rem,2.6vw,1.375rem);
+  line-height:1.5; text-align:center; color:var(--ink); background:var(--blue-xl);
+  border-radius:16px; padding:16px 18px; margin:14px 0}
+.keyout.good{background:var(--good-bg); color:var(--good)}
+.keyout.bad{background:var(--warm-bg); color:var(--warm)}
+.keyout small{display:block; font-family:var(--sans); font-weight:600; font-size:0.875rem;
+  color:var(--ink2); margin-top:7px}
+
+/* ── ④ 퍼셉트론 ───────────────────────────── */
+.inrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:10px;
+  margin-bottom:14px}
+.inbtn{display:block; text-align:left; font-family:var(--sans); font-size:0.9062rem; font-weight:700;
+  background:var(--tint); border:2px solid var(--line); border-radius:14px; padding:12px 15px;
+  color:var(--ink2); cursor:pointer; transition:.15s}
+.inbtn:hover{border-color:var(--blue-l)}
+.inbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.inbtn>i{display:block; font-style:normal; font-family:var(--mono); font-size:0.75rem;
+  color:var(--muted); margin-top:3px}
+.inbtn[aria-pressed="true"]{border-color:var(--fill); background:var(--fill); color:var(--on-fill)}
+.inbtn[aria-pressed="true"]>i{color:var(--on-fill); opacity:.85}
+.calc{font-family:var(--mono); font-size:0.8125rem; line-height:2; color:var(--ink2);
+  background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:15px 18px;
+  overflow-x:auto; margin-bottom:14px}
+.calc b{color:var(--blue-d)}
+.calc em{font-style:normal; color:var(--warm); font-weight:700}
+.tt{border-collapse:collapse; width:100%; min-width:360px; font-size:0.8438rem;
+  font-variant-numeric:tabular-nums}
+.tt th{background:var(--tint); font-family:var(--sans); font-weight:700; font-size:0.75rem;
+  color:var(--blue-d); padding:9px 10px; text-align:center; border-bottom:1px solid var(--line)}
+.tt td{padding:9px 10px; text-align:center; border-bottom:1px solid var(--line); color:var(--ink2)}
+.tt tr:last-child td{border-bottom:none}
+.tt td.ok{background:var(--good-bg); color:var(--good); font-weight:800}
+.tt td.no{background:var(--warm-bg); color:var(--warm); font-weight:800}
+.nnsvg{display:block; width:100%; height:auto; max-width:560px; margin:0 auto 14px}
+.nl{stroke:var(--blue-l); stroke-width:2}
+.nl.hot{stroke:var(--fill); stroke-width:3.5}
+.nl.cold{stroke:var(--line); stroke-width:1.2}
+.nn{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.nn.on{fill:var(--fill); stroke:var(--fill)}
+.nt{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--ink); text-anchor:middle}
+.nt.on{fill:var(--on-fill)}
+.ncap{font-family:var(--sans); font-size:11px; font-weight:700; fill:var(--muted); text-anchor:middle}
+
+/* ── 제출 칸 ─────────────────────────────── */
+.gather{display:grid; gap:9px; margin-bottom:16px}
+.grow2{display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--tint);
+  border:1px solid var(--line); border-radius:13px; padding:11px 15px; font-size:0.9062rem}
+.grow2>b{font-family:var(--disp); font-weight:400; font-size:1rem; color:var(--blue-d);
+  flex:0 0 auto; min-width:150px}
+.grow2>span{color:var(--ink2); font-variant-numeric:tabular-nums}
+.grow2.miss{background:var(--warm-bg); border-color:var(--warm)}
+.grow2.miss>span{color:var(--warm); font-weight:700}
+.grow2.full{background:var(--good-bg); border-color:var(--good)}
+.grow2.full>span{color:var(--good); font-weight:700}
+.report{max-height:19rem; overflow:auto; white-space:pre-wrap; font-family:var(--mono);
+  font-size:0.75rem; line-height:1.75; color:var(--ink2); background:var(--tint);
+  border:1px solid var(--line); border-radius:14px; padding:15px 17px; margin-bottom:14px}
+
+/* ── 코랩 실습 칸 ─────────────────────────── */
+.labs{display:grid; gap:14px}
+.lab{background:var(--white); border:1px solid var(--line); border-left:6px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0; padding:22px 24px; box-shadow:var(--sh)}
+.lab:nth-child(2){border-left-color:var(--warm)}
+.lab:nth-child(3){border-left-color:var(--good)}
+.labtag{display:inline-block; font-size:0.7812rem; font-weight:800; letter-spacing:.03em;
+  color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:4px 13px; margin:0}
+.lab:nth-child(2) .labtag{color:var(--warm); background:var(--warm-bg)}
+.lab:nth-child(3) .labtag{color:var(--good); background:var(--good-bg)}
+.lab>h3{font-family:var(--disp); font-weight:700; font-size:clamp(1.125rem,2.8vw,1.375rem);
+  color:var(--ink); margin:11px 0 8px; line-height:1.4}
+.labdesc{font-size:0.9375rem; line-height:1.75; color:var(--ink2); margin:0 0 12px}
+.labdo{margin:0 0 12px; padding-left:20px; font-size:0.9062rem; line-height:1.8; color:var(--ink2)}
+.labdo code{font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d);
+  background:var(--tint); border-radius:6px; padding:1px 6px}
+.labdata{font-size:0.8438rem; color:var(--muted); margin:0 0 14px; padding-top:10px;
+  border-top:1px dashed var(--line)}
+.labdata code{font-family:var(--mono); font-size:0.7812rem; color:var(--ink2)}
+.labgo{display:flex; gap:9px; flex-wrap:wrap}
+a.mini{display:inline-block; text-decoration:none; line-height:1.4}
+a.mini:hover{color:var(--on-fill)}
+a.mini.gh:hover{color:var(--blue-d)}
+
+/* ══════════════════════════════════════════════════════════════
+   AI 수업 모형(연구 사업) 공통 — unit2 «데이터 탐구» · unit4 · teach 가 같이 씁니다.
+   신호등은 연구진 확정 규칙(2026-10)을 따릅니다:
+   초록 = 자율적 사용 · 노랑 = 유도적 사용 · 표시 없음 = AI 없이(사용 제한) ·
+   빨강(통제적 사용)은 이 수업에서 쓰지 않습니다.
+   ══════════════════════════════════════════════════════════════ */
+.lt.n{color:var(--muted); background:var(--tint); border:1px dashed var(--line)}
+.lt.n::before{background:transparent; border:2px solid currentColor; width:7px; height:7px}
+
+/* 모형 다섯 단계 띠 */
+.stages{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr)); gap:10px; margin:6px 0 18px}
+.stg{position:relative; background:var(--white); border:1px solid var(--line); border-radius:16px;
+  padding:14px 15px 13px; box-shadow:var(--sh); border-top:5px solid var(--line)}
+.stg.g{border-top-color:var(--good)} .stg.y{border-top-color:var(--warm)} .stg.n{border-top-color:var(--blue-l)}
+.stg>i{display:block; font-style:normal; font-family:var(--disp); font-weight:700; font-size:1.5rem;
+  line-height:1; color:var(--blue-d)}
+.stg>b{display:block; font-family:var(--disp); font-weight:700; font-size:0.9688rem; line-height:1.4;
+  color:var(--ink); margin:6px 0 7px}
+.stg>span:not(.lt){display:block; font-size:0.8125rem; color:var(--ink2); line-height:1.55}
+.stg .lt{margin:0 4px 7px 0; line-height:1.35}
+
+/* 신호등 설명 네 칸 */
+.sigs{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:11px}
+.sigc{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:16px 18px;
+  box-shadow:var(--sh); border-left:6px solid var(--line)}
+.sigc.g{border-left-color:var(--good)} .sigc.y{border-left-color:var(--warm)}
+.sigc.n{border-left-color:var(--blue-l)} .sigc.r{border-left-color:var(--cut); opacity:.92}
+.sigc>b{display:flex; align-items:center; gap:9px; font-family:var(--disp); font-weight:700; font-size:1.0625rem}
+.sigc.g>b{color:var(--good)} .sigc.y>b{color:var(--warm)} .sigc.n>b{color:var(--blue-d)} .sigc.r>b{color:var(--cut)}
+.sigc>b::before{content:''; width:15px; height:15px; border-radius:50%; background:currentColor; flex:none}
+.sigc.n>b::before{background:transparent; border:3px solid currentColor; width:11px; height:11px}
+.sigc p{margin:7px 0 0; font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.sigc em{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin-top:7px;
+  padding-top:7px; border-top:1px dashed var(--line)}
+
+/* 차시 안 흐름(분 단위) */
+.tline{display:grid; gap:7px; margin:12px 0 4px}
+.tl{display:grid; grid-template-columns:58px 1fr; gap:12px; align-items:start;
+  background:var(--tint); border:1px solid var(--line); border-radius:13px; padding:10px 13px}
+.tl>em{font-style:normal; font-family:var(--disp); font-weight:700; font-size:1rem; color:var(--blue-d);
+  text-align:center; background:var(--white); border:1px solid var(--line); border-radius:10px; padding:5px 0;
+  font-variant-numeric:tabular-nums}
+.tl>div{min-width:0; font-size:0.9062rem; color:var(--ink2); line-height:1.6}
+.tl>div>b{color:var(--ink)}
+.tl>div .lt{margin:0 0 0 4px; vertical-align:1px}
+.tl.g{border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.tl.y{border-color:color-mix(in srgb,var(--warm) 45%,var(--line))}
+.tl small{display:block; font-size:0.8125rem; color:var(--muted); margin-top:3px}
+
+/* 스스로 점검(체크하면 이 노트북에만 저장) */
+.chk{display:grid; gap:7px; margin:10px 0}
+.chk label{display:flex; gap:10px; align-items:flex-start; background:var(--tint); border:1px solid var(--line);
+  border-radius:12px; padding:9px 13px; font-size:0.9062rem; line-height:1.55; color:var(--ink2); cursor:pointer}
+.chk input{flex:none; width:18px; height:18px; margin:2px 0 0; accent-color:var(--good)}
+.chk label:has(input:checked){background:var(--good-bg); border-color:var(--good); color:var(--ink)}
+.chk .grp{display:inline-block; min-width:62px; font-weight:800; color:var(--blue-d); font-size:0.8125rem}
+.chkstat{font-size:0.8438rem; font-weight:700; color:var(--muted)}
+.chkstat.ok{color:var(--good)}
+
+/* 활동지 모양 상자(무엇을 쓰는지) */
+.ws{background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--sh); overflow:hidden; margin:12px 0}
+.ws>b{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:11px 16px; background:var(--tint);
+  border-bottom:1px solid var(--line); font-size:0.9062rem; color:var(--blue-d)}
+.ws>b i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill);
+  border-radius:99px; padding:2px 10px}
+.ws>div{padding:13px 16px; font-size:0.9062rem; color:var(--ink2); line-height:1.7}
+.ws ol, .ws ul{margin:0; padding-left:20px}
+.ws .eg{display:block; font-size:0.8438rem; color:var(--muted); margin-top:2px}
+.ws table{min-width:0; font-size:0.8438rem}
+.ws th, .ws td{padding:8px 10px}
+
+/* 말 틀(복사해 쓰는 문장) */
+.frame{font-family:var(--sans); background:var(--blue-xl); border:2px dashed var(--blue-l); border-radius:14px;
+  padding:12px 16px; font-size:0.9375rem; color:var(--ink); line-height:1.75; margin:10px 0}
+.frame>b:first-child{display:block; font-size:0.75rem; font-weight:800; letter-spacing:.04em; color:var(--blue-d); margin-bottom:2px}
+.blank{display:inline-block; min-width:4.5em; border-bottom:2px solid var(--blue-l); margin:0 3px}
+details.card>summary::after{content:'펼치기'; font-family:var(--sans); font-size:0.8125rem}
+details.card[open]>summary::after{content:'접기'}
+[id]{scroll-margin-top:64px}
+.flowlist{grid-template-columns:minmax(0,1fr)}
+.fcard{min-width:0}
+
+/* 교사 메모 상자(학생도 보지만 교사용 안내) */
+.tnote{font-size:0.8438rem; color:var(--ink2); background:var(--warm-bg); border-radius:12px; padding:10px 14px; margin:10px 0 0; line-height:1.6}
+.tnote::before{content:'교사 메모 '; font-weight:800; color:var(--warm)}
+
+.stag{display:inline-block; font-size:0.7188rem; font-weight:800; color:var(--on-fill); background:var(--warm);
+  border-radius:99px; padding:2px 9px; margin-left:6px; vertical-align:1px}
+
+/* ══════════════════════════════════════════════════════════════
+   가독성 개선 (2026-10) — unit2 · unit4 · plan 이 같이 씁니다.
+   글자 한 단계 크게 · 본문 색 진하게 · 여백 넉넉히 · 맨 위 바로 가기 목차
+   ══════════════════════════════════════════════════════════════ */
+html{font-size:clamp(16px, 12.6px + 0.34vw, 21px)}
+@media (prefers-color-scheme:light){:root{--ink2:#2B456B; --muted:#4A6384}}
+:root[data-theme="light"]{--ink2:#2B456B; --muted:#4A6384}
+body{line-height:1.78; letter-spacing:-.003em}
+.wrap{max-width:min(94vw,64rem)}
+section{padding:64px 0}
+h1{letter-spacing:-.02em}
+h2{font-weight:700; font-size:clamp(1.75rem,4.4vw,2.5rem); letter-spacing:-.015em; line-height:1.28}
+.eyebrow{font-size:0.8125rem; padding:6px 16px}
+.sub{font-size:1.0312rem; color:var(--ink2); max-width:62ch; line-height:1.8}
+.note,.ask{font-size:1rem; line-height:1.78; padding:17px 22px}
+.card,.tool{padding:28px; border-radius:22px}
+.tool>h3{font-weight:700}
+.std span{font-size:0.9688rem}
+nav .row{padding:10px 0; gap:5px}
+nav a{font-size:0.9062rem; padding:8px 15px}
+nav a.plan{background:var(--good-bg); color:var(--good); font-weight:800}
+nav a.plan:hover{background:var(--good); color:#fff}
+.hero{padding:52px 0 40px}
+
+/* 맨 위 «이 쪽에서 바로 가기» */
+.toc{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr)); gap:11px; margin-top:28px}
+.toc a{display:flex; gap:13px; align-items:flex-start; background:var(--white); border:1px solid var(--line);
+  border-radius:18px; padding:14px 16px; text-decoration:none; color:var(--ink); box-shadow:var(--sh); transition:.16s}
+.toc a:hover{transform:translateY(-2px); border-color:var(--blue-l); box-shadow:var(--sh2)}
+.toc a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+.toc .ic{flex:none; width:42px; height:42px; border-radius:13px; background:var(--blue-xl); display:grid; place-items:center; font-size:1.3rem}
+.toc b{display:block; font-family:var(--disp); font-weight:700; font-size:1.0625rem; color:var(--blue-d); line-height:1.35}
+.toc span{display:block; font-size:0.8438rem; color:var(--ink2); line-height:1.5; margin-top:3px}
+.toc em{display:inline-block; font-style:normal; font-size:0.6875rem; font-weight:800; color:var(--good);
+  background:var(--good-bg); border-radius:99px; padding:1px 8px; margin-top:6px}
+.tochead{font-family:var(--disp); font-weight:700; font-size:0.9375rem; color:var(--muted); margin:30px 0 -14px}
+
+/* 수업 계획으로 가는 띠 */
+.planbar{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 18px;
+  background:linear-gradient(135deg,var(--fill),var(--fill-d)); color:var(--on-fill); border-radius:20px;
+  padding:16px 22px; box-shadow:var(--sh2); margin-top:22px}
+.planbar>span{font-size:1rem; line-height:1.5}
+.planbar>span b{display:block; color:var(--on-fill); font-family:var(--disp); font-size:1.1875rem}
+.planbar a{flex:none; background:#fff; color:#1B49B8; font-weight:800; border-radius:99px; padding:11px 20px;
+  text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.planbar a:hover{background:#EAF3FF}
+
+/* 맨 위로 */
+.totop{position:fixed; right:18px; bottom:18px; z-index:60; width:48px; height:48px; border-radius:50%;
+  border:none; background:var(--fill); color:var(--on-fill); font-size:1.25rem; font-weight:900; cursor:pointer;
+  box-shadow:var(--sh2); opacity:0; pointer-events:none; transform:translateY(8px); transition:.2s}
+.totop.on{opacity:1; pointer-events:auto; transform:none}
+.totop:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
+.hint{font-size:0.875rem; color:var(--ink2); line-height:1.6; margin:6px 0 0}
+.hint::before{content:'참고 '; font-weight:800; color:var(--blue-d)}
+@media (max-width:560px){ section{padding:44px 0} .card,.tool{padding:20px} .planbar a{width:100%; text-align:center} }
+
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+@media (max-width:560px){
+  .hero{padding:38px 0 34px} section{padding:40px 0}
+  .tool{padding:18px} .grow2>b{min-width:0; flex:1 1 100%}
+}
+
+/* ══════════════════════════════════════════════════════════════
+   여기부터는 교사용 운영판(teach.html)에만 있는 것들입니다.
+   ══════════════════════════════════════════════════════════════ */
+.lgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr)); gap:9px; margin-top:14px}
+.lbtn{display:flex; flex-direction:column; gap:2px; text-align:left; font-family:var(--sans); cursor:pointer;
+  background:var(--white); border:2px solid var(--line); border-radius:15px; padding:11px 14px; color:var(--ink);
+  box-shadow:var(--sh); transition:.15s}
+.lbtn>i{font-style:normal; font-size:0.7188rem; font-weight:800; color:var(--muted); letter-spacing:.03em}
+.lbtn>b{font-family:var(--disp); font-weight:700; font-size:0.9688rem; color:var(--blue-d)}
+.lbtn>span{font-size:0.7812rem; color:var(--ink2); font-variant-numeric:tabular-nums}
+.lbtn:hover{border-color:var(--blue-l)}
+.lbtn[aria-pressed="true"]{border-color:var(--fill); background:var(--blue-xl)}
+.lbtn.today{box-shadow:0 0 0 3px var(--warm)}
+.lbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.ctl{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:4px 0 10px}
+.clk{margin-left:auto; font-family:var(--disp); font-weight:700; font-size:1.25rem; color:var(--blue-d); font-variant-numeric:tabular-nums}
+.segs{display:grid; gap:8px}
+.sg2{display:grid; grid-template-columns:70px 1fr; gap:14px; background:var(--white); border:1px solid var(--line);
+  border-left:6px solid var(--blue-l); border-radius:0 15px 15px 0; padding:12px 15px; box-shadow:var(--sh); cursor:pointer}
+.sg2.g{border-left-color:var(--good)} .sg2.y{border-left-color:var(--warm)}
+.sg2.cur{outline:3px solid var(--fill); outline-offset:1px; background:var(--blue-xl)}
+.sg2.done{opacity:.6}
+.sg2>em{font-style:normal; text-align:center; font-family:var(--disp); font-weight:700; font-size:1.25rem; color:var(--blue-d);
+  font-variant-numeric:tabular-nums; line-height:1.2}
+.sg2>em small{display:block; font-family:var(--sans); font-size:0.6875rem; font-weight:700; color:var(--muted)}
+.sg2>em small.over{color:var(--cut)}
+.sg2 h4{margin:0; font-family:var(--disp); font-weight:700; font-size:1.0312rem; color:var(--ink)}
+.sg2 h4 .lt{margin:0 0 0 6px; vertical-align:2px}
+.sg2 .stg2{font-size:0.75rem; font-weight:700; color:var(--muted)}
+.sg2 .say{margin:6px 0 0; font-size:0.9062rem; color:var(--ink); line-height:1.6}
+.sg2 .say::before{content:'발화 '; font-size:0.75rem; font-weight:800; color:var(--blue-d)}
+.sg2 .ask2{margin:4px 0 0; font-size:0.875rem; color:var(--good); line-height:1.6}
+.sg2 .ask2::before{content:'순회 '; font-size:0.75rem; font-weight:800}
+.sg2 ul{margin:5px 0 0; padding-left:18px; font-size:0.8438rem; color:var(--ink2); line-height:1.6}
+.sg2 .plat{margin:6px 0 0; font-size:0.8438rem; color:var(--warm); font-weight:700}
+.sg2 .plat::before{content:'플랫폼 '; font-weight:900}
+.tbar{display:flex; height:14px; border-radius:99px; overflow:hidden; border:1px solid var(--line); background:var(--tint); margin:8px 0 14px}
+.tbar>i{display:block; height:100%; border-right:1px solid var(--white)}
+.tbar>i.n{background:var(--blue-l)} .tbar>i.g{background:var(--good)} .tbar>i.y{background:var(--warm)}
+.tbar>i.past{opacity:.35}
+.tbar>i.cur{box-shadow:inset 0 0 0 3px var(--ink)}
+.qcard{font-family:var(--disp); font-weight:700; font-size:clamp(1.0625rem,2.6vw,1.375rem); line-height:1.5; color:var(--ink);
+  background:var(--white); border:2px solid var(--blue-l); border-radius:18px; padding:18px 20px; min-height:5em; box-shadow:var(--sh)}
+.qcard small{display:block; font-family:var(--sans); font-size:0.8125rem; color:var(--muted); margin-top:8px}
+
+/* 교실 화면(빔) */
+.big-ov{position:fixed; inset:0; z-index:100; background:var(--sky-bg); color:var(--ink); display:flex; flex-direction:column;
+  padding:2.2vh 3vw; gap:1.6vh}
+.ov-top{display:flex; justify-content:space-between; gap:20px; font-size:clamp(1rem,1.8vw,1.6rem); font-weight:700; color:var(--ink2)}
+.ov-main{flex:1 1 auto; display:flex; align-items:center; gap:4vw; min-height:0}
+.ov-lamp{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:1.4vh}
+.ov-lamp i{display:block; width:min(22vh,18vw); height:min(22vh,18vw); border-radius:50%; background:transparent;
+  border:min(2vh,1.6vw) solid var(--muted)}
+.ov-lamp.g i{background:#1E8E3E; border-color:#1E8E3E; box-shadow:0 0 6vh rgba(30,142,62,.55)}
+.ov-lamp.y i{background:#E0A800; border-color:#E0A800; box-shadow:0 0 6vh rgba(224,168,0,.55)}
+.ov-lamp b{font-family:var(--disp); font-weight:700; font-size:clamp(1.1rem,2.4vw,2.2rem); text-align:center}
+.ov-lamp.g b{color:var(--good)} .ov-lamp.y b{color:var(--warm)} .ov-lamp.n b{color:var(--ink2)}
+.ov-txt{min-width:0}
+.ov-txt em{display:block; font-style:normal; font-size:clamp(1rem,1.9vw,1.7rem); font-weight:800; color:var(--blue-d)}
+.ov-txt h2{font-family:var(--disp); font-weight:700; font-size:clamp(2rem,5.4vw,5.2rem); line-height:1.2; margin:.6vh 0 1.4vh; color:var(--ink)}
+.ov-txt p{font-size:clamp(1.1rem,2.3vw,2.2rem); line-height:1.5; color:var(--ink2); margin:0}
+.ov-time{font-family:var(--disp); font-weight:700; font-size:clamp(3.4rem,12vh,10rem); line-height:1; text-align:right;
+  font-variant-numeric:tabular-nums; color:var(--blue-d)}
+.ov-time.late{color:var(--cut)}
+.ov-bar{height:2.2vh; margin:0}
+.ov-foot{display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; font-size:clamp(.95rem,1.6vw,1.45rem); color:var(--ink2)}
+.ov-foot b{color:var(--ink)}
+.ov-btns{margin-left:auto; display:flex; gap:8px}
+.ov-btns button{font-family:var(--sans); font-weight:800; font-size:1rem; padding:8px 16px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--blue-d); cursor:pointer}
+</style>
+
+<nav><div class="wrap"><div class="row">
+  <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내</a>
+  <span class="sep"></span>
+  <a href="https://richee-pc.github.io/AI_cs/unit2.html#explore">Ⅱ 데이터 탐구</a>
+  <a href="https://richee-pc.github.io/AI_cs/unit4.html">Ⅳ 프로젝트</a>
+  <span class="sep"></span>
+  <a href="#pick">수업 고르기</a>
+  <a href="#run">진행표 · 타이머</a>
+  <a href="#prep">준비 · 산출물</a>
+  <a href="#tools">발표 순서 · 발문</a>
+  <a href="#memo">수업 후 메모</a>
+  <a href="#platform">플랫폼 순서</a>
+</div></div></nav>
+
+<div class="hero" style="padding:40px 0 30px"><div class="wrap">
+  <p class="badge">교사용 · 메뉴에 걸지 않은 쪽입니다 · 주소로만 엽니다</p>
+  <h1 style="font-size:clamp(1.75rem,5vw,2.75rem)">AI 집중 수업 운영판<em style="font-size:.6em">데이터 탐구 4차시 · 프로젝트 4차시</em></h1>
+  <p class="lede">분반과 차시를 고르면 <b>분 단위 진행표 · 교사 발화 · 순회 질문 · 유의점 · 플랫폼 순서</b>가 나옵니다.
+    <b>«교실 화면»</b>을 누르면 빔에 띄울 큰 화면(지금 활동 · 신호등 · 남은 시간)으로 바뀝니다.
+    체크와 메모는 <b>이 컴퓨터에만</b> 저장됩니다.</p>
+</div></div>
+
+<section id="pick" style="padding-top:34px"><div class="wrap">
+  <div class="flowpick"><b>분반</b>
+    <span class="pick" id="tCls">
+      <button type="button" data-c="0" aria-pressed="false">인기A 수목금</button>
+      <button type="button" data-c="1" aria-pressed="false">인기D 월화금</button>
+      <button type="button" data-c="2" aria-pressed="false">인기E 월화목</button>
+    </span></div>
+  <div class="lgrid" id="tLessons"></div>
+  <div class="ask" id="tToday" style="margin:14px 0 0"></div>
+</div></section>
+
+<section id="run"><div class="wrap">
+  <p class="eyebrow" id="rEye">진행표</p>
+  <h2 id="rTitle">수업을 고르세요</h2>
+  <p class="sub" id="rGoal"></p>
+  <div class="ctl">
+    <button type="button" class="mini" id="rGo">▶ 시작</button>
+    <button type="button" class="mini gh" id="rPrev">◀ 이전</button>
+    <button type="button" class="mini gh" id="rNext">다음 ▶</button>
+    <button type="button" class="mini gh" id="rReset">처음으로</button>
+    <button type="button" class="mini" id="rBig" style="background:var(--good); border-color:var(--good)">🖥 교실 화면</button>
+    <span class="clk" id="rClock">0:00 / 50:00</span>
+  </div>
+  <div class="tbar" id="rBar"></div>
+  <div class="segs" id="rSegs"></div>
+  <p class="sub" style="margin-top:12px; font-size:.8438rem">단축키 — <b>Space</b> 시작·멈춤 · <b>→ / ←</b> 다음·이전 활동 · <b>F</b> 교실 화면 · <b>Esc</b> 닫기. 시간이 지나도 저절로 넘어가지 않습니다.</p>
+</div></section>
+
+<section id="prep"><div class="wrap">
+  <div class="g2">
+    <div class="ws" style="margin:0"><b><i>수업 전</i> 준비물 · 자료</b><div><div class="chk" id="pPrep"></div><span class="chkstat" id="pPrepStat"></span></div></div>
+    <div class="ws" style="margin:0"><b><i>수업 뒤</i> 걷을 것 · 확인할 것</b><div><div class="chk" id="pOut"></div><span class="chkstat" id="pOutStat"></span>
+      <span class="eg">체크는 분반·차시마다 따로 저장됩니다.</span></div></div>
+  </div>
+</div></section>
+
+<section id="tools"><div class="wrap">
+  <div class="g2">
+    <div class="tool" style="margin:0"><h3>발표 순서 추첨</h3>
+      <p class="desc">모둠 수를 넣고 누르면 무작위 순서가 나옵니다. 교실 화면에도 함께 뜹니다.</p>
+      <div class="simctl"><label class="fld" style="flex:0 0 120px"><span>모둠 수</span><input id="dN" type="number" min="2" max="12" value="7"></label>
+        <button type="button" class="mini" id="dGo" style="align-self:flex-end">추첨</button></div>
+      <div class="keyout" id="dOut">—</div></div>
+    <div class="tool" style="margin:0"><h3>구술 발문 카드 <span class="tm" id="eTag">EPD · Defense</span></h3>
+      <p class="desc">발표자 외 모둠원을 지목해 묻습니다. 누르면 다음 카드.</p>
+      <div class="qcard" id="eCard" style="cursor:pointer">이 차시에는 발표가 없습니다.</div></div>
+  </div>
+</div></section>
+
+<section id="memo"><div class="wrap">
+  <p class="eyebrow">수업 후 메모</p>
+  <h2 style="font-size:1.5rem">다음 차시에 챙길 것</h2>
+  <p class="sub">미승인 모둠, 개별 격려가 필요한 학생, 시간이 넘친 활동 등 — <b>이 컴퓨터에만</b> 분반·차시별로 저장됩니다. 학생 이름은 꼭 필요할 때만.</p>
+  <div class="frow"><label class="fld grow"><span id="mLbl">메모</span><textarea id="mTxt" rows="5" placeholder="예) 3모둠 데이터 승인 보류 — 출처 연도 2015 → 최근 자료로 교체 필요 / 활동 3이 4분 넘침"></textarea></label></div>
+  <div class="simctl"><span class="sendmsg ok" id="mMsg"></span></div>
+</div></section>
+
+<section id="platform"><div class="wrap">
+  <p class="eyebrow">플랫폼 «AI 탐구 교실» 운영 순서</p>
+  <h2 style="font-size:1.5rem">단계마다 열리는 도구와 진행 조건</h2>
+  <div class="tw"><table>
+    <tr><th style="width:96px">차시</th><th>열 도구 · 신호</th><th>진행 조건 · 확인할 것</th></tr>
+    <tr><td>데이터 ①②</td><td>없음 <span class="lt n">AI 없이</span></td><td>대시보드만 켜 두기. 학생이 다른 AI 사이트를 쓰지 않는지 순회.</td></tr>
+    <tr><td>데이터 ③</td><td>AI Agent · AI 탐구 보조 <span class="lt g">초록</span></td><td>첫 사용 → 사전 프롬프팅 체험 3단계. 출처 인용 시 비판적 활용 체크리스트(5). 활동 3 끝에 <b>1차 자기·동료평가</b>(다음 시간 소크라틱 전).</td></tr>
+    <tr><td>데이터 ④</td><td>소크라틱 AI Critic · AI 티치백 <span class="lt y">노랑</span></td><td><b>활동지 업로드 후</b> 소크라틱 열림 · 의사결정 기록 화면 · 티치백 뒤 <b>2차 평가</b>.</td></tr>
+    <tr><td>프로젝트 ①</td><td>AI Co-Pilot <span class="lt y">노랑</span></td><td>개인 아이디어 확인 뒤 모둠장 입력 · 첫 사용 사전 프롬프팅 · 뼈대마다 의사결정 기록.</td></tr>
+    <tr><td>프로젝트 ②</td><td>AI 탐구 보조 <span class="lt g">초록</span></td><td>점검 체크리스트(5) 완료해야 다음 질문 · 위임형 질문은 대시보드 경고 → 즉시 개입.</td></tr>
+    <tr><td>프로젝트 ③</td><td>(③ 없음) → 소크라틱 AI Critic <span class="lt y">노랑</span></td><td>오렌지3 동안 수업 지원 AI 없음 · <b>1차 평가 먼저</b> · 활동지(성능 기록) 업로드 후 소크라틱.</td></tr>
+    <tr><td>프로젝트 ④</td><td>AI Agent · 메타인지적 AI <span class="lt y">노랑</span></td><td>개요 없으면 Agent 시작 X · 메타인지 성찰 뒤 <b>2차 평가</b>.</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:14px"><b>평가 원칙.</b> 자기·동료평가는 1~5점, 성적 미반영(피드백용). 성취수준은 개인별 —
+    개인 산출물 · 개인 AI 로그 · 교사 발문 응답 · 동료평가로 기여를 확인합니다. AI는 점수를 매기지 않으며, 최종 판단은 교사가 합니다.
+    회귀(이전 단계로 돌아가기)는 감점이 아니라 근거가 기록되면 발전의 증거입니다.</p>
+  <p class="note" style="margin-top:10px"><b>플랫폼이 멈추면.</b> 모든 AI 비계에 대체 활동이 있습니다 —
+    소크라틱 → 3·5대 관점 질문 목록 활동지, 탐구 보조 → 교과서 쪽 안내·검색어 목록, AI Agent → 코랩·스프레드시트 직접 전처리 / 발표자료 템플릿,
+    메타인지 AI → 성찰 질문지. 자기·동료평가는 종이 또는 구글 설문으로 두 번.</p>
+</div></section>
+
+<div class="big-ov" id="ov" hidden>
+  <div class="ov-top"><span id="ovLesson"></span><span id="ovClock"></span></div>
+  <div class="ov-main">
+    <div class="ov-lamp" id="ovLamp"><i></i><b id="ovSig"></b></div>
+    <div class="ov-txt"><em id="ovStage"></em><h2 id="ovTitle"></h2><p id="ovSay"></p></div>
+  </div>
+  <div class="ov-time" id="ovTime">0:00</div>
+  <div class="tbar ov-bar" id="ovBar"></div>
+  <div class="ov-foot"><span id="ovNext"></span><span id="ovOrder"></span>
+    <span class="ov-btns"><button type="button" id="ovPrev">◀</button><button type="button" id="ovGo">▶</button><button type="button" id="ovNextB">▶▶</button><button type="button" id="ovClose">닫기</button></span></div>
+</div>
+
+<footer><div class="wrap">
+  <p style="margin:0">교사용 운영판 · 최종 수업지도안(AI 확장 데이터 탐구·검증 모형 / AI 모델링 기반 컴퓨팅 문제해결 모형, 2026-10 전문가 검토 자료)을 그대로 옮겼습니다.</p>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+         alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   수업 데이터 — 최종 수업지도안(2026-10 전문가 검토 2차 자료) 그대로
+   seg: [분, 무엇(구분 · 활동), 신호(n 없음 · g 초록 · y 노랑), 모형 단계, 교사 발화[], 순회 질문[], 유의점[], 플랫폼]
+   날짜: [인기A, 인기D, 인기E] — unit2·unit4 의 표와 같게
+   ══════════════════════════════════════════════════════════════ */
+var LESSONS = [
+{ id:'D1', model:'데이터', no:1, title:'데이터 탐구 ① 문제 정하기',
+  d:['10/21 (수)','10/19 (월)','10/19 (월)'], std:'[12정02-03]',
+  goal:'여러 문제가 얽힌 상황에서 데이터로 확인할 수 있는 문제를 정의하고, 문제 해결 가설과 필요한 데이터를 계획할 수 있다.',
+  acts:['[활동1] 문제 상황 읽고 나만의 문제 정의','[활동2] 모둠 문제 정의문','[활동3] 가설과 필요한 데이터'],
+  prep:['수업 PPT','문제 상황 「그 여름, 우리 학교에서 생긴 일」 인쇄본','모둠 구글 슬라이드(활동지 ①·②) 미리 공유','AI 활용 윤리 체크리스트','모둠 편성표(기록·데이터 탐색·분석·발표)','실마리별 검색어 추천 목록','촬영 준비(얼굴 X)'],
+  out:['활동지 ①(문제 정의 · 가설)','활동지 ② 탐구 질문 정의서 앞부분'],
+  seg:[
+   [2,'도입 · 네 차시 흐름과 산출물','n','',['네 시간 동안 여러분이 직접 문제를 정하고, 데이터로 답을 찾아 발표까지 합니다. 매 시간 활동지를 하나씩 채우고, 마지막 시간에 모둠별로 발표해요.'],[],[],''],
+   [3,'도입 · AI 신호등과 윤리 체크리스트','n','',['초록은 AI가 자료 찾기와 정리를 도와주는 때, 노랑은 AI가 우리 생각에 질문만 하는 때예요. 신호등이 없는 활동은 AI 없이 우리 생각으로 합니다.','AI 로그는 몇 번 썼는지 세려는 것이 아니라 어떻게 판단했는지 보기 위한 거예요. 오늘은 AI를 쓰지 않습니다.'],[],['[인지] 신호등 기준을 예시 한두 개로','[정서] 로그는 감시가 아니라 판단 과정을 보기 위한 것','[사회] 사전 편성 모둠과 역할 확인 — 소외되는 학생이 없게'],''],
+   [5,'활동 1 · 문제 상황 함께 읽기','n','① 문제 인식 및 정의',['이 글에 문제가 몇 개나 숨어 있을까요? 밑줄을 그으며 세어 보세요.'],[],['교사가 낭독, 학생은 «문제라고 생각하는 문장»에 밑줄','실마리(폭염·전력 / 건강·수면 / 급식·쓰레기 / 물)는 미리 알려 주지 않는다'],''],
+   [7,'활동 1 · 개인 문제 정의와 핵심 요소 (활동지 ①)','n','① 문제 인식 및 정의',['밑줄 친 것 중 데이터로 확인할 수 있는 것은 무엇일까요? 선생님 말씀은 사실일까요, 느낌일까요?'],['누가, 무엇이, 어디서, 언제가 드러나게 한 문장으로 쓸 수 있나요?'],['[인지] 범위가 넓으면 «이 문제는 어떤 데이터로 확인할 수 있을까?»','느낌(담임 선생님 말)·소문(할머니 말) = 확증 편향·일화적 증거의 예','[정서] 말하기 부담 학생은 기록 역할 먼저'],''],
+   [4,'활동 2 · 확인할 수 있는 것 / 없는 것 나누기','n','① 문제 인식 및 정의',['네 사람의 밑줄을 모아 보세요. 어떤 실마리가 가장 많이 겹치나요?'],[],['토의 방법: ① 한 사람씩 1분 ② 데이터로 확인 가능한지 따지기 ③ 근거와 함께 골라 다듬기','[사회] 모든 모둠원의 밑줄이 한 번 이상 반영되게'],''],
+   [4,'활동 2 · 모둠 문제 정의문 합의 → 교사 확인','n','① 문제 인식 및 정의',[],[],['교사 확인: 데이터로 확인할 수 있는 문장인지 본 뒤 활동 3으로','같은 실마리를 고른 모둠이 여럿이어도 괜찮다 — 4차시 토의거리'],''],
+   [6,'활동 3 · 개인 가설과 사전 지식 (활동지 ①)','n','② 데이터 관점 탐구 설계',['«○○할수록 △△할 것이다»처럼 데이터로 확인할 수 있는 문장으로 써 봅시다.'],[],['[인지] 가설 문장 틀과 속성 예시를 수준별로','[정서] 가설이 틀려도 데이터로 확인한 것 자체가 성과'],''],
+   [14,'활동 3 · 탐구 질문 정의서 앞부분 (활동지 ②)','n','② 데이터 관점 탐구 설계',['이 가설에 답하려면 어떤 열(속성)이 꼭 있어야 할까요?'],['기온과 수면 시간을 같은 기간, 같은 지역 단위로 맞출 수 있나요?'],['가설 · 데이터 종류 · 꼭 필요한 열 · 출처 후보','[사회] 출처 후보를 모둠원이 하나씩 맡아','(심화) 대립 가설 — 반대 결과가 나오면 무엇을 뜻하나','분석·시각화 계획, AI 활용 계획, 역할은 2차시 승인 전에 완성'],''],
+   [3,'정리 · 모둠 문제 정의문 한 문장 공유','n','',['오늘 우리 모둠이 정한 문제를 한 문장으로 말해 볼까요?'],[],['말하기 틀: 우리 모둠은 (  )을 데이터로 확인하려고 (  ) 데이터를 찾아보겠습니다.','[사회] 다른 모둠과 겹치는 실마리 확인'],''],
+   [2,'정리 · 다음 차시 예고','n','',['다음 시간에는 가설에 답할 데이터를 직접 찾고, 믿을 수 있는 데이터인지 따져 봅니다.'],[],['활동지 ① 형성평가는 다음 차시 도입에 모둠별로 되돌려 준다'],'']
+  ]},
+{ id:'D2', model:'데이터', no:2, title:'데이터 탐구 ② 데이터 찾기와 평가',
+  d:['10/22 (목)','10/23 (금)','10/22 (목)'], std:'[12정02-03]',
+  goal:'가설 해결에 적합한 데이터를 수집하여 적합성·신뢰성·충분성·윤리 기준으로 평가하고, 데이터 전처리 기준을 스스로 세울 수 있다.',
+  acts:['[활동1] 데이터 찾기','[활동2] 데이터 평가와 승인','[활동3] 전처리 기준 세우기'],
+  prep:['수업 PPT','검색어 카드','대체 데이터(교과서 부록 스트레스·약수터 수질) 공유 폴더','로그인 필요 사이트(AI 허브·캐글) 데이터 미리 받기','계획 승인 체크리스트','전처리 기준 예시 카드','1차시 활동지 ① 코멘트'],
+  out:['활동지 ②(정의서 완성 · 승인)','활동지 ③(출처 · 평가 체크리스트)','수집 데이터','활동지 ④ 전처리 기준'],
+  seg:[
+   [2,'도입 · 문제 정의문 피드백 확인','n','',[],[],['[정서] 고칠 점보다 잘한 점을 먼저 읽어 줌','[사회] 기록 담당이 모둠에 읽어 줌'],''],
+   [3,'도입 · 빅데이터의 특징 떠올리기','n','',['우리가 찾을 데이터는 빅데이터의 어떤 특징(규모·다양성·속도)을 가지고 있을까요?'],[],['[인지] 규모·다양성·속도를 우리 문제의 데이터 예와 짝지어 판서'],''],
+   [9,'활동 1 · 검색어로 데이터 수집','n','② 데이터 관점 탐구 설계',['검색어를 바꿔도 안 나오면 실마리를 넓혀 보세요. «폭염일수»가 없으면 «일 최고기온»은 어떨까요?'],[],['10분이 지나도 못 찾으면 대체 데이터와 검색어 카드 — 정당한 선택','로그인 필요 사이트는 교사가 받아 둔 파일로(새 계정 X)','[사회] 사이트를 나누어 찾고 공유 폴더에'],''],
+   [6,'활동 1 · 출처와 속성표 기록 (활동지 ③)','n','② 데이터 관점 탐구 설계',['이 데이터는 누가, 언제, 어떻게 모았나요?'],[],['데이터 이름 · 제공 기관 · 기준 연도 · 주소 · 이용 조건(공공누리 유형)'],''],
+   [6,'활동 2 · 데이터 평가 체크리스트 11문항','n','② 데이터 관점 탐구 설계',[],[],['적합성 3 · 신뢰성 3 · 품질·충분성 3 · 윤리 2','[인지] «아니오» 문항은 근거 한 줄과 보완 방법'],''],
+   [4,'활동 2 · 정의서 나머지 — 분석 계획·AI 활용·역할','n','② 데이터 관점 탐구 설계',[],[],['[사회] 역할이 비어 있는 모둠원이 없게','(심화) 두 출처를 합치려면 공통 열(지역·연도)'],''],
+   [3,'활동 2 · 교사 계획 승인','n','② 데이터 관점 탐구 설계',['가설에 불리한 결과가 나올 데이터라도 빼지 않고 남겨 둡시다.'],[],['승인 3기준: 가설을 이 데이터로 답할 수 있다 · 믿을 만하고 충분하다 · 전원에게 역할','미승인 모둠은 활동지에 보완점 코멘트','[정서] 승인은 통과·탈락이 아니라 관문'],''],
+   [6,'활동 3 · 전처리 기준 작성 (활동지 ④)','n','③ AI 보조 데이터 탐구(준비)',[],[],['불필요한 행·열 · 결측치·이상치 · 형식 통일 — 예시 카드 배부','[정서] 기준은 다음 차시에 고칠 수 있다'],''],
+   [4,'활동 3 · 기준마다 이유 한 줄','n','③ AI 보조 데이터 탐구(준비)',['다음 시간 AI Agent는 여러분이 적은 기준 안에서만 움직입니다. 기준이 곧 설계도예요.'],['이 행을 지우면 결과가 어떻게 달라지나요?'],['[사회] 기준을 하나씩 맡아 이유를 쓰고 합의'],''],
+   [4,'정리 · 데이터와 전처리 기준 한 줄 공유','n','',[],[],['[정서] 승인 현황은 모둠별로만 알려 줌'],''],
+   [3,'정리 · 다음 차시 안내','n','',['다음 시간에는 AI Agent로 데이터를 정리하고, AI보다 먼저 여러분의 해석을 씁니다.'],[],['승인 못 받은 모둠은 다음 차시 도입 5분 동안 보완'],'']
+  ]},
+{ id:'D3', model:'데이터', no:3, title:'데이터 탐구 ③ 치우고 분석하기',
+  d:['10/23 (금)','10/26 (월)','10/26 (월)'], std:'[12정02-04]',
+  goal:'세운 기준에 따라 데이터를 전처리하고, 분석 도구로 시각화하여 데이터의 범위 안에서 해석하며, 모둠원의 해석을 모아 공동 해석을 도출할 수 있다.',
+  acts:['[활동1] 전처리','[활동2] 시각화와 1차 해석','[활동3] 공동 해석'],
+  prep:['수업 PPT(시각화 오류 사례 — 축 자르기 · 상관을 인과로 말한 기사)','코랩 학습지용 노트북(한글 글꼴 셀 포함)','스프레드시트 전처리 활동지(대체)','플랫폼: AI Agent · AI 탐구 보조 열기, 교사 대시보드','활동지 ④'],
+  out:['정제 데이터 · 그래프','활동지 ④(1차 해석)','공동 해석','AI 사용 기록','1차 자기·동료평가'],
+  seg:[
+   [5,'도입 · 이 그래프, 믿어도 될까?','n','',['이 그래프만 보고 «더위 때문에 성적이 떨어졌다»고 말할 수 있을까요?','같은 97과 103인데, 왜 왼쪽 그래프는 차이가 훨씬 커 보일까요?'],[],['[인지] 같은 데이터로 그린 두 그래프를 나란히','2차시 미승인 모둠은 이 시간에 보완(교사 개별 지원)'],''],
+   [8,'활동 1 · (선택) AI Agent 전처리 · 변경 내역 승인','g','③ AI 보조 데이터 탐구',['AI Agent가 지운 행이 우리 기준에 있던 것인가요?'],[],['변경 내역을 확인하지 않고 넘어가는 모둠이 없게 순회','기준을 고치려면 모둠이 먼저 합의하고 다시 지시','[사회] 확인 담당과 기록 담당'],'처음 쓰는 모둠은 사전 프롬프팅 체험 3단계 → AI Agent'],
+   [2,'활동 1 · (선택) 코랩으로 직접 전처리','n','③ AI 보조 데이터 탐구',[],[],['결측치·이상치·중복 — unit2 전처리 체험과 같은 순서'],''],
+   [10,'활동 2 · 역할별 시각화와 상관 분석','n','③ AI 보조 데이터 탐구',['가설의 두 변수를 x축과 y축에 놓으려면 어떤 그래프가 알맞을까요?'],[],['[인지] 정보 미이수 학생은 채워진 코드에 데이터만, 이수 학생은 빈 셀','[사회] 역할별 그래프를 모둠 슬라이드 한 장에'],''],
+   [6,'활동 2 · AI 없이 1차 해석 (활동지 ④)','n','③ AI 보조 데이터 탐구',['그래프에서 보이는 것만 말해 봅시다. 데이터가 말하지 않는 것은 무엇일까요?'],[],['그래프 왜곡 · 상관과 인과 혼동 · 표본 편향 · 체리피킹을 순회하며 짚기','[정서] 짧아도 그래프에서 직접 본 것이면 충분'],''],
+   [4,'활동 2 · 필요할 때 AI 탐구 보조로 개념 보강','g','③ AI 보조 데이터 탐구',['AI가 알려 준 개념은 출처 두 곳에서 확인하고, 내 말로 한 줄 씁시다.'],[],['(심화) 상관계수 · 두 변수에 함께 영향을 주는 제3의 변수'],'출처 인용 시 비판적 활용 체크리스트 · 위임형 질문은 대시보드 확인 즉시 개입'],
+   [6,'활동 3 · 개인 결과 공유와 공동 해석','n','③ AI 보조 데이터 탐구',['서로 다른 해석이 있다면 어떤 수치가 그 해석을 뒷받침하나요?'],[],['토의 규칙: 1분씩 · 근거 수치와 함께 · 누가 맞나가 아니라 어떤 데이터가 더 필요한가','[사회] 조용한 학생에게 발언 기회'],''],
+   [1,'활동 3 · 진행 방향 정하기','n','③ AI 보조 데이터 탐구',['가설에 답할 수 없으면 ② 단계로 돌아가 데이터를 다시 찾습니다.'],[],['회귀는 감점이 아니다 — 근거가 기록되면 발전의 증거'],''],
+   [3,'활동 3 · 1차 자기·동료평가(약식)','n','',[],[],['자기·동료 1~5점: 참여도 · 경청 · 설득 · 역할 수행 / 본인만 서술','[정서] 성적에 반영하지 않고 피드백에만'],'플랫폼 1차 평가 — 소크라틱 AI 사용 전에 마친다'],
+   [3,'정리 · 공동 해석 한 문장 공유','n','',[],[],['공동 해석 문장 틀: 우리 모둠은 (  ) 때문에 (  )라고 해석한다. 아직 확인하지 못한 점은 (  )이다.'],''],
+   [2,'정리 · 다음 차시 예고','n','',['다음 시간에는 이 해석을 근거로 해결안을 만들고, AI의 반문으로 다져 봅니다.'],[],['동료평가 결과로 참여가 낮은 학생을 확인해 다음 차시 전에 개별 격려'],'']
+  ]},
+{ id:'D4', model:'데이터', no:4, title:'데이터 탐구 ④ AI 반문 받고 발표',
+  d:['10/28 (수)','10/27 (화)','10/27 (화)'], std:'[12정02-03], [12정02-04]',
+  goal:'데이터에 근거한 해결안을 도출하고, AI의 반문을 비판적으로 검증하여 보완하며, 문제 해결 과정과 판단 근거를 발표와 구술로 설명할 수 있다.',
+  acts:['[활동1] 해결안과 AI 반문','[활동2] 발표 자가 점검','[활동3] 발표와 구술 설명'],
+  prep:['수업 PPT(발표 규칙 · EPD 안내)','발표 루브릭(화면에)','교사 발문 카드','타이머 · 발표 순서 추첨','플랫폼: 소크라틱 AI Critic · AI 티치백','활동지 ⑤','촬영 준비(얼굴 X)'],
+  out:['해결안(활동지 ⑤)','발표자료(마지막 장: 출처 · AI 활용)','의사결정 기록','성찰 · 2차 자기·동료평가'],
+  epd:['이 데이터를 믿을 수 있다고 판단한 이유는?','이 그래프의 관계를 원인과 결과라고 말할 수 있나요?','받아들이지 않은 AI 반문과 그 이유는?','해결안을 가장 크게 바꾼 AI의 질문은?','(대답이 짧을 때) 그렇게 판단한 근거를 한 가지 더 든다면?'],
+  seg:[
+   [3,'도입 · 발표 규칙과 평가 방식','n','',['오늘은 발표자만이 아니라 모두가 설명할 수 있어야 해요. 질문은 발표자 외 모둠원에게도 갑니다.'],[],['발표 순서는 추첨 · 루브릭 항목을 화면에','[정서] 발표 부담이 큰 학생은 미리 역할 조정'],''],
+   [5,'활동 1 · AI 없이 해결안 초안 (활동지 ⑤)','n','④ AI 비판적 문답 기반 해결안 검증',['공동 해석 한 문장에서 출발해, 학생회 예산을 어디에 쓰자고 제안할지 써 봅시다.'],[],['초안이 없으면 AI를 시작하지 않는다','틀: 해결안(누구에게·무엇을·어떻게) · 데이터 근거 · 기대 효과 · 한계'],''],
+   [3,'활동 1 · 소크라틱 AI Critic 5대 관점 반문','y','④ AI 비판적 문답 기반 해결안 검증',[],[],['대안 탐색 · 논리적 타당성 · 반박 · 실현 가능성 · 사회적 영향','[인지] 어려우면 관점 하나만 골라 먼저 판단'],'활동지 업로드 → 소크라틱 AI 열림 · 의사결정 기록 화면'],
+   [4,'활동 1 · 채택·수정·거절과 근거 → 해결안 보완·한계','y','④ AI 비판적 문답 기반 해결안 검증',['AI의 질문을 다 받아들일 필요는 없어요. 거절한다면 어떤 데이터가 근거인가요?'],[],['전부 채택하거나 전부 거절한 모둠에는 판단 근거를 구두로','[정서] 근거 있는 거절도 좋은 판단','(심화) 한계를 보완할 추가 데이터 한 가지'],''],
+   [4,'활동 2 · AI 티치백에 설명하고 빈틈 보완','y','⑤ AI 티치백 성찰과 공유',['AI가 이해하지 못한 부분은 친구들도 이해하기 어려운 부분이에요.'],[],['티치백은 발표문을 대신 쓰지 않고 질문만','[인지] 되물은 질문 하나를 골라 발표에 반영'],'AI 티치백 — 처음이면 사전 프롬프팅 체험'],
+   [1,'활동 2 · 마지막 장에 출처와 AI 활용 표기','n','⑤ AI 티치백 성찰과 공유',[],[],['데이터 출처 · AI 활용 여부를 항목별로'],''],
+   [21,'활동 3 · 모둠 발표 2분 + 교사 발문 1분','n','⑤ AI 티치백 성찰과 공유',['발표 2분: 문제 정의 → 데이터와 평가 → 해석 → 해결안과 AI 반문 처리'],[],['발문은 모둠원 지목 — 발문 카드 사용','[정서] 막히면 활동지를 보며 답해도 된다','모둠이 6개 이상이면 갤러리 워크 + 모둠당 발문 1개'],''],
+   [3,'활동 3 · 해석 차이 짚기','n','⑤ AI 티치백 성찰과 공유',[],[],['[인지] 같은 실마리를 고른 모둠 사이의 해석 차이를 토의거리로'],''],
+   [3,'정리 · 자기평가와 성찰','n','',[],[],['성찰 질문: 내가 거절하거나 고친 판단과 근거 · 데이터가 말하지 않는 것을 어떻게 구분했나 · 다음에 바꿀 점'],''],
+   [3,'정리 · 2차 자기·동료평가','n','',['오늘 찾은 데이터의 관계는 인공지능 프로젝트에서 모델의 입력이 됩니다.'],[],['자기·동료 1~5점: 참여도 · 인내 · 경청 · 설득 · 소통·조정 · 역할 수행 / 본인만: 만족감·흥미도, 서술','동료·자기평가와 AI 로그를 교사가 직접 검토해 댓글 피드백'],'플랫폼 2차 평가 — 티치백 자가점검 뒤']
+  ]},
+{ id:'P1', model:'인공지능', no:1, title:'프로젝트 ① 주제 정하기',
+  d:['10/29 (목)','10/30 (금)','10/29 (목)'], std:'[12정04-01], [12정04-03]',
+  goal:'인공지능 서비스에서 지능 에이전트의 역할을 탐색하고, SDGs 문제 가운데 기계학습으로 해결할 수 있는 문제를 구분하여 실현 가능한 프로젝트 주제를 정의할 수 있다.',
+  acts:['[활동1] 나의 관심사와 문제','[활동2] AI Co-Pilot과 주제 좁히기','[활동3] 주제 정의서'],
+  prep:['수업 PPT(SDGs · AI for Good 사례)','AI 활용 윤리 체크리스트','예시 카드(기계학습으로 풀 수 있는 문제 · 없는 문제)','구현 가능성 체크리스트','학교 보유 SDGs 데이터셋 목록','선배 산출물 예시(익명)','플랫폼: AI Co-Pilot','개인 아이디어 작성지 · 활동지 ①'],
+  out:['개인 아이디어(주제 제안서 4항목)','주제 정의서(활동지 ①)','AI 로그 — 수행평가 ② 1단계 산출물로 보관'],
+  seg:[
+   [4,'도입 · SDGs와 AI for Good 사례','n','① AI 연계 문제 구체화',['이 인공지능은 무엇을 입력받아(인식), 어떻게 판단하고(추론·학습), 무엇을 하나요(행동)?'],[],['사례: SDG 2 작황 예측 · SDG 6 오염 경보 · SDG 13 산불 위험 분류 · SDG 15 멸종위기종 식별','[인지] 데이터 탐구에서 찾은 데이터의 관계를 떠올리게'],''],
+   [3,'도입 · 프로젝트 신호등과 윤리 체크리스트','n','① AI 연계 문제 구체화',['이번 프로젝트의 모델은 여러분이 직접 만듭니다. AI는 주제를 좁히고, 개념을 보강하고, 질문을 던지는 역할만 해요.'],[],['[정서] 거창한 주제가 아니어도 된다','[사회] 사전 편성 모둠과 역할 확인'],''],
+   [6,'활동 1 · AI 없이 관심 SDG와 발견한 문제','n','① AI 연계 문제 구체화',[],[],['주제 제안서 4항목: 세부 목표 번호 · 사용자 · 해결할 문제 · 예상 데이터(수행평가 ② 요소 1)','[정서] 막힌 학생에게 선배 산출물 예시','[사회] 개인이 먼저 쓴 뒤 모둠에서 공유'],''],
+   [4,'활동 1 · 입력-처리-출력, 기계학습으로 풀 수 있나','n','① AI 연계 문제 구체화',['이 문제는 기계학습으로 풀 수 있나요? 규칙만으로 풀리는 문제와 무엇이 다를까요?'],['정답(레이블)이 있는 데이터를 구할 수 있을까요?'],['판별: 정답·기준이 있는 데이터 · 반복 판단 · 규칙만으로 어려움 → 아니면 사람·제도가 할 일','(심화) 규칙 기반과 비교해 기계학습이 필요한 이유'],''],
+   [5,'활동 2 · 모둠장이 확인 후 AI Co-Pilot에 입력','y','① AI 연계 문제 구체화',[],[],['모둠원 네 명의 관심사와 문제를 모두 — 한 사람 것만 X','«주제를 대신 만들어 달라»고 하지 않는다','[사회] 모든 모둠원의 아이디어가 입력에 포함됐는지 확인'],'처음 쓰는 도구 — 빈칸 프롬프트(사전 프롬프팅) 3단계 후 대화'],
+   [13,'활동 2 · 연결 뼈대·IPO 질문에 채택·수정·거절','y','① AI 연계 문제 구체화',['AI가 우리 생각을 어떻게 이었는지 보고, 받아들일 것과 버릴 것을 근거와 함께 정해 봅시다.'],[],['Co-Pilot은 모둠원의 생각만 재료로 삼고 주제를 대신 만들지 않음','[정서] 내 아이디어가 채택되지 않아도 연결의 재료가 되었음을 인정'],'의사결정 기록 화면에 뼈대마다 판단과 이유'],
+   [7,'활동 3 · 주제 정의서 (활동지 ①)','n','① AI 연계 문제 구체화',[],[],['① 주제와 해결할 문제 ② 입력→처리→출력 ③ 기계학습이 할 일 / 못 하는 일 ④ 필요한 데이터','[사회] 나눠 쓰고 모둠장이 종합'],''],
+   [3,'활동 3 · 구현 가능성 체크리스트로 교사 확인','n','① AI 연계 문제 구체화',['데이터를 구할 수 있나요? 수업 시간 안에 만들 수 있나요?'],[],['어려우면 학교 보유 데이터셋에 맞춘 대안 주제를 함께','[정서] 좁히는 것은 포기가 아니라 구체화'],''],
+   [3,'정리 · 모둠별 주제 한 줄 공유','n','',[],[],['[인지] 주제를 입력-처리-출력으로 말하게','[정서] 모둠이 합의해 낸 주제를 인정'],''],
+   [2,'정리 · 다음 차시 안내','n','',['다음 시간에는 어떤 학습 방식으로 모델을 만들지 계획합니다.'],[],[],'']
+  ]},
+{ id:'P2', model:'인공지능', no:2, title:'프로젝트 ② 모델 개발 계획',
+  d:['10/30 (금)','11/2 (월)','11/2 (월)'], std:'[12정04-02]',
+  goal:'해결할 문제와 데이터의 특성에 맞추어 지도학습과 비지도학습의 차이를 비교하여 학습 유형을 선택하고, 측정 가능한 성공 기준을 포함한 모델 개발 계획을 세울 수 있다.',
+  acts:['[활동1] 아는 것과 모르는 것','[활동2] 개념 보강','[활동3] 계획서와 성공 기준'],
+  prep:['수업 PPT(학습 유형 판별 퀴즈)','계획서 틀과 성공 기준 예시','모델 개념 교과서 쪽 안내 · 검색어 추천 목록(대체 활동)','플랫폼: AI 탐구 보조','활동지 ② · 개념 정리 기록지'],
+  out:['개념 정리 기록','계획서(활동지 ②) — 수행평가 ② 요소 1 채점 근거'],
+  seg:[
+   [5,'도입 · 지도학습일까, 비지도학습일까?','n','② AI 모델 개발 계획 수립',['정답(레이블)이 있는 데이터인가요?'],[],['퀴즈: 스팸 분류(지도·분류) · 미세먼지 농도(지도·예측) · 고객 묶기(비지도·군집)','[사회] 손 신호로 전원이 답하게 · [정서] 틀려도 이유를 말하면 칭찬'],''],
+   [8,'활동 1 · 아는 것과 모르는 것 (개념 정리 기록지)','n','② AI 모델 개발 계획 수립',['우리 주제를 풀려면 무엇을 알아야 할까요? 모르는 것을 정직하게 표시해 보세요.'],[],['체크 목록: 학습 유형 · 특성 선택 · 데이터 분할 · 과적합 · 평가 지표','[사회] 개인 활동'],''],
+   [8,'활동 2 · AI 탐구 보조로 유사 사례·모르는 개념','g','② AI 모델 개발 계획 수립',[],[],['«우리 계획서를 써 줘» 같은 위임형 질문은 하지 않는다','탐구 보조는 개념 설명과 예시만 — 계획서·성공 기준을 대신 쓰지 않음'],'사전 프롬프팅 체험 · 출처 인용 시 점검 체크리스트 5문항을 마쳐야 다음 질문 · 목적과 무관·위임형 질문은 대시보드에서 즉시 개입'],
+   [4,'활동 2 · 보강한 개념을 내 말로 한 줄','n','② AI 모델 개발 계획 수립',['AI가 설명한 내용을 친구에게 설명하듯 한 줄로 써 봅시다.'],['과적합을 시험 공부에 빗대면 어떻게 말할 수 있을까요?'],['[사회] 정리한 한 줄을 짝에게 설명','[정서] 처음 보는 개념도 한 줄이면 충분'],''],
+   [12,'활동 3 · 계획서 쓰기 (활동지 ②)','n','② AI 모델 개발 계획 수립',[],[],['학습 유형과 이유 · 데이터 계획(출처·양·레이블) · 역할·일정 · AI 활용 계획(단계·도구·신호등)','[사회] 역할이 한 사람에게 몰리지 않게','(심화) 두 학습 유형을 비교하는 실험을 계획에'],''],
+   [6,'활동 3 · 측정 가능한 성공 기준','n','② AI 모델 개발 계획 수립',['성공했는지 무엇으로 확인할 수 있나요? 숫자로 말해 봅시다.'],[],['예) 테스트 정확도 0.8 이상, «부적합» 재현율 0.7 이상','[인지] 데이터 확보 가능성과 성공 기준의 측정 가능성 확인','[정서] 기준이 높지 않아도 근거가 있으면 된다'],''],
+   [4,'정리 · 학습 유형과 성공 기준 공유','n','',[],[],['[인지] 학습 유형을 고른 이유를 한 문장으로'],''],
+   [3,'정리 · 데이터 준비 안내','n','',['다음 차시 전까지 계획서의 데이터를 모둠 공유 폴더에 올려 주세요. 구하기 어려우면 학교 보유 데이터셋을 고릅니다.'],[],['[사회] 데이터 준비 담당을 정함','[정서] 데이터를 못 구해도 대안이 있다'],'']
+  ]},
+{ id:'P3', model:'인공지능', no:3, title:'프로젝트 ③ 오렌지3 · AI 반문으로 개선',
+  d:['11/4 (수)','11/3 (화)','11/3 (화)'], std:'[12정04-02], [12정04-03]',
+  goal:'데이터 윤리를 점검한 데이터로 기계학습 모델을 학습시키고 성능을 평가하며, AI의 반문을 테스트 결과로 검증하여 모델을 개선할 수 있다.',
+  acts:['[활동1] 데이터 점검','[활동2] 프로토타입','[활동3] AI 반문으로 개선'],
+  prep:['수업 PPT','오렌지3 전복 순살 무게 예시 워크플로','학교 보유 SDGs 데이터셋 · 완성 워크플로','3대 관점 질문 목록(대체 활동)','플랫폼: 소크라틱 AI Critic','활동지 ③ · ④ · ⑤','학생 노트북 오렌지3 설치 확인'],
+  out:['프로토타입(.ows)','성능 평가 기록(활동지 ④)','회차별 변경 기록(활동지 ⑤)','AI 로그','1차 자기·동료평가'],
+  seg:[
+   [5,'도입 · 오렌지3 5분 시범','n','③ 프로토타입 개발',['훈련 데이터로 잰 점수와 테스트 데이터로 잰 점수는 왜 다를까요?'],[],['File → Data Sampler → 학습 위젯 → Test and Score → Confusion Matrix','시범은 흐름만, 세부 조작은 모둠에서 · [사회] 조작 담당 정하기'],''],
+   [7,'활동 1 · 데이터 점검 체크리스트 (활동지 ③)','n','③ 프로토타입 개발',['이 데이터에 빠진 지역이나 집단은 없나요?'],[],['개인정보 · 편향(지역·집단·기간, 레이블 쏠림) · 저작권 · 양','데이터를 못 올린 모둠은 바로 학교 보유 데이터셋으로'],''],
+   [15,'활동 2 · 오렌지3 설계·학습·성능 평가 (활동지 ④)','n','③ 프로토타입 개발',['테스트 데이터로 잰 점수가 우리 성공 기준을 넘었나요?'],['특성을 하나 빼면 점수가 어떻게 달라질까요?'],['수업 지원 AI 없음 — 학생이 만드는 모델은 학습 대상','막힌 모둠: 단계별 예시 → 교사 데이터셋 → 성공 기준 조정안','(심화) 알고리즘 두 가지 이상 비교 · 혼동 행렬 분석','[정서] 첫 결과가 낮아도 괜찮다 — 다음이 개선'],''],
+   [3,'활동 2 · 1차 자기·동료평가(약식)','n','',[],[],['참여도 · 경청 · 설득 · 역할 수행 / 본인만 서술'],'플랫폼 1차 평가 — 소크라틱 AI를 쓰기 전에'],
+   [5,'활동 3 · 활동지 연동 → 소크라틱 AI Critic 3대 관점','y','④ AI 비판적 문답 기반 반복 개선',[],[],['데이터 편향·불균형 · 코드·알고리즘 과적합·오류 · 윤리·안전'],'활동지 업로드 후 소크라틱 AI 열림'],
+   [10,'활동 3 · 테스트로 검증 → 채택·수정·거절 → 회차별 기록','y','④ AI 비판적 문답 기반 반복 개선',['이 수정으로 나아졌다는 것을 무엇으로 확인했나요?'],[],['AI Critic은 코드를 대신 고치지 않고 질문으로 원인을 좁힘','데이터 문제(양 부족·편향·레이블 오류)면 재수집·재학습','[사회] 반문에 대한 판단은 모둠 토의로'],'의사결정 기록 화면 · 회차별 변경 기록'],
+   [3,'정리 · 성공 기준 달성 여부와 가장 큰 개선','n','',[],[],['미달해도 회차별 기록에 사유를 남기면 다음 단계로'],''],
+   [2,'정리 · 발표자료 개요 안내','n','',['다음 차시 전까지 모둠 슬라이드에 개요를 써 오세요. 모둠원마다 한 부분씩 맡습니다.'],[],['[사회] 개요 담당 정하기'],'']
+  ]},
+{ id:'P4', model:'인공지능', no:4, title:'프로젝트 ④ 발표 · 구술 · 성찰',
+  d:['11/5 (목)','11/6 (금)','11/5 (목)'], std:'[12정04-01], [12정04-03]',
+  goal:'프로젝트 과정과 결과물을 근거와 함께 발표하여 모델의 동작 원리와 학습 유형 선택 이유를 구술로 설명하고, AI와 협업한 경험을 성찰하여 인간과 인공지능의 역할을 분석할 수 있다.',
+  acts:['[활동1] 개요와 발표자료','[활동2] 발표와 구술 설명','[활동3] AI와 함께한 나를 돌아보기'],
+  prep:['수업 PPT(발표 규칙 · EPD 안내)','발표자료 개요 예시','발표자료 템플릿(대체 활동)','교사 발문 카드 · 타이머','성찰 질문지(대체 활동)','플랫폼: AI Agent · 메타인지적 AI','촬영 준비(얼굴 X — 교사 발화·화면 중심)'],
+  out:['발표자료(마지막 장: 출처 · AI 활용 범위)','AI Agent 수정 확인','메타인지 성찰 로그','2차 자기·동료평가'],
+  epd:['여러분의 모델은 무엇을 입력받아 어떻게 판단하는 에이전트인가요?','지도학습(또는 비지도학습)을 쓴 이유는요? 레이블이 없었다면 무엇이 달라졌을까요?','이 문제에서 기계학습으로 해결되지 않는 부분은 어디인가요?','(대답이 짧을 때) 수정한 뒤 모델이 나아졌다는 것을 무엇으로 확인했나요?'],
+  seg:[
+   [3,'도입 · 발표 규칙','n','⑤ AI 지원 메타인지 성찰 및 발표',['발표는 2분, 질의는 1분이에요. 선생님 질문은 발표하지 않은 친구에게도 가요.'],[],['[정서] 질문 예시를 보여 주어 긴장을 줄임','[사회] 발표·시연 역할 확인'],''],
+   [4,'활동 1 · 개요 점검·보완','n','⑤ AI 지원 메타인지 성찰 및 발표',[],[],['개요: 문제와 주제 → 데이터 → 모델과 학습 유형 → 성능과 개선 → 한계와 다음 계획 → 출처·AI 활용','개요가 없는 모둠은 개요 예시의 질문에 답하며 5분 안에','[사회] 모둠장이 개요 승인'],''],
+   [6,'활동 1 · 개요와 이미지를 AI Agent에 → 발표자료','y','⑤ AI 지원 메타인지 성찰 및 발표',[],[],['개요가 없으면 AI Agent를 시작하지 않음'],'AI Agent · 장애 시 발표자료 템플릿으로 직접'],
+   [5,'활동 1 · 세부 수정 · 출처와 AI 활용 범위','y','⑤ AI 지원 메타인지 성찰 및 발표',['AI가 바꾼 문장이 우리 판단과 맞는지 확인하고, 고친 곳을 기록해 둡시다.'],[],['AI Agent 수정 확인: 바꾼 곳 · 채택/수정/거절 · 이유','[정서] 편집·디자인에 시간을 너무 쓰지 않게 남은 시간 알림'],''],
+   [21,'활동 2 · 모둠 발표 2분 + 교사 발문 1분 × 7모둠','n','⑤ AI 지원 메타인지 성찰 및 발표',['발표 구성: 문제 정의 → 모델과 학습 유형 → 성능과 AI 반문으로 개선한 과정 → 한계'],[],['발표자 외 모둠원도 지목해 판단 근거를 자기 말로','[정서] 발표 부담이 큰 학생은 시연을 맡되 구술 질문은 모두에게','시연은 30초 안으로 · 얼굴이 나오지 않게 촬영'],''],
+   [3,'활동 2 · 다른 모둠 발표에서 배운 점 메모','n','⑤ AI 지원 메타인지 성찰 및 발표',[],[],['[사회] 경청하며 배운 점을 메모'],''],
+   [4,'활동 3 · 메타인지적 AI와 성찰','y','⑤ AI 지원 메타인지 성찰 및 발표',['AI가 잘한 일과 내가 끝까지 판단한 일을 나눠 보세요.'],[],['질문: 계획과 결과의 차이와 이유 · 가장 중요했던 의사결정과 근거 · 다음에 바꿀 점','메타인지 AI는 질문만 — 성찰문을 대신 쓰지 않음','(심화) 다음 개선 계획을 수행평가로 이음'],'메타인지적 AI'],
+   [3,'활동 3 · 2차 자기·동료평가','n','',[],[],['참여도 · 인내 · 경청 · 설득 · 소통·조정 · 역할 수행 / 본인만: 만족감·흥미도, 서술'],'플랫폼 2차 평가 — 메타인지 AI 성찰 뒤'],
+   [1,'활동 3 · 수행평가 ② 예고','n','',['같은 모델을 코랩으로 다시 만들고 캔바로 최종 발표자료를 만듭니다.'],[],['캔바는 템플릿만 — AI 생성 기능은 평가 계획(검색·요약에 한함)에 걸림'],'']
+  ]}
+];
+
+</script>
+<script>
+(function(){
+'use strict';
+/* ══════════════════════════════════════════════════════════════
+   교사용 운영판 — 화면 동작
+   · 모든 것은 이 컴퓨터의 localStorage['ai_teach_v1'] 에만(제출·전송 없음)
+   · 타이머는 새로고침해도 이어집니다(달리던 중이면 그 사이 시간도 더함)
+   ══════════════════════════════════════════════════════════════ */
+function $(id){ return document.getElementById(id); }
+function esc(x){ return String(x == null ? '' : x)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+var CLS = ['인기A','인기D','인기E'];
+var SIGN = { n:'AI 없이 · 내 생각 먼저', g:'초록 · 자율적 사용', y:'노랑 · 유도적 사용' };
+var KEY = 'ai_teach_v1';
+var T = { cls:-1, lid:'', chk:{}, memo:{}, run:null, order:'' };
+try{ var o = JSON.parse(localStorage.getItem(KEY) || '{}'); for(var k in o) if(k in T) T[k] = o[k]; }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(T)); }catch(e){} }
+
+function dates(s){ return (s.match(/\d{1,2}\/\d{1,2}/g) || []).map(function(md){ var p = md.split('/'); return new Date(2026, +p[0]-1, +p[1]); }); }
+function lessonBy(id){ for(var i = 0; i < LESSONS.length; i++) if(LESSONS[i].id === id) return LESSONS[i]; return null; }
+function mmss(s){ var neg = s < 0; s = Math.abs(Math.round(s)); return (neg ? '+' : '') + Math.floor(s/60) + ':' + ('0' + s%60).slice(-2); }
+var today = new Date(); today.setHours(0,0,0,0);
+
+/* ── 분반 · 차시 고르기 ─────────────────────────────── */
+function todayLesson(ci){
+  var next = null;
+  for(var i = 0; i < LESSONS.length; i++){
+    var ds = dates(LESSONS[i].d[ci]);
+    if(ds.some(function(x){ return +x === +today; })) return { l:LESSONS[i], today:true };
+    if(!next && ds.some(function(x){ return x > today; })) next = LESSONS[i];
+  }
+  return next ? { l:next, today:false } : null;
+}
+function drawPick(){
+  [].slice.call($('tCls').children).forEach(function(b){ b.setAttribute('aria-pressed', +b.getAttribute('data-c') === T.cls ? 'true' : 'false'); });
+  var tl = T.cls >= 0 ? todayLesson(T.cls) : null;
+  $('tLessons').innerHTML = LESSONS.map(function(l){
+    var isT = T.cls >= 0 && dates(l.d[T.cls]).some(function(x){ return +x === +today; });
+    return '<button type="button" class="lbtn' + (isT ? ' today' : '') + '" data-id="' + l.id + '" aria-pressed="' + (l.id === T.lid ? 'true' : 'false') + '">' +
+      '<i>' + l.model + ' 모형 · ' + l.no + '/4</i><b>' + l.title + '</b><span>' + (T.cls >= 0 ? CLS[T.cls] + ' ' + l.d[T.cls] : 'A ' + l.d[0] + ' · D ' + l.d[1] + ' · E ' + l.d[2]) + '</span></button>';
+  }).join('');
+  $('tToday').innerHTML = T.cls < 0 ? '<b>분반을 먼저 고르세요.</b> 오늘 수업이 있으면 자동으로 골라 드립니다.'
+    : tl ? '<b>' + CLS[T.cls] + ' · ' + (tl.today ? '오늘' : '다음') + '</b> — ' + tl.l.d[T.cls] + ' · <b>' + tl.l.title + '</b>'
+    : '<b>' + CLS[T.cls] + '</b> — 여덟 차시가 모두 끝났습니다.';
+}
+$('tCls').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-c]'); if(!b) return;
+  T.cls = +b.getAttribute('data-c');
+  var tl = todayLesson(T.cls);
+  if(tl && (!T.run || !T.run.running)) pickLesson(tl.l.id, true);
+  save(); drawPick(); drawAll();
+});
+$('tLessons').addEventListener('click', function(e){
+  var b = e.target.closest('.lbtn'); if(!b) return;
+  pickLesson(b.getAttribute('data-id')); drawPick(); drawAll();
+});
+function pickLesson(id, quiet){
+  if(T.lid === id) return;
+  if(T.run && T.run.running && !quiet && !confirm('타이머가 돌고 있습니다. 다른 차시로 바꿀까요?')) return;
+  T.lid = id; T.run = null; save();
+}
+
+/* ── 진행 상태 ─────────────────────────────────────── */
+function L(){ return lessonBy(T.lid); }
+function run(){
+  var l = L(); if(!l) return null;
+  if(!T.run || T.run.lid !== l.id || !T.run.el || T.run.el.length !== l.seg.length)
+    T.run = { lid:l.id, idx:0, el:l.seg.map(function(){ return 0; }), running:false, at:0 };
+  return T.run;
+}
+function tick(){
+  var r = run(); if(!r || !r.running) return;
+  var now = Date.now(); r.el[r.idx] += (now - r.at) / 1000; r.at = now;
+}
+function total(r){ return r.el.reduce(function(a, b){ return a + b; }, 0); }
+var lastSave = 0;
+setInterval(function(){
+  var r = T.run; if(!r || !r.running) return;
+  tick(); drawLive();
+  if(Date.now() - lastSave > 3000){ save(); lastSave = Date.now(); }
+}, 250);
+function go(){ var r = run(); if(!r) return; tick(); r.running = !r.running; r.at = Date.now(); save(); drawAll(); }
+function step(d){ var r = run(); if(!r) return; tick(); r.idx = Math.max(0, Math.min(L().seg.length - 1, r.idx + d)); r.at = Date.now(); save(); drawAll(); }
+function jump(i){ var r = run(); if(!r) return; tick(); r.idx = i; r.at = Date.now(); save(); drawAll(); }
+function reset(){ if(!L()) return; if(T.run && total(T.run) > 5 && !confirm('타이머를 처음으로 돌릴까요?')) return; T.run = null; run(); save(); drawAll(); }
+
+/* ── 그리기 ───────────────────────────────────────── */
+function drawAll(){
+  var l = L(), r = run();
+  if(!l){ $('rTitle').textContent = '수업을 고르세요'; $('rSegs').innerHTML = ''; $('rGoal').textContent = ''; return; }
+  $('rEye').textContent = l.model + ' 모형 · ' + l.no + '/4차시 · ' + l.std + (T.cls >= 0 ? ' · ' + CLS[T.cls] + ' ' + l.d[T.cls] : '');
+  $('rTitle').textContent = l.title;
+  $('rGoal').innerHTML = '<b>학습 목표</b> ' + esc(l.goal) + '<br><span style="font-size:.8438rem">' + l.acts.map(esc).join(' · ') + '</span>';
+  $('rSegs').innerHTML = l.seg.map(function(s, i){
+    return '<div class="sg2 ' + s[2] + '" data-i="' + i + '" id="seg-' + i + '"><em>' + s[0] + '′<small data-el="' + i + '"></small></em><div>' +
+      (s[3] ? '<span class="stg2">' + esc(s[3]) + '</span>' : '') +
+      '<h4>' + esc(s[1]) + (s[2] !== 'n' ? '<span class="lt ' + s[2] + '">' + SIGN[s[2]] + '</span>' : '') + '</h4>' +
+      s[4].map(function(x){ return '<p class="say">' + esc(x) + '</p>'; }).join('') +
+      s[5].map(function(x){ return '<p class="ask2">' + esc(x) + '</p>'; }).join('') +
+      (s[6].length ? '<ul>' + s[6].map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
+      (s[7] ? '<p class="plat">' + esc(s[7]) + '</p>' : '') + '</div></div>';
+  }).join('');
+  drawChecks(l); drawMemo(l); drawEpd(l);
+  drawLive();
+}
+function drawLive(){
+  var l = L(), r = T.run; if(!l || !r) return;
+  var tot = total(r);
+  $('rClock').textContent = mmss(tot) + ' / 50:00';
+  $('rGo').textContent = r.running ? '❚❚ 멈춤' : (tot > 0 ? '▶ 이어서' : '▶ 시작');
+  var bar = l.seg.map(function(s, i){
+    return '<i class="' + s[2] + (i < r.idx ? ' past' : '') + (i === r.idx ? ' cur' : '') + '" style="width:' + (s[0] * 2) + '%" title="' + esc(s[1]) + '"></i>'; }).join('');
+  $('rBar').innerHTML = bar;
+  [].slice.call(document.querySelectorAll('.sg2')).forEach(function(el){
+    var i = +el.getAttribute('data-i');
+    el.classList.toggle('cur', i === r.idx); el.classList.toggle('done', i < r.idx);
+    var sm = el.querySelector('small[data-el]'), sec = r.el[i], lim = l.seg[i][0] * 60;
+    sm.textContent = sec > 0 ? mmss(sec) : ''; sm.className = sec > lim ? 'over' : '';
+  });
+  /* 교실 화면 */
+  if($('ov').hidden) return;
+  var s = l.seg[r.idx], left = s[0] * 60 - r.el[r.idx];
+  $('ovLesson').textContent = l.title + (T.cls >= 0 ? ' · ' + CLS[T.cls] : '');
+  $('ovClock').textContent = '수업 ' + mmss(tot) + ' / 50:00';
+  $('ovLamp').className = 'ov-lamp ' + s[2]; $('ovSig').textContent = SIGN[s[2]];
+  $('ovStage').textContent = s[3] || '';
+  $('ovTitle').textContent = s[1];
+  $('ovSay').textContent = s[4][0] || s[5][0] || '';
+  var tm = $('ovTime'); tm.textContent = mmss(left); tm.className = 'ov-time' + (left < 0 ? ' late' : '');
+  $('ovBar').innerHTML = bar;
+  var nx = l.seg[r.idx + 1];
+  $('ovNext').innerHTML = nx ? '다음 ▶ <b>' + esc(nx[1]) + '</b> (' + nx[0] + '분)' : '마지막 활동입니다';
+  $('ovOrder').innerHTML = T.order && /발표/.test(s[1]) ? '발표 순서 <b>' + esc(T.order) + '</b>' : '';
+  $('ovGo').textContent = r.running ? '❚❚' : '▶';
+}
+$('rSegs').addEventListener('click', function(e){
+  var el = e.target.closest('.sg2'); if(el) jump(+el.getAttribute('data-i'));
+});
+$('rGo').addEventListener('click', go);
+$('rPrev').addEventListener('click', function(){ step(-1); });
+$('rNext').addEventListener('click', function(){ step(1); });
+$('rReset').addEventListener('click', reset);
+function bigOpen(){ if(!L()) return; $('ov').hidden = false; document.body.style.overflow = 'hidden';
+  try{ if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); }catch(e){}
+  drawLive(); }
+function bigClose(){ $('ov').hidden = true; document.body.style.overflow = '';
+  try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} }
+$('rBig').addEventListener('click', bigOpen);
+$('ovClose').addEventListener('click', bigClose);
+$('ovGo').addEventListener('click', go);
+$('ovPrev').addEventListener('click', function(){ step(-1); });
+$('ovNextB').addEventListener('click', function(){ step(1); });
+document.addEventListener('keydown', function(e){
+  if(/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return;
+  if(e.key === ' '){ e.preventDefault(); go(); }
+  else if(e.key === 'ArrowRight'){ step(1); }
+  else if(e.key === 'ArrowLeft'){ step(-1); }
+  else if(e.key === 'f' || e.key === 'F'){ $('ov').hidden ? bigOpen() : bigClose(); }
+  else if(e.key === 'Escape'){ bigClose(); }
+});
+document.addEventListener('fullscreenchange', function(){ if(!document.fullscreenElement && !$('ov').hidden){ /* 전체 화면만 풀림 — 화면은 그대로 */ } });
+
+/* ── 체크 · 메모 ──────────────────────────────────── */
+function ckey(l){ return l.id + '|' + T.cls; }
+function drawChecks(l){
+  var st = T.chk[ckey(l)] || (T.chk[ckey(l)] = { p:{}, o:{} });
+  [['pPrep','p',l.prep,'pPrepStat'],['pOut','o',l.out,'pOutStat']].forEach(function(c){
+    var box = $(c[0]);
+    box.innerHTML = c[2].map(function(t, i){ return '<label><input type="checkbox" data-i="' + i + '"' + (st[c[1]][i] ? ' checked' : '') + '> ' + esc(t) + '</label>'; }).join('');
+    function upd(){ var n = c[2].filter(function(t, i){ return st[c[1]][i]; }).length, s = $(c[3]);
+      s.className = 'chkstat' + (n === c[2].length ? ' ok' : ''); s.textContent = n === c[2].length ? '모두 챙겼습니다 ✓' : (c[2].length - n) + '개 남음'; }
+    box.onchange = function(e){ var x = e.target; if(!x.matches('input')) return; st[c[1]][x.getAttribute('data-i')] = x.checked; save(); upd(); };
+    upd();
+  });
+}
+var mTid = null;
+function drawMemo(l){
+  $('mLbl').textContent = '메모 — ' + l.title + (T.cls >= 0 ? ' · ' + CLS[T.cls] : ' · (분반 미선택)');
+  $('mTxt').value = T.memo[ckey(l)] || ''; $('mMsg').textContent = '';
+}
+$('mTxt').addEventListener('input', function(){
+  var l = L(); if(!l) return; T.memo[ckey(l)] = this.value;
+  clearTimeout(mTid); mTid = setTimeout(function(){ save(); $('mMsg').textContent = '저장했습니다'; }, 400);
+});
+
+/* ── 발표 순서 · 발문 ─────────────────────────────── */
+$('dGo').addEventListener('click', function(){
+  var n = Math.max(2, Math.min(12, +$('dN').value || 7)), a = [];
+  for(var i = 1; i <= n; i++) a.push(i);
+  for(var j = a.length - 1; j > 0; j--){ var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t; }
+  T.order = a.map(function(x){ return x + '모둠'; }).join(' → '); save();
+  $('dOut').textContent = T.order; drawLive();
+});
+if(T.order) $('dOut').textContent = T.order;
+var eI = 0;
+function drawEpd(l){
+  var c = $('eCard');
+  if(!l.epd){ c.innerHTML = '이 차시에는 모둠 발표가 없습니다.<small>발문 카드는 데이터 ④ · 프로젝트 ④에서 씁니다.</small>'; return; }
+  eI = eI % l.epd.length;
+  c.innerHTML = esc(l.epd[eI]) + '<small>' + (eI + 1) + ' / ' + l.epd.length + ' · 누르면 다음 · 발표자 외 모둠원 지목</small>';
+}
+$('eCard').addEventListener('click', function(){ var l = L(); if(!l || !l.epd) return; eI++; drawEpd(l); });
+
+/* ── 처음 열 때: 분반이 정해져 있으면 오늘 수업을 자동으로 ── */
+if(T.cls >= 0 && (!T.run || !T.run.running)){
+  var tl0 = todayLesson(T.cls);
+  if(tl0 && tl0.today) T.lid = tl0.l.id;
+}
+if(T.run && T.run.running) tick();          /* 새로고침 사이 시간 */
+if(!T.lid) T.lid = LESSONS[0].id;
+drawPick(); drawAll();
+})();
+</script>
+
+</body>
+</html>
