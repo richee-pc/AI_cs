@@ -935,6 +935,16 @@ nav a.plan:hover{background:var(--good); color:#fff}
   .rdet{padding:0 14px 14px 14px}
   .today{padding:22px 20px 22px 26px}
 }
+
+/* 주별 묶음 — 주마다 다른 색 띠, 주차 이름은 둥근 강조 글꼴 */
+.wkblk{background:var(--wb); border-radius:20px; padding:12px 12px 12px; margin:12px 0; border:1px solid color-mix(in srgb,var(--wt) 22%,transparent)}
+.wkblk.now{box-shadow:0 0 0 3px var(--wt), var(--sh2)}
+.wkhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; padding:2px 6px 10px}
+.wkhead .wkname{font-size:1.25rem}
+.wkrng{font-size:.875rem; font-weight:700; color:var(--wt); font-variant-numeric:tabular-nums}
+.wkcnt{font-size:.75rem; font-weight:800; color:var(--wt); border:1.5px solid var(--wt); border-radius:99px; padding:0 9px}
+.wknow{margin-left:auto; font-family:var(--pop); font-weight:800; font-size:.8125rem; color:#fff; background:var(--wt); border-radius:99px; padding:3px 12px}
+.wkblk .row2{border-color:color-mix(in srgb,var(--wt) 18%,var(--line))}
 </style>
 
 <nav><div class="wrap"><div class="row">
@@ -993,7 +1003,7 @@ nav a.plan:hover{background:var(--good); color:#fff}
   </div>
 </div></footer>
 
-<script src="lessons.js?v=e147977d"></script>
+<script src="lessons.js?v=4cd0d9f6"></script>
 <script>
 (function(){
 'use strict';
@@ -1076,14 +1086,24 @@ function drawMonths(){
     if(it.off && last && last.off === it.off){ last.md2 = it.md; return; }
     merged.push(it);
   });
-  var html = '', mon = -1;
+  var html = '', mon = -1, wk = -1, wNow = AIL.weekNo(t0);
+  function closeWeek(){ if(wk > 0) html += '</div></div>'; }
   merged.forEach(function(it){
-    var m = it.d.getMonth() + 1;
+    var m = it.d.getMonth() + 1, w = AIL.weekNo(it.d);
     if(m !== mon){
-      if(mon > 0) html += '</div></div>';
+      closeWeek(); wk = -1;
+      if(mon > 0) html += '</div>';
       var n = L.filter(function(x){ return x.d.getMonth() + 1 === m; }).length;
-      html += '<div class="mon"><h3>' + m + '월<small>' + n + '차시</small></h3><div class="rows">';
+      html += '<div class="mon"><h3>' + m + '월<small>' + n + '차시</small></h3>';
       mon = m;
+    }
+    if(w !== wk){
+      closeWeek();
+      var cnt = L.filter(function(x){ return AIL.weekNo(x.d) === w; }).length;
+      html += '<div class="wkblk ' + AIL.weekCls(w) + (w === wNow ? ' now' : '') + '"><div class="wkhead"><span class="wkname">' + w + '주차</span>' +
+        '<span class="wkrng">' + AIL.weekRange(w) + '</span>' + (cnt ? '<span class="wkcnt">' + cnt + '차시</span>' : '') +
+        (w === wNow ? '<span class="wknow">이번 주</span>' : '') + '</div><div class="rows">';
+      wk = w;
     }
     if(it.off){
       html += '<div class="offrow"><b>' + it.md + (it.md2 ? '~' + it.md2.split('/')[1] : '') + '</b>' + esc(it.off) + ' · 수업 없음</div>';
@@ -1097,9 +1117,9 @@ function drawMonths(){
       '<div class="rdet" hidden>' + (k.page ? '<p style="color:var(--muted); font-weight:600">' + esc(k.page) + '</p>' : '') +
         '<p><b style="color:var(--blue-d)">목표</b> ' + esc(k.goal) + '</p>' +
         (k.out ? '<p><b style="color:var(--good)">낼 것</b> ' + esc(k.out) + '</p>' : '') +
-        '<div class="fgo">' + goBtns(x.id) + '</div>' + '</div></div>';
+        '<div class="fgo">' + goBtns(x.id) + '</div></div></div>';
   });
-  html += '</div></div>';
+  closeWeek(); html += '</div>';
   box.innerHTML = html;
 }
 $('months').addEventListener('click', function(e){

@@ -141,8 +141,25 @@ function home(id){ return LES[id].steps[0][0]; }
 function stepUrl(id, s){ return PAGES[s[0]] + '?l=' + id + (s[1] === 'top' ? '' : '#' + s[1]); }
 function openUrl(id){ return PAGES[home(id)] + '?l=' + id; }
 
+var W1 = new Date(2026, 7, 10);
+function weekNo(d){ return Math.floor((d - W1) / 864e5 / 7) + 1; }
+function weekRange(n){
+  var a = new Date(W1.getTime() + (n - 1) * 7 * 864e5), b = new Date(a.getTime() + 4 * 864e5);
+  return (a.getMonth()+1) + '/' + a.getDate() + '(월) ~ ' + (b.getMonth()+1) + '/' + b.getDate() + '(금)';
+}
+function weekCls(n){ return 'wk' + (n % 4); }
+/* 주마다 색 네 가지를 돌려 씁니다 · 주차 이름은 둥근 강조 글꼴(AIPop) */
+var WCSS = '\
+:root{--w0:#E4EEFF; --w0t:#2E62C9; --w1:#DDF4EA; --w1t:#137352; --w2:#FFEEDC; --w2t:#A9520B; --w3:#EFE8FF; --w3t:#6544B8}\
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--w0:#16294A; --w0t:#8DB8FF; --w1:#0F3326; --w1t:#6FDCAE; --w2:#3A2610; --w2t:#FFB877; --w3:#261C45; --w3t:#C2ADFF}}\
+:root[data-theme="dark"]{--w0:#16294A; --w0t:#8DB8FF; --w1:#0F3326; --w1t:#6FDCAE; --w2:#3A2610; --w2t:#FFB877; --w3:#261C45; --w3t:#C2ADFF}\
+.wk0{--wb:var(--w0); --wt:var(--w0t)} .wk1{--wb:var(--w1); --wt:var(--w1t)} .wk2{--wb:var(--w2); --wt:var(--w2t)} .wk3{--wb:var(--w3); --wt:var(--w3t)}\
+.wkname{font-family:var(--pop); font-weight:800; letter-spacing:.01em; color:var(--wt)}\
+';
+(function(){ var st = document.createElement('style'); st.textContent = WCSS; (document.head || document.documentElement).appendChild(st); })();
+
 window.AIL = { LES:LES, CAL:CAL, OFF:OFF, ORDER:ORDER, NAME:NAME, WD:WD, list:list, today:today, getCls:getCls, setCls:setCls,
-  datesOf:datesOf, home:home, stepUrl:stepUrl, openUrl:openUrl, toDate:toDate };
+  datesOf:datesOf, home:home, stepUrl:stepUrl, openUrl:openUrl, toDate:toDate, weekNo:weekNo, weekRange:weekRange, weekCls:weekCls };
 
 /* ══════════════════════════════════════════════════════════════
    단원 쪽 «차시 탭» — <div id="lessonBar" data-page="u2"></div> 자리에 붙습니다.
@@ -166,6 +183,15 @@ var CSS = '\
 .ltab.today{box-shadow:0 0 0 3px var(--warm)}\
 .ltab.past{opacity:.6}\
 .ltab.all{justify-content:center}\
+.ltab[class*="wk"]{background:var(--wb); border-color:color-mix(in srgb,var(--wt) 35%,transparent)}\
+.ltab[class*="wk"] b{color:var(--wt)}\
+.ltab[class*="wk"][aria-selected="true"]{background:var(--fill); border-color:var(--fill)}.ltab[class*="wk"][aria-selected="true"] b, .ltab[class*="wk"][aria-selected="true"] i{color:var(--on-fill)}\
+.lwk{flex:none; align-self:stretch; display:flex; flex-direction:column; justify-content:center; align-items:center;\
+  min-width:46px; border-radius:12px; padding:4px 8px; background:var(--wb); border:2px dashed color-mix(in srgb,var(--wt) 45%,transparent); line-height:1.15}\
+.lwk b{font-family:var(--pop); font-weight:800; font-size:.9375rem; color:var(--wt)}\
+.lwk i{font-style:normal; font-size:.625rem; font-weight:800; color:var(--wt); opacity:.85}\
+.lwk.now{border-style:solid; box-shadow:0 0 0 2px var(--wt)}\
+.lwk.now i{opacity:1}\
 .ltab:focus-visible{outline:2px solid var(--ink); outline-offset:2px}\
 .lpanel{margin:22px auto 0; max-width:min(94vw,64rem); padding:0 22px}\
 .lpcard{position:relative; background:var(--white); border:2px solid var(--fill); border-radius:24px; padding:22px 24px 20px; box-shadow:var(--sh2)}\
@@ -233,11 +259,12 @@ function mount(){
       '<span class="hintx">' + (cls ? (tid && home(tid) === page ? '노란 테두리가 오늘 수업입니다' : (nid ? '다음 수업 — <a href="' + (home(nid) === page ? '?l=' + nid : openUrl(nid)) + '" style="font-weight:800">' + LES[nid].tag + ' (' + datesOf(cls, nid).filter(function(x){ return +x.d >= +t0; })[0].md + ') 열기</a>' : '')): '우리 반을 고르면 날짜가 나옵니다') + '</span></div>' +
       '<div class="ltabs" role="tablist" aria-label="차시">' +
       '<button type="button" class="ltab all" role="tab" data-id="" aria-selected="' + (cur ? 'false' : 'true') + '"><b>전체 보기</b></button>' +
-      ids.map(function(id){
-        var L = LES[id];
-        return '<button type="button" class="ltab' + (id === tid ? ' today' : '') + (past(id) ? ' past' : '') + '" role="tab" data-id="' + id + '" aria-selected="' + (id === cur ? 'true' : 'false') + '">' +
+      (function(){ var last = -1, wNow = weekNo(t0); return ids.map(function(id){
+        var L = LES[id], ds = cls ? datesOf(cls, id) : [], w = ds.length ? weekNo(ds[0].d) : -1, sep = '';
+        if(w > 0 && w !== last){ sep = '<span class="lwk ' + weekCls(w) + (w === wNow ? ' now' : '') + '" title="' + weekRange(w) + '"><b>' + w + '주</b><i>' + (w === wNow ? '이번 주' : (ds[0].d.getMonth()+1) + '월') + '</i></span>'; last = w; }
+        return sep + '<button type="button" class="ltab' + (w > 0 ? ' ' + weekCls(w) : '') + (id === tid ? ' today' : '') + (past(id) ? ' past' : '') + '" role="tab" data-id="' + id + '" aria-selected="' + (id === cur ? 'true' : 'false') + '">' +
           '<i>' + (whenOf(id) || '&nbsp;') + '</i><b>' + (L.short || L.tag) + '</b></button>';
-      }).join('') + '</div></div>';
+      }).join(''); })() + '</div></div>';
   }
   function anchorSection(a){
     var el = document.getElementById(a); if(!el) return null;
@@ -288,7 +315,9 @@ function mount(){
       var u = location.pathname + (cur ? '?l=' + cur : '?l=all');
       try{ history.replaceState(null, '', u); }catch(e){}
     }
-    var sel = host.querySelector('.ltab[aria-selected="true"]'); if(sel && sel.scrollIntoView) sel.scrollIntoView({ block:'nearest', inline:'center' });
+    /* 고른 탭이 없으면 «이번 주» 딱지가 보이게 가로로 굴림 */
+    var strip = host.querySelector('.ltabs'), sel = host.querySelector(cur ? '.ltab[aria-selected="true"]' : '.lwk.now');
+    if(strip && sel) strip.scrollLeft = Math.max(0, sel.offsetLeft - strip.offsetLeft - 70);
   }
   host.addEventListener('click', function(e){
     var c = e.target.closest('#lbCls button[data-c]');
