@@ -1215,6 +1215,10 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="l4Ox1"></div>
     </div>
+  <div class="fgo" style="margin-top:10px"><b style="align-self:center; font-size:.8438rem; color:var(--muted)">영상(선택)</b>
+    <a href="https://www.youtube.com/watch?v=MiDipYr1sF0" target="_blank" rel="noopener">지속가능발전목표 이해 · 충남교육청 14분 ↗</a>
+    <a href="https://www.youtube.com/watch?v=GJZXJaZx0WQ" target="_blank" rel="noopener">국가 지속가능발전목표 K-SDGs · 3분 ↗</a>
+    <a href="https://www.youtube.com/watch?v=8kVJdV7qmNc" target="_blank" rel="noopener">시각장애인 보행을 돕는 AI를 만든 고등학생 · 5분 ↗</a></div>
     <div class="nextgo"><b>이어서</b><a href="#sdgGrid">17개 목표 둘러보기</a><a href="#p1">나의 주제 제안서</a><a href="#data">데이터 찾는 곳</a></div>
   </div>
 
@@ -1653,6 +1657,22 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a class="ucard" href="https://sdgs.un.org/goals" target="_blank" rel="noopener"><i>세계</i><b>UN SDGs 누리집 ↗</b><span>세부 목표 169개 원문 (교과서 185쪽)</span></a>
     <a class="ucard" href="https://aiforgood.itu.int/" target="_blank" rel="noopener"><i>사례</i><b>AI for Good ↗</b><span>SDGs를 푸는 실제 AI 사례 (교과서 184쪽)</span></a>
   </div>
+  <h3 style="margin-top:28px">프로젝트 데이터 아이디어 — 바로 열어 볼 수 있는 공개 CSV</h3>
+  <p class="sub" style="margin-bottom:14px">교사 연수에서 공개된 저장소(<a href="https://github.com/jobsiggang/2026_AI_Datascience" target="_blank" rel="noopener">github.com/jobsiggang/2026_AI_Datascience ↗</a>)의 데이터입니다.
+    <b>원래 출처 기관</b>을 확인해 보고서에 함께 적고, 최신 자료가 필요하면 그 기관 누리집에서 다시 받으세요.
+    코랩에서는 <code>pd.read_csv(주소, encoding='cp949')</code> 처럼 <b>인코딩</b>을 맞춰야 한글이 보입니다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:70px">SDG</th><th>데이터</th><th>이런 문제를 풀 수 있어요</th><th style="width:22%">원래 출처</th><th style="width:90px">CSV</th></tr>
+    <tr><td><b>15 · 13</b></td><td>산불 발생 기록(일시 · 장소 · 원인 · 피해 면적, 2,000여 건)</td><td>원인 · 계절로 피해 규모 예측 · 위험 지역 군집</td><td>산림청 산불통계(공공데이터포털)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/mountain_fire.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>3</b></td><td>모기 지수(수변부 · 주거지 · 공원, 날짜별 1,800여 일)</td><td>기온 · 강수 데이터와 합쳐 모기 지수 예측</td><td>서울시 모기예보제(열린데이터광장)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/mosquito_value.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>2 · 12</b></td><td>사과(후지 · 홍로) 품질 — 무게 · 당도 · 산도 · 착색</td><td>당도 예측 · 품종 분류 · 지역별 군집</td><td>농촌진흥청 등 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/Fuji.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>7</b></td><td>시간대별 발전원별 전력 거래량(태양광 · 풍력 …)</td><td>시간 · 계절로 태양광 발전량 예측</td><td>전력거래소(공공데이터포털)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/power.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>7 · 13</b></td><td>시간대별 풍력 발전량(2013~)</td><td>풍속 · 계절로 풍력 발전량 예측</td><td>전력거래소</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/windpower.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>3 · 13</b></td><td>울산 황사 일수 · 기온 · 습도 장기 기록</td><td>연도별 추세 회귀 · 외삽 주의</td><td>기상자료개방포털</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/ulsan_yellowdust.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>6 · 3</b></td><td>하천 중금속 측정값</td><td>측정 지점 군집 · 기준 초과 판정</td><td>환경부 수질 측정 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/heavymetal.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>11</b></td><td>행정동 시간대별 이동 건수</td><td>이동이 많은 동네 · 시간대 군집</td><td>부산 행정동 생활이동 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/moving.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>4</b></td><td>학생 공부 시간 · 수면 · 출석 → 시험 점수(2만 명, 영어)</td><td>점수 예측 회귀 · 범주형 인코딩 연습</td><td>캐글 공개 데이터</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/Exam_Score_Prediction.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+  </table></div>
   <h3 style="margin-top:28px">못 찾았을 때 선생님이 바로 주는 데이터</h3>
   <p class="sub" style="margin-bottom:14px">교과서 부록과 학교가 갖고 있는 데이터입니다. 공유 폴더로 나눠 줍니다.
     <b>이걸 쓰는 것도 정당한 선택</b>이에요 — 대신 «왜 이 데이터로 이 문제를 풀 수 있는가»는 직접 설명해야 합니다.</p>
@@ -2229,6 +2249,6 @@ quiz('l4Metric', ['정확도', '재현율', 'RMSE'], [
 })();
 </script>
 
-<script src="lessons.js?v=5adaac36"></script>
+<script src="lessons.js?v=ee1c98e3"></script>
 </body>
 </html>

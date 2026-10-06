@@ -1014,6 +1014,23 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
 .mdc summary .mdh::after{content:"자세히 ▾"; display:inline-block; margin-left:8px; font-size:.75rem; font-weight:800; color:var(--blue-d)}
 .mdc[open] summary .mdh::after{content:"접기 ▴"}
 .mdone b{font-weight:800; color:var(--ink)}
+.ostart{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:10px; margin:0 0 14px}
+.ostart>div{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:10px 13px; font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.ostart>div>b:first-child{display:block; color:var(--blue-d); margin-bottom:2px}
+.ostart b.k{color:var(--ink)}
+.ostart code{font-family:var(--mono); color:var(--blue-d)}
+.olabs{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr)); gap:14px}
+.olab{background:var(--white); border:1px solid var(--line); border-top:5px solid #F39C12; border-radius:var(--r); padding:14px 16px; box-shadow:var(--sh); min-width:0}
+.olab header{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin-bottom:10px}
+.olab header i{font-style:normal; display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#F39C12; color:#fff; font-weight:800}
+.olab header b{font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d)}
+.olab header span{margin-left:auto; font-size:0.8125rem; font-weight:700; color:var(--muted)}
+.olab ol{margin:10px 0 0; padding-left:1.25em; font-size:0.9062rem; line-height:1.7; color:var(--ink2)}
+.olab li{margin:3px 0}
+.olab .flow2 small{font-size:0.7188rem; color:var(--muted)}
+.oq{margin:10px 0 0; background:var(--warm-bg); border-radius:12px; padding:8px 11px; font-size:0.875rem; line-height:1.65}
+.oq b:first-child{display:inline-block; margin-right:8px; color:var(--warm)}
+.orec td{height:26px}
 </style>
 
 <nav><div class="wrap"><div class="row">
@@ -1044,6 +1061,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <div class="fact"><b id="labCount">0 / 20</b><span>내가 해 본 실습</span></div>
   </div>
   <div class="lprog"><i id="labBar"></i></div>
+  <div class="fgo" style="margin-top:14px"><a href="#start">시작하기</a><a href="#labs">교과서 실습 20</a><a href="#orange">🍊 오렌지3 따라 하기 7</a><a href="#trouble">막혔을 때</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a></div>
 </div></div>
 
 <section id="start"><div class="wrap">
@@ -1081,6 +1099,86 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
   <div id="labList"></div>
 </div></section>
 
+<section id="orange"><div class="wrap">
+  <p class="eyebrow">오렌지3 따라 하기</p>
+  <h2>🍊 코드 없이 — 오렌지3로 한 단계씩</h2>
+  <p class="sub">Ⅳ단원 프로젝트 ③(오렌지3 프로토타입) 전에 손에 익혀 둡니다. 모두 <b>오렌지3에 들어 있는 데이터</b>라 내려받을 파일이 없습니다 —
+    <b>File</b> 위젯을 두 번 눌러 <i>Browse documentation datasets</i>(데이터셋 둘러보기)에서 이름을 고르세요.
+    끝나면 같은 모델을 <a href="#labs">코랩 노트북</a>으로 다시 만들어 봅니다(수행평가 ②와 같은 순서).</p>
+  <div class="ostart">
+    <div><b>0 준비</b><a href="https://orangedatamining.com/download/" target="_blank" rel="noopener">orangedatamining.com</a>에서 설치(학교 노트북은 설치됨). 위젯 이름이 한글로 보이는 판도 있어요 — 아이콘 모양이 같습니다.</div>
+    <div><b>화면 세 부분</b><b class="k">위젯 상자</b> 왼쪽 도구 모음 · <b class="k">캔버스</b> 가운데 작업 공간 · <b class="k">선(링크)</b> 위젯 오른쪽 끝을 끌어 다음 위젯에 놓으면 데이터가 흐릅니다.</div>
+    <div><b>저장</b><i>File → Save As</i> 로 <code>.ows</code> 파일 저장 — 프로젝트 ③의 산출물이 이 파일입니다.</div>
+  </div>
+  <div class="olabs">
+    <article class="olab" id="or1"><header><i>1</i><b>데이터 보기 — 붓꽃(iris)</b><span>15분 · 데이터 시각화</span></header>
+      <div class="flow2 small"><span>File<br><small>iris</small></span><i>→</i><span>Data Table</span><i>→</i><span>Feature Statistics</span><i>·</i><span>Distributions</span><i>·</i><span class="out">Scatter Plot</span></div>
+      <ol><li><b>File</b> 을 캔버스에 놓고 두 번 눌러 <i>iris</i> 를 고릅니다. 아래 표에서 <b>iris(품종)의 Role 이 target</b> 인지 봅니다.</li>
+        <li><b>Data Table</b> 을 이어 행 수(150)·열 수·빈칸(?)을 확인합니다.</li>
+        <li><b>Feature Statistics</b> — 열마다 평균·최소·최대·분산. <b>Distributions</b> — 한 열의 분포를 품종별 색으로.</li>
+        <li><b>Scatter Plot</b> — x·y 축을 바꿔 보다가 <i>Find Informative Projections</i>(돋보기)를 누르면 <b>품종이 가장 잘 갈리는 두 축</b>을 찾아 줍니다.</li></ol>
+      <p class="oq"><b>확인</b>세 품종을 가장 잘 가르는 두 속성은? 그 그림에서 겹치는 두 품종은?</p></article>
+
+    <article class="olab" id="or2"><header><i>2</i><b>분류 — 타이타닉 생존(titanic)</b><span>20분 · Tree · kNN</span></header>
+      <div class="flow2 small"><span>File<br><small>titanic</small></span><i>→</i><span>Tree</span><i>→</i><span>Tree Viewer</span><i>·</i><span>kNN</span><i>→</i><span class="out">Test and Score</span><i>→</i><span class="out">Confusion Matrix</span></div>
+      <ol><li><b>File</b> 에서 <i>titanic</i> — status(객실) · age(어른/아이) · sex 세 열, 정답 survived.</li>
+        <li><b>Tree</b> 를 File 에 잇고 <b>Tree Viewer</b> 로 나무 그림을 봅니다. 맨 위 질문은?</li>
+        <li>Tree 설정 <i>Limit the maximal tree depth</i> 를 <b>2 → 3 → 10</b> 으로 바꾸며 그림이 어떻게 변하는지 봅니다(깊으면 외우기 = 과적합).</li>
+        <li><b>kNN</b> 을 놓고 <i>Number of neighbors</i>(k) · <i>Metric</i>(거리) · <i>Weight</i>(가까울수록 큰 표)를 살펴봅니다.</li>
+        <li><b>Test and Score</b> — File 을 <i>Data</i> 에, Tree 와 kNN 을 <i>Learner</i> 에 잇습니다. 기본 <b>교차 검증(10-fold)</b>은 데이터를 10조각으로 나눠 10번 시험 본 평균입니다.</li>
+        <li><b>Confusion Matrix</b> 를 Test and Score 뒤에 — 누구를 놓쳤나(재현율), 헛경보는(정밀도)?</li></ol>
+      <p class="oq"><b>확인</b>CA(정확도) 기준 더 나은 모델은? 기준선(전부 «사망»이라 찍기)보다 얼마나 나은가?</p></article>
+
+    <article class="olab" id="or3"><header><i>3</i><b>회귀 — 집값 예측(housing)</b><span>20분 · Linear Regression</span></header>
+      <div class="flow2 small"><span>File<br><small>housing</small></span><i>→</i><span>Linear Regression</span><i>→</i><span>Data Table<br><small>계수</small></span><i>·</i><span class="out">Test and Score</span><i>·</i><span class="out">Predictions</span></div>
+      <ol><li><b>File</b> 에서 <i>housing</i>(보스턴 집값) — 정답 MEDV(집값 중앙값, 천 달러), 특성 13개(방 수 RM, 저소득층 비율 LSTAT …).</li>
+        <li><b>Linear Regression</b> 의 출력 중 <i>Coefficients</i> 를 <b>Data Table</b> 로 — 계수 <b>+</b> 는 집값을 올리는 쪽, <b>−</b> 는 내리는 쪽.</li>
+        <li><b>Test and Score</b> — 예측이라 지표가 <b>MSE · RMSE · MAE · R2</b> 로 바뀝니다. RMSE 는 «평균 몇 천 달러 빗나가나».</li>
+        <li><b>Predictions</b> 에 모델과 File 을 이어 행마다 실제값과 예측값을 비교합니다.</li>
+        <li>(비교) <b>Random Forest</b> 를 하나 더 Test and Score 에 꽂아 R2 를 견줘 봅니다.</li></ol>
+      <p class="oq"><b>확인</b>집값을 가장 크게 올리는 특성 · 내리는 특성은? 계수 크기는 단위에 따라 달라진다는 점도 기억!</p></article>
+
+    <article class="olab" id="or4"><header><i>4</i><b>군집 — 동물 유형 묶기(zoo)</b><span>20분 · k-Means</span></header>
+      <div class="flow2 small"><span>File<br><small>zoo · type=skip</small></span><i>→</i><span>k-Means<br><small>2~8 실루엣</small></span><i>→</i><span>Box Plot</span><i>·</i><span>Scatter Plot</span><i>·</i><span class="out">Data Table<br><small>정답과 비교</small></span></div>
+      <ol><li><b>File</b> 에서 <i>zoo</i>(동물 101종 · 털 · 깃털 · 알 · 우유 · 다리 수 …). 정답 열 <b>type 의 Role 을 skip</b> 으로 — 정답을 숨겨야 비지도학습입니다.</li>
+        <li><b>k-Means</b> 에서 <i>From 2 to 8</i> 을 고르면 k마다 <b>실루엣 점수</b>를 계산해 가장 좋은 k를 표시합니다.</li>
+        <li><b>Box Plot</b> 에서 <i>Subgroups: Cluster</i> 로 놓고 milk · feathers · fins 같은 열을 보며 무리마다 특징을 찾습니다.</li>
+        <li>이름 붙이기 — «우유를 먹이는 무리 = 포유류?», «깃털 있는 무리 = 조류?»</li>
+        <li>File 에서 type 을 다시 <b>target</b> 으로 돌리고 <b>Data Table</b> 에서 Cluster 열과 type 을 나란히 — 정답 없이도 얼마나 맞게 묶었나?</li></ol>
+      <p class="oq"><b>확인</b>잘못 묶인 동물은? 왜 헷갈렸을까(예: 박쥐 · 오리너구리 · 돌고래)?</p></article>
+
+    <article class="olab" id="or5"><header><i>5</i><b>평가 지표 고르기</b><span>10분 · 상황별 기준</span></header>
+      <div class="tw"><table>
+        <tr><th>상황</th><th>먼저 볼 지표</th><th>까닭</th></tr>
+        <tr><td>집단 크기가 비슷한 분류</td><td><b>CA(정확도)</b></td><td>전체 중 맞힌 비율로 충분</td></tr>
+        <tr><td>놓치면 위험(질병 · 부적합 물)</td><td><b>Recall(재현율)</b></td><td>진짜를 몇 개 찾았나</td></tr>
+        <tr><td>헛경보가 곤란(스팸함 이동)</td><td><b>Precision(정밀도)</b></td><td>«예»라고 한 것 중 진짜</td></tr>
+        <tr><td>집단 크기가 크게 다름</td><td><b>F1</b> · 기준선과 비교</td><td>정확도만 높게 나오는 함정</td></tr>
+        <tr><td>숫자 예측</td><td><b>RMSE · MAE</b>(단위 있음) · <b>R2</b></td><td>평균 얼마나 빗나가나 · 몇 % 설명하나</td></tr>
+        <tr><td>군집</td><td><b>Silhouette</b></td><td>정답이 없으니 «잘 묶였나»</td></tr>
+      </table></div>
+      <p class="oq"><b>지표가 말하지 않는 것</b>① 데이터가 대표하지 못하는 사람 · 지역(편향) ② 훈련 데이터에만 좋은 점수(과적합) ③ 표본이 적을 때의 우연 ④ 함께 움직인다 ≠ 원인. 점수 옆에 이 네 가지를 한 줄씩 적습니다.</p></article>
+
+    <article class="olab" id="or6"><header><i>6</i><b>프로젝트 연습 — 심장병 예측(heart_disease)</b><span>25분 · 설정 바꾸며 최적 찾기</span></header>
+      <div class="flow2 small"><span>File<br><small>heart_disease</small></span><i>→</i><span>Tree · kNN</span><i>→</i><span class="out">Test and Score</span><i>→</i><span class="out">Confusion Matrix</span><i>→</i><span>Data Table<br><small>틀린 환자</small></span></div>
+      <ol><li><b>File</b> 에서 <i>heart_disease</i>(303명 · 나이 · 콜레스테롤 · 최대 심박 …), 정답 diameter narrowing.</li>
+        <li>아래 기록표처럼 Tree 깊이(2 · 3 · 5 · 12)와 kNN 의 k(3 · 5 · 11)를 바꾸며 <b>CA · Recall · F1</b> 을 적습니다(<i>Apply Automatically</i> 켜 두기).</li>
+        <li><b>Confusion Matrix</b> 에서 <i>Select Misclassified</i> → <b>Data Table</b> 로 <b>틀린 환자</b>만 봅니다. 공통점은?</li>
+        <li>«재현율이 높은 모델»과 «정밀도가 높은 모델» 중 병원에서는 어느 쪽? 근거 한 줄.</li></ol>
+      <div class="tw"><table class="orec"><tr><th>모델 · 설정</th><th>CA</th><th>Recall</th><th>F1</th><th>관찰</th></tr>
+        <tr><td>Tree 깊이 2</td><td></td><td></td><td></td><td></td></tr><tr><td>Tree 깊이 5</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>kNN k=3</td><td></td><td></td><td></td><td></td></tr><tr><td>kNN k=11</td><td></td><td></td><td></td><td></td></tr></table></div></article>
+
+    <article class="olab" id="or7"><header><i>7</i><b>우리 팀 데이터 불러오기</b><span>프로젝트 ③ 첫 10분</span></header>
+      <ol><li><b>File</b> 에서 우리 CSV 를 엽니다. 한글이 깨지면 <i>Encoding</i> 을 <b>UTF-8 ↔ 한국어(CP949)</b> 로 바꿔 봅니다.</li>
+        <li>아래 표에서 열마다 <b>Role</b> — 맞힐 열 <b>target</b> · 쓰지 않을 열(번호 · 이름 · 날짜) <b>skip</b> · 나머지 <b>feature</b>. <b>Type</b> 이 숫자(numeric)인지 범주(categorical)인지도 확인.</li>
+        <li><b>Preprocess</b> — <i>Impute</i>(빈칸 채우기) · <i>Normalize</i>(kNN · SVM · 신경망 · k-평균이면).</li>
+        <li><b>Data Sampler</b> 70% / 30% 로 나누고, Test and Score 에서 <b>Test on test data</b>.</li>
+        <li>정리한 데이터는 <b>Save Data</b> 로 저장 — 수행평가 ② 코랩 노트북에서 같은 파일을 씁니다.</li></ol>
+      <p class="oq"><b>기록</b>활동지 ④ 성능 평가 기록에 «모델 · 설정 · 지표 · 바꾼 이유»를 한 줄씩.</p></article>
+  </div>
+</div></section>
+
 <section id="trouble"><div class="wrap">
   <p class="eyebrow">막혔을 때</p>
   <h2>코랩에서 자주 나는 일</h2>
@@ -1110,7 +1208,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=5adaac36"></script>
+<script src="lessons.js?v=ee1c98e3"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)

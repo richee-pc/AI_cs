@@ -211,6 +211,17 @@
 .nbcards span{font-size:0.8438rem; color:var(--ink2); line-height:1.55}
 </style>
 
+<style id="css-more2">
+.snowbox{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:14px; align-items:start; margin:8px 0}
+@media (max-width:700px){ .snowbox{grid-template-columns:minmax(0,1fr)} }
+.vids{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:9px}
+.vids a{display:block; text-decoration:none; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:9px 12px}
+.vids a:hover{border-color:var(--blue-l); background:var(--blue-xl)}
+.vids i{font-style:normal; font-size:0.6875rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:1px 8px}
+.vids b{display:block; margin:4px 0 2px; color:var(--blue-d); font-size:0.9062rem; line-height:1.45}
+.vids span{font-size:0.8125rem; color:var(--muted)}
+.ptab.flash{animation:pvf .5s ease}
+</style>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -1776,6 +1787,16 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>어떤 알고리즘을 쓸까? <span class="tm">98~99쪽</span></h3>
       <div class="kcards" id="lrAlgo"></div>
     </div>
+    <div class="tool fig">
+      <h3>읽을거리 — 지도 한 장이 생명을 구했다: 존 스노의 콜레라 지도(1854) <span class="tm">«가장 가까운 것»으로 묶기</span></h3>
+      <p class="desc">1854년 런던 소호 지역에 콜레라가 퍼졌습니다. 사람들은 «나쁜 공기» 때문이라고 믿었지만, 의사 <b>존 스노</b>는 사망자의 집을 지도에 점으로 찍고 <b>물 펌프</b> 위치와 함께 보았습니다.
+        각 사망자를 <b>가장 가까운 펌프</b>에 묶으면(k-최근접 이웃에서 k=1 · 가까운 중심에 배정하는 k-평균의 «할당» 단계와 같은 생각) 무엇이 보일까요?</p>
+      <div class="simctl"><span class="pick" id="snowPick"><button type="button" data-v="0" aria-pressed="true">① 사망자만 보기</button><button type="button" data-v="1" aria-pressed="false">② 펌프 표시</button><button type="button" data-v="2" aria-pressed="false">③ 가장 가까운 펌프로 묶기</button></span></div>
+      <div class="snowbox"><svg class="fsvg" viewBox="0 0 1000 760" id="snowSvg" role="img" aria-label="존 스노의 콜레라 사망자와 물 펌프 지도"></svg>
+        <div><div class="keyout" id="snowOut" style="font-size:.9062rem; font-weight:500; text-align:left"></div><svg class="fsvg" viewBox="0 0 300 200" id="snowBar" aria-label="펌프별 사망자 수"></svg></div></div>
+      <p class="side"><b>그 뒤</b>스노는 결과를 들고 당국을 설득해 <b>브로드가 펌프의 손잡이를 떼어 냈고</b>, 이후 발병이 줄었습니다. 데이터 시각화와 «위치로 묶기»가 원인을 찾아낸 첫 사례로 꼽힙니다 — 다만 <b>가까이 있다 ≠ 원인</b>이라서, 스노는 펌프 물을 마신 사람 · 안 마신 사람(양조장 일꾼 등)의 사례를 더 모아 근거를 보탰습니다.
+        <br><small>자료: 존 스노(1854)의 지도를 디지털로 옮긴 공개 데이터(Robin Wilson) — 사망 489명 · 펌프 8개. 연결: Ⅱ-01 데이터 수집 · Ⅱ-04 k-최근접 이웃 · SDG 3 · 6</small></p>
+    </div>
     <div class="tool">
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx04"></div>
@@ -1932,6 +1953,21 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="oxl" id="lrOx07"></div>
     </div>
     <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/03_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 · 독버섯(126~130쪽)</a><a href="https://richee-pc.github.io/AI_cs/labs.html#labs">🧪 티처블 머신 · 감성 분석(131~137쪽)</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
+  </div>
+  <div class="tool" id="videos">
+    <h3>영상으로 다시 보기 <span class="tm">선택 · 집에서 · 유튜브로 열림</span></h3>
+    <div class="vids">
+      <a href="https://www.youtube.com/watch?v=IiyYsAMmmw4" target="_blank" rel="noopener"><i>Ⅱ-01 · 03</i><b>머신러닝 한눈에</b><span>소프트웨어야 놀자 · 2분</span></a>
+      <a href="https://www.youtube.com/watch?v=PTg-lqwZlh0" target="_blank" rel="noopener"><i>Ⅱ-01</i><b>데이터로 추론하는 기계학습</b><span>사이언스프렌즈 · 8분</span></a>
+      <a href="https://www.youtube.com/watch?v=zXzFsWHToeg" target="_blank" rel="noopener"><i>Ⅱ-03</i><b>지도학습</b><span>소프트웨어야 놀자 · 2분</span></a>
+      <a href="https://www.youtube.com/watch?v=HxEa4bOoNfU" target="_blank" rel="noopener"><i>Ⅱ-03</i><b>추천 알고리즘의 원리 — 협업 · 콘텐츠 기반 필터링</b><span>방송미디어통신위원회 · 3분</span></a>
+      <a href="https://www.youtube.com/watch?v=LgsbnMXe3ZA" target="_blank" rel="noopener"><i>Ⅱ-03</i><b>음식으로 보는 추천 알고리즘</b><span>YTN 사이언스 · 4분</span></a>
+      <a href="https://www.youtube.com/watch?v=NbLVcMmxSw0" target="_blank" rel="noopener"><i>Ⅱ-06</i><b>딥러닝과 머신러닝은 뭐가 다를까</b><span>국가과학기술연구회 · 5분</span></a>
+      <a href="https://www.youtube.com/watch?v=GMTktxagR6s" target="_blank" rel="noopener"><i>Ⅱ-06</i><b>인공지능의 학습 방법</b><span>EBS 컬렉션 · 8분</span></a>
+      <a href="https://www.youtube.com/watch?v=mD2WDvA3Jtk" target="_blank" rel="noopener"><i>코랩</i><b>구글 코랩으로 파이썬 시작하기</b><span>광주교육연구정보원 · 11분</span></a>
+      <a href="https://www.youtube.com/watch?v=s1Qz55ZTxWQ" target="_blank" rel="noopener"><i>생성형</i><b>생성형 AI의 원리 · 환각 · RLHF</b><span>국가과학기술연구회 · 6분</span></a>
+    </div>
+    <p class="hint">수업 시간에는 위의 그림 · 실험으로 충분합니다. 결석했거나 다시 듣고 싶을 때만 보세요.</p>
   </div>
 </div></section>
 
@@ -2503,6 +2539,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <div class="toc toc-in">
     <a href="#alBoundary"><span class="ic">🗺️</span><span><b>결정 경계 실험실</b><span>분류 모델 7종 · 점 찍기</span></span></a>
     <a href="#alReg"><span class="ic">📉</span><span><b>회귀 실험실</b><span>과적합 · 과소적합 보기</span></span></a>
+    <a href="#alCluster"><span class="ic">🫧</span><span><b>군집 실험실</b><span>k-평균 · DBSCAN · 계층</span></span></a>
     <a href="#alWords"><span class="ic">📖</span><span><b>용어 풀이 30</b><span>쉬운 말 · 비유</span></span></a>
     <a href="#alMath"><span class="ic">➗</span><span><b>수학 쉽게</b><span>숫자로 따라 계산</span></span></a>
     <a href="#alCompare"><span class="ic">📊</span><span><b>한눈에 비교</b><span>모델 12종</span></span></a>
@@ -2550,6 +2587,22 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       </div></div>
   </div>
 
+  <div class="tool" id="alCluster">
+    <h3>군집 실험실 — k-평균은 언제 실패할까? <span class="tm">k-평균 · DBSCAN · 계층적 군집</span></h3>
+    <p class="desc">정답 색 없이 회색 점만 주고 모델이 스스로 묶게 합니다. 교과서 97쪽 «k-평균은 군집이 <b>구(동그라미) 모양</b>이라고 가정해서, 그렇지 않은 군집은 잘 못 묶을 수 있다»를 직접 확인해 보세요.</p>
+    <div class="bctl">
+      <label>데이터 모양 <select id="clData"><option value="blobs">둥근 무리 4개</option><option value="moons">초승달 두 개</option><option value="rings">동심원</option><option value="spiral">나선 두 줄</option><option value="many">작은 무리 9개</option><option value="aniso">길쭉한 무리 3개</option></select></label>
+    </div>
+    <div class="pick bdm" id="clModel"><button type="button" data-m="km" aria-pressed="true">k-평균</button><button type="button" data-m="db" aria-pressed="false">DBSCAN</button><button type="button" data-m="hc" aria-pressed="false">계층적 군집(단일 연결)</button></div>
+    <div class="bdwrap"><canvas id="clCv" width="560" height="400" aria-label="군집 결과 그림"></canvas>
+      <div class="bdside">
+        <label class="sl"><span id="clHpL">무리 수 k</span><b id="clHpV"></b><input type="range" id="clHp"></label>
+        <div class="statline"><span class="st">찾은 무리 <b id="clN">-</b></span><span class="st good">실루엣 <b id="clS">-</b></span></div>
+        <div class="keyout" id="clTip"></div>
+        <div class="simctl"><button type="button" class="mini gh" id="clStep">k-평균 한 걸음씩</button><button type="button" class="mini gh" id="clNew">점 새로 뿌리기</button></div>
+      </div></div>
+    <p class="hint">해 볼 것 — ① «초승달»에서 k-평균(k=2)과 DBSCAN 비교 ② «길쭉한 무리»에서 k-평균의 중심이 어디에 생기나 ③ DBSCAN 의 반경을 너무 작게 하면 회색(잡음) 점이 늘어난다 ④ 실루엣 점수가 높다고 늘 «사람 눈에 맞는» 묶음일까?</p>
+  </div>
   <div class="tool" id="alWords">
     <h3>용어 풀이 30 — 어려운 말을 쉬운 말로 <span class="tm">찾기 가능</span></h3>
     <label class="mdsearch" style="max-width:420px; margin-bottom:10px"><span>찾기</span><input id="wdQ" type="search" placeholder="예: 과적합, 학습률, 커널"></label>
@@ -2646,6 +2699,17 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <p class="hint">5~8걸음이 Ⅳ단원 수행평가 ② 노트북의 «나누기 · 모델 정의 · 학습 · 점수»와 같습니다. 셀마다 오렌지3 위젯 이름을 주석으로 적는 연습을 지금부터.</p>
   </div>
 
+  <div class="tool" id="encode">
+    <h3>글자(범주)를 숫자로 — 레이블 인코딩 vs 원-핫 인코딩 <span class="tm">전처리 · 프로젝트 필수</span></h3>
+    <p class="desc">모델은 <b>숫자만</b> 계산합니다. «성별 · 탑승 항구 · 지역»처럼 글자로 된 범주형 열은 숫자로 바꿔야 해요. 바꾸는 방법은 두 가지입니다. 단추를 눌러 비교하세요.</p>
+    <div class="simctl"><span class="pick" id="encPick"><button type="button" data-e="raw" aria-pressed="true">원래 표</button><button type="button" data-e="label" aria-pressed="false">레이블 인코딩</button><button type="button" data-e="onehot" aria-pressed="false">원-핫 인코딩</button></span></div>
+    <div class="ptab" id="encTbl" style="margin-top:8px"></div>
+    <div class="keyout" id="encOut" style="font-size:.9062rem; font-weight:500; text-align:left"></div>
+    <div class="g2" style="margin-top:10px">
+      <p class="side"><b>레이블 인코딩</b>범주마다 번호 하나(C→0, Q→1, S→2). 열이 늘지 않아 간단하지만, 모델이 «S(2)가 C(0)보다 크다»는 <b>없는 순서</b>를 배울 수 있다. 순서가 진짜 있는 범주(등급 낮음·보통·높음)나 <b>정답 열</b>에 알맞다.<br><code>df['성별'].map({'남':0, '여':1})</code> · <code>LabelEncoder()</code>(교과서 126쪽 독버섯)</p>
+      <p class="side bot"><b>원-핫 인코딩</b>범주마다 열을 하나씩 만들어 해당하면 1, 아니면 0. 순서가 생기지 않아 <b>순서 없는 특성</b>(항구 · 지역 · 혈액형)에 알맞다. 범주가 아주 많으면 열이 폭발.<br><code>pd.get_dummies(df, columns=['항구'])</code> · 오렌지3는 <b>Continuize</b> 위젯이 자동으로</p>
+    </div>
+  </div>
   <div class="g2">
     <div class="tool" style="margin:0">
       <h3>예측 읽기 — 분류</h3>
@@ -4813,7 +4877,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=5adaac36"></script>
+<script src="lessons.js?v=ee1c98e3"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -5477,6 +5541,129 @@ quiz($('lrWhich'), ['전통적 프로그래밍', '기계학습'], [
     if(b.id === 'procPlay'){ show(0); timer = setInterval(function(){ if(cur >= 4){ clearInterval(timer); return; } show(cur + 1); }, 3200); }
     else show(+b.dataset.ps); });
   show(0);
+})();
+})();
+</script>
+
+<script>
+/* Ⅱ단원 보강 2 (2026-10-07) — 군집 실험실 · 인코딩 · 존 스노 지도 */
+(function(){
+function $(id){ return document.getElementById(id); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#888'; }
+function rng(seed){ var s = seed >>> 0 || 1; return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+function gauss(r){ var u = 1 - r(), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, at, parent){ var e = document.createElementNS(NS, tag); for(var k in at) e.setAttribute(k, at[k]); if(parent) parent.appendChild(e); return e; }
+var PAL = ['#2F6FEC', '#E8862A', '#1E9E6A', '#C2417B', '#7B4FD6', '#14A3B8', '#B8860B', '#5B6B7F', '#D9483B', '#3D9970'];
+
+/* ══════════ 군집 실험실 ══════════ */
+(function(){
+  var cv = $('clCv'); if(!cv) return;
+  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height, seed = 2, model = 'km', P = [], lab = [], cent = null, stepMode = null;
+  var MD = { km:{ l:'무리 수 k', min:2, max:10, step:1, v:4 }, db:{ l:'반경 eps(×100)', min:2, max:15, step:1, v:5 }, hc:{ l:'무리 수', min:2, max:10, step:1, v:2 } };
+  var HP = { km:4, db:8, hc:2 };
+  function make(kind){ var r = rng(seed * 31 + kind.length), A = [];
+    function add(x, y){ if(x > .02 && x < .98 && y > .02 && y < .98) A.push([x, y]); }
+    if(kind === 'blobs'){ [[.25,.7],[.7,.75],[.3,.28],[.72,.3]].forEach(function(c){ for(var i = 0; i < 45; i++) add(c[0] + gauss(r) * .06, c[1] + gauss(r) * .06); }); }
+    if(kind === 'many'){ for(var a = 0; a < 3; a++) for(var b = 0; b < 3; b++) for(var i2 = 0; i2 < 18; i2++) add(.2 + a * .3 + gauss(r) * .035, .2 + b * .3 + gauss(r) * .035); }
+    if(kind === 'moons'){ for(var i3 = 0; i3 < 90; i3++){ var t = r() * Math.PI; add(.1 + (Math.cos(t) + 1) * .27 + gauss(r) * .025, .2 + (Math.sin(t) + .5) * .4 + gauss(r) * .025); add(.1 + (2 - Math.cos(t)) * .27 + gauss(r) * .025, .2 + (1 - Math.sin(t)) * .4 + gauss(r) * .025); } }
+    if(kind === 'rings'){ for(var i4 = 0; i4 < 180; i4++){ var q = r() * 6.283, rad = i4 % 2 ? .13 : .36; add(.5 + Math.cos(q) * (rad + gauss(r) * .015), .5 + Math.sin(q) * (rad + gauss(r) * .015)); } }
+    if(kind === 'spiral'){ for(var i5 = 0; i5 < 110; i5++){ var u = i5 / 110 * 2.6 * Math.PI, rr = .04 + u * .045; [0, Math.PI].forEach(function(off){ add(.5 + Math.cos(u + off) * rr + gauss(r) * .008, .5 + Math.sin(u + off) * rr + gauss(r) * .008); }); } }
+    if(kind === 'aniso'){ [[.3,.25],[.55,.55],[.75,.8]].forEach(function(c){ for(var i6 = 0; i6 < 60; i6++){ var g = gauss(r) * .16, h = gauss(r) * .025; add(c[0] + g, c[1] + h - g * .15); } }); }
+    return A; }
+  function d2(a, b){ return (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]); }
+  function kmeans(k, iters){ var r = rng(seed + 7), C = []; while(C.length < k){ var p = P[Math.floor(r() * P.length)]; if(C.indexOf(p) < 0) C.push(p.slice()); }
+    var L = []; for(var it = 0; it < (iters || 50); it++){ L = P.map(function(p){ var b = 0; for(var j = 1; j < k; j++) if(d2(p, C[j]) < d2(p, C[b])) b = j; return b; });
+      var N = C.map(function(){ return [0, 0, 0]; }); P.forEach(function(p, i){ N[L[i]][0] += p[0]; N[L[i]][1] += p[1]; N[L[i]][2]++; });
+      var moved = false; C = C.map(function(c, j){ if(!N[j][2]) return c; var n = [N[j][0] / N[j][2], N[j][1] / N[j][2]]; if(d2(n, c) > 1e-10) moved = true; return n; });
+      if(!moved) break; }
+    return { L:L, C:C }; }
+  function dbscan(eps, minPts){ eps = eps * eps; var L = P.map(function(){ return -2; }), c = -1;
+    function nb(i){ var o = []; for(var j = 0; j < P.length; j++) if(d2(P[i], P[j]) <= eps) o.push(j); return o; }
+    for(var i = 0; i < P.length; i++){ if(L[i] !== -2) continue; var N = nb(i); if(N.length < minPts){ L[i] = -1; continue; }
+      c++; L[i] = c; var Q = N.slice(); while(Q.length){ var q = Q.pop(); if(L[q] === -1) L[q] = c; if(L[q] !== -2) continue; L[q] = c; var M = nb(q); if(M.length >= minPts) Q = Q.concat(M); } }
+    return L; }
+  function single(k){ var n = P.length, par = P.map(function(_, i){ return i; }), E = [];
+    for(var i = 0; i < n; i++) for(var j = i + 1; j < n; j++) E.push([d2(P[i], P[j]), i, j]);
+    E.sort(function(a, b){ return a[0] - b[0]; });
+    function f(x){ while(par[x] !== x){ par[x] = par[par[x]]; x = par[x]; } return x; }
+    var comps = n; for(var e = 0; e < E.length && comps > k; e++){ var a = f(E[e][1]), b = f(E[e][2]); if(a !== b){ par[a] = b; comps--; } }
+    var map = {}, c = 0; return P.map(function(_, i){ var rt = f(i); if(map[rt] == null) map[rt] = c++; return map[rt]; }); }
+  function silhouette(L){ var ids = {}; L.forEach(function(l){ if(l >= 0) ids[l] = 1; }); var K = Object.keys(ids); if(K.length < 2) return NaN;
+    var s = 0, n = 0; P.forEach(function(p, i){ if(L[i] < 0) return; var sum = {}, cnt = {};
+      P.forEach(function(q, j){ if(i === j || L[j] < 0) return; var d = Math.sqrt(d2(p, q)); sum[L[j]] = (sum[L[j]] || 0) + d; cnt[L[j]] = (cnt[L[j]] || 0) + 1; });
+      var a = cnt[L[i]] ? sum[L[i]] / cnt[L[i]] : 0, b = Infinity; K.forEach(function(k){ if(+k !== L[i] && cnt[k]) b = Math.min(b, sum[k] / cnt[k]); });
+      if(isFinite(b)){ s += (b - a) / Math.max(a, b); n++; } }); return n ? s / n : NaN; }
+  function run(){ cent = null;
+    if(model === 'km'){ var res = kmeans(HP.km); lab = res.L; cent = res.C; }
+    else if(model === 'db') lab = dbscan(HP.db / 100, 4);
+    else lab = single(HP.hc); draw(); }
+  function draw(){
+    ctx.clearRect(0, 0, W, H); ctx.fillStyle = css('--white'); ctx.fillRect(0, 0, W, H);
+    P.forEach(function(p, i){ ctx.beginPath(); ctx.arc(p[0] * W, (1 - p[1]) * H, 4.5, 0, 6.283); ctx.fillStyle = lab[i] == null ? '#9aa5b1' : lab[i] < 0 ? '#c3cbd4' : PAL[lab[i] % PAL.length]; ctx.fill(); });
+    if(cent) cent.forEach(function(c, j){ ctx.beginPath(); ctx.arc(c[0] * W, (1 - c[1]) * H, 10, 0, 6.283); ctx.lineWidth = 3.5; ctx.strokeStyle = '#111'; ctx.stroke(); ctx.fillStyle = PAL[j % PAL.length]; ctx.fill(); });
+    var ks = {}; lab.forEach(function(l){ if(l >= 0) ks[l] = 1; }); var noise = lab.filter(function(l){ return l < 0; }).length;
+    $('clN').textContent = Object.keys(ks).length + (noise ? ' · 잡음 ' + noise : ''); var s = silhouette(lab); $('clS').textContent = isNaN(s) ? '-' : s.toFixed(2);
+    var kind = $('clData').value, tip = {
+      km:'중심 k개 → 가까운 중심에 배정 → 평균으로 이동(교과서 97쪽). 경계가 <b>곧은 직선</b>으로만 그어져 ' + (kind === 'moons' || kind === 'rings' || kind === 'spiral' ? '<b>휘어진 무리를 반으로 잘라 버립니다.</b>' : kind === 'aniso' ? '<b>길쭉한 무리를 동그랗게 잘못 나눕니다.</b>' : '동그란 무리에는 잘 맞습니다.'),
+      db:'반경 eps 안에 이웃이 4개 이상이면 «빽빽하다» → 이어지는 빽빽한 곳을 한 무리로. <b>무리 수를 정하지 않고</b>, 동떨어진 회색 점은 <b>잡음(이상치)</b>. 휘어진 모양도 잘 따라가지만 eps 고르기가 까다롭습니다.',
+      hc:'가장 가까운 두 점(무리)부터 차례로 이어 붙이다가 정한 무리 수에서 멈춥니다(단일 연결). 길게 이어진 모양에 강하지만, 점 하나로 이어진 다리 때문에 두 무리가 붙어 버리기도.' }[model];
+    $('clTip').innerHTML = tip; }
+  function setHp(){ var md = MD[model], s = $('clHp'); s.min = md.min; s.max = md.max; s.step = md.step; s.value = HP[model]; $('clHpL').textContent = md.l; $('clHpV').textContent = ' ' + HP[model]; $('clStep').disabled = model !== 'km'; }
+  $('clModel').addEventListener('click', function(e){ var b = e.target.closest('button[data-m]'); if(!b) return; model = b.dataset.m; [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); setHp(); run(); });
+  $('clHp').addEventListener('input', function(){ HP[model] = +this.value; $('clHpV').textContent = ' ' + this.value; run(); });
+  var EPS = { blobs:8, moons:9, rings:8, spiral:6, many:7, aniso:7 };
+  $('clData').addEventListener('change', function(){ P = make(this.value); HP.db = EPS[this.value] || 8; if(model === 'db') setHp(); run(); });
+  $('clNew').addEventListener('click', function(){ seed++; P = make($('clData').value); run(); });
+  $('clStep').addEventListener('click', function(){
+    if(!stepMode || stepMode.done){ stepMode = { it:0, done:false }; }
+    stepMode.it++; var res = kmeans(HP.km, stepMode.it); lab = res.L; cent = res.C; draw();
+    var full = kmeans(HP.km); if(JSON.stringify(full.L) === JSON.stringify(res.L)){ stepMode.done = true; $('clTip').innerHTML = '<b>' + stepMode.it + '걸음 만에 수렴</b> — 배정이 더 바뀌지 않습니다(교과서 ④).'; }
+    else $('clTip').innerHTML = '<b>' + stepMode.it + '걸음</b> — 할당(가까운 중심) → 갱신(평균으로 이동). 계속 누르세요.'; });
+  P = make('blobs'); setHp();
+  var io = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ run(); io.disconnect(); } }); io.observe(cv);
+})();
+
+/* ══════════ 인코딩 ══════════ */
+(function(){
+  var box = $('encTbl'); if(!box) return;
+  var R = [['김', '남', 'S', 22], ['이', '여', 'C', 38], ['박', '여', 'Q', 26], ['최', '남', 'S', 35], ['정', '남', 'C', 54]];
+  function show(m){
+    var h, rows, msg;
+    if(m === 'raw'){ h = ['이름', '성별', '탑승 항구', '나이']; rows = R; msg = '«성별»과 «탑승 항구»가 글자라서 그대로는 계산할 수 없습니다. (이름은 특성이 아니니 빼요 — Ⅱ-02 «축소»)'; }
+    else if(m === 'label'){ h = ['성별', '탑승 항구', '나이']; rows = R.map(function(r){ return [r[1] === '남' ? 0 : 1, { C:0, Q:1, S:2 }[r[2]], r[3]]; });
+      msg = '성별 남→0, 여→1 · 항구 C→0, Q→1, S→2. 성별처럼 <b>두 가지뿐</b>이면 문제없지만, 항구는 «S(2) = C(0)의 두 배»처럼 <b>없는 순서 · 크기</b>를 모델이 믿을 수 있어요.'; }
+    else { h = ['성별', '항구_C', '항구_Q', '항구_S', '나이']; rows = R.map(function(r){ return [r[1] === '남' ? 0 : 1, +(r[2] === 'C'), +(r[2] === 'Q'), +(r[2] === 'S'), r[3]]; });
+      msg = '항구마다 열을 하나씩 만들고 해당하면 <b>1</b>. 순서가 생기지 않습니다. 대신 열이 늘어나요(범주 3개 → 열 3개). 타이타닉 노트북 15의 <code>get_dummies</code> 가 이것.'; }
+    box.innerHTML = '<table><tr>' + h.map(function(x){ return '<th>' + x + '</th>'; }).join('') + '</tr>' + rows.map(function(r){ return '<tr>' + r.map(function(v){ return '<td>' + v + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+    $('encOut').innerHTML = msg; box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash'); }
+  $('encPick').addEventListener('click', function(e){ var b = e.target.closest('button[data-e]'); if(!b) return; [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); show(b.dataset.e); });
+  show('raw');
+})();
+
+/* ══════════ 존 스노 지도 ══════════ */
+(function(){
+  var svg = $('snowSvg'); if(!svg) return;
+  var S = {"d":[[254,415,3],[259,425,2],[263,433,1],[268,442,1],[273,452,4],[300,456,2],[222,426,2],[240,431,2],[213,432,3],[219,414,2],[206,422,2],[179,408,1],[195,450,3],[201,458,1],[206,467,4],[169,446,1],[163,459,1],[255,457,1],[262,468,4],[268,478,3],[155,412,2],[151,386,1],[122,418,2],[131,422,2],[143,417,2],[157,377,1],[150,368,1],[144,359,3],[141,371,1],[99,386,1],[89,373,1],[90,401,1],[54,387,2],[42,394,2],[0,436,1],[116,437,1],[45,485,1],[88,493,1],[90,506,2],[105,494,8],[123,483,2],[102,483,1],[195,516,1],[172,507,1],[234,569,1],[241,579,1],[248,586,4],[238,588,1],[223,572,1],[267,594,1],[286,582,1],[295,575,4],[287,595,1],[311,601,1],[320,597,1],[325,604,1],[366,566,1],[343,548,2],[358,540,1],[282,495,1],[301,528,1],[314,525,2],[320,534,1],[326,542,1],[301,502,2],[297,479,2],[309,475,1],[318,472,2],[328,466,3],[354,455,1],[365,451,4],[381,445,15],[390,441,3],[399,436,4],[424,460,5],[443,485,2],[432,501,1],[421,506,2],[412,512,1],[400,517,1],[385,525,1],[367,534,1],[440,510,1],[408,535,1],[413,547,1],[432,537,1],[442,554,1],[431,575,1],[438,582,1],[459,579,1],[466,588,1],[470,598,2],[479,613,1],[446,598,1],[490,661,4],[499,645,2],[506,654,1],[516,664,4],[587,680,4],[584,651,1],[554,616,4],[552,631,1],[545,623,1],[510,561,2],[498,560,1],[485,544,2],[479,534,3],[469,523,1],[461,514,4],[473,508,1],[466,498,1],[562,528,7],[586,514,3],[643,568,8],[658,625,1],[605,622,1],[589,461,5],[673,478,8],[660,459,2],[668,471,1],[649,446,1],[644,437,2],[635,422,1],[630,413,2],[572,406,2],[613,415,3],[582,397,1],[560,405,2],[593,385,2],[506,448,3],[511,456,1],[513,465,2],[525,479,1],[530,486,1],[542,507,1],[502,441,1],[477,408,3],[466,413,3],[455,418,3],[601,557,3],[625,559,1],[613,564,2],[601,570,1],[781,464,1],[806,448,1],[803,461,2],[846,443,1],[720,394,1],[714,380,1],[701,378,2],[709,397,2],[687,346,1],[693,363,1],[636,366,1],[627,344,1],[600,330,1],[610,385,1],[615,310,1],[694,334,5],[703,357,1],[676,304,1],[666,290,2],[663,281,2],[641,276,1],[676,261,1],[698,251,1],[700,254,1],[711,250,2],[709,246,2],[741,226,5],[729,230,1],[737,234,1],[752,229,1],[750,221,1],[758,219,4],[771,213,1],[782,215,2],[791,211,1],[663,0,1],[570,110,1],[554,118,1],[480,175,1],[387,170,3],[413,158,1],[524,230,1],[532,188,2],[617,235,1],[638,237,1],[622,170,1],[518,248,1],[534,247,1],[524,258,2],[552,277,1],[533,278,1],[559,290,2],[545,297,3],[456,254,2],[444,259,1],[456,222,1],[469,218,1],[479,215,1],[451,210,1],[433,217,2],[372,228,3],[372,268,3],[388,265,1],[390,305,1],[400,290,3],[398,322,1],[468,311,1],[487,302,1],[496,299,1],[508,292,2],[500,310,2],[482,316,4],[471,322,5],[462,325,2],[543,346,5],[557,316,5],[532,351,3],[520,356,3],[505,363,1],[494,368,5],[483,372,4],[457,384,4],[414,404,1],[403,409,4],[392,414,1],[379,418,3],[370,426,2],[337,422,1],[405,340,2],[423,337,1],[321,390,1],[314,381,2],[308,360,3],[210,329,1],[321,355,1],[246,401,4],[229,365,2],[217,377,2],[213,365,1],[236,305,5],[256,187,3],[280,179,2],[351,225,3],[356,194,2],[189,606,1],[231,660,1],[274,684,1]],"p":[[403,429],[58,337],[48,160],[1000,598],[767,635],[492,738],[724,1000],[222,781]]};
+  var near = S.d.map(function(d){ var b = 0; S.p.forEach(function(p, j){ if((p[0] - d[0]) * (p[0] - d[0]) + (p[1] - d[1]) * (p[1] - d[1]) < (S.p[b][0] - d[0]) * (S.p[b][0] - d[0]) + (S.p[b][1] - d[1]) * (S.p[b][1] - d[1])) b = j; }); return b; });
+  var cnt = S.p.map(function(){ return 0; }); S.d.forEach(function(d, i){ cnt[near[i]] += d[2]; });
+  var total = cnt.reduce(function(a, b){ return a + b; }, 0);
+  function draw(v){
+    svg.innerHTML = '';
+    el('rect', { x:0, y:0, width:1000, height:760, rx:18, style:'fill:var(--tint);stroke:var(--line)' }, svg);
+    S.d.forEach(function(d, i){ el('circle', { cx:40 + d[0] * .92, cy:30 + d[1] * .68, r:4 + Math.min(10, d[2] * 1.6), style:'fill:' + (v >= 2 ? PAL[near[i] % PAL.length] : '#3b4a5c') + ';opacity:.75' }, svg); });
+    if(v >= 1) S.p.forEach(function(p, j){ el('rect', { x:40 + p[0] * .92 - 13, y:30 + p[1] * .68 - 13, width:26, height:26, rx:5, style:'fill:' + (v >= 2 ? PAL[j % PAL.length] : '#fff') + ';stroke:#111;stroke-width:3' }, svg);
+      el('text', { x:40 + p[0] * .92, y:30 + p[1] * .68 + 6, class:'ft c b', style:'font-size:16px;fill:' + (v >= 2 ? '#fff' : '#111') }, svg).textContent = j + 1; });
+    var out = $('snowOut'), bar = $('snowBar'); bar.innerHTML = '';
+    if(v === 0) out.innerHTML = '점 하나가 사망자가 나온 집(큰 점일수록 여러 명). 모두 <b>' + total + '명</b>. 어디에 몰려 있나요?';
+    if(v === 1) out.innerHTML = '네모 번호가 <b>물 펌프 8개</b>. 사망자가 가장 많이 몰린 곳 한가운데 있는 펌프는 몇 번일까요?';
+    if(v === 2){ var best = cnt.indexOf(Math.max.apply(null, cnt));
+      out.innerHTML = '사망자를 <b>가장 가까운 펌프</b>로 묶었더니 <b>' + (best + 1) + '번(브로드가 펌프)</b> 쪽이 <b>' + cnt[best] + '명(' + Math.round(cnt[best] / total * 100) + '%)</b>. 원인으로 의심할 근거가 생겼습니다.';
+      cnt.forEach(function(c, j){ var y = 10 + j * 23; el('rect', { x:50, y:y, width:Math.max(2, c / Math.max.apply(null, cnt) * 230), height:16, rx:4, style:'fill:' + PAL[j % PAL.length] }, bar);
+        el('text', { x:8, y:y + 13, class:'ft s' }, bar).textContent = (j + 1) + '번'; el('text', { x:56 + Math.max(2, c / Math.max.apply(null, cnt) * 230), y:y + 13, class:'ft s' }, bar).textContent = c; }); }
+  }
+  $('snowPick').addEventListener('click', function(e){ var b = e.target.closest('button[data-v]'); if(!b) return; [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); draw(+b.dataset.v); });
+  draw(0);
 })();
 })();
 </script>
