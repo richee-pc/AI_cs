@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅱ. 인공지능과 학습 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅱ단원 인공지능과 학습 - 전처리 체험 · 학습 유형 · 알고리즘 · 퍼셉트론 · 코랩 코드 읽기">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=a382c1e6" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=153c8d01" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=eaa68ce0" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=5bcf031e" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅱ. 인공지능과 학습 · 수업 자료</title>
@@ -288,6 +288,46 @@
 .vtab td:not(:first-child), .vtab th{white-space:nowrap; padding:3px 2px}
 #learn06 .g3 .mcviz{margin:6px 0}
 </style>
+<style id="css-ux">
+.uxdiag{display:grid; gap:6px}
+.uxd{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:center; justify-content:space-between; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:7px 11px; font-size:0.9062rem}
+.uxd>span:first-child{flex:1 1 260px}
+.uxd i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--muted); margin-right:7px}
+.uxbank{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 12px}
+.uxbank button{font-family:var(--sans); font-weight:800; font-size:0.875rem; border:2px dashed var(--blue-l); background:var(--white); color:var(--blue-d); border-radius:99px; padding:5px 12px; cursor:pointer}
+.uxbank button.on{background:var(--fill); color:var(--on-fill); border-style:solid; border-color:var(--fill)}
+.uxmap{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:12px}
+@media (max-width:760px){ .uxmap{grid-template-columns:minmax(0,1fr)} }
+.uxm{border:2px solid var(--blue-l); border-radius:16px; padding:10px 12px; background:var(--blue-xl)}
+.uxm.dl{border-color:var(--good); background:var(--good-bg)}
+.uxm em{display:block; font-style:normal; font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d); margin-bottom:6px}
+.uxm.dl em{color:var(--good)}
+.uxrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0; font-size:0.875rem}
+.uxrow>b{min-width:92px; color:var(--ink2); font-size:0.8125rem}
+.uxrow>span{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:4px 9px}
+.uxrow>i{font-style:normal; color:var(--muted)}
+.uxb{font-family:var(--sans); font-weight:800; font-size:0.875rem; min-width:96px; border:2px dashed var(--warm); background:var(--warm-bg); color:var(--warm); border-radius:9px; padding:3px 9px; cursor:pointer}
+.uxb.ok{border-style:solid; border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.uxb.no{border-style:solid; border-color:#dc2626; background:#fee2e2; color:#b91c1c}
+.uxrow>span .uxb{margin:-4px -9px}
+.uxqs{display:grid; gap:10px}
+.uxq{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 13px}
+.uxqq{margin:0 0 8px; line-height:1.65}
+.uxqq b{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--fill); color:var(--on-fill); margin-right:8px; font-size:0.8125rem}
+.uxo{display:grid; gap:5px}
+.uxo button{text-align:left; font-family:var(--sans); font-size:0.875rem; line-height:1.55; border:1px solid var(--line); background:var(--tint); color:var(--ink); border-radius:10px; padding:6px 10px; cursor:pointer}
+.uxo button i{font-style:normal; font-weight:800; color:var(--blue-d); margin-right:6px}
+.uxo button[aria-pressed="true"]{border-color:var(--fill); background:var(--blue-xl); box-shadow:inset 0 0 0 1px var(--fill)}
+.uxo button.right{border-color:var(--good); background:var(--good-bg)}
+.uxchk{margin-top:7px}
+.uxwhy{margin:8px 0 0; font-size:0.875rem; line-height:1.6; border-radius:10px; padding:7px 10px; background:var(--tint)}
+.uxwhy.ok{background:var(--good-bg)} .uxwhy.no{background:var(--warm-bg)}
+.uxw{display:flex; flex-wrap:wrap; gap:7px}
+.uxw input{flex:1 1 220px; font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); border-radius:9px; padding:6px 9px; background:var(--white); color:var(--ink)}
+.uxq textarea{width:100%; box-sizing:border-box; font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); border-radius:10px; padding:8px 10px; background:var(--white); color:var(--ink); resize:vertical}
+.uxq details{margin-top:6px} .uxq summary{cursor:pointer; font-weight:800; color:var(--blue-d)}
+.uxq details p, .uxq details ul{font-size:0.875rem; line-height:1.65}
+</style>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -302,13 +342,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=34082b3a') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2fa40048') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=153c8d01') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=5bcf031e') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=a382c1e6') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=eaa68ce0') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=499529f0') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8a6b4133') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1231,6 +1271,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
   <a href="https://richee-pc.github.io/AI_cs/labs.html">🧪 코랩 실습실</a>
   <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>
+  <a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a>
   <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
   <span class="sep"></span>
   <a href="#learn">📘 교과서로 배우기</a>
@@ -1281,8 +1322,10 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#nn"><span class="ic">🧠</span><span><b>퍼셉트론과 XOR</b><span>은닉층이 왜 필요한가 · Ⅱ-06</span><em>직접 해 보기</em></span></a>
     <a href="#code"><span class="ic">💻</span><span><b>코랩 코드 읽기</b><span>예측 · 분류 · 딥러닝 코드 · Ⅱ-05 · 07</span></span></a>
     <a href="#lab"><span class="ic">🚀</span><span><b>코랩 실습 노트북</b><span>단추 한 번으로 코랩 열기</span></span></a>
-    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 21개 · 노트북 18권</span><em>새 쪽</em></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 22개 · 노트북 19권</span><em>새 쪽</em></span></a>
     <a href="https://richee-pc.github.io/AI_cs/models.html"><span class="ic">📚</span><span><b>AI 모델 도감</b><span>교과서 모델 + 자주 쓰는 모델 26종</span><em>새 쪽</em></span></a>
+    <a href="#wrapup"><span class="ic">🧩</span><span><b>대단원 마무리</b><span>자가 진단 · 개념도 · 12문항 · 종합 실습</span></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/datagen.html"><span class="ic">🧰</span><span><b>데이터 공방</b><span>연습용 더러운 데이터 만들기</span><em>새 쪽</em></span></a>
     <a href="#terms"><span class="ic">📖</span><span><b>핵심 용어</b><span>쉽게 말하면 · 교과서 말</span></span></a>
     <a href="#miscon"><span class="ic">❓</span><span><b>헷갈리는 것 O/X</b><span>자주 틀리는 생각</span></span></a>
     <a href="#check"><span class="ic">✅</span><span><b>확인 문제</b><span>스스로 점검하기</span></span></a>
@@ -3412,6 +3455,58 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
   </details>
 </div></section>
 
+<section id="wrapup"><div class="wrap">
+  <p class="eyebrow">Ⅱ 대단원 마무리 · 종합 실습 · 교과서 139~141쪽</p>
+  <h2>Ⅱ단원을 한 번에 꿰어 보기</h2>
+  <p class="sub">두 차시로 합니다. <b>1차시</b>는 자가 진단 → 개념도 빈칸 → 학습 내용 평가 12문항,
+    <b>2차시</b>는 코랩 18로 <b>문제 정의부터 모델 선택까지</b> 혼자 끝까지 해 봅니다.</p>
+  <div class="u67plan">
+    <div><i>1차시 · 10분</i><b>① 자가 진단 · ② 개념도</b><span>약한 곳을 찾고 바로 그 소단원으로</span></div>
+    <div><i>1차시 · 35분</i><b>③ 학습 내용 평가 12문항</b><span>객관식은 바로 채점 · 서술형은 예시 답안과 견주기</span></div>
+    <div><i>1차시 · 5분</i><b>틀린 것 다시 보기</b><span>아래 핵심 용어 · 헷갈리는 것 O/X</span></div>
+    <div><i>2차시 · 50분</i><b>④ 종합 실습 — 코랩 18</b><span>더러운 데이터 → 다섯 걸음 → 예측 vs 분류 → 모델 고르기</span></div>
+  </div>
+
+  <div class="tool">
+    <h3>① 단원 자가 진단 <span class="tm">139쪽 · 상 · 중 · 하</span></h3>
+    <p class="desc">솔직하게 고르면 <b>«하»를 고른 항목의 복습 자리</b>를 알려 줍니다. 이 브라우저에만 남습니다.</p>
+    <div class="uxdiag" id="uxDiag"></div>
+    <div class="keyout" id="uxDiagOut">아직 고르지 않았습니다.</div>
+  </div>
+
+  <div class="tool">
+    <h3>② 핵심 내용 정리하기 — 개념도 빈칸 <span class="tm">139쪽</span></h3>
+    <p class="desc">아래 낱말을 <b>먼저 누르고</b>, 들어갈 <b>빈칸을 누르세요</b>. 두 개는 들어갈 곳이 없는 낱말입니다.</p>
+    <div class="uxbank" id="uxBank"></div>
+    <div class="uxmap">
+      <div class="uxm ml"><em>기계학습</em>
+        <div class="uxrow"><b>데이터</b><span>수집</span><i>→</i><span>전처리</span><i>→</i><button type="button" class="uxb" data-a="핵심 속성 추출">?</button></div>
+        <div class="uxrow"><b>학습</b><span><button type="button" class="uxb" data-a="지도 학습">?</button> → 분류 · 예측</span><span>비지도 학습 → 군집</span><span>강화 학습 → 보상</span></div>
+        <div class="uxrow"><b>예측 알고리즘</b><span><button type="button" class="uxb" data-a="선형 회귀분석">?</button></span><span>k-최근접 이웃(분류)</span><span>k-평균(군집)</span></div>
+        <div class="uxrow"><b>성능 평가</b><span>학습 데이터</span><span><button type="button" class="uxb" data-a="테스트 데이터">?</button></span><span>평가 지표</span></div>
+      </div>
+      <div class="uxm dl"><em>딥러닝</em>
+        <div class="uxrow"><b>최소 단위</b><span><button type="button" class="uxb" data-a="퍼셉트론">?</button></span></div>
+        <div class="uxrow"><b>활용 분야</b><span>컴퓨터 비전</span><span>음성 인식</span><span>자연어 처리</span></div>
+      </div>
+    </div>
+    <div class="keyout" id="uxMapOut">빈칸 5개</div>
+    <details class="u67det" style="margin-top:10px"><summary>단원 자가 진단하기 ➊ ➋ — 눌러서 답 보기</summary>
+      <p>➊ 정답 데이터가 포함된 데이터로 학습하는 방법 → <b>지도 학습</b><br>➋ 입력값을 받아 처리해 출력값을 얻는 인공신경망의 최소 단위 → <b>퍼셉트론</b></p></details>
+  </div>
+
+  <div class="tool">
+    <h3>③ 학습 내용 평가하기 — 12문항 <span class="tm">140~141쪽 · 서술형 대비</span></h3>
+    <p class="desc">객관식은 고르면 바로 채점합니다. 서술형은 <b>먼저 써 보고</b> 예시 답안 · 채점 포인트와 견줘 보세요(쓴 글은 저장되지 않으니 활동지에 옮겨 적기).</p>
+    <div class="uxqs" id="uxQs"></div>
+    <div class="keyout" id="uxScore">객관식 0 / 7 맞힘</div>
+  </div>
+
+  <div class="colabcta"><span><b>④ 2차시 종합 실습 — 코랩 18</b>데이터 공방에서 만든 «더러운» 학습 습관 데이터 300줄로 교과서 63쪽 다섯 걸음을 끝까지: 점검 → 중복 · 표기 · 이상치 · 결측치 → 상관계수 → 예측 모델 4개 · 분류 모델 4개 → 전처리 전후 R²(0.13 → 0.63) → 모델 고르기.</span>
+    <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/18_unit2_review_practice.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 18 종합 실습</a></div>
+  <p class="note"><b>먼저 끝냈다면</b> — <a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a>에서 다른 주제(체력 측정 · 수질 · 기아 지수 …)를 «전처리 심화»로 만들어 코랩 18의 순서를 그대로 따라가 보세요. «정답 데이터»를 받으면 내가 고친 것과 견줄 수 있습니다.</p>
+</div></section>
+
 <section id="terms"><div class="wrap">
   <p class="eyebrow">핵심 용어</p>
   <h2>이 단원의 말들</h2>
@@ -5183,7 +5278,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=a3392f30"></script>
+<script src="lessons.js?v=c3ec2e69"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -6405,6 +6500,100 @@ function netSVG(L, x0, x1, yTop, yBot, opt){
     b.insertAdjacentElement('afterend', d);
   });
 })();
+})();
+</script>
+
+<script>
+/* ══════════ Ⅱ 대단원 마무리 (#wrapup) — 자가 진단 · 개념도 빈칸 · 학습 내용 평가 12문항 (2026-10-07) ══════════ */
+(function(){
+function $(id){ return document.getElementById(id); }
+if(!$('uxDiag')) return;
+function get(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; } }
+function put(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* ── ① 자가 진단 ── */
+var D = [
+  ['지식 · 이해', '기계학습의 원리와 데이터 전처리 방법을 이해한다', [['#learn01', 'Ⅱ-01'], ['#learn02', 'Ⅱ-02 전처리']]],
+  ['지식 · 이해', '기계학습 알고리즘의 유형을 설명할 수 있다', [['#learn03', 'Ⅱ-03 유형'], ['#learn04', 'Ⅱ-04 알고리즘']]],
+  ['지식 · 이해', '인공신경망과 딥러닝의 원리를 이해한다', [['#learn06', 'Ⅱ-06'], ['#nn', '퍼셉트론과 XOR']]],
+  ['과정 · 기능', '기계학습으로 해결할 문제를 정의할 수 있다', [['#learn01', 'Ⅱ-01 문제 해결 절차']]],
+  ['과정 · 기능', '문제에 맞는 데이터를 탐색할 수 있다', [['#learn02', 'Ⅱ-02'], ['https://richee-pc.github.io/AI_cs/datagen.html', '🧰 데이터 공방']]],
+  ['과정 · 기능', '알맞은 알고리즘을 골라 모델을 구현할 수 있다', [['#learn05', 'Ⅱ-05'], ['#models', '모델 고르기']]],
+  ['과정 · 기능', '딥러닝을 활용한 문제 해결 방법을 탐색하고 구현할 수 있다', [['#learn07', 'Ⅱ-07']]],
+  ['가치 · 태도', '기계학습에 쓰는 데이터의 중요성을 판단할 수 있다', [['#learn01', 'Ⅱ-01 좋은 데이터 · 편향']]],
+  ['가치 · 태도', '학습을 통한 인공지능의 효과성과 효율성을 인식한다', [['#learn07', 'Ⅱ-07 딥러닝 vs 기계학습']]]
+];
+var dv = get('ai_u2_diag') || {};
+$('uxDiag').innerHTML = D.map(function(d, i){
+  return '<div class="uxd"><span><i>' + d[0] + '</i>' + d[1] + '</span><span class="pick" role="group" aria-label="' + d[1] + '">' +
+    ['상', '중', '하'].map(function(l){ return '<button type="button" data-i="' + i + '" data-v="' + l + '" aria-pressed="' + (dv[i] === l) + '">' + l + '</button>'; }).join('') + '</span></div>'; }).join('');
+function diagOut(){
+  var low = D.map(function(d, i){ return dv[i] === '하' ? d : null; }).filter(Boolean), n = Object.keys(dv).length, o = $('uxDiagOut');
+  if(!n){ o.className = 'keyout'; o.textContent = '아직 고르지 않았습니다.'; return; }
+  o.className = 'keyout' + (low.length ? '' : ' good');
+  o.innerHTML = n + ' / 9 골랐습니다. ' + (low.length ? '«하»인 곳부터 복습하세요' : '«하»가 없네요 — ③ 문항으로 확인해 보세요!') +
+    (low.length ? '<small>' + low.map(function(d){ return d[1] + ' → ' + d[2].map(function(l){ return '<a href="' + l[0] + '">' + l[1] + '</a>'; }).join(' · '); }).join('<br>') + '</small>' : '');
+}
+$('uxDiag').addEventListener('click', function(e){ var b = e.target.closest('button[data-i]'); if(!b) return; var i = b.getAttribute('data-i');
+  dv[i] = b.getAttribute('data-v'); put('ai_u2_diag', dv);
+  [].forEach.call(b.parentNode.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b); }); diagOut(); });
+diagOut();
+
+/* ── ② 개념도 빈칸 ── */
+var W = ['지도 학습', '선형 회귀분석', '테스트 데이터', '퍼셉트론', '핵심 속성 추출', '오차 역전파', '하이퍼파라미터'], sel = null;
+var order = [4, 0, 6, 2, 1, 5, 3];
+$('uxBank').innerHTML = order.map(function(k){ return '<button type="button" data-w="' + W[k] + '">' + W[k] + '</button>'; }).join('');
+function mapOut(){ var bs = document.querySelectorAll('#wrapup .uxb'), ok = 0, fill = 0;
+  [].forEach.call(bs, function(b){ if(b.getAttribute('data-v')){ fill++; if(b.getAttribute('data-v') === b.getAttribute('data-a')) ok++; } });
+  var o = $('uxMapOut'); o.className = 'keyout' + (ok === bs.length ? ' good' : '');
+  o.innerHTML = ok === bs.length ? '다 맞혔습니다! <small>«오차 역전파»는 딥러닝의 학습 방법, «하이퍼파라미터»는 사람이 정하는 설정값 — 개념도에는 자리가 없었어요.</small>' :
+    '채운 칸 ' + fill + ' / ' + bs.length + ' · 맞은 칸 ' + ok + (fill > ok ? '<small>빨간 칸을 다시 눌러 바꿔 보세요.</small>' : ''); }
+$('uxBank').addEventListener('click', function(e){ var b = e.target.closest('button[data-w]'); if(!b) return; sel = b.getAttribute('data-w');
+  [].forEach.call(this.querySelectorAll('button'), function(x){ x.classList.toggle('on', x === b); }); });
+document.querySelector('#wrapup .uxmap').addEventListener('click', function(e){ var b = e.target.closest('.uxb'); if(!b) return;
+  if(!sel){ $('uxMapOut').innerHTML = '먼저 위에서 <b>낱말</b>을 누르세요.'; return; }
+  b.textContent = sel; b.setAttribute('data-v', sel); b.classList.toggle('ok', sel === b.getAttribute('data-a')); b.classList.toggle('no', sel !== b.getAttribute('data-a')); mapOut(); });
+mapOut();
+
+/* ── ③ 학습 내용 평가 12문항 (교과서 140~141쪽을 우리 말로) ──
+   t: one 하나 고르기 · many 모두 고르기 · write 서술 · short 단답 */
+var QS = [
+  { t:'short', q:'데이터가 대표하려는 집단이나 현상을 공정하게 나타내지 못하고 한쪽으로 치우친 상태를 무엇이라고 할까요?', a:'데이터 편향', why:'Ⅱ-01. 치우친 데이터로 배운 AI는 치우친 판단을 합니다 — Ⅲ단원 윤리와 이어집니다.' },
+  { t:'short', q:'기계학습 문제 해결 절차: 문제 정의 → 데이터 선정 · 수집 및 전처리 → ( ⓐ ) → 모델 생성 → ( ⓑ ). 빈칸 두 개는?', a:'ⓐ 기계학습 유형과 알고리즘 선정 · ⓑ 성능 평가 및 수정', why:'교과서 63쪽 그림 Ⅱ-3. 성능이 모자라면 앞 단계로 되돌아갑니다. 코랩 18이 이 다섯 걸음 그대로입니다.' },
+  { t:'one', q:'«문제가 있는 데이터를 그대로 둘 수 없어 쓰기 전에 미리 하는 절차이며, 목적과 수집 상황에 따라 순서와 결과가 달라질 수 있다.» 이 설명에 가장 알맞은 것은?', o:['수집', '소비', '정제', '변환', '전처리'], a:[4], why:'정제 · 변환은 전처리의 한 종류일 뿐, 설명 전체를 아우르는 것은 전처리(변환 · 통합 · 정제 · 축소)입니다.' },
+  { t:'many', q:'기계학습은 학습 방법에 따라 크게 세 가지로 나눕니다. 알맞은 것을 모두 고르면?', o:['지도 학습', '보충 학습', '강화 학습', '비지도 학습', '닮은꼴 학습'], a:[0, 2, 3], why:'정답이 있으면 지도, 없으면 비지도, 보상으로 배우면 강화 학습(Ⅱ-03).' },
+  { t:'one', q:'기계학습 알고리즘에 대한 설명으로 옳지 않은 것은?', o:['k-최근접 이웃은 가장 가까운 이웃을 살펴 분류한다.', '하이퍼파라미터는 학습으로 정해지지 않고 사용자가 직접 정한다.', '선형 회귀분석으로 얻는 모델은 y = ax + b 꼴이다.', 'k-평균 알고리즘은 데이터를 여러 무리로 묶는다.', '군집화 알고리즘은 예측에 쓰인다.'], a:[4], why:'군집화는 정답 없이 비슷한 것끼리 묶을 뿐, 숫자 값을 맞히는 예측(회귀)이 아닙니다.' },
+  { t:'one', q:'〈보기〉 ㄱ. 전통적 프로그래밍은 해결 절차가 분명한 문제에 알맞다. ㄴ. 전통적 프로그래밍은 작성자가 규칙을 단계별로 설계해 코드로 정교하게 표현해야 한다. ㄷ. 기계학습은 이미지 · 음성 인식, 추천처럼 절차를 구체적으로 적기 어려운 문제에 알맞다. 옳은 것을 모두 고른 것은?', o:['ㄱ', 'ㄴ', 'ㄱ, ㄴ', 'ㄱ, ㄷ', 'ㄱ, ㄴ, ㄷ'], a:[4], why:'셋 다 맞습니다(Ⅱ-01 61~62쪽). «규칙을 누가 만드나»가 핵심 차이.' },
+  { t:'many', q:'구현할 모델에 알맞은 성능 지표를 쓴 학생을 모두 고르면?', o:['지현 — 사진으로 마스크 착용 여부를 출력하는 모델, 정확도로 평가', '정우 — 과수원의 올해 복숭아 수확량을 예측하는 모델, 정밀도로 평가', '지율 — 몸길이 · 어깨높이 · 꼬리 · 몸무게로 레서판다와 대왕판다를 분류, 평균제곱오차로 평가', '서현 — 식사량 · 키 · 운동량으로 멀리뛰기 기록을 예측, 결정계수로 평가'], a:[0, 3], why:'분류는 정확도 · 정밀도 · 재현율, 예측(숫자)은 MSE · 결정계수. 정우와 지율은 반대로 골랐습니다(Ⅱ-05).' },
+  { t:'one', q:'딥러닝에 대한 설명으로 옳은 것은?', o:['인공신경망의 최소 단위를 뉴런이라고 한다.', '퍼셉트론은 한 가지 입력값만 받는다.', '활성화 함수는 신호의 총합을 출력하기 알맞은 형태로 바꾼다.', '자율 주행 자동차가 물체를 알아보는 것은 자연어 처리다.', '글이나 코드를 만드는 일은 딥러닝 모델이 할 수 없다.'], a:[2], why:'최소 단위는 퍼셉트론, 입력은 여러 개, 물체 인식은 컴퓨터 비전, 생성형 AI는 글 · 코드도 만듭니다(Ⅱ-06).' },
+  { t:'one', q:'딥러닝 모델은 다른 기계학습 모델보다 ( 높은 / 낮은 ) 성능을 기대할 수 있지만, 학습 시간은 더 ( 많이 / 적게 ) 걸린다.', o:['높은 · 많이', '높은 · 적게', '낮은 · 많이', '낮은 · 적게'], a:[0], why:'138쪽. 특히 데이터가 많을수록 성능이 좋아지지만 학습이 오래 걸려 상황에 맞게 골라야 합니다.' },
+  { t:'write', q:'[서술형] 데이터 전처리 네 가지 — 변환 · 통합 · 정제 · 축소 — 를 각각 구체적으로 설명하세요.', ex:'<b>변환</b>: 같은 뜻의 다른 표현이나 형식을 하나로 통일한다(«남자 · M» → «남», 날짜를 2026-05-19 꼴로).<br><b>통합</b>: 여러 곳에서 모은 데이터를 하나로 합친다(회장 명단 + 부회장 명단).<br><b>정제</b>: 결측치 · 이상치 · 중복을 지우거나 알맞은 값으로 고친다(빈칸을 중앙값으로, 2월 31일 고치기).<br><b>축소</b>: 문제와 관련 없는 열이나 너무 많은 데이터를 줄인다(연락처 열 빼기).', pt:['네 가지 모두 «무엇을 하는지»', '각각 구체적인 예', '정제에 결측치 · 이상치를 모두 언급'] },
+  { t:'write', q:'[서술형] 생활 속에서 분류 알고리즘으로 해결할 수 있거나 이미 해결된 문제 하나를 찾아 쓰세요.', ex:'스팸 메일 거르기 — 지난 메일의 낱말 · 보낸 곳 · 링크 수와 «스팸 / 정상» 정답으로 학습해, 새 메일이 오면 둘 중 하나로 분류한다. 정상 메일을 스팸함에 넣으면 피해가 크므로 정밀도를 중요하게 본다.', pt:['정답이 «범주»인 문제인지', '무엇을 입력(속성)으로 쓰는지', '어떤 범주로 나누는지 · (덧붙이면 좋음) 알맞은 지표'] },
+  { t:'write', q:'[서술형] 해양 쓰레기를 줄이는 데 도움이 될 AI 모델을 설계하세요. 어떤 데이터를 학습해 무엇을 맞힐지 포함합니다.', ex:'해안을 찍은 드론 사진과 사람이 붙인 쓰레기 종류(플라스틱 · 그물 · 캔 · 스티로폼) 레이블로 <b>이미지 분류 모델(CNN · 티처블 머신)</b>을 학습한다. 새 사진에서 쓰레기 종류와 양을 알아내 수거 우선순위를 정한다. 날씨 · 시간 · 해안이 다양한 사진을 종류별로 고르게 모으고, 해양 생물에 위험한 그물은 놓치지 않도록 <b>재현율</b>을 확인한다.', pt:['학습 데이터(무엇을 · 정답은?)', '맞히려는 것(분류 / 예측)', '알고리즘이나 도구', '(덧붙이면 좋음) 데이터 편향 · 평가 지표'] }
+];
+var ans = {};
+$('uxQs').innerHTML = QS.map(function(q, i){
+  var h = '<div class="uxq" data-i="' + i + '"><p class="uxqq"><b>' + (i + 1) + '</b>' + q.q + '</p>';
+  if(q.t === 'one' || q.t === 'many') h += '<div class="uxo">' + q.o.map(function(o, k){ return '<button type="button" data-k="' + k + '" aria-pressed="false"><i>' + '①②③④⑤'[k] + '</i>' + o + '</button>'; }).join('') + '</div>' +
+    (q.t === 'many' ? '<button type="button" class="mini gh uxchk">다 골랐어요 — 채점</button>' : '') + '<p class="uxwhy" hidden></p>';
+  else if(q.t === 'short') h += '<div class="uxw"><input type="text" placeholder="답을 적어 보세요" aria-label="' + (i + 1) + '번 답"><button type="button" class="mini gh uxshow">답 보기</button></div><p class="uxwhy" hidden><b>' + q.a + '</b> — ' + q.why + '</p>';
+  else h += '<textarea rows="4" placeholder="먼저 써 보고 예시 답안을 여세요" aria-label="' + (i + 1) + '번 서술"></textarea><details><summary>예시 답안 · 채점 포인트</summary><p>' + q.ex + '</p><ul>' + q.pt.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul></details>';
+  return h + '</div>'; }).join('');
+function grade(){ var n = 0, ok = 0; QS.forEach(function(q, i){ if(q.t === 'one' || q.t === 'many'){ n++; if(ans[i] === true) ok++; } });
+  var o = $('uxScore'); o.className = 'keyout' + (ok === n ? ' good' : ''); o.innerHTML = '객관식 ' + ok + ' / ' + n + ' 맞힘' + (ok === n ? '<small>모두 맞혔어요! 서술형 세 문항을 예시 답안과 견줘 보세요.</small>' : ''); }
+function check(box, q, picked){ var i = +box.getAttribute('data-i'), right = picked.length === q.a.length && q.a.every(function(a){ return picked.indexOf(a) >= 0; });
+  ans[i] = right; var w = box.querySelector('.uxwhy'); w.hidden = false;
+  w.innerHTML = (right ? '✅ 맞았어요. ' : '❌ 정답은 ' + q.a.map(function(a){ return '①②③④⑤'[a]; }).join(', ') + '. ') + q.why; w.className = 'uxwhy ' + (right ? 'ok' : 'no');
+  [].forEach.call(box.querySelectorAll('.uxo button'), function(b){ var k = +b.getAttribute('data-k'); b.classList.toggle('right', q.a.indexOf(k) >= 0); }); grade(); }
+$('uxQs').addEventListener('click', function(e){
+  var box = e.target.closest('.uxq'); if(!box) return; var q = QS[+box.getAttribute('data-i')];
+  var b = e.target.closest('.uxo button');
+  if(b){ if(q.t === 'one'){ [].forEach.call(box.querySelectorAll('.uxo button'), function(x){ x.setAttribute('aria-pressed', x === b); }); check(box, q, [+b.getAttribute('data-k')]); }
+    else b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); return; }
+  if(e.target.closest('.uxchk')) check(box, q, [].map.call(box.querySelectorAll('.uxo button[aria-pressed="true"]'), function(x){ return +x.getAttribute('data-k'); }));
+  if(e.target.closest('.uxshow')){ var w = box.querySelector('.uxwhy'); w.hidden = !w.hidden; }
+});
+grade();
 })();
 </script>
 
