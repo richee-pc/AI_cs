@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅳ. 인공지능 프로젝트 · 수업 자료">
 <meta property="og:description" content="SDGs 문제를 우리 모둠이 만든 AI로 — 주제 정하기 · 계획 · 오렌지3 · 발표 · 수행평가 ②">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=8eb44499" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=1cd9451a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=e838308e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=f738ea56" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅳ. 인공지능 프로젝트 · 수업 자료</title>
@@ -29,13 +29,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=5415a49f') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=72b7556b') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=1cd9451a') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f738ea56') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=8eb44499') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=e838308e') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=e9b23a11') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=dbcaac70') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1050,6 +1050,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="https://richee-pc.github.io/AI_cs/unit4.html" class="here">Ⅳ. 프로젝트</a>
   <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
+  <a href="https://richee-pc.github.io/AI_cs/labs.html">🧪 코랩 실습실</a>
+  <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>
   <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
   <span class="sep"></span>
   <a href="#learn">📘 교과서로 배우기</a>
@@ -1097,7 +1099,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <p class="eyebrow">배우는 목표</p>
   <h2>이 단원이 끝나면</h2>
   <p class="sub">「인공지능 기초」 Ⅳ단원 성취기준 네 개입니다. 교과서 <b>180~210쪽</b>,
-    Ⅱ-05(<b>100~115쪽</b>)를 프로젝트 안에서 함께 배웁니다.</p>
+    Ⅱ-04·05(<b>92~115쪽</b>)는 10월 둘째 주에 배우고 프로젝트에서 우리 데이터로 씁니다.</p>
   <div class="g2">
     <div class="std"><code>04-01</code><span>지속가능발전목표를 해결하기 위해 <b>인공지능을 적용할 방안</b>을 탐색하고, 프로젝트에 <b>적합한 주제</b>를 도출한다.</span></div>
     <div class="std"><code>04-02</code><span>인공지능 문제 해결 과정에 기반하여 <b>프로젝트 수행 계획</b>을 구안한다.</span></div>
@@ -1106,7 +1108,20 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   </div>
   <p class="ask" style="margin-top:18px"><b>Ⅱ단원과 이어지는 곳.</b>
     데이터 탐구에서 찾은 <b>데이터 사이의 관계</b>가 이번 모델의 <b>입력(특성)</b>을 고르는 근거가 됩니다.
-    Ⅱ-03(지도·비지도)은 계획 세우기에서, Ⅱ-05(훈련·테스트·성능 평가)는 오렌지3 시간에 그대로 씁니다.</p>
+    Ⅱ-03(지도·비지도)과 Ⅱ-04의 <a href="https://richee-pc.github.io/AI_cs/unit2.html#models">모델 고르는 다섯 걸음</a>은 계획 세우기에서,
+    Ⅱ-05의 <a href="https://richee-pc.github.io/AI_cs/unit2.html#implement">구현 절차 · 평가 해석</a>은 오렌지3 시간과 수행평가 ②에서 그대로 씁니다.</p>
+
+  <h3 id="cover" style="margin:26px 0 10px">교과서 Ⅳ단원은 어디서 배우나요?</h3>
+  <div class="tw"><table>
+    <tr><th style="width:30%">교과서</th><th style="width:16%">성취기준</th><th>우리 수업</th></tr>
+    <tr><td><b>Ⅳ-01 지속가능발전목표</b><br><small>180~193쪽 — SDGs 17개 · 5P · AI for Good · 주제 뽑기</small></td><td>04-01</td><td>프로젝트 ① 주제 정하기 · <a href="#learn41">교과서로 배우기 Ⅳ-01</a> · 주제 제안서(수행평가 ② 요소 1)</td></tr>
+    <tr><td><b>Ⅳ-02 ① 협력적인 문제 해결 여섯 단계 · 역할</b><br><small>194~196쪽</small></td><td>04-02</td><td>프로젝트 ② 계획과 성공 기준 · 계획서의 역할 분담</td></tr>
+    <tr><td><b>Ⅳ-02 ② 기아 종식 예측 예제</b><br><small>196~208쪽 — 데이터 수집 → 전처리 → 선형 회귀 → 평가 → 예측</small></td><td>04-03 · 04-04</td><td>프로젝트 ②에서 흐름을 읽고(<a href="#learn42">교과서로 배우기 Ⅳ-02</a>) · <b>수행평가 ② 1차시</b>에 우리 노트북과 같은 순서로 다시 봅니다</td></tr>
+    <tr><td><b>Ⅳ-02 ③ 프로젝트 개발 · 평가 결과 반영 개선</b><br><small>208~209쪽</small></td><td>04-03 · 04-04</td><td>프로젝트 ③④ 오렌지3 프로토타입 · AI 반문으로 개선 → <b>수행평가 ② 2차시</b> 두 모델 비교와 편향을 고려한 개선</td></tr>
+    <tr><td><b>Ⅳ-02 ④ 프로젝트 평가표 세 영역</b><br><small>209쪽</small></td><td>04-03</td><td>수행평가 ② 4차시 상호평가 · 마무리 시간 성찰</td></tr>
+    <tr><td><b>부록 선택 활동</b><br><small>211~237쪽 — 스트레스 · 약수터 수질 · 건강한 식사</small></td><td>—</td><td>데이터를 못 구한 모둠의 출발점(<a href="#learn43">부록 선택 활동</a> · <a href="#data">학교 데이터</a>)</td></tr>
+  </table></div>
+  <p class="hint">성취기준 네 개가 모두 프로젝트 ①~④와 수행평가 ②에 들어 있습니다. 2차 지필평가에도 Ⅳ단원(04-01~04)이 들어갑니다.</p>
 </div></section>
 
 <section id="model"><div class="wrap">
@@ -1258,7 +1273,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="l4Ox2"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#p2">계획과 성공 기준</a><a href="#p3">오렌지3와 개선</a><a href="#pa2">수행평가 ②</a></div>
+    <div class="nextgo"><b>이어서</b><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/07_ghi_hunger.ipynb" target="_blank" rel="noopener">▶ 코랩 · 기아 예측 예제(199~208쪽)</a><a href="#p2">계획과 성공 기준</a><a href="#p3">오렌지3와 개선</a><a href="#pa2">수행평가 ②</a></div>
   </div>
 
   <!-- ═════════ 부록 ═════════ -->
@@ -1281,7 +1296,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>어떤 지표로 성공을 잴까? <span class="tm">Ⅱ-05와 이어서</span></h3>
       <div class="kcards" id="l4Metric"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#data">학교가 바로 주는 데이터</a><a href="#scOut">성공 기준 만들기</a><a href="#cmGrid">혼동 행렬 계산기</a></div>
+    <div class="nextgo"><b>이어서</b><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/08_stress_knn_tree.ipynb" target="_blank" rel="noopener">▶ 코랩 · 스트레스(213~218쪽)</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/09_water_logistic.ipynb" target="_blank" rel="noopener">▶ 코랩 · 약수터 수질(221~226쪽)</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/10_food_image.ipynb" target="_blank" rel="noopener">▶ 코랩 · 음식 사진(229~237쪽)</a><a href="#data">학교가 바로 주는 데이터</a><a href="#scOut">성공 기준 만들기</a><a href="#cmGrid">혼동 행렬 계산기</a></div>
   </div>
 </div></section>
 
@@ -1554,16 +1569,26 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 
 <!-- ═══════════════ 수행평가 ② ═══════════════ -->
 <section id="pa2"><div class="wrap">
-  <p class="eyebrow">수행평가 ② · 11월</p>
+  <p class="eyebrow">수행평가 ② · 11월 · 모든 반 11/20 전에 끝</p>
   <h2>같은 모델을 코랩으로 — 인공지능 모델 구현 프로젝트</h2>
   <p class="sub">프로젝트 ①~④에서 만든 것이 그대로 이어집니다. 100점 만점 · 30% 반영 ·
     날짜는 <a href="https://richee-pc.github.io/AI_cs/plan.html">📅 우리 반 수업 계획</a>에서 확인하세요.</p>
   <div class="stages">
     <div class="stg n"><i>1</i><b>코랩 재구현</b><span>오렌지3 위젯 순서를 그대로 코드로 — 불러오기 · 전처리 · 모델 정의 · 학습. 셀마다 대응하는 위젯을 주석으로.</span></div>
     <div class="stg n"><i>2</i><b>두 모델 비교와 개선</b><span>같은 지표로 오렌지3와 코랩 수치를 나란히. 개선 실험 1건 — 가설·조작·결과·해석.</span></div>
-    <div class="stg n"><i>3</i><b>보고서와 최종 발표자료</b><span>본인 집필 구간 + AI 활용 내역(신호등 색 · 요청 내용 · 채택 여부). 발표자료는 캔바 템플릿.</span></div>
-    <div class="stg n"><i>4</i><b>발표 · 개인 구술 방어</b><span>전원 구술 2문항 — 담당 구간 1 · 무작위 1.</span></div>
+    <div class="stg n"><i>3</i><b>보고서 · 발표자료 + 구술 ①</b><span>본인 집필 구간 + AI 활용 내역(신호등 색 · 요청 내용 · 채택 여부), 캔바 템플릿 발표자료. 그동안 선생님이 모둠을 돌며 <b>담당 구간 1문항</b>을 묻습니다.</span></div>
+    <div class="stg n"><i>4</i><b>모둠 발표 + 구술 ②</b><span>발표 2분 뒤 모둠원 한 사람씩 <b>무작위 1문항</b>. 교과서 209쪽 평가표로 상호평가.</span></div>
   </div>
+  <div class="tw" style="margin:12px 0 6px"><table>
+    <tr><th style="width:22%">차시</th><th>인기A</th><th>인기D</th><th>인기E</th></tr>
+    <tr><td><b>바로 전 · Ⅱ-06·07</b></td><td>11/6 (금)</td><td>11/9 (월)</td><td>11/9 (월)</td></tr>
+    <tr><td><b>1 코랩 재구현</b></td><td>11/11 (수)</td><td>11/10 (화)</td><td>11/10 (화)</td></tr>
+    <tr><td><b>2 비교와 개선</b></td><td>11/12 (목)</td><td>11/13 (금)</td><td>11/12 (목)</td></tr>
+    <tr><td><b>3 보고서 + 구술 ①</b></td><td>11/13 (금)</td><td>11/16 (월)</td><td>11/16 (월)</td></tr>
+    <tr><td><b>4 발표 + 구술 ②</b></td><td>11/18 (수)</td><td>11/17 (화)</td><td>11/17 (화)</td></tr>
+    <tr><td>마무리 · 결석자 보충 구술</td><td>11/20 (금)</td><td>11/20 (금)</td><td>11/23 (월)</td></tr>
+  </table></div>
+  <p class="hint">세 반 모두 <b>평가 시간은 똑같이 네 차시</b>이고, 보고서는 수업 시간 안에 씁니다(집에서 해 오는 과제가 아닙니다). 날짜가 바뀌면 <a href="https://richee-pc.github.io/AI_cs/plan.html">📅 우리 반 수업 계획</a>이 먼저 바뀝니다.</p>
   <div class="lockcard" id="pa2Lock" hidden><span style="font-size:1.4rem">🔒</span>
     <span><b>채점 기준표 다섯 단계는 확정 후 공개합니다</b>
       평가 요소 네 개(각 25점)는 아래와 같고, 단계별 기준은 프로젝트를 시작하기 전에 수업 시간에 직접 나눠 줍니다.</span></div>
@@ -1610,7 +1635,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <table><tr><th>단계</th><th>신호등</th><th>요청 내용</th><th>채택 여부와 이유</th></tr>
         <tr><td>②</td><td>초록</td><td>«과적합을 예로 설명해 줘»</td><td>채택 — 출처 두 곳에서 확인</td></tr>
         <tr><td>④</td><td>노랑</td><td>(AI Critic) «레이블이 한쪽에 몰렸나?»</td><td>채택 — 혼동 행렬로 확인</td></tr></table>
-      <span class="eg">본인 집필 구간에는 이름을 적습니다. 구술은 <b>담당 구간 1문항 + 무작위 1문항</b>.</span></div></div>
+      <span class="eg">본인 집필 구간에는 이름을 적습니다. 구술은 <b>담당 구간 1문항(3차시, 선생님 순회) + 무작위 1문항(4차시, 발표 뒤)</b>.</span></div></div>
   </div>
 </div></section>
 
@@ -2082,6 +2107,7 @@ function showPane(id){
 LN.addEventListener('click', function(e){ var b = e.target.closest('button[data-p]'); if(b) showPane(b.getAttribute('data-p')); });
 window.AIL_onFocus = function(ids){ var hit = (ids || []).filter(function(x){ return /^learn\d\d$/.test(x); })[0]; if(hit) showPane(hit); };
 if(/^#learn4\d$/.test(location.hash)) showPane(location.hash.slice(1));
+addEventListener('hashchange', function(){ if(!/^#learn4\d$/.test(location.hash)) return; var id = location.hash.slice(1); showPane(id); var p = document.getElementById(id); if(p) p.scrollIntoView({ block:'start' }); });
 
 function quiz(boxId, opts, items){
   var box = lr(boxId), st = {};
@@ -2203,6 +2229,6 @@ quiz('l4Metric', ['정확도', '재현율', 'RMSE'], [
 })();
 </script>
 
-<script src="lessons.js?v=44e0c629"></script>
+<script src="lessons.js?v=286d3ef1"></script>
 </body>
 </html>

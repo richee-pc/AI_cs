@@ -10,11 +10,67 @@
 <meta property="og:title" content="Ⅱ. 인공지능과 학습 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅱ단원 인공지능과 학습 - 전처리 체험 · 학습 유형 · 알고리즘 · 퍼셉트론 · 코랩 코드 읽기">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=8eb44499" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=1cd9451a" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=e838308e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=f738ea56" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅱ. 인공지능과 학습 · 수업 자료</title>
+<style id="css-models">
+/* #models · #implement · 교과서 연결 상자 (2026-10-06) */
+.mlegend{display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 14px; font-size:0.8438rem; color:var(--ink2)}
+.mlegend span{display:inline-flex; align-items:center; gap:6px}
+.mt{display:inline-block; font-size:0.7188rem; font-weight:800; border-radius:99px; padding:2px 9px; line-height:1.5; white-space:nowrap}
+.mt.c{color:var(--blue-d); background:var(--blue-xl)}
+.mt.r{color:var(--good); background:var(--good-bg)}
+.mt.k{color:var(--warm); background:var(--warm-bg)}
+.mt.x{color:var(--muted); background:var(--tint); border:1px dashed var(--line)}
+.mgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:13px; margin-bottom:16px}
+.mcard{background:var(--white); border:1px solid var(--line); border-radius:var(--r); padding:15px 17px; box-shadow:var(--sh)}
+.mcard.x{background:var(--tint); box-shadow:none}
+.mcard header{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px}
+.mcard header b{font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d); margin-right:2px}
+.mcard header em{margin-left:auto; font-style:normal; font-size:0.75rem; font-weight:700; color:var(--muted)}
+.mhow{font-size:0.9062rem; line-height:1.65; margin:0 0 8px; color:var(--ink)}
+.mhow b:first-child{display:block; font-size:0.75rem; color:var(--muted); letter-spacing:.02em}
+.mcard dl{margin:0; display:grid; grid-template-columns:auto minmax(0,1fr); gap:5px 10px; font-size:0.8438rem; line-height:1.6}
+.mcard dt{font-weight:800; color:var(--blue-d); white-space:nowrap}
+.mcard dd{margin:0; color:var(--ink2)}
+.mcard code, .ipmeta code, .mqol code, #mqOut code{font-family:var(--mono); font-size:0.7812rem; color:var(--blue-d); background:var(--blue-xl); border-radius:6px; padding:0 5px}
+.star{color:var(--warm); letter-spacing:1px}
+.msteps{margin:4px 0 0; padding-left:1.3em; display:grid; gap:8px; font-size:0.9375rem; line-height:1.7}
+.msteps li::marker{font-weight:800; color:var(--blue-d)}
+.mq{display:grid; gap:10px; margin-bottom:12px}
+.mqrow{display:grid; gap:6px}
+.mqrow>b{font-size:0.9375rem}
+.mqrow .pick{flex-wrap:wrap}
+.mqol{margin:6px 0 8px; padding-left:1.3em; display:grid; gap:6px}
+.mqol small{color:var(--muted)}
+.owf>span{min-width:0}
+.owf small{font-size:0.75rem; color:var(--muted)}
+.ipcard{background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin-top:12px}
+.ipn{display:block; font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--blue-d); margin-bottom:4px}
+.ipcard p{margin:0 0 8px; font-size:0.9375rem}
+.ipcode{margin:0 0 10px; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:10px 12px; font-family:var(--mono); font-size:0.8125rem; line-height:1.65; overflow-x:auto; white-space:pre}
+.ipmeta{display:grid; gap:6px; font-size:0.875rem; line-height:1.6}
+.ipmeta b{display:inline-block; min-width:96px; color:var(--blue-d)}
+.ipmeta .warn b{color:var(--warm)}
+.cmgrid{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; align-items:center; max-width:360px; margin:8px 0 10px; font-size:0.8438rem}
+.cmgrid b{color:var(--ink2); text-align:center}
+.cmgrid input, .sl input[type="text"]{width:100%; min-width:0; font-family:var(--mono); font-size:0.9375rem; border:1px solid var(--line); border-radius:10px; padding:7px 9px; background:var(--white); color:var(--ink)}
+.sl input[type="text"]{margin-top:4px}
+.keyout .say{display:block; margin-top:6px; color:var(--ink)}
+.keyout .say em{font-style:normal; font-weight:800; color:var(--warm)}
+.tbx{background:var(--good-bg); border:1px solid color-mix(in srgb,var(--good) 35%,transparent); border-radius:14px; padding:11px 14px; margin:10px 0; font-size:0.875rem; line-height:1.7; color:var(--ink2)}
+.tbx>b:first-child{display:block; color:var(--good); font-size:0.8438rem; margin-bottom:2px}
+.tbx ul{margin:4px 0 0; padding-left:1.2em}
+.tbx li{margin:2px 0}
+#ipQuiz .kpick{flex-wrap:wrap; border-radius:16px; max-width:100%}
+#ipQuiz .kpick button, .mqrow .pick button, #ipPick button{white-space:normal; text-align:center}
+#ipPick{display:flex; flex-wrap:wrap; max-width:100%; border-radius:16px}
+.lflow{display:grid; gap:5px; margin:0 0 14px}
+.lflow div{display:flex; gap:10px; align-items:baseline; font-size:.875rem; color:var(--ink2); line-height:1.55}
+.lflow em{flex:none; min-width:36px; font-style:normal; font-weight:800; color:var(--blue-d); font-variant-numeric:tabular-nums}
+</style>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -29,13 +85,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=5415a49f') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=72b7556b') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=1cd9451a') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f738ea56') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=8eb44499') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=e838308e') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=e9b23a11') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=dbcaac70') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -956,6 +1012,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="https://richee-pc.github.io/AI_cs/unit4.html">Ⅳ. 프로젝트</a>
   <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
+  <a href="https://richee-pc.github.io/AI_cs/labs.html">🧪 코랩 실습실</a>
+  <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>
   <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
   <span class="sep"></span>
   <a href="#learn">📘 교과서로 배우기</a>
@@ -963,6 +1021,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#prep">전처리</a>
   <a href="#kinds">학습 유형</a>
   <a href="#algo">알고리즘</a>
+  <a href="#models">모델 고르기</a>
+  <a href="#implement">구현·평가</a>
   <a href="#nn">퍼셉트론</a>
   <a href="#code">코랩 코드</a>
   <a href="#lab">코랩 실습</a>
@@ -982,7 +1042,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <b>직접 눌러 보는 것</b>을 곳곳에 넣었습니다. 수업 시간에는 위 <b>«차시별로 열기»</b>에서 오늘 차시를 누르세요.</p>
   <div class="facts">
     <div class="fact"><b>7<span style="font-size:1.0rem"> 소단원</span></b><span>Ⅱ-01 ~ Ⅱ-07</span></div>
-    <div class="fact"><b>12~13<span style="font-size:1.0rem"> 차시</span></b><span>데이터 탐구 4차시 포함</span></div>
+    <div class="fact"><b>13<span style="font-size:1.0rem"> 차시 안팎</span></b><span>데이터 탐구 4차시 포함</span></div>
     <div class="fact"><b>6<span style="font-size:1.0rem"> 개</span></b><span>성취기준</span></div>
     <div class="fact"><b>4<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북 (+ 한 걸음 더)</span></div>
   </div>
@@ -997,9 +1057,13 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#prep"><span class="ic">🧹</span><span><b>전처리 체험</b><span>교과서 72~79쪽 · Ⅱ-02</span><em>직접 해 보기</em></span></a>
     <a href="#kinds"><span class="ic">🧭</span><span><b>학습 유형 고르기</b><span>지도 · 비지도 · 강화 12문제 · Ⅱ-03</span><em>직접 해 보기</em></span></a>
     <a href="#algo"><span class="ic">📈</span><span><b>k-최근접 이웃 · 선형 회귀</b><span>점을 끌고 선을 맞춰 보기 · Ⅱ-04</span><em>직접 해 보기</em></span></a>
+    <a href="#models"><span class="ic">🍊</span><span><b>모델 도감 · 고르는 법 · 오렌지3</b><span>모델마다 자세히 · 고르기 도우미 · 세 모델 비교 · Ⅱ-04</span><em>2차시</em></span></a>
+    <a href="#implement"><span class="ic">🧪</span><span><b>구현 절차 · 예측 · 평가 해석</b><span>아홉 걸음 · 점수 계산기 · 해석 함정 · Ⅱ-05</span><em>3차시</em></span></a>
     <a href="#nn"><span class="ic">🧠</span><span><b>퍼셉트론과 XOR</b><span>은닉층이 왜 필요한가 · Ⅱ-06</span><em>직접 해 보기</em></span></a>
     <a href="#code"><span class="ic">💻</span><span><b>코랩 코드 읽기</b><span>예측 · 분류 · 딥러닝 코드 · Ⅱ-05 · 07</span></span></a>
     <a href="#lab"><span class="ic">🚀</span><span><b>코랩 실습 노트북</b><span>단추 한 번으로 코랩 열기</span></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 16개 · 노트북 13권</span><em>새 쪽</em></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/models.html"><span class="ic">📚</span><span><b>AI 모델 도감</b><span>교과서 모델 + 자주 쓰는 모델 26종</span><em>새 쪽</em></span></a>
     <a href="#terms"><span class="ic">📖</span><span><b>핵심 용어</b><span>쉽게 말하면 · 교과서 말</span></span></a>
     <a href="#miscon"><span class="ic">❓</span><span><b>헷갈리는 것 O/X</b><span>자주 틀리는 생각</span></span></a>
     <a href="#check"><span class="ic">✅</span><span><b>확인 문제</b><span>스스로 점검하기</span></span></a>
@@ -1022,9 +1086,10 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <p class="note" style="margin-top:20px"><b>단원 흐름.</b>
     「어떤 문제에 쓸지 정한다」 → 「데이터를 모으고 <b>치운다</b>」 → 「어떤 방식으로 배우게 할지 고른다」
     → 「알고리즘을 고른다」 → <b>「만들고 점수를 매긴다」</b> → 「사람 뇌를 흉내 낸다」 → 「깊게 쌓아 만든다」.<br>
-    <b>10월 둘째 주</b>에 Ⅱ-01·03·04를 개념으로 배우고, 바로 이어서 <b>「데이터 탐구」 4차시</b>에서
-    Ⅱ-01·02를 <b>우리 모둠이 직접 찾은 진짜 데이터</b>로 해 봅니다.
-    Ⅱ-05는 <b>Ⅳ단원 프로젝트</b> 안에서 오렌지3로 직접 모델을 만들며 배우고, Ⅱ-06·07은 <b>11월</b>에 이어 갑니다.</p>
+    <b>10월 둘째 주 세 차시</b>에 개념을 먼저 잡습니다 — <b>①</b> Ⅱ-01·02·03(기계학습 · 데이터 · 학습 유형) ·
+    <b>②</b> Ⅱ-04(모델 도감 · 고르는 법 · 오렌지3) · <b>③</b> Ⅱ-05(구현 절차 · 예측 · 평가 해석).
+    바로 이어지는 <b>「데이터 탐구」 4차시</b>에서 Ⅱ-01·02를 <b>우리 모둠이 직접 찾은 진짜 데이터</b>로 다시 하고(좋은 데이터 네 기준 · 편향 · 전처리 네 가지 · 상관계수),
+    <b>Ⅳ단원 프로젝트</b>에서 Ⅱ-04·05로 고른 모델을 오렌지3로 만듭니다. Ⅱ-06·07은 프로젝트가 끝난 뒤 <b>한 차시</b>에 배우고 곧바로 수행평가 ②(코랩 재구현)로 이어집니다.</p>
   <p class="ask"><b>Ⅰ단원과 이어지는 곳.</b>
     Ⅰ-06에서 「규칙은 항상 맞지 않는다」, 「전문가 지식을 다 모으기 어렵다」를 봤지요?
     <b>그 한계 때문에</b> 기계학습이 나왔습니다. 그리고 Ⅰ단원의 <b>h(n)</b>(목표에 얼마나 가까운가)은
@@ -1052,11 +1117,11 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a class="ucard" href="#learn04"><i>Ⅱ-04 · 92~99쪽</i><b>기계학습 알고리즘</b>
       <span>같은 지도학습이라도 방법은 여럿입니다.
         <b>k-최근접 이웃 · 선형 회귀 · 의사결정트리 · k-평균</b> 중에서 고릅니다.</span>
-      <em>직접 눌러 봅니다 ↓</em></a>
+      <em>직접 눌러 봅니다 ↓ · 모델 도감 · 오렌지3</em></a>
     <a class="ucard" href="#learn05"><i>Ⅱ-05 · 100~115쪽</i><b>기계학습 모델 구현</b>
       <span>데이터를 <b>훈련용과 테스트용으로 나누고</b>, 학습시키고, 점수를 매깁니다.
         공부한 문제만 잘 푸는 건 실력이 아니니까요.</span>
-      <em>Ⅳ 프로젝트에서 오렌지3로 · 코랩 코드 읽기</em></a>
+      <em>구현 아홉 걸음 · 평가 해석 · 프로젝트 ③에서 우리 데이터로</em></a>
     <a class="ucard" href="#learn06"><i>Ⅱ-06 · 116~123쪽</i><b>인공신경망과 딥러닝</b>
       <span>뇌의 신경 세포를 흉내 낸 <b>퍼셉트론</b> 하나에서 시작합니다.
         이걸 여러 층으로 쌓은 것이 딥러닝입니다.</span>
@@ -1211,7 +1276,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx02"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#prep">전처리 체험(단추로 직접)</a><a href="#lab">코랩 노트북 ①</a><a href="#explore">데이터 탐구 ③</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#prep">전처리 체험(단추로 직접)</a><a href="#lab">코랩 노트북 ①</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/06_health_checkup.ipynb" target="_blank" rel="noopener">▶ 코랩 · 건강검진 활동(80~82쪽)</a><a href="#explore">데이터 탐구 ③</a></div>
   </div>
 
   <!-- ═════════ Ⅱ-03 ═════════ -->
@@ -1296,12 +1361,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx04"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#algo">k-최근접 이웃 · 선형 회귀 직접 움직이기</a><a href="#kinds">유형 다시 보기</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#algo">k-최근접 이웃 · 선형 회귀 직접 움직이기</a><a href="#models">모델 도감 · 고르기 · 오렌지3</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감 26종</a><a href="#kinds">유형 다시 보기</a></div>
   </div>
 
   <!-- ═════════ Ⅱ-05 ═════════ -->
   <div class="lpane" id="learn05" role="tabpanel" hidden>
-    <div class="lhead"><span class="lno">Ⅱ-05</span><div><b>기계학습 모델 구현</b><span>교과서 100~115쪽 · 성취기준 02-04 · 프로젝트 ③에서 오렌지3로</span></div></div>
+    <div class="lhead"><span class="lno">Ⅱ-05</span><div><b>기계학습 모델 구현</b><span>교과서 100~115쪽 · 성취기준 02-04 · 첫 주 3차시 · 프로젝트 ③에서 우리 데이터로</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>새 바지가 헐렁하면 입어 보고 줄이고, 또 입어 보고 줄입니다.
       모델도 <u>입혀 보고(평가) 고치는(수정)</u> 일을 되풀이합니다. 그런데 «잘 맞는지»는 무엇으로 잴까요?</div>
     <h3 class="lh">① 데이터를 세 갈래로 <small>101~102쪽</small></h3>
@@ -1346,7 +1411,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx05"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="https://richee-pc.github.io/AI_cs/unit4.html#p3">프로젝트 ③ 오렌지3 · 혼동 행렬 계산기</a><a href="#code">예측 · 분류 코드 읽기</a><a href="#lab">코랩 노트북 ②</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#implement">구현 아홉 걸음 · 평가 해석</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/02_model.ipynb" target="_blank" rel="noopener">▶ 코랩 · 예측 · 분류(104~112쪽)</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/04_diamonds.ipynb" target="_blank" rel="noopener">▶ 코랩 · 다이아몬드(114~115쪽)</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#p3">프로젝트 ③ 오렌지3 · 혼동 행렬 계산기</a><a href="#code">예측 · 분류 코드 읽기</a><a href="#lab">코랩 노트북 ②</a></div>
   </div>
 
   <!-- ═════════ Ⅱ-06 ═════════ -->
@@ -1423,7 +1488,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx07"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="#lab">코랩 노트북 ③</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/03_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 · 독버섯(126~130쪽)</a><a href="https://richee-pc.github.io/AI_cs/labs.html#labs">🧪 티처블 머신 · 감성 분석(131~137쪽)</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
   </div>
 </div></section>
 
@@ -1478,7 +1543,10 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
           <div class="tl"><em>5′</em><div><b>정리</b> «우리 모둠은 (  )을 데이터로 확인하려고 (  ) 데이터를 찾아보겠습니다.»</div></div>
         </div>
         <div class="frame"><b>가설 틀</b>가설: <span class="blank"></span>할수록 <span class="blank"></span>할 것이다. 왜냐하면 <span class="blank"></span> 때문이다.<br>이미 아는 것: <span class="blank"></span> · 더 알아야 할 것: <span class="blank"></span></div>
-        <div class="fgo" style="margin-top:10px"><a href="#kinds">유형 고르기 다시 보기</a><a href="#algo">알고리즘 다시 보기</a></div></div>
+        <div class="tbx"><b>📗 교과서 Ⅱ-01과 이어지는 곳</b>
+          기계학습 <a href="#learn01">다섯 단계</a>(63쪽)의 <b>① 문제 정의 → ② 데이터 수집 계획</b>을 사람의 판단으로 합니다.
+          이야기 속 «느낌 · 소문»을 가려내는 일이 곧 <b>정확성 · 관련성</b>(좋은 데이터 네 기준)을 따지는 첫걸음입니다.</div>
+        <div class="fgo" style="margin-top:10px"><a href="#learn01">교과서 Ⅱ-01 다섯 단계</a><a href="#kinds">유형 고르기 다시 보기</a><a href="#algo">알고리즘 다시 보기</a></div></div>
     </div>
     <div class="fcard" id="ex2">
       <div class="fnum">②<span>차시</span></div>
@@ -1515,12 +1583,19 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
           </div><span class="chkstat" data-for="eval11"></span>
           <span class="eg">판단마다 근거 한 줄. «아니오»인 문항은 <b>보완 방법</b>(다른 데이터 · 범위 좁히기)도 함께 씁니다.
             선생님 승인 기준 — ① 가설을 이 데이터로 답할 수 있다 ② 믿을 만하고 충분하다 ③ 모둠원 모두에게 역할이 있다.</span></div></div>
-        <div class="ws"><b><i>활동 3</i> 전처리 기준 예시 카드</b><div style="padding:0"><div style="overflow-x:auto"><table>
-          <tr><th>항목</th><th>기준(예)</th><th>이유 한 줄(예)</th></tr>
-          <tr><td>불필요한 행·열</td><td>분석에 안 쓰는 열(관측소 번호 등) 삭제</td><td>비교할 열만 남기려고</td></tr>
-          <tr><td>결측치</td><td>결측 행 삭제 또는 평균 대체</td><td>지우면 n이 줄어드는 것을 기록</td></tr>
-          <tr><td>이상치</td><td>측정 오류(예: 기온 99℃)는 삭제</td><td>실제 값과 오류를 구분</td></tr>
-          <tr><td>형식 통일</td><td>날짜 YYYY-MM-DD, 단위 ℃·시간</td><td>두 데이터를 연결하려고</td></tr>
+        <div class="tbx"><b>📗 교과서 Ⅱ-01 63~69쪽과 짝짓기</b>
+          <ul>
+            <li><b>좋은 데이터 네 기준 ↔ 체크리스트</b> — 정확성 ↔ 품질(결측치·오류) · 관련성 ↔ 적합성 · 시의성 ↔ 기준 연도 · 다양성 ↔ «대표하지 못하는 집단·기간»</li>
+            <li><b>데이터 확보 두 길</b>(64~65쪽) — 공개 데이터를 쓰면 <b>출처와 이용 조건</b>을, 설문으로 <b>직접 모으면</b> «목적 확인 → 방법 선정 → 저장 → 검증» 순서와 <b>동의서 네 가지</b>(수집·이용 목적 · 수집 항목 · 보유 기간 · 거부할 권리)를 활동지 ③에 적습니다.</li>
+            <li><b>데이터 편향</b>(66쪽) — 체크리스트 «대표하지 못하는 집단·기간»에 <b>표본을 잘못 뽑은 편향인지, 현실의 불공정이 스며든 편향인지</b> 한 줄로 구분해 적습니다.</li>
+          </ul></div>
+        <div class="ws"><b><i>활동 3</i> 전처리 기준 예시 카드 — 교과서 71쪽 «전처리 네 가지»로</b><div style="padding:0"><div style="overflow-x:auto"><table>
+          <tr><th>교과서 말</th><th>항목</th><th>기준(예)</th><th>이유 한 줄(예)</th></tr>
+          <tr><td><b>축소</b></td><td>불필요한 행·열</td><td>분석에 안 쓰는 열(관측소 번호 등) 삭제</td><td>비교할 열만 남기려고</td></tr>
+          <tr><td><b>정제</b></td><td>결측치</td><td>결측 행 삭제 또는 평균 대체</td><td>지우면 n이 줄어드는 것을 기록</td></tr>
+          <tr><td><b>정제</b></td><td>이상치</td><td>측정 오류(예: 기온 99℃)는 삭제 · 애매하면 상자그림의 IQR 기준(83쪽)</td><td>실제 값과 오류를 구분</td></tr>
+          <tr><td><b>변환</b></td><td>형식 통일</td><td>날짜 YYYY-MM-DD, 단위 ℃·시간</td><td>두 데이터를 연결하려고</td></tr>
+          <tr><td><b>통합</b></td><td>두 데이터 합치기</td><td>«지역 · 연도» 같은 공통 열로 붙이기</td><td>기온과 보건실 방문을 한 표에서 비교하려고</td></tr>
         </table></div></div></div>
         <div class="fgo" style="margin-top:10px"><a href="https://www.data.go.kr" target="_blank" rel="noopener">공공데이터포털 ↗</a><a href="https://kosis.kr" target="_blank" rel="noopener">KOSIS ↗</a><a href="https://data.kma.go.kr" target="_blank" rel="noopener">기상자료개방포털 ↗</a></div>
         <p class="hint">로그인이 필요한 사이트(AI 허브·캐글)는 새로 가입하지 말고 선생님께 요청 — 공유 폴더로 줍니다. 교과서 67쪽 «데이터를 확보할 수 있는 대표 누리집»도 참고.</p></div>
@@ -1555,7 +1630,13 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
               그리고 <b>데이터가 말하지 않는 것</b>도 한 줄 — «기온 때문에 늘었다고는 말할 수 없다(메뉴 영향).»</span></div></div>
         </div>
         <div class="frame"><b>공동 해석 문장 틀</b>우리 모둠은 <span class="blank"></span> 때문에 <span class="blank"></span>라고 해석한다. 아직 확인하지 못한 점은 <span class="blank"></span>이다.</div>
-        <div class="fgo" style="margin-top:10px"><a href="#prep">전처리 체험</a><a href="#lab">코랩 노트북 ①</a></div></div>
+        <div class="tbx"><b>📗 교과서 Ⅱ-02 70~83쪽을 내 데이터로</b>
+          <ul>
+            <li><b>결측치</b> — <code>isnull().sum()</code>으로 세고, 지웠다면 줄어든 n을 그래프 아래에 적습니다(71~76쪽).</li>
+            <li><b>이상치</b> — 상자그림 바깥 점을 <a href="#learn02">IQR 계산기</a>로 확인하고, «측정 오류인가 · 실제로 극단적인 값인가»를 사람이 판단합니다(83쪽).</li>
+            <li><b>핵심 속성</b> — 가설의 두 변수 사이 <b>상관계수</b>를 구하고(78~79쪽), 가장 관련이 큰 속성 한두 개를 적어 둡니다. 이것이 <b>Ⅳ단원 프로젝트에서 모델의 입력(특성)</b>을 고르는 근거가 됩니다. 단, 함께 움직인다 ≠ 원인.</li>
+          </ul></div>
+        <div class="fgo" style="margin-top:10px"><a href="#prep">전처리 체험</a><a href="#learn02">교과서 Ⅱ-02 · IQR 계산기</a><a href="#lab">코랩 노트북 ①</a></div></div>
     </div>
     <div class="fcard" id="ex4">
       <div class="fnum">④<span>차시</span></div>
@@ -1583,6 +1664,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
             <span class="eg">막히면 활동지를 보며 답해도 됩니다. <b>모둠원 누구나</b> 답할 수 있게 준비하세요.</span></div></div>
         </div>
         <div class="frame"><b>성찰 쓰기 틀</b>이번 탐구에서 AI의 도움을 받은 부분은 <span class="blank"></span>이고, 내가 끝까지 판단한 부분은 <span class="blank"></span>이다. 다음에는 <span class="blank"></span>을(를) 바꾸겠다.</div>
+        <div class="tbx"><b>📗 교과서와 이어지는 곳</b>
+          해결안의 한계를 쓸 때 Ⅱ-01의 <b>데이터 편향</b>(66쪽)으로 «우리 데이터가 대표하지 못한 사람»을 밝힙니다.
+          오늘 찾은 «관계 있는 속성»은 Ⅱ-04 <a href="#models">모델 고르는 다섯 걸음</a>을 거쳐 Ⅳ단원 프로젝트 모델의 입력이 됩니다.</div>
         <div class="fgo" style="margin-top:10px"><a href="https://richee-pc.github.io/AI_cs/unit4.html">Ⅳ단원 프로젝트로 이어집니다 →</a></div></div>
     </div>
   </div>
@@ -1829,6 +1913,221 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   </div>
 </div></section>
 
+<section id="models"><div class="wrap">
+  <p class="eyebrow">Ⅱ-04 깊이 보기 · 2차시</p>
+  <h2>모델 도감 · 고르는 법 · 오렌지3</h2>
+  <p class="sub">알고리즘(모델)마다 <b>무엇을 하는지 · 어떻게 정하는지 · 오렌지3에서 무엇을 만지는지 · 언제 잘 맞고 언제 조심하는지</b>를 한 장씩 정리했습니다.
+    마지막에는 <b>우리 문제에 맞는 모델을 고르는 다섯 걸음</b>과, 오렌지3로 <b>세 모델을 같은 조건에서 비교</b>하는 첫 워크플로가 있습니다.
+    이 시간에 고른 이유가 Ⅳ단원 프로젝트 계획서의 «학습 유형과 알고리즘» 칸이 됩니다.</p>
+
+  <div class="mlegend">
+    <span><b class="mt c">분류</b> 정해진 집단 중 하나 고르기</span>
+    <span><b class="mt r">예측</b> 숫자 맞히기(회귀)</span>
+    <span><b class="mt k">군집</b> 정답 없이 묶기</span>
+    <span><b class="mt x">교과서 밖</b> 오렌지3에 함께 있어 비교용으로만 · 시험 범위 아님</span>
+  </div>
+
+  <div class="mgrid" id="mgrid">
+    <article class="mcard"><header><b>k-최근접 이웃</b><span class="mt c">분류</span><span class="mt r">예측도 가능</span><em>93쪽</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>새 데이터와 <b>가장 가까운 k개</b>를 찾아 다수결(예측이면 평균). 학습 때는 데이터를 기억만 하고, 맞힐 때 거리를 잽니다.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>kNN</code> — <i>Number of neighbors</i>(k, 기본 5) · <i>Metric</i>(거리 재는 법) · <i>Weight</i>(가까울수록 더 크게)</dd>
+        <dt>잘 맞을 때</dt><dd>특성이 몇 개 안 되는 숫자 데이터, 경계가 구불구불한 문제</dd>
+        <dt>조심할 점</dt><dd>단위가 다르면(cm와 kg) 큰 숫자가 거리를 독차지 → <code>Preprocess</code>의 <i>Normalize</i> 먼저. k가 너무 작으면 우연에 휘둘리고, 너무 크면 다 비슷해짐. 데이터가 많으면 느려짐.</dd>
+        <dt>설명하기</dt><dd><span class="star">★★☆</span> «가장 가까운 이웃 셋이 모두 개라서»</dd>
+      </dl></article>
+
+    <article class="mcard"><header><b>로지스틱 회귀</b><span class="mt c">분류</span><em>94쪽</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>특성마다 가중치를 곱해 더한 값을 <b>S자 곡선</b>에 넣어 0~1 <b>확률</b>로 바꾸고, 0.5를 넘으면 «예». 이름은 회귀지만 <b>분류</b> 모델입니다.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Logistic Regression</code> — <i>Regularization</i>(Ridge/Lasso) · <i>Strength C</i>(작을수록 단순하게)</dd>
+        <dt>잘 맞을 때</dt><dd>예/아니요 판정, «얼마나 위험한가» 같은 <b>확률</b>이 필요할 때, 특성이 커질수록 결과가 한 방향으로 움직일 때</dd>
+        <dt>조심할 점</dt><dd>경계가 곧은 선(면)이라 복잡한 모양은 못 나눔. 단위가 크게 다르면 정규화.</dd>
+        <dt>설명하기</dt><dd><span class="star">★★★</span> 가중치의 +/− 로 «이 특성이 클수록 위험이 커진다»</dd>
+      </dl></article>
+
+    <article class="mcard"><header><b>선형 회귀</b><span class="mt r">예측</span><em>Ⅱ-04 · 예제 104~107쪽</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>점들과의 <b>오차 제곱 평균(MSE)이 가장 작은 직선</b> y = ax + b 를 찾습니다. 경사하강법으로 a, b를 조금씩 고쳐 갑니다(위 «선형 회귀» 직접 해 보기).</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Linear Regression</code> — 정규화 없음 / Ridge / Lasso</dd>
+        <dt>잘 맞을 때</dt><dd>점수·양·가격처럼 <b>숫자</b>를 맞힐 때, 관계가 대체로 직선일 때(교과서 청년 인구, Ⅳ 기아 지수)</dd>
+        <dt>조심할 점</dt><dd>범주(예/아니요)는 못 맞힘. 이상치 하나에 직선이 끌려감. 데이터 범위 밖(먼 미래)을 맞히면 크게 틀릴 수 있음.</dd>
+        <dt>설명하기</dt><dd><span class="star">★★★</span> «도서관이 하나 늘면 청년이 약 ○명 늘어난다»</dd>
+      </dl></article>
+
+    <article class="mcard"><header><b>의사결정트리</b><span class="mt c">분류</span><span class="mt r">예측</span><em>96쪽</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>데이터를 <b>가장 깔끔하게 가르는 예/아니요 질문</b>을 골라 나누고, 나뉜 쪽에서 또 질문을 고릅니다. 맨 끝(잎)의 다수결이 답.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Tree</code> — <i>Limit maximal tree depth</i>(깊이) · <i>Min. number of instances in leaves</i> · <code>Tree Viewer</code>로 나무 그림 보기</dd>
+        <dt>잘 맞을 때</dt><dd><b>왜 그렇게 판단했는지 설명</b>해야 할 때, 숫자와 범주가 섞인 데이터(정규화 필요 없음)</dd>
+        <dt>조심할 점</dt><dd>깊게 키우면 훈련 데이터를 <b>외워 버림(과적합)</b> → 깊이 제한. 데이터가 조금만 바뀌어도 나무 모양이 크게 달라짐.</dd>
+        <dt>설명하기</dt><dd><span class="star">★★★</span> 나무 그림 그대로 «소득 3천만 원 이상? → 예 → 신용 등급 2 이상? …»</dd>
+      </dl></article>
+
+    <article class="mcard"><header><b>k-평균</b><span class="mt k">군집</span><em>97쪽</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>중심 k개를 찍고 «가까운 중심에 배정 → 중심을 무리의 평균으로 옮기기»를 바뀌지 않을 때까지. <b>정답 열을 쓰지 않습니다.</b></p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>k-Means</code> — <i>Number of clusters</i>(k) · 범위를 주면 <i>Silhouette</i> 점수로 알맞은 k를 추천</dd>
+        <dt>잘 맞을 때</dt><dd>비슷한 학생·고객·지역끼리 묶어 보고 싶을 때, 정답 열이 없을 때</dd>
+        <dt>조심할 점</dt><dd>k는 사람이 정함. 단위 정규화 필요. 묶인 무리의 <b>이름은 사람이 평균값을 보고 붙임</b>. 그래서 «정확도»가 없습니다.</dd>
+        <dt>설명하기</dt><dd><span class="star">★★☆</span> «1번 무리는 수면이 짧고 이동 시간이 긴 학생들»</dd>
+      </dl></article>
+
+    <article class="mcard"><header><b>인공신경망</b><span class="mt c">분류</span><span class="mt r">예측</span><em>Ⅱ-06·07</em></header>
+      <p class="mhow"><b>어떻게 정하나</b>퍼셉트론(가중합 → 활성화 함수)을 층으로 쌓고, 틀린 만큼 가중치를 뒤에서부터 고칩니다(오차 역전파).</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Neural Network</code> — <i>Neurons in hidden layers</i>(예: 100 또는 50,50) · <i>Activation</i> · <i>Maximal number of iterations</i></dd>
+        <dt>잘 맞을 때</dt><dd>관계가 복잡할 때, 이미지·소리, 데이터가 많을 때</dd>
+        <dt>조심할 점</dt><dd>데이터가 적으면 오히려 나쁨. 학습이 오래 걸리고 결과를 설명하기 어려움.</dd>
+        <dt>설명하기</dt><dd><span class="star">★☆☆</span> 왜 그렇게 답했는지 말하기 어렵습니다</dd>
+      </dl></article>
+
+    <article class="mcard x"><header><b>랜덤 포레스트</b><span class="mt c">분류</span><span class="mt r">예측</span><span class="mt x">교과서 밖</span></header>
+      <p class="mhow"><b>어떻게 정하나</b>조금씩 다른 데이터로 <b>트리를 여러 그루</b> 키워 다수결(예측이면 평균). 한 그루의 실수를 다른 나무가 덮어 줍니다.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Random Forest</code> — <i>Number of trees</i>(기본 10)</dd>
+        <dt>장단점</dt><dd>트리보다 정확하고 과적합이 덜함 · 대신 나무 한 그루처럼 그려 설명하기는 어려움 <span class="star">★☆☆</span></dd>
+      </dl></article>
+
+    <article class="mcard x"><header><b>나이브 베이즈</b><span class="mt c">분류</span><span class="mt x">교과서 밖</span></header>
+      <p class="mhow"><b>어떻게 정하나</b>특성마다 «이 집단이면 이런 값이 나올 확률»을 곱해, 확률이 가장 큰 집단을 고릅니다.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>Naive Bayes</code> — 만질 설정이 거의 없음</dd>
+        <dt>장단점</dt><dd>빠르고 데이터가 적어도 버팀, 스팸 같은 낱말 분류에 강함 · 특성들이 서로 상관없다고 가정해서 그렇지 않으면 약함</dd>
+      </dl></article>
+
+    <article class="mcard x"><header><b>SVM</b><span class="mt c">분류</span><span class="mt r">예측</span><span class="mt x">교과서 밖</span></header>
+      <p class="mhow"><b>어떻게 정하나</b>두 집단 사이의 <b>빈 길(여백)이 가장 넓어지는 경계</b>를 찾습니다. 커널을 쓰면 휜 경계도 그립니다.</p>
+      <dl>
+        <dt>오렌지3</dt><dd><code>SVM</code> — <i>Kernel</i>(Linear/RBF) · <i>Cost C</i></dd>
+        <dt>장단점</dt><dd>특성이 많고 데이터가 중간 규모일 때 강함 · 설정이 까다롭고 설명이 어려움</dd>
+      </dl></article>
+  </div>
+
+  <div class="tool">
+    <h3>모델을 고르는 다섯 걸음 <span class="tm">98~99쪽 «어떤 알고리즘을 쓸까?»를 넓힘</span></h3>
+    <ol class="msteps">
+      <li><b>맞힐 것부터.</b> 정답 열(레이블)이 있나? <u>없으면</u> 군집(k-평균). <u>있으면</u> 그 값이 <b>숫자 → 예측</b>, <b>종류 → 분류</b>.</li>
+      <li><b>조건을 따진다.</b> 판단 이유를 설명해야 하나(트리·로지스틱·선형)? 데이터가 몇 행인가(적으면 단순한 모델)? 단위가 섞였나(트리 계열이거나 정규화)?</li>
+      <li><b>후보를 2~3개.</b> <u>단순한 모델 하나</u>(로지스틱 회귀 또는 선형 회귀)는 꼭 넣습니다 — 다른 모델이 «얼마나 나은지» 재는 기준선입니다.</li>
+      <li><b>같은 조건에서 비교.</b> 같은 데이터 · 같은 나누기 · 같은 지표로 오렌지3 <code>Test and Score</code>에 한꺼번에 연결합니다. 훈련 점수가 아니라 <b>테스트(또는 교차 검증) 점수</b>로 봅니다.</li>
+      <li><b>고르고 이유를 적는다.</b> 점수 차가 작으면(0.02 안팎) <b>설명하기 쉬운 쪽</b>. 놓치면 안 되는 문제(질병·부적합 판정)는 정확도보다 <b>재현율</b>. 고른 이유 한 줄을 계획서에.</li>
+    </ol>
+  </div>
+
+  <div class="tool">
+    <h3>우리 문제엔 어떤 모델? — 고르기 도우미 <span class="tm">직접 해 보기</span></h3>
+    <p class="desc">Ⅳ단원 프로젝트 주제나 데이터 탐구에서 찾은 데이터를 떠올리며 답해 보세요. 결과는 «후보»입니다 — 마지막 판단은 <b>오렌지3 비교 결과</b>로 합니다.</p>
+    <div class="mq" id="mqBox"></div>
+    <div class="keyout" id="mqOut"></div>
+  </div>
+
+  <div class="tool">
+    <h3>오렌지3 첫 워크플로 — 세 모델을 한 번에 비교 <span class="tm">붓꽃(iris) 데이터 · 15분</span></h3>
+    <p class="desc">오렌지3를 켜고 아래 순서로 위젯을 놓고 선을 잇습니다. 붓꽃 데이터는 오렌지3에 들어 있어 따로 받을 필요가 없습니다.</p>
+    <div class="flow2 big owf">
+      <span><b>File</b><br><small>iris.tab</small></span><i>→</i>
+      <span><b>Data Table</b><br><small>열 확인</small></span><i>→</i>
+      <span><b>Data Sampler</b><br><small>70% / 30%</small></span><i>→</i>
+      <span><b>kNN · Tree ·<br>Logistic Regression</b></span><i>→</i>
+      <span class="out"><b>Test and Score</b><br><small>세 모델 점수</small></span><i>→</i>
+      <span class="out"><b>Confusion Matrix</b><br><small>무엇을 틀렸나</small></span>
+    </div>
+    <div class="tw" style="margin-top:12px"><table>
+      <tr><th style="width:150px">위젯</th><th>하는 일</th><th style="width:36%">꼭 볼 것</th></tr>
+      <tr><td><b>File</b></td><td>데이터 불러오기. 아래 표에서 열마다 <i>Role</i>을 정합니다.</td><td>맞힐 열의 Role이 <b>target</b>인가? 쓰지 않을 열(번호·이름)은 <b>skip</b></td></tr>
+      <tr><td><b>Data Table</b></td><td>표로 보기</td><td>행 수 · 빈칸(?) · 이상한 값</td></tr>
+      <tr><td><b>Data Sampler</b></td><td>훈련용과 테스트용으로 나누기 — <i>Fixed proportion</i> 70%</td><td><b>Data Sample</b>은 훈련용, <b>Remaining Data</b>는 테스트용으로 따로 연결</td></tr>
+      <tr><td><b>kNN · Tree · Logistic Regression</b></td><td>모델(학습 방법) 정하기 — 이 위젯들은 «학습기»라서 데이터 없이도 Test and Score에 꽂습니다</td><td>k · 깊이 · C 같은 설정값을 바꿔 보며 점수 변화</td></tr>
+      <tr><td><b>Test and Score</b></td><td>학습하고 점수 매기기. 훈련용은 <i>Data</i>, 테스트용은 <i>Test Data</i>로 잇고 <b>Test on test data</b>를 고릅니다(또는 훈련용만 넣고 <i>Cross validation</i>)</td><td><b>Test on train data는 고르지 않기</b> — 공부한 문제로 시험 보는 셈. CA(정확도) · Prec · Recall · F1 / 예측이면 RMSE · MAE · R2</td></tr>
+      <tr><td><b>Confusion Matrix</b></td><td>오분류표 — 칸을 누르면 그 데이터가 골라짐</td><td>어느 집단끼리 헷갈리나? 놓친 것(재현율) · 헛경보(정밀도)</td></tr>
+      <tr><td><b>Predictions</b> <small>(선택)</small></td><td>모델 + 새 데이터를 이으면 한 줄씩 예측값과 확률</td><td>확률이 0.5 근처인 «자신 없는» 행</td></tr>
+    </table></div>
+    <p class="note" style="margin-top:12px"><b>오늘 기록할 것(활동 기록지 ③ 아래에 한 줄).</b>
+      «붓꽃에서 kNN 0.○○ · Tree 0.○○ · 로지스틱 0.○○ — 차이가 작아 ○○를 고르겠다(설명이 쉬워서).»
+      그리고 Tree의 깊이를 1로 줄였을 때 점수가 어떻게 바뀌는지 — <b>모델이 너무 단순하면(과소적합)</b> 무슨 일이 생기는지 봅니다.</p>
+    <p class="hint">오렌지3가 없는 노트북은 <a href="https://orangedatamining.com/download/" target="_blank" rel="noopener">orangedatamining.com</a>에서 받습니다(학교 노트북은 미리 설치). 위젯 이름이 한글로 보이는 판도 있습니다 — 아이콘 모양이 같습니다.
+      코드로 같은 일을 하는 방법은 아래 <a href="#implement">구현 절차</a>에서 위젯과 짝지어 봅니다.</p>
+  </div>
+  <div class="nextgo"><b>이어서</b><a href="#implement">Ⅱ-05 구현 절차 · 평가 해석</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감 — 26종 자세히</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/12_model_zoo.ipynb" target="_blank" rel="noopener">▶ 코랩 · 모델 비교 실험실</a><a href="#algo">k-최근접 이웃 · 선형 회귀 다시 움직이기</a><a href="#learn04">교과서로 배우기 Ⅱ-04</a></div>
+</div></section>
+
+<section id="implement"><div class="wrap">
+  <p class="eyebrow">Ⅱ-05 깊이 보기 · 3차시</p>
+  <h2>모델 구현 절차 · 예측 읽기 · 평가 해석</h2>
+  <p class="sub">기계학습 모델은 <b>아홉 걸음</b>으로 만듭니다. 걸음마다 <b>코랩 코드 · 오렌지3 위젯 · 자주 막히는 곳</b>을 짝지었습니다.
+    그다음 모델이 내놓은 <b>예측을 읽는 법</b>, 점수를 <b>«그래서 좋은 모델인가?»</b>로 바꿔 말하는 <b>해석법</b>을 연습합니다.</p>
+
+  <div class="tool">
+    <h3>구현 아홉 걸음 <span class="tm">교과서 100~103쪽 순서를 자세히</span></h3>
+    <div class="pick" id="ipPick" style="flex-wrap:wrap"></div>
+    <div class="ipcard" id="ipCard"></div>
+    <p class="hint">5~8걸음이 Ⅳ단원 수행평가 ② 노트북의 «나누기 · 모델 정의 · 학습 · 점수»와 같습니다. 셀마다 오렌지3 위젯 이름을 주석으로 적는 연습을 지금부터.</p>
+  </div>
+
+  <div class="g2">
+    <div class="tool" style="margin:0">
+      <h3>예측 읽기 — 분류</h3>
+      <p class="desc"><code>predict()</code>는 집단 이름 하나, <code>predict_proba()</code>는 <b>집단마다 확률</b>을 줍니다.</p>
+      <div class="calc">pred  = ['virginica']<br>proba = [<b>0.02</b>, <b>0.41</b>, <em>0.57</em>]  ← setosa · versicolor · virginica</div>
+      <p class="desc" style="margin-top:8px">가장 큰 0.57을 골랐지만 0.41과 차이가 작습니다 — <b>«자신 없는 예측»</b>. 이런 행이 모인 곳이 두 집단의 경계이고, 틀린 예측도 대개 여기서 나옵니다.</p>
+    </div>
+    <div class="tool" style="margin:0">
+      <h3>예측 읽기 — 숫자</h3>
+      <p class="desc">예측값과 실제값의 차이를 <b>잔차</b>(실제 − 예측)라고 합니다.</p>
+      <div class="calc">실제 120 · 예측 112 → 잔차 <b>+8</b> (덜 맞힘)<br>실제 95 · 예측 104 → 잔차 <em>−9</em> (더 맞힘)</div>
+      <p class="desc" style="margin-top:8px">잔차가 고루 섞여야 좋습니다. <b>큰 값에서만 계속 +</b>라면 모델이 놓친 패턴(직선이 아닌 관계)이 있다는 뜻입니다.
+        새 데이터를 넣을 때는 <b>학습 때와 같은 전처리 · 같은 열 순서</b>여야 합니다.</p>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>평가 지표 한눈에 — 무엇을 재고, 어떻게 말할까 <span class="tm">106~112쪽</span></h3>
+    <div class="tw"><table>
+      <tr><th style="width:15%">지표</th><th style="width:25%">계산</th><th style="width:11%">좋은 방향</th><th>해석 문장(예)</th></tr>
+      <tr><td><b>정확도</b></td><td>맞힌 수 ÷ 전체</td><td>1에 가깝게</td><td>«테스트 60개 중 54개를 맞혀 0.90» — 단, 집단 크기가 비슷할 때만 믿을 만함</td></tr>
+      <tr><td><b>정밀도</b></td><td>참이라 한 것 중 진짜 참</td><td>1에 가깝게</td><td>«부적합이라고 한 12곳 중 9곳이 진짜 부적합(0.75) — 헛경보가 3곳»</td></tr>
+      <tr><td><b>재현율</b></td><td>진짜 참 중 찾아낸 것</td><td>1에 가깝게</td><td>«진짜 부적합 10곳 중 6곳만 찾음(0.60) — 4곳을 놓침». 놓치면 위험한 문제의 핵심 지표</td></tr>
+      <tr><td><b>F1</b></td><td>정밀도와 재현율의 조화 평균</td><td>1에 가깝게</td><td>둘 중 하나만 높은 «반쪽 모델»을 걸러 냄</td></tr>
+      <tr><td><b>MAE</b></td><td>|잔차|의 평균</td><td>0에 가깝게</td><td>«평균 7명쯤 빗나간다» — 정답과 같은 단위라 말하기 쉬움</td></tr>
+      <tr><td><b>MSE · RMSE</b></td><td>잔차 제곱 평균 · 그 제곱근</td><td>0에 가깝게</td><td>RMSE는 정답과 같은 단위. 큰 실수에 벌을 더 줌. <b>정답의 평균과 견주어</b> 크다·작다를 말함</td></tr>
+      <tr><td><b>R²</b></td><td>1 − (잔차 제곱 합 ÷ 평균에서 떨어진 정도 제곱 합)</td><td>1에 가깝게</td><td>«청년 수가 달라지는 정도의 64%를 설명(0.64)». «64%를 맞혔다»가 아님. 0보다 작으면 평균으로 찍는 것보다 못함</td></tr>
+    </table></div>
+  </div>
+
+  <div class="g2">
+    <div class="tool" style="margin:0">
+      <h3>분류 점수 계산기 + 기준선 <span class="tm">직접 해 보기</span></h3>
+      <p class="desc">오분류표 네 칸을 넣으세요. <b>기준선</b>은 «무조건 많은 쪽으로 찍었을 때»의 정확도입니다 — 모델은 이것보다 나아야 의미가 있습니다.</p>
+      <div class="cmgrid">
+        <span></span><b>예측: 참</b><b>예측: 거짓</b>
+        <b>실제: 참</b><input id="cmTP" type="number" min="0" value="6" aria-label="실제 참, 예측 참"><input id="cmFN" type="number" min="0" value="4" aria-label="실제 참, 예측 거짓">
+        <b>실제: 거짓</b><input id="cmFP" type="number" min="0" value="3" aria-label="실제 거짓, 예측 참"><input id="cmTN" type="number" min="0" value="87" aria-label="실제 거짓, 예측 거짓">
+      </div>
+      <div class="keyout" id="cmOut"></div>
+    </div>
+    <div class="tool" style="margin:0">
+      <h3>숫자 예측 점수 계산기 <span class="tm">직접 해 보기</span></h3>
+      <p class="desc">실제값과 예측값을 쉼표로 같은 개수만큼 넣으세요. (예: 기온으로 아이스크림 판매량 예측)</p>
+      <label class="sl"><span>실제값</span><input id="rgY" type="text" value="120, 95, 140, 80, 110, 130"></label>
+      <label class="sl"><span>예측값</span><input id="rgP" type="text" value="112, 104, 128, 86, 115, 124"></label>
+      <div class="keyout" id="rgOut"></div>
+    </div>
+  </div>
+
+  <div class="tool">
+    <h3>이 결과, 어떻게 해석할까? — 함정 여섯 <span class="tm">직접 해 보기</span></h3>
+    <p class="desc">모델 점수를 보고 결론을 내리는 장면입니다. 가장 알맞은 해석을 고르세요.</p>
+    <div id="ipQuiz"></div>
+  </div>
+
+  <div class="frame"><b>평가 해석 문장 틀 (계획서 · 보고서에 그대로)</b>
+    우리 모델(<span class="blank"></span>)은 테스트 데이터 <span class="blank"></span>개에서 <span class="blank"></span>(지표)이 <span class="blank"></span>이다.
+    기준선(<span class="blank"></span>)보다 <span class="blank"></span>만큼 낫다. 다만 <span class="blank"></span>(집단·구간)에서 자주 틀리므로
+    다음에는 <span class="blank"></span>을(를) 바꿔 보겠다.</div>
+  <div class="nextgo" style="margin-top:12px"><b>이어서</b><a href="#code">예측 · 분류 코드 읽기</a><a href="#lab">코랩 노트북 ② 실행</a><a href="#learn05">교과서로 배우기 Ⅱ-05</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#p3">Ⅳ 프로젝트 ③ 오렌지3</a></div>
+</div></section>
+
 <section id="nn"><div class="wrap">
   <p class="eyebrow">직접 눌러 보기 ④</p>
   <h2>신경망은 이 작은 것 하나에서 시작합니다</h2>
@@ -2052,6 +2351,9 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
   <p class="sub">위에서 눌러 본 것을 <b>진짜 파이썬으로</b> 돌려 봅니다.
     노트북 세 권을 준비해 두었습니다 — <b>구글 아이디로 로그인만 되어 있으면</b> 단추 하나로 열립니다.
     설치할 것도, 내려받을 것도 없습니다.</p>
+
+  <div class="planbar" style="margin:0 0 16px"><span><b>🧪 교과서 실습 전체는 «코랩 실습실»에</b>건강검진 · 다이아몬드 · 티처블 머신 · 감성 분석 · Ⅳ단원 기아 예측 · 부록 셋 · 모델 비교 실험실까지 16개를 쪽수 순서로 모았습니다.</span>
+    <a href="https://richee-pc.github.io/AI_cs/labs.html">코랩 실습실 열기 →</a></div>
 
   <div class="note"><b>실습 데이터는 이미 안에 들어 있습니다.</b>
     교과서는 CSV 파일을 <b>직접 올리라</b>고 하는데(<code>files.upload()</code>), 수업 시간에 여기서 제일 많이 막힙니다.
@@ -3930,6 +4232,156 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=44e0c629"></script>
+<script src="lessons.js?v=286d3ef1"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+function $(id){ return document.getElementById(id); }
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+
+/* ── 고르기 도우미 ───────────────────────────── */
+var MQ = [
+  { k:'lab', q:'정답 열(레이블)이 있나요?', o:[['y','있다 — 맞힐 값이 표에 있다'],['n','없다 — 비슷한 것끼리 묶고 싶다']] },
+  { k:'typ', q:'맞힐 값은 어떤 모양인가요?', o:[['num','숫자 — 점수 · 양 · 가격'],['cat','종류 — 예/아니요 · 등급 · 품종']], need:{ lab:'y' } },
+  { k:'why', q:'왜 그렇게 판단했는지 설명이 꼭 필요한가요?', o:[['must','꼭 필요하다'],['perf','성능이 더 중요하다']], need:{ lab:'y' } },
+  { k:'n', q:'데이터는 몇 행인가요?', o:[['s','200행 미만'],['m','200 ~ 5,000행'],['l','5,000행 이상']] },
+  { k:'mix', q:'특성의 단위가 서로 다르거나, 숫자와 범주가 섞였나요?', o:[['y','예'],['n','아니요 — 비슷한 숫자들']] }
+];
+var MD = {
+  knn:['k-최근접 이웃','kNN'], log:['로지스틱 회귀','Logistic Regression'], lin:['선형 회귀','Linear Regression'],
+  tree:['의사결정트리','Tree'], rf:['랜덤 포레스트(교과서 밖)','Random Forest'], nb:['나이브 베이즈(교과서 밖)','Naive Bayes'],
+  nn:['인공신경망','Neural Network'], km:['k-평균','k-Means']
+};
+var A = {};
+function need(m){ return !m.need || Object.keys(m.need).every(function(k){ return A[k] === m.need[k]; }); }
+function drawMQ(){
+  $('mqBox').innerHTML = MQ.filter(need).map(function(m, i){
+    return '<div class="mqrow"><b>' + (i + 1) + '. ' + m.q + '</b><span class="pick">' + m.o.map(function(o){
+      return '<button type="button" data-k="' + m.k + '" data-v="' + o[0] + '" aria-pressed="' + (A[m.k] === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</span></div>';
+  }).join('');
+  var ask = MQ.filter(need), done = ask.every(function(m){ return A[m.k]; });
+  var out = $('mqOut');
+  if(!done){ out.innerHTML = '질문에 모두 답하면 후보 모델이 나옵니다.'; return; }
+  var sc = {}, why = {};
+  function add(m, s, w){ sc[m] = (sc[m] || 0) + s; (why[m] = why[m] || []).push(w); }
+  if(A.lab === 'n'){
+    out.innerHTML = '<b>군집 → k-평균(<code>k-Means</code>)</b> — 정답 열이 없으니 지도학습 모델은 쓸 수 없습니다.<br>' +
+      '오렌지3: <code>File → (Preprocess: Normalize) → k-Means → Data Table / Scatter Plot</code> · k는 2~6 범위를 주고 Silhouette 점수가 가장 높은 값을 고른 뒤, <b>무리마다 평균을 보고 이름을 붙입니다.</b>' +
+      (A.mix === 'y' ? '<br>⚠ 단위가 다르면 꼭 정규화하세요 — 큰 숫자 열 하나가 무리를 혼자 정합니다.' : '') +
+      '<br>정확도로 평가할 수 없습니다. «분류»로 바꾸고 싶다면 정답 열을 직접 만들어야 합니다(예: 설문으로 «만족/불만족»).';
+    return;
+  }
+  var num = A.typ === 'num';
+  if(num){ add('lin', 3, '숫자 예측의 기준선'); add('tree', 2, '숫자·범주 섞여도 됨'); add('knn', 1, '이웃의 평균으로 예측'); add('rf', 1, '트리 여러 그루라 더 정확'); add('nn', 0, '복잡한 관계'); }
+  else { add('log', 3, '분류의 기준선 · 확률을 줌'); add('tree', 2, '판단 과정을 그림으로'); add('knn', 2, '경계가 구불구불해도'); add('rf', 1, '트리보다 정확'); add('nb', 0, '빠르고 데이터가 적어도'); add('nn', 0, '복잡한 관계'); }
+  if(A.why === 'must'){ add(num ? 'lin' : 'log', 2, '설명 ★★★'); add('tree', 3, '나무 그림으로 설명 ★★★'); add('rf', -2, '설명이 어려움'); add('nn', -3, '설명이 어려움'); add('knn', 0, ''); }
+  else { add('rf', 2, '성능 우선이면 강력'); add('nn', 1, '성능 우선'); add('knn', 1, ''); }
+  if(A.n === 's'){ add('nn', -3, '데이터가 적으면 불리'); add('rf', -1, ''); add('nb', 2, '적은 데이터에 강함'); add(num ? 'lin' : 'log', 1, '단순해서 적은 데이터에 안정'); add('tree', -1, '적으면 금방 외워 버림 — 깊이 제한'); }
+  if(A.n === 'l'){ add('nn', 3, '데이터가 많으면 실력 발휘'); add('rf', 1, ''); add('knn', -2, '많으면 예측이 느림'); }
+  if(A.mix === 'y'){ add('tree', 2, '정규화 없이도 됨'); add('rf', 1, '정규화 없이도 됨'); add('knn', -2, '정규화 필수(거리 기반)'); add('nn', -1, '정규화 필수'); }
+  var top = Object.keys(sc).sort(function(a, b){ return sc[b] - sc[a]; }).slice(0, 3);
+  var base = num ? 'lin' : 'log'; if(top.indexOf(base) < 0) top[top.length - 1] = base;
+  out.innerHTML = '<b>' + (num ? '예측(회귀)' : '분류') + ' 문제입니다. 후보 셋:</b><ol class="mqol">' + top.map(function(m){
+      return '<li><b>' + MD[m][0] + '</b> <code>' + MD[m][1] + '</code>' + (m === base ? ' <span class="mt c">기준선</span>' : '') +
+        '<br><small>' + why[m].filter(Boolean).join(' · ') + '</small></li>'; }).join('') + '</ol>' +
+    '오렌지3: <code>File → ' + (A.mix === 'y' && top.some(function(m){ return m === 'knn' || m === 'nn'; }) ? 'Preprocess(Normalize) → ' : '') + 'Data Sampler → [' +
+      top.map(function(m){ return MD[m][1]; }).join(' · ') + '] → Test and Score → ' + (num ? 'Predictions' : 'Confusion Matrix') + '</code><br>' +
+    '셋을 <b>같은 테스트 데이터</b>로 비교해 ' + (num ? 'RMSE가 작고 R²가 큰' : '정확도와 재현율이 높은') + ' 모델을 고르되, 점수 차가 작으면 설명하기 쉬운 쪽을 고르세요.';
+}
+if($('mqBox')){
+  $('mqBox').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-k]'); if(!b) return;
+    A[b.getAttribute('data-k')] = b.getAttribute('data-v');
+    if(A.lab === 'n'){ delete A.typ; delete A.why; }
+    drawMQ();
+  });
+  drawMQ();
+}
+
+/* ── 구현 아홉 걸음 ─────────────────────────── */
+var IP = [
+  ['문제와 정답 정하기', '분류인가 예측인가, 무엇이 정답 열(y)인가를 먼저 한 문장으로.', '# 붓꽃의 품종(y)을 꽃잎·꽃받침 크기(X)로 맞힌다 → 분류', '(계획서) · File 의 Role: target', '정답 열을 정하지 않고 시작하면 4걸음에서 막힙니다.'],
+  ['데이터 불러오기 · 살펴보기', '행과 열의 수, 자료형, 빈칸, 평균·최솟값·최댓값을 먼저 봅니다.', "import pandas as pd\ndf = pd.read_csv('iris.csv')\ndf.info()        # 행 수 · 열 이름 · 빈칸\ndf.describe()    # 평균 · 최솟값 · 최댓값", 'File · Data Table · Feature Statistics', '열 이름에 띄어쓰기가 있으면 KeyError — df.columns 부터 확인(붓꽃은 «꽃잎 길이»).'],
+  ['전처리', '빈칸·중복·이상치 처리, 범주를 숫자로, 필요하면 정규화.', "df = df.dropna()            # 결측 행 지우기\ndf = df.drop_duplicates()   # 중복 지우기\n# (kNN·신경망) 정규화\nfrom sklearn.preprocessing import StandardScaler", 'Impute · Preprocess · Continuize', '지운 행 수를 기록하세요(n이 줄어듦). 정규화는 훈련 데이터 기준으로.'],
+  ['특성 X와 정답 y 나누기', '힌트로 쓸 열(독립변수)과 맞힐 열(종속변수)을 나눕니다.', "X = df[['꽃잎 길이', '꽃잎 너비']]   # 두 겹 대괄호 = 열 여러 개\ny = df['품종']", 'Select Columns (Features / Target)', '정답 열을 X에 같이 넣으면 «답을 보고 푸는» 모델이 됩니다(데이터 누수) — 점수가 비정상적으로 1.0.'],
+  ['훈련 · 테스트 나누기', '공부할 데이터와 시험 볼 데이터를 나눕니다. 테스트는 마지막까지 봉인.', "from sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.3, random_state=0, stratify=y)", 'Data Sampler (70% / 30%)', 'stratify=y 를 주면 집단 비율이 양쪽에 똑같이 — 적은 집단이 테스트에서 사라지지 않습니다.'],
+  ['모델 만들고 학습', '알고리즘과 설정값(하이퍼파라미터)을 정해 훈련 데이터로만 fit.', "from sklearn.neighbors import KNeighborsClassifier\nmodel = KNeighborsClassifier(n_neighbors=5)\nmodel.fit(X_train, y_train)", 'kNN · Tree · Logistic Regression …', 'fit 에 X_test 를 넣으면 시험 문제를 미리 보여 준 셈입니다.'],
+  ['예측', '테스트 데이터로 맞혀 봅니다. 분류면 확률도 볼 수 있습니다.', "pred = model.predict(X_test)\nprob = model.predict_proba(X_test)   # 분류만", 'Predictions', '새 데이터도 같은 열 · 같은 순서 · 같은 전처리로 넣어야 합니다.'],
+  ['평가', '훈련 점수와 테스트 점수를 함께 봅니다. 분류는 오분류표까지.', "from sklearn.metrics import accuracy_score, confusion_matrix, classification_report\nprint(model.score(X_train, y_train), accuracy_score(y_test, pred))\nprint(confusion_matrix(y_test, pred))\nprint(classification_report(y_test, pred))   # 정밀도 · 재현율 · F1\n# 예측(숫자)이면: mean_squared_error, r2_score", 'Test and Score · Confusion Matrix', '훈련 0.99 · 테스트 0.75 → 과적합. 둘 다 낮으면 → 과소적합(특성 부족 · 모델이 너무 단순).'],
+  ['개선하고 다시', '특성 바꾸기 · 설정값 조정 · 데이터 보강 · 다른 모델 → 5~8걸음을 다시. 바꾼 것과 결과를 한 줄씩.', "for k in [1, 3, 5, 7, 9]:\n    m = KNeighborsClassifier(n_neighbors=k).fit(X_train, y_train)\n    print(k, m.score(X_test, y_test))", 'Test and Score 에 여러 학습기를 함께 연결', '테스트 점수만 보며 수십 번 고르면 테스트가 «모의고사»가 됩니다 — 고르는 것은 교차 검증으로, 테스트는 마지막 확인으로.']
+];
+var ipCur = 0;
+function drawIP(){
+  $('ipPick').innerHTML = IP.map(function(s, i){ return '<button type="button" data-i="' + i + '" aria-pressed="' + (i === ipCur) + '">' + (i + 1) + ' ' + s[0] + '</button>'; }).join('');
+  var s = IP[ipCur];
+  $('ipCard').innerHTML = '<b class="ipn">' + (ipCur + 1) + '걸음 · ' + s[0] + '</b><p>' + s[1] + '</p>' +
+    '<pre class="ipcode">' + esc(s[2]) + '</pre>' +
+    '<div class="ipmeta"><span><b>오렌지3</b>' + esc(s[3]) + '</span><span class="warn"><b>자주 막히는 곳</b>' + esc(s[4]) + '</span></div>' +
+    '<div class="simctl" style="margin-top:10px">' + (ipCur ? '<button type="button" class="mini gh" data-d="-1">◀ 앞 걸음</button>' : '') +
+      (ipCur < IP.length - 1 ? '<button type="button" class="mini" data-d="1">다음 걸음 ▶</button>' : '') + '</div>';
+}
+if($('ipPick')){
+  $('ipPick').addEventListener('click', function(e){ var b = e.target.closest('button[data-i]'); if(b){ ipCur = +b.getAttribute('data-i'); drawIP(); } });
+  $('ipCard').addEventListener('click', function(e){ var b = e.target.closest('button[data-d]'); if(b){ ipCur = Math.max(0, Math.min(IP.length - 1, ipCur + +b.getAttribute('data-d'))); drawIP(); } });
+  drawIP();
+}
+
+/* ── 분류 점수 계산기 ───────────────────────── */
+function f2(x){ return isFinite(x) ? x.toFixed(2) : '—'; }
+function drawCM(){
+  var g = function(id){ var v = Math.max(0, Math.floor(+$(id).value || 0)); return v; };
+  var TP = g('cmTP'), FN = g('cmFN'), FP = g('cmFP'), TN = g('cmTN'), N = TP + FN + FP + TN;
+  if(!N){ $('cmOut').innerHTML = '칸에 수를 넣으세요.'; return; }
+  var acc = (TP + TN) / N, pre = TP / (TP + FP), rec = TP / (TP + FN), f1 = 2 * pre * rec / (pre + rec);
+  var pos = TP + FN, base = Math.max(pos, N - pos) / N;
+  var lines = ['정확도 <b>' + f2(acc) + '</b> · 정밀도 <b>' + f2(pre) + '</b> · 재현율 <b>' + f2(rec) + '</b> · F1 <b>' + f2(f1) + '</b>',
+    '기준선(모두 «' + (pos >= N - pos ? '참' : '거짓') + '»으로 찍기) <b>' + f2(base) + '</b> → 모델이 <b>' + (acc - base >= 0 ? '+' : '') + f2(acc - base) + '</b>'];
+  var say = '테스트 ' + N + '개 중 ' + (TP + TN) + '개를 맞혀 정확도 ' + f2(acc) + '이다. ';
+  if(acc - base < 0.03) say += '<em>그러나 기준선과 거의 같아 «많은 쪽으로 찍기»보다 낫다고 하기 어렵다.</em> ';
+  if(isFinite(rec)) say += '진짜 참 ' + pos + '개 중 ' + TP + '개를 찾아 재현율 ' + f2(rec) + (rec < 0.7 ? ' — <em>' + FN + '개를 놓친다.</em>' : '.');
+  $('cmOut').innerHTML = lines.join('<br>') + '<br><span class="say">' + say + '</span>';
+}
+if($('cmTP')){ ['cmTP','cmFN','cmFP','cmTN'].forEach(function(id){ $(id).addEventListener('input', drawCM); }); drawCM(); }
+
+/* ── 숫자 예측 점수 계산기 ─────────────────── */
+function nums(id){ return $(id).value.split(/[,\s]+/).filter(function(x){ return x !== ''; }).map(Number).filter(function(x){ return isFinite(x); }); }
+function drawRG(){
+  var y = nums('rgY'), p = nums('rgP');
+  if(y.length < 2 || y.length !== p.length){ $('rgOut').innerHTML = '실제값과 예측값을 <b>같은 개수</b>(2개 이상)로 넣으세요. 지금 ' + y.length + '개 · ' + p.length + '개'; return; }
+  var n = y.length, mean = y.reduce(function(a, b){ return a + b; }, 0) / n, sae = 0, sse = 0, sst = 0;
+  y.forEach(function(v, i){ var r = v - p[i]; sae += Math.abs(r); sse += r * r; sst += (v - mean) * (v - mean); });
+  var mae = sae / n, mse = sse / n, rmse = Math.sqrt(mse), r2 = sst ? 1 - sse / sst : NaN;
+  $('rgOut').innerHTML = 'MAE <b>' + f2(mae) + '</b> · MSE <b>' + f2(mse) + '</b> · RMSE <b>' + f2(rmse) + '</b> · R² <b>' + f2(r2) + '</b><br>' +
+    '<span class="say">평균 ' + f2(mean) + '에 견주면 RMSE는 약 ' + Math.round(rmse / Math.abs(mean || 1) * 100) + '% — 평균 ' + f2(mae) + '쯤 빗나간다. ' +
+    (isFinite(r2) ? '값이 달라지는 정도의 ' + Math.round(r2 * 100) + '%를 설명한다' + (r2 < 0 ? ' — <em>평균으로 찍는 것보다 못하다.</em>' : '.') : '') + '</span>';
+}
+if($('rgY')){ ['rgY','rgP'].forEach(function(id){ $(id).addEventListener('input', drawRG); }); drawRG(); }
+
+/* ── 해석 함정 여섯 ─────────────────────────── */
+var IQ = [
+  ['약수터 100곳 중 부적합은 5곳뿐입니다. 모델 정확도가 0.95입니다.', ['아주 좋은 모델이다', '모두 «적합»이라 찍어도 0.95 — 부적합 재현율부터 봐야 한다', '데이터가 너무 많다'], 1, '기준선이 0.95입니다. 부적합을 하나도 못 찾아도 0.95가 나옵니다. 적은 집단이 중요하면 재현율·F1을 봅니다.'],
+  ['훈련 점수 0.99, 테스트 점수 0.74입니다.', ['과적합 — 훈련 데이터를 외웠다', '과소적합 — 너무 단순하다', '테스트 데이터가 잘못됐다'], 0, '공부한 문제만 잘 푸는 상태입니다. 트리 깊이 줄이기 · k 늘리기 · 데이터 보강으로 고칩니다.'],
+  ['훈련 0.61, 테스트 0.60입니다.', ['과적합이다', '과소적합 — 특성이 부족하거나 모델이 너무 단순하다', '완벽하게 일반화했다'], 1, '둘 다 낮고 차이도 없으면 배울 것을 못 배운 것입니다. 특성을 더 넣거나 조금 더 복잡한 모델을 시험합니다.'],
+  ['R²가 0.64입니다.', ['테스트 데이터의 64%를 맞혔다', '값이 달라지는 정도의 64%를 모델이 설명한다', '오차가 64이다'], 1, 'R²는 «맞힌 비율»이 아닙니다. 평균으로만 찍을 때보다 오차가 얼마나 줄었는지입니다.'],
+  ['다이아몬드 가격 예측의 RMSE가 500입니다.', ['나쁜 모델이다', '좋은 모델이다', '가격의 평균·범위와 견주어 봐야 판단할 수 있다'], 2, '평균 가격이 4,000달러라면 약 12% 빗나가는 셈입니다. RMSE는 단위가 있어 홀로는 좋고 나쁨을 말할 수 없습니다.'],
+  ['테스트 점수가 가장 높게 나올 때까지 k를 1부터 30까지 바꿔 가며 골랐습니다.', ['가장 공정한 방법이다', '테스트를 고르는 데 써 버려 점수가 부풀었다 — 교차 검증으로 고르고 테스트는 마지막에', 'k는 학습으로 정해지니 상관없다'], 1, '테스트 데이터에 맞춰 고르면 그 점수는 «새 데이터에서의 실력»이 아닙니다. 오렌지3라면 훈련용으로 Cross validation 을 돌려 고릅니다.']
+];
+var IA = {};
+function drawIQ(){
+  $('ipQuiz').innerHTML = IQ.map(function(it, i){
+    var a = IA[i], ok = a === it[2];
+    return '<div class="kcard' + (a == null ? '' : ok ? ' right' : ' wrong') + '"><div class="kq"><b>' + (i + 1) + '</b>' + it[0] + '</div>' +
+      '<span class="kpick">' + it[1].map(function(o, k){ return '<button type="button" data-i="' + i + '" data-k="' + k + '" aria-pressed="' + (a === k) + '">' + o + '</button>'; }).join('') + '</span>' +
+      (a == null ? '' : '<div class="kwhy"><b>' + (ok ? '맞아요. ' : '다시 보세요. ') + '</b>' + it[3] + '</div>') + '</div>';
+  }).join('') + '<p class="desc" style="margin-top:8px">맞힌 수 <b>' + IQ.filter(function(it, i){ return IA[i] === it[2]; }).length + ' / ' + IQ.length + '</b></p>';
+}
+if($('ipQuiz')){
+  $('ipQuiz').addEventListener('click', function(e){ var b = e.target.closest('button[data-k]'); if(b){ IA[+b.getAttribute('data-i')] = +b.getAttribute('data-k'); drawIQ(); } });
+  drawIQ();
+}
+})();
+</script>
 </body>
 </html>

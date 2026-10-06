@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 분반별 수업 계획 — 오늘(다음) 수업, 학습 목표, 낼 것, 자료 바로 가기, 10월~12월 달별 계획">
+<meta name="description" content="선형 회귀부터 대규모 언어 모델까지 — 우리가 자주 만나는 AI 모델 26종의 원리 · 설정값 · 장단점 · 코드 · 오렌지3 위젯">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="우리 반 수업 계획 · 인공지능 기초">
-<meta property="og:description" content="분반별 오늘 수업 · 목표 · 낼 것 · 바로 가기">
+<meta property="og:title" content="AI 모델 도감 · 인공지능 기초">
+<meta property="og:description" content="선형 회귀부터 대규모 언어 모델까지 — 우리가 자주 만나는 AI 모델 26종의 원리 · 설정값 · 장단점 · 코드 · 오렌지3 위젯">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=e838308e" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=f738ea56" as="font" type="font/woff2" crossorigin>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
-<title>우리 반 수업 계획 · 인공지능 기초</title>
+<title>AI 모델 도감 · 인공지능 기초</title>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -946,108 +946,80 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   .tool{padding:18px} .grow2>b{min-width:0; flex:1 1 100%}
 }
 
-/* ══════════════════════════════════════════════════════════════
-   여기부터는 «우리 반 수업 계획»(plan.html)에만 있는 것들입니다.
-   ══════════════════════════════════════════════════════════════ */
-:root{--k-u2:#2F6FEC; --k-ex:#0E8A7E; --k-pj:#6A4BC4; --k-pa:#C2570C; --k-et:#5B6773}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--k-u2:#79B4FF; --k-ex:#4FD1C0; --k-pj:#B39DFF; --k-pa:#FFAD6E; --k-et:#A9B4C0}}
-:root[data-theme="dark"]{--k-u2:#79B4FF; --k-ex:#4FD1C0; --k-pj:#B39DFF; --k-pa:#FFAD6E; --k-et:#A9B4C0}
-
-.clsbig{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:26px; max-width:620px}
-.clsbig button{display:flex; flex-direction:column; align-items:center; gap:2px; font-family:var(--sans); cursor:pointer;
-  background:var(--white); border:2px solid var(--line); border-radius:18px; padding:14px 8px; color:var(--ink);
-  box-shadow:var(--sh); transition:.15s}
-.clsbig b{font-family:var(--disp); font-weight:700; font-size:1.375rem; color:var(--blue-d)}
-.clsbig span{font-size:0.8125rem; font-weight:700; color:var(--muted)}
-.clsbig button:hover{border-color:var(--blue-l)}
-.clsbig button[aria-pressed="true"]{background:var(--fill); border-color:var(--fill)}
-.clsbig button[aria-pressed="true"] b, .clsbig button[aria-pressed="true"] span{color:var(--on-fill)}
-.clsbig button:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
-
-/* 오늘 카드 */
-.today{position:relative; background:var(--white); border:2px solid var(--kc,var(--fill)); border-radius:26px;
-  padding:26px 28px; box-shadow:var(--sh2); overflow:hidden}
-.today::before{content:''; position:absolute; inset:0 auto 0 0; width:10px; background:var(--kc,var(--fill))}
-.tdate{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px}
-.tdate .when{font-family:var(--disp); font-weight:700; font-size:1rem; color:#fff; background:var(--kc,var(--fill));
-  border-radius:99px; padding:4px 14px}
-.tdate .d{font-family:var(--disp); font-weight:700; font-size:1.125rem; color:var(--ink2); font-variant-numeric:tabular-nums}
-.ktag{display:inline-block; font-size:0.8125rem; font-weight:800; color:var(--kc); border:2px solid var(--kc);
-  border-radius:99px; padding:1px 11px; background:var(--white)}
-.today h2{margin:6px 0 4px; font-size:clamp(1.625rem,4.6vw,2.375rem)}
-.today .pg{font-size:0.9375rem; color:var(--muted); font-weight:600; margin:0 0 12px}
-.today .goal{font-size:1.0625rem; color:var(--ink); line-height:1.75; margin:12px 0 18px}
-.today .goal::before{content:'오늘의 목표'; display:block; font-size:0.8125rem; font-weight:800; color:var(--kc); margin-bottom:2px}
-.gobig{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:18px}
-.gobig a{display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:1rem; text-decoration:none;
-  color:#fff; background:var(--kc,var(--fill)); border-radius:14px; padding:12px 18px; box-shadow:var(--sh); transition:.15s}
-.gobig a:nth-child(n+2){background:var(--white); color:var(--kc); border:2px solid var(--kc)}
-.gobig a:hover{transform:translateY(-2px); box-shadow:var(--sh2)}
-.tinfo{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:10px}
-.tinfo>div{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:12px 15px; font-size:0.9375rem; line-height:1.6; color:var(--ink2)}
-.tinfo>div b{display:block; font-size:0.8125rem; color:var(--blue-d); margin-bottom:2px}
-.nextline{margin-top:12px; font-size:0.9688rem; color:var(--ink2); background:var(--white); border:1px dashed var(--line);
-  border-radius:16px; padding:12px 18px}
-.nextline b{color:var(--ink)}
-.empty{background:var(--white); border:2px dashed var(--blue-l); border-radius:24px; padding:26px; text-align:center; color:var(--ink2); font-size:1.0625rem}
-
-/* 달별 목록 */
-.legend2{display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin:0 0 18px}
-.legend2 .k{font-size:0.8125rem; font-weight:800; border-radius:99px; padding:3px 12px; color:#fff}
-.k.u2{background:var(--k-u2)} .k.ex{background:var(--k-ex)} .k.pj{background:var(--k-pj)} .k.pa{background:var(--k-pa)} .k.et{background:var(--k-et)}
-.legend2 .sepx{width:1px; height:20px; background:var(--line); margin:0 4px}
-.legend2 .lt{margin:0}
-.mon{margin-top:26px}
-.mon>h3{display:flex; align-items:baseline; gap:10px; font-family:var(--disp); font-weight:700; font-size:1.5rem; color:var(--ink);
-  margin:0 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line)}
-.mon>h3 small{font-family:var(--sans); font-size:0.8438rem; font-weight:600; color:var(--muted)}
-.rows{display:grid; gap:7px}
-.row2{background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:var(--sh); overflow:hidden;
-  border-left:6px solid var(--kc)}
-.row2>button{width:100%; display:grid; grid-template-columns:64px 1fr auto; gap:14px; align-items:center; text-align:left;
-  font-family:var(--sans); background:none; border:none; padding:11px 15px; cursor:pointer; color:var(--ink)}
-.row2>button:focus-visible{outline:2px solid var(--blue); outline-offset:-3px}
-.dbox{text-align:center; line-height:1.1}
-.dbox b{display:block; font-family:var(--disp); font-weight:700; font-size:1.375rem; color:var(--ink); font-variant-numeric:tabular-nums}
-.dbox span{font-size:0.75rem; font-weight:800; color:var(--muted)}
-.rtt{min-width:0}
-.rtt .ktag{font-size:0.75rem; padding:0 9px; margin-right:6px; vertical-align:1px}
-.rtt b{font-size:1rem; font-weight:700}
-.rtt .lt{margin:0 0 0 5px; font-size:0.7188rem; padding:1px 9px}
-.chev{font-size:1rem; color:var(--muted); transition:transform .2s}
-.row2.open .chev{transform:rotate(180deg)}
-.rdet{padding:0 18px 16px 93px; font-size:0.9375rem; color:var(--ink2); line-height:1.7}
-.rdet p{margin:4px 0}
-.rdet .fgo{margin-top:8px}
-.row2.past{opacity:.55}
-.row2.now{box-shadow:0 0 0 3px var(--kc), var(--sh2)}
-.row2 .nowtag{display:inline-block; margin-left:8px; font-size:0.7188rem; font-weight:800; color:#fff; background:var(--kc);
-  border-radius:99px; padding:1px 9px; vertical-align:2px}
-.offrow{display:flex; align-items:center; gap:12px; font-size:0.875rem; font-weight:700; color:var(--muted);
-  padding:6px 15px; border-radius:12px; background:repeating-linear-gradient(135deg,var(--tint) 0 10px,transparent 10px 20px);
-  border:1px dashed var(--line)}
-.offrow b{font-family:var(--disp); color:var(--muted); min-width:64px; text-align:center; font-variant-numeric:tabular-nums}
-@media (max-width:560px){
-  .row2>button{grid-template-columns:52px 1fr auto; gap:10px; padding:10px 12px}
-  .rdet{padding:0 14px 14px 14px}
-  .today{padding:22px 20px 22px 26px}
-}
-
-/* 주별 묶음 — 주마다 다른 색 띠, 주차 이름은 둥근 강조 글꼴 */
-.wkblk{background:var(--wb); border-radius:20px; padding:12px 12px 12px; margin:12px 0; border:1px solid color-mix(in srgb,var(--wt) 22%,transparent)}
-.wkblk.now{box-shadow:0 0 0 3px var(--wt), var(--sh2)}
-.wkhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; padding:2px 6px 10px}
-.wkhead .wkname{font-size:1.25rem}
-.wkrng{font-size:.875rem; font-weight:700; color:var(--wt); font-variant-numeric:tabular-nums}
-.wkcnt{font-size:.75rem; font-weight:800; color:var(--wt); border:1.5px solid var(--wt); border-radius:99px; padding:0 9px}
-.wknow{margin-left:auto; font-family:var(--pop); font-weight:800; font-size:.8125rem; color:#fff; background:var(--wt); border-radius:99px; padding:3px 12px}
-.wkblk .row2{border-color:color-mix(in srgb,var(--wt) 18%,var(--line))}
+/* ── 코랩 실습실 · AI 모델 도감 공통 (2026-10-06) ── */
+.lprog{height:10px; border-radius:99px; background:var(--tint); border:1px solid var(--line); overflow:hidden; margin-top:14px; max-width:520px}
+.lprog i{display:block; height:100%; width:0; background:var(--fill); transition:width .3s}
+.stn{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--fill); color:var(--on-fill); font-family:var(--disp); font-weight:700}
+.card h3{margin:8px 0 4px}
+.lctl{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin:0 0 6px}
+.lctl .pick{flex-wrap:wrap; max-width:100%; border-radius:16px}
+.lgrp{font-size:1.375rem; margin:26px 0 12px}
+.labgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr)); gap:14px}
+.lab2{background:var(--white); border:1px solid var(--line); border-radius:var(--r); padding:16px 18px; box-shadow:var(--sh); display:flex; flex-direction:column}
+.lab2.done{border-color:color-mix(in srgb,var(--good) 55%,transparent); background:color-mix(in srgb,var(--good-bg) 45%,var(--white))}
+.lab2 header{display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px}
+.ltool{font-size:0.75rem; font-weight:800; border-radius:99px; padding:2px 10px}
+.ltool.k-co{color:var(--warm); background:var(--warm-bg)} .ltool.k-tm{color:var(--blue-d); background:var(--blue-xl)} .ltool.k-or{color:var(--good); background:var(--good-bg)}
+.lpg{font-size:0.8125rem; font-weight:700; color:var(--muted)}
+.ldone{margin-left:auto; font-size:0.8125rem; font-weight:700; color:var(--ink2); display:inline-flex; gap:5px; align-items:center; cursor:pointer}
+.lab2 h3{margin:10px 0 4px; font-size:1.1875rem; line-height:1.4}
+.lwhen{margin:0 0 6px; font-size:0.8438rem; font-weight:700; color:var(--blue-d)}
+.lab2 dl{margin:6px 0 0; display:grid; grid-template-columns:auto minmax(0,1fr); gap:4px 10px; font-size:0.875rem; line-height:1.6}
+.lab2 dt{font-weight:800; color:var(--blue-d); white-space:nowrap}
+.lab2 dd{margin:0; color:var(--ink2)}
+.lv{color:var(--warm); letter-spacing:1px}
+.lsteps2{margin:10px 0 0; padding-left:1.3em; font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.lnote{margin:10px 0 0; font-size:0.8438rem; color:var(--ink2); background:var(--tint); border-radius:12px; padding:8px 11px; line-height:1.6}
+.lbtns{display:flex; flex-wrap:wrap; gap:7px; margin-top:auto; padding-top:12px}
+.lbig{font-weight:800; font-size:0.9375rem; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:9px 18px; text-decoration:none}
+.lbig:hover{filter:brightness(1.07)}
+.lsm{font-weight:700; font-size:0.8438rem; color:var(--blue-d); background:var(--blue-xl); border:1px solid var(--blue-l); border-radius:99px; padding:7px 13px; text-decoration:none}
+.mdmap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:11px}
+.mdmap>div{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:13px 15px; box-shadow:var(--sh)}
+.mdmap b{display:block; font-size:0.9375rem}
+.mdmap span{display:inline-block; margin:4px 0; font-size:0.75rem; font-weight:800; color:var(--blue-d); background:var(--blue-xl); border-radius:99px; padding:2px 10px}
+.mdmap em{display:block; font-style:normal; font-size:0.8438rem; color:var(--ink2); line-height:1.6}
+.tbm{display:inline-block; font-size:0.7188rem; font-weight:800; border-radius:99px; padding:2px 9px; white-space:nowrap}
+.tbm.t2{color:var(--good); background:var(--good-bg)} .tbm.t1{color:var(--warm); background:var(--warm-bg)} .tbm.t0{color:var(--muted); background:var(--tint); border:1px dashed var(--line)}
+.mdsearch{display:flex; align-items:center; gap:8px; flex:1 1 260px; max-width:440px}
+.mdsearch span{font-size:0.8438rem; font-weight:800; color:var(--ink2)}
+.mdsearch input{flex:1; min-width:0; font-family:var(--sans); font-size:0.9375rem; border:1px solid var(--line); border-radius:99px; padding:8px 14px; background:var(--white); color:var(--ink)}
+#mdList{display:grid; gap:10px}
+.mdc{background:var(--white); border:1px solid var(--line); border-radius:18px; box-shadow:var(--sh)}
+.mdc[open]{border-color:var(--blue-l)}
+.mdc summary{list-style:none; cursor:pointer; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; padding:13px 16px}
+.mdc summary::-webkit-details-marker{display:none}
+.mdi{font-size:1.75rem; line-height:1}
+.mdh>b{font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d); margin-right:6px}
+.mdh>i{font-style:normal; font-size:0.8125rem; color:var(--muted)}
+.mdone{display:block; font-size:0.9062rem; color:var(--ink); line-height:1.55; margin-top:3px}
+.mdtags{display:flex; flex-direction:column; gap:4px; align-items:flex-end}
+.mdfam{font-size:0.75rem; font-weight:700; color:var(--ink2)}
+.mdbody{padding:0 18px 16px; border-top:1px dashed var(--line)}
+.mdp{margin:12px 0 0; font-size:0.875rem; font-weight:700; color:var(--good)}
+.mdlike{margin:10px 0; background:var(--tint); border-radius:12px; padding:9px 12px; font-size:0.9062rem; line-height:1.65}
+.mdlike b, .mduse b, .mdkey b{display:inline-block; margin-right:8px; color:var(--blue-d); font-size:0.8125rem}
+.mdcols{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:6px 22px}
+.mdcols h4{margin:12px 0 5px; font-size:0.875rem; color:var(--blue-d)}
+.mdcols ol, .mdcols ul{margin:0; padding-left:1.25em; font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.mdcols li{margin:2px 0}
+.mdpar code{font-family:var(--mono); font-size:0.7812rem; color:var(--blue-d); background:var(--blue-xl); border-radius:6px; padding:0 5px}
+ul.pro li::marker{content:'＋ '; color:var(--good); font-weight:800}
+ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
+.mdkey{margin:10px 0 0; font-family:var(--mono); font-size:0.8125rem; color:var(--ink); background:var(--blue-xl); border-radius:10px; padding:8px 11px; line-height:1.6; overflow-x:auto}
+.mduse{margin:12px 0; font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.mdbody .codebox pre{white-space:pre; overflow-x:auto}
+@media (max-width:560px){ .mdc summary{grid-template-columns:auto minmax(0,1fr)} .mdtags{grid-column:2; flex-direction:row; align-items:center; flex-wrap:wrap} }
+.mdc summary::before, .mdc summary::after{display:none!important}
+.mdc summary .mdh::after{content:"자세히 ▾"; display:inline-block; margin-left:8px; font-size:.75rem; font-weight:800; color:var(--blue-d)}
+.mdc[open] summary .mdh::after{content:"접기 ▴"}
+.mdone b{font-weight:800; color:var(--ink)}
 </style>
 
 <nav><div class="wrap"><div class="row">
   <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내</a>
   <span class="sep"></span>
-  <a href="https://richee-pc.github.io/AI_cs/plan.html" class="here">📅 우리 반 수업 계획</a>
+  <a href="https://richee-pc.github.io/AI_cs/plan.html" class="plan">📅 우리 반 수업 계획</a>
   <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/unit1.html">Ⅰ. 인공지능의 이해</a>
   <a href="https://richee-pc.github.io/AI_cs/unit2.html">Ⅱ. 인공지능과 학습</a>
@@ -1056,39 +1028,75 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/colab.html">코랩 첫걸음</a>
   <a href="https://richee-pc.github.io/AI_cs/labs.html">🧪 코랩 실습실</a>
-  <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>
+  <a href="https://richee-pc.github.io/AI_cs/models.html" class="here">📚 AI 모델 도감</a>
 </div></div></nav>
 
 <div class="hero" style="padding-bottom:30px"><div class="wrap">
-  <p class="badge">10월 둘째 주 ~ 12월 · 분반마다 날짜가 다릅니다</p>
-  <h1>우리 반 수업 계획<em>오늘 무엇을 하나요?</em></h1>
-  <p class="lede">우리 반을 한 번 고르면 <b>오늘(또는 다음) 수업</b>이 맨 위에 뜨고,
-    단추 하나로 <b>그 시간에 쓸 자료로 바로</b> 갑니다. 아래에는 학기 끝까지의 계획이 달별로 있습니다.</p>
-  <div class="clsbig" id="cPick" role="group" aria-label="우리 반 고르기">
-    <button type="button" data-c="A" aria-pressed="false"><b>인기A</b><span>수 · 목 · 금</span></button>
-    <button type="button" data-c="D" aria-pressed="false"><b>인기D</b><span>월 · 화 · 금</span></button>
-    <button type="button" data-c="E" aria-pressed="false"><b>인기E</b><span>월 · 화 · 목</span></button>
+  <p class="badge">교과서 모델 + 우리가 자주 만나는 AI 모델 · 26종</p>
+  <h1>AI 모델 도감<em>어떻게 정하고, 언제 쓰나</em></h1>
+  <p class="lede">교과서에 자세히 나오는 모델뿐 아니라, 오렌지3 · 코랩 · 티처블 머신 · 챗GPT 속에서 <b>우리가 실제로 만나는 모델</b>을 한곳에 모았습니다.
+    모델마다 <b>한 줄 요약 → 비유 → 작동 순서 → 핵심 식 → 설정값 → 장단점 → 쓰임 → 코드 · 오렌지3 위젯</b> 순서입니다.</p>
+  <div class="facts">
+    <div class="fact"><b>26<span style="font-size:1.0rem"> 종</span></b><span>회귀 · 분류 · 비지도 · 딥러닝 · 생성형 · 강화</span></div>
+    <div class="fact"><b id="mdTb">0</b><span>★ 교과서 본문 (시험 중심)</span></div>
+    <div class="fact"><b>1<span style="font-size:1.0rem"> 권</span></b><span>모델 비교 실험실 노트북</span></div>
   </div>
 </div></div>
 
-<section id="today" style="padding-top:34px"><div class="wrap">
-  <div id="tCard"></div>
-  <div id="tNext"></div>
+<section id="map"><div class="wrap">
+  <p class="eyebrow">한눈에</p>
+  <h2>먼저 «무엇을 하려는가»로 나눕니다</h2>
+  <div class="mdmap">
+    <div><b>정답이 있다 · 숫자를 맞힌다</b><span>회귀(예측)</span><em>선형 · 다항 · 릿지/라쏘 · 트리 · 랜덤 포레스트 · 신경망</em></div>
+    <div><b>정답이 있다 · 종류를 맞힌다</b><span>분류</span><em>로지스틱 · kNN · 트리 · 랜덤 포레스트 · 부스팅 · SVM · 나이브 베이즈 · 신경망 · CNN</em></div>
+    <div><b>정답이 없다 · 묶거나 줄인다</b><span>비지도</span><em>k-평균 · 계층적 군집 · DBSCAN · PCA · 연관 규칙 · 협업 필터링</em></div>
+    <div><b>새로 만들어 낸다</b><span>생성형</span><em>트랜스포머 · 대규모 언어 모델 · GAN · 확산 모델</em></div>
+    <div><b>행동하고 보상을 받는다</b><span>강화 학습</span><em>Q-러닝 · DQN · 알파고 · RLHF</em></div>
+    <div><b>남이 배운 것을 빌린다</b><span>학습 방법</span><em>전이 학습(티처블 머신)</em></div>
+  </div>
+  <p class="note" style="margin-top:12px"><b>표시 읽기.</b> <span class="tbm t2">★ 교과서 본문</span> 자세히 배우는 모델(2차 지필 중심) ·
+    <span class="tbm t1">☆ 교과서에 이름</span> 읽을거리·예시로 나오는 모델 · <span class="tbm t0">넓혀 보기</span> 교과서 밖이지만 자주 쓰는 모델(시험 범위 아님).</p>
 </div></section>
 
-<section id="all"><div class="wrap">
-  <p class="eyebrow">학기 끝까지</p>
-  <h2>달별 수업 계획</h2>
-  <p class="sub">줄을 누르면 그 시간의 목표 · 낼 것 · 바로 가기가 펼쳐집니다. 지난 수업은 흐리게 보입니다.</p>
-  <div class="legend2">
-    <span class="k u2">Ⅱ단원</span><span class="k ex">데이터 탐구</span><span class="k pj">프로젝트</span><span class="k pa">수행평가</span><span class="k et">정리 · 전시</span>
-    <span class="sepx"></span>
-    <span class="lt n">AI 없이</span><span class="lt g">초록 · 자율적 사용</span><span class="lt y">노랑 · 유도적 사용</span>
+<section id="list"><div class="wrap">
+  <p class="eyebrow">도감</p>
+  <h2>모델 26종</h2>
+  <div class="lctl">
+    <span class="pick" id="mdFam" role="group" aria-label="갈래">
+      <button type="button" data-f="all" aria-pressed="true">전체</button>
+      <button type="button" data-f="reg" aria-pressed="false">회귀</button>
+      <button type="button" data-f="cls" aria-pressed="false">분류</button>
+      <button type="button" data-f="uns" aria-pressed="false">비지도</button>
+      <button type="button" data-f="dl" aria-pressed="false">딥러닝</button>
+      <button type="button" data-f="gen" aria-pressed="false">생성형</button>
+      <button type="button" data-f="rl" aria-pressed="false">강화 · 전이</button>
+      <button type="button" data-f="tb" aria-pressed="false">★ 교과서만</button>
+    </span>
+    <label class="mdsearch"><span>찾기</span><input id="mdQ" type="search" placeholder="예: 과적합, 사진, 확률, 오렌지3 위젯 이름"></label>
   </div>
-  <div id="months"></div>
-  <p class="note" style="margin-top:22px"><b>날짜가 바뀌면</b> 수업 시간에 먼저 알리고 이 쪽도 함께 고칩니다.
-    9월까지의 수업과 수행평가 ① 날짜는 <a href="https://richee-pc.github.io/AI_cs/index.html#class">2학기 안내 «우리 반 날짜만 보기»</a>에 있습니다.</p>
+  <div class="simctl" style="margin:0 0 12px"><button type="button" class="mini gh" id="mdOpen">모두 펼치기</button><button type="button" class="mini gh" id="mdClose">모두 접기</button></div>
+  <div id="mdList"></div>
 </div></section>
+
+<section id="compare"><div class="wrap">
+  <p class="eyebrow">비교표</p>
+  <h2>지도학습 모델 한 장 비교</h2>
+  <div class="tw"><table>
+    <tr><th>모델</th><th>하는 일</th><th>설명하기</th><th>데이터 양</th><th>정규화</th><th>과적합 조심</th><th>오렌지3</th></tr>
+    <tr><td><b>선형 회귀</b> ★</td><td>예측</td><td>★★★</td><td>적어도 됨</td><td>선택</td><td>낮음</td><td>Linear Regression</td></tr>
+    <tr><td><b>로지스틱 회귀</b> ★</td><td>분류</td><td>★★★</td><td>적어도 됨</td><td>권장</td><td>낮음</td><td>Logistic Regression</td></tr>
+    <tr><td><b>k-최근접 이웃</b> ★</td><td>분류 · 예측</td><td>★★☆</td><td>중간 이하</td><td><b>필수</b></td><td>k가 작을 때</td><td>kNN</td></tr>
+    <tr><td><b>의사결정트리</b> ★</td><td>분류 · 예측</td><td>★★★</td><td>중간</td><td>필요 없음</td><td><b>깊을 때 큼</b></td><td>Tree</td></tr>
+    <tr><td>랜덤 포레스트</td><td>분류 · 예측</td><td>★☆☆</td><td>중간 이상</td><td>필요 없음</td><td>낮은 편</td><td>Random Forest</td></tr>
+    <tr><td>그레이디언트 부스팅</td><td>분류 · 예측</td><td>★☆☆</td><td>중간 이상</td><td>필요 없음</td><td>설정에 따라</td><td>Gradient Boosting</td></tr>
+    <tr><td>SVM ☆</td><td>분류 · 예측</td><td>★☆☆</td><td>중간</td><td><b>필수</b></td><td>C가 클 때</td><td>SVM</td></tr>
+    <tr><td>나이브 베이즈 ☆</td><td>분류</td><td>★★☆</td><td>적어도 됨</td><td>필요 없음</td><td>낮음</td><td>Naive Bayes</td></tr>
+    <tr><td><b>신경망</b> ★</td><td>분류 · 예측</td><td>★☆☆</td><td><b>많이</b></td><td><b>필수</b></td><td>큼(드롭아웃)</td><td>Neural Network</td></tr>
+  </table></div>
+  <p class="hint">고르는 법은 <a href="https://richee-pc.github.io/AI_cs/unit2.html#models">Ⅱ단원 «모델 고르는 다섯 걸음 · 고르기 도우미»</a>에, 같은 데이터로 한꺼번에 비교하는 코드는
+    <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/12_model_zoo.ipynb" target="_blank" rel="noopener">모델 비교 실험실 노트북</a>에 있습니다.</p>
+</div></section>
+
 
 <button type="button" class="totop" id="toTop" aria-label="맨 위로">↑</button>
 
@@ -1101,143 +1109,390 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-
 <script src="lessons.js?v=286d3ef1"></script>
 <script>
+/* AI 모델 도감 데이터
+   fam: reg 숫자 예측 · cls 분류 · uns 비지도 · dl 딥러닝 · gen 생성형 · rl 강화 학습 · how 학습 방법
+   tb : 2 = 교과서 본문에서 자세히(시험 범위 중심) · 1 = 교과서에 이름·읽을거리로 나옴 · 0 = 교과서 밖(넓혀 보기)
+   p  : 교과서 쪽 · ow: 오렌지3 위젯 · nb: 실습 노트북 */
+var MODELS = [
+{ id:'linreg', fam:'reg', tb:2, p:'Ⅱ-04 · 104~107쪽 · Ⅳ 205~207쪽', name:'선형 회귀', en:'Linear Regression', icon:'📈',
+  one:'점들 사이를 가장 잘 지나가는 <b>직선</b>을 찾아 숫자를 맞힌다.',
+  like:'공부 시간과 점수를 점으로 찍고, 자를 대어 «평균적으로» 지나가는 선을 긋는 것.',
+  how:['직선 y = a·x + b 를 아무렇게나 하나 긋는다.','모든 점에서 «실제값 − 예측값»(오차)을 재고 제곱해 평균 낸다(MSE).','MSE가 줄어드는 쪽으로 a(기울기)와 b(절편)를 조금씩 고친다 — 경사하강법.','더 줄어들지 않으면 멈춘다. 그 직선이 모델이다.'],
+  key:'예측값 = a₁·x₁ + a₂·x₂ + … + b · 목표: MSE를 가장 작게',
+  par:[['(설정값 거의 없음)','특성(x)을 무엇으로 고르느냐가 가장 중요']],
+  pro:['빠르고 단순하다','기울기로 «x가 1 늘면 y가 a만큼» 설명할 수 있다','데이터가 적어도 안정적이다'],
+  con:['관계가 곡선이면 잘 못 맞힌다','이상치 하나에 직선이 끌려간다','데이터 범위 밖(먼 미래)을 맞히면 크게 틀릴 수 있다'],
+  use:['키로 몸무게 짐작','광고비로 매출 예측','교과서 — 도서관·공연장 수로 청년 인구, 기아 지수로 연도'],
+  sk:"from sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\nprint(model.coef_, model.intercept_)   # 기울기 · 절편\nprint(model.score(X_test, y_test))     # R²",
+  ow:'Linear Regression', nb:['02_model','07_ghi_hunger'] },
+
+{ id:'poly', fam:'reg', tb:0, name:'다항 회귀', en:'Polynomial Regression', icon:'〰️',
+  one:'x², x³ 같은 항을 더해 <b>곡선</b>으로 숫자를 맞힌다.',
+  like:'자 대신 휘어지는 철사를 대어 점들을 따라가게 하는 것.',
+  how:['원래 특성 x에서 x², x³ … 을 새 특성으로 만든다.','그 특성들로 선형 회귀를 한다 — 계산은 같고 모양만 곡선이 된다.','차수가 높을수록 더 구불구불해진다.'],
+  key:'예측값 = a·x + b·x² + c·x³ + … + d',
+  par:[['degree(차수)','2~3이면 충분한 경우가 많다. 너무 크면 점을 «외우는» 곡선(과적합)']],
+  pro:['직선으로 안 되는 관계를 표현','선형 회귀와 같은 도구로 해결'],
+  con:['차수가 크면 과적합 · 범위 밖에서 엉뚱한 값','특성이 많으면 항이 폭발적으로 늘어남'],
+  use:['기온과 전력 사용량(너무 덥거나 추우면 모두 늘어남)','공 던진 높이의 포물선'],
+  sk:"from sklearn.preprocessing import PolynomialFeatures\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.linear_model import LinearRegression\nmodel = make_pipeline(PolynomialFeatures(degree=2), LinearRegression())\nmodel.fit(X_train, y_train)",
+  ow:'Polynomial Regression (애드온) · 또는 Feature Constructor + Linear Regression' },
+
+{ id:'ridge', fam:'reg', tb:0, name:'릿지 · 라쏘 (규제)', en:'Ridge · Lasso', icon:'🧷',
+  one:'선형 회귀가 가중치를 너무 크게 키우지 못하게 <b>벌점</b>을 준다 — 과적합 막기.',
+  like:'시험 문제만 외우는 학생에게 «너무 한 문제에만 매달리면 감점» 규칙을 주는 것.',
+  how:['선형 회귀의 목표(MSE)에 «가중치 크기»를 벌점으로 더한다.','릿지(L2)는 가중치를 골고루 작게, 라쏘(L1)는 쓸모없는 특성의 가중치를 0으로 만든다.','벌점 세기(alpha)는 사람이 정한다.'],
+  key:'목표 = MSE + alpha × (가중치 크기)',
+  par:[['alpha','클수록 단순한 모델. 0이면 그냥 선형 회귀']],
+  pro:['특성이 많을 때 과적합을 줄인다','라쏘는 중요한 특성만 골라 준다'],
+  con:['alpha를 잘 골라야 한다','특성 단위를 맞추는(정규화) 것이 좋다'],
+  use:['특성이 수십 개인 집값 예측','유전자 데이터처럼 특성이 매우 많은 경우'],
+  sk:"from sklearn.linear_model import Ridge, Lasso\nmodel = Ridge(alpha=1.0)    # 또는 Lasso(alpha=0.1)\nmodel.fit(X_train, y_train)",
+  ow:'Linear Regression → Regularization: Ridge / Lasso', nb:['12_model_zoo'] },
+
+{ id:'logreg', fam:'cls', tb:2, p:'Ⅱ-04 · 94쪽 · 부록 221~226쪽', name:'로지스틱 회귀', en:'Logistic Regression', icon:'🧮',
+  one:'특성으로 점수를 매긴 뒤 <b>S자 곡선</b>에 넣어 0~1 <b>확률</b>로 바꾸고, 0.5를 넘으면 «예».',
+  like:'거리별 슛 성공 기록을 보고 «이 거리에선 성공 확률 81%»라고 말해 주는 코치.',
+  how:['특성마다 가중치를 곱해 더한 점수 z를 구한다.','z를 시그모이드(S자) 함수에 넣어 0~1 사이 확률로 만든다.','실제 정답과 확률의 차이(로그 손실)가 작아지도록 가중치를 고친다.','새 데이터는 확률 0.5를 기준으로 나눈다(기준은 바꿀 수 있다).'],
+  key:'확률 = 1 / (1 + e^(−z)), z = a₁·x₁ + … + b',
+  par:[['C (규제 세기의 역수)','작을수록 단순한 모델'],['class_weight','적은 쪽에 무게 — 불균형 데이터에서 «balanced»'],['max_iter','학습 반복 횟수 — 경고가 나면 늘리기']],
+  pro:['확률을 준다 — 위험도처럼 해석 가능','가중치의 +/−로 방향을 설명','빠르고 기준선 모델로 좋다'],
+  con:['경계가 곧은 선(면)이라 복잡한 모양은 못 나눔','이름은 회귀지만 분류 모델 — 헷갈리기 쉬움'],
+  use:['스팸 / 정상','질병 위험 예측','교과서 — 슛 성공 확률, 약수터 물 적합/부적합'],
+  sk:"from sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression(max_iter=1000)\nmodel.fit(X_train, y_train)\nmodel.predict_proba(X_test)[:5]   # 집단마다 확률",
+  ow:'Logistic Regression', nb:['09_water_logistic','12_model_zoo'] },
+
+{ id:'knn', fam:'cls', tb:2, p:'Ⅱ-04 · 93쪽 · Ⅱ-05 108~112쪽 · 부록 213~218쪽', name:'k-최근접 이웃', en:'k-Nearest Neighbors (kNN)', icon:'🎯',
+  one:'새 데이터와 <b>가장 가까운 k개</b>를 보고 다수결(예측이면 평균).',
+  like:'전학 온 친구가 어느 동아리에 맞을지, 성향이 가장 비슷한 친구 셋이 어디 있는지 보고 정하는 것.',
+  how:['학습 때는 데이터를 그냥 기억해 둔다(게으른 학습).','새 데이터가 오면 모든 데이터와의 거리를 잰다.','가까운 순서로 k개를 뽑는다.','그 k개의 다수결(예측이면 평균)이 답.'],
+  key:'거리 = √((x₁−x₁′)² + (x₂−x₂′)² + …) · k는 사람이 정하는 하이퍼파라미터',
+  par:[['n_neighbors (k)','작으면 우연에 휘둘림, 크면 다 비슷해짐. 두 집단이면 홀수'],['weights','distance — 가까운 이웃에 더 큰 표'],['metric','거리 재는 법(기본 유클리드)']],
+  pro:['원리가 직관적','경계가 구불구불해도 됨','학습이 거의 즉시'],
+  con:['단위가 다르면 큰 숫자가 거리를 독차지 → 정규화 필수','데이터가 많으면 예측이 느림','특성이 많으면 «가깝다»의 의미가 흐려짐'],
+  use:['붓꽃 품종 분류','비슷한 상품 찾기','교과서 — 동물 보호소의 개/고양이, 스트레스 단계'],
+  sk:"from sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nmodel = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=5))\nmodel.fit(X_train, y_train)",
+  ow:'kNN (+ Preprocess: Normalize)', nb:['02_model','08_stress_knn_tree','12_model_zoo'] },
+
+{ id:'tree', fam:'cls', tb:2, p:'Ⅱ-04 · 96쪽 · 부록 213~218쪽', name:'의사결정트리', en:'Decision Tree', icon:'🌳',
+  one:'데이터를 가장 깔끔하게 가르는 <b>예/아니요 질문</b>을 차례로 던져 나눈다.',
+  like:'스무고개 — «동물인가요? → 다리가 넷인가요? → …».',
+  how:['모든 특성 · 모든 기준값 중 «나눈 뒤 가장 순수해지는» 질문을 고른다(지니 불순도·엔트로피).','나뉜 두 무리 각각에서 다시 가장 좋은 질문을 고른다.','정한 깊이에 닿거나 더 나눌 게 없으면 멈춘다.','맨 끝(잎)의 다수결(예측이면 평균)이 답.'],
+  key:'불순도(지니) = 1 − Σ(각 집단 비율)² — 0이면 한 집단뿐',
+  par:[['max_depth','깊이 제한 — 가장 중요한 과적합 방지'],['min_samples_leaf','잎 하나에 최소 몇 개'],['criterion','gini / entropy']],
+  pro:['판단 과정을 그림으로 설명 — 설명력 최고','숫자·범주 섞여도 되고 정규화 불필요','중요한 특성을 알려 줌'],
+  con:['깊게 키우면 훈련 데이터를 외움(과적합)','데이터가 조금만 바뀌어도 나무 모양이 크게 바뀜','혼자서는 정확도가 높지 않은 편'],
+  use:['대출 승인','진단 순서도','교과서 — 대출 심사 트리, 스트레스 단계'],
+  sk:"from sklearn.tree import DecisionTreeClassifier, plot_tree\nmodel = DecisionTreeClassifier(max_depth=3, random_state=0)\nmodel.fit(X_train, y_train)\nplot_tree(model, feature_names=list(X.columns), filled=True)",
+  ow:'Tree → Tree Viewer', nb:['08_stress_knn_tree','12_model_zoo'] },
+
+{ id:'rf', fam:'cls', tb:0, name:'랜덤 포레스트', en:'Random Forest', icon:'🌲',
+  one:'조금씩 다른 데이터로 <b>트리를 수백 그루</b> 키워 다수결 — «집단 지성».',
+  like:'한 명의 심사위원 대신, 서로 다른 자료를 본 심사위원 100명의 투표.',
+  how:['데이터를 중복 허용으로 무작위 추출해 트리마다 다른 훈련 세트를 만든다(배깅).','각 질문을 고를 때도 특성 일부만 무작위로 보게 한다.','트리들을 따로 키운 뒤 다수결(예측이면 평균).'],
+  key:'여러 약한 모델의 오차는 서로 상쇄된다 — 앙상블',
+  par:[['n_estimators','트리 수(100~500)'],['max_depth','트리 깊이'],['max_features','질문 고를 때 보는 특성 수']],
+  pro:['정확도가 높고 과적합이 적다','설정을 크게 안 만져도 잘 된다','특성 중요도를 준다'],
+  con:['나무 한 그루처럼 그려 설명하기 어렵다','모델이 크고 예측이 느릴 수 있다'],
+  use:['신용 평가','질병 예측','표 형태 데이터 대회의 기본 강자'],
+  sk:"from sklearn.ensemble import RandomForestClassifier\nmodel = RandomForestClassifier(n_estimators=200, random_state=0)\nmodel.fit(X_train, y_train)\nmodel.feature_importances_",
+  ow:'Random Forest', nb:['12_model_zoo'] },
+
+{ id:'gb', fam:'cls', tb:0, name:'그레이디언트 부스팅 (XGBoost · LightGBM)', en:'Gradient Boosting', icon:'🚀',
+  one:'작은 트리를 <b>하나씩 차례로</b> 더하는데, 다음 트리는 앞 트리들이 <b>틀린 만큼</b>을 고친다.',
+  like:'오답 노트 — 틀린 문제만 다시 공부하기를 수십 번 되풀이.',
+  how:['작은 트리 하나로 예측한다.','실제값과의 차이(잔차)를 구한다.','그 잔차를 맞히는 새 트리를 만들어 조금(학습률)만 더한다.','정한 수만큼 반복한다.'],
+  key:'예측 = 트리₁ + η·트리₂ + η·트리₃ + … (η: 학습률)',
+  par:[['n_estimators','트리 수'],['learning_rate','한 번에 고치는 정도(0.01~0.3)'],['max_depth','보통 3~8로 작게']],
+  pro:['표 데이터에서 가장 정확한 축','숫자·범주 섞인 데이터에 강함'],
+  con:['설정값이 많고 과적합 위험','설명이 어렵고, 차례로 학습해 느릴 수 있음'],
+  use:['캐글 대회 상위권 단골','추천·광고 클릭 예측'],
+  sk:"from sklearn.ensemble import GradientBoostingClassifier\nmodel = GradientBoostingClassifier(learning_rate=0.1, n_estimators=100)\nmodel.fit(X_train, y_train)\n# 더 빠른 라이브러리: xgboost.XGBClassifier, lightgbm.LGBMClassifier",
+  ow:'Gradient Boosting', nb:['12_model_zoo'] },
+
+{ id:'svm', fam:'cls', tb:1, p:'Ⅱ-04 · 93쪽에 이름', name:'서포트 벡터 머신', en:'Support Vector Machine (SVM)', icon:'🛣️',
+  one:'두 집단 사이에 <b>가장 넓은 빈 길(여백)</b>이 생기도록 경계를 긋는다.',
+  like:'두 동네 사이에 도로를 낼 때, 양쪽 집들과 가장 멀리 떨어지게 길 한가운데를 잡는 것.',
+  how:['두 집단을 나누는 경계 후보 중, 가장 가까운 점(서포트 벡터)과의 거리가 가장 먼 것을 찾는다.','곧은 선으로 안 나뉘면 커널로 데이터를 «높은 차원»으로 옮겨 나눈다.','조금 틀리는 것을 얼마나 허용할지(C) 정한다.'],
+  key:'여백(margin)을 최대로 · 커널: linear / rbf',
+  par:[['C','작으면 여백 넓게(조금 틀려도 됨), 크면 훈련 데이터에 딱 맞춤'],['kernel','linear / rbf'],['gamma','rbf의 휘는 정도']],
+  pro:['특성이 많고 데이터가 중간 규모일 때 강함','커널로 곡선 경계도 가능'],
+  con:['데이터가 많으면 느림','설정이 까다롭고 확률·설명이 약함','정규화 필수'],
+  use:['손글씨 숫자 인식(딥러닝 이전)','문서 분류'],
+  sk:"from sklearn.svm import SVC\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nmodel = make_pipeline(StandardScaler(), SVC(kernel='rbf', C=1.0))\nmodel.fit(X_train, y_train)",
+  ow:'SVM', nb:['12_model_zoo'] },
+
+{ id:'nb', fam:'cls', tb:1, p:'Ⅱ-04 · 93쪽에 이름', name:'나이브 베이즈', en:'Naive Bayes', icon:'📨',
+  one:'특성마다 «이 집단이면 이런 값이 나올 확률»을 <b>곱해</b> 가장 그럴듯한 집단을 고른다.',
+  like:'«무료», «당첨»이 들어간 메일이 스팸에서 얼마나 자주 나왔는지 세어 두었다가 새 메일에 적용.',
+  how:['훈련 데이터에서 집단별로 각 특성 값이 나온 비율을 센다.','새 데이터의 특성 비율을 집단마다 모두 곱한다(베이즈 정리).','곱이 가장 큰 집단이 답.'],
+  key:'P(집단|특성들) ∝ P(집단) × P(특성₁|집단) × P(특성₂|집단) × …',
+  par:[['(설정값 거의 없음)','글자 데이터는 MultinomialNB, 숫자는 GaussianNB']],
+  pro:['아주 빠르고 데이터가 적어도 버팀','글자(낱말) 분류에 강함'],
+  con:['특성들이 서로 상관없다고 «순진하게» 가정','확률값 자체는 잘 안 맞는 편'],
+  use:['스팸 메일 거르기','감성 분석의 기본 모델'],
+  sk:"from sklearn.naive_bayes import GaussianNB\nmodel = GaussianNB()\nmodel.fit(X_train, y_train)",
+  ow:'Naive Bayes', nb:['12_model_zoo'] },
+
+{ id:'kmeans', fam:'uns', tb:2, p:'Ⅱ-04 · 97쪽', name:'k-평균 군집', en:'k-Means', icon:'🫧',
+  one:'정답 없이 데이터를 <b>k개 무리</b>로 묶는다 — 중심을 옮겨 가며.',
+  like:'운동장에 흩어진 학생들을 깃발 k개 주변으로 모이게 하고, 깃발을 무리 한가운데로 계속 옮기는 것.',
+  how:['중심 k개를 아무 데나 찍는다.','각 데이터를 가장 가까운 중심에 배정한다.','중심을 자기 무리의 평균 위치로 옮긴다.','배정이 바뀌지 않을 때까지 2~3을 되풀이.'],
+  key:'목표: 각 점과 자기 중심 사이 거리 제곱의 합을 최소로',
+  par:[['n_clusters (k)','사람이 정함 — 엘보 방법·실루엣 점수로 고르기'],['n_init','처음 중심을 바꿔 여러 번 돌려 가장 좋은 것']],
+  pro:['간단하고 빠르다','정답 열이 없어도 된다'],
+  con:['k를 미리 정해야 함','동그란 무리가 아니면 잘 못 묶음','정규화 필요 · 무리의 «이름»은 사람이 붙임'],
+  use:['고객을 소비 성향별로 나누기','교과서 — 점 12개를 두 무리로'],
+  sk:"from sklearn.cluster import KMeans\nkm = KMeans(n_clusters=3, n_init=10, random_state=0)\nlabels = km.fit_predict(X_scaled)\nkm.cluster_centers_",
+  ow:'k-Means (+ Silhouette Plot)', nb:['12_model_zoo'] },
+
+{ id:'hier', fam:'uns', tb:0, name:'계층적 군집', en:'Hierarchical Clustering', icon:'🪜',
+  one:'가장 가까운 것끼리 <b>두 개씩 합쳐 가며</b> 가계도(덴드로그램)를 만든다.',
+  like:'반 친구들을 가장 친한 짝끼리 묶고, 짝끼리 다시 묶고 … 결국 반 전체가 하나가 되는 족보.',
+  how:['처음엔 데이터 하나하나가 각자 한 무리.','가장 가까운 두 무리를 합친다.','하나가 될 때까지 반복하며 합친 순서를 나무 그림으로 남긴다.','원하는 높이에서 가지를 잘라 무리 수를 정한다.'],
+  key:'무리 사이 거리 재는 법: 최단(single) · 최장(complete) · 평균 · 와드(ward)',
+  par:[['linkage','ward가 보통 무난'],['자르는 높이 / n_clusters','덴드로그램을 보고 결정']],
+  pro:['k를 미리 안 정해도 됨','덴드로그램으로 구조를 한눈에'],
+  con:['데이터가 많으면 매우 느림','한 번 합치면 되돌릴 수 없음'],
+  use:['생물 분류 계통도','비슷한 노래·문서 묶기'],
+  sk:"from sklearn.cluster import AgglomerativeClustering\nlabels = AgglomerativeClustering(n_clusters=3, linkage='ward').fit_predict(X_scaled)",
+  ow:'Distances → Hierarchical Clustering' },
+
+{ id:'dbscan', fam:'uns', tb:0, name:'DBSCAN', en:'Density-Based Clustering', icon:'🌌',
+  one:'점이 <b>빽빽하게 모인 곳</b>을 무리로, 동떨어진 점은 <b>잡음(이상치)</b>으로.',
+  like:'밤하늘에서 별이 촘촘한 곳을 별자리로 묶고, 혼자 떨어진 별은 빼는 것.',
+  how:['한 점의 반경 eps 안에 이웃이 min_samples개 이상이면 «중심점».','중심점끼리 이어지는 것들을 한 무리로 넓혀 간다.','어느 무리에도 못 들어간 점은 잡음.'],
+  key:'밀도로 묶기 — 무리 수를 미리 안 정함',
+  par:[['eps','이웃으로 볼 반경'],['min_samples','중심점이 되기 위한 최소 이웃 수']],
+  pro:['구불구불한 모양의 무리도 찾음','이상치를 자동으로 골라냄'],
+  con:['eps를 고르기 까다로움','밀도가 다른 무리가 섞이면 약함'],
+  use:['GPS 위치로 자주 가는 장소 찾기','이상 거래 탐지'],
+  sk:"from sklearn.cluster import DBSCAN\nlabels = DBSCAN(eps=0.5, min_samples=5).fit_predict(X_scaled)   # -1 = 잡음",
+  ow:'DBSCAN' },
+
+{ id:'pca', fam:'uns', tb:0, name:'주성분 분석 (차원 축소)', en:'PCA', icon:'🗜️',
+  one:'특성 여러 개를 정보를 최대한 살린 채 <b>몇 개의 새 축</b>으로 줄인다.',
+  like:'3차원 물체를 가장 많은 모습이 보이는 방향에서 찍은 2차원 사진.',
+  how:['데이터가 가장 넓게 퍼진 방향을 첫 번째 축으로 잡는다.','그 축과 직각이면서 다음으로 넓게 퍼진 방향을 두 번째 축으로.','앞의 몇 축만 남기면 차원이 줄어든다.'],
+  key:'설명된 분산 비율 — 축 몇 개로 정보의 몇 %를 담는가',
+  par:[['n_components','남길 축 수(그림이면 2)']],
+  pro:['특성이 많은 데이터를 2D 그림으로 보기','잡음 줄이기 · 다른 모델을 빠르게'],
+  con:['새 축의 뜻을 말하기 어렵다','곧은 방향만 찾는다'],
+  use:['설문 수십 문항을 두세 요인으로 요약','군집 결과를 평면에 그리기'],
+  sk:"from sklearn.decomposition import PCA\npca = PCA(n_components=2)\nP = pca.fit_transform(X_scaled)\npca.explained_variance_ratio_",
+  ow:'PCA', nb:['12_model_zoo'] },
+
+{ id:'assoc', fam:'uns', tb:0, name:'연관 규칙 (장바구니 분석)', en:'Association Rules · Apriori', icon:'🛒',
+  one:'«A를 산 사람은 B도 산다» 같은 <b>함께 일어나는 규칙</b>을 찾는다.',
+  like:'편의점이 라면 옆에 김치를 두는 이유를 영수증 더미에서 찾아내는 것.',
+  how:['자주 함께 나오는 묶음을 센다(지지도).','«A가 있을 때 B도 있을 비율»을 구한다(신뢰도).','우연보다 얼마나 자주인지 본다(향상도 > 1).'],
+  key:'지지도 · 신뢰도 · 향상도',
+  par:[['최소 지지도 · 최소 신뢰도','너무 낮으면 규칙이 쏟아지고, 높으면 다 사라짐']],
+  pro:['결과가 «규칙» 문장이라 이해가 쉬움'],
+  con:['상관일 뿐 원인은 아님','물건 종류가 많으면 계산량 폭발'],
+  use:['진열 배치 · 묶음 할인','교과서 88쪽 추천 시스템과 이어짐'],
+  sk:"# pip install mlxtend\nfrom mlxtend.frequent_patterns import apriori, association_rules\nfreq = apriori(basket_df, min_support=0.05, use_colnames=True)\nassociation_rules(freq, metric='lift', min_threshold=1.0)",
+  ow:'Associate 애드온 · Frequent Itemsets → Association Rules' },
+
+{ id:'cf', fam:'uns', tb:2, p:'Ⅱ-03 · 88쪽', name:'협업 필터링 (추천)', en:'Collaborative Filtering', icon:'🎬',
+  one:'나와 <b>취향이 비슷한 사람</b>이 좋아한 것을 추천한다.',
+  like:'«너랑 노래 취향 똑같은 친구가 요즘 이 노래 듣더라».',
+  how:['사람 × 물건 표(구매·별점)를 만든다.','나와 기록이 비슷한 사람(또는 비슷하게 소비된 물건)을 찾는다.','그 사람이 좋아했지만 나는 아직 안 본 것을 추천한다.'],
+  key:'유사도(코사인 · 상관) · 사용자 기반 / 아이템 기반',
+  par:[['이웃 수','몇 명의 «비슷한 사람»을 볼지']],
+  pro:['물건 내용을 몰라도 추천 가능'],
+  con:['처음 온 사람·새 물건은 기록이 없어 추천이 어려움(콜드 스타트)','인기 있는 것만 더 추천되는 쏠림(필터 버블)'],
+  use:['유튜브·넷플릭스·쇼핑몰 추천','교과서 — 라면·콜라 산 A와 B'],
+  sk:"import pandas as pd\nR = df.pivot_table(index='사람', columns='물건', values='별점').fillna(0)\nsim = R.T.corr()   # 사람끼리 상관 — 가장 비슷한 사람의 별점을 참고",
+  ow:'(오렌지3 기본 위젯 없음) Distances 로 유사도 보기' },
+
+{ id:'perceptron', fam:'dl', tb:2, p:'Ⅱ-06 · 116~119쪽', name:'퍼셉트론', en:'Perceptron', icon:'⚡',
+  one:'입력에 가중치를 곱해 더하고, 기준을 넘으면 1 — <b>신경 세포 하나</b>를 흉내 낸 모델.',
+  like:'친구 셋의 의견을 각자 믿는 정도만큼 더해, 어느 점수를 넘으면 «가자!» 하는 결정.',
+  how:['입력 x에 가중치 w를 곱해 모두 더하고 편향 b를 더한다.','활성화 함수(계단)로 0 또는 1을 낸다.','틀리면 가중치를 정답 쪽으로 조금 고친다.'],
+  key:'출력 = 1 (w₁x₁ + w₂x₂ + b > 0 일 때) · 아니면 0',
+  par:[['학습률','한 번에 고치는 정도']],
+  pro:['신경망의 출발점 — 원리 이해에 최고','AND · OR 같은 곧은 선 문제는 해결'],
+  con:['곧은 선으로 못 나누는 XOR은 풀 수 없음 → 층을 쌓아야 함'],
+  use:['교과서 — AND · OR · XOR 진리표'],
+  sk:"from sklearn.linear_model import Perceptron\nmodel = Perceptron()\nmodel.fit(X, y)",
+  ow:'(Neural Network 위젯에서 은닉층 없이 비슷하게)' },
+
+{ id:'mlp', fam:'dl', tb:2, p:'Ⅱ-06·07 · 118~130쪽', name:'심층 신경망 (다층 퍼셉트론)', en:'Deep Neural Network · MLP', icon:'🧠',
+  one:'퍼셉트론을 <b>여러 층</b>으로 쌓아 복잡한 관계를 배운다 — 딥러닝의 기본형.',
+  like:'한 사람이 못 푸는 문제를, 여러 단계로 나눠 맡는 팀(1층은 선, 2층은 모양, 3층은 판단 …).',
+  how:['입력층 → 은닉층(여러 개) → 출력층으로 값을 흘려 보낸다(순전파).','은닉층마다 활성화 함수(ReLU 등)로 곡선적인 관계를 만든다.','출력과 정답의 차이(손실)를 구한다.','손실을 줄이도록 뒤에서부터 가중치를 고친다(오차 역전파 + 경사하강법). 이를 에포크만큼 반복.'],
+  key:'층 = Dense(뉴런 수, 활성화) · 손실함수 · 옵티마이저(adam) · 에포크 · 배치',
+  par:[['층 수 · 뉴런 수','클수록 표현력↑ · 과적합 위험↑'],['epochs · batch_size','반복 횟수 · 한 번에 보는 데이터 수'],['Dropout','학습 때 일부 뉴런을 쉬게 해 과적합 막기'],['출력층','두 갈래: 1개 + sigmoid / 여러 갈래: 종류 수 + softmax / 숫자: 1개 + 활성화 없음']],
+  pro:['복잡한 관계를 스스로 찾음','데이터가 많을수록 강해짐'],
+  con:['데이터와 계산이 많이 필요','왜 그렇게 답했는지 설명하기 어려움','설정값이 많음'],
+  use:['교과서 — 독버섯 분류(정확도 0.99)','텐서플로 플레이그라운드(122쪽)'],
+  sk:"from tensorflow import keras\nmodel = keras.Sequential([\n    keras.layers.Dense(64, activation='relu'),\n    keras.layers.Dense(8, activation='relu'),\n    keras.layers.Dense(1, activation='sigmoid')])\nmodel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])\nmodel.fit(X_train, y_train, epochs=15, batch_size=256)",
+  ow:'Neural Network', nb:['03_deeplearning','12_model_zoo'] },
+
+{ id:'cnn', fam:'dl', tb:1, p:'Ⅱ-06 · 123쪽 읽을거리 · 부록 236쪽', name:'합성곱 신경망', en:'CNN', icon:'🖼️',
+  one:'작은 <b>필터</b>로 사진을 훑어 가장자리·무늬 같은 특징을 찾고, 그 특징으로 분류한다.',
+  like:'돋보기로 사진 구석구석을 훑으며 «여기 눈, 여기 귀»를 찾아 표시해 두는 것.',
+  how:['합성곱층: 3×3 같은 작은 필터를 사진 위로 밀며 특징 지도(feature map)를 만든다.','풀링층: 특징 지도를 줄여 중요한 값만 남긴다(MaxPool).','합성곱·풀링을 반복하며 «선 → 모양 → 물체»로 점점 큰 특징을 찾는다.','마지막에 펼쳐(Flatten) 완전 연결층으로 분류한다.'],
+  key:'Conv2D(필터 수, 크기) → MaxPooling2D → … → Flatten → Dense',
+  par:[['필터 수 · 크기','보통 32·64개, 3×3'],['풀링 크기','2×2'],['데이터 늘리기','뒤집기·회전으로 사진 수를 늘려 과적합 막기']],
+  pro:['사진 속 위치가 달라도 같은 특징을 찾음','같은 정확도에 가중치가 훨씬 적음'],
+  con:['사진이 많이 필요(적으면 전이 학습)','GPU가 있으면 훨씬 빠름'],
+  use:['얼굴 인식 · 자율 주행 카메라 · 의료 영상','교과서 — 흰쌀밥/흑미밥, 쓰레기 분류(티처블 머신 안쪽)'],
+  sk:"from tensorflow.keras import layers, models\nmodel = models.Sequential([\n    layers.Input((150, 150, 3)),\n    layers.Conv2D(32, 3, activation='relu'), layers.MaxPooling2D(2),\n    layers.Conv2D(64, 3, activation='relu'), layers.MaxPooling2D(2),\n    layers.Flatten(), layers.Dense(64, activation='relu'),\n    layers.Dense(2, activation='softmax')])",
+  ow:'Image Analytics 애드온 · Image Embedding(미리 학습된 CNN) → 분류 모델', nb:['10_food_image'] },
+
+{ id:'rnn', fam:'dl', tb:1, p:'Ⅱ-06 · 123쪽 읽을거리', name:'순환 신경망 (RNN · LSTM)', en:'Recurrent Neural Network', icon:'🔁',
+  one:'앞에서 본 것을 <b>기억</b>하며 순서대로 읽는다 — 문장·소리·시계열.',
+  like:'책을 한 글자씩 읽으며 앞 내용을 머릿속에 들고 다니는 것.',
+  how:['순서의 첫 값을 넣고 «기억(은닉 상태)»을 만든다.','다음 값을 넣을 때 앞의 기억도 함께 넣어 기억을 갱신한다.','끝까지 읽은 뒤(또는 매 단계) 출력한다.','LSTM·GRU는 «무엇을 잊고 무엇을 남길지» 문(gate)을 두어 긴 순서도 기억한다.'],
+  key:'hₜ = f(xₜ, hₜ₋₁) — 지금 입력 + 이전 기억',
+  par:[['은닉 크기','기억의 크기'],['순서 길이','한 번에 읽는 길이']],
+  pro:['순서가 중요한 데이터에 맞음'],
+  con:['긴 순서는 앞부분을 잊기 쉬움','한 단계씩 계산해 느림 → 요즘은 트랜스포머가 많이 대신함'],
+  use:['주가·기온 예측','예전 번역기·음성 인식'],
+  sk:"from tensorflow.keras import layers, models\nmodel = models.Sequential([\n    layers.Input((30, 1)),          # 30일치 기온\n    layers.LSTM(32),\n    layers.Dense(1)])               # 다음 날 기온",
+  ow:'(기본 위젯 없음)' },
+
+{ id:'transformer', fam:'gen', tb:0, name:'트랜스포머 (어텐션)', en:'Transformer', icon:'🔦',
+  one:'문장 속 낱말들이 서로를 <b>얼마나 주목할지(어텐션)</b>를 계산해 한꺼번에 이해한다.',
+  like:'«그것»이 무엇을 가리키는지 알기 위해 문장 전체에 형광펜을 칠해 보는 것.',
+  how:['낱말(토큰)을 숫자 벡터로 바꾸고 위치 정보를 더한다.','셀프 어텐션: 각 낱말이 다른 모든 낱말과의 관련도를 계산해 섞는다.','이 층을 수십 겹 쌓는다.','다음 낱말 맞히기 같은 과제로 엄청난 양의 글을 학습한다.'],
+  key:'Attention(Q, K, V) — 질문(Q)과 열쇠(K)가 맞을수록 값(V)을 더 가져온다',
+  par:[['층 수 · 머리 수 · 매개변수 수','GPT류는 수십억~수조 개']],
+  pro:['긴 문맥을 이해 · 병렬 계산으로 빠른 학습','글·그림·소리 모두에 쓰임'],
+  con:['데이터·전기·계산 비용이 막대함','그럴듯한 거짓(환각)을 만들 수 있음'],
+  use:['번역 · 검색 · 챗봇','이미지 인식(ViT)'],
+  sk:"# pip install transformers\nfrom transformers import pipeline\nclf = pipeline('sentiment-analysis')\nclf('This rice is really delicious!')",
+  ow:'Text Mining 애드온 · Document Embedding(미리 학습된 모델)' },
+
+{ id:'llm', fam:'gen', tb:1, p:'Ⅱ-03 · 88쪽 · Ⅱ-06 120쪽 (챗GPT)', name:'대규모 언어 모델', en:'LLM · ChatGPT · Gemini · Claude', icon:'💬',
+  one:'트랜스포머로 인터넷 규모의 글을 학습해 <b>다음 낱말을 맞히는</b> 모델 — 대화형 AI의 몸통.',
+  like:'세상 책을 엄청나게 읽은 «문장 이어 쓰기» 선수에게, 사람이 «좋은 답» 고르는 법을 따로 가르친 것.',
+  how:['사전 학습: 방대한 글에서 다음 낱말 맞히기를 반복한다.','지시 학습: 질문-좋은 답 예시로 대화하는 법을 배운다.','사람 피드백 강화 학습(RLHF): 사람이 더 낫다고 고른 답 쪽으로 다듬는다(교과서 85쪽 강화 학습).','답할 때는 낱말을 하나씩 확률로 골라 이어 쓴다.'],
+  key:'P(다음 토큰 | 앞의 모든 토큰) · 사전 학습 + 미세 조정 + RLHF',
+  par:[['temperature','클수록 다양하고 엉뚱, 작을수록 안정적'],['프롬프트','무엇을 어떻게 물을지가 결과를 바꿈']],
+  pro:['글쓰기·요약·번역·코드 설명 등 거의 모든 언어 작업','예시 몇 개로 새 일을 해냄'],
+  con:['사실이 아닌 것을 그럴듯하게 말함(환각) → 출처 확인 필수','학습 데이터의 편향을 따라함','내 답·판단을 대신 쓰게 하면 내 학습이 사라짐(우리 수업 «빨강»)'],
+  use:['챗GPT · 제미나이 · 클로드','우리 수업 — AI 탐구 보조 · 소크라틱 AI · 티치백'],
+  sk:"# 코랩에 내장된 AI나 API로 부를 수 있지만, 우리 수업에서는 «AI 탐구 교실» 안에서만 씁니다.",
+  ow:'—' },
+
+{ id:'gan', fam:'gen', tb:1, p:'Ⅱ-06 · 123쪽 읽을거리', name:'생성적 적대 신경망', en:'GAN', icon:'🎭',
+  one:'<b>위조범(생성자)</b>과 <b>감정사(판별자)</b>가 서로 겨루며 진짜 같은 데이터를 만든다.',
+  like:'위조지폐범과 경찰이 겨룰수록 위조 실력도 감별 실력도 늘어 가는 것.',
+  how:['생성자가 무작위 잡음에서 가짜 그림을 만든다.','판별자는 진짜와 가짜를 가린다.','판별자는 더 잘 가리도록, 생성자는 판별자를 속이도록 번갈아 학습한다.','균형에 이르면 생성자가 진짜 같은 그림을 만든다.'],
+  key:'생성자 G vs 판별자 D — 서로의 손실이 반대 방향',
+  par:[['잡음 크기 · 두 신경망 구조','학습이 불안정해 조절이 까다로움']],
+  pro:['진짜 같은 얼굴·그림 생성','데이터 늘리기에 활용'],
+  con:['학습이 불안정 · 한 종류만 만드는 문제(모드 붕괴)','딥페이크 같은 악용 위험'],
+  use:['가상 인물 얼굴 생성','흑백 사진 채색 · 해상도 높이기'],
+  sk:"# 구조만 — 생성자와 판별자 두 신경망을 번갈아 학습\nG = keras.Sequential([...])   # 잡음 → 그림\nD = keras.Sequential([...])   # 그림 → 진짜일 확률",
+  ow:'—' },
+
+{ id:'diffusion', fam:'gen', tb:0, name:'확산 모델', en:'Diffusion Model', icon:'🌫️',
+  one:'그림에 잡음을 조금씩 섞는 과정을 <b>거꾸로</b> 배워, 잡음에서 그림을 만들어 낸다.',
+  like:'물에 퍼진 잉크 방울을 영상으로 거꾸로 돌려 다시 한 방울로 모으는 것.',
+  how:['진짜 그림에 잡음을 단계별로 더해 완전한 잡음으로 만든다.','각 단계에서 «더해진 잡음»을 맞히도록 신경망을 학습한다.','만들 때는 완전한 잡음에서 시작해 잡음을 조금씩 걷어 낸다.','글(프롬프트)을 조건으로 주면 원하는 그림 쪽으로 걷어 낸다.'],
+  key:'노이즈 추가(정방향) ↔ 노이즈 제거(역방향) 수십~수백 단계',
+  par:[['단계 수 · 안내 세기(guidance)','많을수록 정교하지만 느림']],
+  pro:['GAN보다 안정적이고 다양한 고품질 그림'],
+  con:['만드는 데 여러 단계라 느림','저작권·초상권·가짜 이미지 문제'],
+  use:['글로 그림 그리기(이미지 생성 AI)','동영상·음악 생성'],
+  sk:"# pip install diffusers  (GPU 필요)\nfrom diffusers import StableDiffusionPipeline",
+  ow:'—' },
+
+{ id:'rl', fam:'rl', tb:2, p:'Ⅱ-03 · 85~91쪽', name:'강화 학습 (Q-러닝 · DQN)', en:'Reinforcement Learning', icon:'🕹️',
+  one:'행동하고 <b>보상</b>을 받으며, 점수가 가장 커지는 <b>전략</b>을 스스로 익힌다.',
+  like:'게임을 수천 판 하면서 «어디서 무엇을 하면 점수가 나는지» 몸으로 깨치는 것.',
+  how:['에이전트가 상태를 보고 행동을 고른다.','환경이 보상(+/−)과 다음 상태를 준다.','«이 상태에서 이 행동의 가치(Q)»를 보상으로 조금씩 고친다.','새 길 시도(탐험)와 아는 길(이용)의 균형을 잡으며 반복한다.'],
+  key:'Q(상태, 행동) ← Q + 학습률 × (보상 + 할인율 × 다음 최대 Q − Q)',
+  par:[['학습률 · 할인율','미래 보상을 얼마나 중요하게'],['ε (탐험 비율)','처음엔 크게, 점점 작게']],
+  pro:['정답 데이터 없이 시행착오로 배움','사람도 못 찾은 전략을 찾기도'],
+  con:['시행착오가 엄청나게 많이 필요','보상을 잘못 설계하면 엉뚱한 «꼼수»를 배움'],
+  use:['알파고 · 로봇 걷기 · 자율 주행','교과서 — DQN 블록 깨기, 챗GPT의 RLHF'],
+  sk:"import numpy as np\nQ = np.zeros((상태수, 행동수))\na = np.argmax(Q[s]) if np.random.rand() > eps else np.random.randint(행동수)\nQ[s, a] += lr * (r + gamma * Q[s2].max() - Q[s, a])",
+  ow:'—' },
+
+{ id:'transfer', fam:'how', tb:1, p:'Ⅱ-07 · 131~135쪽(티처블 머신)', name:'전이 학습', en:'Transfer Learning', icon:'🎒',
+  one:'이미 수많은 데이터로 학습한 모델의 «눈»을 빌려, 내 적은 데이터로 <b>마지막 부분만</b> 다시 가르친다.',
+  like:'영어를 잘하는 사람이 프랑스어를 처음부터가 아니라 «비슷한 부분은 그대로 쓰며» 빨리 배우는 것.',
+  how:['큰 데이터(수백만 장 사진)로 미리 학습된 CNN을 가져온다.','앞쪽 층(특징 찾기)은 그대로 얼린다.','마지막 분류층만 내 클래스(플라스틱·유리·종이)에 맞게 새로 붙여 학습한다.'],
+  key:'사전 학습 모델(MobileNet 등) + 새 출력층',
+  par:[['얼릴 층 수','데이터가 적을수록 많이 얼린다'],['에포크 · 학습률','티처블 머신 «고급» 칸']],
+  pro:['사진 수십 장으로도 쓸 만한 정확도','학습이 빠름'],
+  con:['원래 모델이 본 적 없는 종류(의료 영상 등)는 효과가 줄어듦','원래 모델의 편향도 함께 물려받음'],
+  use:['티처블 머신 이미지·소리·자세 프로젝트','교과서 — 쓰레기 분류, 새 소리 분류'],
+  sk:"from tensorflow import keras\nbase = keras.applications.MobileNetV2(input_shape=(224, 224, 3), include_top=False, pooling='avg')\nbase.trainable = False\nmodel = keras.Sequential([base, keras.layers.Dense(3, activation='softmax')])",
+  ow:'Image Embedding → Logistic Regression (같은 원리)', nb:['11_teachable_machine'] }
+];
+
+</script>
+<script>
+/* AI 모델 도감 — MODELS(models_data.js)를 카드로 · 갈래 거르기 · 찾기 · #id 로 바로 열기 */
 (function(){
-'use strict';
-var LES = AIL.LES, CAL = AIL.CAL, OFF = AIL.OFF;
+var GH = 'https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/';
+var FAM = { reg:'회귀(숫자 예측)', cls:'분류', uns:'비지도', dl:'딥러닝', gen:'생성형', rl:'강화 학습', how:'학습 방법' };
+var TB = { 2:['★ 교과서 본문','t2'], 1:['☆ 교과서에 이름','t1'], 0:['넓혀 보기','t0'] };
 function $(id){ return document.getElementById(id); }
-function esc(x){ return String(x == null ? '' : x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-var WD = '일월화수목금토', KC = { u2:'var(--k-u2)', ex:'var(--k-ex)', pj:'var(--k-pj)', pa:'var(--k-pa)', et:'var(--k-et)' };
-var LTN = { n:'AI 없이', g:'초록', y:'노랑' };
-var NAME = { A:'인기A', D:'인기D', E:'인기E' }, BACK = { '인기A':'A', '인기D':'D', '인기E':'E' };
-
-/* 우리 반 — 이 쪽 · Ⅱ단원 · Ⅳ단원 어디서 골라도 같이 */
-var cls = '';
-try{
-  cls = localStorage.getItem('ai_plan_cls') || '';
-  if(!cls){ ['ai_u4_v1','ai_u2_v1'].some(function(k){ var o = JSON.parse(localStorage.getItem(k) || '{}'); if(o && BACK[o.cls]){ cls = BACK[o.cls]; return true; } }); }
-}catch(e){}
-function setCls(c){
-  cls = c;
-  try{
-    localStorage.setItem('ai_plan_cls', c);
-    ['ai_u2_v1','ai_u4_v1'].forEach(function(k){ var o = JSON.parse(localStorage.getItem(k) || '{}'); if(o && typeof o === 'object'){ o.cls = NAME[c]; localStorage.setItem(k, JSON.stringify(o)); } });
-  }catch(e){}
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+var filt = 'all', q = '';
+$('mdTb').textContent = MODELS.filter(function(m){ return m.tb === 2; }).length + '종';
+function strip(h){ return h.replace(/<[^>]+>/g, ''); }
+function text(m){ return [m.name, m.en, strip(m.one), m.like, m.how.join(' '), m.key, m.par.map(function(p){ return p.join(' '); }).join(' '), m.pro.join(' '), m.con.join(' '), m.use.join(' '), m.ow, FAM[m.fam]].join(' ').toLowerCase(); }
+function card(m){
+  var t = TB[m.tb];
+  return '<details class="mdc" id="m-' + m.id + '" data-f="' + m.fam + '">' +
+    '<summary><span class="mdi" aria-hidden="true">' + m.icon + '</span><span class="mdh"><b>' + m.name + '</b><i>' + m.en + '</i>' +
+      '<span class="mdone">' + m.one + '</span></span>' +
+      '<span class="mdtags"><span class="mdfam">' + FAM[m.fam] + '</span><span class="tbm ' + t[1] + '">' + t[0] + '</span></span></summary>' +
+    '<div class="mdbody">' +
+      (m.p ? '<p class="mdp">📘 교과서 ' + m.p + '</p>' : '') +
+      '<p class="mdlike"><b>비유</b>' + m.like + '</p>' +
+      '<div class="mdcols"><div><h4>어떻게 정하나</h4><ol>' + m.how.map(function(h){ return '<li>' + h + '</li>'; }).join('') + '</ol>' +
+        '<p class="mdkey"><b>핵심</b>' + esc(m.key) + '</p></div>' +
+      '<div><h4>사람이 정하는 설정값</h4><ul class="mdpar">' + m.par.map(function(p){ return '<li><code>' + esc(p[0]) + '</code> ' + p[1] + '</li>'; }).join('') + '</ul>' +
+        '<h4>잘하는 것</h4><ul class="pro">' + m.pro.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+        '<h4>조심할 것</h4><ul class="con">' + m.con.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ul></div></div>' +
+      '<p class="mduse"><b>어디에 쓰이나</b>' + m.use.join(' · ') + '</p>' +
+      '<div class="codebox"><div class="codetop"><b>코드 (scikit-learn · keras)</b><span>오렌지3: ' + esc(m.ow) + '</span></div><pre>' + esc(m.sk) + '</pre></div>' +
+      (m.nb ? '<div class="fgo" style="margin-top:10px">' + m.nb.map(function(n){ return '<a href="' + GH + n + '.ipynb" target="_blank" rel="noopener">▶ 코랩 ' + n.replace(/_/g, ' ') + '</a>'; }).join('') +
+        '<a href="https://richee-pc.github.io/AI_cs/labs.html">🧪 코랩 실습실</a></div>' : '') +
+    '</div></details>';
 }
-
-function toDate(md){ var p = md.split('/'); return new Date(2026, +p[0]-1, +p[1]); }
-function list(c){
-  return CAL[c].split('|').map(function(x){ var p = x.split(' '); return { md:p[0], d:toDate(p[0]), id:p[1], L:LES[p[1]] }; });
-}
-var t0 = new Date(); t0.setHours(0,0,0,0);
-var qs = location.search.match(/[?&]d=(\d{1,2}\/\d{1,2})/); if(qs) t0 = toDate(qs[1]);   /* 시험용: ?d=10/21 */
-
-function lts(L){ return (L.lt || []).map(function(k){ return '<span class="lt ' + k + '">' + LTN[k] + '</span>'; }).join(''); }
-function goBtns(id){
-  var L = LES[id];
-  return '<a href="' + AIL.openUrl(id) + '">▶ 이 수업 열기</a>' +
-    L.steps.map(function(s){ return '<a href="' + AIL.stepUrl(id, s) + '">' + esc(s[2]) + '</a>'; }).join('') +
-    (L.ext || []).map(function(e){ return '<a href="' + e[0] + '" target="_blank" rel="noopener">' + esc(e[1]) + ' ↗</a>'; }).join('');
-}
-function count(c, id, md){ /* 같은 수업이 여러 날이면 (1/2) */
-  var same = list(c).filter(function(x){ return x.id === id; });
-  if(same.length < 2) return '';
-  for(var i = 0; i < same.length; i++) if(same[i].md === md) return ' (' + (i + 1) + '/' + same.length + ')';
-  return '';
-}
-
-function drawToday(){
-  var box = $('tCard'), nx = $('tNext');
-  if(!cls){ box.innerHTML = '<div class="empty">👆 위에서 <b>우리 반</b>을 먼저 골라 주세요.</div>'; nx.innerHTML = ''; return; }
-  var L = list(cls), i, cur = -1, isToday = false;
-  for(i = 0; i < L.length; i++){ if(+L[i].d >= +t0){ cur = i; isToday = +L[i].d === +t0; break; } }
-  if(cur < 0){ box.innerHTML = '<div class="empty">🎉 ' + NAME[cls] + ' — 이번 학기 수업이 모두 끝났습니다. 수고했어요!</div>'; nx.innerHTML = ''; return; }
-  var x = L[cur], k = x.L, off = OFF[(t0.getMonth()+1) + '/' + t0.getDate()];
-  var bring = '교과서 · 충전한 개인 노트북' + (k.bring ? ' · <b style="display:inline;color:var(--ink)">' + esc(k.bring) + '</b>' : '');
-  box.innerHTML = (off && !isToday ? '<p class="nextline" style="margin:0 0 12px">오늘은 <b>' + off + '</b>로 수업이 없습니다.</p>' : '') +
-    '<article class="today" style="--kc:' + KC[k.kind] + '">' +
-      '<div class="tdate"><span class="when">' + (isToday ? '오늘 수업' : '다음 수업') + '</span><span class="d">' + NAME[cls] + ' · ' + x.md + ' (' + WD[x.d.getDay()] + ')</span></div>' +
-      '<span class="ktag">' + esc(k.tag) + count(cls, x.id, x.md) + '</span> ' + lts(k) +
-      '<h2>' + esc(k.title) + '</h2>' + (k.page ? '<p class="pg">' + esc(k.page) + '</p>' : '') +
-      '<p class="goal">' + esc(k.goal) + '</p>' + AIL.flowHtml(k) +
-      '<div class="gobig">' + goBtns(x.id) + '</div>' +
-      '<div class="tinfo"><div><b>준비물</b>' + bring + '</div>' + (k.out ? '<div><b>끝나면 낼 것</b>' + esc(k.out) + '</div>' : '') + '</div>' +
-    '</article>';
-  var n = L[cur + 1];
-  nx.innerHTML = n ? '<p class="nextline">그다음 · <b>' + n.md + ' (' + WD[n.d.getDay()] + ')</b> ' + esc(n.L.tag) + ' — ' + esc(n.L.title) + '</p>' : '';
-}
-
-function drawMonths(){
-  var box = $('months');
-  if(!cls){ box.innerHTML = '<div class="empty">우리 반을 고르면 달별 계획이 나옵니다.</div>'; return; }
-  var L = list(cls), cur = -1;
-  for(var i = 0; i < L.length; i++) if(+L[i].d >= +t0){ cur = i; break; }
-  /* 수업 + 수업 없는 날을 날짜순으로 */
-  var items = L.map(function(x, i){ return { d:x.d, x:x, i:i }; });
-  Object.keys(OFF).forEach(function(md){ items.push({ d:toDate(md), off:OFF[md], md:md }); });
-  items.sort(function(a, b){ return a.d - b.d || (a.off ? -1 : 1); });
-  /* 같은 이름이 이어지는 정기고사는 한 줄로 */
-  var merged = [];
-  items.forEach(function(it){
-    var last = merged[merged.length - 1];
-    if(it.off && last && last.off === it.off){ last.md2 = it.md; return; }
-    merged.push(it);
+function draw(){
+  var list = MODELS.filter(function(m){
+    var okf = filt === 'all' || (filt === 'tb' ? m.tb === 2 : filt === 'rl' ? (m.fam === 'rl' || m.fam === 'how') : m.fam === filt);
+    return okf && (!q || text(m).indexOf(q) >= 0);
   });
-  var html = '', mon = -1, wk = -1, wNow = AIL.weekNo(t0);
-  function closeWeek(){ if(wk > 0) html += '</div></div>'; }
-  merged.forEach(function(it){
-    var m = it.d.getMonth() + 1, w = AIL.weekNo(it.d);
-    if(m !== mon){
-      closeWeek(); wk = -1;
-      if(mon > 0) html += '</div>';
-      var n = L.filter(function(x){ return x.d.getMonth() + 1 === m; }).length;
-      html += '<div class="mon"><h3>' + m + '월<small>' + n + '차시</small></h3>';
-      mon = m;
-    }
-    if(w !== wk){
-      closeWeek();
-      var cnt = L.filter(function(x){ return AIL.weekNo(x.d) === w; }).length;
-      html += '<div class="wkblk ' + AIL.weekCls(w) + (w === wNow ? ' now' : '') + '"><div class="wkhead"><span class="wkname">' + w + '주차</span>' +
-        '<span class="wkrng">' + AIL.weekRange(w) + '</span>' + (cnt ? '<span class="wkcnt">' + cnt + '차시</span>' : '') +
-        (w === wNow ? '<span class="wknow">이번 주</span>' : '') + '</div><div class="rows">';
-      wk = w;
-    }
-    if(it.off){
-      html += '<div class="offrow"><b>' + it.md + (it.md2 ? '~' + it.md2.split('/')[1] : '') + '</b>' + esc(it.off) + ' · 수업 없음</div>';
-      return;
-    }
-    var x = it.x, k = x.L, st = it.i < cur ? ' past' : (it.i === cur ? ' now' : '');
-    html += '<div class="row2' + st + '" style="--kc:' + KC[k.kind] + '" id="r-' + it.i + '">' +
-      '<button type="button" aria-expanded="false"><span class="dbox"><b>' + x.d.getDate() + '</b><span>' + WD[x.d.getDay()] + '요일</span></span>' +
-      '<span class="rtt"><span class="ktag">' + esc(k.tag) + count(cls, x.id, x.md) + '</span><b>' + esc(k.title) + '</b>' + lts(k) +
-      (it.i === cur ? '<span class="nowtag">' + (+x.d === +t0 ? '오늘' : '다음') + '</span>' : '') + '</span><span class="chev" aria-hidden="true">▾</span></button>' +
-      '<div class="rdet" hidden>' + (k.page ? '<p style="color:var(--muted); font-weight:600">' + esc(k.page) + '</p>' : '') +
-        '<p><b style="color:var(--blue-d)">목표</b> ' + esc(k.goal) + '</p>' +
-        (k.out ? '<p><b style="color:var(--good)">낼 것</b> ' + esc(k.out) + '</p>' : '') +
-        '<div class="fgo">' + goBtns(x.id) + '</div></div></div>';
-  });
-  closeWeek(); html += '</div>';
-  box.innerHTML = html;
+  $('mdList').innerHTML = list.length ? list.map(card).join('') : '<p class="note">찾는 모델이 없습니다. 다른 낱말로 찾아보세요.</p>';
+  if(q && list.length <= 3) [].forEach.call($('mdList').querySelectorAll('details'), function(d){ d.open = true; });
 }
-$('months').addEventListener('click', function(e){
-  var b = e.target.closest('.row2>button'); if(!b) return;
-  var r = b.parentNode, d = r.querySelector('.rdet'), open = d.hidden;
-  d.hidden = !open; r.classList.toggle('open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+$('mdFam').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-f]'); if(!b) return;
+  filt = b.getAttribute('data-f');
+  [].forEach.call(this.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+  draw();
 });
-function drawPick(){ [].slice.call($('cPick').children).forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-c') === cls ? 'true' : 'false'); }); }
-$('cPick').addEventListener('click', function(e){
-  var b = e.target.closest('button[data-c]'); if(!b) return;
-  setCls(b.getAttribute('data-c')); drawPick(); drawToday(); drawMonths();
-});
-drawPick(); drawToday(); drawMonths();
-
-var tt = $('toTop');
-addEventListener('scroll', function(){ tt.classList.toggle('on', scrollY > 600); }, { passive:true });
-tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' }); });
+$('mdQ').addEventListener('input', function(){ q = this.value.trim().toLowerCase(); draw(); });
+$('mdOpen').addEventListener('click', function(){ [].forEach.call(document.querySelectorAll('#mdList details'), function(d){ d.open = true; }); });
+$('mdClose').addEventListener('click', function(){ [].forEach.call(document.querySelectorAll('#mdList details'), function(d){ d.open = false; }); });
+draw();
+function fromHash(){
+  var h = location.hash.slice(1); if(!h) return;
+  var d = document.getElementById(h.indexOf('m-') === 0 ? h : 'm-' + h);
+  if(d && d.tagName === 'DETAILS'){ d.open = true; setTimeout(function(){ d.scrollIntoView({ block:'start' }); }, 50); }
+}
+fromHash(); addEventListener('hashchange', fromHash);
 })();
 </script>
 
+<script>
+(function(){ var tt = document.getElementById('toTop'); if(!tt) return;
+addEventListener('scroll', function(){ tt.classList.toggle('on', scrollY > 600); }, { passive:true });
+tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' }); }); })();
+</script>
 </body>
 </html>
