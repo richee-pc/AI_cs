@@ -10,8 +10,8 @@
 <meta property="og:title" content="Ⅱ. 인공지능과 학습 · 수업 자료">
 <meta property="og:description" content="「인공지능 기초」 Ⅱ단원 인공지능과 학습 - 전처리 체험 · 학습 유형 · 알고리즘 · 퍼셉트론 · 코랩 코드 읽기">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=e838308e" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=f738ea56" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=a382c1e6" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=153c8d01" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅱ. 인공지능과 학습 · 수업 자료</title>
@@ -71,6 +71,146 @@
 .lflow div{display:flex; gap:10px; align-items:baseline; font-size:.875rem; color:var(--ink2); line-height:1.55}
 .lflow em{flex:none; min-width:36px; font-style:normal; font-weight:800; color:var(--blue-d); font-variant-numeric:tabular-nums}
 </style>
+<style id="css-more">
+/* Ⅱ-01~05 보강 그림 · 실험실 (2026-10-06) */
+.fsvg{display:block; width:100%; height:auto; overflow:visible}
+.ft{font-family:var(--sans); font-size:14px; fill:var(--ink)}
+.ft.h{font-family:var(--disp); font-weight:700; font-size:17px; fill:var(--blue-d)}
+.ft.h.ml{fill:var(--good)}
+.ft.s{font-size:12px; fill:var(--ink2)}
+.ft.c{text-anchor:middle}
+.ft.b{font-weight:800}
+.ft.warmt, .warmt{fill:var(--warm); font-weight:800}
+.fb{fill:var(--tint); stroke:var(--line); stroke-width:1.5}
+.fb.blue{fill:var(--blue-xl); stroke:var(--blue-l)}
+.fb.warm{fill:var(--warm-bg); stroke:var(--warm)}
+.fb.good{fill:var(--good-bg); stroke:var(--good)}
+.fl{fill:none; stroke:var(--muted); stroke-width:2}
+.fl.dash{stroke-dasharray:6 5}
+.fl.thin{stroke-width:1.2; opacity:.7}
+.fl.warmst{stroke:var(--warm); stroke-width:2.5}
+.fl2{stroke:var(--blue-d); stroke-width:2}
+.fdiv{stroke:var(--line); stroke-dasharray:5 6}
+.fax{stroke:var(--muted); stroke-width:1.5}
+.fline{stroke:var(--warm); stroke-width:3}
+.pts circle{fill:var(--blue)}
+.dot{fill:var(--blue)} .dot.ml{fill:var(--good)}
+.fpop{fill:var(--tint); stroke:var(--line); stroke-width:2}
+.fsamp{fill:var(--white); stroke:var(--blue-l); stroke-width:2.5; stroke-dasharray:5 4}
+.fbx{stroke:var(--ink2); stroke-width:2.5}
+.fboxr{fill:var(--blue-xl); stroke:var(--blue-d); stroke-width:2.5}
+.fmed{stroke:var(--warm); stroke-width:4}
+.fout{fill:var(--warm)}
+.fring{fill:none; stroke:var(--good); stroke-width:2; stroke-dasharray:4 3}
+.side{margin:0; font-size:0.875rem; line-height:1.65; color:var(--ink2); background:var(--tint); border-left:4px solid var(--blue-l); border-radius:0 12px 12px 0; padding:9px 12px}
+.side b:first-child{display:block; color:var(--blue-d); font-size:0.8125rem; margin-bottom:2px}
+.side.bot{border-left-color:var(--good)}
+.twoway{display:grid; gap:10px}
+.tw1{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:10px 12px}
+.tw1.ml{background:var(--good-bg); border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.tw1 em{display:block; font-style:normal; font-weight:800; color:var(--blue-d); margin-bottom:6px}
+.tw1.ml em{color:var(--good)}
+.decide{display:grid; gap:10px}
+.decide>div{border:1px solid var(--line); border-radius:12px; padding:9px 12px; background:var(--white)}
+.decide b{display:block; margin-bottom:4px}
+.decide span{display:block; font-size:0.875rem; line-height:1.6}
+.decide .yes{color:var(--good)} .decide .no{color:var(--warm)}
+.pdemo{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:center}
+@media (max-width:640px){ .pdemo{grid-template-columns:minmax(0,1fr)} }
+.steps4{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:10px; counter-reset:s4}
+.steps4>div{background:var(--white); border:1px solid var(--line); border-top:4px solid var(--blue-l); border-radius:12px; padding:10px 12px; font-size:0.875rem; line-height:1.6; color:var(--ink2)}
+.steps4 b{display:block; color:var(--blue-d); margin-bottom:3px}
+.sites{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:9px}
+.sites a{display:block; text-decoration:none; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:9px 12px; transition:.15s}
+.sites a:hover{border-color:var(--blue-l); background:var(--blue-xl)}
+.sites b{display:block; color:var(--blue-d); font-size:0.9375rem}
+.sites b i{font-style:normal; font-size:0.6875rem; font-weight:800; color:var(--good); background:var(--good-bg); border-radius:99px; padding:1px 7px; margin-left:4px}
+.sites span{font-size:0.8125rem; color:var(--ink2); line-height:1.5}
+.recall{background:var(--warm-bg); border:2px dashed var(--warm); border-radius:16px; padding:12px 15px; margin:12px 0; font-size:0.9375rem; line-height:1.7}
+.recall b:first-child{display:block; color:var(--warm); font-size:1rem}
+.recall a{font-weight:800; color:var(--blue-d)}
+.pipe{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px}
+.pipe button{font-family:var(--sans); font-weight:800; font-size:0.875rem; border:2px solid var(--line); background:var(--white); color:var(--ink2); border-radius:99px; padding:6px 13px; cursor:pointer}
+.pipe button i{font-style:normal; display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--tint); margin-right:5px; font-size:0.75rem}
+.pipe button.done{border-color:var(--good); color:var(--good)}
+.pipe button[aria-pressed="true"]{background:var(--fill); border-color:var(--fill); color:var(--on-fill)}
+.pipeview{display:flex; flex-wrap:wrap; gap:10px; min-height:150px}
+.pipeview.flash{animation:pvf .5s ease}
+@keyframes pvf{from{opacity:.2; transform:translateY(6px)} to{opacity:1; transform:none}}
+.ptab{flex:1 1 300px; min-width:0; overflow-x:auto}
+.ptab em{display:block; font-style:normal; font-weight:800; font-size:0.8125rem; color:var(--blue-d); margin-bottom:3px}
+.ptab table{border-collapse:collapse; font-size:0.8125rem; width:100%}
+.ptab th, .ptab td{border:1px solid var(--line); padding:3px 6px; text-align:center; white-space:nowrap}
+.ptab th{background:var(--tint)}
+.ptab td.bad{background:var(--warm-bg); color:var(--warm); font-weight:800}
+.pbars{display:grid; gap:8px; width:100%}
+.pbars div{display:grid; grid-template-columns:70px minmax(0,1fr) 50px; gap:8px; align-items:center}
+.pbars i{display:block; height:18px; border-radius:9px; background:var(--good); animation:grow 1s ease}
+@keyframes grow{from{width:0}}
+.pipemsg{margin-top:10px; background:var(--tint); border-radius:12px; padding:9px 12px; font-size:0.9062rem; line-height:1.65}
+.pipemsg code, .side code{font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d)}
+.colabcta{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; justify-content:space-between; background:linear-gradient(120deg,var(--blue-xl),var(--good-bg)); border:2px solid var(--blue-l); border-radius:18px; padding:13px 16px; margin:14px 0}
+.colabcta span{flex:1 1 300px; font-size:0.9062rem; line-height:1.6; color:var(--ink2)}
+.colabcta b{display:block; color:var(--blue-d); font-size:1rem}
+.colabcta a{font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:10px 18px; text-decoration:none; white-space:nowrap}
+.mlmap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:11px}
+.mlc{background:var(--white); border:1px solid var(--line); border-top:5px solid var(--blue); border-radius:14px; padding:11px 13px}
+.mlc.uns{border-top-color:var(--good)} .mlc.rl{border-top-color:var(--warm)}
+.mlc>b{font-family:var(--disp); font-weight:700; font-size:1.1875rem; color:var(--blue-d)}
+.mlc>i{display:block; font-style:normal; font-size:0.8125rem; color:var(--muted); margin:2px 0 6px}
+.mlc em{display:block; font-style:normal; font-size:0.8125rem; color:var(--ink2); line-height:1.55; margin-top:6px}
+.msvg{width:100%; height:auto; display:block}
+.msvg .pa circle{fill:var(--blue)} .msvg .pb circle{fill:var(--warm)} .msvg .pg circle{fill:var(--muted)}
+.mlsub{display:grid; gap:4px}
+.mlsub span{font-size:0.8125rem; background:var(--tint); border-radius:9px; padding:4px 8px; line-height:1.5}
+.mlsub b{color:var(--blue-d); margin-right:6px}
+.rlbox{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:16px; align-items:start; margin:6px 0 10px}
+@media (max-width:640px){ .rlbox{grid-template-columns:minmax(0,1fr)} }
+.toc-in{margin:4px 0 16px}
+.bctl{display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin:0 0 8px; font-size:0.875rem; font-weight:700}
+.bctl select{font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); border-radius:10px; padding:5px 8px; background:var(--white); color:var(--ink)}
+.bdm{flex-wrap:wrap; max-width:100%; border-radius:16px; margin-bottom:10px}
+.bdm button{white-space:normal}
+.bdwrap{display:grid; grid-template-columns:minmax(0,560px) minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:860px){ .bdwrap{grid-template-columns:minmax(0,1fr)} }
+.bdwrap canvas{width:100%; height:auto; border:1px solid var(--line); border-radius:14px; background:var(--white); cursor:crosshair; touch-action:manipulation}
+.bdside .sl{display:block}
+.bdside .keyout, #sampOut, #rlOut, #pdOut, #mqOut2{font-size:0.9062rem; font-weight:500; text-align:left; line-height:1.65}
+.words{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:8px}
+.wd{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:8px 11px; font-size:0.8438rem; line-height:1.55}
+.wd b{display:block; color:var(--blue-d); font-size:0.9375rem}
+.wd span{display:block; color:var(--ink)}
+.wd em{display:block; font-style:normal; color:var(--good); font-size:0.8125rem}
+.maths{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:11px}
+.mth{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 13px; font-size:0.875rem; line-height:1.65}
+.mth.wide{grid-column:1 / -1}
+.mth>b{display:block; font-family:var(--disp); font-weight:700; color:var(--blue-d); font-size:1.0625rem; margin-bottom:4px}
+.mth>b small{font-family:var(--sans); font-size:0.75rem; color:var(--muted)}
+.mth p{margin:5px 0}
+.cmpgrid{display:grid; gap:6px; overflow-x:auto}
+.cmh, .cmr{display:grid; grid-template-columns:minmax(150px,1.3fr) repeat(5,minmax(70px,1fr)); gap:6px; align-items:center; min-width:560px}
+.cmh b{font-size:0.75rem; color:var(--muted); text-align:center}
+.cmr span b{display:block; font-size:0.875rem}
+.cmr span i{font-style:normal; font-size:0.75rem; color:var(--muted)}
+.cmr em{display:block; height:14px; border-radius:7px; background:var(--tint); overflow:hidden}
+.cmr em i{display:block; height:100%; border-radius:7px; background:var(--blue-l)}
+.cmr em i.v5, .cmr em i.v4{background:var(--good)} .cmr em i.v1, .cmr em i.v2{background:var(--warm)}
+.ow rect{fill:var(--white); stroke:var(--blue-d); stroke-width:2}
+.ow rect.m{fill:var(--blue-xl)} .ow rect.o{fill:var(--good-bg); stroke:var(--good)}
+.pstep{transition:opacity .5s}
+.pstep.now rect{stroke-width:3.5}
+.spin{fill:none; stroke:var(--blue); stroke-width:4; stroke-dasharray:20 12; transform-origin:467px 150px; animation:spin 1.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pd{fill:var(--muted); transition:.6s}
+.pd.split[data-t="tr"]{fill:var(--blue)} .pd.split[data-t="te"]{fill:var(--warm)}
+.nbcards{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:10px; margin:12px 0}
+.nbcards a{display:block; text-decoration:none; background:var(--white); border:2px solid var(--blue-l); border-radius:16px; padding:12px 14px; transition:.15s}
+.nbcards a:hover{background:var(--blue-xl); transform:translateY(-2px)}
+.nbcards i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:2px 9px}
+.nbcards b{display:block; margin:6px 0 3px; color:var(--blue-d); font-size:1.0625rem}
+.nbcards span{font-size:0.8438rem; color:var(--ink2); line-height:1.55}
+</style>
+
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -85,13 +225,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=72b7556b') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=34082b3a') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f738ea56') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=153c8d01') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=e838308e') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=a382c1e6') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=dbcaac70') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=499529f0') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1022,6 +1162,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#kinds">학습 유형</a>
   <a href="#algo">알고리즘</a>
   <a href="#models">모델 고르기</a>
+  <a href="#algolab">알고리즘 실험실</a>
   <a href="#implement">구현·평가</a>
   <a href="#nn">퍼셉트론</a>
   <a href="#code">코랩 코드</a>
@@ -1058,11 +1199,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#kinds"><span class="ic">🧭</span><span><b>학습 유형 고르기</b><span>지도 · 비지도 · 강화 12문제 · Ⅱ-03</span><em>직접 해 보기</em></span></a>
     <a href="#algo"><span class="ic">📈</span><span><b>k-최근접 이웃 · 선형 회귀</b><span>점을 끌고 선을 맞춰 보기 · Ⅱ-04</span><em>직접 해 보기</em></span></a>
     <a href="#models"><span class="ic">🍊</span><span><b>모델 도감 · 고르는 법 · 오렌지3</b><span>모델마다 자세히 · 고르기 도우미 · 세 모델 비교 · Ⅱ-04</span><em>2차시</em></span></a>
+    <a href="#algolab"><span class="ic">🔬</span><span><b>알고리즘 실험실</b><span>결정 경계 · 회귀 · 용어 · 수학 · 비교 · 주제별 고르기 · 오렌지3</span><em>2차시</em></span></a>
     <a href="#implement"><span class="ic">🧪</span><span><b>구현 절차 · 예측 · 평가 해석</b><span>아홉 걸음 · 점수 계산기 · 해석 함정 · Ⅱ-05</span><em>3차시</em></span></a>
     <a href="#nn"><span class="ic">🧠</span><span><b>퍼셉트론과 XOR</b><span>은닉층이 왜 필요한가 · Ⅱ-06</span><em>직접 해 보기</em></span></a>
     <a href="#code"><span class="ic">💻</span><span><b>코랩 코드 읽기</b><span>예측 · 분류 · 딥러닝 코드 · Ⅱ-05 · 07</span></span></a>
     <a href="#lab"><span class="ic">🚀</span><span><b>코랩 실습 노트북</b><span>단추 한 번으로 코랩 열기</span></span></a>
-    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 16개 · 노트북 13권</span><em>새 쪽</em></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 20개 · 노트북 17권</span><em>새 쪽</em></span></a>
     <a href="https://richee-pc.github.io/AI_cs/models.html"><span class="ic">📚</span><span><b>AI 모델 도감</b><span>교과서 모델 + 자주 쓰는 모델 26종</span><em>새 쪽</em></span></a>
     <a href="#terms"><span class="ic">📖</span><span><b>핵심 용어</b><span>쉽게 말하면 · 교과서 말</span></span></a>
     <a href="#miscon"><span class="ic">❓</span><span><b>헷갈리는 것 O/X</b><span>자주 틀리는 생각</span></span></a>
@@ -1137,6 +1279,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 </div></section>
 
 <section id="learn"><div class="wrap">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs></svg>
   <p class="eyebrow">교과서로 배우기 · Ⅱ-01 ~ Ⅱ-07</p>
   <h2>오늘 배울 내용을 차례대로</h2>
   <p class="sub">교과서 60~138쪽을 우리 수업에 맞게 다시 정리했습니다. 소단원마다
@@ -1168,6 +1311,44 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <p>컴퓨터가 데이터에서 규칙을 찾아 <b>모델</b>을 만듭니다. <b>이미지 · 음성 인식, 추천</b>처럼 절차를 적기 어려운 문제에 알맞습니다.</p></div>
     </div>
 
+    <div class="tool fig">
+      <h3>그림으로 한눈에 — 규칙은 누가 만드나? <span class="tm">61쪽 그림 Ⅱ-1 다시 그리기</span></h3>
+      <svg class="fsvg" viewBox="0 0 760 360" role="img" aria-label="전통적 프로그래밍과 기계학습의 차이 그림">
+        <text x="16" y="28" class="ft h">전통적 프로그래밍</text>
+        <rect x="16" y="44" width="110" height="46" rx="12" class="fb"/><text x="71" y="73" class="ft c">📄 데이터</text>
+        <rect x="16" y="102" width="110" height="46" rx="12" class="fb warm"/><text x="71" y="122" class="ft c">🧑‍💻 알고리즘</text><text x="71" y="139" class="ft s c">사람이 만든 규칙</text>
+        <path d="M130,67 L220,96 M130,125 L220,100" class="fl" marker-end="url(#arA)"/>
+        <rect x="226" y="70" width="120" height="56" rx="14" class="fb blue"/><text x="286" y="104" class="ft c b">💻 컴퓨터</text>
+        <path d="M350,98 L440,98" class="fl" marker-end="url(#arA)"/>
+        <rect x="446" y="74" width="110" height="48" rx="12" class="fb good"/><text x="501" y="104" class="ft c b">✅ 결과</text>
+        <circle r="6" class="dot"><animateMotion dur="3s" repeatCount="indefinite" path="M130,125 L220,100 L350,98 L440,98"/></circle>
+        <g class="fstep"><text x="590" y="62" class="ft s">① 작성자가 규칙을 단계별로</text><text x="604" y="80" class="ft s">설계하고 코드로 표현</text>
+          <text x="590" y="104" class="ft s">② 코드를 입력 데이터와 함께</text><text x="604" y="122" class="ft s">컴퓨터에 전달</text>
+          <text x="590" y="146" class="ft s">③ 코드를 실행해 문제 해결</text></g>
+
+        <line x1="16" y1="176" x2="744" y2="176" class="fdiv"/>
+        <text x="16" y="208" class="ft h ml">기계학습</text>
+        <rect x="16" y="222" width="110" height="46" rx="12" class="fb"/><text x="71" y="251" class="ft c">📄 데이터</text>
+        <rect x="16" y="280" width="110" height="46" rx="12" class="fb good"/><text x="71" y="300" class="ft c">✅ 결과</text><text x="71" y="317" class="ft s c">정답(레이블)</text>
+        <path d="M130,245 L220,274 M130,303 L220,278" class="fl" marker-end="url(#arA)"/>
+        <rect x="226" y="246" width="120" height="58" rx="14" class="fb blue"/><text x="286" y="272" class="ft c b">🔁 기계학습</text><text x="286" y="291" class="ft s c">규칙 찾기를 반복</text>
+        <path d="M350,275 L440,275" class="fl" marker-end="url(#arA)"/>
+        <rect x="446" y="250" width="110" height="50" rx="12" class="fb warm"/><text x="501" y="273" class="ft c b">🧠 모델</text><text x="501" y="290" class="ft s c">찾아낸 규칙</text>
+        <circle r="6" class="dot ml"><animateMotion dur="3s" repeatCount="indefinite" path="M130,245 L220,274 L350,275 L440,275"/></circle>
+        <g class="fstep"><text x="590" y="238" class="ft s">① 작성자가 입력 데이터와</text><text x="604" y="256" class="ft s">결과(정답)를 제공</text>
+          <text x="590" y="280" class="ft s">② 컴퓨터가 규칙 찾기를 반복</text>
+          <text x="590" y="304" class="ft s">③ 규칙을 찾고 문제 해결</text><text x="604" y="322" class="ft s">능력(모델)을 갖춤</text></g>
+        <text x="380" y="352" class="ft s c">모델 + 새 데이터 → 결과 : 학습이 끝난 모델에 처음 보는 데이터를 넣어 답을 얻습니다</text>
+      </svg>
+      <div class="g2" style="margin-top:10px">
+        <p class="side"><b>모델(61쪽 옆)</b>데이터 학습을 통해 얻는 <b>결과물</b>. 분류 · 예측 · 군집화 등에 쓰인다.</p>
+        <p class="side bot"><b>🤖 말풍선</b>«명확하게 정해진 규칙이 <b>알고리즘</b>이고, 알고리즘에 따라 코드로 작성된 명령어를 모아 놓은 것이 <b>프로그램</b>이야.»</p>
+      </div>
+      <div class="ws"><b><i>함께해 보기</i> 차이점 비교하기 (61쪽)</b><div>
+        <ol><li>고양이와 강아지의 <b>겉모습 차이</b>(눈 · 귀 · 꼬리 …)를 최대한 명확하게 비교해 나열해 보자.</li>
+          <li>①에서 쓴 규칙을 <b>세상의 모든</b> 고양이와 강아지에게 적용할 수 있을지 토의해 보자. — 귀가 접힌 고양이, 꼬리가 짧은 강아지는?</li></ol>
+        <span class="eg">규칙을 끝없이 덧붙여야 한다면 그 문제는 <b>기계학습</b>이 어울리는 문제입니다(60쪽 «머핀과 치와와»).</span></div></div>
+    </div>
     <div class="tool">
       <h3>직접 해 보기 — 규칙으로 스팸 메일 거르기 <span class="tm">62쪽 표 Ⅱ-1</span></h3>
       <p class="desc">걸러 낼 낱말을 골라 «스팸 규칙»을 만들어 보세요. 1주차 메일은 잘 걸러지는데…
@@ -1178,6 +1359,37 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="keyout" id="lrSpamOut"></div>
     </div>
 
+    <div class="tool fig">
+      <h3>스팸 메일 거르는 프로그램, 두 가지로 만들면? <span class="tm">62쪽 그림 Ⅱ-2 · 표 Ⅱ-1</span></h3>
+      <div class="twoway">
+        <div class="tw1"><em>전통적 프로그래밍</em>
+          <div class="flow2 small"><span>① 스팸 메일에는 특정 단어 · 문구 · 특수 문자가 들어 있다</span><i>→</i><span>② 그 특징을 사람이 <b>규칙</b>으로 정의해 코드로 작성</span><i>→</i><span class="out">③ 특성이 바뀌면 규칙을 <b>직접</b> 업데이트</span></div></div>
+        <div class="tw1 ml"><em>기계학습</em>
+          <div class="flow2 small"><span>① 대량의 이메일 데이터로 스팸과 일반 메일의 <b>차이를 학습</b></span><i>→</i><span>② 새 메일이 스팸인지 일반 메일인지 <b>판단</b></span><i>→</i><span class="out">③ 패턴이 바뀌어도 <b>추가 학습</b>으로 쉽게 반영</span></div></div>
+      </div>
+      <p class="side" style="margin-top:8px"><b>스팸 메일(62쪽 옆)</b>원하지 않거나 요청하지 않은 전자 메일. 상업적 광고 · 사기 · 컴퓨터 바이러스 · 유해한 소프트웨어를 포함한다.</p>
+      <div class="tw" style="margin-top:12px"><table>
+        <tr><th style="width:17%">구분</th><th>전통적 프로그래밍</th><th>기계학습</th></tr>
+        <tr><td><b>작동 방법</b> <small>표 Ⅱ-1</small></td><td>프로그램 제작자가 스팸 메일의 특징을 <b>규칙으로 직접 정의</b></td><td>알고리즘이 이메일 데이터를 <b>학습</b>해 스팸 메일의 특징 파악</td></tr>
+        <tr><td><b>변화 대응</b> <small>표 Ⅱ-1</small></td><td>제작자가 변화를 계속 파악하고 <b>규칙을 직접 업데이트</b></td><td>알고리즘이 변화를 <b>추가 학습</b>하고 모델을 개선</td></tr>
+        <tr><td><b>규칙을 만드는 것</b></td><td>사람</td><td>컴퓨터(데이터에서 찾음)</td></tr>
+        <tr><td><b>꼭 필요한 것</b></td><td>명확한 해결 절차</td><td><b>올바른 데이터를 충분히</b></td></tr>
+        <tr><td><b>잘 맞는 문제</b></td><td>절차가 분명한 문제 — 정렬, 성적 합계, 세금 계산, 지도의 최단 경로</td><td>절차를 적기 어려운 문제 — 이미지 · 음성 인식, 추천, 스팸, 번역</td></tr>
+        <tr><td><b>장점</b></td><td>결과를 정확히 예측 · 설명할 수 있다</td><td>규칙을 직접 정의할 필요가 없다 · 변화에 적응</td></tr>
+        <tr><td><b>단점</b></td><td>규칙이 복잡하면 끝없이 늘어남 · 변화에 약함</td><td><b>학습 데이터가 부족하면 성능이 낮다</b> · 왜 그렇게 판단했는지 설명이 어려울 수 있다</td></tr>
+      </table></div>
+      <div class="ws"><b><i>정리</i> 어떤 문제에 무엇을 쓸까?</b><div>
+        <div class="decide">
+          <div><b>해결 절차를 사람이 단계별로 정확히 적을 수 있나?</b>
+            <span class="yes">예 → <b>전통적 프로그래밍</b> (빠르고 정확하고 설명 가능)</span>
+            <span class="no">아니요 → <b>기계학습 후보</b> — 다음 질문으로</span></div>
+          <div><b>정답이 붙은(또는 패턴을 배울) 데이터를 충분히 모을 수 있나?</b>
+            <span class="yes">예 → <b>기계학습</b>으로 모델을 만들어 해결</span>
+            <span class="no">아니요 → 데이터를 먼저 모으거나, 규칙 + 사람 판단으로</span></div>
+        </div></div></div>
+      <h3 style="margin-top:14px">이 문제엔 무엇이 알맞을까? <span class="tm">10문제</span></h3>
+      <div class="kcards" id="lrWhich"></div>
+    </div>
     <h3 class="lh">② 기계학습으로 문제를 푸는 다섯 단계 <small>63쪽 그림 Ⅱ-3</small></h3>
     <div class="tool">
       <p class="desc" style="margin-bottom:12px">카드를 <b>올바른 순서대로</b> 눌러 보세요. 틀리면 처음부터 다시 쌓습니다.</p>
@@ -1186,6 +1398,31 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <p class="hint">순서대로 하기 어려우면 <b>앞 단계로 돌아가도 됩니다</b>(63쪽). 데이터 탐구에서 «②로 돌아가 데이터를 다시 찾기»가 바로 이것입니다.</p>
     </div>
 
+    <div class="tool">
+      <h3>꼭 알아 둘 낱말 — 파라미터와 친구들 <span class="tm">63쪽 옆 «파라미터» · 93쪽</span></h3>
+      <div class="pdemo">
+        <svg viewBox="0 0 320 200" class="fsvg" role="img" aria-label="공부 시간과 성적 직선">
+          <line x1="30" y1="170" x2="310" y2="170" class="fax"/><line x1="30" y1="170" x2="30" y2="10" class="fax"/>
+          <text x="300" y="190" class="ft s">공부 시간</text><text x="34" y="16" class="ft s">성적</text>
+          <g class="pts"><circle cx="60" cy="140" r="5"/><circle cx="100" cy="128" r="5"/><circle cx="140" cy="104" r="5"/><circle cx="180" cy="96" r="5"/><circle cx="220" cy="70" r="5"/><circle cx="260" cy="58" r="5"/></g>
+          <line id="pdLine" x1="30" y1="160" x2="310" y2="40" class="fline"/>
+        </svg>
+        <div class="pdtxt">
+          <p class="calc">성적 = <b id="pdA">a</b> × 공부 시간 + <b id="pdB">b</b></p>
+          <label class="sl"><span>a (기울기)</span><input type="range" id="pdAr" min="0" max="12" step="0.1" value="3"></label>
+          <label class="sl"><span>b (절편)</span><input type="range" id="pdBr" min="0" max="40" step="1" value="25"></label>
+          <p class="keyout" id="pdOut"></p>
+        </div>
+      </div>
+      <div class="cgrid" style="margin-top:12px">
+        <div class="cc"><b>파라미터</b><span>모델을 이루는 변수이면서 <b>학습 결과로 모델이 갖는 값</b>. 위 직선의 <b>a · b</b>, 신경망의 가중치. 학습으로 잘 조정할수록 성능이 높아진다(63쪽).</span></div>
+        <div class="cc"><b>하이퍼파라미터</b><span>학습으로 정해지지 않고 <b>사람이 직접 정하는 설정값</b>. k-최근접 이웃의 k, 학습률, 트리 깊이(93쪽).</span></div>
+        <div class="cc"><b>속성 · 특성 · 독립변수</b><span>답을 짐작하는 데 쓰는 <b>힌트</b> 열. 위에서는 «공부 시간».</span></div>
+        <div class="cc"><b>레이블 · 정답 · 종속변수</b><span>맞히려는 값. 위에서는 «성적». 레이블이 붙은 데이터가 있어야 지도학습이 된다.</span></div>
+        <div class="cc"><b>데이터셋</b><span>학습에 쓰는 데이터 묶음. 훈련 데이터 · (검증 데이터) · 테스트 데이터로 나눈다(101쪽).</span></div>
+        <div class="cc"><b>모델</b><span>학습이 끝나 «a · b 가 정해진» 결과물. 새 공부 시간을 넣으면 성적을 내놓는다.</span></div>
+      </div>
+    </div>
     <h3 class="lh">③ 좋은 데이터의 네 기준 <small>63쪽 표 Ⅱ-2</small></h3>
     <div class="cgrid">
       <div class="cc"><b>정확성</b><span>오류가 없어야 한다. 잘못된 데이터 → 잘못된 학습.</span></div>
@@ -1212,17 +1449,119 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
           동의서에 들어갈 네 가지 — 수집·이용 목적 · 수집 항목 · 보유 기간 · 거부할 권리(와 그 불이익).</span></div></div>
     </div>
 
-    <h3 class="lh">⑤ 데이터 편향 — 데이터가 한쪽으로 치우치면 <small>66쪽</small></h3>
-    <div class="g2">
-      <div class="cc wide"><b>현실의 불공정이 데이터에 스며든 경우</b><span>예전 미인 대회 결과에 인종 차별이 쌓여 있었고, 그걸 배운 AI가 백인 지원자에게 유리하게 판정했다.
-        차별이 오래 있었던 집단은 데이터 자체가 적거나 불리하게 쌓여 있다.</span></div>
-      <div class="cc wide"><b>표본을 잘못 뽑은 경우</b><span>조사하는 사람이 일부러 또는 무심코 한쪽만 뽑으면 생긴다.
-        «구하기 쉬운 데이터만» 모으는 것도 여기에 해당한다.</span></div>
+    <div class="tool">
+      <h3>데이터 종류마다 모으는 방법과 절차 <span class="tm">64~65쪽을 넓혀서</span></h3>
+      <div class="tw"><table>
+        <tr><th style="width:16%">데이터 종류</th><th style="width:24%">모으는 방법</th><th style="width:28%">절차</th><th>꼭 지킬 것(보안 · 권리)</th></tr>
+        <tr><td><b>공개 표 데이터</b><br><small>CSV · 엑셀</small></td><td>공공데이터포털 · KOSIS 등에서 내려받기, Open API</td><td>검색 → 설명·기준 연도 확인 → 내려받기 → 출처 기록</td><td>이용 조건(공공누리 유형) 확인 · <b>출처 표기</b> · 가공했으면 «가공함» 밝히기</td></tr>
+        <tr><td><b>설문 응답</b></td><td>종이 설문, 온라인 설문(구글 설문 등)</td><td>목적 → 문항 작성(유도 질문 X) → 대상 선정(골고루) → 동의서와 함께 수집 → 검증</td><td><b>개인 정보 제공 동의서</b> · 이름 대신 번호 · 필요한 항목만</td></tr>
+        <tr><td><b>센서 · 측정</b><br><small>온도 · 걸음 수 · 미세먼지</small></td><td>마이크로비트 · 스마트폰 · 측정 기기</td><td>측정 계획(장소·간격·단위) → 기록 → 오류 값 점검</td><td>위치·생체 정보는 민감할 수 있음 · 기기 시간 맞추기</td></tr>
+        <tr><td><b>사진 · 영상</b></td><td>카메라로 촬영, 공개 이미지 데이터셋</td><td>클래스 정하기 → 클래스마다 <b>비슷한 개수</b> · 다양한 각도·밝기로 → 이름 붙이기(레이블)</td><td><b>얼굴 · 개인을 알아볼 수 있으면 동의</b> · 남의 사진은 저작권·초상권</td></tr>
+        <tr><td><b>소리</b></td><td>마이크 녹음, 공개 음원</td><td>배경 소음 클래스 함께 → 같은 길이로 자르기 → 레이블</td><td>대화 녹음은 상대 동의 · 저작권 있는 음원 주의</td></tr>
+        <tr><td><b>웹 · SNS 글</b></td><td>검색 엔진, 공식 API, 웹 크롤링</td><td>목적에 맞는 검색어 → 수집 → 중복·광고 제거</td><td>누리집 <b>이용약관 · robots.txt</b> 지키기 · 작성자 정보 지우기 · 과도한 요청 금지</td></tr>
+      </table></div>
+      <h3 style="margin-top:16px">직접 모을 때의 네 단계 <span class="tm">65쪽 그림 Ⅱ-4</span></h3>
+      <div class="steps4">
+        <div><b>1 목적 및 필요성 확인</b>어떤 데이터를 <b>왜</b> 모아야 하는지 명확히 정의한다.</div>
+        <div><b>2 방법 선정</b>카메라 · 마이크 같은 <b>센서</b>, <b>소셜 미디어 · 검색 엔진</b>, <b>온 · 오프라인 설문</b> 중에서 고른다.</div>
+        <div><b>3 데이터 저장</b>수집한 데이터는 <b>안전하게 보관</b>하고, 필요하면 개인 정보 제공 동의서를 함께 받는다.</div>
+        <div><b>4 데이터 검증</b>빠진 값 · 잘못된 값 · 치우침은 없는지 확인한다(→ Ⅱ-02 전처리).</div>
+      </div>
+      <div class="g2" style="margin-top:12px">
+        <div class="ws" style="margin:0"><b><i>65쪽 옆</i> 개인 정보 보호법 제15조 제2항 — 동의받을 때 알릴 네 가지</b><div><ol>
+          <li>개인 정보의 <b>수집 · 이용 목적</b></li><li>수집하려는 개인 정보의 <b>항목</b></li>
+          <li>개인 정보의 <b>보유 및 이용 기간</b></li><li><b>동의를 거부할 권리</b>가 있다는 사실과, 거부에 따른 불이익이 있으면 그 내용</li></ol>
+          <span class="eg">예) 학생회 «급식 만족도 조사» 동의서 — 목적: 급식 만족도 조사와 더 나은 급식 제안 · 항목: 학년 · 반 · 번호 · 이름 · 기간: 결과 게시일까지 · 거부하면 통계에서 제외됨(65쪽).
+            🤖 «온라인 설문 도구를 쓰면 결과 수집과 통계 산출을 더 쉽게 할 수 있어.»</span></div></div>
+        <div class="ws" style="margin:0"><b><i>65쪽 옆</i> 개인 정보 취급 시 주의 사항 + 보안 체크</b><div>
+          <div class="chk" data-save="privacy">
+            <label><input type="checkbox" data-k="p1"> <span>목적에 <b>필요한 것만</b> 모았다(최소 수집)</span></label>
+            <label><input type="checkbox" data-k="p2"> <span>이름 · 번호 대신 <b>익명(가명) ID</b>로 바꿨다 — 교과서: «가능하다면 익명화»</span></label>
+            <label><input type="checkbox" data-k="p3"> <span>파일은 <b>공유 권한을 제한</b>했다(«링크가 있는 모든 사용자» 금지)</span></label>
+            <label><input type="checkbox" data-k="p4"> <span>약속한 <b>보유 기간이 지나면 지운다</b></span></label>
+            <label><input type="checkbox" data-k="p5"> <span>건강 · 위치 같은 <b>민감한 정보</b>는 특히 조심했다</span></label>
+            <label><input type="checkbox" data-k="p6"> <span>개인 정보가 든 데이터를 <b>AI 챗봇에 넣지 않았다</b></span></label>
+          </div><span class="chkstat" data-for="privacy"></span></div></div>
+      </div>
+      <h3 style="margin-top:16px">출처와 사용 제한 범위 — «남의 데이터»를 쓸 때 <span class="tm">64쪽 «원저작자의 사용 제한 범위 존중 · 출처 포함»</span></h3>
+      <div class="tw"><table>
+        <tr><th style="width:24%">표시</th><th>뜻</th><th style="width:30%">우리 수업에서</th></tr>
+        <tr><td><b>공공누리 1유형</b></td><td>출처만 밝히면 상업적 이용 · 변경 모두 가능</td><td>자유롭게 사용 · 출처 표기</td></tr>
+        <tr><td><b>공공누리 2유형</b></td><td>출처 표시 + <b>상업적 이용 금지</b></td><td>수업 · 발표는 가능</td></tr>
+        <tr><td><b>공공누리 3유형</b></td><td>출처 표시 + <b>변경 금지</b></td><td>원본 그대로만 — 전처리한 결과를 다시 배포하면 안 됨</td></tr>
+        <tr><td><b>공공누리 4유형</b></td><td>출처 표시 + 상업적 이용 금지 + 변경 금지</td><td>가장 엄격 — 분석 결과만 인용</td></tr>
+        <tr><td><b>CC 라이선스</b><br><small>BY · NC · ND · SA</small></td><td>BY 저작자 표시 · NC 비영리 · ND 변경 금지 · SA 같은 조건으로 공유</td><td>캐글 · 깃허브 데이터에 자주 붙음</td></tr>
+        <tr><td><b>대회 · 회원 전용</b></td><td>AI 허브 · 데이콘 · 캐글은 로그인 · 이용 신청이 필요한 것이 많다</td><td>새로 가입하지 말고 <b>선생님께 요청</b></td></tr>
+      </table></div>
+      <p class="hint">출처는 «기관 · 데이터 이름 · 기준 연도 · 주소 · 내려받은 날짜»까지 적으면 다른 사람이 같은 데이터를 다시 찾을 수 있어 <b>신뢰성</b>이 높아집니다.</p>
     </div>
-    <div class="ws"><b><i>막는 법</i> 편향되지 않게 모으는 세 가지</b><div><ol>
-      <li><b>다양한 출처</b>에서 모으기 — 관광지 추천 앱이면 여러 나라 사람의 리뷰</li>
-      <li><b>다양한 요소</b>(나이·성별·지역…)를 처음부터 고려하기</li>
-      <li><b>수집자의 의도</b>가 끼어들지 않게 하기</li></ol></div></div>
+    <div class="tool">
+      <h3>데이터를 구할 수 있는 누리집 <span class="tm">67쪽 네 곳 + 많이 쓰는 곳</span></h3>
+      <div class="sites">
+        <a href="https://www.data.go.kr" target="_blank" rel="noopener"><b>공공데이터포털 <i>67쪽</i></b><span>행정안전부 · 공공기관 데이터 통합 창구 · CSV · Open API</span></a>
+        <a href="https://www.aihub.or.kr" target="_blank" rel="noopener"><b>AI 허브 <i>67쪽</i></b><span>과기정통부 · NIA · 인공지능 학습용 데이터(이미지 · 음성 · 텍스트) · 회원 가입 필요</span></a>
+        <a href="https://www.dacon.io" target="_blank" rel="noopener"><b>데이콘 <i>67쪽</i></b><span>인공지능 해커톤 플랫폼 · 대회용 · 학습용 데이터</span></a>
+        <a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener"><b>캐글 <i>67쪽</i></b><span>구글 · 세계 최대 데이터 분석 대회 플랫폼 · 학습용 데이터</span></a>
+        <a href="https://kosis.kr" target="_blank" rel="noopener"><b>KOSIS 국가통계포털</b><span>통계청 · 인구 · 경제 · 사회 통계 대부분</span></a>
+        <a href="https://data.kma.go.kr" target="_blank" rel="noopener"><b>기상자료개방포털</b><span>기상청 · 기온 · 강수 · 폭염일수 · 관측소별</span></a>
+        <a href="https://www.airkorea.or.kr" target="_blank" rel="noopener"><b>에어코리아</b><span>한국환경공단 · 미세먼지 · 대기질</span></a>
+        <a href="https://data.seoul.go.kr" target="_blank" rel="noopener"><b>서울 열린데이터광장</b><span>지자체 데이터의 예 · 교통 · 생활 인구 (다른 시도도 열린데이터 누리집이 있음)</span></a>
+        <a href="https://www.schoolinfo.go.kr" target="_blank" rel="noopener"><b>학교알리미</b><span>학교 공시 정보 · 급식 · 학생 수</span></a>
+        <a href="https://ecos.bok.or.kr" target="_blank" rel="noopener"><b>한국은행 ECOS</b><span>물가 · 금리 · 경제 지표</span></a>
+        <a href="https://datalab.naver.com" target="_blank" rel="noopener"><b>네이버 데이터랩</b><span>검색어 트렌드 · 쇼핑 인사이트</span></a>
+        <a href="https://trends.google.co.kr" target="_blank" rel="noopener"><b>구글 트렌드</b><span>세계 검색 관심도 변화</span></a>
+        <a href="https://ourworldindata.org" target="_blank" rel="noopener"><b>Our World in Data</b><span>SDGs · 세계 문제 데이터와 그래프 · CC BY</span></a>
+        <a href="https://data.worldbank.org" target="_blank" rel="noopener"><b>World Bank Open Data</b><span>나라별 개발 지표</span></a>
+        <a href="https://archive.ics.uci.edu" target="_blank" rel="noopener"><b>UCI 머신러닝 저장소</b><span>기계학습 연습용 고전 데이터(붓꽃 · 와인 …)</span></a>
+        <a href="https://datasetsearch.research.google.com" target="_blank" rel="noopener"><b>Google Dataset Search</b><span>세계의 공개 데이터셋 검색 엔진</span></a>
+      </div>
+      <p class="hint">🤖 «데이터 종류에 따라 그 파일을 가진 공공기관 링크로 이동해야 내려받을 수 있는 경우도 있어.» «CSV 파일은 스프레드시트 프로그램으로 쉽게 편집할 수 있어.»(64쪽)</p>
+      <div class="ws"><b><i>스스로해 보기</i> 공공데이터포털에서 데이터 모으기 (64쪽)</b><div>
+        <span class="eg">수집 목적: 온난화의 영향을 확인하려고 내가 사는 지역의 1년 중 폭염일수와 그 추세를 살핀다.</span>
+        <div class="flow2 small"><span>www.data.go.kr 에서 «날씨» 검색</span><i>→</i><span>주제와 파일 형태를 보고 선택 — 체감 온도 · 최고/평균/최저 기온 · 폭염 특보</span><i>→</i><span class="out">여름철을 포함해 내려받기</span></div></div></div>
+    </div>
+    <h3 class="lh">⑤ 데이터 편향 — 데이터가 한쪽으로 치우치면 <small>66쪽</small></h3>
+    <div class="recall"><b>🔁 Ⅲ단원 윤리 시간, 기억나나요?</b>
+      Ⅲ-04 «인공지능의 편향성과 윤리»에서 <b>편향된 데이터를 배운 AI가 특정 집단을 차별한 사례</b>를 보고, 공정성 · 투명성 · 책임성으로 토론했지요.
+      그때의 «편향»이 <b>어디서 생기는지</b> — 바로 <b>데이터를 모으는 이 단계</b>입니다. 오늘은 그 출발점을 교과서 66쪽으로 다시 확인합니다.
+      <a href="https://richee-pc.github.io/AI_cs/unit3.html">Ⅲ단원 쪽 다시 보기 ↗</a></div>
+    <div class="tool fig">
+      <h3>데이터 편향이란? <span class="tm">66쪽</span></h3>
+      <p class="desc"><b>데이터 편향</b> — 데이터가 대표하는 집단이나 현상을 <b>공정하게 나타내지 못하고 일부분에 치우친</b> 상태. 어떤 요소에 <b>집중</b>되어 있거나, 어떤 요소가 <b>빠져</b> 있으면 편향된 데이터입니다.
+        인공지능 국제 미인 대회에서 AI가 <b>백인 지원자를 유색인종 지원자보다 유리하게</b> 판정한 일은, 이전 대회들의 인종차별적 결과가 쌓인 데이터를 배웠기 때문입니다.
+        편향이 AI에 들어가면 <b>특정 집단의 소외와 차별</b>을 낳습니다 → 공정한 사회를 위해 <b>편향되지 않은 데이터를 쓰고 모으는 것</b>이 무엇보다 중요합니다.</p>
+      <svg class="fsvg" viewBox="0 0 760 230" role="img" aria-label="현실 세계와 표본의 관계 그림 두 가지">
+        <text x="190" y="22" class="ft h c">① 현실 세계의 편향이 데이터에 반영되는 경우</text>
+        <text x="570" y="22" class="ft h c">② 표본을 잘못 뽑은 경우</text>
+        <circle cx="120" cy="120" r="78" class="fpop"/><text x="120" y="212" class="ft s c">현실 세계(이미 치우쳐 있음)</text>
+        <g id="biasA"></g>
+        <circle cx="300" cy="120" r="46" class="fsamp"/><text x="300" y="186" class="ft s c">표본 — 치우침 그대로</text>
+        <path d="M200,120 L250,120" class="fl" marker-end="url(#arA)"/>
+        <circle cx="500" cy="120" r="78" class="fpop"/><text x="500" y="212" class="ft s c">현실 세계(골고루)</text>
+        <g id="biasB"></g>
+        <circle cx="680" cy="120" r="46" class="fsamp"/><text x="680" y="186" class="ft s c">표본 — 한쪽만</text>
+        <path d="M580,120 L630,120" class="fl" marker-end="url(#arA)"/>
+      </svg>
+      <div class="g2">
+        <div class="cc wide"><b>① 현실 세계의 편향(불공정)이 반영되는 경우</b><span>최근에야 권리가 개선되기 시작한 인종 · 성별 · 종교 등은 사회에 충분한 사례가 아직 없어, <b>오랜 기간 쌓인 데이터</b>를 모으면 불리한 위치에 놓인다. 차별이 용인되는 사회에서 모아도 같은 문제가 생긴다.</span></div>
+        <div class="cc wide"><b>② 수집 과정이 잘못돼 현실을 반영하지 못하는 경우</b><span>조사자가 표본을 뽑을 때 <b>의식적 · 무의식적으로 의도</b>를 넣거나 잘못된 방법을 쓰면 편향이 생긴다. 의도적 유도는 <b>비윤리적</b>이고, 무의식적 실수도 조사자 자신을 포함해 많은 사람에게 피해를 준다.</span></div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <p class="side"><b>표본(sample) · 66쪽 옆</b>전체 <b>모집단</b>에서 선택된 일부분. 표본으로 모집단의 특성을 추정하거나 연구한다. 표본이 모집단의 특성을 <b>잘 반영하도록</b> 뽑는 것이 중요하고, 이를 위한 다양한 표본 추출 방법이 있다.</p>
+        <p class="side bot"><b>🤖 로봇의 말</b>«현실(모집단)에서의 데이터(표본) 수집은 <b>대부분 표본 추출</b>에 해당해.» — 그러니 «어떻게 뽑았나»가 곧 «얼마나 공정한가»입니다.</p>
+      </div>
+      <h3 style="margin-top:14px">직접 뽑아 보기 — 표본이 모집단을 닮았나? <span class="tm">시뮬레이션</span></h3>
+      <p class="desc">우리 학교 학생 200명 중 <b>절반은 버스</b>, <b>절반은 도보</b>로 등교한다고 해요(모집단). «등교 만족도» 설문을 20명에게 하려면 누구를 뽑아야 할까요?</p>
+      <div class="simctl"><button type="button" class="mini" data-s="rand">🎲 명단에서 무작위 20명</button><button type="button" class="mini gh" data-s="gate">🚌 아침 버스 정류장 앞에서 20명</button><button type="button" class="mini gh" data-s="sns">📱 학생회 SNS 팔로워 20명</button></div>
+      <svg class="fsvg" viewBox="0 0 760 170" id="sampSvg" role="img" aria-label="표본 추출 시뮬레이션"></svg>
+      <div class="keyout" id="sampOut">단추를 눌러 표본을 뽑아 보세요.</div>
+      <div class="tw" style="margin-top:10px"><table>
+        <tr><th style="width:26%">편향되지 않게 모으는 방법</th><th>설명 · 예 (66쪽 표 Ⅱ-3)</th></tr>
+        <tr><td><b>다양한 출처에서 모으기</b></td><td>출처를 다양화하면 편향을 피하는 데 도움. 예) 국내 여행 관광지 추천 앱이면 <b>여러 나라 사람</b>의 리뷰를 모은다.</td></tr>
+        <tr><td><b>다양한 요소 고려하기</b></td><td>처음부터 인종 · 국적 · 나이 · 성별 등 여러 요소를 고려해 뽑는다.</td></tr>
+        <tr><td><b>수집자의 부적절한 의도 배제하기</b></td><td>의도가 끼어들지 않게 주의. <b>구하기 어려운 데이터를 피하고 쉬운 데이터만</b> 모으지 않는다.</td></tr>
+      </table></div>
+    </div>
     <div class="tool">
       <h3>이 조사, 무엇이 문제일까? <span class="tm">68~69쪽 활동을 우리 학교로</span></h3>
       <div class="kcards" id="lrBias"></div>
@@ -1241,6 +1580,22 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="lhead"><span class="lno">Ⅱ-02</span><div><b>데이터 가공과 핵심 속성 추출</b><span>교과서 70~83쪽 · 성취기준 02-02</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>회장과 부회장이 따로 생일을 걷었더니 — 중복도 있고, 빠진 사람도 있고, «3월 4일 · 0304 · 3/4»처럼 적는 법도 제각각입니다.
       이대로 <u>생일 파티 명단</u>을 만들 수 있을까요?</div>
+    <div class="tool fig">
+      <h3>전처리 한눈에 — 엉망인 데이터가 쓸 수 있는 데이터가 되기까지 <span class="tm">71쪽 · 단추로 한 단계씩</span></h3>
+      <div class="pipe" id="pipeSteps">
+        <button type="button" data-p="0" aria-pressed="true"><i>0</i>모은 그대로</button>
+        <button type="button" data-p="1" aria-pressed="false"><i>1</i>변환</button>
+        <button type="button" data-p="2" aria-pressed="false"><i>2</i>통합</button>
+        <button type="button" data-p="3" aria-pressed="false"><i>3</i>정제</button>
+        <button type="button" data-p="4" aria-pressed="false"><i>4</i>축소</button>
+        <button type="button" data-p="5" aria-pressed="false"><i>5</i>핵심 속성</button>
+      </div>
+      <div class="pipeview" id="pipeView"></div>
+      <div class="pipemsg" id="pipeMsg"></div>
+      <div class="simctl"><button type="button" class="mini" id="pipePlay">▶ 처음부터 자동 재생</button></div>
+    </div>
+    <div class="colabcta"><span><b>🧪 이 소단원은 코랩으로 수업합니다</b>교과서 70~83쪽의 본문 · 옆 설명 · 실습 ❶~⓮ · 상자그림 읽을거리를 노트북 한 권에 모두 담았습니다. 맨 끝에 80~82쪽 활동(건강검진)도 있어요.</span>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/13_unit2_02_preprocessing.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 13 Ⅱ-02 전체</a></div>
     <h3 class="lh">① 전처리 네 가지 <small>71쪽</small></h3>
     <div class="cgrid">
       <div class="cc"><b>변환</b><span>표현을 통일 — «남자»→«남», 날짜를 YYYY-MM-DD로</span></div>
@@ -1264,6 +1619,24 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <li><b>핵심 속성</b> — 혈색소와의 상관계수: 신장 <b>0.48</b> · 체중 0.45 · 허리둘레 0.35 / HDL콜레스테롤 −0.18 · 연령대 −0.14.</li></ol>
       <span class="eg">파일이 약 95MB라 교과서처럼 <b>내 구글 드라이브에 올려 코랩과 연동</b>합니다. 필요하면 선생님이 공유 드라이브로 드립니다.
         «키가 클수록 혈색소가 높다» — 함께 움직일 뿐, 원인이라고 말할 수 있을까요?</span></div></div>
+    <div class="tool fig">
+      <h3>상자그림 읽는 법 <span class="tm">83쪽 읽을거리</span></h3>
+      <svg class="fsvg" viewBox="0 0 760 210" role="img" aria-label="상자그림의 구조">
+        <line x1="40" y1="110" x2="720" y2="110" class="fax"/>
+        <line x1="150" y1="80" x2="150" y2="140" class="fbx"/><line x1="150" y1="110" x2="260" y2="110" class="fbx"/>
+        <rect x="260" y="70" width="220" height="80" class="fboxr"/>
+        <line x1="350" y1="70" x2="350" y2="150" class="fmed"/>
+        <line x1="480" y1="110" x2="590" y2="110" class="fbx"/><line x1="590" y1="80" x2="590" y2="140" class="fbx"/>
+        <circle cx="680" cy="110" r="8" class="fout"/><circle cx="60" cy="110" r="8" class="fout"/>
+        <text x="260" y="58" class="ft s c">Q1 (25%)</text><text x="350" y="58" class="ft s c">중앙값 (50%)</text><text x="480" y="58" class="ft s c">Q3 (75%)</text>
+        <path d="M262,172 L478,172" class="fl2"/><text x="370" y="190" class="ft s c b">IQR = Q3 − Q1 (가운데 50%)</text>
+        <text x="150" y="160" class="ft s c">수염 끝</text><text x="590" y="160" class="ft s c">수염 끝</text>
+        <text x="680" y="140" class="ft s c warmt">이상치 ●</text><text x="60" y="140" class="ft s c warmt">이상치 ●</text>
+        <text x="590" y="200" class="ft s c">Q3 + 1.5×IQR 보다 크면 이상치</text><text x="150" y="200" class="ft s c">Q1 − 1.5×IQR 보다 작으면 이상치</text>
+      </svg>
+      <p class="desc">이상치는 기준을 세우기 어려워 결측치보다 찾기 어렵고, 그 분야의 <b>전문성</b>이 필요합니다. 기준점이 없으면 완전히 <b>자동화하기도 어렵습니다</b>.
+        그래서 상자그림으로 «다른 값들과 동떨어진 값»을 먼저 눈으로 찾고, 지울지 · 고칠지 · 그대로 둘지는 <b>사람이 판단</b>합니다. 🤖 «이상치는 상자 수염 바깥의 점 형태로 나타내.»</p>
+    </div>
     <div class="tool">
       <h3>상자그림의 이상치 기준 — IQR <span class="tm">83쪽 읽을거리</span></h3>
       <p class="desc">값을 크기순으로 세웠을 때 25% 지점이 <b>Q1</b>, 75% 지점이 <b>Q3</b>, 그 차이가 <b>IQR</b>입니다.
@@ -1296,6 +1669,28 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         → 바둑·게임, 자율 주행, 챗GPT의 RLHF<br>
         <b>탐험</b>(새 길 시도)과 <b>이용</b>(아는 길) 사이의 균형이 핵심.</span></div>
     </div>
+    <div class="tool fig">
+      <h3>기계학습 유형 지도 — 한 장으로 <span class="tm">85쪽 그림 Ⅱ-5를 넓혀서</span></h3>
+      <div class="mlmap">
+        <div class="mlc sup"><b>지도학습</b><i>문제와 정답을 모두 알려 주고 공부시키기</i>
+          <svg viewBox="0 0 200 110" class="msvg" aria-hidden="true"><g class="pa"><circle cx="30" cy="30" r="6"/><circle cx="50" cy="45" r="6"/><circle cx="40" cy="70" r="6"/><circle cx="70" cy="28" r="6"/></g><g class="pb"><circle cx="140" cy="60" r="6"/><circle cx="160" cy="80" r="6"/><circle cx="130" cy="90" r="6"/><circle cx="170" cy="45" r="6"/></g><line x1="95" y1="5" x2="105" y2="105" class="fline"/><text x="10" y="105" class="ft s">● 색 = 정답(레이블)</text></svg>
+          <div class="mlsub"><span><b>분류</b>정해 둔 집단 중 하나 고르기 · 이진 / 다중</span><span><b>예측</b>숫자 맞히기(회귀)</span></div>
+          <em>예) 개·고양이 사진, 스팸 메일, OCR 글자 인식, 포도 색깔로 당도, 기온으로 아이스크림 판매량</em></div>
+        <div class="mlc uns"><b>비지도학습</b><i>정답을 가르쳐 주지 않고 공부시키기</i>
+          <svg viewBox="0 0 200 110" class="msvg" aria-hidden="true"><g class="pg"><circle cx="30" cy="30" r="6"/><circle cx="50" cy="45" r="6"/><circle cx="40" cy="20" r="6"/><circle cx="150" cy="70" r="6"/><circle cx="165" cy="85" r="6"/><circle cx="140" cy="88" r="6"/><circle cx="60" cy="85" r="6"/><circle cx="45" cy="95" r="6"/></g><circle cx="40" cy="32" r="26" class="fring"/><circle cx="153" cy="80" r="24" class="fring"/><circle cx="53" cy="90" r="17" class="fring"/><text x="85" y="105" class="ft s">○ = 스스로 묶음</text></svg>
+          <div class="mlsub"><span><b>군집화</b>비슷한 것끼리 묶기(집단을 미리 정하지 않음)</span><span><b>추천</b>함께 사는 상품 · 비슷한 사람</span></div>
+          <em>예) 소비가 비슷한 고객 묶기, 시청층이 비슷한 동영상, 이상 거래 찾기</em></div>
+        <div class="mlc rl"><b>강화 학습</b><i>보상으로 상은 최대, 벌은 최소가 되게 행동 강화</i>
+          <svg viewBox="0 0 200 110" class="msvg" aria-hidden="true"><rect x="10" y="20" width="60" height="60" rx="10" class="fb blue"/><text x="40" y="56" class="ft s c">🤖 에이전트</text><rect x="130" y="20" width="60" height="60" rx="10" class="fb"/><text x="160" y="56" class="ft s c">🌍 환경</text><path d="M72,38 Q100,18 128,38" class="fl" marker-end="url(#arA)"/><path d="M128,64 Q100,86 72,64" class="fl" marker-end="url(#arA)"/><text x="100" y="18" class="ft s c">행동</text><text x="100" y="100" class="ft s c">상태 · 보상(+/−)</text></svg>
+          <div class="mlsub"><span><b>전략 학습</b>게임 · 바둑 · 자율 주행 · 로봇</span><span><b>RLHF</b>챗GPT를 사람 피드백으로 다듬기</span></div>
+          <em>예) 블록 깨기 DQN, 미로 탈출 로봇, 체스</em></div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <p class="side"><b>레이블(label) · 86쪽 옆</b>정답 데이터의 다른 이름. 강아지 사진에 «강아지»라고 붙은 표시가 레이블이다.
+          <b>이진 분류</b> 두 범주로 · <b>다중 분류</b> 세 범주 이상으로.</p>
+        <p class="side bot"><b>🤖 86 · 88쪽 말풍선</b>«정답이 있는 데이터를 충분히 확보하기 어렵다면 <b>지도학습 적용이 불가능</b>할 수 있어.» «<b>분류와 군집화</b>를 헷갈리지 않도록 주의해 — 분류는 집단을 <b>미리 정해 두고</b>, 군집화는 정하지 않아.»</p>
+      </div>
+    </div>
     <div class="tool" style="margin-top:12px">
       <h3>독립변수와 종속변수 <span class="tm">87쪽</span></h3>
       <p class="desc">예측에서 <b>힌트로 쓰는 값</b>이 독립변수(속성), <b>맞히려는 값</b>이 종속변수(정답)입니다. 각 문장에서 무엇이 정답일까요?</p>
@@ -1306,6 +1701,30 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <p class="desc">A는 라면·콜라·생수를, B는 라면·콜라를 샀습니다. 둘은 «비슷한 사람»으로 묶입니다. B에게 무엇을 추천할까요?</p>
       <div class="simctl" id="lrRec"><button type="button" class="mini gh" data-a="라면">라면</button><button type="button" class="mini gh" data-a="콜라">콜라</button><button type="button" class="mini gh" data-a="생수">생수</button></div>
       <div class="keyout" id="lrRecOut">하나를 골라 보세요</div>
+    </div>
+    <div class="tool fig">
+      <h3>강화 학습 체험 — 미로 로봇의 «탐험과 이용» <span class="tm">89쪽 그림 Ⅱ-10 · Ⅱ-11</span></h3>
+      <p class="desc">로봇(🤖)은 처음엔 길을 모릅니다. 움직일 때마다 <b>−1</b>(시간 벌점), 함정 🔥 은 <b>−10</b>, 출구 🏁 는 <b>+10</b>. 판을 거듭하며 «이 칸에서 이 방향의 가치(Q)»를 고쳐 갑니다.
+        <b>탐험 비율</b>을 바꿔 보세요 — 탐험만 하면 헤매고(출구를 못 찾음), 이용만 하면 아는 길만 갑니다(가장 빠른 길인지 모름).</p>
+      <div class="rlbox">
+        <svg viewBox="0 0 300 300" class="fsvg rlsvg" id="rlSvg" role="img" aria-label="미로 강화 학습 격자"></svg>
+        <div>
+          <label class="sl"><span>탐험 비율 ε <b id="rlEv">0.2</b></span><input type="range" id="rlEps" min="0" max="1" step="0.05" value="0.2"></label>
+          <div class="simctl"><button type="button" class="mini" id="rlOne">한 판</button><button type="button" class="mini" id="rl50">50판 연습</button><button type="button" class="mini gh" id="rlReset">처음부터</button></div>
+          <div class="keyout" id="rlOut"></div>
+          <svg viewBox="0 0 300 110" class="fsvg" id="rlChart" aria-label="판마다 걸음 수"></svg>
+        </div>
+      </div>
+      <div class="g2">
+        <p class="side"><b>RLHF · 89쪽 옆</b>Reinforcement Learning from Human Feedback — 사람의 주관이 담긴 <b>피드백</b>을 모델 학습에 활용하는 강화 학습. 데이터 품질을 개선하려고 설계됐다. 생성형 AI(챗GPT)를 만들 때 쓰인다.</p>
+        <p class="side"><b>읽을거리 · 91쪽 «전략은 인간만의 것이 아니다!»</b>딥마인드의 DQN은 블록 깨기 «Breakout»의 규칙을 스스로 배워, 나중엔 공을 <b>블록 뒤 공간</b>에 넣어 한 번에 많은 점수를 얻는 전략까지 썼다(네이처 게재). → 전략을 찾는 AI를 어디에 좋게 쓸 수 있을까?</p>
+      </div>
+    </div>
+    <div class="tool">
+      <h3>사례 30개 — 어떤 학습일까? <span class="tm">90쪽 활동을 넓혀서</span></h3>
+      <p class="desc">하나씩 읽고 <b>지도-분류 · 지도-예측 · 비지도 · 강화</b> 중 고르세요. 판단 근거는 «정답(레이블)이 있나? 숫자인가 종류인가? 보상으로 배우나?»</p>
+      <div class="simctl"><span class="statline"><span class="st" id="c30Score">0 / 30</span></span><button type="button" class="mini gh" id="c30Reset">다시 하기</button></div>
+      <div class="kcards" id="c30"></div>
     </div>
     <div class="tool">
       <h3>30초 확인 <span class="tm">O / X</span></h3>
@@ -1369,6 +1788,30 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="lhead"><span class="lno">Ⅱ-05</span><div><b>기계학습 모델 구현</b><span>교과서 100~115쪽 · 성취기준 02-04 · 첫 주 3차시 · 프로젝트 ③에서 우리 데이터로</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>새 바지가 헐렁하면 입어 보고 줄이고, 또 입어 보고 줄입니다.
       모델도 <u>입혀 보고(평가) 고치는(수정)</u> 일을 되풀이합니다. 그런데 «잘 맞는지»는 무엇으로 잴까요?</div>
+    <div class="tool fig">
+      <h3>기계학습 모델 구현 과정 — 한 장면씩 <span class="tm">101~103쪽 · ▶ 재생</span></h3>
+      <svg class="fsvg" viewBox="0 0 760 250" id="procSvg" role="img" aria-label="데이터 분리, 모델 학습, 모델 평가 과정 애니메이션">
+        <g class="pstep" data-s="0"><rect x="14" y="70" width="140" height="110" rx="16" class="fb"/><text x="84" y="100" class="ft c b">📦 데이터셋</text>
+          <g class="pgrid"></g></g>
+        <g class="pstep" data-s="1"><rect x="196" y="40" width="150" height="70" rx="14" class="fb blue"/><text x="271" y="70" class="ft c b">📘 훈련 데이터</text><text x="271" y="92" class="ft s c">공부하는 학습지 · 70~80%</text>
+          <rect x="196" y="122" width="150" height="44" rx="12" class="fb good"/><text x="271" y="149" class="ft s c">✏️ 검증 데이터(선택)</text>
+          <rect x="196" y="178" width="150" height="58" rx="14" class="fb warm"/><text x="271" y="203" class="ft c b">📝 테스트 데이터</text><text x="271" y="222" class="ft s c">시험지 · 학습에 안 씀</text></g>
+        <g class="pstep" data-s="2"><rect x="392" y="40" width="150" height="90" rx="16" class="fb blue"/><text x="467" y="72" class="ft c b">🧠 model.fit()</text><text x="467" y="94" class="ft s c">엉성한 틀이 학습하며</text><text x="467" y="112" class="ft s c">똑똑해짐(파라미터 조정)</text>
+          <circle cx="467" cy="150" r="10" class="spin"/></g>
+        <g class="pstep" data-s="3"><rect x="588" y="100" width="160" height="96" rx="16" class="fb good"/><text x="668" y="128" class="ft c b">📊 모델 평가</text><text x="668" y="150" class="ft s c">predict() → 성능 지표</text><text x="668" y="170" class="ft s c">예측: R² · MSE</text><text x="668" y="188" class="ft s c">분류: 정확도 · 정밀도 · 재현율</text></g>
+        <g class="pstep" data-s="4"><path d="M668,96 C668,10 300,10 271,36" class="fl dash warmst" marker-end="url(#arA)"/><text x="470" y="22" class="ft s c warmt">점수가 모자라면 → 앞 단계로 돌아가 다시 학습</text></g>
+        <path d="M154,125 L192,80 M154,125 L192,205" class="fl" marker-end="url(#arA)"/>
+        <path d="M346,75 L388,82" class="fl" marker-end="url(#arA)"/>
+        <path d="M542,90 L584,130 M346,205 L584,170" class="fl" marker-end="url(#arA)"/>
+      </svg>
+      <div class="pipemsg" id="procMsg"></div>
+      <div class="simctl"><button type="button" class="mini" id="procPlay">▶ 재생</button><button type="button" class="mini gh" data-ps="0">데이터</button><button type="button" class="mini gh" data-ps="1">① 데이터 분리</button><button type="button" class="mini gh" data-ps="2">② 모델 학습</button><button type="button" class="mini gh" data-ps="3">③ 모델 평가</button><button type="button" class="mini gh" data-ps="4">④ 다시</button></div>
+    </div>
+    <div class="nbcards">
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/14_predict_regression.ipynb" target="_blank" rel="noopener"><i>예측 모델</i><b>14 자동차 연비 맞히기</b><span>선형 회귀 · 경사하강법 애니메이션 · MAE · RMSE · R² · 잔차 그래프 · 랜덤 포레스트 비교</span></a>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/15_classify_titanic.ipynb" target="_blank" rel="noopener"><i>분류 모델</i><b>15 타이타닉 생존자 분류</b><span>로지스틱 · 트리 · kNN · 혼동 행렬 · 정밀도 · 재현율 · 임계값 · 기준선</span></a>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/16_cluster_wine.ipynb" target="_blank" rel="noopener"><i>군집 모델</i><b>16 정답 없이 와인 묶기</b><span>표준화 · 엘보 · 실루엣 · k-평균 애니메이션 · PCA · 군집 해석 · 일치도</span></a>
+    </div>
     <h3 class="lh">① 데이터를 세 갈래로 <small>101~102쪽</small></h3>
     <div class="cgrid three">
       <div class="cc"><b>훈련 데이터</b><span>모델이 공부하는 <b>학습지</b>. <code>fit()</code>에 넣는다.</span></div>
@@ -2050,6 +2493,144 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       코드로 같은 일을 하는 방법은 아래 <a href="#implement">구현 절차</a>에서 위젯과 짝지어 봅니다.</p>
   </div>
   <div class="nextgo"><b>이어서</b><a href="#implement">Ⅱ-05 구현 절차 · 평가 해석</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감 — 26종 자세히</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/12_model_zoo.ipynb" target="_blank" rel="noopener">▶ 코랩 · 모델 비교 실험실</a><a href="#algo">k-최근접 이웃 · 선형 회귀 다시 움직이기</a><a href="#learn04">교과서로 배우기 Ⅱ-04</a></div>
+</div></section>
+
+<section id="algolab"><div class="wrap">
+  <p class="eyebrow">Ⅱ-04 알고리즘 실험실 · 2차시</p>
+  <h2>알고리즘을 눈으로 보고, 말로 풀고, 오렌지3로 만들기</h2>
+  <p class="sub">같은 점들을 두고 모델마다 <b>경계를 어떻게 긋는지</b> 직접 움직여 봅니다. 낯선 용어는 <b>쉬운 말</b>로, 수학은 <b>숫자 하나씩</b> 따라 계산합니다.
+    마지막에 <b>모든 모델 비교 그림</b>과 <b>주제별 모델 고르기 표</b>, 그리고 <b>오렌지3 만드는 법</b>까지 — Ⅳ단원 프로젝트에서 모델을 고를 때 이 쪽을 펼쳐 두세요.</p>
+  <div class="toc toc-in">
+    <a href="#alBoundary"><span class="ic">🗺️</span><span><b>결정 경계 실험실</b><span>분류 모델 7종 · 점 찍기</span></span></a>
+    <a href="#alReg"><span class="ic">📉</span><span><b>회귀 실험실</b><span>과적합 · 과소적합 보기</span></span></a>
+    <a href="#alWords"><span class="ic">📖</span><span><b>용어 풀이 30</b><span>쉬운 말 · 비유</span></span></a>
+    <a href="#alMath"><span class="ic">➗</span><span><b>수학 쉽게</b><span>숫자로 따라 계산</span></span></a>
+    <a href="#alCompare"><span class="ic">📊</span><span><b>한눈에 비교</b><span>모델 12종</span></span></a>
+    <a href="#alPick"><span class="ic">🧭</span><span><b>주제별 모델 고르기</b><span>프로젝트 주제 20</span></span></a>
+    <a href="#alOrange"><span class="ic">🍊</span><span><b>오렌지3로 만들기</b><span>모델별 위젯 연결</span></span></a>
+  </div>
+
+  <div class="tool" id="alBoundary">
+    <h3>결정 경계 실험실 — 같은 점, 다른 경계 <span class="tm">분류 모델 7종</span></h3>
+    <p class="desc">파란 점(A)과 주황 점(B)을 나누는 <b>경계</b>를 모델마다 다르게 긋습니다. 배경색은 «그 자리에 새 점이 오면 모델이 어느 쪽이라고 할지»입니다.
+      <b>속이 빈 점</b>은 학습에 안 쓴 <b>테스트 점</b>이에요. 그림을 누르면 점이 더해집니다.</p>
+    <div class="bctl">
+      <label>데이터 모양 <select id="bdData"><option value="blobs">두 무리</option><option value="xor">엇갈림(XOR)</option><option value="circle">동심원</option><option value="moons">초승달 두 개</option><option value="noisy">겹치는 두 무리</option><option value="empty">빈 판(직접 찍기)</option></select></label>
+      <span class="pick" id="bdCls"><button type="button" data-c="0" aria-pressed="true">● A 찍기</button><button type="button" data-c="1" aria-pressed="false">● B 찍기</button></span>
+    </div>
+    <div class="pick bdm" id="bdModel">
+      <button type="button" data-m="knn" aria-pressed="true">k-최근접 이웃</button><button type="button" data-m="log" aria-pressed="false">로지스틱 회귀</button>
+      <button type="button" data-m="tree" aria-pressed="false">의사결정트리</button><button type="button" data-m="rf" aria-pressed="false">랜덤 포레스트</button>
+      <button type="button" data-m="nb" aria-pressed="false">나이브 베이즈</button><button type="button" data-m="svm" aria-pressed="false">SVM(RBF)</button><button type="button" data-m="nn" aria-pressed="false">신경망</button>
+    </div>
+    <div class="bdwrap"><canvas id="bdCv" width="560" height="400" aria-label="결정 경계 그림"></canvas>
+      <div class="bdside">
+        <label class="sl"><span id="bdHpL">k</span><b id="bdHpV"></b><input type="range" id="bdHp"></label>
+        <div class="statline"><span class="st">훈련 정확도 <b id="bdTr">-</b></span><span class="st good">테스트 정확도 <b id="bdTe">-</b></span></div>
+        <div class="keyout" id="bdTip"></div>
+        <div class="simctl"><button type="button" class="mini gh" id="bdNew">점 새로 뿌리기</button></div>
+      </div></div>
+    <p class="hint">해 볼 것 — ① «엇갈림»에서 로지스틱 회귀는 왜 못 나눌까? ② 트리 깊이를 1 → 10 으로 올리면 테스트 정확도는? ③ k를 1로 하면 경계가 어떻게 되나? ④ 신경망 뉴런을 1개 → 8개로.</p>
+  </div>
+
+  <div class="tool" id="alReg">
+    <h3>회귀 실험실 — 너무 단순하면 «과소적합», 너무 맞추면 «과적합» <span class="tm">예측 모델 5종</span></h3>
+    <p class="desc">점들은 «기온에 따른 판매량»처럼 <b>곡선</b> 관계에 잡음이 섞인 데이터입니다. 꽉 찬 점은 <b>훈련</b>, 빈 점은 <b>테스트</b>. 선이 테스트 점까지 잘 지나가야 «실력»입니다.</p>
+    <div class="pick bdm" id="rgModel">
+      <button type="button" data-m="lin" aria-pressed="true">선형 회귀</button><button type="button" data-m="poly" aria-pressed="false">다항 회귀</button>
+      <button type="button" data-m="tree" aria-pressed="false">회귀 트리</button><button type="button" data-m="knn" aria-pressed="false">kNN 회귀</button><button type="button" data-m="rf" aria-pressed="false">랜덤 포레스트</button>
+    </div>
+    <div class="bdwrap"><canvas id="rgCv" width="560" height="320" aria-label="회귀 곡선 그림"></canvas>
+      <div class="bdside">
+        <label class="sl"><span id="rgHpL">-</span><b id="rgHpV"></b><input type="range" id="rgHp"></label>
+        <div class="statline"><span class="st">훈련 RMSE <b id="rgTr">-</b></span><span class="st good">테스트 RMSE <b id="rgTe">-</b></span></div>
+        <div class="keyout" id="rgTip"></div>
+        <svg viewBox="0 0 260 120" class="fsvg" id="rgCurve" aria-label="복잡도에 따른 오차 곡선"></svg>
+        <div class="simctl"><button type="button" class="mini gh" id="rgNew">점 새로 뿌리기</button></div>
+      </div></div>
+  </div>
+
+  <div class="tool" id="alWords">
+    <h3>용어 풀이 30 — 어려운 말을 쉬운 말로 <span class="tm">찾기 가능</span></h3>
+    <label class="mdsearch" style="max-width:420px; margin-bottom:10px"><span>찾기</span><input id="wdQ" type="search" placeholder="예: 과적합, 학습률, 커널"></label>
+    <div class="words" id="wdList"></div>
+  </div>
+
+  <div class="tool" id="alMath">
+    <h3>수학 쉽게 — 숫자로 한 줄씩 <span class="tm">모델 안에 들어 있는 계산</span></h3>
+    <div class="maths">
+      <div class="mth"><b>① 거리 — k-최근접 이웃 <small>93쪽 예제</small></b>
+        <p>두 점 사이 거리는 <b>피타고라스 정리</b>: √(가로 차² + 세로 차²)</p>
+        <p class="calc">E(12, 10) ↔ B(10, 10): √(2² + 0²) = <b>2</b><br>E ↔ D(9, 9): √(3² + 1²) = √10 ≈ <b>3.16</b><br>E ↔ C(14, 7): √(2² + 3²) = √13 ≈ <b>3.61</b><br>E ↔ A(20, 5): √(8² + 5²) = √89 ≈ <b>9.43</b></p>
+        <p>가까운 순 B(개) · D(개) · C(고양이) → <b>k=1 개, k=3 개(2:1)</b>. 특성의 단위가 다르면(cm와 kg) 큰 쪽이 거리를 독차지 → <b>정규화</b>가 필요한 이유.</p></div>
+      <div class="mth"><b>② 직선과 오차 — 선형 회귀 <small>95쪽</small></b>
+        <p>직선 <b>y = a·x + b</b>. a 는 «x 가 1 늘 때 y 가 얼마나 느나»(기울기), b 는 x=0 일 때 값(절편).</p>
+        <p class="calc">점 (1, 3), (2, 5), (3, 6) · 직선 y = 1.5x + 1.7<br>예측 3.2, 4.7, 6.2 → 오차 −0.2, 0.3, −0.2<br>MSE = (0.04 + 0.09 + 0.04) ÷ 3 ≈ <b>0.057</b></p>
+        <p><b>MSE</b>(평균제곱오차) = 오차(Error)를 제곱(Squared)해 평균(Mean) — 제곱하는 까닭은 +/− 가 서로 지워지지 않게, 큰 실수에 벌을 더 주려고.</p></div>
+      <div class="mth"><b>③ 경사하강법 — 눈 감고 산 내려가기 <small>95쪽 그림 Ⅱ-14</small></b>
+        <p>MSE 를 산의 높이라고 하면, 발밑 <b>기울기</b>를 느껴 <b>내려가는 쪽으로 한 걸음</b>씩. 걸음 크기 = <b>학습률</b>.</p>
+        <p class="calc">새 a = 기존 a − 학습률 × (기울기)</p>
+        <p>학습률이 너무 작으면 오래 걸리고, 너무 크면 골짜기를 넘어 <b>학습에 실패</b>(교과서). 그래서 0 과 1 사이 적절한 값.</p></div>
+      <div class="mth wide"><b>④ 시그모이드 — 로지스틱 회귀의 농구 슛 <small>94쪽</small></b>
+        <p>점수 <b>z</b> 를 0~1 확률로 바꾸는 S자 함수: <b>확률 = 1 ÷ (1 + e<sup>−z</sup>)</b>. e 는 약 2.718 인 수. z 가 크면 확률 → 1, z=0 이면 0.5, z 가 작으면 → 0.</p>
+        <p>교과서 슛 기록(1·2·4m 성공, 5·7m 실패)으로 학습하면 <b>z = 4.281 − 0.9393 × 거리</b>. 거리를 넣어 한 줄씩 계산해 보세요.</p>
+        <label class="sl"><span>골대에서 거리 <b id="sgDv">3.0</b> m</span><input type="range" id="sgD" min="0" max="10" step="0.5" value="3"></label>
+        <p class="calc" id="sgCalc"></p>
+        <svg viewBox="0 0 420 150" class="fsvg" id="sgSvg" aria-label="시그모이드 곡선"></svg></div>
+      <div class="mth"><b>⑤ 지니 불순도 — 트리가 질문을 고르는 기준</b>
+        <p>한 칸 안에 여러 집단이 섞여 있는 정도. <b>1 − (각 집단 비율²의 합)</b>. 0 이면 한 집단뿐(깨끗).</p>
+        <p class="calc">승인 5 · 거절 5 → 1 − (0.5² + 0.5²) = <b>0.5</b> (가장 섞임)<br>승인 2 · 거절 0 → 1 − (1²) = <b>0</b> (깨끗)</p>
+        <p>트리는 «나눈 뒤 불순도가 가장 많이 줄어드는» 질문을 고릅니다 — 교과서 대출 트리가 «직장인인가?» «소득이 높은가?»를 묻는 이유.</p></div>
+      <div class="mth"><b>⑥ 평균 = 군집의 중심 — k-평균 <small>97쪽</small></b>
+        <p class="calc">무리의 점 (2, 3), (4, 5), (6, 4)<br>중심 = ((2+4+6)÷3, (3+5+4)÷3) = <b>(4, 4)</b></p>
+        <p>할당(가까운 중심) → 갱신(평균으로 이동)을 바뀌지 않을 때까지. 군집이 <b>구(동그라미) 모양</b>이라고 가정해서, 길쭉하거나 휘어진 무리는 잘 못 묶는다(교과서 말풍선).</p></div>
+      <div class="mth"><b>⑦ 확률의 곱 — 나이브 베이즈</b>
+        <p class="calc">스팸 중 «무료» 포함 60% · «당첨» 포함 40% · 스팸 비율 30%<br>정상 중 «무료» 5% · «당첨» 1% · 정상 비율 70%<br>스팸 점수 0.3×0.6×0.4 = 0.072 · 정상 점수 0.7×0.05×0.01 = 0.00035 → <b>스팸</b></p></div>
+      <div class="mth"><b>⑧ 가중합 + 활성화 — 신경망의 뉴런 <small>Ⅱ-06</small></b>
+        <p class="calc">입력 x₁=1, x₂=0 · 가중치 w₁=0.6, w₂=0.6 · 편향 −0.5<br>가중합 = 0.6×1 + 0.6×0 − 0.5 = 0.1 → ReLU → <b>0.1</b> · 계단 → <b>1</b></p>
+        <p>이 계산을 수천 개 뉴런 · 여러 층에서 반복하고, 틀린 만큼 가중치를 뒤에서부터 고친다(오차 역전파).</p></div>
+      <div class="mth"><b>⑨ 다수결과 평균 — 앙상블(랜덤 포레스트)</b>
+        <p class="calc">트리 5그루의 답: 생존 · 사망 · 생존 · 생존 · 사망 → <b>생존(3:2)</b><br>예측이면 평균: 21, 24, 22 → <b>22.3</b></p>
+        <p>한 그루씩은 실수해도 서로 다른 실수라 <b>모으면 상쇄</b>된다.</p></div>
+    </div>
+  </div>
+
+  <div class="tool" id="alCompare">
+    <h3>한눈에 비교 — 모델 12종 <span class="tm">막대가 길수록 그 성질이 강함</span></h3>
+    <div class="cmpgrid" id="cmpGrid"></div>
+    <p class="hint">«정확도 잠재력»은 데이터가 충분하고 설정을 잘했을 때 기대할 수 있는 정도입니다. 실제 정확도는 <b>내 데이터로 비교</b>해야 압니다(모델 비교 실험실 노트북).</p>
+  </div>
+
+  <div class="tool" id="alPick">
+    <h3>주제별 모델 고르기 — 프로젝트에서 바로 쓰는 표 <span class="tm">SDGs 주제 20</span></h3>
+    <div class="tw"><table id="pickTbl"></table></div>
+    <p class="hint">표의 «첫 후보»와 «비교 후보»를 <b>같은 테스트 데이터 · 같은 지표</b>로 오렌지3 Test and Score 에 함께 연결해 고르세요. 고른 이유 한 줄이 계획서의 «학습 유형과 알고리즘» 칸입니다.</p>
+  </div>
+
+  <div class="tool" id="alOrange">
+    <h3>오렌지3로 만들기 — 모델별 위젯 연결 <span class="tm">Ⅳ 프로젝트 ③에서 그대로</span></h3>
+    <svg class="fsvg" viewBox="0 0 760 210" role="img" aria-label="오렌지3 표준 워크플로 그림">
+      <g class="ow">
+        <rect x="10" y="80" width="96" height="50" rx="25"/><text x="58" y="110" class="ft c b">File</text>
+        <rect x="140" y="80" width="110" height="50" rx="25"/><text x="195" y="103" class="ft c b">Preprocess</text><text x="195" y="120" class="ft s c">정규화 · 결측</text>
+        <rect x="284" y="80" width="116" height="50" rx="25"/><text x="342" y="103" class="ft c b">Data Sampler</text><text x="342" y="120" class="ft s c">70% / 30%</text>
+        <rect x="440" y="14" width="110" height="40" rx="20" class="m"/><text x="495" y="39" class="ft c">kNN</text>
+        <rect x="440" y="64" width="110" height="40" rx="20" class="m"/><text x="495" y="89" class="ft c">Tree</text>
+        <rect x="440" y="114" width="110" height="40" rx="20" class="m"/><text x="495" y="139" class="ft c">Logistic Reg.</text>
+        <rect x="440" y="164" width="110" height="40" rx="20" class="m"/><text x="495" y="189" class="ft c">Random Forest</text>
+        <rect x="596" y="64" width="140" height="50" rx="25" class="o"/><text x="666" y="94" class="ft c b">Test and Score</text>
+        <rect x="596" y="150" width="140" height="44" rx="22" class="o"/><text x="666" y="177" class="ft c">Confusion Matrix</text>
+      </g>
+      <path d="M106,105 L136,105 M250,105 L280,105" class="fl" marker-end="url(#arA)"/>
+      <path d="M400,98 C520,60 560,80 592,86" class="fl" marker-end="url(#arA)"/><text x="410" y="76" class="ft s">훈련(Data)</text>
+      <path d="M400,115 C500,230 560,120 592,100" class="fl dash" marker-end="url(#arA)"/><text x="402" y="170" class="ft s">테스트(Test Data)</text>
+      <path d="M550,34 L594,80 M550,84 L594,88 M550,134 L594,96 M550,184 L594,104" class="fl thin"/>
+      <path d="M666,114 L666,146" class="fl" marker-end="url(#arA)"/>
+    </svg>
+    <div class="tw" style="margin-top:10px"><table id="owTbl"></table></div>
+    <p class="hint">오렌지3에서 만든 순서 그대로 코랩 코드로 옮기는 대조표는 <a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">Ⅳ단원 수행평가 ②</a>, 모델별 자세한 설명은 <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>에 있습니다.</p>
+  </div>
+  <div class="nextgo"><b>이어서</b><a href="#implement">Ⅱ-05 구현 절차 · 평가 해석</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/12_model_zoo.ipynb" target="_blank" rel="noopener">▶ 코랩 · 모델 비교 실험실</a></div>
 </div></section>
 
 <section id="implement"><div class="wrap">
@@ -4232,7 +4813,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=ee507a76"></script>
+<script src="lessons.js?v=5adaac36"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -4383,5 +4964,522 @@ if($('ipQuiz')){
 }
 })();
 </script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Ⅱ-01~05 보강(2026-10-06) — 그림 · 시뮬레이션 · 알고리즘 실험실
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+function $(id){ return document.getElementById(id); }
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#888'; }
+function rng(seed){ var s = seed >>> 0 || 1; return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+function gauss(r){ var u = 1 - r(), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, at, parent){ var e = document.createElementNS(NS, tag); for(var k in at) e.setAttribute(k, at[k]); if(parent) parent.appendChild(e); return e; }
+
+/* ── 고르기 문제 공통 ───────────────────────────── */
+function quiz(box, opts, items, onScore){
+  if(!box) return;
+  var st = {};
+  function draw(){
+    box.innerHTML = items.map(function(it, i){
+      var a = st[i], ok = a === it[1], o = it[3] || opts;
+      return '<div class="kcard' + (a == null ? '' : ok ? ' right' : ' wrong') + '"><div class="kq"><b>' + (i + 1) + '</b>' + it[0] + '</div>' +
+        '<span class="kpick">' + o.map(function(t, k){ return '<button type="button" data-i="' + i + '" data-k="' + k + '" aria-pressed="' + (a === k) + '">' + t + '</button>'; }).join('') + '</span>' +
+        (a == null ? '' : '<div class="kwhy"><b>' + (ok ? '맞아요. ' : '다시 보세요 — «' + o[it[1]] + '». ') + '</b>' + it[2] + '</div>') + '</div>';
+    }).join('');
+    if(onScore) onScore(items.filter(function(it, i){ return st[i] === it[1]; }).length, items.length);
+  }
+  box.addEventListener('click', function(e){ var b = e.target.closest('button[data-k]'); if(!b) return; st[+b.dataset.i] = +b.dataset.k; draw(); });
+  draw();
+  return { reset:function(){ st = {}; draw(); } };
+}
+
+/* ── Ⅱ-01 어떤 문제에 무엇을 ─────────────────── */
+quiz($('lrWhich'), ['전통적 프로그래밍', '기계학습'], [
+  ['학생 30명의 시험 점수를 높은 순서로 정렬하기', 0, '정렬 절차는 명확합니다(교과서 61쪽의 대표 예).'],
+  ['사진 속 동물이 머핀인지 치와와인지 구분하기', 1, '모양의 규칙을 다 적을 수 없어 사진 데이터에서 배우게 합니다(60쪽).'],
+  ['과목별 점수로 평균과 등급 구간 계산하기', 0, '학교가 정한 규칙(구간표)대로 계산하면 됩니다.'],
+  ['내가 본 영상으로 다음에 볼 영상 추천하기', 1, '추천은 많은 사람의 시청 데이터에서 패턴을 찾습니다.'],
+  ['말소리를 듣고 글자로 받아 적기(음성 인식)', 1, '사람마다 목소리가 달라 규칙으로는 불가능에 가깝습니다.'],
+  ['지하철 노선도에서 두 역 사이 최단 경로 찾기', 0, 'Ⅰ단원의 탐색 알고리즘처럼 절차가 분명합니다.'],
+  ['새로 생겨나는 수법의 스팸 메일 거르기', 1, '패턴이 바뀌어도 추가 학습으로 반영합니다(62쪽 표 Ⅱ-1 «변화 대응»).'],
+  ['물건값과 개수로 영수증 합계 계산하기', 0, '곱하고 더하는 절차가 정해져 있습니다.'],
+  ['기온·요일 기록으로 내일 매점 우유 판매량 예측하기', 1, '과거 데이터의 관계를 배워 숫자를 예측합니다(Ⅱ-03 예측).'],
+  ['손글씨 숫자 사진을 0~9로 인식하기', 1, '글씨체가 사람마다 달라 데이터에서 배웁니다(OCR, 86쪽).']
+]);
+
+/* ── Ⅱ-01 파라미터 직선 ────────────────────── */
+(function(){
+  var ar = $('pdAr'), br = $('pdBr'); if(!ar) return;
+  var P = [[60,140],[100,128],[140,104],[180,96],[220,70],[260,58]];
+  function toXY(p){ return [(p[0] - 30) / 28, (170 - p[1]) * 0.6]; }       // 시간 0~10, 성적 0~96
+  function draw(){
+    var a = +ar.value, b = +br.value;
+    $('pdA').textContent = a.toFixed(2); $('pdB').textContent = b;
+    var y0 = 170 - b / 0.6, y1 = 170 - (a * 10 + b) / 0.6;   // x: 0→10 시간, 성적 = a×시간 + b
+    var L = $('pdLine'); L.setAttribute('y1', y0.toFixed(1)); L.setAttribute('y2', y1.toFixed(1)); L.setAttribute('x2', 310);
+    var mse = P.reduce(function(s, p){ var q = toXY(p), pred = a * q[0] + b; return s + Math.pow(q[1] - pred, 2); }, 0) / P.length;
+    $('pdOut').innerHTML = 'MSE(틀린 정도) <b>' + mse.toFixed(1) + '</b> — a · b 를 움직여 가장 작게 만들어 보세요. 이렇게 «학습으로 찾아지는 값»이 <b>파라미터</b>입니다.' + (mse < 12 ? ' <b>👍 잘 맞췄어요!</b>' : '');
+  }
+  ar.addEventListener('input', draw); br.addEventListener('input', draw); draw();
+})();
+
+/* ── Ⅱ-01 편향 그림의 점 ─────────────────── */
+(function(){
+  var A = $('biasA'), B = $('biasB'); if(!A) return;
+  var r = rng(7), blue = 'var(--blue)', warm = 'var(--warm)';
+  function dots(g, cx, cy, R, n, pB){ for(var i = 0; i < n; i++){ var t = r() * 6.283, d = Math.sqrt(r()) * R; el('circle', { cx:(cx + Math.cos(t) * d).toFixed(1), cy:(cy + Math.sin(t) * d).toFixed(1), r:3.2, style:'fill:' + (r() < pB ? warm : blue) }, g); } }
+  dots(A, 120, 120, 70, 60, 0.18); dots(A, 300, 120, 40, 18, 0.18);
+  dots(B, 500, 120, 70, 60, 0.5); dots(B, 680, 120, 40, 18, 0.95);
+  A.parentNode.appendChild(A); B.parentNode.appendChild(B);   /* 표본 원 위로 */
+})();
+
+/* ── Ⅱ-01 표본 뽑기 시뮬레이션 ───────────── */
+(function(){
+  var svg = $('sampSvg'); if(!svg) return;
+  var pop = [], r = rng(11);
+  for(var i = 0; i < 200; i++) pop.push({ bus: i % 2 === 0, x: 20 + (i % 40) * 18, y: 20 + Math.floor(i / 40) * 26 });
+  function draw(pick){
+    svg.innerHTML = '';
+    pop.forEach(function(p, i){
+      el('circle', { cx:p.x, cy:p.y, r: pick && pick.indexOf(i) >= 0 ? 7 : 5, style:'fill:' + (p.bus ? 'var(--blue)' : 'var(--good)') + ';opacity:' + (pick && pick.indexOf(i) < 0 ? .22 : 1) + (pick && pick.indexOf(i) >= 0 ? ';stroke:var(--ink);stroke-width:2' : '') }, svg);
+    });
+    el('text', { x:20, y:160, class:'ft s' }, svg).textContent = '● 버스 등교(파랑) 100명   ● 도보 등교(초록) 100명';
+  }
+  function sample(kind){
+    var idx = pop.map(function(_, i){ return i; }), pick = [];
+    if(kind === 'rand'){ while(pick.length < 20){ var k = Math.floor(r() * 200); if(pick.indexOf(k) < 0) pick.push(k); } }
+    else if(kind === 'gate'){ var bus = idx.filter(function(i){ return pop[i].bus; }), walk = idx.filter(function(i){ return !pop[i].bus; });
+      while(pick.length < 18){ var k1 = bus[Math.floor(r() * bus.length)]; if(pick.indexOf(k1) < 0) pick.push(k1); }
+      while(pick.length < 20){ var k2 = walk[Math.floor(r() * walk.length)]; if(pick.indexOf(k2) < 0) pick.push(k2); } }
+    else { while(pick.length < 20){ var k3 = Math.floor(r() * 80); if(pick.indexOf(k3) < 0) pick.push(k3); } }   // 앞쪽(친한 무리)만
+    draw(pick);
+    var nb = pick.filter(function(i){ return pop[i].bus; }).length;
+    var msg = { rand:'명단에서 <b>무작위</b>로 — 모집단(50 : 50)과 비슷하게 나옵니다. 여러 번 눌러 보세요.',
+      gate:'버스 정류장 앞에서만 — <b>표본을 잘못 뽑은 편향</b>(66쪽 ②). 도보 등교생의 의견이 거의 빠집니다.',
+      sns:'SNS 팔로워만 — <b>구하기 쉬운 데이터만</b> 모은 경우. 학생회와 가까운 일부(그림 위쪽 줄)만 뽑혔습니다.' }[kind];
+    $('sampOut').innerHTML = '표본 20명 중 버스 <b>' + nb + '</b>명(' + nb * 5 + '%) · 도보 <b>' + (20 - nb) + '</b>명 — 모집단은 50% : 50%.<br>' + msg;
+  }
+  svg.parentNode.querySelector('.simctl').addEventListener('click', function(e){ var b = e.target.closest('button[data-s]'); if(b) sample(b.dataset.s); });
+  draw(null);
+})();
+
+/* ── Ⅱ-02 전처리 한눈에 ──────────────────── */
+(function(){
+  var box = $('pipeView'); if(!box) return;
+  var H = ['계약', '나이', '성별', 'BMI', '연락처', '의료비'];
+  var f1 = [[1,19,'여',17.9,'095-…1656',346],[2,19,'남',23.5,'095-…9637',1000],[3,288,'남',19.5,'095-…7648',697],[6,51,'여',23.2,'095-…9893',693]];
+  var f2 = [[6,51,'여',23.2,'095-…9893',693],[7,18,'남자',18.6,'095-…2851',442],[8,38,'여자',24.3,'095-…0732',879],[11,21,'남자',null,'095-…0439',850]];
+  var S = [
+    { msg:'<b>모은 그대로</b> — 파일이 두 개 · 성별 표기가 제각각(남/남자) · 288세 · BMI 빈칸 · 연락처 · 계약 6번 중복. 바로 학습에 쓸 수 없습니다.', t:[['file1', f1], ['file2', f2]], mark:{} },
+    { msg:'<b>① 변환</b> — 표현을 통일. <code>replace({\'남자\':\'남\', \'여자\':\'여\'})</code>', t:[['file1', f1], ['file2', f2.map(function(r){ var c = r.slice(); c[2] = c[2].charAt(0); return c; })]], mark:{ col:2 } },
+    { msg:'<b>② 통합</b> — 두 파일을 하나로 <code>concat</code>, 계약 6번 <b>중복 삭제</b> <code>drop_duplicates</code>. 단위가 같은지도 확인.', t:[['합친 표', f1.concat(f2.slice(1)).map(function(r){ var c = r.slice(); if(typeof c[2] === 'string') c[2] = c[2].charAt(0); return c; })]], mark:{} },
+    { msg:'<b>③ 정제</b> — 결측치(BMI 빈칸) 행과 이상치(288세) 행을 <b>제거</b> <code>dropna</code> · <code>df[df[\'나이\'] <= 200]</code>. 상황에 따라 평균·최빈값으로 <b>대체</b>할 수도.', t:[['정제 후', f1.concat(f2.slice(1)).filter(function(r){ return r[3] != null && r[1] <= 200; }).map(function(r){ var c = r.slice(); c[2] = String(c[2]).charAt(0); return c; })]], mark:{} },
+    { msg:'<b>④ 축소</b> — 목표(의료비)와 관계없는 <b>연락처 · 계약 번호</b> 열 삭제 <code>drop(..., axis=1)</code>', t:[['축소 후', f1.concat(f2.slice(1)).filter(function(r){ return r[3] != null && r[1] <= 200; }).map(function(r){ var c = r.slice(); c[2] = String(c[2]).charAt(0); return c; })]], drop:[0, 4], mark:{} },
+    { msg:'<b>⑤ 핵심 속성</b> — 상관계수 <code>corr()</code> 로 의료비와 가장 관련 깊은 속성을 찾습니다. 교과서 실습: <b>BMI 0.75</b> · 자녀 수 0.20 · 나이 0.10', bars:[['BMI', 0.751], ['자녀 수', 0.200], ['나이', 0.102]] }
+  ];
+  var cur = 0, timer = null;
+  function table(name, rows, drop){
+    var cols = H.map(function(h, i){ return i; }).filter(function(i){ return !(drop || []).includes(i); });
+    return '<div class="ptab"><em>' + name + '</em><table><tr>' + cols.map(function(i){ return '<th>' + H[i] + '</th>'; }).join('') + '</tr>' +
+      rows.map(function(r){ return '<tr>' + cols.map(function(i){ var v = r[i]; var bad = (i === 1 && v > 200) || v == null || (i === 2 && v.length > 1);
+        return '<td' + (bad ? ' class="bad"' : '') + '>' + (v == null ? '빈칸' : v) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>';
+  }
+  function show(i){
+    cur = i; var s = S[i];
+    [].forEach.call($('pipeSteps').children, function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); b.classList.toggle('done', k < i); });
+    box.innerHTML = s.bars ? '<div class="pbars">' + s.bars.map(function(b){ return '<div><span>' + b[0] + '</span><i style="width:' + (b[1] * 100) + '%"></i><b>' + b[1].toFixed(2) + '</b></div>'; }).join('') + '</div>'
+      : s.t.map(function(t){ return table(t[0], t[1], s.drop); }).join('');
+    $('pipeMsg').innerHTML = s.msg;
+    box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+  }
+  $('pipeSteps').addEventListener('click', function(e){ var b = e.target.closest('button[data-p]'); if(b){ clearInterval(timer); show(+b.dataset.p); } });
+  $('pipePlay').addEventListener('click', function(){ clearInterval(timer); show(0); timer = setInterval(function(){ if(cur >= S.length - 1){ clearInterval(timer); return; } show(cur + 1); }, 2600); });
+  show(0);
+})();
+
+/* ── Ⅱ-03 강화 학습 미로 ─────────────────── */
+(function(){
+  var svg = $('rlSvg'); if(!svg) return;
+  var N = 5, WALL = { '1,1':1, '2,1':1, '3,3':1, '1,3':1 }, FIRE = { '3,1':1, '2,3':1 }, GOAL = [4, 4];
+  var Q = {}, eps = 0.2, hist = [], r = rng(5), A = [[0,-1],[1,0],[0,1],[-1,0]];
+  function q(s){ return Q[s] || (Q[s] = [0,0,0,0]); }
+  function ep(draw){
+    var x = 0, y = 0, steps = 0, path = [[0,0]], total = 0;
+    while(steps < 60){
+      var s = x + ',' + y, qs = q(s), a = r() < eps ? Math.floor(r() * 4) : qs.indexOf(Math.max.apply(null, qs));
+      var nx = x + A[a][0], ny = y + A[a][1], rew = -1;
+      if(nx < 0 || ny < 0 || nx >= N || ny >= N || WALL[nx + ',' + ny]){ nx = x; ny = y; rew = -2; }
+      var ns = nx + ',' + ny, done = false;
+      if(FIRE[ns]){ rew = -10; done = true; } else if(nx === GOAL[0] && ny === GOAL[1]){ rew = 10; done = true; }
+      qs[a] += 0.5 * (rew + (done ? 0 : 0.9 * Math.max.apply(null, q(ns))) - qs[a]);
+      x = nx; y = ny; steps++; total += rew; path.push([x, y]);
+      if(done) break;
+    }
+    hist.push({ steps:steps, ok: x === GOAL[0] && y === GOAL[1], fire: !!FIRE[x + ',' + y] });
+    if(draw) render(path);
+  }
+  function render(path){
+    svg.innerHTML = ''; var c = 60;
+    for(var yy = 0; yy < N; yy++) for(var xx = 0; xx < N; xx++){
+      var k = xx + ',' + yy, qs = Q[k], best = qs ? Math.max.apply(null, qs) : 0;
+      el('rect', { x:xx * c + 1, y:yy * c + 1, width:c - 2, height:c - 2, rx:8, style:'fill:' + (WALL[k] ? 'var(--ink2)' : 'var(--tint)') + ';stroke:var(--line)' }, svg);
+      if(!WALL[k] && qs){ el('rect', { x:xx * c + 4, y:yy * c + 4, width:c - 8, height:c - 8, rx:6, style:'fill:' + (best >= 0 ? 'var(--good)' : 'var(--warm)') + ';opacity:' + Math.min(.55, Math.abs(best) / 12) }, svg);
+        var a = qs.indexOf(best); el('text', { x:xx * c + c / 2, y:yy * c + c / 2 + 6, class:'ft c', style:'font-size:16px' }, svg).textContent = ['↑','→','↓','←'][a]; }
+      if(FIRE[k]) el('text', { x:xx * c + c / 2, y:yy * c + c / 2 + 8, class:'ft c', style:'font-size:24px' }, svg).textContent = '🔥';
+    }
+    el('text', { x:GOAL[0] * c + c / 2, y:GOAL[1] * c + c / 2 + 8, class:'ft c', style:'font-size:24px' }, svg).textContent = '🏁';
+    if(path){ var d = path.map(function(p, i){ return (i ? 'L' : 'M') + (p[0] * c + c / 2) + ',' + (p[1] * c + c / 2); }).join(' ');
+      el('path', { d:d, style:'fill:none;stroke:var(--blue);stroke-width:4;opacity:.7;stroke-linejoin:round' }, svg);
+      var last = path[path.length - 1]; el('text', { x:last[0] * c + c / 2, y:last[1] * c + c / 2 + 9, class:'ft c', style:'font-size:24px' }, svg).textContent = '🤖'; }
+    var h = hist.slice(-50), ok = h.filter(function(e){ return e.ok; }).length, last = hist[hist.length - 1];
+    $('rlOut').innerHTML = hist.length ? '지금까지 <b>' + hist.length + '판</b> · 이번 판 ' + (last.ok ? '🏁 <b>' + last.steps + '걸음</b>에 탈출' : last.fire ? '🔥 함정에 빠짐' : '⏱ 60걸음 안에 못 나감') +
+      ' · 최근 ' + h.length + '판 탈출 ' + ok + '번<br><small>칸의 화살표 = 지금 «가장 가치가 높다»고 배운 방향 · 초록이 진할수록 좋은 칸</small>' : '«한 판»을 눌러 로봇을 출발시키세요.';
+    var ch = $('rlChart'); ch.innerHTML = '';
+    el('line', { x1:20, y1:100, x2:295, y2:100, class:'fax' }, ch); el('text', { x:22, y:12, class:'ft s' }, ch).textContent = '판마다 걸음 수(낮을수록 좋음)';
+    var pts = hist.slice(-80); pts.forEach(function(e, i){ el('circle', { cx:20 + i * 3.4, cy:100 - Math.min(60, e.steps) * 1.4, r:2.2, style:'fill:' + (e.ok ? 'var(--good)' : 'var(--warm)') }, ch); });
+  }
+  $('rlEps').addEventListener('input', function(){ eps = +this.value; $('rlEv').textContent = eps.toFixed(2); });
+  $('rlOne').addEventListener('click', function(){ ep(true); });
+  $('rl50').addEventListener('click', function(){ for(var i = 0; i < 49; i++) ep(false); ep(true); });
+  $('rlReset').addEventListener('click', function(){ Q = {}; hist = []; render(null); });
+  render(null);
+})();
+
+/* ── Ⅱ-03 사례 30 ───────────────────────── */
+(function(){
+  var box = $('c30'); if(!box) return;
+  var O = ['지도-분류', '지도-예측', '비지도', '강화'];
+  var C = [
+    ['스팸·정상으로 구분된 메일로 학습해 새 메일이 스팸인지 판단', 0, '정답(스팸/정상)이 붙어 있고 종류를 고릅니다(90쪽 사례 1).'],
+    ['정답이 붙은 이미지로 학습해 새 이미지의 범주 구분', 0, '90쪽 사례 2.'],
+    ['신용 카드 거래 데이터에서 정상 패턴과 동떨어진 거래 찾기', 2, '«이상치 탐지» — 정답 없이 패턴에서 벗어난 것을 찾습니다(90쪽 사례 3).'],
+    ['구매 이력·방문 기록으로 비슷한 고객끼리 묶기', 2, '90쪽 사례 4 · 군집화.'],
+    ['차량이 도로에서 안전하게 운전하는 방법 학습(보상 사용)', 3, '90쪽 사례 5.'],
+    ['바둑·체스에서 이기는 전략 학습', 3, '90쪽 사례 6 · 알파고.'],
+    ['포도 사진의 색깔로 당도(숫자) 맞히기', 1, '85쪽 — 정답이 숫자(당도)라 예측.'],
+    ['기온으로 아이스크림 판매량 맞히기', 1, '87쪽 — 기온이 독립변수, 판매량이 종속변수.'],
+    ['스캔한 문서 사진의 글자를 텍스트로 바꾸기(OCR)', 0, '86쪽 — 글자 이미지와 실제 문자(정답)로 학습.'],
+    ['마스크 착용 여부 구분', 0, '86쪽 — 이진 분류.'],
+    ['꽃 사진으로 품종 구분', 0, '86쪽 — 다중 분류.'],
+    ['시청층이 비슷한 동영상끼리 묶기', 2, '85쪽 — 비지도.'],
+    ['함께 구매되는 상품 찾기(라면을 사면 생수도)', 2, '88쪽 추천 시스템 · 협업 필터링.'],
+    ['블록 깨기 게임에서 점수를 최대로 얻는 법 익히기', 3, '91쪽 DQN.'],
+    ['로봇이 미로에서 출구 찾기', 3, '89쪽 탐험과 이용.'],
+    ['챗봇의 답을 사람이 «더 낫다»고 고른 쪽으로 다듬기', 3, '89쪽 RLHF.'],
+    ['공부 시간으로 시험 점수 맞히기', 1, '95쪽 선형 회귀 예.'],
+    ['환자 의료 기록으로 질병 유무 판정', 0, '98쪽 — 유/무 두 갈래.'],
+    ['소비 패턴·연령대·지역으로 고객을 여러 집단으로 나눠 마케팅', 2, '98쪽 — k-평균.'],
+    ['하루 보행량과 의료비의 관계로 의료비 맞히기', 1, '98쪽 — 선형 회귀.'],
+    ['예상 강수량으로 우산 판매량 맞히기', 1, '99쪽 활동 사례 2.'],
+    ['슈팅 위치 좌표로 골 성공(성공/실패) 확률 구하기', 0, '99쪽 사례 1 — 로지스틱 회귀(확률로 분류).'],
+    ['약수터 수질 검사값으로 «적합/부적합» 판정', 0, '부록 221쪽 — 이진 분류.'],
+    ['습도·체온·걸음 수로 스트레스 단계(0·1·2) 판정', 0, '부록 213쪽 — 다중 분류.'],
+    ['미세먼지 측정값으로 내일 미세먼지 농도 맞히기', 1, '숫자 → 예측.'],
+    ['정답 없이 반 친구들의 수면·운동 기록을 비슷한 생활 패턴끼리 묶기', 2, '정답이 없으니 군집화.'],
+    ['쓰레기 사진을 플라스틱·유리·종이로 구분', 0, '131쪽 티처블 머신 — 다중 분류.'],
+    ['새 울음소리로 왜가리·박새 구분', 0, '134쪽 — 소리 분류.'],
+    ['엘리베이터가 기다리는 시간이 가장 짧도록 운행 순서 익히기', 3, '행동 → 보상(대기 시간 감소)으로 전략을 배움.'],
+    ['집 크기·역까지 거리로 집값 맞히기', 1, '숫자 → 예측(회귀).']
+  ];
+  var q = quiz(box, O, C, function(n, t){ $('c30Score').innerHTML = '<b>' + n + '</b> / ' + t; });
+  $('c30Reset').addEventListener('click', function(){ q.reset(); });
+})();
+
+/* ══════════ Ⅱ-04 결정 경계 실험실 ══════════ */
+(function(){
+  var cv = $('bdCv'); if(!cv) return;
+  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  var pts = [], model = 'knn', addCls = 0, seed = 1, HP = {};
+  var MD = {
+    knn:{ l:'이웃 수 k', min:1, max:25, step:1, v:5, tip:'가까운 k개의 다수결. k=1 은 점 하나하나에 휘둘려 경계가 들쭉날쭉(과적합), k가 크면 경계가 뭉개집니다(과소적합).' },
+    log:{ l:'특성 차수(1=직선)', min:1, max:3, step:1, v:1, tip:'점수 z = w₁x + w₂y + b 를 시그모이드로 확률로 바꿔 0.5에서 나눔 → 경계가 <b>곧은 선</b>. «엇갈림·동심원»은 못 나눕니다. 차수를 올려 x², xy 같은 특성을 더하면 휜 경계도 가능(다항 로지스틱).' },
+    tree:{ l:'최대 깊이', min:1, max:10, step:1, v:3, tip:'예/아니요 질문으로 가로·세로로 자르니 경계가 <b>계단 모양</b>. 깊이를 키우면 훈련 정확도는 1에 가까워지지만 테스트 정확도는 떨어질 수 있습니다(과적합).' },
+    rf:{ l:'나무 수', min:1, max:40, step:1, v:15, tip:'조금씩 다른 데이터로 키운 트리들의 <b>다수결</b>. 나무가 늘수록 계단이 부드러워지고 테스트 정확도가 안정됩니다.' },
+    nb:{ l:'(설정 없음)', min:0, max:0, step:1, v:0, tip:'무리마다 x·y 의 평균·퍼짐(정규분포)을 재고 «어느 무리에서 나왔을 확률이 큰가». 경계는 타원 · 곡선 모양. 특성끼리 독립이라고 가정해 «엇갈림»에 약합니다.' },
+    svm:{ l:'γ (휘는 정도)', min:1, max:60, step:1, v:10, tip:'두 무리 사이 <b>여백이 가장 넓은 경계</b>. RBF 커널로 휜 경계도 그립니다. γ가 크면 점 하나하나를 감싸는 섬 모양(과적합), 작으면 완만한 곡선.' },
+    nn:{ l:'은닉 뉴런 수', min:1, max:16, step:1, v:6, tip:'뉴런 하나는 곧은 선 하나. 뉴런을 여러 개 모아 <b>휘어진 경계</b>를 만듭니다. 1개면 로지스틱과 비슷, 늘릴수록 복잡한 모양도.' }
+  };
+  Object.keys(MD).forEach(function(k){ HP[k] = MD[k].v; });
+  function makeData(kind){
+    var r = rng(seed * 97 + kind.length), P = [];
+    function add(x, y, c){ if(x > 0.02 && x < 0.98 && y > 0.02 && y < 0.98) P.push({ x:x, y:y, c:c, t:r() < 0.3 }); }
+    var n = 70;
+    if(kind === 'blobs') for(var i = 0; i < n; i++){ add(0.32 + gauss(r) * 0.09, 0.62 + gauss(r) * 0.09, 0); add(0.68 + gauss(r) * 0.09, 0.38 + gauss(r) * 0.09, 1); }
+    if(kind === 'noisy') for(var i2 = 0; i2 < n; i2++){ add(0.42 + gauss(r) * 0.14, 0.55 + gauss(r) * 0.14, 0); add(0.58 + gauss(r) * 0.14, 0.45 + gauss(r) * 0.14, 1); }
+    if(kind === 'xor') for(var i3 = 0; i3 < 2 * n; i3++){ var x = r(), y = r(); add(x, y, (x > 0.5) !== (y > 0.5) ? 1 : 0); }
+    if(kind === 'circle') for(var i4 = 0; i4 < 2 * n; i4++){ var a = r() * 6.283, rad = r() < 0.5 ? 0.1 + r() * 0.12 : 0.3 + r() * 0.12; add(0.5 + Math.cos(a) * rad, 0.5 + Math.sin(a) * rad, rad < 0.26 ? 0 : 1); }
+    if(kind === 'moons') for(var i5 = 0; i5 < n; i5++){ var t = r() * Math.PI; add(0.1 + (Math.cos(t) + 1) * 0.27 + gauss(r) * 0.03, 0.2 + (Math.sin(t) + 0.5) * 0.4 + gauss(r) * 0.03, 0); add(0.1 + (2 - Math.cos(t)) * 0.27 + gauss(r) * 0.03, 0.2 + (1 - Math.sin(t)) * 0.4 + gauss(r) * 0.03, 1); }
+    return P;
+  }
+  /* ── 모델들: fit(train) → predict(x,y) 0~1 (B일 확률) ── */
+  function poly(x, y, d){ var f = [x - 0.5, y - 0.5]; if(d >= 2) f.push((x - .5) * (x - .5) * 4, (y - .5) * (y - .5) * 4, (x - .5) * (y - .5) * 4); if(d >= 3) f.push(Math.pow(x - .5, 3) * 8, Math.pow(y - .5, 3) * 8); return f; }
+  var FIT = {
+    knn:function(T, k){ return function(x, y){ var d = T.map(function(p){ return [(p.x - x) * (p.x - x) + (p.y - y) * (p.y - y), p.c]; }).sort(function(a, b){ return a[0] - b[0]; }).slice(0, Math.min(k, T.length));
+      return d.reduce(function(s, e){ return s + e[1]; }, 0) / d.length; }; },
+    log:function(T, deg){ var m = poly(0, 0, deg).length, w = new Array(m + 1).fill(0);
+      for(var it = 0; it < 600; it++){ var g = new Array(m + 1).fill(0);
+        T.forEach(function(p){ var f = poly(p.x, p.y, deg), z = w[m]; for(var j = 0; j < m; j++) z += w[j] * f[j]; var e = 1 / (1 + Math.exp(-z)) - p.c; for(var j2 = 0; j2 < m; j2++) g[j2] += e * f[j2]; g[m] += e; });
+        for(var j3 = 0; j3 <= m; j3++) w[j3] -= 2.5 * g[j3] / T.length; }
+      return function(x, y){ var f = poly(x, y, deg), z = w[m]; for(var j = 0; j < m; j++) z += w[j] * f[j]; return 1 / (1 + Math.exp(-z)); }; },
+    tree:function(T, depth, r, feat){ function gini(S){ if(!S.length) return 0; var p = S.reduce(function(s, q){ return s + q.c; }, 0) / S.length; return 1 - p * p - (1 - p) * (1 - p); }
+      function build(S, d){ var p = S.reduce(function(s, q){ return s + q.c; }, 0) / (S.length || 1);
+        if(d === 0 || S.length < 2 || p === 0 || p === 1) return { leaf:p };
+        var best = null, fs = feat ? [r() < 0.5 ? 'x' : 'y'] : ['x', 'y'];
+        fs.forEach(function(f){ var vs = S.map(function(q){ return q[f]; }).sort(function(a, b){ return a - b; });
+          for(var i = 1; i < vs.length; i++){ if(vs[i] === vs[i - 1]) continue; var th = (vs[i] + vs[i - 1]) / 2, L = S.filter(function(q){ return q[f] < th; }), R = S.filter(function(q){ return q[f] >= th; });
+            var sc = (L.length * gini(L) + R.length * gini(R)) / S.length; if(!best || sc < best.sc) best = { sc:sc, f:f, th:th, L:L, R:R }; } });
+        if(!best) return { leaf:p };
+        return { f:best.f, th:best.th, l:build(best.L, d - 1), r:build(best.R, d - 1) }; }
+      var root = build(T, depth);
+      return function(x, y){ var n = root, q = { x:x, y:y }; while(n.leaf == null) n = q[n.f] < n.th ? n.l : n.r; return n.leaf; }; },
+    rf:function(T, nt){ var r = rng(31), trees = [];
+      for(var i = 0; i < nt; i++){ var S = []; for(var j = 0; j < T.length; j++) S.push(T[Math.floor(r() * T.length)]); trees.push(FIT.tree(S, 6, r, true)); }
+      return function(x, y){ var s = 0; trees.forEach(function(t){ s += t(x, y) > 0.5 ? 1 : 0; }); return s / trees.length; }; },
+    nb:function(T){ function st(c, f){ var v = T.filter(function(p){ return p.c === c; }).map(function(p){ return p[f]; }), m = v.reduce(function(a, b){ return a + b; }, 0) / (v.length || 1);
+        return [m, Math.max(1e-3, v.reduce(function(a, b){ return a + (b - m) * (b - m); }, 0) / (v.length || 1)), v.length]; }
+      var S = [0, 1].map(function(c){ return { x:st(c, 'x'), y:st(c, 'y') }; }), n = T.length || 1;
+      function lp(s, v){ return -Math.pow(v - s[0], 2) / (2 * s[1]) - 0.5 * Math.log(s[1]); }
+      return function(x, y){ var a = Math.log((S[0].x[2] + 1) / n) + lp(S[0].x, x) + lp(S[0].y, y), b = Math.log((S[1].x[2] + 1) / n) + lp(S[1].x, x) + lp(S[1].y, y);
+        return 1 / (1 + Math.exp(a - b)); }; },
+    svm:function(T, g){ var r = rng(17), n = T.length, al = new Array(n).fill(0), lam = 0.02, Y = T.map(function(p){ return p.c ? 1 : -1; });
+      function K(a, b){ return Math.exp(-g * ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y))); }
+      var KK = T.map(function(a){ return T.map(function(b){ return K(a, b); }); });
+      for(var t = 1; t <= 3000; t++){ var i = Math.floor(r() * n), s = 0; for(var j = 0; j < n; j++) if(al[j]) s += al[j] * Y[j] * KK[j][i];
+        if(Y[i] * s / (lam * t) < 1) al[i]++; }
+      var Tn = 3000;
+      return function(x, y){ var s = 0, q = { x:x, y:y }; for(var j = 0; j < n; j++) if(al[j]) s += al[j] * Y[j] * K(T[j], q); s /= lam * Tn; return 1 / (1 + Math.exp(-3 * s)); }; },
+    nn:function(T, h){ var r = rng(23), W1 = [], b1 = [], W2 = [], b2 = 0;
+      for(var i = 0; i < h; i++){ W1.push([gauss(r) * 2, gauss(r) * 2]); b1.push(gauss(r) * 0.5); W2.push(gauss(r) * 0.5); }
+      var lr = 0.6;
+      for(var ep = 0; ep < 1500; ep++){ var gW1 = W1.map(function(){ return [0, 0]; }), gb1 = new Array(h).fill(0), gW2 = new Array(h).fill(0), gb2 = 0;
+        T.forEach(function(p){ var x0 = (p.x - .5) * 4, x1 = (p.y - .5) * 4, a = [], z2 = b2;
+          for(var i = 0; i < h; i++){ a[i] = Math.tanh(W1[i][0] * x0 + W1[i][1] * x1 + b1[i]); z2 += W2[i] * a[i]; }
+          var o = 1 / (1 + Math.exp(-z2)), d = o - p.c; gb2 += d;
+          for(var i2 = 0; i2 < h; i2++){ gW2[i2] += d * a[i2]; var da = d * W2[i2] * (1 - a[i2] * a[i2]); gW1[i2][0] += da * x0; gW1[i2][1] += da * x1; gb1[i2] += da; } });
+        var m = T.length || 1; b2 -= lr * gb2 / m;
+        for(var i3 = 0; i3 < h; i3++){ W2[i3] -= lr * gW2[i3] / m; W1[i3][0] -= lr * gW1[i3][0] / m; W1[i3][1] -= lr * gW1[i3][1] / m; b1[i3] -= lr * gb1[i3] / m; } }
+      return function(x, y){ var x0 = (x - .5) * 4, x1 = (y - .5) * 4, z = b2; for(var i = 0; i < h; i++) z += W2[i] * Math.tanh(W1[i][0] * x0 + W1[i][1] * x1 + b1[i]); return 1 / (1 + Math.exp(-z)); }; }
+  };
+  function mix(c1, c2, t){ return 'rgb(' + [0, 1, 2].map(function(i){ return Math.round(c1[i] + (c2[i] - c1[i]) * t); }).join(',') + ')'; }
+  function hex(h){ h = h.replace('#', ''); if(h.length === 3) h = h.replace(/./g, '$&$&'); return [0, 2, 4].map(function(i){ return parseInt(h.substr(i, 2), 16); }); }
+  function draw(){
+    var T = pts.filter(function(p){ return !p.t; }), E = pts.filter(function(p){ return p.t; });
+    var cA = hex(css('--blue') || '#3b82f6'), cB = hex(css('--warm') || '#f59e0b'), bg = hex(css('--white') || '#ffffff');
+    var md = MD[model];
+    ctx.clearRect(0, 0, W, H);
+    var ok = T.some(function(p){ return p.c === 0; }) && T.some(function(p){ return p.c === 1; });
+    if(ok){
+      var f = FIT[model](T, HP[model]), S = 8;
+      for(var gx = 0; gx < W; gx += S) for(var gy = 0; gy < H; gy += S){ var p = f((gx + S / 2) / W, 1 - (gy + S / 2) / H);
+        ctx.fillStyle = mix(bg, p > 0.5 ? cB : cA, Math.min(1, Math.abs(p - 0.5) * 2) * 0.45 + 0.08); ctx.fillRect(gx, gy, S, S); }
+      var acc = function(L){ return L.length ? L.filter(function(q){ return (f(q.x, q.y) > 0.5 ? 1 : 0) === q.c; }).length / L.length : NaN; };
+      $('bdTr').textContent = isNaN(acc(T)) ? '-' : acc(T).toFixed(2); $('bdTe').textContent = isNaN(acc(E)) ? '-' : acc(E).toFixed(2);
+    } else { $('bdTr').textContent = '-'; $('bdTe').textContent = '-'; }
+    pts.forEach(function(p){ ctx.beginPath(); ctx.arc(p.x * W, (1 - p.y) * H, p.t ? 5 : 5.5, 0, 6.283);
+      var c = p.c ? cB : cA; if(p.t){ ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.fill(); ctx.lineWidth = 2.4; ctx.strokeStyle = 'rgb(' + c + ')'; ctx.stroke(); }
+      else { ctx.fillStyle = 'rgb(' + c + ')'; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = '#fff'; ctx.stroke(); } });
+    $('bdTip').innerHTML = ok ? md.tip : 'A와 B 점을 모두 찍어야 학습할 수 있어요.';
+  }
+  function setHp(){ var md = MD[model], s = $('bdHp'); s.min = md.min; s.max = md.max; s.step = md.step; s.value = HP[model]; s.disabled = md.max === 0;
+    $('bdHpL').textContent = md.l; $('bdHpV').textContent = md.max === 0 ? '' : ' ' + HP[model]; }
+  $('bdModel').addEventListener('click', function(e){ var b = e.target.closest('button[data-m]'); if(!b) return; model = b.dataset.m;
+    [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); setHp(); draw(); });
+  $('bdHp').addEventListener('input', function(){ HP[model] = +this.value; $('bdHpV').textContent = ' ' + this.value; clearTimeout(this._t); this._t = setTimeout(draw, 60); });
+  $('bdData').addEventListener('change', function(){ pts = this.value === 'empty' ? [] : makeData(this.value); draw(); });
+  $('bdNew').addEventListener('click', function(){ seed++; var v = $('bdData').value; pts = v === 'empty' ? [] : makeData(v); draw(); });
+  $('bdCls').addEventListener('click', function(e){ var b = e.target.closest('button[data-c]'); if(!b) return; addCls = +b.dataset.c; [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); });
+  cv.addEventListener('click', function(e){ var rc = cv.getBoundingClientRect(); pts.push({ x:(e.clientX - rc.left) / rc.width, y:1 - (e.clientY - rc.top) / rc.height, c:addCls, t:Math.random() < 0.25 }); draw(); });
+  pts = makeData('blobs'); setHp();
+  var io = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ draw(); io.disconnect(); } }); io.observe(cv);
+})();
+
+/* ══════════ Ⅱ-04 회귀 실험실 ══════════ */
+(function(){
+  var cv = $('rgCv'); if(!cv) return;
+  var ctx = cv.getContext('2d'), W = cv.width, H = cv.height, model = 'lin', seed = 3;
+  var MD = { lin:{ l:'(설정 없음)', min:0, max:0, v:0 }, poly:{ l:'차수', min:1, max:12, v:3 }, tree:{ l:'최대 깊이', min:1, max:8, v:3 }, knn:{ l:'이웃 수 k', min:1, max:15, v:3 }, rf:{ l:'나무 수', min:1, max:40, v:15 } };
+  var HP = {}; Object.keys(MD).forEach(function(k){ HP[k] = MD[k].v; });
+  var TR = [], TE = [];
+  function make(){ var r = rng(seed * 13); TR = []; TE = [];
+    for(var i = 0; i < 40; i++){ var x = 0.03 + r() * 0.94, y = 0.5 + 0.32 * Math.sin(5.2 * x) + 0.15 * x + gauss(r) * 0.07; (i % 2 ? TE : TR).push([x, y]); } }
+  function solve(A, b){ var n = b.length; for(var i = 0; i < n; i++){ var mx = i; for(var k = i + 1; k < n; k++) if(Math.abs(A[k][i]) > Math.abs(A[mx][i])) mx = k;
+      var t = A[i]; A[i] = A[mx]; A[mx] = t; var tb = b[i]; b[i] = b[mx]; b[mx] = tb;
+      for(var k2 = i + 1; k2 < n; k2++){ var f = A[k2][i] / (A[i][i] || 1e-12); for(var j = i; j < n; j++) A[k2][j] -= f * A[i][j]; b[k2] -= f * b[i]; } }
+    var x = new Array(n).fill(0); for(var i2 = n - 1; i2 >= 0; i2--){ var s = b[i2]; for(var j2 = i2 + 1; j2 < n; j2++) s -= A[i2][j2] * x[j2]; x[i2] = s / (A[i2][i2] || 1e-12); } return x; }
+  function polyFit(P, d){ var m = d + 1, A = [], b = []; for(var i = 0; i < m; i++){ A.push(new Array(m).fill(0)); b.push(0); }
+    P.forEach(function(p){ var u = p[0] * 2 - 1, pw = []; for(var k = 0; k < m; k++) pw.push(Math.pow(u, k)); for(var i = 0; i < m; i++){ b[i] += pw[i] * p[1]; for(var j = 0; j < m; j++) A[i][j] += pw[i] * pw[j]; } });
+    for(var i3 = 0; i3 < m; i3++) A[i3][i3] += 1e-9; var w = solve(A, b);
+    return function(x){ var u = x * 2 - 1, s = 0; for(var k = 0; k < m; k++) s += w[k] * Math.pow(u, k); return s; }; }
+  function treeFit(P, d, r){ function build(S, d){ var m = S.reduce(function(s, p){ return s + p[1]; }, 0) / (S.length || 1);
+      if(d === 0 || S.length < 3) return { v:m }; var xs = S.map(function(p){ return p[0]; }).sort(function(a, b){ return a - b; }), best = null;
+      for(var i = 1; i < xs.length; i++){ var th = (xs[i] + xs[i - 1]) / 2, L = S.filter(function(p){ return p[0] < th; }), R = S.filter(function(p){ return p[0] >= th; });
+        if(!L.length || !R.length) continue; var sse = function(G){ var mm = G.reduce(function(s, p){ return s + p[1]; }, 0) / G.length; return G.reduce(function(s, p){ return s + (p[1] - mm) * (p[1] - mm); }, 0); };
+        var sc = sse(L) + sse(R); if(!best || sc < best.sc) best = { sc:sc, th:th, L:L, R:R }; }
+      if(!best) return { v:m }; return { th:best.th, l:build(best.L, d - 1), r:build(best.R, d - 1) }; }
+    var root = build(P, d); return function(x){ var n = root; while(n.v == null) n = x < n.th ? n.l : n.r; return n.v; }; }
+  var FIT = { lin:function(P){ return polyFit(P, 1); }, poly:polyFit, tree:treeFit,
+    knn:function(P, k){ return function(x){ var d = P.map(function(p){ return [Math.abs(p[0] - x), p[1]]; }).sort(function(a, b){ return a[0] - b[0]; }).slice(0, k); return d.reduce(function(s, e){ return s + e[1]; }, 0) / d.length; }; },
+    rf:function(P, n){ var r = rng(41), T = []; for(var i = 0; i < n; i++){ var S = []; for(var j = 0; j < P.length; j++) S.push(P[Math.floor(r() * P.length)]); T.push(treeFit(S, 5)); }
+      return function(x){ return T.reduce(function(s, t){ return s + t(x); }, 0) / T.length; }; } };
+  function rmse(f, P){ return Math.sqrt(P.reduce(function(s, p){ return s + Math.pow(f(p[0]) - p[1], 2); }, 0) / P.length); }
+  function X(x){ return 30 + x * (W - 40); } function Y(y){ return H - 20 - (y - 0.05) * (H - 40) / 1.0; }
+  function draw(){
+    var f = FIT[model](TR, HP[model]); ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = css('--line'); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(30, H - 20); ctx.lineTo(W - 10, H - 20); ctx.moveTo(30, 10); ctx.lineTo(30, H - 20); ctx.stroke();
+    ctx.strokeStyle = css('--warm'); ctx.lineWidth = 3; ctx.beginPath();
+    for(var i = 0; i <= 200; i++){ var x = i / 200, y = Math.max(-0.3, Math.min(1.4, f(x))); if(i) ctx.lineTo(X(x), Y(y)); else ctx.moveTo(X(x), Y(y)); } ctx.stroke();
+    TR.forEach(function(p){ ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 5, 0, 6.283); ctx.fillStyle = css('--blue'); ctx.fill(); });
+    TE.forEach(function(p){ ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 5, 0, 6.283); ctx.lineWidth = 2.2; ctx.strokeStyle = css('--good'); ctx.stroke(); });
+    var a = rmse(f, TR), b = rmse(f, TE); $('rgTr').textContent = a.toFixed(3); $('rgTe').textContent = b.toFixed(3);
+    var tip = b > a * 1.6 && a < 0.06 ? '<b>과적합</b> — 훈련 점은 거의 다 지나가는데 테스트 점에서 크게 빗나갑니다. 훈련 데이터를 «외운» 상태.'
+      : a > 0.11 ? '<b>과소적합</b> — 훈련 데이터조차 잘 못 맞힙니다. 모델이 너무 단순해요(직선으로 곡선을 맞추는 중).' : '<b>알맞음</b> — 훈련과 테스트 오차가 둘 다 작고 비슷합니다.';
+    $('rgTip').innerHTML = tip + ' <small>(RMSE = 평균적으로 빗나간 정도, 작을수록 좋음)</small>';
+    var md = MD[model], c = $('rgCurve'); c.innerHTML = '';
+    if(md.max){ var xs = [], tr = [], te = []; for(var h = md.min; h <= md.max; h++){ var g = FIT[model](TR, h); xs.push(h); tr.push(rmse(g, TR)); te.push(rmse(g, TE)); }
+      var mx = Math.max.apply(null, tr.concat(te)) || 1, px = function(i){ return 26 + i * (224 / Math.max(1, xs.length - 1)); }, py = function(v){ return 100 - v / mx * 84; };
+      el('line', { x1:26, y1:100, x2:252, y2:100, class:'fax' }, c); el('text', { x:28, y:12, class:'ft s' }, c).textContent = md.l + '에 따른 오차 — 파랑 훈련 · 초록 테스트';
+      [[tr, 'var(--blue)'], [te, 'var(--good)']].forEach(function(s){ el('path', { d:s[0].map(function(v, i){ return (i ? 'L' : 'M') + px(i) + ',' + py(v); }).join(' '), style:'fill:none;stroke:' + s[1] + ';stroke-width:2.5' }, c); });
+      var ci = xs.indexOf(HP[model]); el('line', { x1:px(ci), y1:16, x2:px(ci), y2:100, style:'stroke:var(--warm);stroke-dasharray:3 3' }, c); }
+  }
+  function setHp(){ var md = MD[model], s = $('rgHp'); s.min = md.min; s.max = md.max; s.step = 1; s.value = HP[model]; s.disabled = !md.max; $('rgHpL').textContent = md.l; $('rgHpV').textContent = md.max ? ' ' + HP[model] : ''; }
+  $('rgModel').addEventListener('click', function(e){ var b = e.target.closest('button[data-m]'); if(!b) return; model = b.dataset.m; [].forEach.call(this.children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); setHp(); draw(); });
+  $('rgHp').addEventListener('input', function(){ HP[model] = +this.value; $('rgHpV').textContent = ' ' + this.value; draw(); });
+  $('rgNew').addEventListener('click', function(){ seed++; make(); draw(); });
+  make(); setHp();
+  var io = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ draw(); io.disconnect(); } }); io.observe(cv);
+})();
+
+/* ══════════ 용어 풀이 30 ══════════ */
+(function(){
+  var box = $('wdList'); if(!box) return;
+  var W = [
+    ['알고리즘', '문제를 푸는 정해진 절차', '요리 레시피'], ['모델', '학습이 끝나 규칙을 담은 결과물 — 새 데이터를 넣으면 답을 냄', '연습을 마친 선수'],
+    ['학습(훈련)', '데이터를 보며 모델의 값을 조금씩 고치는 과정', '문제집 풀며 실력 쌓기'], ['특성(속성 · 독립변수)', '답을 짐작하는 데 쓰는 힌트 열', '키·몸무게로 옷 사이즈 짐작'],
+    ['레이블(정답 · 종속변수)', '맞히려는 값. 지도학습에 꼭 필요', '문제집 뒤의 답지'], ['파라미터', '학습으로 정해지는 모델 안의 값(기울기, 가중치)', '선수가 연습으로 익힌 감각'],
+    ['하이퍼파라미터', '사람이 학습 전에 정하는 설정값(k, 학습률, 깊이)', '감독이 정한 훈련 계획'], ['가중치', '특성마다 얼마나 중요하게 볼지 곱하는 수', '수행평가 반영 비율'],
+    ['편향(절편, bias)', '모든 입력이 0일 때의 기본값. (데이터 편향과는 다른 말!)', '기본 점수'], ['결정 경계', '분류 모델이 «여기부터는 B»라고 긋는 선', '운동장의 반 구역 선'],
+    ['거리', '두 데이터가 얼마나 다른지 잰 값(피타고라스)', '지도 위 두 점 사이'], ['확률', '0~1 사이로 나타낸 «그럴 가능성»', '강수 확률 70%'],
+    ['시그모이드(로지스틱 함수)', '어떤 수든 0~1 확률로 바꾸는 S자 함수', '점수를 백분율 자신감으로'], ['오차 · 손실', '모델의 답과 정답의 차이', '과녁에서 빗나간 거리'],
+    ['MSE(평균제곱오차)', '오차를 제곱해 평균 낸 값. 작을수록 좋음', '빗나간 거리의 제곱 평균'], ['경사하강법', '오차가 줄어드는 쪽으로 값을 조금씩 옮기는 방법', '눈 감고 산 내려가기'],
+    ['학습률', '경사하강법에서 한 번에 옮기는 크기(0~1)', '걸음 폭'], ['과적합', '훈련 데이터를 외워 새 데이터에 약한 상태', '기출문제만 외운 학생'],
+    ['과소적합', '너무 단순해 훈련 데이터조차 못 맞히는 상태', '공부를 덜 한 상태'], ['정규화(스케일링)', '특성의 단위·크기를 비슷하게 맞추기(0~1, 평균 0)', 'cm와 kg을 같은 저울로'],
+    ['규제(Ridge · Lasso)', '가중치가 너무 커지지 않게 벌점을 주어 과적합 막기', '한 문제만 파면 감점'], ['앙상블', '여러 모델의 답을 모아 결정', '심사위원 여러 명의 투표'],
+    ['배깅', '데이터를 뽑아 여러 모델을 따로 학습 → 다수결(랜덤 포레스트)', '서로 다른 자료로 공부한 친구들의 투표'], ['부스팅', '앞 모델이 틀린 것을 다음 모델이 집중해 고치기', '오답 노트 반복'],
+    ['불순도(지니)', '한 칸 안에 여러 집단이 섞인 정도. 트리가 줄이려는 값', '섞인 사탕 봉지'], ['커널', '데이터를 «다른 공간»으로 옮겨 휜 경계를 곧게 만드는 계산(SVM)', '종이를 접어 두 점을 겹치기'],
+    ['마진(여백)', 'SVM 경계와 가장 가까운 점 사이 거리. 넓을수록 좋음', '두 동네 사이 도로 폭'], ['군집 중심', 'k-평균에서 한 무리의 평균 위치', '모둠의 한가운데 자리'],
+    ['에포크', '훈련 데이터 전체를 한 번 다 보는 것(신경망)', '문제집 한 권을 끝까지 1회독'], ['교차 검증', '데이터를 여러 번 나눠 번갈아 시험 보고 평균', '모의고사 다섯 번 평균']
+  ];
+  function draw(q){ box.innerHTML = W.filter(function(w){ return !q || (w.join(' ').toLowerCase().indexOf(q) >= 0); }).map(function(w){
+    return '<div class="wd"><b>' + w[0] + '</b><span>' + w[1] + '</span><em>비유 · ' + w[2] + '</em></div>'; }).join('') || '<p class="note">찾는 낱말이 없어요.</p>'; }
+  $('wdQ').addEventListener('input', function(){ draw(this.value.trim().toLowerCase()); }); draw('');
+})();
+
+/* ══════════ 시그모이드 계산 ══════════ */
+(function(){
+  var s = $('sgD'); if(!s) return;
+  function draw(){
+    var d = +s.value, z = 4.281 - 0.9393 * d, ez = Math.exp(-z), p = 1 / (1 + ez);
+    $('sgDv').textContent = d.toFixed(1);
+    $('sgCalc').innerHTML = 'z = 4.281 − 0.9393 × ' + d.toFixed(1) + ' = <b>' + z.toFixed(3) + '</b><br>e<sup>−z</sup> = 2.718<sup>' + (-z).toFixed(3) + '</sup> ≈ <b>' + ez.toFixed(3) + '</b><br>확률 = 1 ÷ (1 + ' + ez.toFixed(3) + ') = <b>' + (p * 100).toFixed(1) + '%</b> → ' + (p >= 0.5 ? '🏀 <b>슛!</b> (50% 이상)' : '↪ <b>패스</b> (50% 미만)');
+    var g = $('sgSvg'); g.innerHTML = '';
+    el('line', { x1:30, y1:130, x2:410, y2:130, class:'fax' }, g); el('line', { x1:30, y1:10, x2:30, y2:130, class:'fax' }, g);
+    el('line', { x1:30, y1:70, x2:410, y2:70, style:'stroke:var(--line);stroke-dasharray:4 4' }, g); el('text', { x:34, y:66, class:'ft s' }, g).textContent = '50%';
+    var dd = ''; for(var i = 0; i <= 100; i++){ var x = i / 10, pp = 1 / (1 + Math.exp(-(4.281 - 0.9393 * x))); dd += (i ? 'L' : 'M') + (30 + x * 38) + ',' + (130 - pp * 120); }
+    el('path', { d:dd, style:'fill:none;stroke:var(--blue);stroke-width:3' }, g);
+    [[1,1],[2,1],[4,1],[5,0],[7,0]].forEach(function(q){ el('circle', { cx:30 + q[0] * 38, cy:130 - q[1] * 120, r:5, style:'fill:' + (q[1] ? 'var(--good)' : 'var(--warm)') }, g); });
+    el('circle', { cx:30 + d * 38, cy:130 - p * 120, r:7, style:'fill:none;stroke:var(--ink);stroke-width:2.5' }, g);
+    el('text', { x:300, y:146, class:'ft s' }, g).textContent = '골대에서 거리(m)';
+  }
+  s.addEventListener('input', draw); draw();
+})();
+
+/* ══════════ 한눈에 비교 ══════════ */
+(function(){
+  var box = $('cmpGrid'); if(!box) return;
+  var K = ['정확도 잠재력', '설명하기 쉬움', '적은 데이터로도', '빠르기', '정규화 없이도'];
+  var M = [['선형 회귀', '예측', [2,5,5,5,4]], ['로지스틱 회귀', '분류', [3,5,4,5,3]], ['k-최근접 이웃', '분류·예측', [3,4,3,2,1]], ['의사결정트리', '분류·예측', [3,5,3,5,5]],
+    ['랜덤 포레스트', '분류·예측', [4,2,3,3,5]], ['그레이디언트 부스팅', '분류·예측', [5,2,3,3,5]], ['SVM', '분류', [4,1,3,2,1]], ['나이브 베이즈', '분류', [2,3,5,5,4]],
+    ['신경망(MLP)', '분류·예측', [4,1,1,2,1]], ['CNN', '사진', [5,1,1,1,3]], ['k-평균', '군집', [3,4,4,4,1]], ['전이 학습(티처블 머신)', '사진·소리', [4,1,5,4,5]]];
+  box.innerHTML = '<div class="cmh"><span></span>' + K.map(function(k){ return '<b>' + k + '</b>'; }).join('') + '</div>' + M.map(function(m){
+    return '<div class="cmr"><span><b>' + m[0] + '</b><i>' + m[1] + '</i></span>' + m[2].map(function(v, i){ return '<em title="' + K[i] + ' ' + v + '/5"><i style="width:' + v * 20 + '%" class="v' + v + '"></i></em>'; }).join('') + '</div>'; }).join('');
+})();
+
+/* ══════════ 주제별 모델 고르기 ══════════ */
+(function(){
+  var t = $('pickTbl'); if(!t) return;
+  var R = [
+    ['미세먼지 농도 내일 예측', '농도(숫자)', '예측', '선형 회귀', '랜덤 포레스트', 'RMSE · R²', 'Linear Regression · Random Forest'],
+    ['약수터 물 적합 / 부적합', '판정(두 갈래)', '이진 분류', '로지스틱 회귀', '의사결정트리', '재현율(부적합) · F1', 'Logistic Regression · Tree'],
+    ['몸 상태로 스트레스 단계 0·1·2', '단계(세 갈래)', '다중 분류', '의사결정트리', 'kNN · 랜덤 포레스트', '정확도 · 혼동 행렬', 'Tree · kNN'],
+    ['재활용 쓰레기 사진 분류', '종류(사진)', '이미지 분류', '전이 학습(티처블 머신)', 'Image Embedding + 로지스틱', '정확도 · 틀린 사진 확인', 'Image Embedding → Logistic Regression'],
+    ['작물 수확량 예측(기온·강수)', '수확량(숫자)', '예측', '선형 회귀', '랜덤 포레스트', 'RMSE · R²', 'Linear Regression'],
+    ['산불 위험 등급(낮음·보통·높음)', '등급', '다중 분류', '랜덤 포레스트', '의사결정트리', '정확도 · 높음 재현율', 'Random Forest · Tree'],
+    ['학교 전력 사용량 예측', '사용량(숫자)', '예측', '선형 회귀(기온·요일)', '랜덤 포레스트', 'RMSE', 'Linear Regression'],
+    ['학생 생활 패턴 유형 찾기', '정답 없음', '군집', 'k-평균', '계층적 군집', '실루엣 · 무리 해석', 'k-Means · Hierarchical Clustering'],
+    ['급식 후기 긍정 / 부정', '감정(두 갈래, 글)', '텍스트 분류', '감성 분석(VADER)', '나이브 베이즈', '정확도', 'Corpus → Sentiment Analysis'],
+    ['당뇨 위험 예측(검진 수치)', '유 / 무', '이진 분류', '로지스틱 회귀', '랜덤 포레스트', '재현율 · 정밀도', 'Logistic Regression'],
+    ['중고 물건 가격 예측', '가격(숫자)', '예측', '랜덤 포레스트', '선형 회귀', 'MAE', 'Random Forest'],
+    ['기아 지수 미래 추세', '지수(숫자, 연도)', '예측', '선형 회귀', '— (점이 적으면 단순하게)', 'R² · 외삽 주의', 'Linear Regression'],
+    ['새 울음소리로 종 구분', '종류(소리)', '소리 분류', '전이 학습(티처블 머신)', '—', '정확도', '—(티처블 머신)'],
+    ['비슷한 지역끼리 묶어 정책 제안', '정답 없음', '군집', 'k-평균', 'DBSCAN', '실루엣', 'k-Means'],
+    ['펭귄·꽃 품종 분류(연습)', '종류', '다중 분류', 'kNN', '로지스틱 · 트리', '정확도', 'kNN'],
+    ['교통사고 위험 지점(유/무)', '유 / 무 (불균형)', '이진 분류', '로지스틱 회귀(class_weight)', '랜덤 포레스트', '재현율 · F1', 'Logistic Regression'],
+    ['물 사용량 이상 사용 찾기', '정상과 다른 것', '이상 탐지', 'k-평균 거리 · 상자그림', 'DBSCAN', '찾은 사례 확인', 'Outliers · DBSCAN'],
+    ['출석 · 과제로 성적 예측', '점수(숫자)', '예측', '선형 회귀', '회귀 트리', 'RMSE · R²', 'Linear Regression · Tree'],
+    ['음식 사진으로 메뉴 · 영양 안내', '종류(사진)', '이미지 분류', 'CNN · 전이 학습', 'Image Embedding + 로지스틱', '정확도', 'Image Embedding'],
+    ['동아리 추천', '좋아할 것', '추천', '협업 필터링', 'k-평균으로 비슷한 학생 묶기', '실제 선택과 비교', 'Distances']
+  ];
+  t.innerHTML = '<tr><th>프로젝트 주제</th><th>맞힐 것</th><th>문제 유형</th><th>첫 후보</th><th>비교 후보</th><th>평가 지표</th><th>오렌지3</th></tr>' +
+    R.map(function(r){ return '<tr>' + r.map(function(c, i){ return '<td>' + (i === 0 || i === 3 ? '<b>' + c + '</b>' : c) + '</td>'; }).join('') + '</tr>'; }).join('');
+})();
+
+/* ══════════ 오렌지3 레시피 ══════════ */
+(function(){
+  var t = $('owTbl'); if(!t) return;
+  var R = [
+    ['k-최근접 이웃', 'File → Preprocess(Normalize) → Data Sampler → <b>kNN</b> → Test and Score', 'Number of neighbors(k) · Weight: Distance', 'Confusion Matrix · Scatter Plot'],
+    ['로지스틱 회귀', 'File → Data Sampler → <b>Logistic Regression</b> → Test and Score', 'Regularization · Strength C', 'Nomogram(특성 영향) · Confusion Matrix'],
+    ['선형 회귀', 'File → Data Sampler → <b>Linear Regression</b> → Test and Score', '규제 없음/Ridge/Lasso', 'Predictions · Scatter Plot · Data Table(계수)'],
+    ['의사결정트리', 'File → Data Sampler → <b>Tree</b> → Test and Score / <b>Tree Viewer</b>', 'Limit depth · Min instances in leaves', 'Tree Viewer(나무 그림)'],
+    ['랜덤 포레스트', 'File → Data Sampler → <b>Random Forest</b> → Test and Score', 'Number of trees', 'Rank(특성 중요도) · Confusion Matrix'],
+    ['그레이디언트 부스팅', 'File → Data Sampler → <b>Gradient Boosting</b> → Test and Score', 'Number of trees · Learning rate · Depth', 'Confusion Matrix'],
+    ['SVM', 'File → Preprocess(Normalize) → <b>SVM</b> → Test and Score', 'Kernel(RBF) · Cost C', 'Confusion Matrix'],
+    ['나이브 베이즈', 'File → <b>Naive Bayes</b> → Test and Score', '(없음)', 'Nomogram'],
+    ['신경망', 'File → Preprocess(Normalize) → <b>Neural Network</b> → Test and Score', 'Hidden layers(예: 100) · Activation · Max iterations', 'Confusion Matrix · Learning curve'],
+    ['k-평균', 'File → Preprocess(Normalize) → <b>k-Means</b> → Scatter Plot / Box Plot', 'Number of clusters(범위로 주면 실루엣 추천)', 'Silhouette Plot · Box Plot(무리별 평균)'],
+    ['사진 분류', '<b>Import Images</b> → <b>Image Embedding</b> → Logistic Regression → Test and Score', 'Embedder(SqueezeNet: 인터넷 없이)', 'Confusion Matrix · Image Viewer'],
+    ['감성 분석', '<b>Corpus</b> → Preprocess Text → <b>Sentiment Analysis</b> → Box Plot', 'Method: Vader · Language', 'Word Cloud · Box Plot']
+  ];
+  t.innerHTML = '<tr><th>모델</th><th>위젯 연결</th><th>만질 설정</th><th>결과 보는 위젯</th></tr>' + R.map(function(r){ return '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td></tr>'; }).join('');
+})();
+
+/* ══════════ Ⅱ-05 구현 과정 애니메이션 ══════════ */
+(function(){
+  var svg = $('procSvg'); if(!svg) return;
+  var g = svg.querySelector('.pgrid'), r = rng(9);
+  for(var i = 0; i < 40; i++){ el('circle', { cx:34 + (i % 8) * 13, cy:120 + Math.floor(i / 8) * 11, r:4, 'data-t': i % 10 < 7 ? 'tr' : 'te', class:'pd' }, g); }
+  var M = [
+    '<b>데이터셋</b> — 🤖 «데이터는 이미 수집해 두었고, 어떤 속성과 값으로 이뤄졌는지 탐색했으니 모델을 만들어 보자! 유형과 알고리즘은 기억하지?»',
+    '<b>① 데이터 분리</b> — 🤖 «모아 둔 데이터를 전부 학습에 쓰면 평가할 데이터가 없어! 일부를 미리 떼어 두자.» <b>훈련 데이터 = 공부하는 학습지</b>, <b>테스트 데이터 = 시험지</b>. 비율은 전체 규모에 따라 정한다. 학습에 못 쓰는 게 아쉬우면 <b>검증 데이터</b>를 떼어 학습 중 성능을 확인하기도.',
+    '<b>② 모델 학습</b> — 🤖 «학습 모델을 코드로 구현할 때는 <code>fit()</code>을 써. 단순해 보여도 그 안에서 중요한 연산이 많이 일어나!» 엉성한 틀만 있던 모델이 데이터를 학습하며 똑똑해진다. 좋은 모델을 만들려면 데이터를 충분히 검토하고 <b>적절한 모델을 고르는 것</b>이 중요.',
+    '<b>③ 모델 평가</b> — 🤖 «얼마나 잘 학습했는지 평가하는 건 아주 중요해.» 모델 성능을 하나의 숫자로 나타낸 <b>성능 지표</b> — 예측 모델: <b>결정계수(R²) · 평균제곱오차(MSE)</b> / 분류 모델: <b>정확도 · 정밀도 · 재현율</b>.',
+    '<b>④ 충분한가?</b> — 예측에 활용할 만큼 점수가 나오면 바로 활용, 아니면 <b>전 단계로 돌아가</b> 다시 학습(새 바지를 입어 보고 또 줄이듯이, 100쪽).'
+  ];
+  var cur = 0, timer = null;
+  function show(s){ cur = s;
+    [].forEach.call(svg.querySelectorAll('.pstep'), function(p){ var k = +p.dataset.s; p.style.opacity = k <= s ? 1 : 0.12; p.classList.toggle('now', k === s); });
+    [].forEach.call(g.querySelectorAll('circle'), function(c){ c.classList.toggle('split', s >= 1); });
+    $('procMsg').innerHTML = M[s]; }
+  svg.parentNode.querySelector('.simctl').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return; clearInterval(timer);
+    if(b.id === 'procPlay'){ show(0); timer = setInterval(function(){ if(cur >= 4){ clearInterval(timer); return; } show(cur + 1); }, 3200); }
+    else show(+b.dataset.ps); });
+  show(0);
+})();
+})();
+</script>
+
 </body>
 </html>

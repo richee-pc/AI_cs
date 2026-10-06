@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 13권">
+<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 17권">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="코랩 실습실 · 인공지능 기초">
-<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 13권">
+<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 17권">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=e838308e" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=f738ea56" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=a382c1e6" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=153c8d01" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>코랩 실습실 · 인공지능 기초</title>
@@ -29,13 +29,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=72b7556b') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=34082b3a') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=f738ea56') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=153c8d01') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=e838308e') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=a382c1e6') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=dbcaac70') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=499529f0') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1038,10 +1038,10 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     파일을 올릴 필요 없이 <b>«코랩에서 열기»</b>만 누르면 데이터까지 저절로 불러옵니다.
     막히는 자리에는 <b>💡 힌트</b>가, 노트북 맨 아래에는 <b>정답 예시</b>가 있습니다.</p>
   <div class="facts">
-    <div class="fact"><b>16<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
-    <div class="fact"><b>13<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
+    <div class="fact"><b>20<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
+    <div class="fact"><b>17<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
     <div class="fact"><b>0<span style="font-size:1.0rem"> 개</span></b><span>올릴 파일</span></div>
-    <div class="fact"><b id="labCount">0 / 16</b><span>내가 해 본 실습</span></div>
+    <div class="fact"><b id="labCount">0 / 20</b><span>내가 해 본 실습</span></div>
   </div>
   <div class="lprog"><i id="labBar"></i></div>
 </div></div>
@@ -1110,7 +1110,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=ee507a76"></script>
+<script src="lessons.js?v=5adaac36"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)
@@ -1126,6 +1126,9 @@ var LABS = [
  { id:'01', u:'2', tool:'colab', t:'데이터 전처리 실습', pg:'72~79쪽', sub:'Ⅱ-02', les:'D3', lv:1, min:30,
    learn:'변환 · 통합 · 중복 · 결측치 · 상자그림 이상치 · 상관계수(교과서 79쪽 값과 같게)', model:'—', data:'file1 · file2 (보험 계약)', nb:'01_preprocess.ipynb', sol:'01_preprocess_solution.ipynb',
    more:[['https://richee-pc.github.io/AI_cs/unit2.html#prep','단추로 먼저 해 보는 전처리 체험']] },
+ { id:'13', u:'2', tool:'colab', t:'Ⅱ-02 데이터 가공과 핵심 속성 추출 — 교과서 전체', pg:'70~83쪽 + 80~82쪽 활동', sub:'Ⅱ-02', les:'U01', lv:2, min:45,
+   learn:'생각 열기 → 전처리 네 가지(작은 표로) → 실습 ❶~⓮ 옆 설명까지 → 상자그림 · IQR 직접 계산 → 추가 활동(건강검진)', model:'—', data:'file1 · file2 · 건강검진 3만 명', nb:'13_unit2_02_preprocessing.ipynb',
+   note:'Ⅱ-01·02·03 차시의 «02 코랩» 시간에 이 노트북 한 권으로 수업합니다. 01 · 06 은 같은 내용의 짧은 연습판입니다.' },
  { id:'06', u:'2', tool:'colab', t:'건강검진 데이터로 핵심 속성 찾기', pg:'80~82쪽 활동', sub:'Ⅱ-02', les:'D3', lv:2, min:30,
    learn:'열 33개 · 3만 명 데이터에서 축소 · 정제 → 혈색소와의 상관계수', model:'—', data:'국민건강보험공단 건강검진(3만 명 표본)', nb:'06_health_checkup.ipynb',
    note:'교과서는 100만 명(95MB)을 드라이브에 올려 씁니다. 여기서는 같은 데이터의 3만 명 표본을 바로 읽습니다.' },
@@ -1133,6 +1136,12 @@ var LABS = [
    learn:'선형 회귀(청년 인구) · k-최근접 이웃(붓꽃) · MSE · R² · 오분류표 · 정확도', model:'선형 회귀 · kNN', data:'youth population · iris', nb:'02_model.ipynb', sol:'02_model_solution.ipynb' },
  { id:'04', u:'2', tool:'colab', t:'다이아몬드로 모델 고르고 평가하기', pg:'114~115쪽 활동', sub:'Ⅱ-05', les:'U05', lv:2, min:25,
    learn:'무엇을 맞힐지(가격 → 예측 · 등급 → 분류) 정하고 속성을 바꿔 가며 점수 비교', model:'선형 회귀 · kNN', data:'seaborn diamonds', nb:'04_diamonds.ipynb' },
+ { id:'14', u:'2', tool:'colab', t:'예측 모델 — 자동차 연비 맞히기', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'U05', lv:2, min:20,
+   learn:'탐색 · 히트맵 → 분리 → fit · coef_ → 경사하강법 애니메이션 → predict → MAE · MSE · RMSE · R² → 잔차 그래프 → 특성 더하기 · 랜덤 포레스트 비교 → 해석 문장', model:'선형 회귀 · 랜덤 포레스트', data:'seaborn mpg(자동차 398대)', nb:'14_predict_regression.ipynb' },
+ { id:'15', u:'2', tool:'colab', t:'분류 모델 — 타이타닉 생존자 분류', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'U05', lv:2, min:20,
+   learn:'결측 대체 · 범주를 숫자로 → stratify 분리 → 세 모델 비교 · 트리 그림 → predict_proba → 혼동 행렬 · 정밀도 · 재현율 · 기준선 → 임계값 바꾸기 → 해석(편향)', model:'로지스틱 · 트리 · kNN', data:'seaborn titanic(891명)', nb:'15_classify_titanic.ipynb' },
+ { id:'16', u:'2', tool:'colab', t:'군집 모델 — 정답 없이 와인 묶기', pg:'Ⅱ-04 · 05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'U05', lv:2, min:15,
+   learn:'표준화 → 엘보 · 실루엣으로 k → k-평균 → PCA 그림 · 단계 애니메이션 → 무리마다 평균으로 이름 붙이기 → 숨긴 정답과 일치도', model:'k-평균 · PCA', data:'sklearn wine(178병)', nb:'16_cluster_wine.ipynb' },
  { id:'12', u:'x', tool:'colab', t:'모델 비교 실험실 — 같은 데이터, 여러 모델', pg:'Ⅱ-04 · 05 넓혀 보기', sub:'모델 도감', les:'U04', lv:3, min:30,
    learn:'분류 모델 8개 · 회귀 모델 5개를 교차 검증으로 한 번에 비교 · k-평균 + PCA', model:'로지스틱 · kNN · 트리 · 랜덤 포레스트 · 부스팅 · SVM · 나이브 베이즈 · 신경망 · k-평균', data:'펭귄(seaborn)', nb:'12_model_zoo.ipynb',
    more:[['https://richee-pc.github.io/AI_cs/models.html','📚 AI 모델 도감']] },
