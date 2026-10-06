@@ -347,14 +347,54 @@ function mount(){
   panel.addEventListener('click', function(e){
     var b = e.target.closest('.lpfoot button[data-id]'); if(b){ choose(b.getAttribute('data-id')); window.scrollTo({ top:0, behavior:'smooth' }); return; }
     var a = e.target.closest('.lstep[data-go]');
-    if(a){ var el = document.getElementById(a.getAttribute('data-go')); if(el){ e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); el.classList.remove('lstepflash'); void el.offsetWidth; el.classList.add('lstepflash'); } }
+    if(a){ var el = document.getElementById(a.getAttribute('data-go')); if(el){ e.preventDefault(); reveal(el.id); el.classList.remove('lstepflash'); void el.offsetWidth; el.classList.add('lstepflash'); } }
   });
-  /* 처음 열 때: ?l= → 그 차시 · 없으면 오늘 수업이 이 쪽에 있을 때만 자동으로 */
+
+  /* ── 쪽 안의 자리로 가기 ──────────────────────────────
+     차시 탭으로 숨긴 구획이면 «전체 보기»로 풀고, 소단원 탭(.lpane) 안이면 그 탭을 열고, 접힌 <details> 는 펼친 뒤 간다.
+     https://…/AI_cs/unit2.html#prep 처럼 이 쪽 자신을 가리키는 주소도 새로 읽지 않고 쪽 안에서 움직인다. */
+  function sectionHidden(el){ return !!el.closest('.lhide'); }
+  function reveal(id){
+    var el = document.getElementById(id); if(!el) return false;
+    if(cur && sectionHidden(el)) choose(null);
+    var pane = el.classList.contains('lpane') ? el : el.closest('.lpane');
+    if(pane && pane.hidden){
+      try{ history.replaceState(null, '', location.pathname + location.search + '#' + pane.id); }catch(err){}
+      dispatchEvent(new HashChangeEvent('hashchange'));
+    }
+    var d = el.tagName === 'DETAILS' ? el : el.closest('details');
+    while(d){ d.open = true; d = d.parentElement ? d.parentElement.closest('details') : null; }
+    setTimeout(function(){ el.scrollIntoView({ behavior:'smooth', block:'start' }); }, 40);
+    return true;
+  }
+  function samePage(href){
+    if(!href) return null;
+    if(href.charAt(0) === '#') return href.length > 1 ? href.slice(1) : null;
+    var m = href.match(/^(?:https:\/\/richee-pc\.github\.io\/AI_cs\/)?([\w-]+\.html)(\?[^#]*)?#(.+)$/);
+    var mine = location.pathname.split('/').pop() || 'index.html';
+    if(m && m[1] === mine && !(m[2] && /[?&]l=/.test(m[2]))) return m[3];
+    return null;
+  }
+  document.addEventListener('click', function(e){
+    if(e.defaultPrevented || e.button || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var a = e.target.closest('a[href]'); if(!a || a.target === '_blank' || a.classList.contains('lstep')) return;
+    var id = samePage(a.getAttribute('href')); if(!id) return;
+    id = decodeURIComponent(id);
+    var el = document.getElementById(id); if(!el) return;
+    var plain = a.getAttribute('href').charAt(0) === '#';
+    var blocked = (cur && sectionHidden(el)) || !!el.closest('.lpane[hidden]') || !!el.closest('details:not([open])') || (el.tagName === 'DETAILS' && !el.open);
+    if(plain && !blocked) return;              /* 평소 링크는 브라우저에 맡김 */
+    e.preventDefault();
+    reveal(id);
+    if(!el.classList.contains('lpane')) try{ history.replaceState(null, '', location.pathname + location.search + '#' + id); }catch(err){}
+  });
+
+  /* 처음 열 때: ?l= → 그 차시 · 없으면 오늘 수업이 이 쪽에 있을 때만 자동으로(#자리로 들어왔으면 접지 않음) */
   var q = location.search.match(/[?&]l=([A-Za-z0-9]+)/), start = null;
   if(q && q[1] !== 'all') start = LES[q[1]] ? q[1] : null;
-  else if(!q){ var tid0 = todayId(); if(tid0 && home(tid0) === page) start = tid0; }
+  else if(!q && !location.hash){ var tid0 = todayId(); if(tid0 && home(tid0) === page) start = tid0; }
   choose(start, false);
-  if(location.hash){ var h = document.getElementById(location.hash.slice(1)); if(h) setTimeout(function(){ h.scrollIntoView({ block:'start' }); }, 60); }
+  if(location.hash) setTimeout(function(){ reveal(decodeURIComponent(location.hash.slice(1))); }, 60);
 }
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
 })();
