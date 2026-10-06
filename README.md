@@ -132,6 +132,7 @@ colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/<파일 이
 | `14_predict_regression.ipynb` | **Ⅱ-05 예측** | 자동차 연비(seaborn mpg) — 선형 회귀 · 경사하강법 애니메이션 · MAE/MSE/RMSE/R² · 잔차 · 랜덤 포레스트 비교 | 6 |
 | `15_classify_titanic.ipynb` | **Ⅱ-05 분류** | 타이타닉 생존자 — 로지스틱 · 트리 · kNN · 혼동 행렬 · 정밀도/재현율 · 임계값 · 기준선 · 편향 해석 | 4 |
 | `16_cluster_wine.ipynb` | **Ⅱ-05 군집** | 와인 178병(sklearn) — 표준화 · 엘보/실루엣 · k-평균 애니메이션 · PCA · 군집 해석 · 일치도 | 2 |
+| `17_unit2_06_07_deeplearning.ipynb` | **Ⅱ-06 · 07 전체** | 교과서 116~139쪽 — 퍼셉트론 · 활성화 함수 · XOR과 은닉층 · 역전파 · 놀이터 Spiral · CNN/RNN · 독버섯 ❶~⓫ · 과적합 · 튜닝 · 정규화 · 괴산장터 감성 분석(VADER) · 딥러닝 vs k-NN — Ⅱ-06·07 한 차시용 (★ 수업 · ☆ 집에서) | 14 |
 | `05_project_template.ipynb` | **수행평가 ②** | 우리 팀 데이터로 오렌지3 모델을 코랩에 다시 만드는 틀 — 네 단계 · 셀마다 `# [오렌지3] 위젯 · 담당:` 주석 · 같은 지표 비교표 · 개선 실험 네 칸 · 제출 전 점검 (정답본 없음) | — |
 
 **학생용과 정답용이 한 벌씩입니다.** 위 이름이 학생용이고,

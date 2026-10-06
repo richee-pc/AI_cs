@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 17권">
+<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 18권">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="코랩 실습실 · 인공지능 기초">
-<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 17권">
+<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 18권">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=a382c1e6" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=153c8d01" as="font" type="font/woff2" crossorigin>
@@ -1212,7 +1212,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=ee1c98e3"></script>
+<script src="lessons.js?v=a3392f30"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)
@@ -1247,6 +1247,9 @@ var LABS = [
  { id:'12', u:'x', tool:'colab', t:'모델 비교 실험실 — 같은 데이터, 여러 모델', pg:'Ⅱ-04 · 05 넓혀 보기', sub:'모델 도감', les:'U04', lv:3, min:30,
    learn:'분류 모델 8개 · 회귀 모델 5개를 교차 검증으로 한 번에 비교 · k-평균 + PCA', model:'로지스틱 · kNN · 트리 · 랜덤 포레스트 · 부스팅 · SVM · 나이브 베이즈 · 신경망 · k-평균', data:'펭귄(seaborn)', nb:'12_model_zoo.ipynb',
    more:[['https://richee-pc.github.io/AI_cs/models.html','📚 AI 모델 도감']] },
+ { id:'17', u:'2', tool:'colab', t:'Ⅱ-06 · 07 인공신경망과 딥러닝 — 교과서 전체', pg:'116~139쪽', sub:'Ⅱ-06 · 07', les:'U67', lv:2, min:50,
+   learn:'퍼셉트론 0.6 계산 → 활성화 함수 그래프 → XOR 실패와 은닉층 → 손실함수 · 역전파로 스스로 배우기 → 놀이터 Spiral 재현 → CNN 필터 · RNN 기억 → 독버섯 ❶~⓫ → 과적합 · 튜닝 표 → 정규화 → 괴산장터 감성 분석(VADER) → 딥러닝 vs k-NN 시간', model:'퍼셉트론 · 심층 신경망 · CNN · 감성 사전', data:'mushrooms · 괴산장터 후기 279건', nb:'17_unit2_06_07_deeplearning.ipynb',
+   note:'Ⅱ-06·07 한 차시를 이 노트북 한 권으로 수업합니다. ★만 수업 시간에(약 20분), ☆는 먼저 끝낸 사람 · 집에서. 03은 독버섯만 짧게 한 연습판입니다.' },
  { id:'03', u:'2', tool:'colab', t:'독버섯을 가려내는 딥러닝 모델', pg:'126~130쪽', sub:'Ⅱ-07', les:'U67', lv:2, min:35,
    learn:'LabelEncoder · 층 쌓기(Dense) · compile · 에포크와 배치 · 손실 그래프 · 정규화(MinMax)', model:'심층 신경망', data:'mushrooms', nb:'03_deeplearning.ipynb', sol:'03_deeplearning_solution.ipynb' },
  { id:'tm1', u:'2', tool:'tm', t:'쓰레기 분리 배출 — 이미지 분류', pg:'131~132쪽', sub:'Ⅱ-07', les:'U67', lv:1, min:25,

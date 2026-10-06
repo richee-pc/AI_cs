@@ -228,6 +228,66 @@
 .l04viz figure{margin:0}
 .l04viz figcaption{text-align:center; font-size:.8438rem; font-weight:800; color:var(--blue-d); margin-top:4px}
 </style>
+<style id="css-u67">
+.u67plan{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:8px; margin:0 0 12px}
+.u67plan div{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:8px 11px}
+.u67plan i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:1px 8px}
+.u67plan b{display:block; margin:4px 0 1px; color:var(--blue-d)}
+.u67plan span{font-size:0.8125rem; color:var(--ink2); line-height:1.5}
+.u67time{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:8px; margin:4px 0 10px; position:relative}
+.u67time div{background:var(--tint); border-radius:12px; padding:8px 11px; border-top:4px solid var(--blue-l)}
+.u67time div.hot{background:var(--good-bg); border-top-color:var(--good)}
+.u67time i{display:block; font-style:normal; font-weight:800; font-size:0.8125rem; color:var(--muted)}
+.u67time b{display:block; color:var(--blue-d); font-size:0.9375rem}
+.u67time span{font-size:0.8125rem; color:var(--ink2); line-height:1.5}
+.lossrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:8px; margin-top:8px}
+.lossrow div{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:7px 11px; font-size:0.875rem}
+.lossrow code{display:block; font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d); margin-top:2px}
+.cvwrap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr)); gap:12px; align-items:start; margin:6px 0 10px}
+.cvwrap em{display:block; font-style:normal; font-weight:800; font-size:0.8125rem; color:var(--blue-d); margin-bottom:4px}
+.cvwrap em small{font-weight:600; color:var(--muted)}
+.cvg{display:grid; grid-template-columns:repeat(8,1fr); gap:2px; max-width:200px}
+#cvF{grid-template-columns:repeat(3,1fr); max-width:110px}
+#cvMap{grid-template-columns:repeat(6,1fr); max-width:180px}
+#cvPool{grid-template-columns:repeat(3,1fr); max-width:110px}
+.cvg button{aspect-ratio:1; border:1px solid var(--line); background:var(--white); border-radius:4px; padding:0; cursor:pointer}
+.cvg button.on{background:var(--ink)}
+.cvg span{aspect-ratio:1; display:grid; place-items:center; border:1px solid var(--line); border-radius:4px; font-size:0.75rem; font-weight:800; color:var(--ink)}
+.playrec{display:grid; grid-template-columns:minmax(64px,.7fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr); gap:6px; align-items:center; margin:8px 0 10px; font-size:0.875rem}
+.playrec .ph{font-weight:800; font-size:0.75rem; color:var(--muted)}
+.playrec input{width:100%; box-sizing:border-box; font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); border-radius:9px; padding:5px 7px; background:var(--white); color:var(--ink)}
+.lepair{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:10px; align-items:center; margin:4px 0 10px}
+.learr{text-align:center; font-weight:800; color:var(--blue-d); font-size:0.875rem; line-height:1.4}
+.learr small{font-weight:600; color:var(--muted); font-size:0.75rem}
+@media (max-width:560px){ .lepair{grid-template-columns:minmax(0,1fr)} .learr br{display:none} }
+.ptab td.g, .vtab td.g{background:var(--good-bg); color:var(--good); font-weight:800}
+.vtab td.w{background:var(--warm-bg); color:var(--warm); font-weight:800}
+.u67det{margin-top:8px}
+.u67det summary{cursor:pointer; font-weight:800; color:var(--blue-d)}
+.attrs{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:6px; margin-top:8px}
+.attrs span{background:var(--tint); border-radius:9px; padding:5px 9px; font-size:0.8125rem; line-height:1.45}
+.attrs b{display:block; font-family:var(--mono); font-size:0.75rem; color:var(--blue-d)}
+.normbox{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:700px){ .normbox{grid-template-columns:minmax(0,1fr)} }
+.nbars{display:grid; gap:7px}
+.nbars>div{display:grid; grid-template-columns:86px minmax(0,1fr) 56px; gap:8px; align-items:center; font-size:0.8438rem}
+.nbars i{display:block; height:16px; width:var(--v); border-radius:8px; background:var(--blue-l); animation:grow 1.1s ease}
+.nbars i.g{background:var(--good)} .nbars i.w{background:var(--warm)}
+.solve3{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:11px}
+.s3{background:var(--white); border:1px solid var(--line); border-top:5px solid var(--blue); border-radius:14px; padding:11px 13px; min-width:0}
+.s3>i{display:block; font-style:normal; font-size:0.75rem; font-weight:800; color:var(--muted)}
+.s3>b{display:block; font-family:var(--disp); font-size:1.125rem; color:var(--blue-d); margin:2px 0 4px}
+.s3 ol{margin:4px 0 8px; padding-left:20px; font-size:0.8438rem; line-height:1.6}
+.s3go{display:flex; flex-wrap:wrap; gap:6px}
+.s3go a{font-size:0.8125rem; font-weight:800; text-decoration:none; border:1px solid var(--blue-l); border-radius:99px; padding:4px 10px; color:var(--blue-d); background:var(--blue-xl)}
+.vtab{border-collapse:collapse; width:100%; min-width:0; font-size:0.75rem; margin:6px 0 8px}
+.lepair table, .normbox table{min-width:0}
+.vtab th, .vtab td{border:1px solid var(--line); padding:3px 4px; text-align:center}
+.vtab th{background:var(--tint)}
+.vtab td:first-child{text-align:left}
+.vtab td:not(:first-child), .vtab th{white-space:nowrap; padding:3px 2px}
+#learn06 .g3 .mcviz{margin:6px 0}
+</style>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -1221,7 +1281,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#nn"><span class="ic">🧠</span><span><b>퍼셉트론과 XOR</b><span>은닉층이 왜 필요한가 · Ⅱ-06</span><em>직접 해 보기</em></span></a>
     <a href="#code"><span class="ic">💻</span><span><b>코랩 코드 읽기</b><span>예측 · 분류 · 딥러닝 코드 · Ⅱ-05 · 07</span></span></a>
     <a href="#lab"><span class="ic">🚀</span><span><b>코랩 실습 노트북</b><span>단추 한 번으로 코랩 열기</span></span></a>
-    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 20개 · 노트북 17권</span><em>새 쪽</em></span></a>
+    <a href="https://richee-pc.github.io/AI_cs/labs.html"><span class="ic">🧪</span><span><b>코랩 실습실</b><span>교과서 Ⅱ · Ⅳ단원 실습 21개 · 노트북 18권</span><em>새 쪽</em></span></a>
     <a href="https://richee-pc.github.io/AI_cs/models.html"><span class="ic">📚</span><span><b>AI 모델 도감</b><span>교과서 모델 + 자주 쓰는 모델 26종</span><em>새 쪽</em></span></a>
     <a href="#terms"><span class="ic">📖</span><span><b>핵심 용어</b><span>쉽게 말하면 · 교과서 말</span></span></a>
     <a href="#miscon"><span class="ic">❓</span><span><b>헷갈리는 것 O/X</b><span>자주 틀리는 생각</span></span></a>
@@ -1889,16 +1949,96 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="lhead"><span class="lno">Ⅱ-06</span><div><b>인공신경망과 딥러닝</b><span>교과서 116~123쪽 · 성취기준 02-05</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>선형 회귀와 k-최근접 이웃으로는 사진 속 강아지를 잘 못 알아봅니다.
       사람의 뇌는 어떻게 알아볼까요? 그 <u>뇌를 흉내 내면</u> 컴퓨터도 알아볼 수 있을까요?</div>
+    <div class="colabcta"><span><b>🧪 Ⅱ-06 · 07은 코랩 한 권으로 수업합니다</b>교과서 116~139쪽의 본문 · 옆 설명 · 스스로 해 보기 · 탐구 활동 · 읽을거리 · 독버섯 실습 ❶~⓫ · 정규화 · 감성 분석까지 노트북 17에 모두 담았습니다. ★만 수업 시간에, ☆는 먼저 끝낸 사람 · 집에서.</span>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 17 Ⅱ-06·07 전체</a></div>
+    <div class="u67plan">
+      <div><i>5분</i><b>생각 열기</b><span>뇌를 흉내 내면? · 연표</span></div>
+      <div><i>15분</i><b>Ⅱ-06 그림으로</b><span>퍼셉트론 → XOR → 층 쌓기 → 역전파</span></div>
+      <div><i>20분</i><b>코랩 17 ★</b><span>1-1 · 1-4 → 독버섯 ❶~⓫ → 정규화</span></div>
+      <div><i>10분</i><b>Ⅱ-07 정리</b><span>딥러닝 vs 기계학습 · 30초 확인</span></div>
+    </div>
     <div class="nest"><div class="n1">인공지능<div class="n2">기계학습<div class="n3">딥러닝</div></div></div>
       <p>딥러닝은 기계학습의 한 종류 — <b>인공신경망</b>을 깊게 쌓아 배웁니다(117쪽).</p></div>
+    <div class="tool fig">
+      <h3>생각 열기 — 1940년대 생각이 왜 이제야? <span class="tm">116쪽</span></h3>
+      <div class="u67time">
+        <div><i>1940년대</i><b>인공신경망 처음 제안</b><span>뉴런을 수식으로 흉내 내자</span></div>
+        <div><i>1950~60년대</i><b>퍼셉트론</b><span>그런데 XOR을 못 푼다 → 한동안 얼어붙음</span></div>
+        <div><i>1980년대</i><b>다층 퍼셉트론 · 오차 역전파</b><span>층을 쌓고 거꾸로 고치는 법</span></div>
+        <div class="hot"><i>2000년대~</i><b>계산 능력 폭발 · 데이터 폭발</b><span>챗봇 · 이미지 처리에 널리 쓰이기 시작</span></div>
+        <div><i>2016</i><b>알파고</b><span>은닉층 13개(127쪽 옆)</span></div>
+        <div class="hot"><i>지금</i><b>생성형 AI</b><span>그림 · 글 · 코드를 만든다(121쪽)</span></div>
+      </div>
+      <p class="side bot"><b>🤖 말풍선(116쪽)</b>«선형 회귀, K-최근접 이웃 다 좋지! 하지만 인간의 사고 과정은 더욱 복잡해… 성능도 만족스럽지 않아.» — 그래서 <b>뇌를 흉내 낸</b> 모델이 나왔습니다.</p>
+    </div>
     <h3 class="lh">① 뉴런 → 퍼셉트론 <small>117쪽 그림 Ⅱ-16</small></h3>
     <div class="flow2 big"><span>입력 × <b>가중치</b></span><i>→</i><span>모두 더하고 + <b>편향</b></span><i>→</i><span><b>활성화 함수</b>(렐루·시그모이드)</span><i>→</i><span class="out"><b>임계값</b>을 넘으면 참</span></div>
     <p class="hint">교과서 계산: 1×0.3 + 0×0.8 + 1×0.4 + (−0.1) = <b>0.6</b>. 직접 바꿔 보려면 아래 «퍼셉트론과 XOR»로.</p>
+    <div class="tool fig">
+      <h3>그림으로 — 퍼셉트론이 0.6을 내기까지 <span class="tm">117쪽 그림 Ⅱ-16 다시 그리기</span></h3>
+      <svg class="fsvg" viewBox="0 0 760 300" role="img" aria-label="입력 1, 0, 1에 가중치 0.3, 0.8, 0.4를 곱해 더하고 편향 -0.1을 더해 0.6, 렐루를 거쳐 참을 출력하는 퍼셉트론 그림">
+        <text x="20" y="22" class="ft s">① 입력마다 가중치를 곱한다</text>
+        <text x="300" y="22" class="ft s">② 모두 더하고 편향을 더한다</text>
+        <text x="520" y="22" class="ft s">③ 활성화 함수 ④ 임계값 ⑤ 출력</text>
+        <path d="M84,70 L330,150" class="fl" style="stroke-width:3"/><path d="M84,150 L330,150" class="fl dash"/><path d="M84,230 L330,150" class="fl" style="stroke-width:3.6"/>
+        <circle cx="60" cy="70" r="24" class="fb blue"/><text x="60" y="76" class="ft c b">1</text>
+        <circle cx="60" cy="150" r="24" class="fb"/><text x="60" y="156" class="ft c b">0</text>
+        <circle cx="60" cy="230" r="24" class="fb blue"/><text x="60" y="236" class="ft c b">1</text>
+        <text x="60" y="282" class="ft s c">입력</text>
+        <rect x="160" y="80" width="88" height="26" rx="13" class="fb warm"/><text x="204" y="98" class="ft s c b">× 0.3</text>
+        <rect x="160" y="137" width="88" height="26" rx="13" class="fb warm"/><text x="204" y="155" class="ft s c b">× 0.8</text>
+        <rect x="160" y="194" width="88" height="26" rx="13" class="fb warm"/><text x="204" y="212" class="ft s c b">× 0.4</text>
+        <text x="204" y="250" class="ft s c">가중치(영향력)</text>
+        <circle r="6" class="dot"><animateMotion dur="2.4s" repeatCount="indefinite" path="M84,70 L330,150"/></circle>
+        <circle r="6" class="dot"><animateMotion dur="2.4s" repeatCount="indefinite" path="M84,230 L330,150"/></circle>
+        <rect x="330" y="40" width="100" height="30" rx="10" class="fb good"/><text x="380" y="60" class="ft s c b">편향 −0.1</text>
+        <path d="M380,72 L380,104" class="fl" marker-end="url(#arA)"/>
+        <circle cx="380" cy="150" r="42" class="fb blue"/><text x="380" y="146" class="ft c b" style="font-size:26px">Σ</text><text x="380" y="170" class="ft s c">합 + 편향</text>
+        <text x="380" y="222" class="ft s c">1×0.3 + 0×0.8 + 1×0.4</text><text x="380" y="240" class="ft s c">+ (−0.1) = <tspan class="warmt">0.6</tspan></text>
+        <path d="M424,150 L510,150" class="fl" marker-end="url(#arA)"/>
+        <rect x="516" y="104" width="108" height="92" rx="14" class="fb"/>
+        <path d="M530,180 L568,180 L612,124" class="fline" fill="none"/>
+        <text x="570" y="212" class="ft s c">렐루(0.6) = 0.6</text>
+        <path d="M628,150 L668,150" class="fl" marker-end="url(#arA)"/>
+        <circle cx="706" cy="150" r="32" class="fb good"/><text x="706" y="148" class="ft c b">참</text><text x="706" y="166" class="ft s c">1</text>
+        <text x="706" y="212" class="ft s c">0.6 &gt; 임계값 0</text>
+        <circle r="7" class="dot ml"><animateMotion dur="2.4s" repeatCount="indefinite" path="M424,150 L668,150"/></circle>
+      </svg>
+      <div class="g2" style="margin-top:10px">
+        <p class="side"><b>렐루 함수(117쪽 옆)</b>대표적인 활성화 함수. 0을 넘으면 입력값 그대로, 아니면 0으로 바꾼다.</p>
+        <p class="side"><b>시그모이드 함수(117쪽 옆)</b>어떤 값이든 0~1 사이의 <b>확률값</b>으로 바꾼다.</p>
+      </div>
+    </div>
+    <div class="tool">
+      <h3>활성화 함수 손잡이 — 같은 값을 넣으면 무엇이 나올까? <span class="tm">117쪽</span></h3>
+      <p class="desc">가중합 + 편향(z)을 움직여 보세요. 세 함수가 같은 z를 <b>서로 다르게</b> 바꿉니다.</p>
+      <label class="sl" style="max-width:420px"><span>가중합 + 편향 z <b id="afZv">0.6</b></span><input type="range" id="afZ" min="-4" max="4" step="0.1" value="0.6"></label>
+      <svg class="fsvg" id="afSvg" viewBox="0 0 760 210" role="img" aria-label="렐루, 시그모이드, 계단 함수 그래프와 현재 z 위치"></svg>
+      <div class="keyout" id="afOut"></div>
+    </div>
     <h3 class="lh">② 층을 쌓으면 딥러닝 <small>118~119쪽</small></h3>
     <div class="cgrid three">
       <div class="cc"><b>입력층 · 은닉층 · 출력층</b><span>값이 들어오는 층, 사이에서 계산하는 층, 최종 답이 나오는 층. <b>은닉층이 여러 개</b>면 심층 신경망 = 딥러닝.</span></div>
       <div class="cc"><b>손실함수</b><span>«얼마나 틀렸나»를 재는 함수. 0에 가까울수록 좋다. 숫자 예측 MSE · 이진 분류 이진 교차 엔트로피 · 다중 분류 범주형 교차 엔트로피.</span></div>
       <div class="cc"><b>오차 역전파</b><span>출력층에서 입력층 쪽으로 <b>거꾸로</b> 가며 가중치와 편향을 고친다. 크게 틀릴수록 크게 고친다.</span></div>
+    </div>
+    <div class="tool fig">
+      <h3>그림으로 — 얕은 신경망과 심층 신경망 <span class="tm">118쪽 그림 Ⅱ-17</span></h3>
+      <svg class="fsvg" id="netSvg" viewBox="0 0 760 260" role="img" aria-label="입력층, 은닉층 1개, 출력층으로 된 얕은 신경망과 은닉층이 3개인 심층 신경망 비교 그림"></svg>
+      <div class="g2" style="margin-top:8px">
+        <p class="side"><b>단층 → 다층 퍼셉트론(118쪽)</b>처음엔 퍼셉트론 하나(단층)로 단순한 문제를 풀었지만, 문제가 복잡해지자 여러 개를 이은 <b>다층 퍼셉트론</b>을 고안했다. 직접 확인 → <a href="#nn">XOR 실험</a></p>
+        <p class="side bot"><b>스스로 해 보기(118쪽) — 매점에 갈까?</b>간식이 먹고 싶나 · 점심을 잘 먹을까 · 돈이 있나 · 시간이 있나. 사람마다 다른 «중요도»가 <b>가중치</b>입니다. <a href="#nn">눌러서 해 보기</a></p>
+      </div>
+    </div>
+    <div class="tool fig">
+      <h3>그림으로 — 순전파로 답을 내고, 역전파로 고친다 <span class="tm">119쪽 그림 Ⅱ-18</span></h3>
+      <svg class="fsvg" id="bpSvg" viewBox="0 0 760 290" role="img" aria-label="파란 점이 입력층에서 출력층으로 가며 답을 내고, 주황 점이 출력층에서 입력층으로 되돌아가며 가중치를 고치는 애니메이션"></svg>
+      <div class="lossrow">
+        <div><b>숫자</b>를 맞힌다<code>MSE 평균제곱오차</code></div>
+        <div><b>둘 중 하나</b><code>이진 교차 엔트로피</code></div>
+        <div><b>셋 이상 중 하나</b><code>범주형 교차 엔트로피</code></div>
+      </div>
+      <p class="side" style="margin-top:8px"><b>되돌아보기 ▶ 96쪽 선형 회귀</b>평균제곱오차가 작을수록 정확한 모델이었다. 딥러닝도 똑같이 <b>손실함숫값이 0에 가까울수록</b> 정확하다.</p>
     </div>
     <div class="tool" style="margin-top:12px">
       <h3>이건 어느 분야일까? <span class="tm">120~121쪽</span></h3>
@@ -1909,15 +2049,45 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="cc"><b>RNN 순환 신경망</b><span>순서가 있는 데이터 — 문장, 시간에 따라 쌓인 값.</span></div>
       <div class="cc"><b>GAN 생성적 적대 신경망</b><span>가짜를 만드는 쪽과 가려내는 쪽이 겨루며 이미지를 만든다.</span></div>
     </div>
+    <div class="tool">
+      <h3>읽을거리 실험 — 합성곱과 풀링을 손으로 <span class="tm">123쪽 CNN</span></h3>
+      <p class="desc">왼쪽 그림 칸을 눌러 <b>그림을 바꾸고</b>, 필터를 골라 보세요. 합성곱층은 3×3 칸마다 <b>필터를 곱해 더한</b> 값으로 특성 맵을 만들고,
+        풀링층은 2×2 칸 중 <b>최댓값</b>만 남겨 크기를 줄입니다.</p>
+      <div class="simctl"><span class="pick" id="cvPick">
+        <button type="button" data-f="v" aria-pressed="true">세로선 찾기 필터</button>
+        <button type="button" data-f="h" aria-pressed="false">가로선 찾기 필터</button>
+        <button type="button" data-f="e" aria-pressed="false">테두리 찾기 필터</button></span>
+        <button type="button" class="mini gh" id="cvReset">그림 바꾸기(막대 → 십자 → 네모)</button></div>
+      <div class="cvwrap">
+        <div><em>입력 그림 8×8 <small>(누르면 바뀜)</small></em><div class="cvg" id="cvIn"></div></div>
+        <div><em>필터 3×3</em><div class="cvg f" id="cvF"></div></div>
+        <div><em>합성곱 → 특성 맵 6×6</em><div class="cvg" id="cvMap"></div></div>
+        <div><em>최댓값 풀링 → 3×3</em><div class="cvg" id="cvPool"></div></div>
+      </div>
+      <div class="keyout" id="cvOut"></div>
+    </div>
     <div class="ws"><b><i>활동</i> 텐서플로 놀이터에서 신경망 만들어 보기 <span style="font-weight:600; color:var(--muted)">122쪽</span></b><div>
       <a href="https://playground.tensorflow.org" target="_blank" rel="noopener">playground.tensorflow.org ↗</a>에서 <b>Spiral(소용돌이)</b> 데이터 · 모든 속성 선택 ·
       은닉층 6-4-4로 만들고 에포크 600에서 멈춥니다. <b>훈련 손실과 테스트 손실</b>을 적어 보세요.
       은닉층을 하나로 줄이면 어떻게 될까요?</div></div>
     <div class="tool">
+      <h3>탐구 활동 기록지 — 텐서플로 놀이터 <span class="tm">122쪽 · 진단: 상 · 중 · 하</span></h3>
+      <p class="desc"><a href="https://playground.tensorflow.org" target="_blank" rel="noopener"><b>playground.tensorflow.org ↗</b></a> 에서 <b>Spiral</b> 데이터 · 모든 속성(FEATURES) 선택 후 에포크 600에서 멈추고 오른쪽 위 손실값을 적으세요. (이 칸은 저장되지 않으니 활동지에도 옮겨 적으세요)</p>
+      <div class="playrec">
+        <div class="ph">단계</div><div class="ph">모델 구조</div><div class="ph">훈련 손실</div><div class="ph">테스트 손실</div>
+        <div><b>1단계</b></div><div>처음 그대로</div><div><input type="number" step="0.001" id="pg1a" aria-label="1단계 훈련 손실"></div><div><input type="number" step="0.001" id="pg1b" aria-label="1단계 테스트 손실"></div>
+        <div><b>2단계</b></div><div>은닉층 3개 · 6 · 4 · 4</div><div><input type="number" step="0.001" id="pg2a" aria-label="2단계 훈련 손실"></div><div><input type="number" step="0.001" id="pg2b" aria-label="2단계 테스트 손실"></div>
+        <div><b>내 실험</b></div><div><input type="text" id="pg3s" placeholder="예) 8·8·8 · 학습률 0.03" aria-label="내 실험 구조"></div><div><input type="number" step="0.001" id="pg3a" aria-label="내 실험 훈련 손실"></div><div><input type="number" step="0.001" id="pg3b" aria-label="내 실험 테스트 손실"></div>
+      </div>
+      <div class="keyout" id="pgOut">숫자를 넣으면 어느 설계가 가장 좋았는지 알려 줍니다.</div>
+      <p class="note"><b>화면 이름표</b> 데이터(DATA) · 속성(FEATURES) · 은닉층(HIDDEN LAYERS) · 뉴런 · 에포크(Epoch) · 학습률(Learning rate) · 활성화 함수(Activation) · 규제 · 규제율 · 문제 유형 · 학습 데이터 비율 · 잡음 · 배치 사이즈.
+        <b>에포크</b>는 훈련 데이터를 반복 학습한 횟수입니다(128쪽). 🤖 «학습률과 활성화 함수를 바꿔 봐도 좋아.»</p>
+    </div>
+    <div class="tool">
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx06"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#nn">퍼셉트론과 XOR 직접 해 보기</a><a href="#terms">핵심 용어</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#nn">퍼셉트론과 XOR 직접 해 보기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 17 · 1부</a><a href="#terms">핵심 용어</a></div>
   </div>
 
   <!-- ═════════ Ⅱ-07 ═════════ -->
@@ -1925,10 +2095,40 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="lhead"><span class="lno">Ⅱ-07</span><div><b>딥러닝 모델 구현</b><span>교과서 124~138쪽 · 성취기준 02-06 · 수행평가 ② 바로 앞</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>버섯의 냄새 · 색 · 모양 22가지만 보고 <u>독버섯을 가려낼 수 있을까요?</u>
       케라스로 층을 쌓아 직접 만들어 봅니다(교과서 정확도 0.975 → 정규화 뒤 0.991).</div>
+    <div class="colabcta"><span><b>🧪 코랩 17의 2부가 Ⅱ-07입니다</b>독버섯 ❶~⓫ · 과적합 확인 · 하이퍼파라미터 튜닝 표 · 정규화 · 괴산장터 후기 감성 분석(오렌지와 같은 VADER) · 딥러닝 vs k-NN 시간 재기.</span>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 17 Ⅱ-06·07 전체</a></div>
+    <div class="g2">
+      <div class="cc wide"><b>📊 정형 데이터</b><span>표(csv · 엑셀)처럼 행과 열이 정해진 데이터 — 선형 회귀 · k-NN에서 쓴 것.</span></div>
+      <div class="cc wide"><b>🖼️ 🔊 📝 정형화되지 않은 데이터</b><span>이미지 · 음성 · 글. 딥러닝이 특히 잘 다룬다 — 얼굴 인식 출석, 체온 보고 음료 추천, «로그인 기능 만들어 줘»(124쪽 생각 열기).</span></div>
+    </div>
     <h3 class="lh">① 딥러닝 모델을 만드는 순서 <small>125쪽</small></h3>
     <div class="flow2 big"><span><b>데이터 분리</b><br><code>train_test_split</code></span><i>→</i>
       <span><b>모델 설계</b><br>생성 <code>Sequential()</code> → 층 추가 <code>add(Dense)</code> → 컴파일 <code>compile()</code></span><i>→</i>
       <span><b>모델 학습</b><br><code>fit(epochs, batch_size)</code></span><i>→</i><span class="out"><b>모델 평가</b><br><code>evaluate()</code></span></div>
+    <div class="g3" style="margin-top:12px">
+      <p class="side"><b>텐서플로(125쪽 옆)</b>구글이 만든 딥러닝 라이브러리. GPU로 행렬 계산이 빠르다. 속은 C · C++, 파이썬 등 여러 언어에서 쓴다.</p>
+      <p class="side"><b>API(125쪽 옆)</b>Application Programming Interface — 운영 체제나 소프트웨어를 <b>이어 주는 연결 고리</b>.</p>
+      <p class="side"><b>케라스(125쪽 옆)</b>텐서플로 안의 여러 API 중 <b>가장 쓰기 쉬운</b> 것. <code>from tensorflow import keras</code></p>
+    </div>
+    <p class="side bot" style="margin-top:8px"><b>🤖 최적화 알고리즘(125 · 128쪽)</b>«경사하강법을 똑똑하게 하기 위한 방법이야.» 방향과 학습률을 조절해 학습 시간을 줄이고 성능을 높인다 — <code>optimizer='adam'</code>.</p>
+    <div class="tool fig">
+      <h3>버섯 데이터가 숫자가 되고, 층을 지나 확률이 되기까지 <span class="tm">126~128쪽 과정 ❸~❼</span></h3>
+      <div class="lepair">
+        <div class="ptab"><em>❸ 전 — 글자</em><table><tr><th>class</th><th>cap-color</th><th>odor</th></tr><tr><td>p</td><td>n</td><td>p</td></tr><tr><td>e</td><td>y</td><td>a</td></tr><tr><td>e</td><td>w</td><td>l</td></tr></table></div>
+        <div class="learr">LabelEncoder<br>→<br><small>알파벳 순서로 번호</small></div>
+        <div class="ptab"><em>❸ 뒤 — 숫자</em><table><tr><th>class</th><th>cap-color</th><th>odor</th></tr><tr><td class="g">1</td><td class="g">4</td><td class="g">6</td></tr><tr><td class="g">0</td><td class="g">9</td><td class="g">0</td></tr><tr><td class="g">0</td><td class="g">8</td><td class="g">3</td></tr></table></div>
+      </div>
+      <svg class="fsvg" id="mnSvg" viewBox="0 0 760 292" role="img" aria-label="속성 22개 입력층, 은닉층 64개와 8개, 출력 1개로 된 독버섯 분류 신경망 그림"></svg>
+      <details class="u67det"><summary>버섯 속성 22가지의 뜻 (126쪽 표) — 눌러서 보기</summary>
+        <div class="attrs">
+          <span><b>class</b>독성 여부 · 정답 (식용 e / 독 p)</span><span><b>cap-shape</b>머리 모양</span><span><b>cap-surface</b>머리 돌기</span><span><b>cap-color</b>머리 색</span>
+          <span><b>bruises</b>멍</span><span><b>odor</b>냄새</span><span><b>gill-attachment</b>머리 아래 주름 형태</span><span><b>gill-spacing</b>주름 사이 틈</span>
+          <span><b>gill-size</b>주름 크기</span><span><b>gill-color</b>주름 색</span><span><b>stalk-shape</b>몸통 모양</span><span><b>stalk-root</b>몸통 뿌리 모양</span>
+          <span><b>stalk-surface-above-ring</b>몸통 고리 위 표면</span><span><b>stalk-surface-below-ring</b>고리 아래 표면</span><span><b>stalk-color-above-ring</b>고리 위 색</span><span><b>stalk-color-below-ring</b>고리 아래 색</span>
+          <span><b>veil-type</b>베일 모양</span><span><b>veil-color</b>베일 색</span><span><b>ring-number</b>몸통 고리 수</span><span><b>ring-type</b>몸통 고리 종류</span>
+          <span><b>spore-print-color</b>포자 무늬 색</span><span><b>population</b>무리 지어 자라는 정도</span><span><b>habitat</b>자라는 곳</span>
+        </div></details>
+    </div>
     <div class="tool" style="margin-top:14px">
       <h3>코드 줄 순서 맞추기 <span class="tm">126~129쪽 독버섯 분류</span></h3>
       <p class="desc">아래 줄들을 실행할 순서대로 눌러 보세요.</p>
@@ -1945,20 +2145,104 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       </div>
       <div class="keyout" id="lrEpOut"></div>
     </div>
+    <div class="tool">
+      <h3>손실 그래프 읽기 — 잘 배우는 중? 외우는 중? <span class="tm">129쪽 과정 ❿ · 과적합</span></h3>
+      <div class="simctl"><span class="pick" id="cuPick">
+        <button type="button" data-m="ok" aria-pressed="true">독버섯 모델(교과서 실행 결과)</button>
+        <button type="button" data-m="of" aria-pressed="false">과적합이 생긴 모델(예시)</button></span></div>
+      <label class="sl" style="max-width:420px"><span>에포크 <b id="cuEv">15</b></span><input type="range" id="cuE" min="1" max="15" value="15"></label>
+      <svg class="fsvg" id="cuSvg" viewBox="0 0 760 260" role="img" aria-label="에포크에 따른 손실과 정확도 그래프"></svg>
+      <div class="keyout" id="cuOut"></div>
+      <p class="side bot" style="margin-top:8px"><b>🤖 하이퍼파라미터 튜닝(129쪽 옆)</b>«최적의 하이퍼파라미터 조합을 찾기 위해 여러 실험을 거쳐 선택하는 것.» 과녁을 보며 조준을 조금씩 고치는 것과 같다. 코랩 17의 2-3에 <b>실험 표</b>가 있어요.</p>
+    </div>
     <div class="g2">
       <div class="cc wide"><b>과적합</b><span>훈련 데이터에만 지나치게 맞춰져 <b>새 데이터를 못 맞히는</b> 것. 훈련 점수와 테스트 점수를 비교해 찾는다(129쪽).</span></div>
       <div class="cc wide"><b>정규화</b><span>속성값 범위를 0~1로 맞추기(<code>MinMaxScaler</code>). 큰 값 쪽으로 치우치지 않게 — 독버섯 0.975 → 0.991(130쪽).</span></div>
       <div class="cc wide"><b>하이퍼파라미터 튜닝</b><span>에포크 · 배치 · 은닉층 수 · 뉴런 수 · 활성화 함수 — 사람이 정하는 값을 바꿔 가며 가장 좋은 조합 찾기.</span></div>
       <div class="cc wide"><b>딥러닝 vs 다른 기계학습</b><span>데이터가 많을수록 딥러닝이 유리하지만 <b>학습 시간이 더 걸린다.</b> 딥러닝은 특징을 <b>스스로</b> 찾는다(138쪽).</span></div>
     </div>
+    <div class="tool fig">
+      <h3>더 알아보기 — 정규화 한 번에 달라진 점수 <span class="tm">130쪽</span></h3>
+      <div class="normbox">
+        <div class="ptab"><em>MinMaxScaler — (값 − 가장 작은 값) ÷ (가장 큰 값 − 가장 작은 값)</em>
+          <table><tr><th>cap-color(숫자)</th><td>0</td><td>4</td><td>8</td><td>9</td></tr>
+          <tr><th>정규화 뒤</th><td class="g">0</td><td class="g">0.44</td><td class="g">0.89</td><td class="g">1</td></tr></table>
+          <p class="hint" style="margin-top:6px">속성마다 범위가 0~1, 0~11처럼 제각각이면 큰 값 쪽으로 쏠리거나 최적화가 느려집니다.</p></div>
+        <div class="nbars">
+          <div><span>정확도 · 전</span><i style="--v:97.48%"></i><b>0.9748</b></div>
+          <div><span>정확도 · 후</span><i class="g" style="--v:99.14%"></i><b>0.9914</b></div>
+          <div><span>손실 · 전</span><i class="w" style="--v:97.6%"></i><b>0.0976</b></div>
+          <div><span>손실 · 후</span><i class="g" style="--v:36.8%"></i><b>0.0368</b></div>
+          <p class="hint">손실 막대는 0.1을 끝으로 한 길이 — 짧을수록 좋습니다.</p>
+        </div>
+      </div>
+      <p class="side" style="margin-top:8px"><b>코랩에서 주의</b>정규화한 x로 <code>train_test_split</code>을 <b>다시</b> 해야 바뀐 값이 학습에 쓰입니다(교과서 130쪽 코드에는 이 줄이 생략).</p>
+    </div>
+    <div class="tool">
+      <h3>딥러닝을 활용한 문제 해결 — 세 가지 <span class="tm">131~137쪽</span></h3>
+      <div class="solve3">
+        <div class="s3"><i>01 컴퓨터 비전 · 티처블 머신</i><b>🗑️ 쓰레기 분리 배출</b>
+          <ol><li><b>이미지 프로젝트</b> · 클래스 플라스틱 · 유리 · 종이</li><li>사진을 <b>비슷한 개수</b>로(교과서 53 · 53 · 44), 밝기 · 크기 · 각도는 <b>다양하게</b></li>
+            <li>학습 → 안 쓴 사진으로 확인 · <b>고급</b>에서 에포크 · 배치</li><li>생수병이 유리로? → <b>여러 각도 사진 추가</b> 후 다시 학습</li><li>내보내기 → Tensorflow → Keras → <code>keras_model.h5</code> · <code>labels.txt</code></li></ol>
+          <span class="s3go"><a href="https://teachablemachine.withgoogle.com/train/image" target="_blank" rel="noopener">티처블 머신 ↗</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/11_teachable_machine.ipynb" target="_blank" rel="noopener">▶ 코랩 11 (133쪽 코드)</a></span></div>
+        <div class="s3"><i>02 음성 인식 · 티처블 머신</i><b>🐦 새 소리 — 왜가리 vs 박새</b>
+          <ol><li><b>오디오 프로젝트</b> · 배경 소음 · 왜가리 · 박새</li><li>마이크로 녹화 → 샘플 추출, 또는 zip 업로드(음성 + json)</li>
+            <li>최소 개수 이상, 두 새는 <b>비슷한 개수</b>로</li><li>학습 → 울음소리 재생하며 확률 비교</li><li>클래스 추가로 <b>다중 분류</b> · 샘플 다운로드로 재사용</li></ol>
+          <span class="s3go"><a href="https://teachablemachine.withgoogle.com/train/audio" target="_blank" rel="noopener">티처블 머신 ↗</a></span>
+          <p class="hint">왜가리는 하천, 박새는 산 — 소리만 듣고 <b>사는 곳</b>을 짐작할 수 있다.</p></div>
+        <div class="s3"><i>03 자연어 처리 · 오렌지</i><b>🛒 괴산장터 후기 감성 분석</b>
+          <svg class="fsvg ow" viewBox="0 0 300 120" role="img" aria-label="Corpus에서 Preprocess Text, Sentiment Analysis, Data Table로 이어지는 오렌지 위젯 연결">
+            <rect x="4" y="8" width="84" height="34" rx="17" class="m"/><text x="46" y="30" class="ft s c b">Corpus</text>
+            <rect x="108" y="8" width="96" height="34" rx="17"/><text x="156" y="23" class="ft s c">Preprocess</text><text x="156" y="37" class="ft s c">Text</text>
+            <rect x="108" y="74" width="96" height="34" rx="17" class="o"/><text x="156" y="89" class="ft s c b">Sentiment</text><text x="156" y="103" class="ft s c b">Analysis</text>
+            <rect x="224" y="74" width="72" height="34" rx="17"/><text x="260" y="95" class="ft s c">Data Table</text>
+            <path d="M88,25 L104,25 M156,42 L156,70 M204,91 L220,91" class="fl" marker-end="url(#arA)"/></svg>
+          <table class="vtab"><tr><th>후기</th><th>긍정</th><th>부정</th><th>중립</th><th>종합</th></tr>
+            <tr><td>I say it's fresh</td><td>0.535</td><td>0</td><td>0.465</td><td class="g">+0.318</td></tr>
+            <tr><td>…a bit bitter.</td><td>0</td><td>0.338</td><td>0.662</td><td class="w">−0.470</td></tr></table>
+          <span class="s3go"><a href="https://richee-pc.github.io/AI_cs/labs.html#orange">오렌지 따라 하기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 17 · 2-5 (코드로)</a></span>
+          <p class="hint">Add-ons에서 text 설치 · 번역은 <code>=GOOGLETRANSLATE(A1,"ko","en")</code> · corpus = 말뭉치</p></div>
+      </div>
+    </div>
     <div class="ws"><b><i>코드 없이</i> 티처블 머신 · 오렌지로도 <span style="font-weight:600; color:var(--muted)">131~137쪽</span></b><div>
       쓰레기 사진(플라스틱 · 유리 · 종이) 분류에서 생수병이 유리로 잘못 분류되면 — <b>여러 각도의 사진을 더 넣어</b> 다시 학습합니다.
       클래스마다 <b>비슷한 개수</b>로 모아야 한쪽으로 치우치지 않습니다. 이 감각이 프로젝트 ③의 «데이터 점검»과 같습니다.</div></div>
+    <div class="tool fig">
+      <h3>그림으로 — 딥러닝과 다른 기계학습, 무엇이 다를까? <span class="tm">138쪽 그림 Ⅱ-19</span></h3>
+      <svg class="fsvg" viewBox="0 0 760 290" role="img" aria-label="데이터 양이 늘수록 딥러닝 성능은 계속 오르고 기계학습은 멈추는 그래프, 그리고 사람이 특징을 뽑는 기계학습과 스스로 뽑는 딥러닝 비교">
+        <text x="20" y="22" class="ft h">① 성능과 시간</text>
+        <path d="M50,236 L50,40 M50,236 L320,236" class="fax" marker-end="url(#arA)"/>
+        <text x="36" y="44" class="ft s" text-anchor="end">성능</text><text x="318" y="258" class="ft s" text-anchor="end">데이터 양 →</text>
+        <path d="M54,200 C120,130 170,108 316,100" class="fl warmst" stroke-dasharray="320" stroke-dashoffset="320"><animate attributeName="stroke-dashoffset" from="320" to="0" dur="2s" fill="freeze"/></path>
+        <path d="M54,226 C150,190 220,90 316,50" class="fl" style="stroke:var(--blue); stroke-width:3.5" stroke-dasharray="360" stroke-dashoffset="360"><animate attributeName="stroke-dashoffset" from="360" to="0" dur="2.6s" fill="freeze"/></path>
+        <text x="220" y="62" class="ft s b" style="fill:var(--blue-d)">딥러닝</text><text x="240" y="126" class="ft s warmt">다른 기계학습</text>
+        <text x="60" y="278" class="ft s">대신 딥러닝은 <tspan class="b">학습 시간이 더 오래</tspan> 걸린다</text>
+        <line x1="360" y1="20" x2="360" y2="270" class="fdiv"/>
+        <text x="380" y="22" class="ft h ml">② 특징 추출</text>
+        <text x="380" y="60" class="ft s b">기계학습</text>
+        <rect x="380" y="70" width="60" height="36" rx="10" class="fb"/><text x="410" y="93" class="ft s c">🚗 입력</text>
+        <rect x="456" y="70" width="102" height="36" rx="10" class="fb warm"/><text x="507" y="86" class="ft s c b">특징 추출</text><text x="507" y="100" class="ft s c">🧑 사람이 지정</text>
+        <rect x="574" y="70" width="62" height="36" rx="10" class="fb blue"/><text x="605" y="93" class="ft s c">분류</text>
+        <rect x="652" y="70" width="96" height="36" rx="10" class="fb good"/><text x="700" y="86" class="ft s c">자동차임 /</text><text x="700" y="100" class="ft s c">아님</text>
+        <path d="M440,88 L452,88 M558,88 L570,88 M636,88 L648,88" class="fl" marker-end="url(#arA)"/>
+        <text x="380" y="160" class="ft s b">딥러닝</text>
+        <rect x="380" y="170" width="60" height="36" rx="10" class="fb"/><text x="410" y="193" class="ft s c">🚗 입력</text>
+        <rect x="456" y="170" width="180" height="36" rx="10" class="fb blue"/><text x="546" y="186" class="ft s c b">특징 추출 + 분류</text><text x="546" y="200" class="ft s c">🤖 스스로 찾음</text>
+        <rect x="652" y="170" width="96" height="36" rx="10" class="fb good"/><text x="700" y="186" class="ft s c">자동차임 /</text><text x="700" y="200" class="ft s c">아님</text>
+        <path d="M440,188 L452,188 M636,188 L648,188" class="fl" marker-end="url(#arA)"/>
+        <text x="380" y="240" class="ft s">사람: «색에 주목해라» 하고 정해 줘야 함</text>
+        <text x="380" y="260" class="ft s">딥러닝: 색인지 모양인지 <tspan class="b">스스로</tspan> 찾음 → 이미지 · 음성 · 글에 강함</text>
+      </svg>
+      <div class="g2" style="margin-top:8px">
+        <p class="side"><b>되돌아보기 ▶ 78쪽 핵심 속성 추출</b>사람이 속성 사이 관계를 시각화해 보고 골랐던 일 — 딥러닝은 이것을 스스로 한다.</p>
+        <p class="side bot"><b>🤖 기계학습이지만 딥러닝이 아닌 것은?(138쪽 옆)</b>선형 회귀, K-NN 같은 알고리즘. 코랩 17 · 2-6에서 같은 버섯 데이터로 <b>시간을 재 봅니다.</b></p>
+      </div>
+    </div>
     <div class="tool">
       <h3>30초 확인 <span class="tm">O / X</span></h3>
       <div class="oxl" id="lrOx07"></div>
     </div>
-    <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/03_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 · 독버섯(126~130쪽)</a><a href="https://richee-pc.github.io/AI_cs/labs.html#labs">🧪 티처블 머신 · 감성 분석(131~137쪽)</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
+    <div class="nextgo"><b>이어서</b><a href="#code">딥러닝 코드 읽기</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩 17 · 2부(124~138쪽)</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/03_deeplearning.ipynb" target="_blank" rel="noopener">코랩 03 · 독버섯만 짧게</a><a href="https://richee-pc.github.io/AI_cs/labs.html#labs">🧪 티처블 머신 · 감성 분석(131~137쪽)</a><a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">오렌지3 ↔ 코랩 대조표</a></div>
   </div>
   <div class="tool" id="videos">
     <h3>영상으로 다시 보기 <span class="tm">선택 · 집에서 · 유튜브로 열림</span></h3>
@@ -3012,6 +3296,22 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
     교과서 방식은 노트북 맨 아래 <b>접어 둔 칸</b>에 그대로 담아 두었으니, 시험 대비로 한 번 읽어 두세요.</p>
 
   <div class="labs">
+    <div class="lab">
+      <p class="labtag">Ⅱ-06 · 07 · 한 차시 · 교과서 116~139쪽 전체</p>
+      <h3>★ 신경망을 손으로, 그리고 케라스로</h3>
+      <p class="labdesc">퍼셉트론 0.6 계산 → XOR 1만 5천 가지 시도 → 층을 쌓아 해결 → 스스로 고치는 역전파 →
+        놀이터 Spiral 재현 → CNN 필터 → <b>독버섯 ❶~⓫</b> → 정규화 → 감성 분석 → 딥러닝 vs k-NN.</p>
+      <ul class="labdo">
+        <li>★ 표시만 수업 시간에(약 20분), ☆ 는 먼저 끝낸 사람 · 집에서</li>
+        <li>30초 개념 정리 · 대단원 자가 진단까지 접어 둔 칸으로</li>
+      </ul>
+      <p class="labdata">쓰는 데이터 · <code>mushrooms.csv</code> · <code>goesan_reviews.csv</code> (괴산장터 후기 279건)</p>
+      <div class="labgo">
+        <a class="mini" target="_blank" rel="noopener"
+           href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb">코랩에서 열기</a>
+      </div>
+    </div>
+
     <div class="lab">
       <p class="labtag">Ⅱ-02 · 데이터 탐구 ③ 전에 · 교과서 72~79쪽</p>
       <h3>① 더러운 데이터를 치운다</h3>
@@ -4883,7 +5183,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=ee1c98e3"></script>
+<script src="lessons.js?v=a3392f30"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -5864,6 +6164,247 @@ window.MODEL_SVG_CSS = '.mv{width:100%;height:auto;display:block;background:var(
       return '<figure>' + window.MODEL_SVG[x[0]] + '<figcaption>' + x[1] + '</figcaption></figure>'; }).join('');
     t.insertAdjacentElement('afterend', g);
   }
+})();
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Ⅱ-06 · 07 그림 · 실험 (2026-10-07) — 활성화 함수 · 신경망 그림 · 역전파 · 합성곱 · 놀이터 기록 · 손실 그래프
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+function $(id){ return document.getElementById(id); }
+var NS = 'http://www.w3.org/2000/svg';
+function f2(v){ return (Math.round(v * 100) / 100).toFixed(2); }
+
+/* ── 신경망 그림 그리기: 층 목록 → 선 + 원 ── */
+function netSVG(L, x0, x1, yTop, yBot, opt){
+  opt = opt || {};
+  var out = '', xs = L.map(function(_, i){ return x0 + (x1 - x0) * i / (L.length - 1); });
+  var ys = L.map(function(n){ var h = Math.min(yBot - yTop, (n - 1) * 34), c = (yTop + yBot) / 2;
+    var a = []; for(var k = 0; k < n; k++) a.push(n === 1 ? c : c - h / 2 + h * k / (n - 1)); return a; });
+  for(var i = 0; i < L.length - 1; i++) ys[i].forEach(function(y1){ ys[i + 1].forEach(function(y2){
+    out += '<line x1="' + xs[i] + '" y1="' + y1 + '" x2="' + xs[i + 1] + '" y2="' + y2 + '" class="fl thin"/>'; }); });
+  if(opt.paths) opt.paths.push({ xs:xs, ys:ys });
+  L.forEach(function(n, i){
+    var cls = i === 0 ? 'fb good' : i === L.length - 1 ? 'fb warm' : 'fb blue';
+    ys[i].forEach(function(y, k){
+      if(opt.dots && opt.dots[i] && k === Math.floor(n / 2) && n > 3) out += '<text x="' + xs[i] + '" y="' + (y + 6) + '" class="ft c b">⋮</text>';
+      else out += '<circle cx="' + xs[i] + '" cy="' + y + '" r="' + (opt.r || 12) + '" class="' + cls + '"/>'; });
+  });
+  return { svg:out, xs:xs, ys:ys };
+}
+
+/* ── 활성화 함수 손잡이 ── */
+(function(){
+  var s = $('afSvg'); if(!s) return;
+  var F = [['렐루(ReLU)', function(z){ return Math.max(0, z); }, -0.5, 4.2],
+           ['시그모이드', function(z){ return 1 / (1 + Math.exp(-z)); }, -0.1, 1.1],
+           ['계단 함수', function(z){ return z > 0 ? 1 : 0; }, -0.1, 1.1]];
+  var W = 220, H = 150, gap = 30, top = 30;
+  function px(i, z){ return 10 + i * (W + gap) + (z + 4) / 8 * W; }
+  function py(f, v){ return top + H - (v - f[2]) / (f[3] - f[2]) * H; }
+  var base = '';
+  F.forEach(function(f, i){
+    var x0 = 10 + i * (W + gap), d = '';
+    for(var k = 0; k <= 160; k++){ var z = -4 + 8 * k / 160; d += (k ? 'L' : 'M') + px(i, z).toFixed(1) + ',' + py(f, f[1](z)).toFixed(1); }
+    base += '<rect x="' + x0 + '" y="' + top + '" width="' + W + '" height="' + H + '" rx="10" class="fb"/>' +
+      '<line x1="' + x0 + '" y1="' + py(f, 0) + '" x2="' + (x0 + W) + '" y2="' + py(f, 0) + '" class="fax"/>' +
+      '<line x1="' + px(i, 0) + '" y1="' + top + '" x2="' + px(i, 0) + '" y2="' + (top + H) + '" class="fax"/>' +
+      '<path d="' + d + '" class="fline" fill="none"/>' +
+      '<text x="' + (x0 + W / 2) + '" y="20" class="ft c b">' + f[0] + '</text>' +
+      '<line id="afV' + i + '" class="fl dash" y1="' + top + '" y2="' + (top + H) + '"/><circle id="afP' + i + '" r="8" class="dot"/>' +
+      '<text id="afT' + i + '" y="' + (top + H + 24) + '" class="ft c b"></text>';
+  });
+  s.innerHTML = base;
+  function draw(){
+    var z = +$('afZ').value; $('afZv').textContent = z.toFixed(1);
+    F.forEach(function(f, i){
+      var v = f[1](z), x = px(i, z);
+      $('afV' + i).setAttribute('x1', x); $('afV' + i).setAttribute('x2', x);
+      $('afP' + i).setAttribute('cx', x); $('afP' + i).setAttribute('cy', py(f, v));
+      var t = $('afT' + i); t.setAttribute('x', 10 + i * (W + gap) + W / 2); t.textContent = '→ ' + f2(v);
+    });
+    var r = Math.max(0, z), sg = 1 / (1 + Math.exp(-z));
+    var o = $('afOut'); o.className = 'keyout' + (r > 0 ? ' good' : '');
+    o.innerHTML = '렐루 ' + f2(r) + ' · 시그모이드 ' + f2(sg) + ' · 계단 ' + (z > 0 ? 1 : 0) +
+      '<small>' + (Math.abs(z - 0.6) < 0.05 ? '교과서 117쪽 값 0.6 — 렐루를 지나도 0.6, 임계값 0을 넘으니 <b>참</b>. ' : '') +
+      (z <= 0 ? '0 이하라서 렐루는 0 — 신호가 <b>꺼집니다</b>. ' : '') +
+      '시그모이드는 «1일 확률»로 읽습니다 — 독버섯 모델의 <b>출력층</b>에 씁니다(128쪽).</small>';
+  }
+  $('afZ').addEventListener('input', draw); draw();
+})();
+
+/* ── 얕은 신경망 · 심층 신경망 (그림 Ⅱ-17) ── */
+(function(){
+  var s = $('netSvg'); if(!s) return;
+  var a = netSVG([3, 4, 2], 40, 300, 50, 210), b = netSVG([3, 5, 5, 5, 2], 420, 740, 50, 210);
+  function lab(n, x){ return '<text x="' + x + '" y="240" class="ft s c">' + n + '</text>'; }
+  s.innerHTML = '<text x="170" y="24" class="ft h c">얕은 신경망</text><text x="580" y="24" class="ft h c">심층 신경망 = 딥러닝</text>' +
+    '<line x1="360" y1="10" x2="360" y2="250" class="fdiv"/>' + a.svg + b.svg +
+    lab('입력층', a.xs[0]) + lab('은닉층', a.xs[1]) + lab('출력층', a.xs[2]) +
+    lab('입력층', b.xs[0]) + '<text x="' + b.xs[2] + '" y="240" class="ft s c b" style="fill:var(--blue-d)">은닉층이 여러 개</text>' + lab('출력층', b.xs[4]);
+})();
+
+/* ── 순전파 · 역전파 애니메이션 (그림 Ⅱ-18) ── */
+(function(){
+  var s = $('bpSvg'); if(!s) return;
+  var P = []; var n = netSVG([3, 4, 4, 2], 70, 690, 60, 220, { paths:P });
+  var xs = n.xs, ys = n.ys, dots = '';
+  /* 경로 몇 개를 골라 점 보내기: 순전파 파란 점은 앞 절반, 역전파 주황 점은 뒤 절반 */
+  var routes = [[0, 0, 1, 0], [1, 2, 2, 1], [2, 3, 1, 1], [1, 1, 3, 0]];
+  routes.forEach(function(r, k){
+    var pts = r.map(function(idx, i){ return xs[i] + ',' + ys[i][idx]; });
+    var fwd = 'M' + pts.join(' L'), back = 'M' + pts.slice().reverse().join(' L');
+    var b = (k * 0.12).toFixed(2) + 's';
+    dots += '<circle r="6" class="dot"><animateMotion dur="4s" begin="' + b + '" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.45;1" calcMode="linear" path="' + fwd + '"/>' +
+      '<animate attributeName="opacity" values="1;0" keyTimes="0;0.5" calcMode="discrete" dur="4s" begin="' + b + '" repeatCount="indefinite"/></circle>' +
+      '<circle r="6" class="fout" opacity="0"><animateMotion dur="4s" begin="' + b + '" repeatCount="indefinite" keyPoints="0;0;1" keyTimes="0;0.5;0.95" calcMode="linear" path="' + back + '"/>' +
+      '<animate attributeName="opacity" values="0;1" keyTimes="0;0.5" calcMode="discrete" dur="4s" begin="' + b + '" repeatCount="indefinite"/></circle>';
+  });
+  function lab(t, x){ return '<text x="' + x + '" y="250" class="ft s c">' + t + '</text>'; }
+  s.innerHTML = n.svg + dots +
+    lab('입력층', xs[0]) + lab('첫 번째 은닉층', xs[1]) + lab('두 번째 은닉층', xs[2]) + lab('출력층', xs[3]) +
+    '<g><text x="380" y="30" class="ft c b" style="fill:var(--blue-d)">① 순전파 — 입력 → 출력 방향으로 계산해 답을 낸다</text>' +
+      '<animate attributeName="opacity" values="1;0" keyTimes="0;0.5" calcMode="discrete" dur="4s" repeatCount="indefinite"/></g>' +
+    '<g opacity="0"><text x="380" y="30" class="ft c warmt">② 손실 계산 → ③ 역전파 — 출력 → 입력 방향으로 가중치를 고친다</text>' +
+      '<animate attributeName="opacity" values="0;1" keyTimes="0;0.5" calcMode="discrete" dur="4s" repeatCount="indefinite"/></g>' +
+    '<text x="380" y="280" class="ft s c">이 한 바퀴를 데이터 전체에 대해 돌면 <tspan class="b">1 에포크</tspan> · 크게 틀릴수록 크게 고친다</text>';
+})();
+
+/* ── 합성곱 · 풀링 ── */
+(function(){
+  if(!$('cvIn')) return;
+  var FIL = { v:[[1, 0, -1], [1, 0, -1], [1, 0, -1]], h:[[1, 1, 1], [0, 0, 0], [-1, -1, -1]], e:[[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]] };
+  var PICS = [
+    function(r, c){ return r >= 1 && r <= 6 && (c === 3 || c === 4) ? 1 : 0; },
+    function(r, c){ return (r >= 1 && r <= 6 && (c === 3 || c === 4)) || (c >= 1 && c <= 6 && (r === 3 || r === 4)) ? 1 : 0; },
+    function(r, c){ return r >= 1 && r <= 6 && c >= 1 && c <= 6 && (r === 1 || r === 6 || c === 1 || c === 6) ? 1 : 0; }];
+  var pic = 0, img = [], f = 'v';
+  function load(){ img = []; for(var r = 0; r < 8; r++){ img.push([]); for(var c = 0; c < 8; c++) img[r].push(PICS[pic](r, c)); } }
+  function cell(v, mx, cls){
+    var a = mx ? Math.min(1, Math.abs(v) / mx) : 0;
+    var bg = v > 0 ? 'color-mix(in srgb,var(--blue) ' + Math.round(a * 85) + '%,var(--white))' : v < 0 ? 'color-mix(in srgb,var(--warm) ' + Math.round(a * 85) + '%,var(--white))' : 'var(--white)';
+    return '<span class="' + (cls || '') + '" style="background:' + bg + '">' + v + '</span>';
+  }
+  function draw(){
+    var F = FIL[f], map = [], mx = 0;
+    for(var i = 0; i < 6; i++){ map.push([]); for(var j = 0; j < 6; j++){
+      var s = 0; for(var a = 0; a < 3; a++) for(var b = 0; b < 3; b++) s += img[i + a][j + b] * F[a][b];
+      map[i].push(s); mx = Math.max(mx, Math.abs(s)); } }
+    var pool = []; for(var p = 0; p < 3; p++){ pool.push([]); for(var q = 0; q < 3; q++)
+      pool[p].push(Math.max(map[2 * p][2 * q], map[2 * p][2 * q + 1], map[2 * p + 1][2 * q], map[2 * p + 1][2 * q + 1])); }
+    $('cvIn').innerHTML = img.map(function(row, r){ return row.map(function(v, c){
+      return '<button type="button" data-r="' + r + '" data-c="' + c + '" class="' + (v ? 'on' : '') + '" aria-label="' + (r + 1) + '행 ' + (c + 1) + '열 ' + (v ? '칠함' : '빈칸') + '"></button>'; }).join(''); }).join('');
+    $('cvF').innerHTML = F.map(function(row){ return row.map(function(v){ return cell(v, 8); }).join(''); }).join('');
+    $('cvMap').innerHTML = map.map(function(row){ return row.map(function(v){ return cell(v, mx); }).join(''); }).join('');
+    $('cvPool').innerHTML = pool.map(function(row){ return row.map(function(v){ return cell(v, mx); }).join(''); }).join('');
+    var big = Math.max.apply(null, pool.map(function(r){ return Math.max.apply(null, r); }));
+    $('cvOut').innerHTML = (f === 'v' ? '세로선 필터 — 밝은 곳(왼쪽)과 어두운 곳(오른쪽)이 <b>세로로</b> 맞닿은 자리에서 값이 커집니다.' :
+      f === 'h' ? '가로선 필터 — 위가 밝고 아래가 어두운 <b>가로 경계</b>에서 값이 커집니다.' : '테두리 필터 — 주변과 <b>다른</b> 칸에서 값이 커집니다.') +
+      '<small>8×8(64칸) → 특성 맵 6×6(36칸) → 풀링 3×3(9칸). 크기는 줄었지만 가장 강한 특징(최댓값 ' + big + ')은 남았습니다. 진짜 CNN은 이런 필터 수십 개의 <b>숫자까지 스스로 배웁니다.</b></small>';
+  }
+  $('cvIn').addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return;
+    var r = +b.getAttribute('data-r'), c = +b.getAttribute('data-c'); img[r][c] = 1 - img[r][c]; draw(); });
+  $('cvPick').addEventListener('click', function(e){ var b = e.target.closest('button[data-f]'); if(!b) return;
+    f = b.getAttribute('data-f'); [].forEach.call(this.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); draw(); });
+  $('cvReset').addEventListener('click', function(){ pic = (pic + 1) % PICS.length; load(); draw(); });
+  load(); draw();
+})();
+
+/* ── 놀이터 기록지 ── */
+(function(){
+  if(!$('pg1a')) return;
+  var ids = ['pg1a', 'pg1b', 'pg2a', 'pg2b', 'pg3a', 'pg3b'];
+  function go(){
+    var v = ids.map(function(id){ var x = parseFloat($(id).value); return isNaN(x) ? null : x; });
+    var rows = [['1단계(처음 구조)', v[0], v[1]], ['2단계(6 · 4 · 4)', v[2], v[3]], ['내 실험' + ($('pg3s').value ? '(' + $('pg3s').value + ')' : ''), v[4], v[5]]]
+      .filter(function(r){ return r[2] !== null; });
+    var o = $('pgOut');
+    if(!rows.length){ o.className = 'keyout'; o.innerHTML = '숫자를 넣으면 어느 설계가 가장 좋았는지 알려 줍니다.'; return; }
+    rows.sort(function(a, b){ return a[2] - b[2]; });
+    var best = rows[0], msg = '테스트 손실이 가장 작은 설계: <b>' + best[0] + '</b> (' + best[2] + ')';
+    var tips = rows.filter(function(r){ return r[1] !== null && r[2] - r[1] > 0.05; }).map(function(r){ return r[0]; });
+    o.className = 'keyout good';
+    o.innerHTML = msg + '<small>' + (tips.length ? tips.join(', ') + '는 훈련 손실보다 테스트 손실이 꽤 큽니다 — <b>과적합</b> 신호일 수 있어요(129쪽). ' : '') +
+      '손실은 0에 가까울수록 좋습니다. 은닉층과 뉴런을 늘리면 소용돌이를 따라 휘어진 경계를 그릴 수 있습니다.</small>';
+  }
+  ids.concat(['pg3s']).forEach(function(id){ $(id).addEventListener('input', go); });
+})();
+
+/* ── 독버섯 신경망 그림 22 → 64 → 8 → 1 ── */
+(function(){
+  var s = $('mnSvg'); if(!s) return;
+  var n = netSVG([7, 9, 5, 1], 90, 670, 46, 206, { dots:{ 0:1, 1:1 }, r:11 });
+  function lab(a, b, x){ return '<text x="' + x + '" y="232" class="ft s c b">' + a + '</text><text x="' + x + '" y="250" class="ft s c">' + b + '</text>'; }
+  s.innerHTML = n.svg + lab('입력 22개', '버섯 속성', n.xs[0]) + lab('Dense(64)', 'relu · 가중치 1,472', n.xs[1]) +
+    lab('Dense(8)', 'relu · 가중치 520', n.xs[2]) + lab('Dense(1)', 'sigmoid · 가중치 9', n.xs[3]) +
+    '<text x="380" y="22" class="ft c">❺ <tspan class="b">Sequential()</tspan> 빈 모델 → ❻ 은닉층 <tspan class="b">add</tspan> 두 번 → ❼ 출력층 → ❽ <tspan class="b">compile</tspan></text>' +
+    '<text x="' + (n.xs[3] + 22) + '" y="132" class="ft s">독일 확률</text><text x="' + (n.xs[3] + 22) + '" y="150" class="ft s">0~1</text>' +
+    '<text x="380" y="284" class="ft s c">가중치(편향 포함)를 모두 더하면 2,001개 — 이걸 <tspan class="b">스스로</tspan> 맞추는 것이 학습입니다</text>';
+})();
+
+/* ── 손실 그래프 읽기 ── */
+(function(){
+  var s = $('cuSvg'); if(!s) return;
+  var mode = 'ok';
+  /* 교과서 128쪽 실행 결과(1 · 2 · 15 에포크)를 지나는 매끈한 곡선 */
+  function okL(e){ return 0.1048 + 0.6515 * Math.exp(-0.775 * (e - 1)); }
+  function okA(e){ return 0.9697 - 0.3748 * Math.exp(-1.064 * (e - 1)); }
+  function ofT(e){ return 0.05 + 0.65 * Math.exp(-0.3 * (e - 1)); }
+  function ofV(e){ return 0.32 + 0.4 * Math.exp(-0.45 * (e - 1)) + 0.008 * Math.pow(Math.max(0, e - 5), 1.6); }
+  var X0 = 60, X1 = 700, Y0 = 220, Y1 = 30;
+  function X(e){ return X0 + (X1 - X0) * (e - 1) / 14; }
+  function Y(v){ return Y0 - (Y0 - Y1) * v; }
+  function line(fn, E, cls){ var d = ''; for(var k = 0; k <= (E - 1) * 8; k++){ var e = 1 + k / 8; d += (k ? 'L' : 'M') + X(e).toFixed(1) + ',' + Y(fn(e)).toFixed(1); }
+    return '<path d="' + d + '" fill="none" class="' + cls + '"/>'; }
+  function draw(){
+    var E = +$('cuE').value; $('cuEv').textContent = E;
+    var g = '<line x1="' + X0 + '" y1="' + Y0 + '" x2="' + X1 + '" y2="' + Y0 + '" class="fax"/><line x1="' + X0 + '" y1="' + Y0 + '" x2="' + X0 + '" y2="' + Y1 + '" class="fax"/>';
+    [0, 0.5, 1].forEach(function(v){ g += '<text x="' + (X0 - 8) + '" y="' + (Y(v) + 5) + '" class="ft s" text-anchor="end">' + v + '</text>'; });
+    [1, 5, 10, 15].forEach(function(e){ g += '<text x="' + X(e) + '" y="' + (Y0 + 20) + '" class="ft s c">' + e + '</text>'; });
+    g += '<text x="' + X1 + '" y="' + (Y0 + 38) + '" class="ft s" text-anchor="end">epoch</text>';
+    var o = $('cuOut');
+    if(mode === 'ok'){
+      g += line(okL, E, 'fline') + line(okA, E, 'fl2') +
+        '<circle cx="' + X(E) + '" cy="' + Y(okL(E)) + '" r="7" class="fout"/><circle cx="' + X(E) + '" cy="' + Y(okA(E)) + '" r="7" class="dot"/>' +
+        '<text x="' + (X1 - 4) + '" y="' + (Y(okA(15)) - 10) + '" class="ft s b" text-anchor="end" style="fill:var(--blue-d)">accuracy(정확도)</text>' +
+        '<text x="' + (X1 - 4) + '" y="' + (Y(okL(15)) - 10) + '" class="ft s warmt" text-anchor="end">loss(손실)</text>';
+      o.className = 'keyout' + (E >= 10 ? ' good' : '');
+      o.innerHTML = E + '에포크: 손실 ' + okL(E).toFixed(4) + ' · 정확도 ' + okA(E).toFixed(4) +
+        '<small>' + (E === 1 ? '교과서 1에포크 «loss: 0.7563 - accuracy: 0.5949» — 아직 반쯤 찍는 수준.' : E === 2 ? '교과서 2에포크 «0.4049 · 0.8404» — 한 바퀴 만에 크게 좋아졌습니다.' :
+          E === 15 ? '교과서 15에포크 «0.1048 · 0.9697», 테스트 데이터로 evaluate() 하면 [0.0976, 0.9748]. 손실이 <b>뚝 떨어져 낮게 머물면</b> 잘 배운 것입니다.' :
+          '손실은 내려가고 정확도는 올라갑니다. 에포크마다 손실에 따라 가중치를 고친 결과입니다.') + '</small>';
+    } else {
+      g += line(ofT, E, 'fline') + line(ofV, E, 'fl2') +
+        '<circle cx="' + X(E) + '" cy="' + Y(ofT(E)) + '" r="7" class="fout"/><circle cx="' + X(E) + '" cy="' + Y(ofV(E)) + '" r="7" class="dot"/>' +
+        '<text x="' + (X1 - 4) + '" y="' + (Y(ofT(15)) + 20) + '" class="ft s warmt" text-anchor="end">훈련 손실</text>' +
+        '<text x="' + (X1 - 4) + '" y="' + (Y(ofV(15)) - 10) + '" class="ft s b" text-anchor="end" style="fill:var(--blue-d)">검증(테스트) 손실</text>' +
+        '<line x1="' + X(6) + '" y1="' + Y1 + '" x2="' + X(6) + '" y2="' + Y0 + '" class="fl dash"/><text x="' + (X(6) + 6) + '" y="' + (Y1 + 14) + '" class="ft s">여기서 멈췄다면</text>';
+      var gap = ofV(E) - ofT(E);
+      o.className = 'keyout' + (E > 6 ? '' : ' good');
+      o.innerHTML = E + '에포크: 훈련 손실 ' + ofT(E).toFixed(3) + ' · 검증 손실 ' + ofV(E).toFixed(3) +
+        '<small>' + (E > 6 ? '훈련 손실은 계속 줄지만 검증 손실은 <b>다시 올라갑니다</b> — 학습 데이터만 외우는 <b>과적합</b>. 에포크를 줄이거나 데이터를 늘리거나 규제를 겁니다.' :
+          '아직은 두 손실이 함께 내려갑니다. 차이 ' + gap.toFixed(3) + '.') + ' (그래프 모양을 보여 주려고 만든 예시)</small>';
+    }
+    s.innerHTML = g;
+  }
+  $('cuE').addEventListener('input', draw);
+  $('cuPick').addEventListener('click', function(e){ var b = e.target.closest('button[data-m]'); if(!b) return;
+    mode = b.getAttribute('data-m'); [].forEach.call(this.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); draw(); });
+  draw();
+})();
+
+/* ── 읽을거리 CNN · RNN · GAN 카드에 도감 그림 ── */
+(function(){
+  if(!window.MODEL_SVG) return;
+  var M = { 'CNN':'cnn', 'RNN':'rnn', 'GAN':'gan' };
+  [].forEach.call(document.querySelectorAll('#learn06 .g3 .cc'), function(c){
+    var b = c.querySelector('b'); if(!b || c.querySelector('.mcviz')) return;
+    var id = M[b.textContent.trim().split(' ')[0]]; if(!id || !window.MODEL_SVG[id]) return;
+    var d = document.createElement('div'); d.className = 'mcviz'; d.innerHTML = window.MODEL_SVG[id];
+    b.insertAdjacentElement('afterend', d);
+  });
+})();
 })();
 </script>
 
