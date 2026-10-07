@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 19권">
+<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 20권">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="코랩 실습실 · 인공지능 기초">
-<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 19권">
+<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 20권">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=eaa68ce0" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=5bcf031e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=6581873c" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=42377525" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>코랩 실습실 · 인공지능 기초</title>
@@ -29,13 +29,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2fa40048') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=98a742fc') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=5bcf031e') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=42377525') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=eaa68ce0') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=6581873c') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8a6b4133') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=72c7a7b7') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1060,13 +1060,13 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     파일을 올릴 필요 없이 <b>«코랩에서 열기»</b>만 누르면 데이터까지 저절로 불러옵니다.
     막히는 자리에는 <b>💡 힌트</b>가, 노트북 맨 아래에는 <b>정답 예시</b>가 있습니다.</p>
   <div class="facts">
-    <div class="fact"><b>22<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
-    <div class="fact"><b>19<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
+    <div class="fact"><b>23<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
+    <div class="fact"><b>20<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
     <div class="fact"><b>0<span style="font-size:1.0rem"> 개</span></b><span>올릴 파일</span></div>
-    <div class="fact"><b id="labCount">0 / 22</b><span>내가 해 본 실습</span></div>
+    <div class="fact"><b id="labCount">0 / 23</b><span>내가 해 본 실습</span></div>
   </div>
   <div class="lprog"><i id="labBar"></i></div>
-  <div class="fgo" style="margin-top:14px"><a href="#start">시작하기</a><a href="#labs">교과서 실습 22</a><a href="#orange">🍊 오렌지3 따라 하기 7</a><a href="#trouble">막혔을 때</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a><a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a></div>
+  <div class="fgo" style="margin-top:14px"><a href="#start">시작하기</a><a href="#labs">교과서 실습 23</a><a href="#orange">🍊 오렌지3 따라 하기 7</a><a href="#trouble">막혔을 때</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a><a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a></div>
 </div></div>
 
 <section id="start"><div class="wrap">
@@ -1213,7 +1213,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=c3ec2e69"></script>
+<script src="lessons.js?v=3825f6b5"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)
@@ -1268,6 +1268,9 @@ var LABS = [
    learn:'Text Mining 애드온 · Corpus → Preprocess Text → Sentiment Analysis → Box Plot · 워드 클라우드', model:'감성 사전(VADER)', data:'괴산장터 상품 후기 279건(영어 번역 열 포함)',
    go:[['data/goesan_reviews.csv','후기 데이터 받기(CSV) ↓','dl']],
    steps:['오렌지3 → 옵션 → 애드온에서 <b>Text</b> 설치 후 다시 켜기','<b>Corpus</b> 위젯에 받은 CSV를 열고 사용할 열은 <b>번역</b>, 언어 English','<b>Preprocess Text</b> — 소문자 · 낱말 나누기 · 불용어 빼기','<b>Sentiment Analysis</b>(Vader) → <b>Box Plot</b>으로 긍정·부정 분포','<b>Word Cloud</b>로 자주 나온 낱말 보기 · 부정 후기만 골라 읽어 개선점 찾기'] },
+ { id:'19', u:'4', tool:'colab', t:'Ⅳ 인공지능 프로젝트 — 교과서 전체', pg:'180~210쪽', sub:'Ⅳ-01 · 02', les:'P1', lv:2, min:50,
+   learn:'SDGs 17개 표와 5P 분류 → 세부 목표 · AI for Good → 함께해 보기 · 탐구 활동 → 역할 분담 · 수행 계획 → 기아 종식 예측 과정 ❶~29와 더 알아보기(2032.68 · 2054.39 · 0.933) → «믿어도 될까?» 훈련/테스트 실험 → 평가표 17항목 → 대단원 마무리', model:'선형 회귀', data:'GHI · 영양실조 · 발육 저하(136개국)', nb:'19_unit4_project.ipynb',
+   note:'07은 기아 예측 부분만 짧게 한 수행평가 ② 연습판입니다.' },
  { id:'07', u:'4', tool:'colab', t:'기아 종식은 언제? — GHI 분석과 예측', pg:'199~208쪽', sub:'Ⅳ-02', les:'S1', lv:2, min:35,
    learn:'세 데이터 통합 · 결측치 평균 대체 · 히트맵 · 선형 회귀로 «GHI 10이 되는 해» · 외삽의 위험', model:'선형 회귀', data:'GHI · 영양실조 · 발육 저하(136개국)', nb:'07_ghi_hunger.ipynb',
    note:'수행평가 ② 노트북과 같은 «불러오기 → 전처리 → 모델 → 학습 · 평가» 순서입니다.' },

@@ -10,11 +10,93 @@
 <meta property="og:title" content="Ⅳ. 인공지능 프로젝트 · 수업 자료">
 <meta property="og:description" content="SDGs 문제를 우리 모둠이 만든 AI로 — 주제 정하기 · 계획 · 오렌지3 · 발표 · 수행평가 ②">
 <meta property="og:type" content="website">
-<link rel="preload" href="font/body-reg.woff2?v=eaa68ce0" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="font/disp-bold.woff2?v=5bcf031e" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/body-reg.woff2?v=6581873c" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/disp-bold.woff2?v=42377525" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
 <style>html,body{margin:0;padding:0}</style>
 <title>Ⅳ. 인공지능 프로젝트 · 수업 자료</title>
+<style id="css-u4tb">
+.tbband{margin:26px 0 10px; border-top:3px dashed var(--line); text-align:center}
+.tbband span{display:inline-block; transform:translateY(-14px); background:var(--bg, var(--white)); padding:2px 14px; font-weight:800; color:var(--blue-d); border:2px solid var(--blue-l); border-radius:99px; font-size:0.875rem}
+.side{margin:0; font-size:0.875rem; line-height:1.65; color:var(--ink2); background:var(--tint); border-left:4px solid var(--blue-l); border-radius:0 12px 12px 0; padding:9px 12px}
+.side b:first-child{display:block; color:var(--blue-d); font-size:0.8125rem; margin-bottom:2px}
+.colabcta{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; justify-content:space-between; background:linear-gradient(120deg,var(--blue-xl),var(--good-bg)); border:2px solid var(--blue-l); border-radius:18px; padding:13px 16px; margin:14px 0}
+.colabcta span{flex:1 1 300px; font-size:0.9062rem; line-height:1.6; color:var(--ink2)} .colabcta>span>b:first-child{display:block; color:var(--blue-d); font-size:1rem}
+.colabcta a{font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:10px 18px; text-decoration:none; white-space:nowrap}
+.tgoal{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px}
+.tgoal>div{border:2px solid var(--c); border-radius:14px; padding:10px 12px; background:var(--white)}
+.tgoal>div>b{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:8px; background:var(--c); color:#fff; font-family:var(--disp); font-size:1.125rem; margin-right:8px; vertical-align:middle}
+.tgoal em{font-style:normal; font-weight:800; color:var(--ink)} .tgoal ul{margin:8px 0 6px; padding-left:18px; font-size:0.875rem; line-height:1.6} .tgoal>div>span{font-size:0.8125rem; color:var(--good); font-weight:700}
+.fldchips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 12px}
+.fldchips button{font-family:var(--sans); font-weight:800; border:2px solid var(--line); background:var(--white); color:var(--ink2); border-radius:99px; padding:6px 14px; cursor:pointer}
+.fldchips button[aria-pressed="true"]{border-color:var(--good); background:var(--good-bg); color:var(--good)}
+.fldchips button[aria-pressed="true"]::before{content:'✓ '}
+.tbform{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:9px 14px; margin:6px 0 10px}
+.tbform label{display:flex; flex-direction:column; gap:4px; font-weight:800; font-size:0.875rem}
+.tbform label.wide{grid-column:1 / -1}
+.tbform label small{font-weight:600; color:var(--muted); font-size:0.75rem}
+.tbform input, .tbform select, .planner textarea, .evname input{font-family:var(--sans); font-size:0.9062rem; font-weight:500; border:1px solid var(--line); border-radius:10px; padding:7px 9px; background:var(--white); color:var(--ink); box-sizing:border-box; width:100%; min-width:0}
+.diag3{margin-top:12px; display:grid; gap:6px}
+.d3t{color:var(--blue-d); font-size:0.9062rem}
+.d3{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:center; justify-content:space-between; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:6px 11px; font-size:0.875rem}
+.d3>span:first-child{flex:1 1 240px}
+.d3 .pick i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--muted); align-self:center; padding:0 6px}
+.gmset{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 10px; font-size:0.875rem; font-weight:700}
+.gmset input, .gmset select{font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); border-radius:9px; padding:5px 8px; width:84px; background:var(--white); color:var(--ink)}
+.gmset select{width:auto}
+.gmwrap{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:820px){ .gmwrap{grid-template-columns:minmax(0,1fr)} }
+.gmboard{display:grid; grid-template-columns:repeat(9,minmax(0,1fr)); grid-template-rows:repeat(7,auto); gap:3px}
+.gc{position:relative; aspect-ratio:1; border:1px solid var(--line); border-radius:7px; background:var(--tint); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; min-width:0}
+.gc b{font-size:0.6875rem; line-height:1.15; text-align:center; font-weight:800}
+.gc b i{display:block; font-style:normal; font-size:0.5625rem; font-weight:700; opacity:.9}
+.gc.gend{background:var(--good); color:#fff}
+.gtok{position:absolute; bottom:0; font-size:0.8125rem; letter-spacing:-3px; line-height:1}
+.gmturn{background:var(--tint); border-radius:12px; padding:9px 12px; font-size:0.9375rem; margin-bottom:8px}
+.gmturn small{display:block; font-size:0.75rem; color:var(--muted); margin-top:3px}
+.dgrun{display:block; width:100%; font-family:var(--disp); font-weight:700; font-size:1.0625rem; border:0; border-radius:14px; padding:12px; background:var(--fill); color:var(--on-fill); cursor:pointer}
+.dgrun:disabled{opacity:.5; cursor:not-allowed}
+.gmdie{font-size:2rem; text-align:center; min-height:44px}
+.gmcard{border:3px solid; border-radius:14px; padding:10px 12px; background:var(--white); margin:6px 0}
+.gmcard em{display:inline-block; font-style:normal; color:#fff; font-weight:800; font-size:0.75rem; border-radius:99px; padding:2px 10px}
+.gmcard p{margin:8px 0; font-weight:700; line-height:1.5}
+.gmcard button{display:block; width:100%; text-align:left; font-family:var(--sans); font-size:0.875rem; border:1px solid var(--line); background:var(--tint); color:var(--ink); border-radius:9px; padding:6px 9px; margin:4px 0; cursor:pointer}
+.gmcard .gok{color:var(--good)} .gmcard .gno{color:#b91c1c}
+.gmlog{margin:8px 0 0; padding-left:18px; font-size:0.8125rem; color:var(--ink2); line-height:1.6}
+.planner{display:grid; gap:8px}
+.pl{display:grid; grid-template-columns:30px minmax(0,1fr); gap:2px 10px; background:var(--white); border:1px solid var(--line); border-left:5px solid var(--blue-l); border-radius:12px; padding:9px 12px}
+.pl>i{grid-row:span 4; font-style:normal; display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--fill); color:var(--on-fill); font-weight:800}
+.pl>b{color:var(--blue-d)} .pl>span{font-size:0.8125rem; color:var(--muted)} .plex{margin:4px 0; font-size:0.8438rem; background:var(--good-bg); border-radius:8px; padding:5px 8px}
+.pl textarea{margin-top:5px; resize:vertical}
+.plloop{text-align:center; font-weight:800; color:var(--warm); font-size:0.875rem}
+.fq{line-height:2; font-size:0.9375rem} .fq span{display:inline-block; min-width:80px; text-align:center; border-bottom:2px dashed var(--warm); font-weight:800; color:var(--warm)}
+.fq span.ok{color:var(--good); border-color:var(--good)} .fq span.no{color:#b91c1c; border-color:#b91c1c}
+.fqo{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:5px 0; font-size:0.875rem; font-weight:700}
+.fqo button{font-family:var(--sans); font-size:0.8125rem; border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:4px 11px; cursor:pointer}
+.ghibar{display:flex; border-radius:10px; overflow:hidden; margin:6px 0 12px; font-size:0.6875rem; font-weight:800; color:#fff; text-align:center; line-height:1.25}
+.ghibar i{font-style:normal; width:var(--w); padding:5px 2px; min-width:0}
+.roadmap{display:grid; gap:7px}
+.roadmap>div{display:grid; grid-template-columns:72px minmax(0,1fr); gap:10px; background:var(--white); border:1px solid var(--line); border-radius:11px; padding:8px 11px; font-size:0.875rem; line-height:1.6}
+.roadmap b{color:var(--blue-d)}
+.evname{display:flex; gap:8px; align-items:center; margin:10px 0; font-weight:800; font-size:0.875rem} .evname input{max-width:220px}
+.evtbl{display:grid; gap:10px}
+.evg{border:1px solid var(--line); border-radius:14px; padding:8px 11px; background:var(--white)}
+.evg>em{display:flex; justify-content:space-between; gap:8px; font-style:normal; font-weight:800; color:var(--blue-d); margin-bottom:5px} .evg>em span{color:var(--good)}
+.evr{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:center; justify-content:space-between; border-top:1px dashed var(--line); padding:6px 0; font-size:0.875rem}
+.evr>span:first-child{flex:1 1 260px; line-height:1.5} .evr>span:first-child b{color:var(--muted); margin-right:6px}
+.uxbank{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 12px}
+.uxbank button{font-family:var(--sans); font-weight:800; font-size:0.875rem; border:2px dashed var(--blue-l); background:var(--white); color:var(--blue-d); border-radius:99px; padding:5px 12px; cursor:pointer}
+.uxbank button.on{background:var(--fill); color:var(--on-fill); border-style:solid; border-color:var(--fill)}
+.uxb{font-family:var(--sans); font-weight:800; font-size:0.8438rem; min-width:96px; border:2px dashed var(--warm); background:var(--warm-bg); color:var(--warm); border-radius:9px; padding:3px 9px; cursor:pointer}
+.uxb.ok{border-style:solid; border-color:var(--good); background:var(--good-bg); color:var(--good)} .uxb.no{border-style:solid; border-color:#dc2626; background:#fee2e2; color:#b91c1c}
+.w4map{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1.3fr); gap:8px; align-items:center}
+@media (max-width:820px){ .w4map{grid-template-columns:minmax(0,1fr)} .w4arrow{transform:rotate(90deg); justify-self:center} }
+.w4c{border:2px solid var(--blue-l); border-radius:14px; padding:9px 11px; background:var(--blue-xl); display:grid; gap:6px; font-size:0.8438rem}
+.w4c em{font-style:normal; font-family:var(--disp); font-weight:700; color:var(--blue-d); font-size:1rem}
+.w4c>span{background:var(--white); border-radius:9px; padding:4px 7px}
+.w4arrow{font-size:1.4rem; font-weight:800; color:var(--muted)}
+.u67det summary{cursor:pointer; font-weight:800; color:var(--blue-d)}
+</style>
 </head>
 <body>
 <style>/* ── 화면 크기에 따라 전체가 같이 커진다 ─────────────────
@@ -29,13 +111,13 @@ html{font-size:clamp(15px, 11.2px + 0.375vw, 22px); -webkit-text-size-adjust:100
    본문 : 엘리스 디지털배움체 · 화면에서 오래 읽어도 편한 본문용
    강조 : 나눔스퀘어라운드 EB · 한 번씩 «쿵» 하고 눈에 박히는 자리
    코드 : D2Coding            · 숫자와 코드가 자릿수 맞게 서는 글꼴          */
-@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=2fa40048') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=98a742fc') format('woff2');
   font-weight:300 500; font-style:normal; font-display:swap}
-@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=5bcf031e') format('woff2');
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=42377525') format('woff2');
   font-weight:600 900; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=eaa68ce0') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=6581873c') format('woff2');
   font-weight:300 550; font-style:normal; font-display:swap}
-@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=8a6b4133') format('woff2');
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=72c7a7b7') format('woff2');
   font-weight:551 900; font-style:normal; font-display:swap}
 @font-face{font-family:'AIPop'; src:url('font/pop.woff2?v=56814b0c') format('woff2');
   font-weight:400 900; font-style:normal; font-display:swap}
@@ -1062,6 +1144,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#p3">③④ 오렌지3</a>
   <a href="#p4">⑤ 발표·성찰</a>
   <a href="#pa2">수행평가 ②</a>
+  <a href="#wrap4">대단원 마무리</a>
   <a href="#data">데이터 찾기</a>
   <a href="#rules">꼭 지킬 것</a>
 </div></div></nav>
@@ -1181,6 +1264,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="qbig"><b>오늘의 질문</b>바다에서 «해파리인 줄 알았던 비닐봉지»를 본 네덜란드 소년 보얀 슬랫은 쓰레기를 쫓아다니는 대신
       <u>해류가 쓰레기를 모아 오게</u> 만들었습니다. 우리도 «당연한 방법»을 바꿔, 세계의 문제를 <u>AI로</u> 풀 수 있을까요?</div>
 
+    <div class="colabcta"><span><b>🧪 Ⅳ단원 교과서 전체는 코랩 19 한 권에</b>SDGs 17개 표 · 5P 분류 · 함께해 보기 · 탐구 활동 · 역할 분담 · 기아 종식 예측 <b>과정 ❶~29</b>와 더 알아보기 · 평가표 17항목 · «이 예측 믿어도 될까?» 실험 · 대단원 마무리.</span>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/19_unit4_project.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 19 Ⅳ단원 전체</a></div>
+
     <h3 class="lh">① SDGs가 무엇인가 <small>181~185쪽</small></h3>
     <div class="cgrid three">
       <div class="cc"><b>2015년 유엔이 정한 약속</b><span>2030년까지 이룰 <b>17개 목표 · 169개 세부 목표</b>. 앞선 «새천년 개발 목표(MDGs, 2000~2015)»를 이었다.</span></div>
@@ -1228,6 +1314,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="lhead"><span class="lno">Ⅳ-02</span><div><b>인공지능 프로젝트</b><span>교과서 194~210쪽 · 성취기준 04-02~04 · 프로젝트 ②~④ · 수행평가 ②</span></div></div>
     <div class="qbig"><b>오늘의 질문</b>먹고 남을 만큼 식량을 만드는데도 굶는 사람이 6억 9천만 명입니다. 유엔은 <u>2030년까지 기아를 끝내겠다</u>고 했습니다.
       데이터로 예측해 보면 — 정말 2030년에 끝날까요?</div>
+
+    <div class="colabcta"><span><b>🧪 Ⅳ단원 교과서 전체는 코랩 19 한 권에</b>SDGs 17개 표 · 5P 분류 · 함께해 보기 · 탐구 활동 · 역할 분담 · 기아 종식 예측 <b>과정 ❶~29</b>와 더 알아보기 · 평가표 17항목 · «이 예측 믿어도 될까?» 실험 · 대단원 마무리.</span>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/19_unit4_project.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 19 Ⅳ단원 전체</a></div>
 
     <h3 class="lh">① 협력적인 문제 해결 여섯 단계 <small>195쪽 그림 Ⅳ-3</small></h3>
     <div class="tool">
@@ -1381,6 +1470,63 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <label><input type="checkbox" data-k="f3"> <span><span class="grp">확인 3</span>수업 시간 안에 만들 수 있다</span></label>
       </div><span class="eg">셋 다 되면 선생님께 확인을 받습니다. 어렵다면 학교 데이터에 맞춘 대안 주제를 함께 찾습니다 — 주제를 좁히는 건 포기가 아니라 구체화예요.</span></div></div>
   </div>
+  <div class="tbband"><span>📘 교과서 활동 · 프로젝트 ①</span></div>
+  <div class="tool">
+    <h3>더 알아보기 — SDGs가 나오기까지 <span class="tm">181 · 184 · 185쪽 옆 설명</span></h3>
+    <div class="g2">
+      <p class="side"><b>새천년 개발 목표(MDGs)</b>2000년 유엔이 채택 — 2015년까지 세계의 빈곤을 반으로 줄이자. 끝날 무렵 새 목표가 필요했다.</p>
+      <p class="side"><b>리우+20 정상 회의</b>2012년 6월 브라질 리우데자네이루 — «우리가 원하는 미래» 선언, 빈곤 · 기후 위기에 대한 각국의 책임 강조, «녹색 경제» 채택.</p>
+      <p class="side"><b>국제 전기 통신 연합(ITU)</b>1865년 국제전신연합으로 시작, 1947년 유엔 전문 기구 — 통신 · 전파 · 방송 · 위성 표준을 만든다. AI for Good을 연다.</p>
+      <p class="side"><b>최빈개도국</b>1인당 국민총생산 · 신생아 사망률 · 1인당 칼로리 공급 · 교육 등록률 · 문맹률로 정한 가장 어려운 나라들.</p>
+    </div>
+  </div>
+  <div class="tool">
+    <h3>169개 세부 목표 — 교과서가 고른 셋 <span class="tm">185쪽</span></h3>
+    <div class="tgoal">
+      <div style="--c:#DDA63A"><b>2</b><em>식량 안보 · 지속 가능한 농업</em><ul><li>2030년까지 모든 사람, 특히 가난한 사람과 유아가 안전하고 영양가 있는 음식을 충분히 먹도록</li><li>5세 미만 아동의 <b>발육 저하 · 쇠약</b> 목표를 2025년까지 달성, 모든 형태의 <b>영양실조</b> 해결</li></ul><span>→ Ⅳ-02 기아 예측 실습의 데이터 열이 바로 이것</span></div>
+      <div style="--c:#4C9F38"><b>3</b><em>건강하고 행복한 삶</em><ul><li>산모 사망률 10만 명당 70명 미만</li><li>신생아 사망률 1,000명당 12명 · 5세 미만 사망률 1,000명당 25명 이하</li><li>에이즈 · 결핵 · 말라리아 등 전염병 종식 · 약물 · 알코올 오남용 예방</li></ul><span>→ 부록 선택 활동 ❶ 스트레스 · ❸ 건강한 식사</span></div>
+      <div style="--c:#0A97D9"><b>14</b><em>해양 생태계 보전</em><ul><li>해양 쓰레기를 포함한 모든 해양 오염 예방 · 감소</li><li>해양 · 연안 생태계의 회복력 강화</li><li>섬 개발 도상국 · 최빈개도국의 수산 · 양식 · 관광 이익 증대</li></ul><span>→ 191쪽 «바다 쓰레기 피하기» 주제</span></div>
+    </div>
+    <p class="hint">더 많은 세부 목표 — <a href="https://sdgs.un.org/goals" target="_blank" rel="noopener">sdgs.un.org/goals ↗</a></p>
+  </div>
+  <div class="tool">
+    <h3>함께해 보기 — 분야별 AI 사례를 SDG와 잇기 <span class="tm">186쪽</span></h3>
+    <p class="desc">➊ AI가 쓰이고 있는 분야를 모두 누르세요. ➋ 그중 하나를 골라 어떻게 쓰이는지 조사하고 ➌ 어느 목표에 기여할 수 있는지 토의해 적습니다.</p>
+    <div class="fldchips" id="fldChips"></div>
+    <div class="tbform">
+      <label>➋ 고른 분야 <select id="fldPick"></select></label>
+      <label class="wide">조사한 내용 <input type="text" id="fldWhat" maxlength="200" placeholder="예) 엑스레이 사진에서 폐 질환을 찾는 영상 판독 AI"></label>
+      <label>➌ 기여할 목표 <select id="fldSdg"></select></label>
+      <label class="wide">기여하는 방향(토의) <input type="text" id="fldHow" maxlength="200" placeholder="예) 의사가 부족한 지역에서도 빠르게 진단받을 수 있다"></label>
+    </div>
+    <div class="simctl"><button type="button" class="mini" id="fldCopy">📋 활동지에 붙일 글 복사</button></div>
+    <div class="keyout" id="fldOut">분야를 누르고 칸을 채우면 여기에 정리됩니다.</div>
+  </div>
+  <div class="tool" id="sdgGame">
+    <h3>창의 체험 — SDG 주사위 여행 <span class="tm">188~189쪽 보드게임 · 우리 반 화면판</span></h3>
+    <p class="desc">63칸 판에서 주사위를 굴려 나아갑니다. <b>🪜 사다리</b>는 올라가고 <b>🌊 워터슬라이드</b>는 내려갑니다. <b>색 칸(SDG 칸)</b>에 서면 그 목표의 퀴즈 카드를 풀고,
+      맞히면 <b>한 번 더!</b> «2030» 칸에 먼저 닿는 사람이 이깁니다. (2~4명 · 20분 · 한 화면을 돌려 가며)</p>
+    <div class="gmset" id="gmSet"><label>몇 명? <select id="gmN"><option>2</option><option>3</option><option selected>4</option></select></label>
+      <span id="gmNames"></span><button type="button" class="mini" id="gmStart">새 게임 시작</button></div>
+    <div class="gmwrap"><div class="gmboard" id="gmBoard" aria-label="63칸 보드"></div>
+      <div class="gmside"><div class="gmturn" id="gmTurn"></div><button type="button" class="dgrun" id="gmRoll">🎲 주사위 굴리기</button><div class="gmdie" id="gmDie"></div>
+        <div class="gmcard" id="gmCard" hidden></div><ol class="gmlog" id="gmLog"></ol></div></div>
+    <p class="hint">카드 문제는 우리 수업에 맞게 새로 만든 34문항(목표마다 2문항)입니다. 원래 보드게임 자료: <a href="https://go-goals.org/downloadable-material/" target="_blank" rel="noopener">go-goals.org ↗</a>
+      · 진단 — 17개 목표를 설명할 수 있는가? 그중 하나를 구체적으로 설명할 수 있는가? (상 · 중 · 하)</p>
+  </div>
+  <div class="tool">
+    <h3>탐구 활동 1단계 — SDG 조사 및 발표하기 <span class="tm">192~193쪽 · 세계시민과 인공지능</span></h3>
+    <div class="tbform">
+      <label>➊ AI를 적용할 목표 <select id="rsSdg"></select></label>
+      <label class="wide">➋ 목표 내용 요약 ① <input type="text" id="rs1" maxlength="160" placeholder="예) 세계 인구의 10%인 7억 명 이상이 극심한 빈곤 속에 산다"></label>
+      <label class="wide">요약 ② <input type="text" id="rs2" maxlength="160"></label>
+      <label class="wide">요약 ③ <input type="text" id="rs3" maxlength="160"></label>
+      <label class="wide">➌ 적용할 수 있는 AI 조사 <input type="text" id="rsAi" maxlength="200" placeholder="예) 위성 사진으로 가난한 마을을 찾아 지원을 배분하는 AI"></label>
+    </div>
+    <div class="simctl"><button type="button" class="mini" id="rsCopy">📋 발표 메모 복사</button></div>
+    <div class="keyout" id="rsOut"></div>
+    <div class="diag3" id="dgA"></div>
+  </div>
 </div></section>
 
 <!-- ═══════════════ 프로젝트 ② ═══════════════ -->
@@ -1453,6 +1599,31 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <li><b>AI 활용 계획</b> — 단계 · 도구 · 신호등</li>
     <li><b>성공 기준</b> — (지표)이(가) (목표값) 이상, 측정 방법 (  )</li></ol>
     <span class="eg">이 계획서가 수행평가 ② 첫 번째 요소(주제 도출과 계획 수립)의 채점 근거입니다. <b>본인이 쓴 부분에 이름</b>을 남기세요.</span></div></div>
+  <div class="tbband"><span>📘 교과서 활동 · 프로젝트 ②</span></div>
+  <div class="tool">
+    <h3>함께해 보기 — 모둠 역할 분담표 <span class="tm">195쪽 · 이 브라우저에 저장</span></h3>
+    <div class="tbform">
+      <label>모둠명 <input type="text" id="tmName" maxlength="30"></label><label>모둠장 <input type="text" id="tmLead" maxlength="20"></label>
+      <label class="wide">모둠원 <input type="text" id="tmMem" maxlength="80" placeholder="이름을 쉼표로"></label>
+      <label class="wide">비전(목표) <input type="text" id="tmVis" maxlength="120" placeholder="예) 해변 쓰레기를 AI로 분류해 수거를 돕는다"></label>
+      <label class="wide">모둠 규칙 ① <input type="text" id="tmR1" maxlength="80" placeholder="예) 맡은 일은 기한 안에"></label>
+      <label class="wide">모둠 규칙 ② <input type="text" id="tmR2" maxlength="80" placeholder="예) AI의 답은 근거를 확인한 뒤 쓰기"></label>
+      <label>이끔이 <small>모둠 관리 · 기획 · 발표</small><input type="text" id="tmA" maxlength="20"></label><label>챙김이 <small>포트폴리오 · 발표 자료</small><input type="text" id="tmB" maxlength="20"></label>
+      <label>중심이 <small>프로그래머 — 오렌지3 · 코랩</small><input type="text" id="tmC" maxlength="20"></label><label>모음이 <small>데이터 수집</small><input type="text" id="tmD" maxlength="20"></label>
+    </div>
+    <div class="simctl"><button type="button" class="mini" id="tmCopy">📋 역할 분담표 복사</button><span class="hint">※ 한 사람이 여러 역할을 맡아도 되지만, 각자 하나씩은 책임지는 것이 원칙(195쪽)</span></div>
+  </div>
+  <div class="tool">
+    <h3>프로젝트 수행 계획 구안하기 <span class="tm">196쪽 그림 Ⅳ-4 · 되돌아보기 62~63쪽</span></h3>
+    <p class="desc">다섯 단계마다 <b>우리 모둠은 무엇을 할지</b> 씁니다. 막막하면 «교과서 예시 보기»로 기아 종식 프로젝트를 견주어 보세요. 성능 평가 뒤 <b>피드백으로 문제를 다시 정의</b>하며 되풀이합니다.</p>
+    <div class="planner" id="plan5"></div>
+    <div class="simctl"><button type="button" class="mini gh" id="planEx">교과서 예시 보기</button><button type="button" class="mini" id="planCopy">📋 수행 계획 복사</button></div>
+  </div>
+  <div class="tool">
+    <h3>30초 개념 정리 — 협력적 문제 해결 단계 <span class="tm">195쪽 빈칸</span></h3>
+    <p class="desc">빈칸에 들어갈 낱말을 고르세요.</p>
+    <div class="fillq" id="fillQ"></div>
+  </div>
 </div></section>
 
 <!-- ═══════════════ 프로젝트 ③ ═══════════════ -->
@@ -1521,6 +1692,27 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       </table></div>
       <div style="padding:10px 16px 13px"><span class="eg">성공 기준에 못 미쳐도 <b>이유를 기록하면</b> 다음 단계로 갑니다. 고친 과정 자체가 평가받는 증거예요.</span></div></div></div>
   </div>
+  <div class="tbband"><span>📘 교과서 활동 · 프로젝트 ③</span></div>
+  <div class="tool">
+    <h3>세계 기아 지수(GHI) 읽기 <span class="tm">198쪽 그림 Ⅳ-5</span></h3>
+    <p class="desc">GHI는 나라마다 0~100점, <b>높을수록 배고픔이 심합니다.</b> 최근 수십 년 동안 관측된 가장 나쁜 수준을 100으로 맞춘 점수예요. 숫자를 넣어 등급을 확인해 보세요.</p>
+    <div class="ghibar"><i style="--w:10%;background:#22c55e">낮음<br>~9.9</i><i style="--w:10%;background:#facc15">보통<br>10~19.9</i><i style="--w:15%;background:#fb923c">심각<br>20~34.9</i><i style="--w:15%;background:#ef4444">경고<br>35~49.9</i><i style="--w:50%;background:#7f1d1d">극도로 경고 50~</i></div>
+    <label class="sl" style="max-width:420px"><span>GHI <b id="ghiV">15.9</b></span><input type="range" id="ghiS" min="0" max="70" step="0.1" value="15.9"></label>
+    <div class="keyout" id="ghiOut"></div>
+  </div>
+  <div class="tool">
+    <h3>교과서 실습 과정 ❶~29 지도 <span class="tm">199~207쪽 · 코랩 19에 모두</span></h3>
+    <div class="roadmap">
+      <div><b>데이터</b><span>❶ 라이브러리 · ❷ 파일 올리기 · ❸ 데이터셋 가져오기 · ❹ 속성 탐색 · 더 알아보기(영양실조 · 발육 저하 속성)</span></div>
+      <div><b>전처리</b><span>❺ 필요 없는 열 지우기 · ❻ 결측치 세기 · ❼ 결측치 지우기 · ❽ 중복 세기 · ❾ 통계표(describe)</span></div>
+      <div><b>분석</b><span>❿ 상관계수 · ⓫ Country 지우기 · ⓬ 히트맵 · ⓭ 속성명 바꾸기 · ⓮ 나라 이름 지우기 · ⓯ 세 데이터 합치기 · ⓰ 평균으로 채우기 · ⓱ 상관계수(영양실조 0.848)</span></div>
+      <div><b>X · y</b><span>⓲ X · y 정하기 · ⓳ 결측 제거 · 20 연도별 GHI 평균 · 21 reshape · 22~23 연도 y · 24 모양 (4, 1)</span></div>
+      <div><b>모델</b><span>25 LinearRegression · 26 fit · 27 predict · 28 GHI 10 → 2032년 · 29 GHI 0 → 2054년 · 더 알아보기(기울기 −2.17 · 절편 2054.39 · 회귀선)</span></div>
+      <div><b>평가</b><span>model.score 0.933 → <b>비판적으로</b>: 점 4개 · 학습 데이터로 잰 점수 · 외삽 → 나라별 훈련/테스트 실험(테스트 R² 0.81)</span></div>
+    </div>
+    <div class="fgo" style="margin-top:10px"><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/19_unit4_project.ipynb" target="_blank" rel="noopener">▶ 코랩 19 · Ⅳ단원 전체</a>
+      <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/07_ghi_hunger.ipynb" target="_blank" rel="noopener">▶ 코랩 07 · 기아 예측만 짧게</a><a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방 · SDG 연습 데이터</a></div>
+  </div>
 </div></section>
 
 <!-- ═══════════════ 프로젝트 ④ ═══════════════ -->
@@ -1569,6 +1761,17 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="qcard" id="qCard">«질문 뽑기»를 눌러 보세요.</div>
     <div class="simctl"><button type="button" class="mini" id="qNext">질문 뽑기</button>
       <span class="pick" id="qSet"><button type="button" data-s="p" aria-pressed="true">프로젝트 ④ 발표</button><button type="button" data-s="s" aria-pressed="false">수행평가 ② 구술</button></span></div>
+  </div>
+  <div class="tbband"><span>📘 교과서 활동 · 프로젝트 ④</span></div>
+  <div class="tool" id="evalSheet">
+    <h3>인공지능 프로젝트 평가표 — 17항목 <span class="tm">209쪽 · 자기 평가 / 동료 평가</span></h3>
+    <p class="desc">완성도만이 아니라 <b>주제의 적절성 · 창의성 · 협업</b>까지 고루 봅니다. 5 매우 잘함 ~ 1 매우 미흡. 🤖 «평가할 때는 객관적인 태도를 유지해야 해.»</p>
+    <div class="pick" id="evWho" role="group" aria-label="평가 종류"><button type="button" data-w="self" aria-pressed="true">자기 평가</button><button type="button" data-w="peer" aria-pressed="false">동료 평가</button></div>
+    <label class="evname">평가하는 모둠 <input type="text" id="evTeam" maxlength="30" placeholder="모둠 이름"></label>
+    <div class="evtbl" id="evTbl"></div>
+    <div class="keyout" id="evOut"></div>
+    <div class="simctl"><button type="button" class="mini" id="evCopy">📋 평가 결과 복사</button><button type="button" class="mini gh" id="evClear">지우기</button></div>
+    <div class="diag3" id="dgB"></div>
   </div>
 </div></section>
 
@@ -1645,6 +1848,35 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 </div></section>
 
 <!-- ═══════════════ 데이터 ═══════════════ -->
+<section id="wrap4"><div class="wrap">
+  <p class="eyebrow">Ⅳ 대단원 마무리 · 교과서 210쪽</p>
+  <h2>프로젝트를 한 장으로 꿰어 보기</h2>
+  <div class="tool">
+    <h3>단원 자가 진단 <span class="tm">상 · 중 · 하</span></h3>
+    <div class="diag3" id="dgC"></div>
+  </div>
+  <div class="tool">
+    <h3>핵심 내용 정리하기 — 개념도 빈칸 <span class="tm">210쪽</span></h3>
+    <p class="desc">낱말을 먼저 누르고, 들어갈 빈칸을 누르세요. 하나는 들어갈 곳이 없는 낱말입니다.</p>
+    <div class="uxbank" id="w4Bank"></div>
+    <div class="w4map">
+      <div class="w4c"><em>지속가능발전목표</em><span><button type="button" class="uxb" data-a="17개 주요 목표">?</button></span><span><button type="button" class="uxb" data-a="169개 세부 목표">?</button></span><span>예: 목표 4 <button type="button" class="uxb" data-a="양질의 교육">?</button></span></div>
+      <div class="w4arrow">→</div>
+      <div class="w4c"><em>주제 도출</em><span><button type="button" class="uxb" data-a="인공지능 적용 방안 탐색">?</button></span><span>5P 분류 · 탐구 활동</span></div>
+      <div class="w4arrow">→</div>
+      <div class="w4c"><em>인공지능 프로젝트</em><span><button type="button" class="uxb" data-a="협력적 문제 해결 자세">?</button></span><span><button type="button" class="uxb" data-a="프로젝트 수행 계획 구안">?</button></span>
+        <span>인공지능 시스템 개발 — <button type="button" class="uxb" data-a="기계학습 유형">?</button> · 모델 생성</span><span><button type="button" class="uxb" data-a="프로젝트 평가">?</button></span></div>
+    </div>
+    <div class="keyout" id="w4Out"></div>
+    <details class="u67det" style="margin-top:10px"><summary>단원 자가 진단하기 ➊ ➋ ➌ — 눌러서 답 보기</summary>
+      <p>➊ «단 한 사람도 소외되지 않는 것»이라는 슬로건으로 유엔이 지정한 것 → <b>지속가능발전목표(SDGs)</b><br>
+        ➋ AI를 이용한 개별 맞춤형 학습은 SDGs 중 → <b>목표 4 양질의 교육</b><br>
+        ➌ 수집된 데이터로 예측 · 분류 · 군집을 위한 → <b>기계학습 유형</b>과 알고리즘을 선정한다</p></details>
+  </div>
+  <div class="colabcta"><span><b>교과서 Ⅳ단원 전체를 코드로 다시 — 코랩 19</b>위 활동들과 기아 종식 예측 과정 ❶~29, 평가표 계산까지 한 권에 있습니다.</span>
+    <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/19_unit4_project.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 19</a></div>
+</div></section>
+
 <section id="data"><div class="wrap">
   <p class="eyebrow">데이터</p>
   <h2>데이터 찾는 곳 · 못 찾았을 때</h2>
@@ -2250,6 +2482,230 @@ quiz('l4Metric', ['정확도', '재현율', 'RMSE'], [
 })();
 </script>
 
-<script src="lessons.js?v=c3ec2e69"></script>
+<script src="lessons.js?v=3825f6b5"></script>
+<script>
+/* ══════════ Ⅳ단원 교과서 활동 (2026-10-07) — 함께해 보기 · SDG 주사위 여행 · 탐구 활동 · 역할 분담 · 수행 계획 · GHI · 평가표 17항목 · 대단원 마무리 ══════════ */
+(function(){
+function $(id){ return document.getElementById(id); }
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function get(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; } }
+function put(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function copy(t, btn){ var o = btn.textContent; function ok(){ btn.textContent = '✓ 복사됨'; setTimeout(function(){ btn.textContent = o; }, 1500); }
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ prompt('복사하세요', t); }); else prompt('복사하세요', t); }
+var G = ['빈곤층 감소와 사회 안전망 강화', '식량 안보 및 지속 가능한 농업 강화', '건강하고 행복한 삶 보장', '모두를 위한 양질의 교육', '성평등 보장', '건강하고 안전한 물 관리',
+  '에너지의 친환경적 생산과 소비', '좋은 일자리 확대와 경제 성장', '산업의 성장과 혁신 활성화 및 사회 기반 시설 구축', '모든 종류의 불평등 해소', '지속 가능한 도시와 주거지 조성',
+  '지속 가능한 생산과 소비', '기후 변화와 대응', '해양 생태계 보전', '육상 생태계 보전', '평화 · 정의 · 포용', '지구촌 협력 강화'];
+var C = ['#E5243B', '#DDA63A', '#4C9F38', '#C5192D', '#FF3A21', '#26BDE2', '#FCC30B', '#A21942', '#FD6925', '#DD1367', '#FD9D24', '#BF8B2E', '#3F7E44', '#0A97D9', '#56C02B', '#00689D', '#19486A'];
+var P5 = ['인간', '인간', '인간', '인간', '인간', '지구', '번영', '번영', '번영', '번영', '번영', '지구', '지구', '지구', '지구', '평화', '협력'];
+function sdgOpts(sel){ sel.innerHTML = G.map(function(g, i){ return '<option value="' + (i + 1) + '">' + (i + 1) + '. ' + g + '</option>'; }).join(''); }
+
+/* ── 상 · 중 · 하 진단 ── */
+function diag(id, title, items, peer){
+  var box = $(id); if(!box) return; var key = 'ai_u4_diag_' + id, v = get(key) || {};
+  box.innerHTML = (title ? '<b class="d3t">' + title + '</b>' : '') + items.map(function(t, i){
+    return '<div class="d3"><span>' + t + '</span>' + (peer ? ['자기', '동료'] : ['']).map(function(w, j){
+      return '<span class="pick" role="group" aria-label="' + t + ' ' + w + '">' + (w ? '<i>' + w + '</i>' : '') + ['상', '중', '하'].map(function(l){ var k = i + '_' + j;
+        return '<button type="button" data-k="' + k + '" data-v="' + l + '" aria-pressed="' + (v[k] === l) + '">' + l + '</button>'; }).join('') + '</span>'; }).join('') + '</div>'; }).join('');
+  box.addEventListener('click', function(e){ var b = e.target.closest('button[data-k]'); if(!b) return; v[b.getAttribute('data-k')] = b.getAttribute('data-v'); put(key, v);
+    [].forEach.call(b.parentNode.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b); }); });
+}
+diag('dgA', '진단하기(193쪽)', ['유엔이 결의한 17개 지속가능발전목표를 설명할 수 있는가?', 'SDGs를 5개 영역으로 분류하고 프로젝트에 알맞은 주제를 찾을 수 있는가?', 'SDGs를 해결할 인공지능 기술을 제시할 수 있는가?']);
+diag('dgB', '진단하기(209쪽)', ['인공지능 문제 해결 과정을 설명할 수 있는가?', 'SDGs를 해결하기 위한 프로젝트 주제를 선정할 수 있는가?', '프로젝트에 필요한 협력적 문제 해결 자세를 설명할 수 있는가?'], true);
+diag('dgC', '', ['지식 · 이해 — SDGs와 각 세부 목표를 이해할 수 있는가?', '지식 · 이해 — 인공지능 문제 해결 과정을 이해할 수 있는가?', '과정 · 기능 — 주제를 탐색하고 프로젝트 수행 계획을 구안할 수 있는가?',
+  '과정 · 기능 — AI 시스템 개발 과정을 설계하고 결과를 평가할 역량을 갖추었는가?', '가치 · 태도 — SDGs를 이룰 AI 기술의 가치를 발견할 수 있는가?', '가치 · 태도 — 협력적 자세와 함께 AI 윤리 · 사회적 영향을 인식하는가?']);
+
+/* ── 함께해 보기 186쪽 ── */
+(function(){
+  if(!$('fldChips')) return;
+  var F = ['건축', '방송', '의학', '공연', '영화', '게임', '제조', '교육', '법', '자동차'], st = get('ai_u4_fld') || { on:{}, pick:'의학', what:'', sdg:3, how:'' };
+  $('fldChips').innerHTML = F.map(function(f){ return '<button type="button" data-f="' + f + '" aria-pressed="' + !!st.on[f] + '">' + f + '</button>'; }).join('');
+  $('fldPick').innerHTML = F.map(function(f){ return '<option>' + f + '</option>'; }).join(''); sdgOpts($('fldSdg'));
+  $('fldPick').value = st.pick; $('fldSdg').value = st.sdg; $('fldWhat').value = st.what; $('fldHow').value = st.how;
+  function out(){ st.pick = $('fldPick').value; st.sdg = +$('fldSdg').value; st.what = $('fldWhat').value; st.how = $('fldHow').value; put('ai_u4_fld', st);
+    var on = F.filter(function(f){ return st.on[f]; });
+    $('fldOut').innerHTML = '➊ AI가 쓰이는 분야: <b>' + (on.length ? on.join(' · ') : '아직 없음') + '</b><small>➋ ' + esc(st.pick) + ' — ' + (esc(st.what) || '…') + '<br>➌ 목표 ' + st.sdg + ' «' + G[st.sdg - 1] + '»에 기여 — ' + (esc(st.how) || '…') + '</small>'; }
+  $('fldChips').addEventListener('click', function(e){ var b = e.target.closest('button[data-f]'); if(!b) return; var f = b.getAttribute('data-f'); st.on[f] = !st.on[f]; b.setAttribute('aria-pressed', !!st.on[f]); out(); });
+  ['fldPick', 'fldSdg', 'fldWhat', 'fldHow'].forEach(function(id){ $(id).addEventListener('input', out); });
+  $('fldCopy').addEventListener('click', function(){ copy($('fldOut').innerText, this); }); out();
+})();
+
+/* ── 탐구 활동 1단계 192쪽 ── */
+(function(){
+  if(!$('rsSdg')) return; sdgOpts($('rsSdg')); var st = get('ai_u4_rs') || { g:1, a:['', '', ''], ai:'' };
+  $('rsSdg').value = st.g; $('rs1').value = st.a[0]; $('rs2').value = st.a[1]; $('rs3').value = st.a[2]; $('rsAi').value = st.ai;
+  function out(){ st = { g:+$('rsSdg').value, a:[$('rs1').value, $('rs2').value, $('rs3').value], ai:$('rsAi').value }; put('ai_u4_rs', st);
+    $('rsOut').innerHTML = '목표 ' + st.g + '. ' + G[st.g - 1] + ' <small>' + P5[st.g - 1] + '(' + { 인간:'People', 지구:'Planet', 번영:'Prosperity', 평화:'Peace', 협력:'Partnership' }[P5[st.g - 1]] + ') 영역<br>' +
+      st.a.filter(Boolean).map(function(x){ return '• ' + esc(x); }).join('<br>') + (st.ai ? '<br>적용할 AI: ' + esc(st.ai) : '') + '</small>'; }
+  ['rsSdg', 'rs1', 'rs2', 'rs3', 'rsAi'].forEach(function(id){ $(id).addEventListener('input', out); });
+  $('rsCopy').addEventListener('click', function(){ copy($('rsOut').innerText, this); }); out();
+})();
+
+/* ── SDG 주사위 여행 ── */
+(function(){
+  if(!$('gmBoard')) return;
+  var Q = [
+   [1, '극심한 빈곤에 있는 사람은 어떤 사람일까?', ['스마트폰이 없는 사람', '음식 · 의료 · 교육처럼 꼭 필요한 것을 얻지 못하는 사람', '옷차림이 좋지 않은 사람'], 1],
+   [1, '세계 인구 중 극심한 빈곤 속에 사는 사람은 약 몇 %일까?(192쪽)', ['1%', '10%', '50%'], 1],
+   [2, '먹고 남을 만큼 식량이 생산되는데도 굶는 사람이 많은 까닭으로 알맞은 것은?', ['식량이 너무 적게 생산되어서', '식량이 고르게 나누어지지 않아서', '사람들이 먹기 싫어해서'], 1],
+   [2, '세계 기아 지수(GHI)가 높다는 것은?', ['배고픔이 심하다', '배고픔이 적다', '식량 수출이 많다'], 0],
+   [3, '목표 3의 세부 목표가 아닌 것은?', ['신생아 사망률 낮추기', '전염병 종식', '해양 쓰레기 줄이기'], 2],
+   [3, '몸 상태(습도 · 체온 · 걸음 수)로 스트레스 단계를 가려내는 AI는 어떤 기계학습일까?', ['분류', '군집', '강화 학습'], 0],
+   [4, '생성형 AI가 개인 가정교사처럼 질문에 답해 주는 것은 어느 목표에 기여할까?', ['목표 4 양질의 교육', '목표 7 에너지', '목표 15 육상 생태계'], 0],
+   [4, '양질의 교육에 포함되는 것은?', ['평생 학습 기회', '시험 점수 경쟁', '학원 수 늘리기'], 0],
+   [5, '성평등 보장 목표가 없애려는 것은?', ['여성과 소녀에 대한 모든 형태의 폭력', '남녀 공학 학교', '여성의 운동 경기'], 0],
+   [5, '채용 AI가 과거 남성 위주의 이력서로만 학습했다면 생길 수 있는 문제는?', ['처리 속도 저하', '성별에 따른 편향', '저장 공간 부족'], 1],
+   [6, '깨끗한 물 관리를 위해 줄여야 할 것은?', ['처리되지 않은 폐수', '정수장', '수돗물 검사'], 0],
+   [6, '약수터 물이 «부적합»인데 «적합»이라 예측하면 가장 문제인 까닭은?', ['정확도가 낮아서', '사람이 그 물을 마실 수 있어서', '그래프가 이상해서'], 1],
+   [7, '목표 7이 크게 늘리려는 것은?', ['석탄 발전 비율', '재생 에너지 비율', '전기 요금'], 1],
+   [7, '날씨 예보로 태양광 발전량을 미리 맞히는 AI는 어떤 문제일까?', ['예측(회귀)', '군집', '이미지 생성'], 0],
+   [8, '좋은 일자리와 경제 성장을 위해 교과서가 말한 방법은?', ['기술 향상과 혁신으로 생산성 높이기', '근무 시간 늘리기', '임금 낮추기'], 0],
+   [8, 'AI가 일자리를 바꿀 때 사회가 함께 준비할 것으로 알맞은 것은?', ['새로운 기술 교육 기회', 'AI 사용 금지', '아무것도 하지 않기'], 0],
+   [9, '목표 9가 발전시키려는 것은?', ['신뢰할 수 있는 인프라와 혁신', '종이 신문', '수작업 공장'], 0],
+   [9, '도로 · 다리의 균열 사진을 AI로 찾아내는 것은 어느 분야일까?', ['컴퓨터 비전', '자연어 처리', '음성 인식'], 0],
+   [10, '불평등 해소 목표가 보장하려는 것은?', ['나이 · 성별 · 장애와 관계없는 동등한 기회', '모두 같은 월급', '같은 나라에서만 살기'], 0],
+   [10, '데이터에 특정 집단이 거의 없으면 AI는?', ['그 집단을 잘 맞히지 못할 수 있다', '그 집단을 더 잘 맞힌다', '아무 영향 없다'], 0],
+   [11, '스마트 시티에서 AI가 함께 쓰는 데이터는?', ['신호등 · CCTV · 교통 데이터', '시험 성적', '게임 기록'], 0],
+   [11, '목표 11이 특히 주의를 기울이라는 사람이 아닌 것은?', ['어린이 · 노인 · 장애인', '취약한 상황의 사람', '관광객만'], 2],
+   [12, '지속 가능한 소비를 위한 행동은?', ['일회용품 줄이기', '새 물건 자주 사기', '음식 많이 남기기'], 0],
+   [12, '급식 잔반 양을 예측해 음식 준비량을 줄이는 AI는 어느 목표와 가장 가까울까?', ['12 지속 가능한 생산과 소비', '5 성평등', '16 평화'], 0],
+   [13, '기후 변화 대응에서 AI가 하는 일로 교과서가 든 것은?', ['기후 데이터를 모아 변화를 예측 · 분석', '날씨를 직접 바꾸기', '비행기 조종'], 0],
+   [13, '연도별 CO₂와 기온의 관계를 직선으로 나타내는 모델은?', ['선형 회귀', 'k-평균', '오토인코더'], 0],
+   [14, '보얀 슬랫이 바다 쓰레기를 치우려고 쓴 방법은?', ['배로 쓰레기를 쫓아다니기', '해류가 쓰레기를 모아 오게 하기', '바다에 그물 버리기'], 1],
+   [14, '사람이 가기 위험한 바다의 수질을 관측하는 데 쓰는 것은?', ['무인정과 드론', '종이 지도', '라디오'], 0],
+   [15, '육상 생태계 보전을 위해 멈추려는 것은?', ['삼림 벌채', '나무 심기', '숲 복원'], 0],
+   [15, '위성 사진으로 숲이 사라진 곳을 찾는 AI는?', ['이미지 분류 · 비교', '음성 합성', '번역'], 0],
+   [16, '평화 · 정의 · 포용 목표가 만들려는 것은?', ['차별 없는 포용적인 제도', '강한 군대', '높은 담장'], 0],
+   [16, '얼굴 인식 AI를 범죄 수사에 쓸 때 꼭 따져야 할 것은?', ['정확도와 사생활 · 편향 문제', '화면 색깔', '배터리'], 0],
+   [17, 'SDGs를 이루는 데 그 어느 때보다 필요하다고 한 것은?', ['강력한 국제 협력', '한 나라의 독주', '경쟁만'], 0],
+   [17, 'AI for Good을 운영하는 국제기구는?', ['국제 전기 통신 연합(ITU)', '국제 축구 연맹', '세계 기상 기구만'], 0]
+  ];
+  var LAD = { 3:22, 8:26, 20:29, 28:47, 36:44, 50:59 }, SLI = { 17:4, 32:12, 39:23, 48:30, 56:37, 62:45 };
+  var SQ = {}; for(var g = 0; g < 17; g++){ var s = Math.round(2 + g * 59 / 16); while(LAD[s] || SLI[s] || SQ[s]) s++; SQ[s] = g + 1; }
+  var TOK = ['🔴', '🔵', '🟢', '🟡'], game = null, used = {};
+  function names(){ var n = +$('gmN').value, old = [].map.call(document.querySelectorAll('#gmNames input'), function(i){ return i.value; });
+    $('gmNames').innerHTML = Array.apply(null, Array(n)).map(function(_, i){ return '<input type="text" maxlength="8" value="' + esc(old[i] || '모둠원' + (i + 1)) + '" aria-label="' + (i + 1) + '번 이름">'; }).join(''); }
+  $('gmN').addEventListener('change', names); names();
+  function cell(n){ var row = Math.floor((n - 1) / 9), col = (n - 1) % 9; if(row % 2) col = 8 - col; return { r:7 - row, c:col + 1 }; }
+  function draw(){
+    var h = ''; for(var n = 1; n <= 63; n++){ var p = cell(n), cls = 'gc', lab = n, st = 'grid-row:' + p.r + ';grid-column:' + p.c;
+      if(SQ[n]) st += ';background:' + C[SQ[n] - 1] + ';color:#fff';
+      if(LAD[n]) lab += '<i>🪜' + LAD[n] + '</i>'; if(SLI[n]) lab += '<i>🌊' + SLI[n] + '</i>'; if(SQ[n]) lab += '<i>SDG ' + SQ[n] + '</i>';
+      if(n === 1) lab = '출발'; if(n === 63){ lab = '2030'; cls += ' gend'; }
+      var here = game ? game.p.map(function(q, i){ return q.at === n ? TOK[i] : ''; }).join('') : '';
+      h += '<div class="' + cls + '" style="' + st + '"><b>' + lab + '</b>' + (here ? '<span class="gtok">' + here + '</span>' : '') + '</div>'; }
+    $('gmBoard').innerHTML = h;
+    $('gmTurn').innerHTML = game ? (game.win !== null ? '🏆 <b>' + esc(game.p[game.win].n) + '</b> 우승! «2030»에 먼저 닿았어요.' : TOK[game.t] + ' <b>' + esc(game.p[game.t].n) + '</b> 차례') + '<small>' + game.p.map(function(q, i){ return TOK[i] + ' ' + esc(q.n) + ' ' + q.at + '칸'; }).join(' · ') + '</small>' : '«새 게임 시작»을 누르세요.';
+    $('gmRoll').disabled = !game || game.win !== null || game.wait;
+  }
+  function log(t){ var li = document.createElement('li'); li.innerHTML = t; $('gmLog').insertBefore(li, $('gmLog').firstChild); while($('gmLog').children.length > 8) $('gmLog').lastChild.remove(); }
+  $('gmStart').addEventListener('click', function(){ game = { p:[].map.call(document.querySelectorAll('#gmNames input'), function(i){ return { n:i.value || '?', at:1 }; }), t:0, win:null, wait:false };
+    used = {}; $('gmLog').innerHTML = ''; $('gmCard').hidden = true; $('gmDie').textContent = ''; log('가위 · 바위 · 보로 순서를 정했다면 시작!'); draw(); });
+  function next(){ game.t = (game.t + 1) % game.p.length; game.wait = false; draw(); }
+  $('gmRoll').addEventListener('click', function(){
+    if(!game || game.wait || game.win !== null) return; var d = 1 + Math.floor(Math.random() * 6), me = game.p[game.t];
+    $('gmDie').textContent = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][d - 1] + ' ' + d;
+    me.at = Math.min(63, me.at + d); var msg = TOK[game.t] + ' ' + esc(me.n) + ' ' + d + ' → ' + me.at + '칸';
+    if(LAD[me.at]){ msg += ' · 🪜 ' + LAD[me.at] + '칸으로!'; me.at = LAD[me.at]; } else if(SLI[me.at]){ msg += ' · 🌊 ' + SLI[me.at] + '칸으로 미끄럼'; me.at = SLI[me.at]; }
+    log(msg);
+    if(me.at === 63){ game.win = game.t; draw(); return; }
+    if(SQ[me.at]){ var g = SQ[me.at], pool = Q.filter(function(q){ return q[0] === g; }), q = pool.filter(function(x){ return !used[Q.indexOf(x)]; })[0] || pool[0]; used[Q.indexOf(q)] = 1;
+      game.wait = true; draw();
+      $('gmCard').hidden = false; $('gmCard').style.borderColor = C[g - 1];
+      $('gmCard').innerHTML = '<em style="background:' + C[g - 1] + '">SDG ' + g + ' · ' + G[g - 1] + '</em><p>' + q[1] + '</p>' + q[2].map(function(o, i){ return '<button type="button" data-i="' + i + '">' + 'abc'[i] + ') ' + o + '</button>'; }).join('');
+      $('gmCard').onclick = function(e){ var b = e.target.closest('button[data-i]'); if(!b) return; var ok = +b.getAttribute('data-i') === q[3];
+        $('gmCard').innerHTML += '<p class="' + (ok ? 'gok' : 'gno') + '">' + (ok ? '✅ 정답! 한 번 더 굴리세요.' : '❌ 정답은 ' + 'abc'[q[3]] + ') ' + q[2][q[3]] + ' — 다음 사람 차례') + '</p>';
+        $('gmCard').onclick = null; log(TOK[game.t] + ' SDG ' + g + ' 카드 ' + (ok ? '정답 → 한 번 더' : '오답'));
+        setTimeout(function(){ $('gmCard').hidden = true; if(ok){ game.wait = false; draw(); } else next(); }, ok ? 900 : 1800); };
+      return; }
+    next();
+  });
+  draw();
+})();
+
+/* ── 역할 분담표 195쪽 ── */
+(function(){
+  var ids = ['tmName', 'tmLead', 'tmMem', 'tmVis', 'tmR1', 'tmR2', 'tmA', 'tmB', 'tmC', 'tmD']; if(!$('tmName')) return; var st = get('ai_u4_team') || {};
+  ids.forEach(function(id){ $(id).value = st[id] || ''; $(id).addEventListener('input', function(){ st[id] = this.value; put('ai_u4_team', st); }); });
+  $('tmCopy').addEventListener('click', function(){ var v = function(id){ return $(id).value || '(   )'; };
+    copy('[역할 분담표]\n모둠명: ' + v('tmName') + ' · 모둠장: ' + v('tmLead') + '\n모둠원: ' + v('tmMem') + '\n비전(목표): ' + v('tmVis') + '\n모둠 규칙: ① ' + v('tmR1') + ' ② ' + v('tmR2') +
+      '\n이끔이(모둠 관리 · 기획 · 발표): ' + v('tmA') + '\n챙김이(포트폴리오 · 발표 자료): ' + v('tmB') + '\n중심이(프로그래머): ' + v('tmC') + '\n모음이(데이터 수집): ' + v('tmD'), this); });
+})();
+
+/* ── 수행 계획 196쪽 ── */
+(function(){
+  if(!$('plan5')) return;
+  var S = [['문제 정의', '해결하고자 하는 문제를 명확히 정의한다.', '유엔은 2030년까지 기아 종식을 결의했다. 전 세계의 기아 문제는 2030년까지 해결될 수 있을까?'],
+    ['데이터 선정과 수집 및 전처리', '필요한 데이터를 수집하고 결측치 · 이상치를 정리한다.', '종속변수(GHI)와 독립변수(영양실조 · 발육 저하)를 수집하고 전처리 · 분석한다.'],
+    ['기계학습 유형과 알고리즘 선정', '분류 · 예측 · 군집 중 알맞은 유형과 알고리즘을 고른다.', '숫자를 맞히는 예측 — 독립변수와 종속변수의 관계를 선형 회귀분석으로.'],
+    ['모델 생성', '파이썬 라이브러리로 훈련 데이터를 학습한 모델을 만든다.', '사이킷런 LinearRegression으로 모델을 만들고 수집한 데이터로 학습한다.'],
+    ['성능 평가 및 수정', '테스트 데이터로 성능을 평가하고 피드백으로 개선한다.', '학습된 모델을 평가하고 성능을 개선한다(문제를 다시 정의하며 되풀이).']], st = get('ai_u4_plan') || {}, ex = false;
+  function draw(){ $('plan5').innerHTML = S.map(function(s, i){ return '<div class="pl"><i>' + (i + 1) + '</i><b>' + s[0] + '</b><span>' + s[1] + '</span>' +
+    (ex ? '<p class="plex">교과서: ' + s[2] + '</p>' : '') + '<textarea rows="2" data-i="' + i + '" placeholder="우리 모둠은…">' + esc(st[i] || '') + '</textarea></div>'; }).join('') + '<div class="plloop">↺ 피드백으로 문제를 다시 정의하고 되풀이</div>'; }
+  $('plan5').addEventListener('input', function(e){ var i = e.target.getAttribute('data-i'); if(i === null) return; st[i] = e.target.value; put('ai_u4_plan', st); });
+  $('planEx').addEventListener('click', function(){ ex = !ex; this.textContent = ex ? '교과서 예시 숨기기' : '교과서 예시 보기'; draw(); });
+  $('planCopy').addEventListener('click', function(){ copy('[프로젝트 수행 계획]\n' + S.map(function(s, i){ return (i + 1) + '. ' + s[0] + ': ' + (st[i] || '(   )'); }).join('\n'), this); });
+  draw();
+})();
+
+/* ── 30초 빈칸 195쪽 ── */
+(function(){
+  if(!$('fillQ')) return; var B = [['수행 계획', ['수행 계획', '데이터 삭제', '시험']], ['문제 해결', ['문제 해결', '광고', '휴식']], ['피드백', ['피드백', '포기', '복사']]];
+  $('fillQ').innerHTML = '<p class="fq">모둠 구성 및 역할 분담 → 주제 선정 → 모둠별 <span data-b="0">(?)</span> 수립 및 발표 → 과제 수행 및 <span data-b="1">(?)</span> → 결과 발표 및 전시 → 평가 및 <span data-b="2">(?)</span></p>' +
+    B.map(function(b, i){ return '<div class="fqo" data-i="' + i + '">' + (i + 1) + '번 빈칸: ' + b[1].slice().sort().map(function(o){ return '<button type="button" data-v="' + o + '">' + o + '</button>'; }).join('') + '</div>'; }).join('');
+  $('fillQ').addEventListener('click', function(e){ var b = e.target.closest('button[data-v]'); if(!b) return; var i = +b.parentNode.getAttribute('data-i'), ok = b.getAttribute('data-v') === B[i][0], sp = $('fillQ').querySelector('[data-b="' + i + '"]');
+    sp.textContent = b.getAttribute('data-v'); sp.className = ok ? 'ok' : 'no'; });
+})();
+
+/* ── GHI 등급 ── */
+(function(){ if(!$('ghiS')) return;
+  function d(){ var v = +$('ghiS').value; $('ghiV').textContent = v.toFixed(1);
+    var g = v >= 50 ? ['극도로 경고', '#7f1d1d'] : v >= 35 ? ['경고', '#ef4444'] : v >= 20 ? ['심각', '#fb923c'] : v >= 10 ? ['보통', '#ca8a04'] : ['낮음', '#16a34a'];
+    $('ghiOut').innerHTML = 'GHI ' + v.toFixed(1) + ' → <b style="color:' + g[1] + '">' + g[0] + '</b><small>' + (Math.abs(v - 15.9) < 0.05 ? '2023년 세계 평균(교과서 202쪽 describe의 mean 15.86) — 아직 «보통», 0과는 멀다. ' : '') +
+      (v <= 10 ? '교과서 모델(연도 = −2.171 × GHI + 2054.39)로는 GHI ' + v.toFixed(1) + '이 되는 해가 약 ' + (-2.171 * v + 2054.39).toFixed(1) + '년(교과서 GHI 10 → 2032.7년).' : '') + '</small>'; }
+  $('ghiS').addEventListener('input', d); d(); })();
+
+/* ── 평가표 17항목 209쪽 ── */
+(function(){
+  if(!$('evTbl')) return;
+  var A = [['지식 및 이해', '데이터 수집력', ['선정한 주제에 적합한 데이터인가?', '데이터 수집 방법이 적정하고 올바른가?(직접 수집 · 공공데이터 · 사물 인터넷 · 웹 크롤링 등)', '수집한 정보의 사실 여부와 데이터 편향성을 확인했는가?', '데이터가 수집된 시기가 적절한가?', '양질의 학습 데이터를 추가하여 성능을 개선하였는가?']],
+    ['지식 및 이해', '데이터 전처리/분석력', ['중복 값 · 비어 있는 값 · 이상한 값을 찾아냈는가?', '데이터 시각화로 속성의 특징을 찾아냈는가?', '학습 데이터와 평가 데이터를 분리하였는가?']],
+    ['과정 및 역량', '인공지능 알고리즘', ['문제에 적합한 평가 기준으로 각 모델의 성능을 평가하였는가?', '성능이 가장 좋은 모델을 선택했는가?']],
+    ['과정 및 역량', '프로젝트 개발 역량', ['적합한 AI 개발 도구를 충분히 활용하였는가?(엔트리 · 파이썬 · 오렌지3 등)', '모델의 특성을 이해하고 세부 설정으로 성능을 개선하였는가?']],
+    ['가치와 태도', '인공지능 영향력', ['사회적 영향을 고려하여 해결할 수 있는 문제인가?', '남과는 다른 관점에서 새롭게 생각하였는가?', '다른 프로젝트를 모방했더라도 더 가치 있게 만들려고 하였는가?']],
+    ['가치와 태도', '협력/참여도', ['같은 모둠끼리 활발하게 의사소통하였는가?', '학습 활동에 활발히 참여하여 목표에 도달하였는가?']]];
+  var who = 'self', all = get('ai_u4_eval') || { self:{}, peer:{} }, n = 0;
+  $('evTbl').innerHTML = A.map(function(a){ return '<div class="evg"><em>' + a[0] + ' · ' + a[1] + ' <span data-sub="' + a[1] + '"></span></em>' + a[2].map(function(t){ n++;
+    return '<div class="evr"><span><b>' + n + '</b>' + t + '</span><span class="pick ev5" data-q="' + n + '">' + [5, 4, 3, 2, 1].map(function(v){ return '<button type="button" data-v="' + v + '" title="' + ['', '매우 미흡', '미흡', '보통', '잘함', '매우 잘함'][v] + '">' + v + '</button>'; }).join('') + '</span></div>'; }).join('') + '</div>'; }).join('');
+  function draw(){ var cur = all[who], tot = 0, done = 0, q = 0;
+    [].forEach.call(document.querySelectorAll('#evTbl .ev5'), function(p){ var k = p.getAttribute('data-q'); [].forEach.call(p.querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', cur[k] == b.getAttribute('data-v')); }); });
+    A.forEach(function(a){ var s = 0, m = 0; a[2].forEach(function(){ q++; if(cur[q]){ s += cur[q]; done++; } m += 5; }); tot += s; document.querySelector('#evTbl [data-sub="' + a[1] + '"]').textContent = '소계 ' + s + ' / ' + m; });
+    $('evTeam').value = cur.team || '';
+    $('evOut').className = 'keyout' + (done === 17 ? ' good' : '');
+    $('evOut').innerHTML = (who === 'self' ? '자기 평가' : '동료 평가') + ' 총점 <b>' + tot + ' / 85</b> <small>' + done + ' / 17 항목 · ' + (done === 17 ? (tot >= 68 ? '훌륭해요! 가장 낮은 항목 하나를 다음 개선 목표로.' : '가장 낮은 영역이 다음 시간 개선 목표입니다.') : '모든 항목을 골라 주세요.') + '</small>'; }
+  $('evTbl').addEventListener('click', function(e){ var b = e.target.closest('button[data-v]'); if(!b) return; all[who][b.parentNode.getAttribute('data-q')] = +b.getAttribute('data-v'); put('ai_u4_eval', all); draw(); });
+  $('evWho').addEventListener('click', function(e){ var b = e.target.closest('button[data-w]'); if(!b) return; who = b.getAttribute('data-w'); [].forEach.call(this.querySelectorAll('button'), function(x){ x.setAttribute('aria-pressed', x === b); }); draw(); });
+  $('evTeam').addEventListener('input', function(){ all[who].team = this.value; put('ai_u4_eval', all); });
+  $('evClear').addEventListener('click', function(){ if(confirm('이 평가표를 지울까요?')){ all[who] = {}; put('ai_u4_eval', all); draw(); } });
+  $('evCopy').addEventListener('click', function(){ var cur = all[who], q = 0, lines = ['[인공지능 프로젝트 평가표 · ' + (who === 'self' ? '자기' : '동료') + ' 평가] 모둠: ' + (cur.team || '')];
+    A.forEach(function(a){ var s = 0; a[2].forEach(function(t){ q++; s += cur[q] || 0; lines.push(q + '. ' + t + ' → ' + (cur[q] || '-')); }); lines.push('  ▸ ' + a[1] + ' 소계 ' + s); });
+    lines.push($('evOut').innerText.split('\n')[0]); copy(lines.join('\n'), this); });
+  draw();
+})();
+
+/* ── 대단원 마무리 개념도 ── */
+(function(){
+  if(!$('w4Bank')) return;
+  var W = ['17개 주요 목표', '169개 세부 목표', '양질의 교육', '인공지능 적용 방안 탐색', '협력적 문제 해결 자세', '프로젝트 수행 계획 구안', '기계학습 유형', '프로젝트 평가', '오차 역전파'], sel = null;
+  $('w4Bank').innerHTML = W.slice().sort().map(function(w){ return '<button type="button" data-w="' + w + '">' + w + '</button>'; }).join('');
+  function out(){ var bs = document.querySelectorAll('#wrap4 .uxb'), ok = 0, f = 0; [].forEach.call(bs, function(b){ if(b.getAttribute('data-v')){ f++; if(b.getAttribute('data-v') === b.getAttribute('data-a')) ok++; } });
+    $('w4Out').className = 'keyout' + (ok === bs.length ? ' good' : ''); $('w4Out').innerHTML = ok === bs.length ? '다 맞혔습니다! <small>«오차 역전파»는 Ⅱ-06 딥러닝의 학습 방법이라 Ⅳ단원 개념도에는 자리가 없어요.</small>' : '채운 칸 ' + f + ' / ' + bs.length + ' · 맞은 칸 ' + ok; }
+  $('w4Bank').addEventListener('click', function(e){ var b = e.target.closest('button[data-w]'); if(!b) return; sel = b.getAttribute('data-w'); [].forEach.call(this.querySelectorAll('button'), function(x){ x.classList.toggle('on', x === b); }); });
+  document.querySelector('#wrap4 .w4map').addEventListener('click', function(e){ var b = e.target.closest('.uxb'); if(!b) return; if(!sel){ $('w4Out').textContent = '먼저 위에서 낱말을 누르세요.'; return; }
+    b.textContent = sel; b.setAttribute('data-v', sel); b.classList.toggle('ok', sel === b.getAttribute('data-a')); b.classList.toggle('no', sel !== b.getAttribute('data-a')); out(); });
+  out();
+})();
+})();
+</script>
+
 </body>
 </html>
