@@ -161,7 +161,7 @@ function setCls(c){
   }catch(e){}
 }
 function flowHtml(L){
-  if(!L.flow) return '';
+  if(!L.flow || !/[?&]t=1(&|$)/.test(location.search)) return '';     /* 학생 화면엔 숨김 · 교사는 주소 끝에 ?t=1 (예: plan.html?t=1) */
   return '<div class="lflow"><b>50분 흐름</b>' + L.flow.map(function(f){ return '<div><em>' + f[0] + '′</em><span>' + f[1] + '</span></div>'; }).join('') + '</div>';
 }
 function datesOf(c, id){ return list(c).filter(function(x){ return x.id === id; }); }
