@@ -70,6 +70,20 @@
 .lflow{display:grid; gap:5px; margin:0 0 14px}
 .lflow div{display:flex; gap:10px; align-items:baseline; font-size:.875rem; color:var(--ink2); line-height:1.55}
 .lflow em{flex:none; min-width:36px; font-style:normal; font-weight:800; color:var(--blue-d); font-variant-numeric:tabular-nums}
+
+/* 연구 설명문 팝업 (2026-10-08) */
+#irbDlg{width:min(760px,calc(100vw - 32px)); max-height:calc(100vh - 48px); padding:0; border:1px solid var(--line); border-radius:22px; background:var(--white); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.25)}
+#irbDlg::backdrop{background:rgba(10,20,40,.55)}
+#irbDlg .ih{position:sticky; top:0; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px 20px; background:var(--white); border-bottom:1px solid var(--line)}
+#irbDlg .ih b{font-family:var(--disp); font-size:1.125rem}
+#irbDlg .ib{padding:4px 22px 22px; font-size:.9375rem; line-height:1.8; color:var(--ink2)}
+#irbDlg .ib h4{margin:20px 0 4px; font-size:1rem; color:var(--blue-d)}
+#irbDlg .ib p{margin:0 0 8px}
+#irbDlg .ib ol{margin:0 0 8px; padding-left:1.3em}
+#irbDlg .meta{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:10px 14px; margin:14px 0 4px; font-size:.875rem}
+.irbpts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:10px; margin:0 0 16px}
+.irbpts div{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:12px 14px; font-size:.9062rem; line-height:1.6; color:var(--ink2)}
+.irbpts b{display:block; color:var(--ink); font-size:.9688rem; margin-bottom:2px}
 </style>
 <style id="css-more">
 /* Ⅱ-01~05 보강 그림 · 실험실 (2026-10-06) */
@@ -1332,6 +1346,57 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#hand"><span class="ic">📝</span><span><b>활동 기록지</b><span>해 본 것을 모아 제출</span></span></a>
   </div>
 </div></div>
+
+<section id="irb"><div class="wrap">
+  <p class="eyebrow">연구 수업 안내</p>
+  <h2>AI 수업 연구에 함께해 주세요</h2>
+  <p class="sub">10/19부터 8차시(데이터 탐구 4 · 프로젝트 4)는 <b>AI 기반 교수·학습 모형 개발 연구</b>의 수업으로 진행합니다. 참여는 <b>자유</b>입니다.</p>
+  <div class="irbpts">
+    <div><b>수업은 똑같아요</b>참여하든 안 하든 정규 수업으로 모두 같이 합니다.</div>
+    <div><b>검사 세 번</b>사전 15분 · 데이터 4차시 뒤 10분 · 프로젝트 4차시 뒤 10분 (1~5점 응답)</div>
+    <div><b>불이익 없음</b>안 해도, 하다가 그만둬도 성적이나 어떤 불이익도 없습니다.</div>
+    <div><b>이름은 공개되지 않아요</b>이름 · 학번은 검사를 잇는 데만 쓰고, 연구 결과에는 나오지 않습니다.</div>
+  </div>
+  <div class="colabcta"><span><b>📄 연구대상자용 설명문</b>동의서를 쓰기 전에 끝까지 읽어 보세요. 동의서는 <b>학생 + 보호자 서명</b>을 받아 다음 시간까지 냅니다.</span>
+    <button type="button" class="mini" id="irbOpen">설명문 전체 보기</button></div>
+  <dialog id="irbDlg" aria-labelledby="irbT">
+    <div class="ih"><b id="irbT">연구대상자용 설명문</b><button type="button" class="mini gh" id="irbClose">닫기 ✕</button></div>
+    <div class="ib">
+      <div class="meta"><b>연구과제명</b> 학습자 사고력 증진을 위한 AI 기반 교수·학습모형 개발<br>
+        <b>연구내용</b> 학습자의 사고력 증진을 위한 초·중등 학교급 실정에 맞는 교수학습모형 개발 및 현장 적용</div>
+      <p>본 연구는 학습자 사고력 증진을 위한 초·중등 학교급 실정에 맞는 AI 활용 교수학습모형 개발 및 현장 적용에 대한 연구입니다. 참여 여부를 정하기 전에 이 설명서와 동의서를 신중하게 읽어 주세요. 이 연구는 임수빈 연구원이 수행하며, 자발적으로 참여 의사를 밝힌 학생에 한하여 진행됩니다. 필요하면 가족이나 친구와 의논해 보고, 궁금한 점은 언제든 물어보세요.</p>
+      <p>동의서의 서명은 연구와 위험성에 대해 설명을 들었고, 본인(또는 법정대리인)이 연구 참여를 원한다는 뜻입니다.</p>
+      <h4>1. 연구의 배경과 목적</h4>
+      <p>학습자의 사고력을 증진하기 위해 AI를 활용한 교수학습모형을 개발하고 현장 적용 가능성을 확인하고자 합니다.</p>
+      <h4>2. 연구 참여 대상</h4>
+      <p>연구가 진행되는 학교의 고등학교 재학생으로, 연구의 목적과 내용에 대한 설명을 들은 후 자발적으로 동의한 학생입니다.</p>
+      <h4>3. 연구 참여 기간</h4>
+      <p>2026년 10월 19일부터 11월 5일까지, 학교의 정규 수업 일정에 따라 총 8차시(약 8시간)의 수업 프로그램에 참여합니다. 수업 프로그램 시작 전에 약 15분간 사전검사, 4차시가 끝난 뒤 약 10분간 1차 사후검사, 나머지 4차시가 끝난 뒤 약 10분간 2차 사후검사를 합니다.</p>
+      <h4>4. 연구 절차 및 방법</h4>
+      <p>이 수업은 학교의 정규 수업이므로, 연구 참여 여부와 관계없이 모두 수업에 참여합니다. 연구 참여에 동의한 학생은 다음 절차로 연구자료 수집에 참여합니다.</p>
+      <ol>
+        <li><b>사전검사</b> — 수업 프로그램 시작 전, 3종의 검사(1~5점 리커트 척도) · 약 15분</li>
+        <li><b>1차 수업 프로그램</b> — 4차시(약 4시간), 10/19~11/5 중 정규 수업 일정에 따라</li>
+        <li><b>1차 사후검사</b> — 첫 4차시가 끝난 뒤 2종의 검사 · 약 10분</li>
+        <li><b>2차 수업 프로그램</b> — 나머지 4차시(약 4시간)</li>
+        <li><b>2차 사후검사</b> — 수업 프로그램이 끝난 뒤 2종의 검사 · 약 10분</li>
+      </ol>
+      <p>동의하지 않는 경우에도 정규 수업에는 똑같이 참여하며, 그 학생의 검사 결과 등 연구자료는 분석과 연구 결과에 쓰지 않습니다.</p>
+      <h4>5. 연구 참여 도중 중도 탈락</h4>
+      <p>참여한 뒤에도 언제든지 그만둘 수 있습니다. 그만두고 싶으면 담당 연구원이나 담당 정보 교사에게 바로 말해 주세요.</p>
+      <h4>6. 예상되는 위험 및 이득</h4>
+      <p>직접적인 이득이나 금전적 보상은 없습니다. 다만 여러분이 제공하는 정보는 교수학습모형 개발과 현장 적용을 이해하는 데 도움이 됩니다.</p>
+      <h4>7. 참여하지 않을 때의 불이익(동의 철회)</h4>
+      <p>참여하지 않을 자유가 있으며, 참여하지 않아도 어떠한 불이익도 없습니다.</p>
+      <h4>8. 개인정보 제공 및 보호</h4>
+      <p>수집하는 개인정보는 <b>이름과 학번</b>입니다. 사전·사후검사 결과를 연결하고, 수업 중 연구 참여자를 확인하는 데 씁니다. 수업에서 쓰는 AI 기반 수업 도구에 필요한 경우 이름이나 학번을 입력할 수 있습니다.</p>
+      <p>개인정보와 연구자료는 관련 법령과 연구윤리 규정에 따라 안전하게 관리합니다. 분석할 때는 개인을 알아볼 수 있는 정보와 연구자료를 가능한 한 분리하고, 학술지 게재나 학술대회 발표에서도 이름 · 학번 등은 공개하지 않습니다. 연구자료는 연구 종료 후 3년간 보관한 뒤 규정에 따라 안전하게 폐기하며, 접근은 연구책임자와 연구진 등 꼭 필요한 사람으로 제한합니다.</p>
+      <h4>9. 연구 문의</h4>
+      <p>궁금한 점이나 문제가 생기면 담당 정보 선생님 또는 담당 연구원(임수빈)에게 연락하세요. 연구원 연락처는 나눠 준 <b>인쇄본</b>에 있습니다.<br>
+        연구대상자로서의 권리에 대한 질문은 <b>한국교원대학교 생명윤리위원회(043-230-3136)</b>에 할 수 있습니다.</p>
+    </div>
+  </dialog>
+</div></section>
 
 <section id="goal"><div class="wrap">
   <p class="eyebrow">배우는 목표</p>
@@ -5277,7 +5342,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=aa1c60da"></script>
+<script src="lessons.js?v=ea04e96e"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -6593,6 +6658,15 @@ $('uxQs').addEventListener('click', function(e){
   if(e.target.closest('.uxshow')){ var w = box.querySelector('.uxwhy'); w.hidden = !w.hidden; }
 });
 grade();
+})();
+
+/* 연구 설명문 팝업 */
+(function(){
+  var d = document.getElementById('irbDlg'), o = document.getElementById('irbOpen'), c = document.getElementById('irbClose');
+  if(!d || !o) return;
+  o.addEventListener('click', function(){ if(d.showModal) d.showModal(); else d.setAttribute('open', ''); });
+  c.addEventListener('click', function(){ if(d.close) d.close(); else d.removeAttribute('open'); });
+  d.addEventListener('click', function(e){ if(e.target === d && d.close) d.close(); });
 })();
 </script>
 
