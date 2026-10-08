@@ -128,7 +128,7 @@ colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/<파일 이
 | `10_food_image.ipynb` | **부록** | 사진 분류 Dense vs CNN (229~237쪽) — 바로 실행(꽃 사진) 또는 교과서 음식 사진(드라이브) · GPU | 3 |
 | `11_teachable_machine.ipynb` | **Ⅱ-07** | 티처블 머신 모델을 코랩에서 (133쪽) — `tf_keras` · DepthwiseConv2D `groups` 우회 | 1 |
 | `12_model_zoo.ipynb` | **넓혀 보기** | 모델 비교 실험실 — 펭귄 데이터로 분류 8종 · 회귀 5종 교차 검증, k-평균 + PCA | 2 |
-| `13_unit2_02_preprocessing.ipynb` | **Ⅱ-02 전체** | 교과서 70~83쪽 본문 · 옆 설명 · 실습 ❶~⓮ · 상자그림 IQR + 80~82쪽 추가 활동 — Ⅱ-01·02·03 차시의 «02 코랩» 시간용 | 9 |
+| `13_unit2_02_preprocessing.ipynb` | **Ⅱ-02 전체** | 교과서 70~83쪽 본문 · 옆 설명 · 실습 ❶~⓮ · 상자그림 IQR + 80~82쪽 추가 활동 — 데이터 탐구 ③(먼저 끝나면) · Ⅱ 다시 보기 · 집에서 | 9 |
 | `14_predict_regression.ipynb` | **Ⅱ-05 예측** | 자동차 연비(seaborn mpg) — 선형 회귀 · 경사하강법 애니메이션 · MAE/MSE/RMSE/R² · 잔차 · 랜덤 포레스트 비교 | 6 |
 | `15_classify_titanic.ipynb` | **Ⅱ-05 분류** | 타이타닉 생존자 — 로지스틱 · 트리 · kNN · 혼동 행렬 · 정밀도/재현율 · 임계값 · 기준선 · 편향 해석 | 4 |
 | `16_cluster_wine.ipynb` | **Ⅱ-05 군집** | 와인 178병(sklearn) — 표준화 · 엘보/실루엣 · k-평균 애니메이션 · PCA · 군집 해석 · 일치도 | 2 |
