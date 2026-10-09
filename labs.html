@@ -1213,7 +1213,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=d5ebcf7d"></script>
+<script src="lessons.js?v=dc3e48e3"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)
@@ -1236,12 +1236,13 @@ var LABS = [
    learn:'열 33개 · 3만 명 데이터에서 축소 · 정제 → 혈색소와의 상관계수', model:'—', data:'국민건강보험공단 건강검진(3만 명 표본)', nb:'06_health_checkup.ipynb',
    note:'교과서는 100만 명(95MB)을 드라이브에 올려 씁니다. 여기서는 같은 데이터의 3만 명 표본을 바로 읽습니다.' },
  { id:'02', u:'2', tool:'colab', t:'예측 모델과 분류 모델 만들고 평가하기', pg:'104~112쪽', sub:'Ⅱ-05', les:'U05', lv:2, min:35,
-   learn:'선형 회귀(청년 인구) · k-최근접 이웃(붓꽃) · MSE · R² · 오분류표 · 정확도', model:'선형 회귀 · kNN', data:'youth population · iris', nb:'02_model.ipynb', sol:'02_model_solution.ipynb' },
+   learn:'선형 회귀(청년 인구) · k-최근접 이웃(붓꽃) · MSE · R² · 오분류표 · 정확도', model:'선형 회귀 · kNN', data:'youth population · iris', nb:'02_model.ipynb', sol:'02_model_solution.ipynb',
+   note:'3차시 «블록으로 설계하고 파이썬으로 완성하다» — 같은 예제를 오렌지3로 먼저 설계한 뒤 이 노트북으로 완성합니다.' },
  { id:'04', u:'2', tool:'colab', t:'다이아몬드로 모델 고르고 평가하기', pg:'114~115쪽 활동', sub:'Ⅱ-05', les:'U05', lv:2, min:25,
    learn:'무엇을 맞힐지(가격 → 예측 · 등급 → 분류) 정하고 속성을 바꿔 가며 점수 비교', model:'선형 회귀 · kNN', data:'seaborn diamonds', nb:'04_diamonds.ipynb' },
- { id:'14', u:'2', tool:'colab', t:'예측 모델 — 자동차 연비 맞히기', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'U05', lv:2, min:20,
+ { id:'14', u:'2', tool:'colab', t:'예측 모델 — 자동차 연비 맞히기', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'UR', lv:2, min:20,
    learn:'탐색 · 히트맵 → 분리 → fit · coef_ → 경사하강법 애니메이션 → predict → MAE · MSE · RMSE · R² → 잔차 그래프 → 특성 더하기 · 랜덤 포레스트 비교 → 해석 문장', model:'선형 회귀 · 랜덤 포레스트', data:'seaborn mpg(자동차 398대)', nb:'14_predict_regression.ipynb' },
- { id:'15', u:'2', tool:'colab', t:'분류 모델 — 타이타닉 생존자 분류', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'U05', lv:2, min:20,
+ { id:'15', u:'2', tool:'colab', t:'분류 모델 — 타이타닉 생존자 분류', pg:'Ⅱ-05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'UR', lv:2, min:20,
    learn:'결측 대체 · 범주를 숫자로 → stratify 분리 → 세 모델 비교 · 트리 그림 → predict_proba → 혼동 행렬 · 정밀도 · 재현율 · 기준선 → 임계값 바꾸기 → 해석(편향)', model:'로지스틱 · 트리 · kNN', data:'seaborn titanic(891명)', nb:'15_classify_titanic.ipynb' },
  { id:'16', u:'2', tool:'colab', t:'군집 모델 — 정답 없이 와인 묶기', pg:'Ⅱ-04 · 05 · 교과서와 다른 사례', sub:'Ⅱ-05', les:'UR', lv:2, min:15,
    learn:'표준화 → 엘보 · 실루엣으로 k → k-평균 → PCA 그림 · 단계 애니메이션 → 무리마다 평균으로 이름 붙이기 → 숨긴 정답과 일치도', model:'k-평균 · PCA', data:'sklearn wine(178병)', nb:'16_cluster_wine.ipynb' },

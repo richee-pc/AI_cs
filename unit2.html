@@ -1332,6 +1332,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <a href="#algo"><span class="ic">📈</span><span><b>k-최근접 이웃 · 선형 회귀</b><span>점을 끌고 선을 맞춰 보기 · Ⅱ-04</span><em>직접 해 보기</em></span></a>
     <a href="#models"><span class="ic">🍊</span><span><b>모델 도감 · 고르는 법 · 오렌지3</b><span>모델마다 자세히 · 고르기 도우미 · 세 모델 비교 · Ⅱ-04</span><em>2 · 3차시</em></span></a>
     <a href="#algolab"><span class="ic">🔬</span><span><b>알고리즘 실험실</b><span>결정 경계 · 회귀 · 용어 · 수학 · 비교 · 주제별 고르기 · 오렌지3</span><em>2차시</em></span></a>
+    <a href="#blocks"><span class="ic">🧱</span><span><b>블록으로 설계 → 파이썬으로 완성</b><span>오렌지3 설계도 두 개 · 블록↔코드 짝 · Ⅱ-05</span><em>3차시</em></span></a>
     <a href="#implement"><span class="ic">🧪</span><span><b>구현 절차 · 예측 · 평가 해석</b><span>아홉 걸음 · 점수 계산기 · 해석 함정 · Ⅱ-05</span><em>3차시</em></span></a>
     <a href="#nn"><span class="ic">🧠</span><span><b>퍼셉트론과 XOR</b><span>은닉층이 왜 필요한가 · Ⅱ-06</span><em>직접 해 보기</em></span></a>
     <a href="#code"><span class="ic">💻</span><span><b>코랩 코드 읽기</b><span>예측 · 분류 · 딥러닝 코드 · Ⅱ-05 · 07</span></span></a>
@@ -1413,7 +1414,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <p class="note" style="margin-top:20px"><b>단원 흐름.</b>
     「어떤 문제에 쓸지 정한다」 → 「데이터를 모으고 <b>치운다</b>」 → 「어떤 방식으로 배우게 할지 고른다」
     → 「알고리즘을 고른다」 → <b>「만들고 점수를 매긴다」</b> → 「사람 뇌를 흉내 낸다」 → 「깊게 쌓아 만든다」.<br>
-    <b>10월 둘째 주</b>에는 첫 시간에 1차 정기고사 확인 · 사전 검사를 하고, <b>두 차시</b>에 개념을 먼저 잡습니다 — <b>①</b> Ⅱ-01·03·04(기계학습이란? · 학습 유형 · 알고리즘) · <b>②</b> 오렌지3 · Ⅱ-05(구현 절차 · 예측 · 평가 해석).
+    <b>10월 둘째 주</b>에는 첫 시간에 1차 정기고사 확인 · 사전 검사를 하고, <b>두 차시</b>에 개념을 먼저 잡습니다 — <b>①</b> Ⅱ-01·03·04(기계학습이란? · 학습 유형 · 알고리즘) · <b>②</b> Ⅱ-05 «블록으로 설계하고 파이썬으로 완성하다»(교과서 청년 인구 · 붓꽃 예제를 오렌지3 → 코랩으로).
     Ⅱ-01의 데이터 부분(좋은 데이터 네 기준 · 확보 · 편향)과 Ⅱ-02(전처리 네 가지 · 이상치 · 상자그림 · 상관계수)는 바로 이어지는 <b>「데이터 탐구」 4차시</b>의 ② · ③차시에서 <b>우리 모둠이 직접 찾은 진짜 데이터</b>로 배우고,
     <b>Ⅳ단원 프로젝트</b>에서 Ⅱ-04·05로 고른 모델을 오렌지3로 만듭니다. Ⅱ-06·07은 프로젝트가 끝난 뒤 <b>한 차시</b>에 배우고 곧바로 수행평가 ②(코랩 재구현)로 이어집니다.</p>
   <p class="ask"><b>Ⅰ단원과 이어지는 곳.</b>
@@ -3081,6 +3082,79 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <p class="hint">오렌지3에서 만든 순서 그대로 코랩 코드로 옮기는 대조표는 <a href="https://richee-pc.github.io/AI_cs/unit4.html#pa2">Ⅳ단원 수행평가 ②</a>, 모델별 자세한 설명은 <a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a>에 있습니다.</p>
   </div>
   <div class="nextgo"><b>이어서</b><a href="#implement">Ⅱ-05 구현 절차 · 평가 해석</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/12_model_zoo.ipynb" target="_blank" rel="noopener">▶ 코랩 · 모델 비교 실험실</a></div>
+</div></section>
+
+<section id="blocks"><div class="wrap">
+  <p class="eyebrow">Ⅱ-05 · 3차시</p>
+  <h2>블록으로 설계하고, 파이썬으로 완성하다</h2>
+  <p class="sub">교과서 104~112쪽의 두 예제 — <b>청년 인구 예측</b>과 <b>붓꽃 분류</b> — 를 먼저 <b>오렌지3 블록(위젯)</b>으로 설계하고, 똑같은 순서를 <b>파이썬 코드</b>로 완성합니다.
+    블록 하나가 코드 몇 줄이 되는지 짝지어 보면, 어떤 모델이든 <b>«나누기 → 학습 → 평가»</b> 순서가 같다는 것이 보입니다.</p>
+
+  <div class="tool">
+    <h3>설계도 ① 예측 — 도서관 · 공연장 수로 청년 인구 맞히기 <span class="tm">교과서 104~107쪽 · 선형 회귀</span></h3>
+    <div class="flow2 big owf">
+      <span><b>File</b><br><small>청년 인구 CSV</small></span><i>→</i>
+      <span><b>Data Sampler</b><br><small>80% / 20%</small></span><i>→</i>
+      <span><b>Linear Regression</b></span><i>→</i>
+      <span class="out"><b>Test and Score</b><br><small>MSE · R²</small></span>
+    </div>
+    <ol class="msteps" style="margin-top:12px">
+      <li><b>File</b> — <i>URL</i> 칸에 붙여 넣기: <code>https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/youth_population.csv</code><br>
+        아래 표에서 <b>청년</b>의 Role → <b>target</b>, <b>도서관 · 공연장</b> → feature, <b>박물관 · 미술관</b> → <b>skip</b>(교과서처럼 두 속성만 씁니다).</li>
+      <li><b>Data Sampler</b> — <i>Fixed proportion of data</i> <b>80%</b> · <i>Replicable</i> 체크. <b>Data Sample</b>(훈련용)과 <b>Remaining Data</b>(테스트용)를 따로 잇습니다.</li>
+      <li><b>Linear Regression</b> — 설정 그대로. Test and Score에 꽂습니다.</li>
+      <li><b>Test and Score</b> — 훈련용은 <i>Data</i>, 테스트용은 <i>Test Data</i>로 잇고 <b>Test on test data</b>. <b>MSE</b>와 <b>R2</b>를 적습니다.</li>
+    </ol>
+  </div>
+
+  <div class="tool">
+    <h3>설계도 ② 분류 — 꽃잎 · 꽃받침으로 붓꽃 세 종류 가려내기 <span class="tm">교과서 108~112쪽 · k-최근접 이웃</span></h3>
+    <div class="flow2 big owf">
+      <span><b>File</b><br><small>붓꽃 CSV</small></span><i>→</i>
+      <span><b>Data Sampler</b><br><small>80% / 20%</small></span><i>→</i>
+      <span><b>kNN</b><br><small>(+ Tree · Logistic)</small></span><i>→</i>
+      <span class="out"><b>Test and Score</b><br><small>CA · Prec · Recall</small></span><i>→</i>
+      <span class="out"><b>Confusion Matrix</b><br><small>오분류표</small></span>
+    </div>
+    <ol class="msteps" style="margin-top:12px">
+      <li><b>File</b> — <i>URL</i>: <code>https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/iris.csv</code><br>
+        <b>종</b>은 0 · 1 · 2 숫자라서 오렌지3가 «숫자»로 볼 수 있습니다. <b>Type → categorical</b>, <b>Role → target</b>으로 바꿉니다. 이걸 놓치면 분류가 아니라 예측이 됩니다!</li>
+      <li><b>Data Sampler</b> — 80% · Replicable. 설계도 ①과 똑같이 잇습니다.</li>
+      <li><b>kNN</b> — <i>Number of neighbors</i> <b>5</b>(파이썬 기본값과 같게). 시간이 남으면 <b>Tree</b>와 <b>Logistic Regression</b>도 함께 꽂아 세 모델을 비교합니다(Ⅱ-04).</li>
+      <li><b>Test and Score</b> — Test on test data. <b>CA</b>(정확도) · <b>Prec</b>(정밀도) · <b>Recall</b>(재현율). 이어서 <b>Confusion Matrix</b>로 무엇을 헷갈렸는지 봅니다.</li>
+    </ol>
+  </div>
+
+  <div class="tool">
+    <h3>블록 ↔ 코드 짝짓기 <span class="tm">교과서 101~103쪽 구현 과정</span></h3>
+    <div class="tw"><table>
+      <tr><th style="width:24%">오렌지3 블록</th><th>파이썬 코드 (노트북 02)</th><th style="width:20%">구현 과정</th></tr>
+      <tr><td><b>File</b></td><td><code>df = pd.read_csv(주소 + 'youth_population.csv')</code></td><td>데이터 준비</td></tr>
+      <tr><td><b>File</b>의 Role (feature · target · skip)</td><td><code>x = df[['도서관', '공연장']]</code> · <code>y = df[['청년']]</code></td><td>속성과 정답 나누기</td></tr>
+      <tr><td><b>Data Sampler</b> 80%</td><td><code>x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)</code></td><td>① 데이터 분리</td></tr>
+      <tr><td><b>Linear Regression</b> · <b>kNN</b></td><td><code>model = LinearRegression()</code> · <code>model = KNeighborsClassifier()</code></td><td>모델 고르기</td></tr>
+      <tr><td><b>Test and Score</b>에 꽂으면 학습</td><td><code>model.fit(x_train, y_train)</code></td><td>② 모델 학습</td></tr>
+      <tr><td><b>Predictions</b></td><td><code>Predicted = model.predict(x_test)</code></td><td>③ 예측</td></tr>
+      <tr><td><b>Test and Score</b>의 MSE · R2</td><td><code>mean_squared_error(y_test, Predicted)</code> · <code>model.score(x_test, y_test)</code></td><td>③ 모델 평가(예측)</td></tr>
+      <tr><td><b>Confusion Matrix</b> · CA · Prec · Recall</td><td><code>confusion_matrix(...)</code> · <code>accuracy_score(...)</code> · <code>precision_score(...)</code> · <code>recall_score(...)</code></td><td>③ 모델 평가(분류)</td></tr>
+    </table></div>
+    <p class="note" style="margin-top:12px"><b>모델만 바꾸면 끝.</b> 예측에서 분류로 넘어갈 때 오렌지3에서는 <b>블록 하나</b>, 파이썬에서는 <b>한 줄</b>(<code>LinearRegression()</code> → <code>KNeighborsClassifier()</code>)만 바뀝니다. 나머지 순서는 그대로입니다.</p>
+  </div>
+
+  <div class="tool">
+    <h3>견주어 보기 — 블록과 코드, 점수가 같을까? <span class="tm">활동 기록지에 한 줄</span></h3>
+    <div class="tw"><table>
+      <tr><th></th><th>오렌지3</th><th>파이썬</th><th>교과서</th></tr>
+      <tr><td>청년 인구 R²</td><td>0.○○</td><td>0.○○</td><td>약 0.64 (107쪽)</td></tr>
+      <tr><td>붓꽃 정확도</td><td>0.○○</td><td>0.○○</td><td>약 0.967 (110쪽)</td></tr>
+    </table></div>
+    <p class="ask" style="margin-top:12px"><b>점수가 조금 다르지요?</b> 오렌지3와 파이썬은 <b>시험지(테스트 데이터)로 뽑힌 행</b>이 달라서 그렇습니다.
+      나누는 방법만 바꿔도 점수가 달라진다 — 그래서 모델을 비교할 때는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 재야 합니다.</p>
+    <p class="note"><b>정리 한 줄.</b> «블록은 ○○할 때 좋고, 코드는 ○○할 때 좋다.» (예: 블록은 흐름을 한눈에 볼 때 · 코드는 똑같이 되풀이하거나 세세하게 바꿀 때)</p>
+  </div>
+
+  <div class="colabcta"><span><b>▶ 파이썬으로 완성 — 노트북 02</b>교과서 104~112쪽 코드 그대로입니다. 빈칸을 채우며 위 짝짓기 표의 순서를 따라가세요. 먼저 끝나면 <b>04 다이아몬드</b>(114~115쪽 활동).</span>
+    <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/02_model.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 02 예측 · 분류</a></div>
 </div></section>
 
 <section id="implement"><div class="wrap">
@@ -5342,7 +5416,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=d5ebcf7d"></script>
+<script src="lessons.js?v=dc3e48e3"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
