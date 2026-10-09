@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 20권">
+<meta name="description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 21권">
 <meta name="theme-color" content="#E9F3FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0A1A2E" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="코랩 실습실 · 인공지능 기초">
-<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 20권">
+<meta property="og:description" content="「인공지능 기초」 교과서 Ⅱ·Ⅳ단원 코랩 실습을 단추 하나로 — 데이터 자동 불러오기, 힌트와 정답 예시가 있는 노트북 21권">
 <meta property="og:type" content="website">
 <link rel="preload" href="font/body-reg.woff2?v=6581873c" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/disp-bold.woff2?v=42377525" as="font" type="font/woff2" crossorigin>
@@ -1060,13 +1060,13 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     파일을 올릴 필요 없이 <b>«코랩에서 열기»</b>만 누르면 데이터까지 저절로 불러옵니다.
     막히는 자리에는 <b>💡 힌트</b>가, 노트북 맨 아래에는 <b>정답 예시</b>가 있습니다.</p>
   <div class="facts">
-    <div class="fact"><b>23<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
-    <div class="fact"><b>20<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
+    <div class="fact"><b>24<span style="font-size:1.0rem"> 개</span></b><span>교과서 실습 + 넓혀 보기</span></div>
+    <div class="fact"><b>21<span style="font-size:1.0rem"> 권</span></b><span>코랩 노트북</span></div>
     <div class="fact"><b>0<span style="font-size:1.0rem"> 개</span></b><span>올릴 파일</span></div>
-    <div class="fact"><b id="labCount">0 / 23</b><span>내가 해 본 실습</span></div>
+    <div class="fact"><b id="labCount">0 / 24</b><span>내가 해 본 실습</span></div>
   </div>
   <div class="lprog"><i id="labBar"></i></div>
-  <div class="fgo" style="margin-top:14px"><a href="#start">시작하기</a><a href="#labs">교과서 실습 23</a><a href="#orange">🍊 오렌지3 따라 하기 7</a><a href="#trouble">막혔을 때</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a><a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a></div>
+  <div class="fgo" style="margin-top:14px"><a href="#start">시작하기</a><a href="#labs">교과서 실습 24</a><a href="#orange">🍊 오렌지3 따라 하기 7</a><a href="#trouble">막혔을 때</a><a href="https://richee-pc.github.io/AI_cs/models.html">📚 AI 모델 도감</a><a href="https://richee-pc.github.io/AI_cs/datagen.html">🧰 데이터 공방</a></div>
 </div></div>
 
 <section id="start"><div class="wrap">
@@ -1213,7 +1213,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=dc3e48e3"></script>
+<script src="lessons.js?v=b3e6b53e"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    코랩 실습실 — 교과서 실습을 단추 하나로 (labs.html)
@@ -1229,6 +1229,9 @@ var LABS = [
  { id:'01', u:'2', tool:'colab', t:'데이터 전처리 실습', pg:'72~79쪽', sub:'Ⅱ-02', les:'D3', lv:1, min:30,
    learn:'변환 · 통합 · 중복 · 결측치 · 상자그림 이상치 · 상관계수(교과서 79쪽 값과 같게)', model:'—', data:'file1 · file2 (보험 계약)', nb:'01_preprocess.ipynb', sol:'01_preprocess_solution.ipynb',
    more:[['https://richee-pc.github.io/AI_cs/unit2.html#prep','단추로 먼저 해 보는 전처리 체험']] },
+ { id:'20', u:'2', tool:'colab', t:'데이터 탐구 ③ — 교과서 Ⅱ-02 코드를 우리 데이터로', pg:'72~79쪽 ❶~⓮ · 83쪽 IQR', sub:'Ⅱ-02', les:'D3', lv:2, min:30,
+   learn:'⓪ 설정 칸(파일 · 가설의 두 열 · 전처리 기준) → 읽기(cp949 자동) → 변환 · 통합 · 중복 → 결측치 · 상자그림 · IQR → 저장 → 축소 · 산점도 · 상관계수 → AI 없이 1차 해석', model:'—', data:'우리 모둠 CSV(연습: 약수터 수질)', nb:'20_data_inquiry_my_data.ipynb',
+   note:'AI Agent로 전처리했다면 단계별 행 수로 AI 변경 내역을 검증합니다. 치운 파일은 Ⅳ단원 프로젝트 · 오렌지3에서 그대로 씁니다.' },
  { id:'13', u:'2', tool:'colab', t:'Ⅱ-02 데이터 가공과 핵심 속성 추출 — 교과서 전체', pg:'70~83쪽 + 80~82쪽 활동', sub:'Ⅱ-02', les:'D3', lv:2, min:45,
    learn:'생각 열기 → 전처리 네 가지(작은 표로) → 실습 ❶~⓮ 옆 설명까지 → 상자그림 · IQR 직접 계산 → 추가 활동(건강검진)', model:'—', data:'file1 · file2 · 건강검진 3만 명', nb:'13_unit2_02_preprocessing.ipynb',
    note:'Ⅱ-02는 데이터 탐구 ② · ③에서 우리 데이터로 배웁니다. 교과서 실습 전체는 이 노트북 한 권으로 — 데이터 탐구 ③에서 먼저 끝나면 · «Ⅱ 다시 보기» · 집에서. 01 · 06 은 같은 내용의 짧은 연습판입니다.' },
