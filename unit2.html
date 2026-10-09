@@ -84,6 +84,28 @@
 .irbpts{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:10px; margin:0 0 16px}
 .irbpts div{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:12px 14px; font-size:.9062rem; line-height:1.6; color:var(--ink2)}
 .irbpts b{display:block; color:var(--ink); font-size:.9688rem; margin-bottom:2px}
+
+/* 흐름도 · 알고리즘 풀이 (2026-10-09) */
+.dflow{display:grid; gap:0; margin:4px 0 2px}
+.dq{display:flex; gap:12px; align-items:flex-start; background:var(--tint); border:2px solid var(--line); border-radius:16px; padding:13px 15px}
+.dq>i{flex:none; width:34px; height:34px; border-radius:50%; background:var(--fill); color:var(--on-fill); font-style:normal; font-family:var(--disp); font-weight:700; display:grid; place-items:center}
+.dq>b{font-size:1.0625rem; line-height:1.5; color:var(--ink)}
+.dans{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0 0 46px}
+.dans>div{border-radius:14px; padding:11px 14px; font-size:.9375rem; line-height:1.6; border:2px solid}
+.dans .y{background:var(--good-bg); border-color:var(--good); color:var(--ink)}
+.dans .n{background:var(--warm-bg,#FFF4E5); border-color:var(--warm); color:var(--ink)}
+.dans em{display:block; font-style:normal; font-weight:800; font-size:.8125rem; margin-bottom:2px}
+.dans .y em{color:var(--good)} .dans .n em{color:var(--warm)}
+.dans small{display:block; color:var(--muted); font-size:.8125rem; margin-top:3px}
+.darrow{margin:8px 0 8px 46px; font-weight:800; color:var(--warm); font-size:.875rem}
+@media (max-width:560px){ .dans{grid-template-columns:1fr; margin-left:0} .darrow{margin-left:0} }
+.howto{background:var(--white); border:1px solid var(--line); border-left:5px solid var(--blue); border-radius:14px; padding:12px 16px; margin:12px 0}
+.howto>b{display:block; color:var(--blue-d); margin-bottom:4px}
+.howto ol{margin:4px 0 0; padding-left:1.4em; line-height:1.75; font-size:.9375rem; color:var(--ink2)}
+.howto .why{margin:8px 0 0; padding-top:8px; border-top:1px dashed var(--line); font-size:.9375rem; color:var(--ink2); line-height:1.7}
+.howto .why::before{content:"왜 이런 결과가? "; font-weight:800; color:var(--warm)}
+.howto code{font-size:.875rem}
+.lpart{margin:26px 0 10px; padding:10px 14px; border-radius:12px; background:var(--tint); border:1px dashed var(--blue-l); font-size:.875rem; font-weight:700; color:var(--blue-d)}
 </style>
 <style id="css-more">
 /* Ⅱ-01~05 보강 그림 · 실험실 (2026-10-06) */
@@ -1563,14 +1585,19 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <tr><td><b>장점</b></td><td>결과를 정확히 예측 · 설명할 수 있다</td><td>규칙을 직접 정의할 필요가 없다 · 변화에 적응</td></tr>
         <tr><td><b>단점</b></td><td>규칙이 복잡하면 끝없이 늘어남 · 변화에 약함</td><td><b>학습 데이터가 부족하면 성능이 낮다</b> · 왜 그렇게 판단했는지 설명이 어려울 수 있다</td></tr>
       </table></div>
-      <div class="ws"><b><i>정리</i> 어떤 문제에 무엇을 쓸까?</b><div>
-        <div class="decide">
-          <div><b>해결 절차를 사람이 단계별로 정확히 적을 수 있나?</b>
-            <span class="yes">예 → <b>전통적 프로그래밍</b> (빠르고 정확하고 설명 가능)</span>
-            <span class="no">아니요 → <b>기계학습 후보</b> — 다음 질문으로</span></div>
-          <div><b>정답이 붙은(또는 패턴을 배울) 데이터를 충분히 모을 수 있나?</b>
-            <span class="yes">예 → <b>기계학습</b>으로 모델을 만들어 해결</span>
-            <span class="no">아니요 → 데이터를 먼저 모으거나, 규칙 + 사람 판단으로</span></div>
+      <div class="ws"><b><i>정리</i> 어떤 문제에 무엇을 쓸까? — 두 질문이면 정해집니다</b><div>
+        <div class="dflow">
+          <div class="dq"><i>1</i><b>해결 순서를 사람이 한 단계씩 정확히 적을 수 있나?</b></div>
+          <div class="dans">
+            <div class="y"><em>예 → 전통적 프로그래밍</em>사람이 규칙을 짜서 코드로. 빠르고 정확하고 이유를 설명할 수 있어요.<small>예) 성적 합계 · 세금 계산 · 정렬 · 최단 경로</small></div>
+            <div class="n"><em>아니요 → 기계학습 후보</em>규칙을 다 적기 어렵다면 데이터에서 찾게 해 봅니다.<small>예) 사진 속 고양이 · 스팸 · 번역 · 추천</small></div>
+          </div>
+          <div class="darrow">↓ «아니요»였다면 다음 질문으로</div>
+          <div class="dq"><i>2</i><b>배울 데이터(정답이 붙었거나 패턴이 담긴)를 충분히 모을 수 있나?</b></div>
+          <div class="dans">
+            <div class="y"><em>예 → 기계학습</em>데이터로 모델을 학습시켜 해결해요.<small>예) 스팸 메일 수만 통 · 고양이 사진 수천 장</small></div>
+            <div class="n"><em>아니요 → 아직은 어려워요</em>데이터를 먼저 모으거나, 규칙 + 사람 판단으로 해결해요.<small>예) 우리 학교에만 있는 드문 사례</small></div>
+          </div>
         </div></div></div>
       <h3 style="margin-top:14px">이 문제엔 무엇이 알맞을까? <span class="tm">10문제</span></h3>
       <div class="kcards" id="lrWhich"></div>
@@ -1608,7 +1635,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <div class="cc"><b>모델</b><span>학습이 끝나 «a · b 가 정해진» 결과물. 새 공부 시간을 넣으면 성적을 내놓는다.</span></div>
       </div>
     </div>
-    <h3 class="lh">③ 좋은 데이터의 네 기준 <small>63쪽 표 Ⅱ-2</small></h3>
+    <div data-endof="U01:learn01"></div>
+    <p class="lpart">📍 여기까지 둘째 주 2차시 · 아래 ③ 좋은 데이터 ~ ⑤ 편향은 <b>데이터 탐구 ②</b>에서 우리 데이터로 배워요</p>
+    <h3 class="lh" id="learn01b">③ 좋은 데이터의 네 기준 <small>63쪽 표 Ⅱ-2</small></h3>
     <div class="cgrid">
       <div class="cc"><b>정확성</b><span>오류가 없어야 한다. 잘못된 데이터 → 잘못된 학습.</span></div>
       <div class="cc"><b>관련성</b><span>풀려는 문제와 관련 있어야 한다.</span></div>
@@ -1936,6 +1965,15 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <h3>로지스틱 회귀 — 이 거리에서 슛할까, 패스할까? <span class="tm">94쪽</span></h3>
       <p class="desc">1·2·4m에서는 성공, 5·7m에서는 실패한 기록으로 만든 S자 곡선입니다. 거리를 움직여 보세요.
         교과서 값(3m 약 81.2% · 6m 약 20.5% · 8m 약 3.8%)과 같게 맞췄습니다.</p>
+      <div class="howto"><b>로지스틱 회귀는 어떻게 답을 정하나</b>
+        <ol>
+          <li><b>점수 만들기</b> — 거리에 가중치를 곱하고 더해 점수 z를 구합니다: <code>z = 4.28 − 0.94 × 거리</code>. 멀수록 점수가 내려갑니다.</li>
+          <li><b>확률로 바꾸기</b> — S자 모양의 <b>시그모이드 함수</b>가 어떤 점수든 0~1 사이로 눌러 줍니다: <code>확률 = 1 ÷ (1 + e<sup>−z</sup>)</code>.</li>
+          <li><b>50%로 가르기</b> — 확률이 0.5 이상이면 «슛(성공 쪽)», 아니면 «패스».</li>
+          <li><b>학습</b>이란 기록(초록 = 성공, 빨강 = 실패)에 가장 잘 맞는 4.28과 −0.94를 찾는 일입니다.</li>
+        </ol>
+        <p class="why">3m는 z = 4.28 − 0.94×3 ≈ 1.46 → 확률 약 81%로 «슛». 성공 기록(1·2·4m)이 가까운 쪽에 몰려 있어서 가까울수록 확률이 높게 학습됐기 때문입니다. 경계선은 확률이 정확히 50%가 되는 <b>약 4.6m</b>. 그보다 멀면 «패스»가 됩니다.</p>
+      </div>
       <svg class="plot" id="lrLogi" viewBox="0 0 480 240" role="img" aria-label="거리에 따른 슛 성공 확률 곡선"></svg>
       <label class="sl" style="margin-top:12px"><span>골대에서 거리 <b id="lrDistV">3.0 m</b></span>
         <input type="range" id="lrDist" min="0" max="10" step="0.5" value="3"></label>
@@ -1945,6 +1983,15 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="tool">
       <h3>의사결정트리 — 대출을 승인할까? <span class="tm">96쪽</span></h3>
       <p class="desc">교과서 트리는 질문이 두 개입니다. 신청자를 골라 트리를 따라가 보세요. 나이는 질문에 없다는 것도 눈여겨보세요.</p>
+      <div class="howto"><b>의사결정트리는 어떻게 질문을 고르나</b>
+        <ol>
+          <li><b>후보 질문 모두 시험</b> — «직장인인가?», «소득이 높은가?», «30세 이상인가?» … 로 데이터를 나눠 봅니다.</li>
+          <li><b>가장 깔끔하게 나누는 질문</b>을 고릅니다 — 나눈 쪽마다 «승인끼리 · 거절끼리» 한 가지 답으로 가장 잘 모이는 질문(불순도가 가장 낮은 질문).</li>
+          <li><b>나뉜 쪽에서 또 반복</b> — 한쪽이 한 가지 답으로 다 모이거나, 정해 둔 깊이에 닿으면 멈춥니다.</li>
+          <li><b>맨 끝(잎)의 다수결</b>이 그 길로 온 새 신청자의 답이 됩니다.</li>
+        </ol>
+        <p class="why">학습 데이터에서 «직장인이 아니면 모두 거절»이었기 때문에 첫 질문이 «직장인인가?»가 됐습니다. 나이로 나누면 승인과 거절이 섞인 채 남아 깔끔해지지 않으니 고르지 않았고, 그래서 트리에 나이가 없습니다. 질문을 너무 많이 쌓으면 학습 데이터를 외워 버리니(과적합) 깊이를 제한합니다.</p>
+      </div>
       <div class="simctl" id="lrTreePick"></div>
       <div class="tree" id="lrTree"></div>
     </div>
@@ -1952,11 +1999,22 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="tool">
       <h3>k-평균 — 네 단계를 눌러 보기 <span class="tm">97쪽 그림 Ⅱ-15</span></h3>
       <p class="desc">점 12개를 두 무리(k=2)로 묶습니다. 단추를 차례로 누르세요. 정답(레이블)은 한 번도 쓰지 않습니다 — 그래서 비지도학습입니다.</p>
+      <div class="howto"><b>k-평균은 어떻게 무리를 정하나</b>
+        <ol>
+          <li><b>k 정하기</b> — 몇 무리로 나눌지 사람이 정합니다(여기서는 2).</li>
+          <li><b>중심 k개 찍기</b> — 처음에는 아무 데나(무작위) 찍습니다.</li>
+          <li><b>배정</b> — 점마다 <b>가장 가까운 중심</b>의 무리에 넣습니다(거리를 잼).</li>
+          <li><b>중심 옮기기</b> — 무리마다 점들의 <b>평균 위치</b>로 중심을 옮깁니다. 이름이 «k-평균»인 까닭입니다.</li>
+          <li><b>반복</b> — ③ · ④를 되풀이해 <b>더는 아무 점도 무리를 바꾸지 않으면</b> 끝.</li>
+        </ol>
+        <p class="why">점들이 실제로 두 덩어리로 모여 있어서, 중심이 몇 번 옮겨 다니다 각 덩어리의 한가운데에 자리 잡습니다. 다만 처음 중심을 어디 찍느냐에 따라 결과가 달라질 수 있고, 무리의 <b>이름(«운동형», «공부형» 등)은 컴퓨터가 아니라 사람이</b> 평균값을 보고 붙입니다.</p>
+      </div>
       <svg class="plot" id="lrKm" viewBox="0 0 480 260" role="img" aria-label="k-평균 군집화"></svg>
       <div class="simctl" style="margin-top:12px"><button type="button" class="mini" id="lrKmStep">① 초기 중심 정하기</button><button type="button" class="mini gh" id="lrKmReset">처음으로</button></div>
       <div class="saybox" id="lrKmSay"></div>
     </div>
 
+    <p class="hint" style="margin:4px 0 14px">더 자세히 — 수식을 숫자 하나씩 따라가는 <a href="#alMath">수학 쉽게</a> · 모델마다 장단점은 <a href="#models">모델 도감</a></p>
     <div class="tool">
       <h3>어떤 알고리즘을 쓸까? <span class="tm">98~99쪽</span></h3>
       <div class="kcards" id="lrAlgo"></div>
@@ -2729,6 +2787,16 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       점들 사이를 지나는 <b>직선</b>을 하나 그으면, 공부 시간만 알아도 성적을 짐작할 수 있습니다.
       문제는 «어느 직선이 가장 좋은가»인데, 그 답이 <b>평균제곱오차(MSE)가 가장 작은 직선</b>입니다.
       아래 손잡이 둘을 움직여 <b>빨간 선(오차)들을 최대한 짧게</b> 만들어 보세요.</p>
+    <div class="howto"><b>평균제곱오차(MSE)란? — «평균적으로 얼마나 틀렸나»를 재는 점수</b>
+      <ol>
+        <li><b>오차</b> = 실제 값 − 예측 값. 그림의 <b>빨간 선 길이</b>입니다.</li>
+        <li><b>제곱</b>합니다. 위로 틀린 것(+)과 아래로 틀린 것(−)이 서로 지워지지 않게 하고, <b>크게 틀린 것을 더 크게</b> 벌줍니다.</li>
+        <li>모든 점의 제곱을 더해 <b>점 개수로 나눕니다(평균)</b>.</li>
+      </ol>
+      <p class="why">예) 실제 성적 70 · 80 · 90을 72 · 77 · 90으로 예측했다면 오차는 −2 · 3 · 0 → 제곱 4 · 9 · 0 → 평균 <b>(4 + 9 + 0) ÷ 3 ≈ 4.3</b>.
+        MSE가 <b>0에 가까울수록</b> 잘 맞는 직선이고, 컴퓨터는 MSE가 가장 작아지는 기울기와 절편을 찾습니다(최소제곱법 · 경사하강법).
+        단위가 «점²»이라 크기 자체보다 <b>다른 직선 · 다른 모델과 견줄 때</b> 씁니다.</p>
+    </div>
 
     <svg class="plot" id="regSvg" viewBox="0 0 480 330" role="img"
          aria-label="공부 시간과 성적 산점도 위에 예측 직선과 각 점의 오차를 그린 그림"></svg>
@@ -3584,15 +3652,6 @@ model.evaluate(x_test, y_test)     <span class="c"># [손실함수값, 정확도
         <i>richee-pc.github.io/AI_cs/colab.html</i></span></a>
   </div>
 
-  <details style="margin-top:22px"><summary>선생님께 — 이 노트북을 수업에서 쓰는 법</summary>
-    <p><b>학생용과 정답용이 따로 있습니다.</b> 학생에게는 «코랩에서 열기»(학생용)를 안내하고,
-      «정답 보기»는 <b>진도가 빠른 학생 · 결석생 · 화면 띄우기</b>에 씁니다.
-      정답용에는 교사용 메모가 몇 줄 더 들어 있습니다.<br><br>
-      <b>학생은 사본을 저장해야 합니다.</b> 저장소가 공개라 권한 요청은 필요 없지만,
-      사본을 안 만들면 고친 것이 안 남습니다. 첫 5분에 이것만 확인해 주세요.<br><br>
-      <b>한 차시에 한 권</b>을 기준으로 만들었습니다. 빈칸이 ①은 8개, ②는 10개, ③은 7개입니다.
-      각 노트북 끝의 «한 걸음 더»는 먼저 끝낸 학생에게 주면 됩니다.</p>
-  </details>
 </div></section>
 
 <section id="wrapup"><div class="wrap">
@@ -5103,8 +5162,11 @@ function showPane(id){
 }
 LN.addEventListener('click', function(e){ var b = e.target.closest('button[data-p]'); if(b) showPane(b.getAttribute('data-p')); });
 window.AIL_onFocus = function(ids){
-  var hit = (ids || []).filter(function(x){ return /^learn\d\d$/.test(x); })[0];
-  if(hit) showPane(hit);
+  var panes = (ids || []).map(function(x){ var e = document.getElementById(x); var p = e && (e.classList.contains('lpane') ? e : e.closest('.lpane')); return p ? p.id : null; })
+    .filter(function(x, i, arr){ return x && arr.indexOf(x) === i; });
+  /* 차시 보기: 그 차시 소단원 탭만 보이게 · 전체 보기: 모두 */
+  [].slice.call(LN.children).forEach(function(b){ b.hidden = panes.length > 0 && panes.indexOf(b.getAttribute('data-p')) < 0; });
+  if(panes[0]) showPane(panes[0]);
 };
 /* 주소에 #learn03 처럼 오면 그 탭 — 처음 열 때와, 쪽 안에서 링크를 누를 때 모두 */
 function fromHash(scroll){
@@ -5418,7 +5480,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=b3e6b53e"></script>
+<script src="lessons.js?v=e0481a1c"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정

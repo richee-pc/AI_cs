@@ -29,7 +29,7 @@ var LES = {
   U05:{ short:'Ⅱ-05 블록 → 파이썬', kind:'u2', tag:'Ⅱ-05', title:'블록으로 설계하고 파이썬으로 완성하다 — 모델 구현', page:'교과서 100~115쪽 · 성취기준 02-04 · 교과서 예시(청년 인구 예측 · 붓꽃 분류) 그대로',
     goal:'데이터 분리 → 모델 학습 → 모델 평가 과정을 오렌지3 블록으로 설계하고 같은 과정을 파이썬 코드로 구현하며, 예측 · 분류 모델의 성능 지표(MSE · R² · 정확도 · 정밀도 · 재현율)를 해석할 수 있다.',
     flow:[[3,'도입 · 구현 과정 애니메이션(101~103쪽) — 데이터 분리 → 학습 → 평가 → 수정'],[12,'블록으로 설계 · 오렌지3 — ① 청년 인구: File → Data Sampler → Linear Regression → Test and Score(MSE · R²) ② 붓꽃: File → Data Sampler → kNN(+Tree · Logistic) → Confusion Matrix'],[5,'블록 ↔ 코드 짝짓기 — Data Sampler = train_test_split · 모델 블록 = fit() · Test and Score = predict() · score()'],[22,'파이썬으로 완성 · 노트북 02(104~112쪽) — 청년 인구 선형 회귀(계수 · MSE · R² 약 0.64) → 붓꽃 kNN(오분류표 · 정확도 · 정밀도 · 재현율) → 오렌지3 점수와 견주기'],[5,'성능 지표 정리 · 예제 2 클래식 음악 오분류표로 정확도 · 정밀도 · 재현율 계산(111쪽)'],[3,'정리 · «블록과 코드, 언제 무엇을 쓸까?» 한 줄']],
-    steps:[['u2','blocks','블록으로 설계 → 파이썬으로 완성','설계도 ① 청년 인구 · ② 붓꽃 → 블록 ↔ 코드 짝짓기 → 노트북 02 → 점수 견주기'],['u2','learn05','교과서로 배우기 · Ⅱ-05','구현 과정 애니메이션 → 성능 지표 → 예제 2 클래식 음악 오분류표'],['u2','implement','구현 아홉 걸음 · 평가 해석','코드와 위젯 짝 → 점수 계산기 → 해석 함정'],['u2','hand','활동 기록지','«블록과 코드» 한 줄과 점수 견주기를 남깁니다'],['lb','labs','코랩 실습실','먼저 끝나면 04 다이아몬드(114~115쪽 활동)']],
+    steps:[['u2','learn05','도입 · 교과서로 배우기 Ⅱ-05','▶ 재생으로 «분리 → 학습 → 평가»를 보고 시작 · 성능 지표와 예제 2 오분류표는 끝에 다시 와서'],['u2','blocks','블록으로 설계 → 파이썬으로 완성','설계도 ① 청년 인구 · ② 붓꽃 → 블록 ↔ 코드 짝짓기 → 노트북 02 → 점수 견주기'],['u2','implement','구현 아홉 걸음 · 평가 해석','코드와 위젯 짝 → 점수 계산기 → 해석 함정'],['u2','hand','활동 기록지','«블록과 코드» 한 줄과 점수 견주기를 남깁니다'],['lb','labs','코랩 실습실','먼저 끝나면 04 다이아몬드(114~115쪽 활동)']],
     ext:[['https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/02_model.ipynb','▶ 코랩 · 02 예측 · 분류(교과서 104~112쪽)'],['https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/04_diamonds.ipynb','▶ 코랩 · 04 다이아몬드(114~115쪽 활동)']],
     out:'오렌지3 설계도 두 개의 점수 · 노트북 02 사본 — 오렌지3 점수와 견준 한 줄', bring:'오렌지3 설치된 노트북 · 코랩(학교 구글 계정)' },
   D1:{ kind:'ex', tag:'데이터 탐구 ①', title:'문제 정하기 — 무엇이 진짜 문제인가', page:'① 문제 인식 및 정의 → ② 데이터 관점 탐구 설계', lt:['n'],
@@ -39,7 +39,7 @@ var LES = {
   D2:{ kind:'ex', tag:'데이터 탐구 ②', title:'데이터 찾기 — 믿을 수 있는 데이터인지 따진다', page:'② 데이터 관점 탐구 설계 → ③ 준비 · 교과서 Ⅱ-01 63~69쪽(좋은 데이터 · 확보 · 편향)을 이 시간에 배웁니다', lt:['n'],
     goal:'가설 해결에 적합한 데이터를 수집해 적합성·신뢰성·충분성·윤리 기준으로 평가하고, 데이터 전처리 기준을 스스로 세울 수 있다.',
     flow:[[2,'지난 차시 돌아보기 — 문제 정의문 피드백'],[6,'빅데이터 특징 떠올리기 + 교과서 Ⅱ-01 · 좋은 데이터 네 기준(63쪽) · 데이터 편향(66쪽) — 평가 체크리스트와 짝짓기'],[15,'데이터 찾기 — 확보하는 두 가지 길 · 출처와 사용 제한(64~67쪽) → 검색어로 수집 → 출처 · 속성표'],[13,'평가 체크리스트 11문항 → 탐구 질문 정의서 완성 → 계획 승인'],[10,'전처리 기준 세우기 — 기준마다 변환 · 통합 · 정제 · 축소(Ⅱ-02 71쪽) 이름 붙이기'],[4,'한 줄 공유 · 다음 차시 안내']],
-    steps:[['u2','ex2','데이터 찾기와 평가','검색어 카드 → 출처 기록 → 평가 체크리스트 11문항 → 전처리 기준(변환 · 통합 · 정제 · 축소)'],['u2','learn01','교과서로 배우기 · Ⅱ-01 데이터 부분','좋은 데이터 네 기준 → 데이터 확보 두 길 · 출처와 사용 제한 → 편향 — 체크리스트와 짝지어 봅니다'],['u2','learn02','Ⅱ-02 · 전처리 네 가지','전처리 기준에 변환 · 통합 · 정제 · 축소 이름을 붙입니다']],
+    steps:[['u2','ex2','데이터 찾기와 평가','검색어 카드 → 출처 기록 → 평가 체크리스트 11문항 → 전처리 기준(변환 · 통합 · 정제 · 축소)'],['u2','learn01b','교과서로 배우기 · Ⅱ-01 데이터 부분','좋은 데이터 네 기준 → 데이터 확보 두 길 · 출처와 사용 제한 → 편향 — 체크리스트와 짝지어 봅니다'],['u2','learn02','Ⅱ-02 · 전처리 네 가지','전처리 기준에 변환 · 통합 · 정제 · 축소 이름을 붙입니다']],
     ext:[['https://www.data.go.kr','공공데이터포털'],['https://kosis.kr','KOSIS'],['https://data.kma.go.kr','기상자료개방포털']],
     out:'활동지 ②(정의서 완성) · ③(출처와 평가 11문항) · ④ 전처리 기준 · 수집 데이터' },
   D3:{ kind:'ex', tag:'데이터 탐구 ③', title:'치우고 분석하기 — 해석은 내가 먼저', page:'③ AI 보조 데이터 탐구 · 교과서 Ⅱ-02 70~83쪽(이상치 · 결측치 · 상자그림 · 상관계수)을 이 시간에 배웁니다', lt:['g'],
@@ -252,6 +252,18 @@ var CSS = '\
 .lpfoot button, .lpfoot a{font-family:var(--sans); font-size:.875rem; font-weight:800; border-radius:99px; padding:8px 16px; cursor:pointer; text-decoration:none;\
   border:1px solid var(--line); background:var(--white); color:var(--blue-d)}\
 body.lfocus .hero{display:none}\
+body.lfocus .nextgo{display:none}\
+.lflowfoot{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin:26px 0 6px; padding:16px 18px; border-radius:18px;\
+  background:linear-gradient(120deg,var(--blue-xl),var(--tint)); border:2px solid var(--blue-l)}\
+.lflowfoot .lff-n{font-family:var(--pop); font-weight:800; color:var(--blue-d); font-size:.9375rem}\
+.lflowfoot .lff-n b{font-size:1.25rem}\
+.lflowfoot .lff-next{margin-left:auto; display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-size:1rem; font-weight:800; color:var(--on-fill);\
+  background:var(--fill); border:0; border-radius:99px; padding:11px 20px; text-decoration:none; cursor:pointer; box-shadow:var(--sh)}\
+.lflowfoot .lff-next:hover{filter:brightness(1.08); transform:translateX(2px)}\
+.lflowfoot .lff-next em{font-style:normal; font-size:.75rem; opacity:.85}\
+.lflowfoot .lff-top{font-size:.8438rem; font-weight:700; color:var(--muted); background:none; border:0; cursor:pointer; text-decoration:underline; font-family:var(--sans)}\
+.lflowfoot .lff-end{font-size:.9375rem; color:var(--ink2); line-height:1.6}\
+.lflowfoot .lff-end b{color:var(--good)}\
 section.lhide{display:none!important}\
 .fcard.lhide, details.lhide{display:none!important}\
 .lstepflash{animation:lflash 1.4s ease}\
@@ -305,7 +317,8 @@ function mount(){
   function apply(){
     var secs = [].slice.call(document.querySelectorAll('main section, body > section'));
     document.querySelectorAll('.lhide').forEach(function(e){ e.classList.remove('lhide'); });
-    if(!cur){ document.body.classList.remove('lfocus'); panel.hidden = true; return; }
+    document.querySelectorAll('.lflowfoot').forEach(function(e){ e.remove(); });
+    if(!cur){ document.body.classList.remove('lfocus'); panel.hidden = true; if(window.AIL_onFocus) window.AIL_onFocus([]); return; }
     var L = LES[cur], mine = L.steps.filter(function(s){ return s[0] === page; });
     var keep = mine.map(function(s){ return anchorSection(s[1]); }).filter(Boolean);
     secs.forEach(function(s){ if(keep.indexOf(s) < 0) s.classList.add('lhide'); });
@@ -340,7 +353,40 @@ function mount(){
         '<button type="button" data-id="">전체 보기</button>' +
         (nOf[1] ? '<button type="button" data-id="' + nOf[1] + '">' + (LES[nOf[1]].short || LES[nOf[1]].tag) + ' ▶</button>' : '') +
         '<a href="https://richee-pc.github.io/AI_cs/plan.html">📅 수업 계획</a></div></div>';
+    flowFeet(L, nOf[1]);
   }
+  /* 단계마다 끝에 «오늘 순서 n/N · 다음 ▶» 하나 — 흩어진 «이어서» 대신 이것만 따라가면 수업 흐름대로 갑니다 */
+  function footHost(id){
+    var mark = document.querySelector('[data-endof="' + cur + ':' + id + '"]'); if(mark) return mark;
+    var el = document.getElementById(id); if(!el) return null;
+    if(el.tagName === 'SECTION') return el.querySelector('.wrap') || el;
+    if(/^H[1-6]$/.test(el.tagName)) return el.closest('.lpane') || el.closest('section');
+    return el;
+  }
+  function flowFeet(L, nextLes){
+    var N = L.steps.length;
+    L.steps.forEach(function(s, i){
+      if(s[0] !== page) return;
+      var hostEl = footHost(s[1]); if(!hostEl) return;
+      var nx = L.steps[i + 1], h = '<span class="lff-n">오늘 순서 <b>' + (i + 1) + '</b> / ' + N + '</span>';
+      if(nx){
+        var same = nx[0] === page;
+        h += '<a class="lff-next" href="' + (same ? '#' + nx[1] : stepUrl(cur, nx)) + '"' + (same ? ' data-go="' + nx[1] + '"' : '') + '>다음 ▶ ' + nx[2] + (same ? '' : ' <em>' + (PNAME[nx[0]] || '') + ' ↗</em>') + '</a>';
+      } else {
+        h += '<span class="lff-end">🎉 <b>오늘 순서 끝!</b>' + (L.out ? ' 낼 것 — ' + L.out : '') + '</span>' +
+             (nextLes ? '<button type="button" class="lff-next" data-les="' + nextLes + '">다음 차시 ▶ ' + (LES[nextLes].short || LES[nextLes].tag) + '</button>' : '');
+      }
+      h += '<button type="button" class="lff-top">↑ 오늘 할 순서</button>';
+      var f = document.createElement('div'); f.className = 'lflowfoot'; f.innerHTML = h;
+      hostEl.appendChild(f);
+    });
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('.lflowfoot .lff-top'); if(t){ panel.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+    var n = e.target.closest('.lflowfoot [data-les]'); if(n){ choose(n.getAttribute('data-les')); window.scrollTo({ top:0, behavior:'smooth' }); return; }
+    var g = e.target.closest('.lflowfoot a[data-go]');
+    if(g){ var el = document.getElementById(g.getAttribute('data-go')); if(el){ e.preventDefault(); reveal(el.id); el.classList.remove('lstepflash'); void el.offsetWidth; el.classList.add('lstepflash'); } }
+  });
   function choose(id, push){
     cur = id && LES[id] ? id : null;
     drawBar(); apply();
