@@ -237,6 +237,12 @@ var CSS = '\
 .lsteps{display:grid; gap:8px; margin:0 0 14px; counter-reset:st}\
 .lstep{display:flex; gap:13px; align-items:center; text-decoration:none; color:var(--ink); background:var(--tint);\
   border:2px solid var(--line); border-radius:15px; padding:11px 14px; transition:.15s}\
+.lstep.done{border-color:var(--good); background:var(--good-bg)}\
+.lstep.done::before{content:"✓"; background:var(--good)}\
+.lprog2{display:flex; align-items:center; gap:10px; margin:0 0 10px; font-size:.875rem; font-weight:800; color:var(--blue-d)}\
+.lprog2 i{flex:1; height:10px; border-radius:99px; background:var(--tint); border:1px solid var(--line); overflow:hidden}\
+.lprog2 i>s{display:block; height:100%; width:0; background:var(--good); transition:width .3s; text-decoration:none}\
+.lprog2 button{font-family:var(--sans); font-size:.75rem; font-weight:700; color:var(--muted); background:none; border:0; cursor:pointer; text-decoration:underline}\
 .lstep:hover{border-color:var(--fill); background:var(--blue-xl); transform:translateX(3px)}\
 .lstep::before{counter-increment:st; content:counter(st); flex:none; width:32px; height:32px; border-radius:50%;\
   background:var(--fill); color:var(--on-fill); font-family:var(--disp); font-weight:700; display:grid; place-items:center}\
@@ -361,9 +367,10 @@ function mount(){
       '<h2>' + L.title + '</h2>' + (L.page ? '<p class="pg">' + L.page + '</p>' : '') +
       '<p class="gl">' + L.goal + '</p>' + flowHtml(L) +
       '<p class="mini-h" style="margin:0 0 8px">오늘 할 순서 — 차례대로 누르세요</p>' +
-      '<div class="lsteps">' + L.steps.map(function(s){
+      '<div class="lprog2"><span>오늘 진행</span><i><s></s></i><b class="lpn"></b><button type="button" class="lpreset">처음부터</button></div>' +
+      '<div class="lsteps">' + L.steps.map(function(s, si){
         var here = s[0] === page;
-        return '<a class="lstep" href="' + (here ? '#' + s[1] : stepUrl(cur, s)) + '"' + (here ? ' data-go="' + s[1] + '"' : '') + '><span><b>' + s[2] + '</b><span>' + s[3] + '</span></span>' +
+        return '<a class="lstep' + (doneOf(cur).indexOf(si) >= 0 ? ' done' : '') + '" data-i="' + si + '" href="' + (here ? '#' + s[1] : stepUrl(cur, s)) + '"' + (here ? ' data-go="' + s[1] + '"' : '') + '><span><b>' + s[2] + '</b><span>' + s[3] + '</span></span>' +
           (here ? '' : '<em>' + (PNAME[s[0]] || '안내 쪽') + ' ↗' + '</em>') + '</a>'; }).join('') + '</div>' +
       (L.ext ? '<div class="lext">' + L.ext.map(function(e){ return '<a href="' + e[0] + '" target="_blank" rel="noopener">' + e[1] + ' ↗</a>'; }).join('') + '</div>' : '') +
       '<div class="linfo"><div><b>준비물</b>교과서 · 충전한 노트북' + (L.bring ? ' · ' + L.bring : '') + '</div>' + (L.out ? '<div><b>끝나면 낼 것</b>' + L.out + '</div>' : '') + '</div>' +
@@ -372,6 +379,20 @@ function mount(){
         (nOf[1] ? '<button type="button" data-id="' + nOf[1] + '">' + (LES[nOf[1]].short || LES[nOf[1]].tag) + ' ▶</button>' : '') +
         '<a href="https://richee-pc.github.io/AI_cs/plan.html">📅 수업 계획</a></div></div>';
     flowFeet(L, nOf[1]);
+    drawProg();
+  }
+  /* 진행 표시 — 이 브라우저에만 저장 */
+  function doneAll(){ try{ return JSON.parse(localStorage.getItem('ai_flow_done') || '{}') || {}; }catch(e){ return {}; } }
+  function doneOf(id){ return doneAll()[id] || []; }
+  function setDone(id, arr){ var o = doneAll(); o[id] = arr; try{ localStorage.setItem('ai_flow_done', JSON.stringify(o)); }catch(e){} }
+  function markDone(i){ if(!cur) return; var a = doneOf(cur); if(a.indexOf(i) < 0){ a.push(i); setDone(cur, a); } drawProg(); }
+  function drawProg(){
+    if(!cur || panel.hidden) return;
+    var N = LES[cur].steps.length, a = doneOf(cur);
+    [].forEach.call(panel.querySelectorAll('.lstep[data-i]'), function(x){ x.classList.toggle('done', a.indexOf(+x.getAttribute('data-i')) >= 0); });
+    var bar = panel.querySelector('.lprog2 s'), n = panel.querySelector('.lpn');
+    if(bar) bar.style.width = Math.round(a.length / N * 100) + '%';
+    if(n) n.textContent = a.length + ' / ' + N;
   }
   /* 단계마다 끝에 «오늘 순서 n/N · 다음 ▶» 하나 — 흩어진 «이어서» 대신 이것만 따라가면 수업 흐름대로 갑니다 */
   function footHost(id){
@@ -398,11 +419,12 @@ function mount(){
              (nextLes ? '<button type="button" class="lff-next" data-les="' + nextLes + '">다음 차시 ▶ ' + (LES[nextLes].short || LES[nextLes].tag) + '</button>' : '');
       }
       h += '<button type="button" class="lff-top">↑ 오늘 할 순서</button>';
-      var f = document.createElement('div'); f.className = 'lflowfoot'; f.innerHTML = h;
+      var f = document.createElement('div'); f.className = 'lflowfoot'; f.setAttribute('data-i', i); f.innerHTML = h;
       hostEl.appendChild(f);
     });
   }
   document.addEventListener('click', function(e){
+    var nxt = e.target.closest('.lflowfoot .lff-next'); if(nxt){ markDone(+nxt.closest('.lflowfoot').getAttribute('data-i')); }
     var t = e.target.closest('.lflowfoot .lff-top'); if(t){ panel.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
     var n = e.target.closest('.lflowfoot [data-les]'); if(n){ choose(n.getAttribute('data-les')); window.scrollTo({ top:0, behavior:'smooth' }); return; }
     var g = e.target.closest('.lflowfoot a[data-go]');
@@ -425,6 +447,7 @@ function mount(){
     var b = e.target.closest('.ltab'); if(b){ choose(b.getAttribute('data-id')); window.scrollTo({ top:0, behavior:'smooth' }); }
   });
   panel.addEventListener('click', function(e){
+    if(e.target.closest('.lpreset')){ setDone(cur, []); drawProg(); return; }
     var b = e.target.closest('.lpfoot button[data-id]'); if(b){ choose(b.getAttribute('data-id')); window.scrollTo({ top:0, behavior:'smooth' }); return; }
     var a = e.target.closest('.lstep[data-go]');
     if(a){ var el = document.getElementById(a.getAttribute('data-go')); if(el){ e.preventDefault(); reveal(el.id); el.classList.remove('lstepflash'); void el.offsetWidth; el.classList.add('lstepflash'); } }

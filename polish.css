@@ -1,0 +1,43 @@
+/* ══════════════════════════════════════════════════════════════
+   polish.css — 모든 쪽 공통 다듬기(내용 · 기능은 그대로, 보기만)  2026-10-10
+   쪽마다 맨 끝(</body> 바로 앞)에서 불러 각 쪽 스타일 위에 덮습니다.
+   ══════════════════════════════════════════════════════════════ */
+
+/* 1) 읽기 — 줄 간격 · 낱말 끊김 · 굵은 글씨 대비 */
+body{word-break:keep-all; overflow-wrap:break-word; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
+::selection{background:#FFE08A; color:#1B2433}
+
+/* 2) «다음 ▶» · 목차로 이동할 때 위쪽 고정 메뉴에 제목이 가리지 않게 */
+html{scroll-behavior:smooth}
+section, .lpane, h2[id], h3[id], .fcard, .tool[id], details[id]{scroll-margin-top:76px}
+
+/* 3) 맨 위 메뉴 — 넘치면 양 끝을 흐리게(옆으로 더 있다는 표시) */
+nav .row.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent); mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+nav .row.more-l{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px); mask-image:linear-gradient(90deg,transparent,#000 56px)}
+nav .row.more-l.more-r{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent); mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
+nav a{transition:background .15s, color .15s, box-shadow .15s}
+
+/* 4) 소단원 머리 딱지(Ⅱ-01 · Ⅳ-01) — 파란 바탕에 흐린 글씨로 묻히던 것 */
+.lhead .lno{color:var(--on-fill, #fff); font-size:1.125rem; letter-spacing:.02em}
+
+/* 5) 첫 화면 성적 막대 — 진한 파랑 칸의 숫자가 안 보이던 것 */
+.seg.e1 b, .seg.e2 b{color:#fff}
+.seg.e1 i, .seg.e2 i{color:rgba(255,255,255,.92)}
+
+/* 6) 숫자 상자 — «24 / 개»처럼 단위가 아래로 떨어지지 않게 */
+.fact b{white-space:nowrap}
+
+/* 7) SDG 색 카드 — 노랑 · 주황 위 흰 글씨를 조금 더 또렷하게 */
+.sdg{text-shadow:0 1px 3px rgba(0,0,0,.55)}
+
+/* 8) 버튼 · 카드 — 누를 수 있는 것은 살짝 떠오르게 */
+.lstep, .lab2, .mcard, .kcard, .nbcards>a{transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease}
+.lab2:hover, .nbcards>a:hover{transform:translateY(-2px); box-shadow:var(--sh2, 0 10px 28px rgba(20,40,80,.14))}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{outline:3px solid #F2B35A; outline-offset:2px}
+
+/* 9) 오늘 할 순서 — 단계 제목을 조금 크게 */
+.lstep b{font-size:1.0625rem}
+.lflowfoot .lff-next{font-size:1.0625rem}
+
+/* 10) 움직임을 줄이고 싶은 사람 */
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important; animation:none!important} }
