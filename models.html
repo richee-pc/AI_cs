@@ -1035,6 +1035,13 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
 .mdthumb .mv{border-radius:10px}
 .mdviz{max-width:460px; margin:14px auto 4px}
 @media (max-width:560px){ .mdthumb{width:96px} }
+.lneed{font-size:0.75rem; font-weight:800; border-radius:99px; padding:2px 10px; border:1.5px solid}
+.lneed.n-필수{color:#fff; background:var(--warm); border-color:var(--warm)}
+.lneed.n-선택{color:var(--blue-d); background:var(--blue-xl); border-color:var(--blue-l)}
+.lneed.n-심화{color:#6544B8; background:#EFE8FF; border-color:#C9B8F5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lneed.n-심화{color:#C2ADFF; background:#261C45; border-color:#4B3A80}}
+:root[data-theme="dark"] .lneed.n-심화{color:#C2ADFF; background:#261C45; border-color:#4B3A80}
+.lgd{display:inline-block; font-family:var(--sans); font-size:0.875rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:3px 12px; margin-right:10px; vertical-align:middle}
 </style>
 
 <nav><div class="wrap"><div class="row">
@@ -1131,7 +1138,7 @@ ul.con li::marker{content:'－ '; color:var(--warm); font-weight:800}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=e0481a1c"></script>
+<script src="lessons.js?v=186fd99c"></script>
 <script>
 /* AI 모델 도감 데이터
    fam: reg 숫자 예측 · cls 분류 · uns 비지도 · dl 딥러닝 · gen 생성형 · rl 강화 학습 · how 학습 방법
