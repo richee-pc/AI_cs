@@ -1,0 +1,79 @@
+
+/* ── 데이터 공방 v2 (2026-10-07) ── */
+.dgbox>summary{cursor:pointer; font-size:1.0625rem; color:var(--blue-d)}
+.dgbox>summary span{font-weight:600; font-size:0.875rem; color:var(--muted)}
+.dgtpls{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:8px; margin-top:12px}
+.dgtpls button{text-align:left; font-family:var(--sans); background:var(--white); border:2px solid var(--line); border-radius:14px; padding:9px 11px; cursor:pointer; color:var(--ink); display:grid; grid-template-columns:auto minmax(0,1fr); gap:1px 8px}
+.dgtpls button:hover{border-color:var(--blue-l); background:var(--blue-xl)}
+.dgtpls i{font-style:normal; font-size:1.4rem; grid-row:span 3}
+.dgtpls b{color:var(--blue-d)} .dgtpls span{font-size:0.8125rem; color:var(--ink2); line-height:1.45} .dgtpls em{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--good)}
+.dgsteps{margin:10px 0; padding-left:22px; line-height:1.75; font-size:0.9375rem}
+.dgcard{background:var(--white); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--sh); padding:16px 18px; margin:14px 0}
+.dgcard>h3{display:flex; align-items:center; gap:10px; margin:0 0 12px; font-size:1.1875rem}
+.dgcard>h3 i{font-style:normal; display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--fill); color:var(--on-fill); font-family:var(--disp); font-size:1rem}
+.dgcard>h3 .mini{margin-left:auto}
+.dgf{margin:0 0 14px}
+.dgf>label{display:block; font-weight:800; font-size:0.9375rem; margin-bottom:6px}
+.dgf>label small{font-weight:600; color:var(--muted)}
+.dgf .hint{margin:6px 0 0}
+.dgtopic{display:flex; gap:8px; flex-wrap:wrap}
+.dgtopic input{flex:1 1 240px; min-width:0}
+.dgcard input[type=text], .dgcard input[type=number], .dgcard textarea, .dgcard select, .dgrow input, .dgrow select{font-family:var(--sans); font-size:0.9375rem; border:1px solid var(--line); border-radius:10px; padding:8px 10px; background:var(--white); color:var(--ink); box-sizing:border-box}
+.dgcard textarea{width:100%; resize:vertical}
+.dgin{margin:8px 0 0; font-size:0.875rem; font-weight:700} .dgin input{width:90px}
+.dgwrap{flex-wrap:wrap; max-width:100%; border-radius:16px}
+.dgrow2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:6px 18px}
+@media (max-width:760px){ .dgrow2{grid-template-columns:minmax(0,1fr)} }
+.dgchips, .dgsug{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; align-items:center}
+.dgsug{background:var(--tint); border-radius:12px; padding:8px 10px}
+.dgsug>b{font-size:0.8125rem; color:var(--blue-d); margin-right:4px}
+.dgsug small{flex-basis:100%; color:var(--muted); font-size:0.75rem}
+.dgchips button, .dgsug button{font-family:var(--sans); font-size:0.8125rem; font-weight:700; border:1px solid var(--line); background:var(--white); color:var(--ink2); border-radius:99px; padding:4px 11px; cursor:pointer}
+.dgchips button:hover, .dgsug button:hover{border-color:var(--blue-l); color:var(--blue-d)}
+.dgsug button i{font-style:normal; font-size:0.6875rem; color:var(--good); margin-right:5px}
+.dggraph, .dgq{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:7px}
+.dggraph button, .dgq button{text-align:left; font-family:var(--sans); border:2px solid var(--line); background:var(--white); color:var(--ink); border-radius:12px; padding:7px 10px; cursor:pointer}
+.dggraph b, .dgq b{display:block; font-size:0.9062rem} .dggraph span, .dgq span{font-size:0.75rem; color:var(--muted)}
+.dggraph button[aria-pressed="true"]{border-color:var(--fill); background:var(--blue-xl)}
+.dgq button[aria-pressed="true"]{border-color:var(--warm); background:var(--warm-bg)}
+.dgq button[aria-pressed="true"] b::before{content:'✓ '; color:var(--warm)}
+.dgcrow{display:grid; grid-template-columns:28px minmax(0,1fr) 112px auto auto; gap:7px; align-items:center; margin:0 0 7px}
+@media (max-width:520px){ .dgcrow{grid-template-columns:24px minmax(0,1fr) 92px; } .dgcrow .dgtg, .dgcrow .mini{grid-column:auto} }
+.dgci{font-size:0.8125rem; font-weight:800; color:var(--muted); text-align:center}
+.dgtg{font-size:0.8125rem; font-weight:700; white-space:nowrap; cursor:pointer}
+.dgempty{text-align:center; color:var(--muted); background:var(--tint); border-radius:12px; padding:18px; margin:0 0 8px; line-height:1.7}
+.dgcfoot{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-top:6px; font-size:0.8125rem; color:var(--muted); font-weight:700}
+.dgwarn p{margin:0 0 6px; font-size:0.875rem; background:var(--warm-bg); border-radius:9px; padding:6px 10px}
+.dgrow{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin:0 0 10px; font-size:0.875rem; font-weight:700}
+.dgrow input{width:100px} .dgrow select{max-width:200px}
+.dgrun{display:block; width:100%; font-family:var(--disp); font-weight:700; font-size:1.125rem; border:0; border-radius:14px; padding:14px; background:var(--fill); color:var(--on-fill); cursor:pointer}
+.dgrun:disabled{opacity:.6; cursor:wait}
+.dgerr{color:#b91c1c; font-weight:800; margin:8px 0 0; min-height:1px}
+.dgprog{height:12px; border-radius:99px; background:var(--tint); border:1px solid var(--line); overflow:hidden; margin-top:10px}
+.dgprog i{display:block; height:100%; width:0; background:var(--good); transition:width .25s}
+.dginfo{background:var(--tint); border-radius:12px; padding:9px 13px; font-size:0.9375rem; line-height:1.6}
+.dgtw{margin:10px 0 6px}
+table.dgt{min-width:0; font-size:0.8125rem; border-collapse:collapse}
+.dgt th, .dgt td{border:1px solid var(--line); padding:4px 7px; white-space:nowrap; text-align:center}
+.dgt th{background:var(--tint)} .dgt th small{display:block; font-weight:600; font-size:0.6875rem; color:var(--muted)}
+.dgt th.tg{background:var(--good-bg); color:var(--good)} .dgt td.rn{color:var(--muted); font-size:0.75rem} .dgt td.dgw{color:var(--warm); font-weight:800}
+.dgna{font-style:normal; color:var(--warm); font-size:0.75rem}
+.dg-miss{background:#fde68a !important} .dg-out{background:#fecaca !important} .dg-typo{background:#ddd6fe !important}
+.dg-unit{background:#fbcfe8 !important} .dg-date{background:#bfdbfe !important} .dg-dup{background:#fed7aa !important}
+tr.dgdup td{background:#fed7aa}
+.dgchip{display:inline-block; font-size:0.75rem; font-weight:800; border-radius:99px; padding:1px 8px; margin:0 4px 3px 0; color:#1f2937; background:var(--tint)}
+.dgdl{display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-top:12px}
+.dgdl>b{margin-right:4px}
+.dglook{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:860px){ .dglook{grid-template-columns:minmax(0,1fr)} }
+.dgtodo b{display:block; color:var(--blue-d); margin-top:4px}
+.dgtodo ul, .dgol{margin:4px 0 10px; padding-left:20px; font-size:0.875rem; line-height:1.65}
+.dghist{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:7px}
+.dghist button{text-align:left; font-family:var(--sans); border:1px solid var(--line); background:var(--white); border-radius:11px; padding:7px 10px; cursor:pointer; color:var(--ink)}
+.dghist b{display:block; font-size:0.875rem; color:var(--blue-d); white-space:nowrap; overflow:hidden; text-overflow:ellipsis} .dghist span{font-size:0.75rem; color:var(--muted)}
+.dghow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:11px}
+.dghow .card i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:1px 9px}
+.dghow .card b{display:block; margin:6px 0 3px; color:var(--blue-d)}
+.dghow .card span{font-size:0.875rem; color:var(--ink2); line-height:1.6}
+.codetop button{margin-left:auto}
+#dgCode{max-height:340px; overflow:auto}

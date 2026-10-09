@@ -8,3 +8,6 @@ env/
 Thumbs.db
 desktop.ini
 worksheets/fonts/*.ttf
+
+# tools — 노트북 시험 실행 정답판
+tools/nbtest/
