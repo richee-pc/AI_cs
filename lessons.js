@@ -317,14 +317,29 @@ function mount(){
     var el = document.getElementById(a); if(!el) return null;
     return el.tagName === 'SECTION' ? el : el.closest('section');
   }
+  /* 차시 보기에서는 보이는 구획을 «오늘 순서»대로 다시 늘어놓고, 전체 보기에서는 제자리로 */
+  var secMarks = null;
+  function secRestore(secs){
+    if(!secMarks) secMarks = secs.map(function(sc){ var m = document.createComment('sec'); sc.parentNode.insertBefore(m, sc); return [sc, m]; });
+    secMarks.forEach(function(p){ p[1].parentNode.insertBefore(p[0], p[1].nextSibling); });
+  }
+  function secOrder(order){
+    if(order.length < 2) return;
+    var par = order[0].parentNode; if(order.some(function(x){ return x.parentNode !== par; })) return;
+    var first = secMarks.filter(function(p){ return order.indexOf(p[0]) >= 0; })[0];
+    var frag = document.createDocumentFragment(); order.forEach(function(x){ frag.appendChild(x); });
+    first[1].parentNode.insertBefore(frag, first[1].nextSibling);
+  }
   function apply(){
     var secs = [].slice.call(document.querySelectorAll('main section, body > section'));
+    secRestore(secs);
     document.querySelectorAll('.lhide').forEach(function(e){ e.classList.remove('lhide'); });
     document.querySelectorAll('.lflowfoot').forEach(function(e){ e.remove(); });
     if(!cur){ document.body.classList.remove('lfocus'); panel.hidden = true; if(window.AIL_onFocus) window.AIL_onFocus([]); return; }
     var L = LES[cur], mine = L.steps.filter(function(s){ return s[0] === page; });
     var keep = mine.map(function(s){ return anchorSection(s[1]); }).filter(Boolean);
     secs.forEach(function(s){ if(keep.indexOf(s) < 0) s.classList.add('lhide'); });
+    secOrder(keep.filter(function(x, i){ return keep.indexOf(x) === i; }));
     /* 데이터 탐구: 그 차시 카드(와 이야기)만 */
     var ex = document.getElementById('explore');
     if(ex && keep.indexOf(ex) >= 0){
@@ -363,6 +378,7 @@ function mount(){
     var mark = document.querySelector('[data-endof="' + cur + ':' + id + '"]'); if(mark) return mark;
     var el = document.getElementById(id); if(!el) return null;
     if(el.tagName === 'SECTION') return el.querySelector('.wrap') || el;
+    if(el.classList.contains('fcard')) return el.querySelector('.fbody') || el;
     if(/^H[1-6]$/.test(el.tagName)) return el.closest('.lpane') || el.closest('section');
     return el;
   }
