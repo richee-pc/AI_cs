@@ -65,3 +65,27 @@ nav .navbtn{display:none}
 
 /* 13) 메뉴의 «🏠 우리 반 수업 홈» 강조 */
 nav a.homelink{background:linear-gradient(135deg,#3B2FA8,#6A4CF0)!important; color:#fff!important; font-weight:800}
+
+/* 14) 사이트 메뉴 — 큰 틀(단추) → 누르면 작은 틀(펼침 칸) */
+nav .wrap{position:relative}
+nav .row.mega{flex-wrap:nowrap!important; overflow-x:auto!important}
+nav .mgb{flex:0 0 auto; display:inline-flex; align-items:center; gap:5px; font-family:var(--sans); font-size:0.9062rem; font-weight:700; color:var(--ink2);
+  background:none; border:0; border-radius:99px; padding:8px 14px; cursor:pointer; transition:background .15s, color .15s, box-shadow .15s}
+nav .mgb i{font-style:normal; font-size:.75em; transition:transform .15s}
+nav .mgb:hover{background:var(--white); color:var(--blue); box-shadow:var(--sh)}
+nav .mgb.here{color:var(--blue-d); background:var(--blue-xl)}
+nav .mgb[aria-expanded="true"]{background:var(--fill); color:var(--on-fill)}
+nav .mgb[aria-expanded="true"] i{transform:rotate(180deg)}
+.mgpanel{position:absolute; left:0; right:0; top:calc(100% + 4px); z-index:70; background:var(--white); border:1px solid var(--line);
+  border-radius:20px; box-shadow:0 24px 60px -24px rgba(20,30,80,.45); padding:16px 18px 18px; max-height:72vh; overflow:auto; animation:mgin .14s ease}
+@keyframes mgin{from{opacity:0; transform:translateY(-6px)} to{opacity:1; transform:none}}
+.mghead{display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 12px; margin:0 0 12px}
+.mghead b{font-family:var(--pop); font-weight:800; font-size:1.1875rem; color:var(--ink)}
+.mghead span{font-size:.875rem; color:var(--muted); font-weight:600}
+.mghead .mgfirst{margin-left:auto; font-size:.875rem; font-weight:800; color:var(--blue-d); text-decoration:none}
+.mghead .mgx{font-size:.875rem; font-weight:800; color:var(--muted); background:var(--tint); border:1px solid var(--line); border-radius:99px; width:30px; height:30px; cursor:pointer}
+.mggrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(190px,100%),1fr)); gap:8px}
+.mggrid a{display:flex; align-items:center; min-height:44px; padding:9px 14px; border-radius:14px; background:var(--tint); border:1.5px solid var(--line);
+  color:var(--ink); font-weight:700; font-size:.9375rem; text-decoration:none; transition:border-color .15s, background .15s, transform .15s}
+.mggrid a:hover{border-color:var(--fill); background:var(--blue-xl); transform:translateY(-1px)}
+@media (max-width:759px){ .mgpanel{left:8px; right:8px; border-radius:16px; padding:14px} .mggrid{grid-template-columns:1fr 1fr} }

@@ -15,6 +15,7 @@
 | 데이터 공방 | `tools/src/datagen*.js` · `datagen_body.html` · `datagen.css` | `python tools/build_labs_models.py` |
 | 단원 쪽(unit1~4) · 첫 화면 · 수업 계획 · 교사용(teach) | 그 `.html` 을 **직접** 고침 | 새 글자를 썼으면 `python tools/refont.py` |
 | 모든 쪽 공통 모양 | `polish.css` · `polish.js` | `python tools/bump.py` |
+| 맨 위 사이트 메뉴(큰 틀 → 작은 틀) | `polish.js` 의 `M` 표(단원 쪽 구획 id · 이름) — 단원 쪽에 구획을 더하면 여기도 | `python tools/bump.py` |
 | 코랩 노트북 | `tools/gen_notebooks*.py` (아래 주의) | `python tools/gen_notebooks6.py` 처럼 그 파일만 |
 
 마지막에는 늘 `python tools/linkcheck.py` (차시 단계 · 쪽 안 링크 점검, 마지막 줄이 `done` 이면 통과).
