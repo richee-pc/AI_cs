@@ -21,7 +21,7 @@ GitHub Pages 는 이런 제약이 없고 모든 쪽이 그대로 열린다.
 
 import streamlit as st
 
-NEW_URL = "https://richee-pc.github.io/AI_cs/"
+NEW_URL = "https://richee-pc.github.io/AI_cs/plan.html"   # «🏠 우리 반 수업 홈»이 바로 열림
 
 st.set_page_config(
     page_title="인공지능 기초 · 2학기 안내 (새 주소 안내)",
@@ -91,6 +91,7 @@ st.markdown(
         아래 단추를 눌러 새 주소로 들어오세요.
       </p>
       <a class="go" href="__NEW_URL__" target="_blank" rel="noopener">새 안내 페이지 열기 →</a>
+      <p class="lead" style="margin:14px 0 0">🏠 <b>우리 반 수업 홈</b>이 바로 열립니다 — 오늘 수업 · 단원 자료 · 2학기 안내가 모두 여기에 있어요.</p>
       <div class="addr">새 주소 &nbsp;<b>__NEW_URL__</b></div>
     </div>
 
