@@ -20,7 +20,7 @@ tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' });
 
 def nav(here):
     B = 'https://richee-pc.github.io/AI_cs/'
-    items = [('index.html', '2학기 안내', ''), None, ('plan.html', '🏠 우리 반 수업 홈', ' class="plan"'), None,
+    items = [('plan.html', '🏠 우리 반 수업 홈', ' class="plan"'), None,
              ('unit1.html', 'Ⅰ. 인공지능의 이해', ''), ('unit2.html', 'Ⅱ. 인공지능과 학습', ''), ('unit3.html', 'Ⅲ. 사회적 영향', ''), ('unit4.html', 'Ⅳ. 프로젝트', ''), None,
              ('colab.html', '코랩 첫걸음', ''), ('labs.html', '🧪 코랩 실습실', ''), ('models.html', '📚 AI 모델 도감', ''), ('datagen.html', '🧰 데이터 공방', '')]
     out = ['<nav><div class="wrap"><div class="row">']

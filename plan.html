@@ -1044,9 +1044,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 .wkblk .row2{border-color:color-mix(in srgb,var(--wt) 18%,var(--line))}
 
 /* ══════════ 우리 반 수업 홈 (2026-10-12) — 이 쪽만의 색 · 글꼴 ══════════ */
-body.hub{--hub-bg:#F4F2FF; --hub-ink:#1E1B4B; --hub-acc:#FFD66B; background:var(--hub-bg)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.hub{--hub-bg:#100E26; --hub-ink:#E9E6FF}}
-:root[data-theme="dark"] body.hub{--hub-bg:#100E26; --hub-ink:#E9E6FF}
+body.hub{--hub-bg:#FFF0F5; --hub-ink:#1E1B4B; --hub-acc:#FFD66B; background:var(--hub-bg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.hub{--hub-bg:#22131C; --hub-ink:#E9E6FF}}
+:root[data-theme="dark"] body.hub{--hub-bg:#22131C; --hub-ink:#E9E6FF}
 body.hub section{background:transparent}
 .hub-hero{position:relative; overflow:hidden; color:#fff; padding:44px 0 92px;
   background:radial-gradient(900px 380px at 88% -10%, rgba(255,255,255,.20), transparent 60%),
@@ -1102,14 +1102,12 @@ body.hub #today .empty{background:var(--white); border:2px dashed #B9AEF5; box-s
   background:var(--white); box-shadow:0 30px 80px rgba(20,10,70,.45)}
 #infoDlg::backdrop{background:rgba(18,12,60,.55); backdrop-filter:blur(3px)}
 #infoDlg .ih{display:flex; align-items:center; gap:10px; padding:12px 16px; color:#fff; background:linear-gradient(135deg,#2B2380,#6A4CF0)}
-#infoDlg .ih b{font-family:var(--pop); font-weight:800; font-size:1.125rem; flex:1}
+#infoDlg .ih b{font-family:var(--pop); font-weight:800; font-size:1.125rem; flex:1; color:#fff}
 #infoDlg .ih a, #infoDlg .ih button{font-family:var(--sans); font-size:.8438rem; font-weight:800; color:#1E1B5A; background:#fff; border:0; border-radius:99px; padding:7px 13px; cursor:pointer; text-decoration:none}
 #infoDlg iframe{display:block; width:100%; height:calc(100% - 56px); border:0; background:var(--white)}
 </style>
 
 <nav><div class="wrap"><div class="row">
-  <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내</a>
-  <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/plan.html" class="here">🏠 우리 반 수업 홈</a>
   <span class="sep"></span>
   <a href="https://richee-pc.github.io/AI_cs/unit1.html">Ⅰ. 인공지능의 이해</a>
@@ -1171,9 +1169,8 @@ body.hub #today .empty{background:var(--white); border:2px dashed #B9AEF5; box-s
     <button type="button" data-only="ai" data-t="AI 사용 규칙 — AI 신호등"><i>🚦</i><span><b>AI 사용 규칙</b><small>신호등 · 언제 써도 되나</small></span></button>
     <button type="button" data-only="tools" data-t="계정과 프로그램"><i>🔑</i><span><b>계정 · 프로그램</b><small>학교 구글 아이디 · 사이트</small></span></button>
   </div>
-  <p class="infomore">처음부터 끝까지 한 번에 읽으려면 → <a href="https://richee-pc.github.io/AI_cs/index.html">2학기 안내 전체 쪽</a></p>
   <dialog id="infoDlg" aria-labelledby="infoT">
-    <div class="ih"><b id="infoT">2학기 안내</b><a id="infoFull" href="https://richee-pc.github.io/AI_cs/index.html" target="_blank" rel="noopener">전체 쪽 ↗</a><button type="button" id="infoX">닫기 ✕</button></div>
+    <div class="ih"><b id="infoT">2학기 안내</b><button type="button" id="infoX">닫기 ✕</button></div>
     <iframe id="infoF" title="2학기 안내" loading="lazy"></iframe>
   </dialog>
 </div></section>
@@ -1188,7 +1185,7 @@ body.hub #today .empty{background:var(--white); border:2px dashed #B9AEF5; box-s
   </div>
   <div id="months"></div>
   <p class="note" style="margin-top:22px"><b>날짜가 바뀌면</b> 수업 시간에 먼저 알리고 이 쪽도 함께 고칩니다.
-    9월까지의 수업과 수행평가 ① 날짜는 <a href="https://richee-pc.github.io/AI_cs/index.html#class">2학기 안내 «우리 반 날짜만 보기»</a>에 있습니다.</p>
+    9월까지의 수업과 수행평가 ① 날짜는 <a href="#info" data-info="class">📖 2학기 안내 «우리 반 날짜»</a>에 있습니다.</p>
 </div></section>
 
 <button type="button" class="totop" id="toTop" aria-label="맨 위로">↑</button>
@@ -1340,19 +1337,22 @@ tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' });
 
 /* 2학기 안내 팝업 — index.html?only=구획 을 띄움 */
 (function(){
-  var d = document.getElementById('infoDlg'), f = document.getElementById('infoF'), t = document.getElementById('infoT'), full = document.getElementById('infoFull');
+  var d = document.getElementById('infoDlg'), f = document.getElementById('infoF'), t = document.getElementById('infoT');
   if(!d) return;
   document.getElementById('infoBtns').addEventListener('click', function(e){
     var b = e.target.closest('button[data-only]'); if(!b) return;
     var only = b.getAttribute('data-only');
     t.textContent = b.getAttribute('data-t');
     f.src = 'index.html?only=' + only;
-    full.href = 'index.html#' + only.split(',')[0];
     if(d.showModal) d.showModal(); else d.setAttribute('open', '');
   });
   function close(){ if(d.close) d.close(); else d.removeAttribute('open'); }
   document.getElementById('infoX').addEventListener('click', close);
   d.addEventListener('click', function(e){ if(e.target === d) close(); });
+  /* ?info=구획 으로 오면(옛 2학기 안내 주소 등) 그 팝업을 바로 엶 */
+  function openInfo(k){ var b = [].filter.call(document.querySelectorAll('#infoBtns button[data-only]'), function(x){ return x.getAttribute('data-only').split(',').indexOf(k) >= 0; })[0]; if(b) b.click(); }
+  var qi = location.search.match(/[?&]info=([\w-]+)/); if(qi) setTimeout(function(){ openInfo(qi[1]); }, 60);
+  document.addEventListener('click', function(e){ var a = e.target.closest('a[data-info]'); if(a){ e.preventDefault(); openInfo(a.getAttribute('data-info')); } });
 })();
 /* 우리 반 다음 수업이 있는 단원 타일에 «지금 배우는 중» */
 (function(){
@@ -1367,7 +1367,7 @@ tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' });
 })();
 </script>
 
-<link rel="stylesheet" href="polish.css?v=2bc58eab">
-<script src="polish.js?v=fef89592"></script>
+<link rel="stylesheet" href="polish.css?v=ef9f9509">
+<script src="polish.js?v=389f0cbf"></script>
 </body>
 </html>

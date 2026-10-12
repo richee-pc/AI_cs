@@ -41,3 +41,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* 10) 움직임을 줄이고 싶은 사람 */
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important; animation:none!important} }
+
+/* 11) 어느 쪽에서든 «🏠 수업 홈» (수업 홈 쪽 · 팝업 안에서는 없음) */
+.homefab{position:fixed; left:16px; bottom:18px; z-index:60; display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+  font-family:var(--pop, sans-serif); font-weight:800; font-size:.9375rem; color:#fff; border-radius:99px; padding:11px 18px 11px 15px;
+  background:linear-gradient(135deg,#3B2FA8,#6A4CF0); box-shadow:0 12px 28px -12px rgba(59,47,168,.75); transition:transform .15s, box-shadow .15s}
+.homefab:hover{transform:translateY(-2px); box-shadow:0 16px 32px -12px rgba(59,47,168,.9)}
+@media print{ .homefab{display:none} }
+
+/* 12) 맨 위 메뉴 — 넓은 화면에서는 줄을 바꿔 모두 보이게, 좁은 화면에서는 옆으로 넘기기 + ◀ ▶ 단추 */
+@media (min-width:760px){
+  nav .row{flex-wrap:wrap; overflow:visible!important; row-gap:4px; -webkit-mask-image:none!important; mask-image:none!important}
+  nav.navtall{position:relative!important}
+}
+nav .navbtn{display:none}
+@media (max-width:759px){
+  nav .wrap{position:relative}
+  nav .navbtn{display:grid; place-items:center; position:absolute; top:50%; transform:translateY(-50%); z-index:2; width:30px; height:30px; border-radius:50%;
+    border:1px solid rgba(0,0,0,.08); background:var(--white,#fff); color:var(--blue-d,#1B49B8); font-weight:800; font-size:.8125rem; box-shadow:0 4px 12px rgba(0,0,0,.15); cursor:pointer}
+  nav .navbtn.l{left:2px} nav .navbtn.r{right:2px}
+  nav .navbtn[hidden]{display:none}
+}
+
+/* 13) 메뉴의 «🏠 우리 반 수업 홈» 강조 */
+nav a.homelink{background:linear-gradient(135deg,#3B2FA8,#6A4CF0)!important; color:#fff!important; font-weight:800}
