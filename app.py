@@ -36,42 +36,42 @@ st.markdown(
       header[data-testid="stHeader"] { display: none; }
       [data-testid="stToolbar"] { display: none; }
       [data-testid="stDecoration"] { display: none; }
-      .block-container { padding: 3.2rem 1.1rem 2rem !important; max-width: 720px !important; }
+      .block-container { padding: 4rem 1.2rem 2.4rem !important; max-width: 980px !important; }
 
       .movecard {
         background: #FFFFFF; border: 1px solid #D7E3F2; border-radius: 20px;
-        padding: 34px clamp(20px, 5vw, 44px); text-align: center;
+        padding: clamp(40px, 7vh, 72px) clamp(24px, 6vw, 72px); text-align: center;
         box-shadow: 0 2px 14px rgba(31, 74, 128, .08);
       }
-      .movecard .emoji { font-size: 3rem; line-height: 1; }
+      .movecard .emoji { font-size: clamp(3.6rem, 9vw, 5.5rem); line-height: 1; }
       .movecard h1 {
         font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800;
-        font-size: clamp(1.35rem, 4.6vw, 1.8rem); color: #1F4A80;
+        font-size: clamp(1.9rem, 5.4vw, 2.9rem); color: #1F4A80;
         margin: 14px 0 6px; line-height: 1.45;
       }
       .movecard p.lead {
         font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-        font-size: clamp(.95rem, 2.4vw, 1.05rem); color: #44576F;
+        font-size: clamp(1.15rem, 2.8vw, 1.45rem); color: #44576F;
         margin: 0 0 24px; line-height: 1.7;
       }
       .movecard a.go {
         display: inline-block; text-decoration: none; font-weight: 800;
         font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-        font-size: clamp(1.05rem, 3vw, 1.2rem); color: #FFFFFF !important;
-        background: #2D6FD1; border-radius: 99px; padding: 15px 38px;
+        font-size: clamp(1.3rem, 3.6vw, 1.75rem); color: #FFFFFF !important;
+        background: #2D6FD1; border-radius: 99px; padding: 20px 52px;
         box-shadow: 0 3px 10px rgba(45, 111, 209, .32);
       }
       .movecard a.go:hover { background: #245BAC; }
       .movecard .addr {
         margin-top: 22px; font-family: Consolas, monospace;
-        font-size: .8rem; color: #6B7E96; word-break: break-all;
+        font-size: clamp(.95rem, 2.2vw, 1.1rem); color: #6B7E96; word-break: break-all;
       }
       .movecard .addr b { color: #1F4A80; }
       .tipbox {
         margin-top: 18px; background: #FFF6E8; border-left: 5px solid #E8A33D;
         border-radius: 0 14px 14px 0; padding: 14px 18px;
         font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-        font-size: .875rem; color: #5A4A33; line-height: 1.65;
+        font-size: clamp(1rem, 2.3vw, 1.15rem); color: #5A4A33; line-height: 1.7;
       }
       @media (prefers-color-scheme: dark) {
         .movecard { background: #132B47; border-color: #24476F; }

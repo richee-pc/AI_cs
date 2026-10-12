@@ -961,14 +961,18 @@ function readGames(cls) {
   return list;
 }
 
-// 타자 게임 회차 기준. 학생 페이지(type.html)의 ROUND_START 와 같아야 합니다.
+// 타자 게임 순위 구간. 학생 페이지(type.html)의 ROUND_START · MONTH_FROM 과 같아야 합니다.
+//   8/31(월)~10/11(일) : 2주씩 1~3회차   ·   10/12(월)부터 : 달마다(번호 = 10 · 11 · 12)
 var TYPE_ROUND_START = new Date(2026, 7, 31);   // 2026-08-31 (월)
 var TYPE_ROUND_DAYS = 14;
+var TYPE_MONTH_FROM = new Date(2026, 9, 12);    // 2026-10-12 (월)
 
-/** 제출 시각이 몇 회차인지. 시작일 전이면 0(연습 기간). */
+/** 제출 시각이 어느 구간인지. 10/12부터는 그 달(10 · 11 · 12), 그 전은 2주 회차, 시작일 전이면 0. */
 function typeRoundOf(when) {
   if (!when) return 0;
-  var days = Math.floor((new Date(when) - TYPE_ROUND_START) / 86400000);
+  var d = new Date(when);
+  if (d >= TYPE_MONTH_FROM) return d.getMonth() + 1;
+  var days = Math.floor((d - TYPE_ROUND_START) / 86400000);
   return days < 0 ? 0 : Math.floor(days / TYPE_ROUND_DAYS) + 1;
 }
 

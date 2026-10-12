@@ -1105,6 +1105,25 @@ body.hub #today .empty{background:var(--white); border:2px dashed #B9AEF5; box-s
 #infoDlg .ih b{font-family:var(--pop); font-weight:800; font-size:1.125rem; flex:1; color:#fff}
 #infoDlg .ih a, #infoDlg .ih button{font-family:var(--sans); font-size:.8438rem; font-weight:800; color:#1E1B5A; background:#fff; border:0; border-radius:99px; padding:7px 13px; cursor:pointer; text-decoration:none}
 #infoDlg iframe{display:block; width:100%; height:calc(100% - 56px); border:0; background:var(--white)}
+/* 히어로 연분홍 */
+.hub-hero{color:#3A1530; background:radial-gradient(900px 380px at 88% -10%, rgba(255,255,255,.75), transparent 60%),
+  radial-gradient(700px 300px at 0% 110%, rgba(255,182,206,.55), transparent 60%), linear-gradient(135deg,#FFE3EE 0%,#FFD3E3 55%,#FFC4D9 100%)}
+.hub-hero::before{opacity:.9; background-image:radial-gradient(2.5px 2.5px at 12% 22%,#FFFFFF 50%,transparent 51%),radial-gradient(2px 2px at 32% 68%,#FFFFFF 50%,transparent 51%),
+  radial-gradient(3px 3px at 58% 18%,#FF9EC0 50%,transparent 51%),radial-gradient(2px 2px at 78% 58%,#FFFFFF 50%,transparent 51%),
+  radial-gradient(3px 3px at 90% 30%,#FFD66B 50%,transparent 51%),radial-gradient(2px 2px at 46% 86%,#FFFFFF 50%,transparent 51%)}
+.hb-badge{color:#9D2B5E; background:rgba(255,255,255,.7); border-color:#F5A9C6}
+.hb-title{color:#3A1530}
+.hb-title span{background:linear-gradient(90deg,#E8457F,#9B4DFF); -webkit-background-clip:text; background-clip:text; color:transparent}
+.hb-sub{color:#5B2E48} .hb-sub b{color:#3A1530}
+.hub-hero .clsbig button{background:rgba(255,255,255,.72); border-color:#F5A9C6}
+.hub-hero .clsbig button b{color:#9D2B5E} .hub-hero .clsbig button span{color:#7A4A62}
+.hub-hero .clsbig button:hover{background:#fff; border-color:#E8457F}
+.hub-hero .clsbig button[aria-pressed="true"]{background:#E8457F; border-color:#E8457F}
+.hub-hero .clsbig button[aria-pressed="true"] b, .hub-hero .clsbig button[aria-pressed="true"] span{color:#fff}
+body.hub #today .empty{border-color:#F5A9C6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hub-hero{color:#FFE3EE; background:linear-gradient(135deg,#3A1530,#5A1E44 60%,#7A2A58)}
+  :root:not([data-theme="light"]) .hb-title, :root:not([data-theme="light"]) .hb-sub b{color:#FFE3EE}
+  :root:not([data-theme="light"]) .hb-sub{color:#F5C7DA}}
 </style>
 
 <nav><div class="wrap"><div class="row">
