@@ -7,7 +7,7 @@ HERE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src')   # 빌�
 rd = lambda p: open(p, encoding='utf-8').read()
 LV = hashlib.md5(open(os.path.join(SITE, 'lessons.js'), 'rb').read()).hexdigest()[:8]
 plan = rd(os.path.join(SITE, 'plan.html'))
-head0 = plan[:plan.index('<body>')]
+head0 = plan[:plan.index('<body')]   # plan.html 은 <body class="hub">
 common = re.search(r'<body>\r?\n(<style>.*?)</style>', rd(os.path.join(SITE, 'unit2.html')), re.S).group(1).replace('\r\n', '\n')
 css = rd(os.path.join(HERE, 'labs_models.css'))
 foot = plan[plan.index('<button type="button" class="totop"'):plan.index('</footer>') + len('</footer>')]
@@ -20,7 +20,7 @@ tt.addEventListener('click', function(){ scrollTo({ top:0, behavior:'smooth' });
 
 def nav(here):
     B = 'https://richee-pc.github.io/AI_cs/'
-    items = [('index.html', '2학기 안내', ''), None, ('plan.html', '📅 우리 반 수업 계획', ' class="plan"'), None,
+    items = [('index.html', '2학기 안내', ''), None, ('plan.html', '🏠 우리 반 수업 홈', ' class="plan"'), None,
              ('unit1.html', 'Ⅰ. 인공지능의 이해', ''), ('unit2.html', 'Ⅱ. 인공지능과 학습', ''), ('unit3.html', 'Ⅲ. 사회적 영향', ''), ('unit4.html', 'Ⅳ. 프로젝트', ''), None,
              ('colab.html', '코랩 첫걸음', ''), ('labs.html', '🧪 코랩 실습실', ''), ('models.html', '📚 AI 모델 도감', ''), ('datagen.html', '🧰 데이터 공방', '')]
     out = ['<nav><div class="wrap"><div class="row">']

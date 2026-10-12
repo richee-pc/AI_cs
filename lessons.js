@@ -377,7 +377,7 @@ function mount(){
       '<div class="lpfoot">' + (nOf[0] ? '<button type="button" data-id="' + nOf[0] + '">◀ ' + LES[nOf[0]].tag + '</button>' : '') +
         '<button type="button" data-id="">전체 보기</button>' +
         (nOf[1] ? '<button type="button" data-id="' + nOf[1] + '">' + (LES[nOf[1]].short || LES[nOf[1]].tag) + ' ▶</button>' : '') +
-        '<a href="https://richee-pc.github.io/AI_cs/plan.html">📅 수업 계획</a></div></div>';
+        '<a href="https://richee-pc.github.io/AI_cs/plan.html">🏠 수업 홈</a></div></div>';
     flowFeet(L, nOf[1]);
     drawProg();
   }
