@@ -89,3 +89,17 @@ nav .mgb[aria-expanded="true"] i{transform:rotate(180deg)}
   color:var(--ink); font-weight:700; font-size:.9375rem; text-decoration:none; transition:border-color .15s, background .15s, transform .15s}
 .mggrid a:hover{border-color:var(--fill); background:var(--blue-xl); transform:translateY(-1px)}
 @media (max-width:759px){ .mgpanel{left:8px; right:8px; border-radius:16px; padding:14px} .mggrid{grid-template-columns:1fr 1fr} }
+
+/* 15) 펼침 칸 — 이모티콘 + 글자, 칸 안에서 줄바꿈 */
+.mggrid{grid-template-columns:repeat(auto-fill,minmax(min(215px,100%),1fr))}
+.mggrid a{gap:10px; line-height:1.4}
+.mggrid a i{flex:none; font-style:normal; font-size:1.25rem; line-height:1; width:1.6rem; text-align:center}
+.mggrid a span{flex:1 1 auto; min-width:0; white-space:normal; overflow-wrap:anywhere}
+@media (max-width:759px){ .mggrid a{font-size:.875rem; padding:9px 10px; gap:7px} .mggrid a i{font-size:1.1rem; width:1.3rem} }
+
+/* 16) 큰 틀 단추 — 이모티콘이 붙어도 한 줄에 다 들어가게 */
+nav .row.mega{gap:2px}
+nav .mgb{padding:7px 10px; font-size:.875rem; gap:4px}
+nav .row.mega .homelink{padding-left:12px; padding-right:12px}
+nav .row.mega .sep{margin:0 4px}
+@media (min-width:760px) and (max-width:1180px){ nav .mgb{font-size:.8125rem; padding:7px 8px} }
