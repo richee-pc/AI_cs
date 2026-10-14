@@ -333,7 +333,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 <main class="wrap">
   <div id="benchView">
     <div class="steps" id="stepBar"></div>
-    <p class="howto"><b>이렇게 해요</b> ① 단계 고르기(🟢 → 🟡 → 🔴 으로 올라가도 좋아요) → ② 위에서부터 칸을 채우고 <b>✓ 확인</b>(맞으면 저절로 실행!) · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b>를 읽거나 왼쪽 <b>위젯</b>을 눌러 보기 → ③ ① 숫자 맞히기를 다 하면 ② 종류 맞히기로 → ④ 맨 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
+    <p class="howto"><b>이렇게 해요</b> ① <b>🟢 빈칸</b>은 선생님 설명을 들으며 함께, 그다음 <b>🟡 따라 적기 → 🔴 스스로 적기</b>는 혼자 도전 → ② 위에서부터 칸을 채우고 <b>✓ 확인</b>(맞으면 저절로 실행!) · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b>를 읽거나 왼쪽 <b>위젯</b>을 눌러 보기 → ③ ① 숫자 맞히기를 다 하면 ② 종류 맞히기로 → ④ 맨 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
     <div class="bench">
       <section class="panel" aria-label="오렌지3 캔버스">
         <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
@@ -1448,6 +1448,9 @@ var WNAME = { file:'File', sampler:'Data Sampler', model:'모델 위젯', score:
 var WKIND = { file:'data', sampler:'data', model:'model', score:'eval', pred:'eval', cm:'eval' };
 var MODE = 'blank';
 var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기', self:'🔴 스스로 적기' };
+/* 👀 보기(완성 코드)는 선생님 링크(?mode=view 또는 ?t=1)로 열었을 때만 — 학생 화면에는 🟢 🟡 🔴 세 단계 */
+var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+if(!TEACH) delete MODES.view;
 var ANS = {}, SOLVED = {}, TRIES = {}, SHOWN = {};
 function akey(i){ return cur + '|' + MODE + '|' + i; }
 function plain(code){ return code.replace(/[⟦⟧]/g, ''); }
@@ -1602,7 +1605,7 @@ function drawModeBar(){
   document.getElementById('modeBar').innerHTML = Object.keys(MODES).map(function(m){
     return '<button type="button" class="mode' + (m === MODE ? ' on' : '') + '" data-mode="' + m + '" aria-pressed="' + (m === MODE) + '">' + MODES[m] + '</button>'; }).join('') +
     '<button type="button" class="mode lexbtn" data-lex="1" aria-pressed="' + LEXOPEN + '">🔍 풀이 ' + (LEXOPEN ? '접기' : '펴기') + '</button>' +
-    (MODE === 'view' ? '<small>선생님 시범 · 코드를 보며 ▶ 실행</small>' : '<small>완성 <b>' + n + ' / ' + N + '</b>칸' + (n === N ? ' 🎉' : '') + '</small>');
+    (MODE === 'view' ? '<small>선생님 화면 · 완성 코드를 보며 설명 · ▶ 실행</small>' : '<small>완성 <b>' + n + ' / ' + N + '</b>칸' + (n === N ? ' 🎉' : '') + '</small>');
 }
 function drawNb(){
   var t = cur, C = cells(t), rt = RT[t], nb = document.getElementById('nb'), first = -1;
@@ -1883,7 +1886,7 @@ function drawSteps(){
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
 }
 var hashT = (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
-(function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); if(m && MODES[m]) MODE = m; })();
+(function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); MODE = m && MODES[m] ? m : 'blank'; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
 </script>
