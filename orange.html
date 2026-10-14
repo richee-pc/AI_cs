@@ -98,21 +98,31 @@ h1 em{font-style:normal; color:var(--orange)}
 /* 오렌지3 캔버스 */
 .canvas{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px; position:relative}
 .canvas svg{display:block; width:100%; height:auto}
-.lk{fill:none; stroke:#9AA3AE; stroke-width:2.2}
-.lk.on{stroke:var(--orange); stroke-width:3}
+/* 오렌지3식 연결선: 출력 귀 → 입력 귀를 잇는 부드러운 곡선 */
+.lk{fill:none; stroke:#8E959E; stroke-width:2.4; stroke-linecap:round}
+.lk.on{stroke:var(--orange); stroke-width:3.2}
 .lkl{font-size:14px; fill:var(--orange-d); font-weight:600; paint-order:stroke; stroke:var(--canvas); stroke-width:4px; font-family:var(--font-ui)}
+/* 오렌지3식 위젯: 분류 색 원판 + 양옆 연결 고리(왼쪽 입력 · 오른쪽 출력) + 가운데 선 그림 + 아래 이름 */
 .wg{cursor:pointer}
-.wg .ring{fill:var(--surface); stroke:var(--line); stroke-width:2}
-.wg .ic{stroke-width:2.2}
-.wg.data .ic{fill:var(--w-data); stroke:var(--w-data-s)}
-.wg.model .ic{fill:var(--w-model); stroke:var(--w-model-s)}
-.wg.eval .ic{fill:var(--w-eval); stroke:var(--w-eval-s)}
-.wg text.nm{font-size:16px; font-weight:700; fill:var(--ink); font-family:var(--font-ui)}
-.wg text.em{font-size:26px}
+.wg .halo{fill:none; stroke:transparent; stroke-width:4}
+.wg .disc{stroke-width:1.5}
+.wg.data .disc{fill:var(--w-data); stroke:var(--w-data-s)}
+.wg.model .disc{fill:var(--w-model); stroke:var(--w-model-s)}
+.wg.eval .disc{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.wg .anc{fill:none; stroke:#A7ADB5; stroke-width:3.2; stroke-linecap:round}
+.wg .anc.on{stroke:#7D848D}
+.wg .adot{fill:#7D848D}
+.wg .ico{fill:none; stroke:#3A3F47; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+.wg .ico .f{fill:#3A3F47; stroke:none}
+.wg .ico .w{fill:#FFFFFF; fill-opacity:.85}
+.wg text.nm{font-size:15px; font-weight:600; fill:var(--ink); font-family:var(--font-ui)}
 .wg text.bd{font-size:14px; font-weight:700; fill:var(--orange-d); font-family:var(--font-mono)}
-.wg.sel .ring{stroke:var(--orange); stroke-width:4}
-.wg.warn .ring{stroke:var(--bad); stroke-dasharray:4 3}
-.wg:hover .ring{stroke:var(--orange)}
+.wg.sel .halo{stroke:var(--orange)}
+.wg.sel text.nm{fill:var(--orange-d)}
+.wg.warn .halo{stroke:var(--bad); stroke-dasharray:4 3}
+.wg:hover .halo{stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .wg .ico{stroke:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .f{fill:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .w{fill:#000; fill-opacity:.25} }
+:root[data-theme="dark"] .wg .ico{stroke:#F1F3F6} :root[data-theme="dark"] .wg .ico .f{fill:#F1F3F6} :root[data-theme="dark"] .wg .ico .w{fill:#000; fill-opacity:.25}
 .wset{border-top:1px solid var(--line-soft); padding:12px 14px 14px; min-height:150px}
 .wset h3{margin:0 0 2px; font-size:15px; display:flex; gap:8px; align-items:center}
 .wset .map{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:8px; padding:6px 10px; margin:8px 0 10px}
@@ -247,7 +257,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
     <div class="bench">
       <section class="panel" aria-label="오렌지3 캔버스">
         <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
-        <div class="canvas"><svg id="cv" viewBox="0 0 668 370" role="group" aria-label="오렌지3 워크플로"></svg></div>
+        <div class="canvas"><svg id="cv" viewBox="0 0 668 392" role="group" aria-label="오렌지3 워크플로"></svg></div>
         <div class="wset" id="wset"></div>
       </section>
       <section class="panel" aria-label="코랩 노트북">
@@ -1128,20 +1138,34 @@ function orange(t){
 }
 var OR = null;
 
-/* ── 그리기: 캔버스 ───────────────────────────── */
+/* ── 그리기: 캔버스(오렌지3식 위젯 · 직접 다시 그린 아이콘) ───────────────────────────── */
 function wpos(t, id){ return WID[t].filter(function(w){ return w.id === id; })[0]; }
+/* 위젯 가운데 선 그림 — 원점(0,0) 기준 ±15 안에 */
+var ICON = {
+  file:   '<path d="M-9,-14 h11 l7,7 v21 h-18 z" class="w"/><path d="M2,-14 v7 h7"/><path d="M-5,0 h10 M-5,5 h10 M-5,10 h6"/>',
+  sampler:'<rect x="-14" y="-11" width="28" height="22" rx="2" class="w"/><path d="M-14,-4 h28 M-14,3 h28"/><path d="M5,-11 v22" stroke-dasharray="2.5 2.5"/><path d="M-11,-7.5 h12 M-11,-0.5 h12 M-11,6.5 h12" stroke-width="3.2" opacity=".55"/>',
+  lin:    '<path d="M-13,-14 v27 h27"/><circle class="f" cx="-8" cy="6" r="2"/><circle class="f" cx="-4" cy="1" r="2"/><circle class="f" cx="0" cy="4" r="2"/><circle class="f" cx="4" cy="-4" r="2"/><circle class="f" cx="9" cy="-6" r="2"/><path d="M-12,10 L13,-11" stroke-width="2.4"/>',
+  knn:    '<path d="M0,0 L-9,-8 M0,0 L10,-6 M0,0 L-6,10"/><circle class="f" cx="0" cy="0" r="3.4"/><circle class="w" cx="-9" cy="-8" r="3.2"/><circle class="w" cx="10" cy="-6" r="3.2"/><circle class="w" cx="-6" cy="10" r="3.2"/><circle cx="11" cy="10" r="3.2" stroke-dasharray="2 2"/>',
+  score:  '<rect x="-11" y="-12" width="22" height="26" rx="2.5" class="w"/><rect x="-5" y="-16" width="10" height="6" rx="1.5" class="w"/><path d="M-6,0 l3.5,3.5 l8,-8"/><path d="M-6,9 h12"/>',
+  pred:   '<rect x="-14" y="-11" width="28" height="22" rx="2" class="w"/><path d="M-14,-4 h28 M-14,3 h28 M3,-11 v22"/><path d="M6,-7.5 h5 M6,-0.5 h5 M6,6.5 h5" stroke-width="3.2" opacity=".55"/><path d="M-10,-7.5 h9 M-10,-0.5 h9 M-10,6.5 h9" stroke-width="1.6" opacity=".6"/>',
+  cm:     '<rect x="-13" y="-13" width="26" height="26" rx="2" class="w"/><path d="M-4.3,-13 v26 M4.3,-13 v26 M-13,-4.3 h26 M-13,4.3 h26"/><rect class="f" x="-12" y="-12" width="7" height="7" opacity=".75"/><rect class="f" x="-3.5" y="-3.5" width="7" height="7" opacity=".75"/><rect class="f" x="5" y="5" width="7" height="7" opacity=".75"/>'
+};
+function iconOf(t, w){ return w.id === 'model' ? (t === 'reg' ? ICON.lin : ICON.knn) : ICON[w.id]; }
 function drawCanvas(){
-  var t = cur, svg = document.getElementById('cv'), h = '';
-  h += '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9AA3AE"/></marker></defs>';
+  var t = cur, svg = document.getElementById('cv'), h = '', R = 30, A = 37;
+  var hasIn = {}, hasOut = {};
+  LINKS[t].forEach(function(L){ hasOut[L[0]] = 1; hasIn[L[1]] = 1; });
+  /* 연결선: 앞 위젯 오른쪽 귀 → 뒤 위젯 왼쪽 귀, 오렌지3처럼 부드러운 곡선(화살표 없음) */
   LINKS[t].forEach(function(L){
-    var a = wpos(t, L[0]), b = wpos(t, L[1]), off = L[3] || 0, R = 40;
-    var ang = Math.atan2(b.y - a.y, b.x - a.x), nx = -Math.sin(ang) * off, ny = Math.cos(ang) * off;
-    var x1 = a.x + Math.cos(ang) * R + nx, y1 = a.y + Math.sin(ang) * R + ny, x2 = b.x - Math.cos(ang) * R + nx, y2 = b.y - Math.sin(ang) * R + ny;
-    var on = selW && (L[0] === selW || L[1] === selW);
-    h += '<path class="lk' + (on ? ' on' : '') + '" d="M' + x1 + ',' + y1 + ' L' + x2 + ',' + y2 + '" marker-end="url(#ah)"/>';
-    var mx = (x1 + x2) / 2 + nx * 0.6, my = (y1 + y2) / 2 + ny * 0.6 - 4;
+    var a = wpos(t, L[0]), b = wpos(t, L[1]), off = (L[3] || 0) * 0.45;
+    var x1 = a.x + A, y1 = a.y + off, x2 = b.x - A, y2 = b.y + off, dx = Math.max(36, Math.abs(x2 - x1) * 0.5);
+    var c1x = x1 + dx, c2x = x2 - dx, on = selW && (L[0] === selW || L[1] === selW);
+    h += '<path class="lk' + (on ? ' on' : '') + '" d="M' + x1 + ',' + y1 + ' C' + c1x + ',' + y1 + ' ' + c2x + ',' + y2 + ' ' + x2 + ',' + y2 + '"/>';
+    var mx = 0.125 * x1 + 0.375 * c1x + 0.375 * c2x + 0.125 * x2, my = 0.5 * y1 + 0.5 * y2 - 7 + (L[3] || 0) * 0.6;
     if(L[2] && on) h += '<text class="lkl" x="' + mx + '" y="' + my + '" text-anchor="middle">' + esc(L[2]) + '</text>';
   });
+  var arcL = 'M' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 0 ' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
+  var arcR = 'M' + (A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 1 ' + (A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
   WID[t].forEach(function(w){
     var warn = (w.id === 'file' && ((t === 'cls' && !S.cls.cat) || !feats(t).length));
     var badge = '';
@@ -1150,12 +1174,14 @@ function drawCanvas(){
       if(w.id === 'score') badge = OR.reg ? 'R² ' + OR.R2.toFixed(3) : 'CA ' + OR.CA.toFixed(3);
       if(w.id === 'model' && t === 'cls') badge = 'k = ' + S.cls.k;
     }
-    h += '<g class="wg ' + w.kind + (selW === w.id ? ' sel' : '') + (warn ? ' warn' : '') + '" data-w="' + w.id + '" tabindex="0" role="button" aria-label="' + w.nm + ' 위젯">' +
-      '<circle class="ring" cx="' + w.x + '" cy="' + w.y + '" r="38"/>' +
-      '<circle class="ic" cx="' + w.x + '" cy="' + w.y + '" r="30"/>' +
-      '<text class="em" x="' + w.x + '" y="' + (w.y + 9) + '" text-anchor="middle">' + w.em + '</text>' +
-      '<text class="nm" x="' + w.x + '" y="' + (w.y + 60) + '" text-anchor="middle">' + w.nm + '</text>' +
-      (badge ? '<text class="bd" x="' + w.x + '" y="' + (w.y - 48) + '" text-anchor="middle">' + badge + '</text>' : '') + '</g>';
+    h += '<g class="wg ' + w.kind + (selW === w.id ? ' sel' : '') + (warn ? ' warn' : '') + '" data-w="' + w.id + '" tabindex="0" role="button" aria-label="' + w.nm + ' 위젯" transform="translate(' + w.x + ',' + w.y + ')">' +
+      '<circle class="halo" r="' + (A + 6) + '"/>' +
+      (w.id !== 'file' ? '<path class="anc' + (hasIn[w.id] ? ' on' : '') + '" d="' + arcL + '"/>' + (hasIn[w.id] ? '<circle class="adot" cx="' + (-A) + '" cy="0" r="3"/>' : '') : '') +
+      '<path class="anc' + (hasOut[w.id] ? ' on' : '') + '" d="' + arcR + '"/>' + (hasOut[w.id] ? '<circle class="adot" cx="' + A + '" cy="0" r="3"/>' : '') +
+      '<circle class="disc" r="' + R + '"/>' +
+      '<g class="ico">' + iconOf(t, w) + '</g>' +
+      '<text class="nm" x="0" y="' + (A + 21) + '" text-anchor="middle">' + w.nm + '</text>' +
+      (badge ? '<text class="bd" x="0" y="' + (w.id === 'model' ? A + 40 : -A - 10) + '" text-anchor="middle">' + badge + '</text>' : '') + '</g>';
   });
   svg.innerHTML = h;
 }
