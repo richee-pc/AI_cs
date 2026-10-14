@@ -1300,12 +1300,13 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <span class="otitle">🧱 10/16 공개수업</span>
   <span class="sep"></span>
   <a href="#openinfo">수업 안내</a>
-  <a href="#lessonPanel">오늘 할 순서</a>
-  <a href="#learn05">교과서로 배우기 Ⅱ-05</a>
+  <a href="#lessonPanel">오늘 순서</a>
+  <a href="#learn05">교과서 Ⅱ-05</a>
   <a href="#blocks">블록 → 파이썬</a>
+  <a href="#code">코드 읽기</a>
+  <a href="#implement">평가 해석</a>
   <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 비교 창</a>
-  <a href="#code">코드 한 줄씩 읽기</a>
-  <a href="#implement">구현 · 평가 해석</a>
+  <a href="https://richee-pc.github.io/entry2colab/" target="_blank" rel="noopener">🧩 entry2colab</a>
 </div></div></nav>
 
 <div id="openinfo" class="openinfo"><div class="wrap">
@@ -1327,6 +1328,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <li>같은 모델을 <b>블록(오렌지3)으로 먼저 설계</b>한 뒤 <b>파이썬으로 완성</b>하게 하여, «분리 → 학습 → 평가» 절차를 코드 한 줄 한 줄과 연결합니다.</li>
         <li>블록과 코드를 나란히 놓는 비교·분석 자료로 코드를 «짜기»보다 «읽어 내기»를 먼저 목표로 합니다.</li>
       </ul>
+      <p><b>함께 쓰는 자료</b> <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 orange2colab — 오렌지3 위젯 ↔ 코랩 코드 비교 창</a> ·
+        <a href="https://richee-pc.github.io/entry2colab/" target="_blank" rel="noopener">🧩 entry2colab — 엔트리 블록 → 파이썬 → 코랩</a>(코랩 실습 전 2차시에 쓴 블록 ↔ 코드 대조 도구)</p>
       <p><b>협의회(12:30~12:50)에서 함께 볼 점</b></p>
       <ol>
         <li>블록으로 먼저 설계한 경험이 코드를 «읽어 내는» 데 도움이 되었나요?</li>
@@ -1498,9 +1501,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 
 <section id="learn"><div class="wrap">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs></svg>
-  <p class="eyebrow">교과서로 배우기 · Ⅱ-01 ~ Ⅱ-07</p>
+  <p class="eyebrow">교과서로 배우기 · Ⅱ-05</p>
   <h2>오늘 배울 내용을 차례대로</h2>
-  <p class="sub">교과서 60~138쪽을 우리 수업에 맞게 다시 정리했습니다. 소단원마다
+  <p class="sub">교과서 100~115쪽을 우리 수업에 맞게 다시 정리했습니다. 소단원마다
     <b>오늘의 질문 → 핵심 개념 → 직접 해 보기 → 30초 확인 → 이어서 할 것</b> 순서입니다.
     교과서를 옆에 펴 두고 쪽수를 맞춰 보며 읽으세요.</p>
   <div class="lnav" role="tablist" aria-label="소단원">
@@ -3462,7 +3465,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
 <span class="k">from</span> sklearn.metrics <span class="k">import</span> mean_squared_error
 
 <span class="c"># ② 데이터 읽기</span>
-df = pd.read_csv(<span class="s">'youth population.csv'</span>)
+df = pd.read_csv(<span class="s">'youth_population.csv'</span>)
 
 <span class="c"># ③ 속성 x 와 정답 y 나누기  ← 대괄호 두 겹인 이유: 열을 «여러 개» 고르기 때문</span>
 x = df[[<span class="s">'도서관'</span>, <span class="s">'공연장'</span>]]
@@ -6830,10 +6833,13 @@ grade();
 })();
 </script>
 
-<link rel="stylesheet" href="polish.css?v=f8f2ed37">
+<link rel="stylesheet" href="polish.css?v=6b3b52df">
 <script src="polish.js?v=4d3812ad"></script>
 <style>
-#lessonBar, .lbar, .lpfoot, .homefab, .lff-top{display:none!important}
+#lessonBar, .lbar, .lpfoot, .homefab, .lff-top, .lff-next[data-les], #videos{display:none!important}
+.opennav .row{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none}
+.opennav .row::-webkit-scrollbar{display:none}
+.opennav .row a{white-space:nowrap; padding-left:11px; padding-right:11px}
 .opennav .otitle{font-weight:800; color:var(--blue-d); white-space:nowrap; padding:0 6px}
 .openinfo{background:linear-gradient(120deg,var(--blue-xl),var(--tint)); border-bottom:1px solid var(--line)}
 .openinfo .wrap{padding-top:22px; padding-bottom:18px}
@@ -6862,6 +6868,7 @@ grade();
       if(/^(mailto|javascript|data):/.test(h)) return;
       var m = h.match(SITE);
       if(m && m[1] === 'orange.html'){ a.target = '_blank'; a.rel = 'noopener'; return; }   /* 오렌지3 ↔ 코랩 비교 창은 열어 둠 */
+      if(/^https:\/\/richee-pc\.github\.io\/entry2colab\//.test(h)){ a.target = '_blank'; a.rel = 'noopener'; return; }   /* entry2colab 도 열어 둠 */
       if(m && m[3] && (!m[1] || m[1] === 'unit2.html') && document.getElementById(decodeURIComponent(m[3].slice(1)))){
         a.setAttribute('href', m[3]); a.removeAttribute('target'); return; }
       var sp = document.createElement('span'); sp.className = 'nolink ' + (a.className || '');

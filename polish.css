@@ -103,3 +103,8 @@ nav .mgb{padding:7px 10px; font-size:.875rem; gap:4px}
 nav .row.mega .homelink{padding-left:12px; padding-right:12px}
 nav .row.mega .sep{margin:0 4px}
 @media (min-width:760px) and (max-width:1180px){ nav .mgb{font-size:.8125rem; padding:7px 8px} }
+
+/* 16) 구현 아홉 걸음 고르기 — 두 줄이 되어도 알약 모양이 깨지지 않게 */
+#ipPick{border-radius:16px; gap:0} #ipPick button{padding:7px 9px; font-size:.8125rem}
+/* 17) 설계도의 긴 데이터 주소가 좁은 화면에서 줄바꿈되게 */
+#blocks li code, #blocks p code{overflow-wrap:anywhere; word-break:break-all}
