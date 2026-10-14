@@ -186,6 +186,37 @@ table.df th{font-weight:600}
 .picks button.no{background:var(--bad-bg); border-color:var(--bad); color:var(--bad)}
 .qsum{font-weight:700; margin:0 0 10px}
 
+/* 연습 단계 */
+.modebar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface)}
+.modebar .mode{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 13px; font-weight:600; font-size:13.5px; cursor:pointer}
+.modebar .mode.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.modebar .mode:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+.modebar small{margin-left:auto; color:var(--muted); font-size:12.5px}
+.modebar small b{color:var(--ink)}
+.tcell{margin:10px 14px 4px 48px; font-size:14px; color:var(--ink-2); line-height:1.65}
+.tcell.sm{font-size:13.5px; margin-top:14px; margin-bottom:0}
+.tcell h4{margin:4px 0 4px; font-size:15.5px; color:var(--ink)}
+.tcell p{margin:0}
+.tcell b{color:var(--ink)}
+.tcell code,.read code,.mission code,.pfb code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+.read{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:7px; padding:7px 11px; margin:2px 0 6px; line-height:1.6; white-space:normal}
+.read b{color:var(--ink)}
+.cell.lock .run{opacity:.45}
+pre.code.ghost{opacity:.62; user-select:none; -webkit-user-select:none}
+pre.code.solved{border-color:var(--ok)}
+pre.code input.bl{font-family:var(--font-mono); font-size:13px; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:0 3px; border-radius:4px 4px 0 0; min-width:4ch; color:var(--ink)}
+pre.code input.bl.bad{border-bottom-color:var(--bad); background:var(--bad-bg)}
+pre.code input.bl:focus{outline:2px solid var(--orange); outline-offset:1px}
+textarea.type{display:block; width:100%; font-family:var(--font-mono); font-size:13px; line-height:1.55; border:1px solid var(--line); border-radius:7px; padding:8px 11px; background:var(--surface); resize:vertical; tab-size:4}
+textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-color:transparent}
+.mission{font-size:13.5px; background:var(--warn-bg); color:var(--ink); border-radius:7px; padding:8px 11px; margin:0 0 6px; line-height:1.6}
+.pact{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 2px}
+.pact .chk{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.pact .kb{color:var(--muted); font-size:12px}
+.pfb{font-size:13px; margin:4px 0 6px}
+.pfb:empty{display:none}
+.pfb.ok{color:var(--ok)} .pfb.no{color:var(--bad)} .pfb.hint{color:var(--warn)} .pfb.info{color:var(--muted)}
+
 footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
 .sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
@@ -199,20 +230,20 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 
 <header class="head"><div class="wrap">
   <p class="kicker">🍊 Ⅱ-05 모델 구현 · 교과서 100~115쪽</p>
-  <h1>오렌지3 블록 → <em>코랩 파이썬</em>, 짝지어 보기</h1>
-  <p class="lede">왼쪽 <b>오렌지3 위젯</b>을 누르면 오른쪽에서 <b>같은 일을 하는 코드</b>에 불이 들어옵니다. 위젯 설정을 바꾸면 코드 숫자도 함께 바뀌어요.
-    코드는 코랩처럼 <b>▶</b>로 한 칸씩 실행합니다. 어떤 모델이든 <b>나누기 → 학습 → 예측 · 평가</b> 순서가 같다는 걸 찾아보세요.</p>
+  <h1>오렌지3 블록 → <em>코랩 파이썬</em>, 짝지어 실습하기</h1>
+  <p class="lede">왼쪽 <b>오렌지3 위젯</b>을 누르면 오른쪽에서 <b>같은 일을 하는 코드</b>에 불이 들어옵니다. 오른쪽은 교과서 104~112쪽 코드를 그대로 담은 <b>코랩 노트북</b>이에요 —
+    내 수준에 맞게 <b>🟢 빈칸</b> · <b>🟡 따라 적기</b> · <b>🔴 스스로 적기</b>를 골라 칸을 완성하면 <b>▶</b>로 실행됩니다. 어떤 모델이든 <b>나누기 → 학습 → 예측 · 평가</b> 순서가 같다는 걸 찾아보세요.</p>
   <div class="tabs" role="tablist" aria-label="설계도">
     <button class="tab" role="tab" data-t="reg" aria-selected="true">① 예측 · 청년 인구 <small>(선형 회귀)</small></button>
     <button class="tab" role="tab" data-t="cls" aria-selected="false">② 분류 · 붓꽃 <small>(k-최근접 이웃)</small></button>
-    <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 빈칸 채우기 연습</button>
+    <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 위젯 ↔ 코드 퀴즈</button>
   </div>
 </div></header>
 
 <main class="wrap">
   <div id="benchView">
     <div class="steps" id="stepBar"></div>
-    <p class="howto"><b>해 보기</b> ① 위젯을 하나씩 눌러 짝이 되는 코드 찾기 → ② 코드 <b>▶ 모두 실행</b> → ③ Data Sampler 비율이나 설정을 바꾸고 다시 실행 → ④ 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
+    <p class="howto"><b>해 보기</b> ① 단계 고르기(🟢 → 🟡 → 🔴 으로 올라가도 좋아요) → ② 위에서부터 칸을 완성하고 <b>✓ 확인</b>(맞으면 저절로 실행) · 막히면 왼쪽 <b>위젯</b>을 눌러 짝 찾기 → ③ ① 예측을 다 하면 ② 분류로 → ④ 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
     <div class="bench">
       <section class="panel" aria-label="오렌지3 캔버스">
         <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
@@ -222,6 +253,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
       <section class="panel" aria-label="코랩 노트북">
         <div class="panel-hd"><span class="dot" style="background:var(--colab)"></span><span class="mono" id="nbName">02_model.ipynb</span><span class="sp"></span>
           <button class="btn" id="resetRt" type="button">런타임 초기화</button><button class="btn pri" id="runAll" type="button">▶ 모두 실행</button></div>
+        <div class="modebar" id="modeBar" role="group" aria-label="연습 단계"></div>
         <div class="nb" id="nb"></div>
       </section>
     </div>
@@ -841,30 +873,146 @@ function colIdx(t, cols){ var D = DATA[DS[t]]; return cols.map(function(c){ retu
 function testSize(t){ return Math.round(100 - S[t].pct) / 100; }
 function q(a){ return "'" + a + "'"; }
 
-/* 코드 칸: [위젯, 코드(⟦바뀌는 곳⟧), 실행 함수] */
+/* 코드 칸: { w 위젯, code(⟦바뀌는 곳⟧), run 실행 함수,
+             md 앞 설명(코랩 텍스트 칸) · text 설명만 있는 칸 · after 실행 뒤 읽는 법,
+             given 연습 없이 그대로 실행 · blanks 빈칸 낱말 · task 스스로 적기 미션 · rules [[정규식, 안 맞을 때 말]] · hint } */
+function qre(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function anyOrder(items){ /* 따옴표 친 열 이름들, 순서 상관없이 쉼표로 */
+  return items.map(function(c){ return "(?=[^\\]]*'" + qre(c) + "')"; }).join('');
+}
 function cells(t){
   var st = S[t], f = feats(t), y = target(t), ts = testSize(t),
       rs = st.rep ? ', ⟦random_state=' + st.seed + '⟧' : '';
+  var tsRe = '(?:' + qre(String(ts)) + (String(ts).indexOf('0.') === 0 ? '|' + qre(String(ts).slice(1)) : '') + ')';
+  var splitRules = [
+    [/^x_train,x_test,y_train,y_test=/m, '왼쪽 네 이름은 순서가 정해져 있어요 → x_train, x_test, y_train, y_test'],
+    [/train_test_split\(x,y/, '나누는 함수는 train_test_split(x, y, …) — 속성 x 와 정답 y 를 먼저 넣어요'],
+    [new RegExp('test_size=' + tsRe + '(?![0-9])'), '시험용 비율 test_size 는 ' + ts + ' (Data Sampler ' + st.pct + '%의 나머지)']
+  ];
+  if(st.rep) splitRules.push([new RegExp('random_state=' + st.seed + '(?![0-9])'), '섞는 방식을 고정하는 random_state=' + st.seed + ' 도 넣어요(Replicable)']);
+  var featTxt = f.map(q).join(', ');
   if(t === 'reg') return [
-    { w:'file', code: "import pandas as pd\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'youth_population.csv')\ndf.head()", run: 'load' },
-    { w:'file', code: "x = df[[⟦" + f.map(q).join(', ') + "⟧]]\ny = df[[" + q(y) + "]]\n\nx.shape, y.shape", run: 'xy' },
-    { w:'sampler', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nprint('훈련용 :', x_train.shape)\nprint('시험용 :', x_test.shape)", run: 'split' },
-    { w:'model', code: "model = LinearRegression()", run: 'make' },
-    { w:'score', code: "model.fit(x_train, y_train)", run: 'fit' },
-    { w:'model', code: "model.coef_, model.intercept_      # 기울기(속성마다 하나) · 절편", run: 'coef' },
-    { w:'pred', code: "Predicted = model.predict(x_test)\n\nPredicted[:5]     # 예측한 청년 수 다섯 개", run: 'predict' },
-    { w:'score', code: "print('평균제곱오차(MSE) :', mean_squared_error(y_test, Predicted))\nprint('결정계수(R²)      :', model.score(x_test, y_test))", run: 'evalReg' }
+    { text: true, html: '<h4>앞부분 · 예측 모델 — 도서관과 공연장 수로 청년 인구 맞히기</h4>' +
+      '<p>모델을 만드는 순서는 <b>어떤 모델이든 똑같습니다.</b> ① 연장 가져오기 → ② 데이터 읽기 → ③ 속성 x · 정답 y 나누기 → ④ 훈련용 · 시험용 나누기 → ⑤ 모델 만들고 <b>학습</b> → ⑥ 맞혀 보고 <b>점수</b>. ' +
+      '오렌지3에서는 위젯 하나가, 코드에서는 한두 줄이 이 걸음 하나입니다. 기반 시설이 많은 곳에 사람이 모인다면, 도서관 · 공연장 수만으로 그 지역 청년 인구를 짐작할 수 있을까요?</p>' },
+    { w:'file', given: true, run: 'load',
+      code: "import pandas as pd\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'youth_population.csv')\ndf.head()",
+      md: '<b>① 연장 가져오기 · ② 데이터 읽기</b> — <code>import</code> 는 남이 만들어 둔 연장 꾸러미를 꺼내는 줄입니다. <code>pd.read_csv</code> 가 오렌지3의 <b>File</b> 위젯이에요. 이 칸은 그대로 실행하세요.',
+      after: '<code>head()</code> 는 <b>위에서 다섯 줄만</b> 보여 줍니다. 250줄을 다 띄우면 화면이 넘치니까요.' },
+    { w:'file', run: 'info', code: "df.info()", blanks: ['info'],
+      task: '표 전체가 몇 줄 · 몇 열인지, 빈칸은 없는지 한눈에 보는 명령을 쓰세요. (df 뒤에 점, 괄호까지)',
+      rules: [[/^df\.info\(\)$/m, 'df.info() — «정보(information)»의 앞 네 글자예요']], hint: 'df.○○○○()',
+      md: '표가 어떻게 생겼는지 먼저 봅니다. 오렌지3에서는 File 위젯을 열면 보이는 열 목록과 같아요.',
+      after: '<b>250 entries</b>(250줄) · <b>5 columns</b>(5열) · 전부 <code>int64</code>(정수). <code>non-null</code> 이 모두 250이면 <b>빈칸이 하나도 없다</b>는 뜻 — 오늘은 전처리할 게 없네요.' },
+    { w:'file', run: 'xy', code: "x = df[[⟦" + featTxt + "⟧]]\ny = df[[" + q(y) + "]]\n\nx.shape, y.shape", blanks: f.concat([y]),
+      task: '속성 x 에는 ' + f.map(function(c){ return '«' + c + '»'; }).join(' · ') + ' 열을, 정답 y 에는 «' + y + '» 열을 담으세요. 대괄호는 <b>두 겹</b>(표 모양 그대로). 마지막 줄에 <code>x.shape, y.shape</code> 로 모양도 확인!',
+      rules: [[new RegExp("^x=df\\[\\[" + anyOrder(f) + "[^\\]]*\\]\\]$", 'm'), 'x = df[[…]] — 대괄호 두 겹 안에 ' + featTxt + ' 를 따옴표로'],
+              [new RegExp("^y=df\\[\\['" + qre(y) + "'\\]\\]$", 'm'), "y = df[['" + y + "']] — 정답 열도 두 겹으로"],
+              [/x\.shape,y\.shape/, '모양 확인 줄 x.shape, y.shape 도 써 주세요']],
+      hint: "x = df[['열1', '열2']] · y = df[['정답 열']]",
+      md: '<b>③ 속성(x)과 정답(y) 나누기</b> — x = 맞히는 데 <b>쓰는</b> 것, y = <b>맞히려는</b> 것. 오렌지3 File 위젯의 Role 에서 <b>feature → x</b>, <b>target → y</b> 로 고른 것과 같아요.',
+      after: '<code>((250, ' + f.length + '), (250, 1))</code> 이면 맞습니다. <b>대괄호 한 겹과 두 겹</b> — <code>df[\'청년\']</code> 은 한 줄짜리(시리즈), <code>df[[\'청년\']]</code> 은 <b>표</b>. «여러 개 고를 거니까 두 겹»으로 외우세요.' },
+    { w:'sampler', run: 'split', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nprint('훈련용 :', x_train.shape)\nprint('시험용 :', x_test.shape)",
+      blanks: ['train_test_split', String(ts)],
+      task: '데이터를 훈련용 ' + st.pct + '% · 시험용 ' + (100 - st.pct) + '% 로 나누세요' + (st.rep ? '(섞는 방식은 random_state=' + st.seed + ' 로 고정)' : '') + '. 결과는 네 개 — 왼쪽에 이름 네 개를 순서대로!',
+      rules: splitRules, hint: 'x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=…, random_state=…)',
+      md: '<b>④ 훈련용과 시험용 나누기</b> — <b>공부한 문제만 잘 푸는 건 실력이 아닙니다.</b> 일부를 떼어 두었다가 시험지로 씁니다. 오렌지3 <b>Data Sampler</b> 의 Data Sample = 훈련용, Remaining Data = 시험용.',
+      after: '훈련용 <b>200줄</b>, 시험용 <b>50줄</b>(250의 20%). <code>train_test_split</code> 이 결과를 <b>네 개 한꺼번에</b> 돌려주고, 왼쪽 네 이름이 <b>순서대로</b> 받습니다. <code>random_state</code> 가 없으면 돌릴 때마다 나뉘는 줄이 달라져요.' },
+    { w:'model', run: 'make', code: "model = LinearRegression()", blanks: ['LinearRegression'],
+      task: '선형 회귀 모델을 하나 만들어 <code>model</code> 이라는 이름에 담으세요. (오렌지3의 Linear Regression 위젯을 캔버스에 놓는 것)',
+      rules: [[/^model=LinearRegression\(\)$/m, '클래스 이름은 대문자 두 개 — LinearRegression(), 괄호까지']], hint: 'model = ○○○○○○Regression()',
+      md: '<b>⑤ 모델 만들기</b> — 위젯을 캔버스에 놓는 것 = 코드 한 줄. 이름 첫 글자가 대문자인 것(클래스)에 괄호를 붙이면 «빈 모델» 하나가 생깁니다.' },
+    { w:'score', run: 'fit', code: "model.fit(x_train, y_train)", blanks: ['fit', 'x_train', 'y_train'],
+      task: '모델을 <b>훈련용</b> 데이터로 학습시키세요. (오렌지3에서 Learner 를 Test and Score 에 꽂는 순간)',
+      rules: [[/^model\.fit\(x_train,y_train\)$/m, '학습은 model.fit(훈련용 속성, 훈련용 정답) — 시험용(x_test)을 넣으면 안 돼요!']], hint: 'model.○○○(x_train, y_train)',
+      md: '<b>⑤ 학습시키기 — 이 단원에서 가장 중요한 줄.</b> «(몸에) 맞추다»라는 뜻의 <code>fit</code>. 이 한 줄 안에서 컴퓨터가 <b>가장 덜 틀리는 직선</b>을 찾습니다.' },
+    { w:'model', run: 'coef', code: "model.coef_, model.intercept_      # 기울기(속성마다 하나) · 절편", blanks: ['coef_', 'intercept_'],
+      task: '학습한 직선의 <b>기울기</b>(속성마다 하나)와 <b>절편</b>을 꺼내 보세요. 둘 다 이름 끝에 밑줄(_)이 붙어요.',
+      rules: [[/model\.coef_/, '기울기는 model.coef_'], [/model\.intercept_/, '절편은 model.intercept_']], hint: 'model.coef_, model.intercept_',
+      md: '찾아낸 직선을 꺼내 봅니다. 오렌지3 Linear Regression 위젯의 <b>Coefficients</b> 출력과 같아요.',
+      after: '<b>«도서관을 지으면 청년이 온다»는 뜻이 아닙니다.</b> 같이 움직인다는 것뿐, 원인이라는 증거는 아니에요. 청년이 많은 동네라서 도서관을 지었을 수도 있으니까요.' },
+    { w:'pred', run: 'predict', code: "Predicted = model.predict(x_test)\n\nPredicted[:5]     # 예측한 청년 수 다섯 개", blanks: ['predict', 'x_test'],
+      task: '학습한 모델로 <b>시험용 속성</b>의 답을 내서 <code>Predicted</code> 에 담고, 앞 다섯 개를 보세요.',
+      rules: [[/^Predicted=model\.predict\(x_test\)$/m, 'Predicted = model.predict(x_test) — 시험지로 맞혀 봐요'], [/Predicted\[:5\]/, '앞 다섯 개는 Predicted[:5] (슬라이싱)']], hint: 'Predicted = model.○○○○○○○(x_test)',
+      md: '<b>⑥ 맞혀 보기</b> — «예측하다» <code>predict</code>. 오렌지3의 <b>Predictions</b> 위젯이 시험용 데이터에 답을 내는 것과 같아요.',
+      after: '<code>[:5]</code> 는 «앞에서 다섯 개만»(<b>슬라이싱</b>). 다음 칸에서 진짜 정답과 나란히 놓아 봅니다.' },
+    { w:'pred', run: 'ytest', code: "y_test.head()", blanks: ['head'],
+      task: '시험용 <b>진짜 정답</b> y_test 의 앞 다섯 줄을 보세요.',
+      rules: [[/^y_test\.head\(\)$/m, 'y_test.head() — 위에서 다섯 줄']], hint: 'y_test.○○○○()',
+      md: '진짜 정답과 견주어 봅니다. 왼쪽 숫자는 원래 표의 <b>몇 번째 줄</b>이었는지(섞여서 뽑혀 왔어요).',
+      after: '제법 비슷한가요? 눈대중 말고 <b>숫자로</b> 재 봅시다.' },
+    { w:'score', run: 'evalReg', code: "print('평균제곱오차(MSE) :', mean_squared_error(y_test, Predicted))\nprint('결정계수(R²)      :', model.score(x_test, y_test))",
+      blanks: ['mean_squared_error', 'score'],
+      task: '예측 모델의 점수 두 가지를 찍어 보세요 — <b>평균제곱오차</b>(정답, 예측 순서로)와 <b>결정계수 R²</b>(모델이 직접 시험지를 풀게).',
+      rules: [[/mean_squared_error\(y_test,Predicted\)/, 'MSE 는 mean_squared_error(y_test, Predicted) — 정답이 먼저'], [/model\.score\(x_test,y_test\)/, 'R² 는 model.score(x_test, y_test)'], [/print\(/, 'print(…) 로 찍어야 두 줄이 다 보여요']],
+      hint: "print('MSE :', mean_squared_error(…)) · print('R² :', model.score(…))",
+      md: '<b>⑥ 점수 내기</b> — 오렌지3 <b>Test and Score</b> 의 MSE · R2 와 같은 값입니다. <b>MSE 는 작을수록, R² 는 1에 가까울수록</b> 좋아요.',
+      after: '교과서 107쪽: <b>MSE 약 9억, R² 약 0.64</b>. <b>9억이면 엄청 나쁜 것?</b> 아니에요 — MSE 는 오차를 <b>제곱</b>해서 단위가 «명²». 청년 수가 몇만 명 단위라 크게 나옵니다. 그래서 MSE 는 <b>다른 모델과 견줄 때</b> 씁니다. ' +
+             '<b>R² = 0.64</b> 는 «청년 수가 달라지는 정도의 64%를 설명» — «64%를 맞혔다»가 아니에요. 1이면 완벽, 0이면 평균만 찍는 것과 같습니다.' },
+    { text: true, html: '<h4>🔁 한 걸음 더 — 속성을 더 넣으면 늘 좋아질까?</h4><p>왼쪽 <b>File</b> 위젯을 눌러 박물관 · 미술관의 Role 을 <b>feature</b> 로 바꾸면, 오른쪽 코드의 <code>x = df[[…]]</code> 가 함께 바뀝니다. 그 칸부터 다시 풀고 실행해 R² 가 어떻게 되는지 보세요. ' +
+      'Data Sampler 비율(80% → 70%)을 바꿔도 코드의 <code>test_size</code> 가 바뀝니다 — <b>위젯 설정 = 코드의 숫자</b>.</p>' }
   ];
   var kk = st.k === 5 ? '' : '⟦n_neighbors=' + st.k + '⟧';
+  var kRe = st.k === 5 ? '(?:n_neighbors=5)?' : 'n_neighbors=' + st.k;
   return [
-    { w:'file', code: "import pandas as pd\nimport sklearn.metrics\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'iris.csv')\ndf.head()", run: 'load' },
-    { w:'file', code: "x = df[[⟦" + f.map(q).join(', ') + "⟧]]\ny = df[" + q(y) + "]\n\nx.shape, y.shape", run: 'xy' },
-    { w:'sampler', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nx_train.shape, x_test.shape", run: 'split' },
-    { w:'model', code: "model = KNeighborsClassifier(" + kk + ")", run: 'make' },
-    { w:'score', code: "model.fit(x_train, y_train)", run: 'fit' },
-    { w:'pred', code: "Predicted = model.predict(x_test)\n\nprint('예측한 종 :', Predicted[:10])\nprint('진짜 종   :', y_test.values[:10])", run: 'predict' },
-    { w:'cm', code: "sklearn.metrics.confusion_matrix(y_test, Predicted)", run: 'cm' },
-    { w:'score', code: "print('정확도 :', sklearn.metrics.accuracy_score(y_test, Predicted))\nprint('정밀도 :', sklearn.metrics.precision_score(y_test, Predicted, average=None))\nprint('재현율 :', sklearn.metrics.recall_score(y_test, Predicted, average=None))", run: 'evalCls' }
+    { text: true, html: '<h4>뒷부분 · 분류 모델 — 붓꽃 세 종류 가려내기</h4><p>이번에는 숫자가 아니라 <b>«무엇인지»</b>를 맞힙니다. 꽃잎 · 꽃받침의 길이와 너비로 <b>setosa · versicolor · virginica</b>(0 · 1 · 2) 중 무엇인지 가려내요. 알고리즘은 <b>k-최근접 이웃</b> — 가장 가까운 이웃 k 개에게 물어 다수결로 정합니다. ' +
+      '<b>앞부분에서 ⑤ 모델 만드는 한 줄만 바뀌고</b> 나머지는 거의 그대로라는 것을 눈으로 확인하는 것이 목표예요.</p>' },
+    { w:'file', given: true, run: 'load',
+      code: "import pandas as pd\nimport sklearn.metrics\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'iris.csv')\ndf.head()",
+      md: '<b>① 연장 · ② 데이터</b> — 이번 연장은 <code>KNeighborsClassifier</code>(분류용 k-최근접 이웃)와 점수 꾸러미 <code>sklearn.metrics</code>. 그대로 실행하세요.' },
+    { w:'file', run: 'cols', code: "list(df.columns)", blanks: ['columns'],
+      task: '이 표의 <b>열 이름</b>을 모두 목록으로 보세요.',
+      rules: [[/^list\(df\.columns\)$/m, 'list(df.columns) — 열(column)들']], hint: 'list(df.○○○○○○○)',
+      md: '<b>⚠ 열 이름부터 확인하고 갑니다.</b> 열 이름을 한 글자만 틀려도 오류가 나요.',
+      after: '실제 열 이름에는 <b>띄어쓰기</b>가 들어 있습니다 — <code>\'꽃잎 길이\'</code>. 교과서 109쪽도 띄어 씁니다. 손으로 옮겨 칠 때 <b>띄어쓰기를 빼먹는 실수</b>가 가장 흔해요.' },
+    { w:'file', given: true, run: 'keyerr', code: "df[['꽃잎길이', '꽃잎너비']]     # 일부러 붙여 써 보기",
+      md: '붙여 쓰면 어떻게 될까요? <b>일부러 한 번 오류를 내 봅니다</b> — 그대로 실행하세요.',
+      after: '<code>KeyError</code> → <b>«그런 이름의 열은 없다»</b>. 띄어쓰기 하나 때문입니다. 그래서 데이터를 읽으면 <b><code>df.columns</code> 부터 찍어 보는 습관</b>이 중요해요. 오류는 고장이 아니라 <b>무엇이 틀렸는지 알려 주는 말</b>입니다.' },
+    { w:'file', run: 'xy', code: "x = df[[⟦" + featTxt + "⟧]]\ny = df[" + q(y) + "]\n\nx.shape, y.shape", blanks: f.concat([y]),
+      task: '속성 x 에 ' + f.map(function(c){ return '«' + c + '»'; }).join(' · ') + ' 을(띄어쓰기까지 똑같이), 정답 y 에 «' + y + '» 열을 담고 모양을 확인하세요. y 는 한 열이라 대괄호 <b>한 겹</b>이면 돼요.',
+      rules: [[new RegExp("^x=df\\[\\[" + anyOrder(f) + "[^\\]]*\\]\\]$", 'm'), 'x = df[[…]] — 열 이름 네 개, 띄어쓰기까지 똑같이(\'꽃잎 길이\')'],
+              [new RegExp("^y=df\\[\\[?'" + qre(y) + "'\\]\\]?$", 'm'), "y = df['" + y + "']"],
+              [/x\.shape,y\.shape/, '모양 확인 줄 x.shape, y.shape 도 써 주세요']],
+      hint: "x = df[['꽃잎 길이', …]] · y = df['종']",
+      md: '<b>③ 속성과 정답</b> — 오렌지3에서는 File 위젯에서 종을 <b>target</b> 으로, 그리고 숫자(0 · 1 · 2)인 종의 Type 을 <b>categorical</b> 로 바꿔야 분류가 됩니다. 코드에서는 <b>분류 모델을 고르는 것</b>이 그 역할을 해요.',
+      after: '<code>((150, ' + f.length + '), (150,))</code> — y 는 대괄호 한 겹이라 모양이 <code>(150,)</code>. 두 겹으로 써도 돌아갑니다.' },
+    { w:'sampler', run: 'split', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nx_train.shape, x_test.shape",
+      blanks: ['x_train, x_test, y_train, y_test', String(ts)],
+      task: '앞부분과 똑같이 ' + st.pct + '% / ' + (100 - st.pct) + '% 로 나누세요' + (st.rep ? '(random_state=' + st.seed + ')' : '') + '. 마지막 줄에 <code>x_train.shape, x_test.shape</code>.',
+      rules: splitRules.concat([[/x_train\.shape,x_test\.shape/, '모양 확인 줄 x_train.shape, x_test.shape']]), hint: '앞부분 ④ 칸과 같은 모양 — random_state 숫자만 달라요',
+      md: '<b>④ 나누기</b> — 앞부분과 <b>글자 하나 안 바뀝니다</b>(교과서는 random_state=10).',
+      after: '훈련용 <b>120줄</b>, 시험용 <b>30줄</b>.' },
+    { w:'model', run: 'make', code: "model = KNeighborsClassifier(" + kk + ")", blanks: ['KNeighborsClassifier'],
+      task: '<b>여기 한 줄만 바뀝니다!</b> 앞부분의 <code>LinearRegression()</code> 자리에 k-최근접 이웃 <b>분류</b> 모델을 만들어 model 에 담으세요.' + (st.k === 5 ? '' : ' (이웃 수 ' + st.k + ')'),
+      rules: [[new RegExp('^model=KNeighborsClassifier\\(' + kRe + '\\)$', 'm'), st.k === 5 ? 'model = KNeighborsClassifier() — K · N · C 대문자, 괄호까지' : 'model = KNeighborsClassifier(n_neighbors=' + st.k + ')']],
+      hint: 'K-Neighbors-Classifier 를 붙여서',
+      md: '<b>⑤ 모델 만들기 — 앞부분과 다른 유일한 줄.</b> 괄호 안이 비면 <b>k = 5</b>(기본값). <code>KNeighborsClassifier(n_neighbors=3)</code> 처럼 바꿀 수 있어요 — k 는 사람이 정하는 값(<b>하이퍼파라미터</b>). 오렌지3 kNN 위젯의 Number of neighbors 를 바꾸면 이 칸이 바뀝니다.' },
+    { w:'score', run: 'fit', code: "model.fit(x_train, y_train)", blanks: ['fit'],
+      task: '훈련용으로 학습시키세요 — 앞부분과 같은 줄!',
+      rules: [[/^model\.fit\(x_train,y_train\)$/m, 'model.fit(x_train, y_train)']], hint: '앞부분 ⑤ 학습 칸과 똑같아요',
+      md: '<b>⑤ 학습</b> — 앞부분과 똑같은 세 글자.' },
+    { w:'pred', run: 'predict', code: "Predicted = model.predict(x_test)\n\nprint('예측한 종 :', Predicted[:10])\nprint('진짜 종   :', y_test.values[:10])", blanks: ['predict', 'values'],
+      task: '시험용으로 맞혀 Predicted 에 담고, 예측 10개와 진짜 정답 10개(<code>y_test.values[:10]</code>)를 두 줄로 찍어 견주세요.',
+      rules: [[/^Predicted=model\.predict\(x_test\)$/m, 'Predicted = model.predict(x_test)'], [/Predicted\[:10\]/, '예측 앞 10개 Predicted[:10]'], [/y_test\.values\[:10\]/, '정답 앞 10개 y_test.values[:10]']],
+      hint: "print('예측한 종 :', Predicted[:10])",
+      md: '<b>⑥ 맞혀 보기</b> — 두 줄을 <b>하나씩 견주어</b> 보세요.',
+      after: '교과서 110쪽에서는 <b>일곱 번째</b>가 틀렸습니다 — 모델은 2(virginica)라 했는데 정답은 1(versicolor). 30개 전부를 한눈에 보려면 <b>오분류표</b>를 씁니다.' },
+    { w:'cm', run: 'cm', code: "sklearn.metrics.confusion_matrix(y_test, Predicted)", blanks: ['confusion_matrix'],
+      task: '오분류표를 만들어 보세요 — 정답(y_test)을 먼저, 예측(Predicted)을 뒤에.',
+      rules: [[/sklearn\.metrics\.confusion_matrix\(y_test,Predicted\)/, 'sklearn.metrics.confusion_matrix(y_test, Predicted) — 정답이 먼저']], hint: 'confusion(헷갈림) + matrix(표)',
+      md: '<b>⑥ 평가 — 오분류표</b>. 오렌지3의 <b>Confusion Matrix</b> 위젯과 같아요.',
+      after: '<b>행(가로줄) = 실제 정답, 열(세로줄) = 모델의 예측.</b> <b>대각선이 맞힌 것</b>이고, 벗어난 숫자가 틀린 개수예요. 교과서 결과라면 [1행 2열]의 1 = <b>실제 versicolor 하나를 virginica 로</b> 잘못 본 것. ' +
+             '⚠ 교과서 111쪽 예제 2 표는 반대로 행이 예측 · 열이 실제 — 오분류표는 <b>머리글(실제/예측)부터</b> 확인!' },
+    { w:'score', run: 'evalCls', code: "print('정확도 :', sklearn.metrics.accuracy_score(y_test, Predicted))\nprint('정밀도 :', sklearn.metrics.precision_score(y_test, Predicted, average=None))\nprint('재현율 :', sklearn.metrics.recall_score(y_test, Predicted, average=None))",
+      blanks: ['accuracy_score', 'precision_score', 'recall_score'],
+      task: '정확도 · 정밀도 · 재현율 세 줄을 찍어 보세요. 정밀도와 재현율은 종마다 따로 보이게 <code>average=None</code>.',
+      rules: [[/accuracy_score\(y_test,Predicted\)/, '정확도 accuracy_score(y_test, Predicted)'], [/precision_score\(y_test,Predicted,average=None\)/, '정밀도 precision_score(y_test, Predicted, average=None)'], [/recall_score\(y_test,Predicted,average=None\)/, '재현율 recall_score(y_test, Predicted, average=None)']],
+      hint: 'accuracy(정확) · precision(정밀) · recall(재현) + _score',
+      md: '<b>⑥ 점수</b> — 오렌지3 Test and Score 의 <b>CA</b>(정확도) · <b>Prec</b> · <b>Recall</b>. 오렌지3는 세 종을 평균 낸 한 숫자, <code>average=None</code> 은 종마다 하나씩이에요.',
+      after: '<b>정확도 약 0.967</b> = (10 + 12 + 7) ÷ 30. <b>정밀도</b>: «2번이라고 한 것 중 진짜 2번은?» — 스팸 분류처럼 <b>잘못 거르면 곤란할 때</b>. <b>재현율</b>: «진짜 2번 중 찾아낸 것은?» — 암 진단처럼 <b>놓치면 안 될 때</b>. ' +
+             '1,000명 중 환자 1명인 병에서 «전원 정상»이라 답해도 정확도 99.9% — 그런데 재현율은 0. <b>정확도 하나만 보면 속을 때가 있어요.</b>' },
+    { text: true, html: '<h4>🔁 한 걸음 더 — k 를 바꾸면?</h4><p>왼쪽 <b>kNN</b> 위젯에서 Number of neighbors 를 3, 7, 15로 바꿔 보세요. ⑤ 칸이 <code>KNeighborsClassifier(n_neighbors=…)</code> 로 바뀝니다. 다시 풀고 실행해 정확도가 어떻게 되는지 견주어 보세요. ' +
+      '그리고 File 위젯에서 종의 Type 을 numeric 으로 두면 오렌지3가 무엇을 하는지(분류 대신 예측!)도 확인해 보세요.</p>' }
   ];
 }
 
@@ -904,7 +1052,8 @@ function exec(t, c){
       if((e = need(V, ['model']))) return e;
       if(!V.model.fitted) return { err: "AttributeError: 'LinearRegression' object has no attribute 'coef_'\n→ 아직 학습(fit)하지 않았어요. model.fit 칸을 먼저 실행하세요." };
       var m = V.model.fitted;
-      return { text: '(array([[' + npRow(m.coef).join(', ') + ']]), array([' + npRow([m.intercept])[0] + ']))' };
+      var fx = V.model.X.cols.map(function(c, k){ var b = Math.round(m.coef[k]); return (k ? (b < 0 ? ' − ' : ' + ') + Math.abs(b) : b) + ' × ' + c; }).join(''), ic = Math.round(m.intercept);
+      return { text: '(array([[' + npRow(m.coef).join(', ') + ']]), array([' + npRow([m.intercept])[0] + ']))', note: '읽는 법: ' + target(t) + ' = ' + fx + (ic < 0 ? ' − ' : ' + ') + Math.abs(ic) };
     case 'predict':
       if((e = need(V, ['model', 'x_test']))) return e;
       if(!V.model.fitted) return { err: "NotFittedError: This " + (V.model.kind === 'lin' ? 'LinearRegression' : 'KNeighborsClassifier') + " instance is not fitted yet.\n→ 학습(model.fit) 칸을 먼저 실행하세요. 오렌지3에서 Learner 를 Test and Score 에 안 꽂은 것과 같아요." };
@@ -916,6 +1065,25 @@ function exec(t, c){
     case 'cm':
       if((e = need(V, ['Predicted']))) return e;
       return { text: npInts(cmat(V.y_true, V.Predicted, 3)) };
+    case 'info':
+      if((e = need(V, ['df']))) return e;
+      var isInt = function(j){ return D.rows.every(function(r){ return Math.round(r[j]) === r[j]; }); };
+      var dt = D.cols.map(function(c, j){ return isInt(j) ? 'int64' : 'float64'; }), cnt = {};
+      dt.forEach(function(d){ cnt[d] = (cnt[d] || 0) + 1; });
+      var mem = (D.rows.length * D.cols.length * 8 + 128) / 1024;
+      return { text: "<class 'pandas.core.frame.DataFrame'>\nRangeIndex: " + D.rows.length + ' entries, 0 to ' + (D.rows.length - 1) + '\nData columns (total ' + D.cols.length + ' columns):\n #   Column  Non-Null Count  Dtype\n---  ------  --------------  -----\n' +
+        D.cols.map(function(c, j){ return ' ' + j + '   ' + c + sp(Math.max(1, 8 - c.length * 2)) + D.rows.length + ' non-null    ' + dt[j]; }).join('\n') +
+        '\ndtypes: ' + Object.keys(cnt).map(function(k){ return k + '(' + cnt[k] + ')'; }).join(', ') + '\nmemory usage: ' + mem.toFixed(1) + ' KB' };
+    case 'cols':
+      if((e = need(V, ['df']))) return e;
+      return { text: '[' + D.cols.map(q).join(', ') + ']' };
+    case 'keyerr':
+      if((e = need(V, ['df']))) return e;
+      return { err: "KeyError: \"None of [Index(['꽃잎길이', '꽃잎너비'], dtype='object')] are in the [columns]\"\n→ 그런 이름의 열이 없어요. 실제 열 이름은 '꽃잎 길이'처럼 띄어 씁니다." };
+    case 'ytest':
+      if((e = need(V, ['y_test']))) return e;
+      var yi = V.y, rows5 = V.split.test.slice(0, 5);
+      return { html: '<table class="df"><tr><th></th><th>' + esc(D.cols[yi]) + '</th></tr>' + rows5.map(function(r){ return '<tr><th>' + r + '</th><td>' + D.rows[r][yi] + '</td></tr>'; }).join('') + '</table>' };
     case 'evalReg':
       if((e = need(V, ['Predicted']))) return e;
       V.score = r2(V.y_true, V.Predicted);
@@ -926,12 +1094,21 @@ function exec(t, c){
       return { text: '정확도 : ' + pyf(cs.acc) + '\n정밀도 : ' + npPrint1(cs.prec) + '\n재현율 : ' + npPrint1(cs.rec) };
   }
 }
-function runCell(i){
-  var t = cur, C = cells(t), rt = RT[t] || (RT[t] = newRt());
-  var res = exec(t, C[i]); rt.n++; rt.cnt[i] = rt.n; rt.outs[i] = res; rt.codeAt[i] = C[i].code;
-  drawNb(); drawCmp();
+function runCell(i, quiet){
+  var t = cur, C = cells(t), c = C[i]; if(!c || c.text) return true;
+  if(!isSolved(i, c)){ if(!quiet){ var fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '✋ 먼저 칸을 완성하고 <b>✓ 확인</b>을 누르세요. 맞으면 저절로 실행돼요.'; } } return false; }
+  var rt = RT[t] || (RT[t] = newRt());
+  var res = exec(t, c); rt.n++; rt.cnt[i] = rt.n; rt.outs[i] = res; rt.codeAt[i] = c.code;
+  if(!quiet){ drawNb(); drawCmp(); }
+  return true;
 }
-function runAll(){ var C = cells(cur); RT[cur] = newRt(); for(var i = 0; i < C.length; i++) runCell(i); }
+function runAll(){
+  var C = cells(cur); RT[cur] = newRt(); var stop = -1;
+  for(var i = 0; i < C.length; i++){ if(!runCell(i, true)){ stop = i; break; } }
+  drawNb(); drawCmp();
+  if(stop >= 0){ var fb = document.getElementById('pfb' + stop); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '⏸ 여기까지 실행했어요. 이 칸을 완성하면 이어서 실행됩니다.'; }
+    var el = document.querySelector('.cell[data-i="' + stop + '"]'); if(el) el.scrollIntoView({ behavior:'smooth', block:'center' }); }
+}
 
 /* ── 오렌지3 쪽(설정이 바뀌면 바로 다시 계산) ───────────────────────────── */
 function orange(t){
@@ -1032,28 +1209,130 @@ function orangeScoreHtml(which){
   return h;
 }
 
-/* ── 그리기: 노트북 ───────────────────────────── */
+/* ── 그리기: 노트북(연습 단계: view 보기 · blank 빈칸 · copy 따라 적기 · self 스스로 적기) ───────────────────────────── */
 var WNAME = { file:'File', sampler:'Data Sampler', model:'모델 위젯', score:'Test and Score', pred:'Predictions', cm:'Confusion Matrix' };
 var WKIND = { file:'data', sampler:'data', model:'model', score:'eval', pred:'eval', cm:'eval' };
+var MODE = 'blank';
+var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기', self:'🔴 스스로 적기' };
+var ANS = {}, SOLVED = {}, TRIES = {}, SHOWN = {};
+function akey(i){ return cur + '|' + MODE + '|' + i; }
+function plain(code){ return code.replace(/[⟦⟧]/g, ''); }
+/* 띄어쓰기 · 따옴표 차이는 봐주고(따옴표 안 띄어쓰기는 그대로), 주석은 빼고, 괄호 안 줄바꿈은 한 줄로 */
+function normCode(s){
+  var out = '', qch = null, depth = 0;
+  for(var i = 0; i < s.length; i++){
+    var ch = s[i];
+    if(qch){ out += ch === '"' ? "'" : ch; if(ch === qch) qch = null; continue; }
+    if(ch === '"' || ch === "'"){ qch = ch; out += "'"; continue; }
+    if(ch === '#'){ while(i < s.length && s[i] !== '\n') i++; i--; continue; }
+    if(ch === '(' || ch === '[') depth++;
+    if(ch === ')' || ch === ']') depth = Math.max(0, depth - 1);
+    if(ch === '\n'){ if(depth === 0) out += '\n'; continue; }
+    if(ch === ' ' || ch === '\t' || ch === '\r' || ch === ' ') continue;
+    out += ch;
+  }
+  return out.split('\n').filter(function(l){ return l; }).join('\n');
+}
+function sameTok(v, tok){
+  v = String(v).trim().replace(/^['"]|['"]$/g, ''); var t = tok.replace(/^['"]|['"]$/g, '');
+  if(v === t) return true;
+  if(/^[\d.]+$/.test(t) && /^[\d.]+$/.test(v) && parseFloat(v) === parseFloat(t)) return true;
+  return t.indexOf(',') >= 0 && normCode(v) === normCode(t);      /* x_train, x_test, … 처럼 쉼표 목록은 띄어쓰기 봐줌 */
+}
+function isSolved(i, c){ return MODE === 'view' || c.given || SOLVED[akey(i)] === plain(c.code); }
+function blankParts(c){             /* 코드를 [글자, 빈칸, 글자, …] 로 */
+  var code = plain(c.code), parts = [], at = 0;
+  (c.blanks || []).forEach(function(tok){ var k = code.indexOf(tok, at); if(k < 0) return; parts.push(code.slice(at, k)); parts.push({ tok: tok }); at = k + tok.length; });
+  parts.push(code.slice(at)); return parts;
+}
+function codeEditor(i, c){
+  var key = akey(i), a = ANS[key], solved = isSolved(i, c);
+  if(MODE === 'view' || c.given) return '<pre class="code">' + hl(c.code) + '</pre>' + (c.given && MODE !== 'view' ? '<div class="pfb info">이 칸은 그대로 ▶ 실행하세요.</div>' : '');
+  if(solved) return '<pre class="code solved">' + hl(plain(c.code)) + '</pre><div class="pfb ok">✅ 완성! ▶ 로 실행해 결과를 보세요.</div>';
+  var fb = '<div class="pfb" id="pfb' + i + '"></div>', btn = '<div class="pact"><button class="btn chk" type="button" data-chk="' + i + '">✓ 확인</button>';
+  if(MODE === 'blank'){
+    var bi = 0, h = blankParts(c).map(function(p){
+      if(typeof p === 'string') return hl(p);
+      var v = a && a[bi] != null ? a[bi] : '';
+      return '<input class="bl" data-cell="' + i + '" data-b="' + (bi++) + '" style="width:' + Math.max(4, p.tok.length + 2) + 'ch" value="' + esc(v) + '" autocomplete="off" spellcheck="false" aria-label="빈칸">';
+    }).join('');
+    return '<pre class="code">' + h + '</pre>' + btn + '<small class="kb">빈칸 사이는 Tab · 다 채우면 Enter</small></div>' + fb;
+  }
+  var ta = '<textarea class="type" data-cell="' + i + '" rows="' + Math.max(2, plain(c.code).split('\n').length + 1) + '" spellcheck="false" autocomplete="off" placeholder="' + (MODE === 'copy' ? '위 코드를 그대로 따라 적어 보세요' : '여기에 코드를 직접 써 보세요') + '">' + esc(a || '') + '</textarea>';
+  if(MODE === 'copy') return '<pre class="code ghost">' + hl(plain(c.code)) + '</pre>' + ta + btn + '<small class="kb">Shift + Enter 로 확인</small></div>' + fb;
+  var tr = TRIES[key] || 0, shown = SHOWN[key];
+  return '<div class="mission">🎯 ' + c.task + '</div>' +
+    (shown ? '<pre class="code ghost">' + hl(plain(c.code)) + '</pre>' : '') + ta + btn +
+    '<button class="btn" type="button" data-hint="' + i + '">💡 힌트</button>' +
+    (tr >= 2 && !shown ? '<button class="btn" type="button" data-show="' + i + '">👀 정답 보기</button>' : '') + '<small class="kb">Shift + Enter 로 확인</small></div>' + fb;
+}
+function check(i){
+  var C = cells(cur), c = C[i], key = akey(i), fb = document.getElementById('pfb' + i), want = plain(c.code);
+  var ok = false, msg = '';
+  if(MODE === 'blank'){
+    var vals = ANS[key] || [], toks = (c.blanks || []).filter(function(tok){ return want.indexOf(tok) >= 0; }), wrong = [];
+    toks.forEach(function(tok, k){ if(!sameTok(vals[k] || '', tok)) wrong.push(k); });
+    ok = !wrong.length;
+    if(!ok){ msg = '🤔 ' + wrong.length + '군데를 다시 보세요.' + (vals.some(function(v, k){ return v && v.toLowerCase() === (toks[k] || '').toLowerCase() && v !== toks[k]; }) ? ' (대소문자도 똑같이!)' : '') + ' 막히면 왼쪽 <b>' + (c.w === 'model' ? '모델' : WNAME[c.w]) + '</b> 위젯을 눌러 보세요.';
+      [].forEach.call(document.querySelectorAll('input.bl[data-cell="' + i + '"]'), function(inp, k){ inp.classList.toggle('bad', wrong.indexOf(k) >= 0); }); }
+  } else if(MODE === 'copy'){
+    var got = normCode(ANS[key] || ''), exp = normCode(want);
+    ok = got === exp;
+    if(!ok && got){   /* print 안 글자의 띄어쓰기는 봐주되, 열 이름('꽃잎 길이')은 똑같아야 */
+      var loose = function(x){ return x.replace(/\s+/g, ''); };
+      ok = loose(got) === loose(exp) && DATA[DS[cur]].cols.every(function(cn){ return exp.indexOf("'" + cn + "'") < 0 || got.indexOf("'" + cn + "'") >= 0; });
+    }
+    if(!ok){
+      var gl = got.split('\n'), el = exp.split('\n'), n = 0;
+      while(n < el.length && gl[n] === el[n]) n++;
+      var hit = '';
+      if(n < el.length) plain(c.code).split('\n').some(function(l){ var nl = normCode(l); if(nl && el[n].indexOf(nl) === 0){ hit = l.trim(); return true; } return false; });
+      msg = !got ? '✍️ 아직 비어 있어요. 위 코드를 한 줄씩 따라 적어 보세요.' :
+        n >= gl.length ? '✍️ 거의 다 왔어요 — <code>' + esc(hit || '다음 줄') + '</code> 부터 이어서 적어 보세요.' :
+        '🤔 <code>' + esc(hit || ((n + 1) + '번째 줄')) + '</code> 줄을 다시 보세요. 철자 · 대소문자 · 괄호 · 열 이름 띄어쓰기를 확인!';
+    }
+  } else {
+    var g = normCode(ANS[key] || ''), miss = (c.rules || []).filter(function(r){ return !r[0].test(g); });
+    ok = !!g && !miss.length;
+    if(!ok){ TRIES[key] = (TRIES[key] || 0) + 1;
+      msg = !g ? '✍️ 미션을 읽고 코드를 써 보세요.' : '🤔 ' + miss[0][1] + (miss.length > 1 ? ' <small>(고칠 곳 ' + miss.length + '군데)</small>' : ''); }
+  }
+  if(ok){ SOLVED[key] = want; drawNb(); runCell(i); var nx = document.querySelector('.cell[data-i="' + (i + 1) + '"] input.bl, .cell[data-i="' + (i + 1) + '"] textarea'); if(nx) nx.focus(); return; }
+  if(fb){ fb.className = 'pfb no'; fb.innerHTML = msg; }
+  if(MODE === 'self' && TRIES[key] === 2){ drawNb(); var f2 = document.getElementById('pfb' + i); if(f2){ f2.className = 'pfb no'; f2.innerHTML = msg; } }
+}
+function drawModeBar(){
+  var C = cells(cur), n = 0, N = 0;
+  C.forEach(function(c, i){ if(c.text || c.given) return; N++; if(MODE !== 'view' && SOLVED[akey(i)] === plain(c.code)) n++; });
+  document.getElementById('modeBar').innerHTML = Object.keys(MODES).map(function(m){
+    return '<button type="button" class="mode' + (m === MODE ? ' on' : '') + '" data-mode="' + m + '" aria-pressed="' + (m === MODE) + '">' + MODES[m] + '</button>'; }).join('') +
+    (MODE === 'view' ? '<small>선생님 시범 · 코드를 보며 ▶ 실행</small>' : '<small>완성 <b>' + n + ' / ' + N + '</b>칸' + (n === N ? ' 🎉' : '') + '</small>');
+}
 function drawNb(){
   var t = cur, C = cells(t), rt = RT[t], nb = document.getElementById('nb'), first = -1;
   /* 코드가 바뀐 첫 칸부터 아래는 모두 «다시 실행» — 그 아래 칸은 바뀐 결과를 아직 모름 */
   if(rt) for(var q = 0; q < C.length; q++) if(rt.outs[q] && rt.codeAt[q] !== C[q].code){ first = q; break; }
+  var step = 0;
   nb.innerHTML = C.map(function(c, i){
+    if(c.text) return '<div class="tcell">' + c.html + '</div>';
     var o = rt && rt.outs[i], stale = o && first >= 0 && i >= first, out = '';
     if(o){
       if(o.err) out = '<div class="out err' + (stale ? ' stale' : '') + '">' + esc(o.err) + '</div>';
       else if(o.html) out = '<div class="out' + (stale ? ' stale' : '') + '">' + o.html + '</div>';
       else if(o.text || o.note) out = '<div class="out' + (stale ? ' stale' : '') + '">' + esc(o.text || '') + (o.note ? '\n<span class="note">💡 ' + esc(o.note) + '</span>' : '') + '</div>';
       if(stale && i === first) out += '<div class="out"><span class="note">🔁 위젯 설정이 바뀌어 코드가 달라졌어요 — 이 칸부터 아래를 다시 실행하세요(▶ 모두 실행).</span></div>';
+      if(!o.err && c.after && !stale) out += '<div class="read">📖 ' + c.after + '</div>';
     }
     var wn = c.w === 'model' ? (t === 'reg' ? 'Linear Regression' : 'kNN') : WNAME[c.w];
     var extra = c.run === 'fit' ? '꽂으면 학습' : c.run === 'coef' ? 'Coefficients' : '';
-    return '<div class="cell' + (selW === c.w ? ' hl' : '') + '" data-i="' + i + '" data-w="' + c.w + '" tabindex="0">' +
-      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행">▶</button><span class="cnt">[' + (rt && rt.cnt[i] ? rt.cnt[i] : ' ') + ']</span></div>' +
+    var lock = !isSolved(i, c);
+    return (c.md ? '<div class="tcell sm">' + c.md + '</div>' : '') +
+      '<div class="cell' + (selW === c.w ? ' hl' : '') + (lock ? ' lock' : '') + '" data-i="' + i + '" data-w="' + c.w + '" tabindex="0">' +
+      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행"' + (lock ? ' title="칸을 먼저 완성하세요"' : '') + '>▶</button><span class="cnt">[' + (rt && rt.cnt[i] ? rt.cnt[i] : ' ') + ']</span></div>' +
       '<div class="src"><div class="ctag"><span class="chip ' + WKIND[c.w] + '">' + wn + '</span>' + (extra ? '<small>' + extra + '</small>' : '') + '</div>' +
-      '<pre class="code">' + hl(c.code) + '</pre>' + out + '</div></div>';
+      codeEditor(i, c) + out + '</div></div>';
   }).join('');
+  drawModeBar();
 }
 
 /* ── 견주어 보기 ───────────────────────────── */
@@ -1126,11 +1405,31 @@ document.getElementById('cv').addEventListener('click', function(e){ var g = e.t
 document.getElementById('cv').addEventListener('keydown', function(e){ var g = e.target.closest('.wg'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); pick(g.dataset.w); } });
 document.getElementById('nb').addEventListener('click', function(e){
   var r = e.target.closest('[data-run]'); if(r){ runCell(+r.dataset.run); return; }
+  var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
+  var hb = e.target.closest('[data-hint]'); if(hb){ var i = +hb.dataset.hint, fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb hint'; fb.innerHTML = '💡 <code>' + esc(cells(cur)[i].hint || '') + '</code> · 막히면 왼쪽 <b>위젯</b>을 눌러 짝이 되는 코드를 떠올려 보세요.'; } return; }
+  var sb = e.target.closest('[data-show]'); if(sb){ SHOWN[akey(+sb.dataset.show)] = 1; drawNb(); return; }
+  if(e.target.closest('input, textarea, .pact, .mission, .pfb, .read, .tcell')) return;
   var c = e.target.closest('.cell'); if(c && !e.target.closest('.out')){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
 });
+document.getElementById('nb').addEventListener('input', function(e){
+  var tg = e.target, i = tg.dataset && tg.dataset.cell; if(i == null) return;
+  var key = akey(+i);
+  if(tg.matches('input.bl')){ var a = ANS[key] || (ANS[key] = []); a[+tg.dataset.b] = tg.value; tg.classList.remove('bad'); }
+  else if(tg.matches('textarea.type')) ANS[key] = tg.value;
+});
 document.getElementById('nb').addEventListener('keydown', function(e){
-  var c = e.target.closest('.cell'); if(!c || e.target.closest('button')) return;
+  var tg = e.target;
+  if(tg.matches && tg.matches('input.bl') && e.key === 'Enter'){ e.preventDefault(); check(+tg.dataset.cell); return; }
+  if(tg.matches && tg.matches('textarea.type')){
+    if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); check(+tg.dataset.cell); return; }
+    if(e.key === 'Tab' && !e.shiftKey){ e.preventDefault(); var s0 = tg.selectionStart; tg.value = tg.value.slice(0, s0) + '    ' + tg.value.slice(tg.selectionEnd); tg.selectionStart = tg.selectionEnd = s0 + 4; ANS[akey(+tg.dataset.cell)] = tg.value; return; }
+    return;
+  }
+  var c = tg.closest('.cell'); if(!c || tg.closest('button')) return;
   if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); runCell(+c.dataset.i); var nx = document.querySelector('.cell[data-i="' + (+c.dataset.i + 1) + '"]'); if(nx) nx.focus(); }
+});
+document.getElementById('modeBar').addEventListener('click', function(e){
+  var b = e.target.closest('[data-mode]'); if(!b) return; MODE = b.dataset.mode; store('o2c_mode', MODE); drawNb();
 });
 document.getElementById('wset').addEventListener('input', function(e){
   var st = S[cur], tg = e.target;
@@ -1163,6 +1462,7 @@ function drawSteps(){
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
 }
 var hashT = (location.hash.match(/^#(reg|cls|quiz)$/) || [])[1];
+(function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); if(m && MODES[m]) MODE = m; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
 </script>

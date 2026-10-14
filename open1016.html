@@ -1305,7 +1305,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#blocks">블록 → 파이썬</a>
   <a href="#code">코드 읽기</a>
   <a href="#implement">평가 해석</a>
-  <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 비교 창</a>
+  <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 실습 창</a>
   <a href="https://richee-pc.github.io/entry2colab/" target="_blank" rel="noopener">🧩 entry2colab</a>
 </div></div></nav>
 
@@ -1328,7 +1328,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <li>같은 모델을 <b>블록(오렌지3)으로 먼저 설계</b>한 뒤 <b>파이썬으로 완성</b>하게 하여, «분리 → 학습 → 평가» 절차를 코드 한 줄 한 줄과 연결합니다.</li>
         <li>블록과 코드를 나란히 놓는 비교·분석 자료로 코드를 «짜기»보다 «읽어 내기»를 먼저 목표로 합니다.</li>
       </ul>
-      <p><b>함께 쓰는 자료</b> <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 orange2colab — 오렌지3 위젯 ↔ 코랩 코드 비교 창</a> ·
+      <p><b>함께 쓰는 자료</b> <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 orange2colab — 오렌지3 위젯 ↔ 코랩 코드 실습 창(빈칸 · 따라 적기 · 스스로 적기)</a> ·
         <a href="https://richee-pc.github.io/entry2colab/" target="_blank" rel="noopener">🧩 entry2colab — 엔트리 블록 → 파이썬 → 코랩</a>(코랩 실습 전 2차시에 쓴 블록 ↔ 코드 대조 도구)</p>
       <p><b>협의회(12:30~12:50)에서 함께 볼 점</b></p>
       <ol>
@@ -3212,7 +3212,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <div class="tool">
     <h3>블록 ↔ 코드 짝짓기 <span class="tm">교과서 101~103쪽 구현 과정</span></h3>
     <div class="tw"><table>
-      <tr><th style="width:24%">오렌지3 블록</th><th>파이썬 코드 (노트북 02)</th><th style="width:20%">구현 과정</th></tr>
+      <tr><th style="width:24%">오렌지3 블록</th><th>파이썬 코드 (실습 창 · 노트북 02)</th><th style="width:20%">구현 과정</th></tr>
       <tr><td><b>File</b></td><td><code>df = pd.read_csv(주소 + 'youth_population.csv')</code></td><td>데이터 준비</td></tr>
       <tr><td><b>File</b>의 Role (feature · target · skip)</td><td><code>x = df[['도서관', '공연장']]</code> · <code>y = df[['청년']]</code></td><td>속성과 정답 나누기</td></tr>
       <tr><td><b>Data Sampler</b> 80%</td><td><code>x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)</code></td><td>① 데이터 분리</td></tr>
@@ -3223,12 +3223,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <tr><td><b>Confusion Matrix</b> · CA · Prec · Recall</td><td><code>confusion_matrix(...)</code> · <code>accuracy_score(...)</code> · <code>precision_score(...)</code> · <code>recall_score(...)</code></td><td>③ 모델 평가(분류)</td></tr>
     </table></div>
     <p class="note" style="margin-top:12px"><b>모델만 바꾸면 끝.</b> 예측에서 분류로 넘어갈 때 오렌지3에서는 <b>블록 하나</b>, 파이썬에서는 <b>한 줄</b>(<code>LinearRegression()</code> → <code>KNeighborsClassifier()</code>)만 바뀝니다. 나머지 순서는 그대로입니다.</p>
-    <div class="colabcta" style="background:linear-gradient(120deg,#FFF1E2,var(--blue-xl)); border-color:#F5B36B"><span><b style="color:#B9560D">🍊 직접 짝지어 보기 — 오렌지3 ↔ 코랩 비교 창</b>위젯을 누르면 짝이 되는 코드에 불이 들어오고, Data Sampler 비율 · 이웃 수를 바꾸면 코드 숫자도 함께 바뀝니다. 코드는 ▶ 로 실행해 노트북 02와 같은 점수를 확인해요. 빈칸 채우기 연습도 있어요.</span>
-      <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener" style="background:#E8731C">🍊 비교 창 열기</a></div>
+    <div class="colabcta" style="background:linear-gradient(120deg,#FFF1E2,var(--blue-xl)); border-color:#F5B36B"><span><b style="color:#B9560D">🍊 오늘 코드 실습은 여기서 — 오렌지3 ↔ 코랩 실습 창</b>교과서 104~112쪽 코드가 코랩 노트북처럼 들어 있어요. 내 수준에 맞게 <b>🟢 빈칸 · 🟡 따라 적기 · 🔴 스스로 적기</b>를 골라 칸을 완성하면 ▶ 로 실행되고, 위젯을 누르면 짝이 되는 코드에 불이 들어옵니다. ① 청년 인구 → ② 붓꽃 순서로.</span>
+      <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener" style="background:#E8731C">🍊 실습 창 열기</a></div>
   </div>
 
   <div class="tool">
-    <h3>견주어 보기 — 블록과 코드, 점수가 같을까? <span class="tm">노트북 02 끝 칸에</span></h3>
+    <h3>견주어 보기 — 블록과 코드, 점수가 같을까? <span class="tm">실습 창 아래 표에</span></h3>
     <div class="tw"><table>
       <tr><th></th><th>오렌지3</th><th>파이썬</th><th>교과서</th></tr>
       <tr><td>청년 인구 R²</td><td>0.○○</td><td>0.○○</td><td>약 0.64 (107쪽)</td></tr>
@@ -3239,7 +3239,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <p class="note"><b>정리 한 줄.</b> «블록은 ○○할 때 좋고, 코드는 ○○할 때 좋다.» (예: 블록은 흐름을 한눈에 볼 때 · 코드는 똑같이 되풀이하거나 세세하게 바꿀 때)</p>
   </div>
 
-  <div class="colabcta"><span><b>▶ 파이썬으로 완성 — 노트북 02</b>교과서 104~112쪽 코드 그대로입니다. 빈칸을 채우며 위 짝짓기 표의 순서를 따라가세요. 먼저 끝나면 <b>04 다이아몬드</b>(114~115쪽 활동).</span>
+  <div class="colabcta" style="opacity:.92"><span><b>(선택) 진짜 코랩에서 다시 — 노트북 02</b>실습 창과 같은 코드를 진짜 코랩에서 돌려 봅니다. 코랩은 <b>다음 차시부터</b> 본격적으로 써요 — 먼저 끝났거나 집에서 복습할 때. 더 해 보기는 <b>04 다이아몬드</b>(114~115쪽 활동).</span>
     <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/02_model.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 02 예측 · 분류</a></div>
 </div></section>
 
@@ -5495,11 +5495,12 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=7a526f3c"></script>
+<script src="lessons.js?v=1758237f"></script>
 <script>
-/* 공개수업 쪽: 차시 U05 고정 · D분반 · 50분 흐름(교사용) 보이기 · 다른 쪽으로 가는 단계는 뺌 */
+/* 공개수업 쪽: 차시 U05 고정 · D분반 · 50분 흐름은 숨김(교사는 주소 끝에 ?t=1) · 다른 쪽으로 가는 단계는 뺌 */
 (function(){
-  try{ history.replaceState(null, '', location.pathname + '?l=U05&t=1' + location.hash); }catch(e){}
+  var T = /[?&]t=1(&|$)/.test(location.search) ? '&t=1' : '';
+  try{ history.replaceState(null, '', location.pathname + '?l=U05' + T + location.hash); }catch(e){}
   var A = window.AIL; if(!A) return;
   var L = A.LES.U05;
   L.steps = L.steps.filter(function(s){ return s[0] === 'u2'; });
