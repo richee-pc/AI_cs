@@ -204,7 +204,21 @@ table.df th{font-weight:600}
 .modebar small{margin-left:auto; color:var(--muted); font-size:12.5px}
 .modebar small b{color:var(--ink)}
 .tcell{margin:10px 14px 4px 48px; font-size:14px; color:var(--ink-2); line-height:1.65}
-.tcell.sm{font-size:13.5px; margin-top:14px; margin-bottom:0}
+.tcell.sm{font-size:13.5px; margin:14px 14px 2px 48px; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--syn-fn); border-radius:0 8px 8px 0; padding:7px 11px; color:var(--ink-2)}
+.tcell .tag{display:inline-block; font-size:11.5px; font-weight:700; color:var(--syn-fn); margin-right:6px}
+.lex{margin:2px 0 6px; background:color-mix(in srgb,var(--syn-fn) 6%,var(--surface)); border:1px solid color-mix(in srgb,var(--syn-fn) 22%,var(--line)); border-radius:7px; padding:5px 10px; font-size:13px}
+.lex summary{cursor:pointer; font-weight:700; color:var(--syn-fn); list-style:none}
+.lex summary::-webkit-details-marker{display:none}
+.lex summary::before{content:'▸ '} .lex[open] summary::before{content:'▾ '}
+.lex summary small{font-weight:500; color:var(--muted)}
+.lex ol{margin:5px 0 2px; padding:0; list-style:none; display:grid; grid-template-columns:minmax(0,max-content) minmax(0,1fr); gap:5px 12px; align-items:baseline}
+.lex li{display:contents; color:var(--ink-2); line-height:1.55}
+.lex li > span:last-child{color:var(--ink-2)}
+.lex li code{font-size:12px; background:var(--surface); border:1px solid var(--line-soft); border-radius:4px; padding:0 5px; white-space:pre-wrap; overflow-wrap:break-word; max-width:36ch; justify-self:start}
+.lex li .ln{font-size:12px; color:var(--muted); white-space:nowrap}
+.lex li b{color:var(--ink)}
+@media (max-width:640px){ .lex ol{grid-template-columns:1fr; gap:2px} .lex li > span:last-child{margin-bottom:5px} .lex li code{max-width:none} }
+.modebar .lexbtn{font-weight:500}
 .tcell h4{margin:4px 0 4px; font-size:15.5px; color:var(--ink)}
 .tcell p{margin:0}
 .tcell b{color:var(--ink)}
@@ -1327,11 +1341,73 @@ function check(i){
   if(fb){ fb.className = 'pfb no'; fb.innerHTML = msg; }
   if(MODE === 'self' && TRIES[key] === 2){ drawNb(); var f2 = document.getElementById('pfb' + i); if(f2){ f2.className = 'pfb no'; f2.innerHTML = msg; } }
 }
+/* ── 한 줄씩 풀이: 칸을 완성하기 전에는 코드 대신 «n번째 줄»만(답이 보이지 않게) ── */
+var LEX = {
+  reg: {
+    load: [["import pandas as pd", "표(데이터프레임)를 다루는 연장 <b>pandas</b> 를 <b>pd</b> 라는 짧은 이름으로 꺼냅니다."],
+           ["from sklearn.linear_model import LinearRegression", "선형 회귀 모델 <b>설계도</b>를 가져옵니다 → 오렌지3 <b>모델 위젯</b>."],
+           ["from sklearn.model_selection import train_test_split", "데이터를 훈련용 · 시험용으로 <b>나누는 함수</b> → <b>Data Sampler</b>."],
+           ["from sklearn.metrics import mean_squared_error", "<b>점수(평균제곱오차)</b>를 재는 함수 → <b>Test and Score</b>."],
+           ["주소 = '…'", "데이터 파일이 있는 인터넷 주소를 <b>주소</b> 라는 변수에 담아 둡니다."],
+           ["df = pd.read_csv(주소 + 'youth_population.csv')", "CSV 파일을 읽어 표 <b>df</b> 로 만듭니다 → 오렌지3 <b>File</b> 위젯."],
+           ["df.head()", "표의 <b>위에서 다섯 줄</b>만 보여 줍니다."]],
+    info: [["df.info()", "몇 줄 · 몇 열인지, 열마다 <b>빈칸이 몇 개</b>인지, <b>자료형</b>(정수 · 실수 · 글자)은 무엇인지 한 번에 요약합니다."]],
+    xy:   [["x = df[[…]]", "맞히는 데 <b>쓸 열(속성)</b>들만 골라 <b>x</b> 에 담습니다. 여러 개를 고르니 대괄호 <b>두 겹</b>."],
+           ["y = df[[…]]", "<b>맞히려는 열(정답)</b>을 <b>y</b> 에 담습니다."],
+           ["x.shape, y.shape", "<b>(줄 수, 열 수)</b> 모양을 봅니다. 줄 수가 같아야 짝이 맞아요."]],
+    split:[["x_train, x_test, y_train, y_test = …(", "결과가 <b>네 덩어리</b>로 나옵니다 — 왼쪽 네 이름이 <b>순서대로</b> 받아요(훈련 속성 · 시험 속성 · 훈련 정답 · 시험 정답)."],
+           ["x, y, test_size=…, random_state=…)", "x 와 y 를 섞어 나누는데, <b>test_size</b> 는 시험용 비율(0.2 = 20%), <b>random_state</b> 는 섞는 방식을 고정하는 번호."],
+           ["print('훈련용 :', x_train.shape)", "훈련용 모양을 찍어 봅니다."],
+           ["print('시험용 :', x_test.shape)", "시험용 모양 — 두 줄 수를 더하면 전체 줄 수."]],
+    make: [["model = …()", "<b>빈 모델</b> 하나를 만들어 <b>model</b> 에 담습니다. 아직 아무것도 배우지 않았어요."]],
+    fit:  [["model.…(x_train, y_train)", "<b>훈련용 문제(x_train)</b>와 <b>답(y_train)</b>으로 <b>학습</b>합니다 — 가장 덜 틀리는 직선을 찾는 순간. 시험용은 넣지 않아요!"]],
+    coef: [["model.coef_, model.intercept_", "학습으로 찾은 <b>기울기</b>(속성마다 하나)와 <b>절편</b>을 꺼내 봅니다. 이름 끝 밑줄(_)은 «학습한 뒤에 생기는 값»이라는 표시."]],
+    predict:[["Predicted = model.…(x_test)", "<b>시험지(x_test)</b>를 모델에 주고 답을 내게 해서 <b>Predicted</b> 에 담습니다."],
+           ["Predicted[:5]", "앞에서 <b>다섯 개</b>만 봅니다(<b>슬라이싱</b>)."]],
+    ytest:[["y_test.head()", "시험지의 <b>진짜 정답</b> 앞 다섯 줄 — Predicted 와 견주어 보세요."]],
+    evalReg:[["print('평균제곱오차(MSE) :', …(y_test, Predicted))", "정답과 예측의 차이를 <b>제곱해 평균</b> — <b>작을수록</b> 좋아요. 정답(y_test)을 먼저 넣습니다."],
+           ["print('결정계수(R²) :', model.…(x_test, y_test))", "<b>R²</b> — 정답이 달라지는 정도를 얼마나 설명하나. <b>1에 가까울수록</b> 좋아요."]]
+  },
+  cls: {
+    load: [["import pandas as pd", "표를 다루는 연장 pandas 를 pd 로."],
+           ["import sklearn.metrics", "점수 함수 꾸러미를 <b>통째로</b> 가져옵니다 — 쓸 때 <code>sklearn.metrics.함수이름</code>."],
+           ["from sklearn.model_selection import train_test_split", "나누는 함수 → <b>Data Sampler</b>."],
+           ["from sklearn.neighbors import KNeighborsClassifier", "k-최근접 이웃 <b>분류</b> 모델 설계도 → 오렌지3 <b>kNN</b> 위젯."],
+           ["주소 = '…'", "데이터 주소."],
+           ["df = pd.read_csv(주소 + 'iris.csv')", "붓꽃 표를 읽어 df 로 → <b>File</b> 위젯."],
+           ["df.head()", "위에서 다섯 줄."]],
+    cols: [["list(df.columns)", "표의 <b>열 이름</b>을 목록으로 봅니다 — 띄어쓰기까지 눈여겨보세요."]],
+    keyerr:[["df[['꽃잎길이', '꽃잎너비']]", "<b>붙여 쓴</b> 이름으로 열을 고르면? 표에 없는 이름이라 <b>KeyError</b>."]],
+    xy:   [["x = df[[…]]", "속성 네 열(꽃잎 · 꽃받침의 길이 · 너비)을 <b>x</b> 에 — 열 이름은 띄어쓰기까지 똑같이."],
+           ["y = df[…]", "정답 <b>종</b>(0 · 1 · 2)을 <b>y</b> 에. 한 열이라 대괄호 한 겹이어도 돼요."],
+           ["x.shape, y.shape", "모양 확인 — y 는 <code>(150,)</code> 처럼 한 줄짜리."]],
+    split:[["x_train, x_test, y_train, y_test = …(", "앞부분과 <b>똑같이</b> 네 덩어리로 나눕니다."],
+           ["x, y, test_size=…, random_state=…)", "시험용 20%, 섞는 번호는 교과서처럼 10."],
+           ["x_train.shape, x_test.shape", "훈련용 · 시험용 모양."]],
+    make: [["model = …()", "<b>이 줄만</b> 앞부분과 다릅니다 — 선형 회귀 대신 <b>이웃 분류</b> 모델. 괄호가 비면 이웃 수 k = 5."]],
+    fit:  [["model.…(x_train, y_train)", "훈련용으로 학습 — 이웃 분류는 훈련 데이터를 <b>기억</b>해 둡니다."]],
+    predict:[["Predicted = model.…(x_test)", "시험지 꽃마다 가장 가까운 이웃 5개에게 물어 <b>다수결</b>로 종을 정합니다."],
+           ["print('예측한 종 :', Predicted[:10])", "모델의 답 앞 10개."],
+           ["print('진짜 종 :', y_test.values[:10])", "진짜 정답 앞 10개 — <code>.values</code> 는 표에서 값만 꺼내기."]],
+    cm:   [["sklearn.metrics.…(y_test, Predicted)", "<b>오분류표</b> — 행 = 실제, 열 = 예측. 대각선이 맞힌 개수."]],
+    evalCls:[["print('정확도 :', …)", "<b>정확도</b> = 맞힌 수 ÷ 전체."],
+           ["print('정밀도 :', …, average=None)", "<b>정밀도</b> — «○라고 한 것 중 진짜 ○». average=None 이면 <b>종마다</b> 하나씩."],
+           ["print('재현율 :', …, average=None)", "<b>재현율</b> — «진짜 ○ 중 찾아낸 것»."]]
+  }
+};
+var LEXOPEN = true;
+function lexHtml(i, c){
+  var L = LEX[cur] && LEX[cur][c.run]; if(!L || !L.length) return '';
+  var open = isSolved(i, c);
+  return '<details class="lex"' + (LEXOPEN ? ' open' : '') + '><summary>🔍 한 줄씩 풀이' + (open ? '' : ' <small>(완성하면 코드도 함께 보여요)</small>') + '</summary><ol>' +
+    L.map(function(x, k){ return '<li>' + (open ? '<code>' + esc(x[0]) + '</code>' : '<span class="ln">' + (k + 1) + '번째 줄</span>') + '<span>' + x[1] + '</span></li>'; }).join('') + '</ol></details>';
+}
 function drawModeBar(){
   var C = cells(cur), n = 0, N = 0;
   C.forEach(function(c, i){ if(c.text || c.given) return; N++; if(MODE !== 'view' && SOLVED[akey(i)] === plain(c.code)) n++; });
   document.getElementById('modeBar').innerHTML = Object.keys(MODES).map(function(m){
     return '<button type="button" class="mode' + (m === MODE ? ' on' : '') + '" data-mode="' + m + '" aria-pressed="' + (m === MODE) + '">' + MODES[m] + '</button>'; }).join('') +
+    '<button type="button" class="mode lexbtn" data-lex="1" aria-pressed="' + LEXOPEN + '">🔍 풀이 ' + (LEXOPEN ? '접기' : '펴기') + '</button>' +
     (MODE === 'view' ? '<small>선생님 시범 · 코드를 보며 ▶ 실행</small>' : '<small>완성 <b>' + n + ' / ' + N + '</b>칸' + (n === N ? ' 🎉' : '') + '</small>');
 }
 function drawNb(){
@@ -1352,11 +1428,11 @@ function drawNb(){
     var wn = c.w === 'model' ? (t === 'reg' ? 'Linear Regression' : 'kNN') : WNAME[c.w];
     var extra = c.run === 'fit' ? '꽂으면 학습' : c.run === 'coef' ? 'Coefficients' : '';
     var lock = !isSolved(i, c);
-    return (c.md ? '<div class="tcell sm">' + c.md + '</div>' : '') +
+    return (c.md ? '<div class="tcell sm"><span class="tag">📘 설명</span>' + c.md + '</div>' : '') +
       '<div class="cell' + (selW === c.w ? ' hl' : '') + (lock ? ' lock' : '') + '" data-i="' + i + '" data-w="' + c.w + '" tabindex="0">' +
       '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행"' + (lock ? ' title="칸을 먼저 완성하세요"' : '') + '>▶</button><span class="cnt">[' + (rt && rt.cnt[i] ? rt.cnt[i] : ' ') + ']</span></div>' +
       '<div class="src"><div class="ctag"><span class="chip ' + WKIND[c.w] + '">' + wn + '</span>' + (extra ? '<small>' + extra + '</small>' : '') + '</div>' +
-      codeEditor(i, c) + out + '</div></div>';
+      codeEditor(i, c) + lexHtml(i, c) + out + '</div></div>';
   }).join('');
   drawModeBar();
 }
@@ -1434,7 +1510,7 @@ document.getElementById('nb').addEventListener('click', function(e){
   var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
   var hb = e.target.closest('[data-hint]'); if(hb){ var i = +hb.dataset.hint, fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb hint'; fb.innerHTML = '💡 <code>' + esc(cells(cur)[i].hint || '') + '</code> · 막히면 왼쪽 <b>위젯</b>을 눌러 짝이 되는 코드를 떠올려 보세요.'; } return; }
   var sb = e.target.closest('[data-show]'); if(sb){ SHOWN[akey(+sb.dataset.show)] = 1; drawNb(); return; }
-  if(e.target.closest('input, textarea, .pact, .mission, .pfb, .read, .tcell')) return;
+  if(e.target.closest('input, textarea, .pact, .mission, .pfb, .read, .tcell, .lex')) return;
   var c = e.target.closest('.cell'); if(c && !e.target.closest('.out')){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
 });
 document.getElementById('nb').addEventListener('input', function(e){
@@ -1455,6 +1531,7 @@ document.getElementById('nb').addEventListener('keydown', function(e){
   if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); runCell(+c.dataset.i); var nx = document.querySelector('.cell[data-i="' + (+c.dataset.i + 1) + '"]'); if(nx) nx.focus(); }
 });
 document.getElementById('modeBar').addEventListener('click', function(e){
+  if(e.target.closest('[data-lex]')){ LEXOPEN = !LEXOPEN; drawNb(); return; }
   var b = e.target.closest('[data-mode]'); if(!b) return; MODE = b.dataset.mode; store('o2c_mode', MODE); drawNb();
 });
 document.getElementById('wset').addEventListener('input', function(e){
