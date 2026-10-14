@@ -1303,8 +1303,6 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#lessonPanel">오늘 순서</a>
   <a href="#learn05">교과서 Ⅱ-05</a>
   <a href="#blocks">블록 → 파이썬</a>
-  <a href="#code">코드 읽기</a>
-  <a href="#implement">평가 해석</a>
   <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 실습 창</a>
   <a href="https://richee-pc.github.io/entry2colab/" target="_blank" rel="noopener">🧩 entry2colab</a>
 </div></div></nav>
@@ -3238,24 +3236,10 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <tr><td><b>Confusion Matrix</b> · CA · Prec · Recall</td><td><code>confusion_matrix(...)</code> · <code>accuracy_score(...)</code> · <code>precision_score(...)</code> · <code>recall_score(...)</code></td><td>③ 모델 평가(분류)</td></tr>
     </table></div>
     <p class="note" style="margin-top:12px"><b>모델만 바꾸면 끝.</b> 예측에서 분류로 넘어갈 때 오렌지3에서는 <b>블록 하나</b>, 파이썬에서는 <b>한 줄</b>(<code>LinearRegression()</code> → <code>KNeighborsClassifier()</code>)만 바뀝니다. 나머지 순서는 그대로입니다.</p>
-    <div class="colabcta" style="background:linear-gradient(120deg,#FFF1E2,var(--blue-xl)); border-color:#F5B36B"><span><b style="color:#B9560D">🍊 오늘 코드 실습은 여기서 — 오렌지3 ↔ 코랩 실습 창</b>교과서 104~112쪽 코드가 코랩 노트북처럼 들어 있어요. 내 수준에 맞게 <b>🟢 빈칸 · 🟡 따라 적기 · 🔴 스스로 적기</b>를 골라 칸을 완성하면 ▶ 로 실행되고, 위젯을 누르면 짝이 되는 코드에 불이 들어옵니다. ① 청년 인구 → ② 붓꽃 순서로.</span>
+    <div class="colabcta" style="background:linear-gradient(120deg,#FFF1E2,var(--blue-xl)); border-color:#F5B36B"><span><b style="color:#B9560D">🍊 오늘 코드 실습은 여기서 — 오렌지3 ↔ 코랩 실습 창</b>교과서 104~112쪽 코드가 코랩 노트북처럼 들어 있어요. 내 수준에 맞게 <b>🟢 빈칸 · 🟡 따라 적기 · 🔴 스스로 적기</b>를 골라 칸을 완성하면 ▶ 로 실행되고, 위젯을 누르면 짝이 되는 코드에 불이 들어옵니다. ① 청년 인구 → ② 붓꽃 순서로. 이어서 <b>📏 평가 지표</b>(수식 · 계산기) · <b>🧭 구현 · 해석</b>(아홉 걸음 · 함정)까지 이 창에서 끝내요.</span>
       <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener" style="background:#E8731C">🍊 실습 창 열기</a></div>
   </div>
 
-  <div class="tool">
-    <h3>견주어 보기 — 블록과 코드, 점수가 같을까? <span class="tm">실습 창 아래 표에</span></h3>
-    <div class="tw"><table>
-      <tr><th></th><th>오렌지3</th><th>파이썬</th><th>교과서</th></tr>
-      <tr><td>청년 인구 R²</td><td>0.○○</td><td>0.○○</td><td>약 0.64 (107쪽)</td></tr>
-      <tr><td>붓꽃 정확도</td><td>0.○○</td><td>0.○○</td><td>약 0.967 (110쪽)</td></tr>
-    </table></div>
-    <p class="ask" style="margin-top:12px"><b>점수가 조금 다르지요?</b> 오렌지3와 파이썬은 <b>시험지(테스트 데이터)로 뽑힌 행</b>이 달라서 그렇습니다.
-      나누는 방법만 바꿔도 점수가 달라진다 — 그래서 모델을 비교할 때는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 재야 합니다.</p>
-    <p class="note"><b>정리 한 줄.</b> «블록은 ○○할 때 좋고, 코드는 ○○할 때 좋다.» (예: 블록은 흐름을 한눈에 볼 때 · 코드는 똑같이 되풀이하거나 세세하게 바꿀 때)</p>
-  </div>
-
-  <div class="colabcta" style="opacity:.92"><span><b>(선택) 진짜 코랩에서 다시 — 노트북 02</b>실습 창과 같은 코드를 진짜 코랩에서 돌려 봅니다. 코랩은 <b>다음 차시부터</b> 본격적으로 써요 — 먼저 끝났거나 집에서 복습할 때. 더 해 보기는 <b>04 다이아몬드</b>(114~115쪽 활동).</span>
-    <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/02_model.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 02 예측 · 분류</a></div>
 </div></section>
 
 <section id="implement"><div class="wrap">
@@ -5510,7 +5494,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=9d7c1b76"></script>
+<script src="lessons.js?v=57afddc4"></script>
 <script>
 /* 공개수업 쪽: 차시 U05 고정 · D분반 · 50분 흐름은 숨김(교사는 주소 끝에 ?t=1) · 다른 쪽으로 가는 단계는 뺌 */
 (function(){
@@ -6852,7 +6836,7 @@ grade();
 <link rel="stylesheet" href="polish.css?v=b3d3c79d">
 <script src="polish.js?v=4d3812ad"></script>
 <style>
-#lessonBar, .lbar, .lpfoot, .homefab, .lff-top, .lff-next[data-les], #videos{display:none!important}
+#lessonBar, .lbar, .lpfoot, .homefab, .lff-top, .lff-next[data-les], #videos, #code, #implement{display:none!important}
 .opennav .row{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none}
 .opennav .row::-webkit-scrollbar{display:none}
 .opennav .row a{white-space:nowrap; padding-left:11px; padding-right:11px}

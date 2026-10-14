@@ -285,6 +285,26 @@ textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-
 .mcard.pick{border-left-color:var(--ok)}
 @media (max-width:640px){ .cmgrid,.cmin{grid-template-columns:62px 1fr 1fr} }
 
+/* 구현 · 해석 */
+.ipk{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 10px}
+.ipk button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 11px; font-size:13px; font-weight:600; cursor:pointer}
+.ipk button[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.ipb h4{margin:0 0 4px; font-size:16px}
+.ipb .row2{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:10px; margin-top:8px}
+.ipb .box{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:8px 11px; font-size:13.5px; line-height:1.6}
+.ipb .box b.l{display:block; font-size:12px; color:var(--muted); margin-bottom:2px}
+.ipb .warn2{background:var(--warn-bg)}
+.ipb .nav2{display:flex; justify-content:space-between; margin-top:10px}
+@media (max-width:720px){ .ipb .row2{grid-template-columns:1fr} }
+.encg{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.encg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.encg .tool2{margin:0}
+@media (max-width:900px){ .encg,.encg.two{grid-template-columns:1fr} }
+table.enc td,table.enc th{text-align:center}
+.say{font-size:15px; line-height:2.1}
+.say i{display:inline-block; min-width:64px; border-bottom:1.5px solid var(--ink-2); margin:0 3px}
+.hint code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
 footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
 .sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
@@ -305,6 +325,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
     <button class="tab" role="tab" data-t="reg" aria-selected="true">① 예측 · 청년 인구 <small>(선형 회귀)</small></button>
     <button class="tab" role="tab" data-t="cls" aria-selected="false">② 분류 · 붓꽃 <small>(k-최근접 이웃)</small></button>
     <button class="tab" role="tab" data-t="metric" aria-selected="false">📏 평가 지표</button>
+    <button class="tab" role="tab" data-t="impl" aria-selected="false">🧭 구현 · 해석</button>
     <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 위젯 ↔ 코드 퀴즈</button>
   </div>
 </div></header>
@@ -402,6 +423,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
         <tr><td>Test on test data</td><td>Data Sampler 의 <b>Remaining Data</b>(시험용)로 채점 — 코드의 <code>x_test · y_test</code></td></tr>
         <tr><td>Cross validation</td><td>교차 검증 — 데이터를 k 조각으로 나눠 <b>돌아가며 한 조각씩 시험지</b>로 쓰고 점수를 평균. 시험지 운에 덜 흔들림(Number of folds = 조각 수)</td></tr>
         <tr><td>Test on train data</td><td>공부한 문제로 시험 — 점수가 부풀려지니 <b>평가로 쓰면 안 됨</b>(과적합 확인용)</td></tr>
+        <tr><td>훈련 점수 vs 테스트 점수</td><td>훈련 0.99 · 테스트 0.75 → <b>과적합</b>(외웠다) · 둘 다 낮음 → <b>과소적합</b>(배울 것을 못 배움) · 둘 다 높고 비슷 → 잘 일반화</td></tr>
       </table></div>
 
       <h3 class="mh" id="m-pick">⑤ 어떤 지표를 볼까</h3>
@@ -410,6 +432,49 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
         <p><b>무엇인지 가려내는 모델</b> → 양쪽 개수가 비슷하면 <b>정확도</b>, <b>놓치면 큰일</b>이면 <b>재현율</b>, <b>헛경보가 곤란</b>하면 <b>정밀도</b>, 둘 다 중요하면 <b>F1</b>, 한쪽이 아주 적으면 <b>MCC · F1</b>.</p>
         <p><b>지표 하나만 보지 않기</b> — 정확도 99.9%여도 환자를 한 명도 못 찾을 수 있어요. 그리고 모델끼리는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 견줍니다.</p>
       </div>
+    </div>
+  </div>
+  <div id="implView" hidden>
+    <div class="sect mt">
+      <h2>🧭 구현 아홉 걸음 · 예측 읽기 · 평가 해석 <small>교과서 100~112쪽을 자세히</small></h2>
+      <p class="howto">① ② 탭에서 만든 모델을 <b>처음부터 끝까지 아홉 걸음</b>으로 다시 봅니다. 걸음마다 <b>코랩 코드 · 오렌지3 위젯 · 자주 막히는 곳</b>을 짝지었어요. 그다음 모델이 내놓은 <b>예측을 읽는 법</b>과, 점수를 «그래서 좋은 모델인가?»로 바꿔 말하는 <b>해석법</b>을 연습합니다.</p>
+      <nav class="mnav"><a href="#i-steps">① 구현 아홉 걸음</a><a href="#i-enc">② 글자를 숫자로</a><a href="#i-read">③ 예측 읽기</a><a href="#i-trap">④ 해석 함정 여섯</a><a href="#i-say">⑤ 해석 문장 틀</a></nav>
+
+      <h3 class="mh" id="i-steps">① 구현 아홉 걸음 <span class="tm">교과서 100~103쪽 순서를 자세히</span></h3>
+      <div class="tool2"><div class="ipk" id="ipk" role="tablist" aria-label="구현 걸음"></div><div id="ipBody"></div>
+        <p class="hint">5~8걸음이 Ⅳ단원 수행평가 ② 노트북의 «나누기 · 모델 정의 · 학습 · 점수»와 같아요. 코랩 칸마다 오렌지3 위젯 이름을 주석(#)으로 적는 연습을 지금부터!</p></div>
+
+      <h3 class="mh" id="i-enc">② 글자(범주)를 숫자로 — 레이블 인코딩 vs 원-핫 인코딩 <span class="tm">전처리 · 프로젝트 필수</span></h3>
+      <div class="mcard">모델은 <b>숫자만</b> 계산합니다. «성별 · 탑승 항구 · 지역»처럼 글자로 된 범주형 열은 숫자로 바꿔야 해요. 붓꽃의 «종»은 이미 0 · 1 · 2 로 바뀌어 있었죠 — 그래서 오렌지3에서 Type 을 <b>categorical</b> 로 알려 줘야 했어요.</div>
+      <div class="encg">
+        <div class="tool2"><h4>원래 표</h4><table class="calc enc"><tr><th>이름</th><th>성별</th><th>탑승 항구</th></tr><tr><td>김</td><td>남</td><td>S</td></tr><tr><td>이</td><td>여</td><td>C</td></tr><tr><td>박</td><td>여</td><td>Q</td></tr><tr><td>최</td><td>남</td><td>S</td></tr></table></div>
+        <div class="tool2"><h4>레이블 인코딩</h4><table class="calc enc"><tr><th>이름</th><th>성별</th><th>항구</th></tr><tr><td>김</td><td>0</td><td>2</td></tr><tr><td>이</td><td>1</td><td>0</td></tr><tr><td>박</td><td>1</td><td>1</td></tr><tr><td>최</td><td>0</td><td>2</td></tr></table>
+          <p class="hint">범주마다 번호 하나(C→0, Q→1, S→2). 열이 늘지 않아 간단하지만 «S(2)가 C(0)보다 크다»는 <b>없는 순서</b>를 배울 수 있어요. 순서가 진짜 있는 범주(낮음 · 보통 · 높음)나 <b>정답 열</b>에 알맞아요.<br><code>df['성별'].map({'남':0, '여':1})</code> · <code>LabelEncoder()</code>(교과서 126쪽 독버섯)</p></div>
+        <div class="tool2"><h4>원-핫 인코딩</h4><table class="calc enc"><tr><th>이름</th><th>성별_남</th><th>항구_C</th><th>항구_Q</th><th>항구_S</th></tr><tr><td>김</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>이</td><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><td>박</td><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>최</td><td>1</td><td>0</td><td>0</td><td>1</td></tr></table>
+          <p class="hint">범주마다 열을 하나씩 만들어 해당하면 1, 아니면 0. 순서가 생기지 않아 <b>순서 없는 특성</b>(항구 · 지역 · 혈액형)에 알맞아요. 범주가 아주 많으면 열이 폭발.<br><code>pd.get_dummies(df, columns=['항구'])</code> · 오렌지3는 <b>Continuize</b> 위젯이 자동으로</p></div>
+      </div>
+
+      <h3 class="mh" id="i-read">③ 예측 읽기</h3>
+      <div class="encg two">
+        <div class="tool2"><h4>분류 — 답 하나 vs 확률</h4>
+          <p class="hint" style="margin-top:0"><code>predict()</code> 는 집단 이름 <b>하나</b>, <code>predict_proba()</code> 는 집단마다 <b>확률</b>을 줍니다.</p>
+          <pre class="code">pred  = ['virginica']
+proba = [0.02, 0.41, 0.57]   # setosa · versicolor · virginica</pre>
+          <p class="hint">가장 큰 0.57을 골랐지만 0.41과 차이가 작아요 — <b>«자신 없는 예측»</b>. 이런 행이 모인 곳이 두 집단의 <b>경계</b>이고, 틀린 예측도 대개 여기서 나옵니다. kNN 이라면 이웃 5개 중 virginica 3개 · versicolor 2개처럼 표가 갈린 경우예요. (AUC · LogLoss 는 이 확률로 계산 → 📏 평가 지표 탭)</p></div>
+        <div class="tool2"><h4>숫자 — 잔차 읽기</h4>
+          <p class="hint" style="margin-top:0">예측값과 실제값의 차이를 <b>잔차</b>(실제 − 예측)라고 합니다.</p>
+          <pre class="code">실제 120 · 예측 112 → 잔차 +8  (덜 맞힘)
+실제  95 · 예측 104 → 잔차 −9  (더 맞힘)</pre>
+          <p class="hint">잔차가 <b>+ − 고루 섞여야</b> 좋아요. 큰 값에서만 계속 + 라면 모델이 놓친 패턴(직선이 아닌 관계)이 있다는 뜻. 새 데이터를 넣을 때는 학습 때와 <b>같은 전처리 · 같은 열 순서</b>로!</p></div>
+      </div>
+
+      <h3 class="mh" id="i-trap">④ 이 결과, 어떻게 해석할까? — 함정 여섯 <span class="tm">가장 알맞은 해석 고르기</span></h3>
+      <div class="qz" id="iq"></div><p class="qsum" id="iqSum" style="margin-top:8px"></p>
+
+      <h3 class="mh" id="i-say">⑤ 평가 해석 문장 틀 <span class="tm">계획서 · 보고서에 그대로</span></h3>
+      <div class="mcard pick say">우리 모델( <i></i> )은 테스트 데이터 <i></i> 개에서 <i></i>(지표)이 <i></i> 이다.
+        기준선( <i></i> )보다 <i></i> 만큼 낫다. 다만 <i></i>(집단 · 구간)에서 자주 틀리므로 다음에는 <i></i> 을(를) 바꿔 보겠다.
+        <p class="hint" style="margin:8px 0 0">예) 우리 모델(kNN, k = 5)은 테스트 데이터 30개에서 정확도가 0.967이다. 기준선(0.433)보다 0.53 만큼 낫다. 다만 versicolor · virginica 경계에서 틀리므로 다음에는 k 를 바꿔 보겠다.</p></div>
     </div>
   </div>
   <div id="quizView" hidden>
@@ -1066,7 +1131,7 @@ function cells(t){
       task: '데이터를 훈련용 ' + st.pct + '% · 시험용 ' + (100 - st.pct) + '% 로 나누세요' + (st.rep ? '(섞는 방식은 random_state=' + st.seed + ' 로 고정)' : '') + '. 결과는 네 개 — 왼쪽에 이름 네 개를 순서대로!',
       rules: splitRules, hint: 'x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=…, random_state=…)',
       md: '<b>④ 훈련용과 시험용 나누기</b> — <b>공부한 문제만 잘 푸는 건 실력이 아닙니다.</b> 일부를 떼어 두었다가 시험지로 씁니다. 오렌지3 <b>Data Sampler</b> 의 Data Sample = 훈련용, Remaining Data = 시험용.',
-      after: '훈련용 <b>200줄</b>, 시험용 <b>50줄</b>(250의 20%). <code>train_test_split</code> 이 결과를 <b>네 개 한꺼번에</b> 돌려주고, 왼쪽 네 이름이 <b>순서대로</b> 받습니다. <code>random_state</code> 가 없으면 돌릴 때마다 나뉘는 줄이 달라져요.' },
+      after: '훈련용 <b>200줄</b>, 시험용 <b>50줄</b>(250의 20%). <code>train_test_split</code> 이 결과를 <b>네 개 한꺼번에</b> 돌려주고, 왼쪽 네 이름이 <b>순서대로</b> 받습니다(<b>언패킹</b>). <code>test_size=0.2</code> 처럼 «이름=값»으로 넘기는 것은 <b>키워드 인자</b>. <code>random_state</code> 가 없으면 돌릴 때마다 나뉘는 줄이 달라져요.' },
     { w:'model', run: 'make', code: "model = LinearRegression()", blanks: ['LinearRegression'],
       task: '선형 회귀 모델을 하나 만들어 <code>model</code> 이라는 이름에 담으세요. (오렌지3의 Linear Regression 위젯을 캔버스에 놓는 것)',
       rules: [[/^model=LinearRegression\(\)$/m, '클래스 이름은 대문자 두 개 — LinearRegression(), 괄호까지']], hint: 'model = ○○○○○○Regression()',
@@ -1660,8 +1725,11 @@ function drawClsCalc(){
   var TP = g('cTP'), FN = g('cFN'), FP = g('cFP'), TN = g('cTN'), N = TP + FN + FP + TN, out = document.getElementById('mClsOut');
   var acc = (TP + TN) / N, pr = TP / (TP + FP), rc = TP / (TP + FN), sp = TN / (TN + FP), f1 = 2 * pr * rc / (pr + rc),
       den = Math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN)), mcc = den ? (TP * TN - FP * FN) / den : NaN;
+  var pos = TP + FN, base = Math.max(pos, N - pos) / N;
   out.innerHTML = '<div class="steps2">' +
     '<div><b>CA 정확도</b> = ' + frac('TP + TN', '전체') + ' = ' + frac(TP + ' + ' + TN, N) + ' = <b class="v">' + fx(acc, 3) + '</b></div>' +
+    '<div><b>기준선</b> = 무조건 <b>많은 쪽</b>(' + (pos >= N - pos ? '양성' : '음성') + ')으로 찍었을 때의 정확도 = ' + frac(Math.max(pos, N - pos), N) + ' = <b class="v">' + fx(base, 3) + '</b> → 모델은 기준선보다 <b class="v">' + (acc - base >= 0 ? '+' : '') + fx(acc - base, 3) + '</b>' +
+      '<small>모델은 기준선보다 나아야 의미가 있어요.' + (acc - base < 0.03 ? ' <b style="color:var(--bad)">기준선과 거의 같아 «많은 쪽으로 찍기»보다 낫다고 하기 어려워요.</b>' : '') + '</small></div>' +
     '<div><b>Prec 정밀도</b> = ' + frac('TP', 'TP + FP') + ' = ' + frac(TP, TP + ' + ' + FP) + ' = <b class="v">' + fx(pr, 3) + '</b><small>양성이라고 한 ' + (TP + FP) + '개 중 진짜 양성 ' + TP + '개</small></div>' +
     '<div><b>Recall 재현율</b> = ' + frac('TP', 'TP + FN') + ' = ' + frac(TP, TP + ' + ' + FN) + ' = <b class="v">' + fx(rc, 3) + '</b><small>진짜 양성 ' + (TP + FN) + '개 중 찾아낸 것 ' + TP + '개 — ' + FN + '개를 놓침</small></div>' +
     '<div><b>Spec 특이도</b> = ' + frac('TN', 'TN + FP') + ' = ' + frac(TN, TN + ' + ' + FP) + ' = <b class="v">' + fx(sp, 3) + '</b></div>' +
@@ -1695,6 +1763,52 @@ document.getElementById('metricView').addEventListener('input', function(e){
 document.getElementById('metricView').addEventListener('click', function(e){
   var b = e.target.closest('[data-pre]'); if(!b) return;
   var v = b.dataset.pre.split(','); ['cTP', 'cFN', 'cFP', 'cTN'].forEach(function(id, k){ document.getElementById(id).value = v[k]; }); drawClsCalc();
+});
+
+/* ── 구현 아홉 걸음 · 해석 함정 ───────────────────────────── */
+var IP = [
+  ['문제와 정답 정하기', '분류인가 예측인가, 무엇이 정답 열(y)인가를 먼저 한 문장으로.', '# 붓꽃의 종(y)을 꽃잎 · 꽃받침 크기(x)로 맞힌다 → 분류', '(계획서) · File 의 Role: target', '정답 열을 정하지 않고 시작하면 4걸음에서 막힙니다.'],
+  ['데이터 불러오기 · 살펴보기', '행과 열의 수, 자료형, 빈칸, 평균 · 최솟값 · 최댓값을 먼저 봅니다.', "import pandas as pd\ndf = pd.read_csv(주소 + 'iris.csv')\ndf.info()        # 행 수 · 열 이름 · 빈칸\ndf.describe()    # 평균 · 최솟값 · 최댓값", 'File · Data Table · Feature Statistics', '열 이름에 띄어쓰기가 있으면 KeyError — df.columns 부터 확인(붓꽃은 «꽃잎 길이»).'],
+  ['전처리', '빈칸 · 중복 · 이상치 처리, 범주를 숫자로, 필요하면 정규화.', "df = df.dropna()            # 결측 행 지우기\ndf = df.drop_duplicates()   # 중복 지우기\n# (kNN · 신경망) 정규화\nfrom sklearn.preprocessing import StandardScaler", 'Impute · Preprocess · Continuize', '지운 행 수를 기록하세요(n 이 줄어듦). 정규화는 훈련 데이터 기준으로.'],
+  ['속성 x 와 정답 y 나누기', '힌트로 쓸 열(독립변수)과 맞힐 열(종속변수)을 나눕니다.', "x = df[['꽃잎 길이', '꽃잎 너비']]   # 두 겹 대괄호 = 열 여러 개\ny = df['종']", 'File 의 Role (feature / target) · Select Columns', '정답 열을 x 에 같이 넣으면 «답을 보고 푸는» 모델(데이터 누수) — 점수가 비정상적으로 1.0.'],
+  ['훈련 · 테스트 나누기', '공부할 데이터와 시험 볼 데이터를 나눕니다. 테스트는 마지막까지 봉인.', "from sklearn.model_selection import train_test_split\nx_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=0.2, random_state=10, stratify=y)", 'Data Sampler (80% / 20%)', 'stratify=y 를 주면 집단 비율이 양쪽에 똑같이 — 적은 집단이 테스트에서 사라지지 않아요.'],
+  ['모델 만들고 학습', '알고리즘과 설정값(하이퍼파라미터)을 정해 훈련 데이터로만 fit.', "from sklearn.neighbors import KNeighborsClassifier\nmodel = KNeighborsClassifier(n_neighbors=5)\nmodel.fit(x_train, y_train)", 'kNN · Tree · Logistic Regression … → Test and Score 에 꽂기', 'fit 에 x_test 를 넣으면 시험 문제를 미리 보여 준 셈.'],
+  ['예측', '테스트 데이터로 맞혀 봅니다. 분류면 확률도 볼 수 있어요.', "Predicted = model.predict(x_test)\nproba = model.predict_proba(x_test)   # 분류만", 'Predictions', '새 데이터도 같은 열 · 같은 순서 · 같은 전처리로 넣어야 해요.'],
+  ['평가', '훈련 점수와 테스트 점수를 함께 봅니다. 분류는 오분류표까지.', "print(model.score(x_train, y_train))   # 훈련 점수\nprint(model.score(x_test, y_test))     # 테스트 점수\nsklearn.metrics.confusion_matrix(y_test, Predicted)\n# 예측(숫자)이면: mean_squared_error, model.score(= R²)", 'Test and Score · Confusion Matrix', '훈련 0.99 · 테스트 0.75 → 과적합. 둘 다 낮으면 → 과소적합(특성 부족 · 모델이 너무 단순).'],
+  ['개선하고 다시', '특성 바꾸기 · 설정값 조정 · 데이터 보강 · 다른 모델 → 5~8걸음을 다시. 바꾼 것과 결과를 한 줄씩 기록.', "for k in [1, 3, 5, 7, 9]:\n    m = KNeighborsClassifier(n_neighbors=k).fit(x_train, y_train)\n    print(k, m.score(x_test, y_test))", 'Test and Score 에 여러 학습기를 함께 연결', '테스트 점수만 보며 수십 번 고르면 테스트가 «모의고사»가 됩니다 — 고르는 것은 교차 검증으로, 테스트는 마지막 확인으로.']
+];
+var ipCur = 0;
+function drawIP(){
+  document.getElementById('ipk').innerHTML = IP.map(function(x, i){ return '<button type="button" role="tab" data-ip="' + i + '" aria-selected="' + (i === ipCur) + '">' + (i + 1) + ' ' + x[0] + '</button>'; }).join('');
+  var x = IP[ipCur];
+  document.getElementById('ipBody').innerHTML = '<div class="ipb"><h4>' + (ipCur + 1) + '걸음 · ' + x[0] + '</h4><p class="hint" style="margin:0">' + x[1] + '</p>' +
+    '<div class="row2"><div><pre class="code">' + hl(x[2]) + '</pre></div><div class="box"><b class="l">오렌지3</b>' + esc(x[3]) + '</div></div>' +
+    '<div class="box warn2" style="margin-top:8px"><b class="l">⚠ 자주 막히는 곳</b>' + esc(x[4]) + '</div>' +
+    '<div class="nav2"><button type="button" class="btn" data-ipgo="-1"' + (ipCur ? '' : ' disabled') + '>◀ 이전 걸음</button><button type="button" class="btn" data-ipgo="1"' + (ipCur < IP.length - 1 ? '' : ' disabled') + '>다음 걸음 ▶</button></div></div>';
+}
+var IQ = [
+  ['약수터 100곳 중 부적합은 5곳뿐입니다. 모델 정확도가 0.95입니다.', ['아주 좋은 모델이다', '모두 «적합»이라 찍어도 0.95 — 부적합 재현율부터 봐야 한다', '데이터가 너무 많다'], 1, '<b>기준선</b>(많은 쪽으로 찍기)이 0.95입니다. 부적합을 하나도 못 찾아도 0.95가 나와요. 적은 집단이 중요하면 재현율 · F1 · MCC 를 봅니다.'],
+  ['훈련 점수 0.99, 테스트 점수 0.74입니다.', ['과적합 — 훈련 데이터를 외웠다', '과소적합 — 너무 단순하다', '테스트 데이터가 잘못됐다'], 0, '공부한 문제만 잘 푸는 상태입니다. 트리 깊이 줄이기 · k 늘리기 · 데이터 보강으로 고쳐요.'],
+  ['훈련 0.61, 테스트 0.60입니다.', ['과적합이다', '과소적합 — 특성이 부족하거나 모델이 너무 단순하다', '완벽하게 일반화했다'], 1, '둘 다 낮고 차이도 없으면 배울 것을 못 배운 것. 특성을 더 넣거나 조금 더 복잡한 모델을 시험해요.'],
+  ['R²가 0.64입니다.', ['테스트 데이터의 64%를 맞혔다', '값이 달라지는 정도의 64%를 모델이 설명한다', '오차가 64이다'], 1, 'R² 는 «맞힌 비율»이 아닙니다. 평균으로만 찍을 때보다 오차가 얼마나 줄었는지예요.'],
+  ['다이아몬드 가격 예측의 RMSE가 500입니다.', ['나쁜 모델이다', '좋은 모델이다', '가격의 평균 · 범위와 견주어 봐야 판단할 수 있다'], 2, '평균 가격이 4,000달러라면 약 12% 빗나가는 셈. RMSE 는 단위가 있어 홀로는 좋고 나쁨을 말할 수 없어요.'],
+  ['테스트 점수가 가장 높게 나올 때까지 k를 1부터 30까지 바꿔 가며 골랐습니다.', ['가장 공정한 방법이다', '테스트를 고르는 데 써 버려 점수가 부풀었다 — 교차 검증으로 고르고 테스트는 마지막에', 'k는 학습으로 정해지니 상관없다'], 1, '테스트에 맞춰 고르면 그 점수는 «새 데이터에서의 실력»이 아니에요. 오렌지3라면 Test and Score 의 Cross validation 으로 골라요.']
+];
+var IA = {};
+function drawIQ(){
+  document.getElementById('iq').innerHTML = IQ.map(function(it, i){
+    var a = IA[i], ok = a === it[2];
+    return '<div class="q' + (a != null && ok ? ' done' : '') + '"><div class="qh"><b>' + (i + 1) + '</b>' + esc(it[0]) + '</div><div class="picks">' +
+      it[1].map(function(o, k){ return '<button type="button" data-iq="' + i + '" data-k="' + k + '"' + (a === k ? (ok ? ' class="ok"' : ' class="no"') : '') + '>' + esc(o) + '</button>'; }).join('') + '</div>' +
+      (a == null ? '' : '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 맞아요. ' : '🤔 다시 보세요. ') + it[3] + '</div>') + '</div>';
+  }).join('');
+  document.getElementById('iqSum').innerHTML = '맞힌 수 <b>' + IQ.filter(function(it, i){ return IA[i] === it[2]; }).length + ' / ' + IQ.length + '</b>';
+}
+function drawImpl(){ drawIP(); drawIQ(); }
+document.getElementById('implView').addEventListener('click', function(e){
+  var b = e.target.closest('[data-ip]'); if(b){ ipCur = +b.dataset.ip; drawIP(); return; }
+  var g = e.target.closest('[data-ipgo]'); if(g){ ipCur = Math.max(0, Math.min(IP.length - 1, ipCur + +g.dataset.ipgo)); drawIP(); return; }
+  var q = e.target.closest('[data-iq]'); if(q){ IA[+q.dataset.iq] = +q.dataset.k; drawIQ(); }
 });
 
 /* ── 이벤트 ───────────────────────────── */
@@ -1751,9 +1865,10 @@ document.querySelector('.tabs').addEventListener('click', function(e){
   var b = e.target.closest('.tab'); if(!b) return;
   [].forEach.call(document.querySelectorAll('.tab'), function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
   var t = b.dataset.t;
-  document.getElementById('benchView').hidden = t === 'quiz' || t === 'metric'; document.getElementById('quizView').hidden = t !== 'quiz'; document.getElementById('metricView').hidden = t !== 'metric';
+  document.getElementById('benchView').hidden = t === 'quiz' || t === 'metric' || t === 'impl'; document.getElementById('quizView').hidden = t !== 'quiz'; document.getElementById('metricView').hidden = t !== 'metric'; document.getElementById('implView').hidden = t !== 'impl';
   if(t === 'quiz'){ drawQuiz(); return; }
   if(t === 'metric'){ drawMetric(); return; }
+  if(t === 'impl'){ drawImpl(); return; }
   cur = t; selW = null; document.getElementById('nbName').textContent = '02_model.ipynb · ' + (t === 'reg' ? '① 예측' : '② 분류');
   drawSteps(); refresh();
 });
@@ -1763,7 +1878,7 @@ function drawSteps(){
     mk('model', '모델 고르기', cur === 'reg' ? 'Linear Regression' : 'kNN') + '<i>→</i>' + mk('eval', '② 학습 · ③ 평가', 'Test and Score') + '<i>→</i>' + mk('eval', '③ 예측', 'Predictions') +
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
 }
-var hashT = (location.hash.match(/^#(reg|cls|quiz|metric)$/) || [])[1];
+var hashT = (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
 (function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); if(m && MODES[m]) MODE = m; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
