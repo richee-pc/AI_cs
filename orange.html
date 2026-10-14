@@ -1,0 +1,1170 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════
+     orange2colab · 오렌지3 블록에서 코랩 파이썬까지
+     ─────────────────────────────────────────────────────────────────────
+     고2 「인공지능 기초」 Ⅱ-05 모델 구현(교과서 100~115쪽) 수업 도구
+     colab.html(엔트리 ↔ 코랩)과 짝 — 이번에는 오렌지3 위젯 ↔ 코랩 코드
+     데이터는 파일 안에 들어 있어 인터넷 없이도 동작합니다(글꼴만 바깥).
+     코랩 쪽 «나누기»는 numpy RandomState + scikit-learn train_test_split 과
+     같은 순서로 섞어서, 노트북 02 와 같은 점수가 나옵니다.
+     ══════════════════════════════════════════════════════════════════════ -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>orange2colab · 오렌지3에서 코랩까지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="오렌지3 블록(위젯)으로 설계한 모델을 코랩 파이썬 코드로 — 블록과 코드를 나란히 짝지어 보는 실습 창">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --font-ui:'IBM Plex Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-mono:'IBM Plex Mono','D2Coding','Consolas',monospace;
+  --bg:#EDF0F4; --surface:#FFFFFF; --canvas:#F7F5F0; --dot:#DDD6CA;
+  --line:#D5DCE5; --line-soft:#E5EAF1;
+  --ink:#171C24; --ink-2:#3F4856; --muted:#6B7685;
+  --code-bg:#FBFCFE; --code-line:#EEF2F7; --code-gutter:#98A4B5;
+  --syn-kw:#8A3FFC; --syn-fn:#0F62FE; --syn-str:#0E7C5A; --syn-num:#B45309; --syn-com:#8B97A8;
+  --ok:#127A56; --ok-bg:#E2F4EC; --bad:#C0392F; --bad-bg:#FBEBE9; --warn:#9A6608; --warn-bg:#FDF2DE;
+  --hl:#FFC53D; --hl-soft:#FFF3D2;
+  --orange:#E8731C; --orange-d:#B9560D; --orange-wash:#E8731C14;
+  --colab:#F9AB00;
+  --w-data:#FFD39F; --w-model:#FAC1D9; --w-eval:#C3F3F3; --w-pred:#C3F3F3;
+  --w-data-s:#E89A3C; --w-model-s:#D9709B; --w-eval-s:#3FB3B3;
+  --r-s:6px; --r-m:10px; --r-l:14px;
+  --sh:0 1px 2px rgba(23,28,36,.06),0 4px 14px rgba(23,28,36,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+    --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+    --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+    --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+    --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+    --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+    --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+  --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+  --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+  --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+  --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+  --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+  --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--font-ui); font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%}
+button,input,select{font:inherit; color:inherit}
+code,.mono{font-family:var(--font-mono)}
+.wrap{max-width:1320px; margin:0 auto; padding:0 16px}
+
+/* 머리 */
+.head{background:var(--surface); border-bottom:1px solid var(--line)}
+.head .wrap{padding-top:18px; padding-bottom:14px}
+.kicker{display:inline-flex; gap:6px; align-items:center; font-size:12.5px; font-weight:700; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:3px 11px; margin:0 0 6px}
+h1{margin:0; font-size:clamp(22px,3.2vw,30px); line-height:1.3; letter-spacing:-.01em}
+h1 em{font-style:normal; color:var(--orange)}
+.lede{margin:6px 0 0; color:var(--ink-2); max-width:68em}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px}
+.tab{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:7px 15px; font-weight:600; cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.tab:focus-visible,.wg:focus-visible,.cell:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* 구현 과정 띠 */
+.steps{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:16px 0 4px; font-size:13px}
+.steps span{background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:3px 11px; color:var(--ink-2)}
+.steps span b{color:var(--ink)}
+.steps i{font-style:normal; color:var(--muted)}
+.howto{margin:6px 0 14px; font-size:13.5px; color:var(--muted)}
+.howto b{color:var(--ink-2)}
+
+/* 작업대 */
+.bench{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:14px; align-items:start}
+@media (max-width:980px){ .bench{grid-template-columns:1fr} }
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); overflow:hidden; min-width:0}
+.panel-hd{display:flex; align-items:center; gap:8px; padding:9px 14px; border-bottom:1px solid var(--line-soft); font-weight:700; font-size:14px}
+.panel-hd .dot{width:10px; height:10px; border-radius:50%}
+.panel-hd .sp{flex:1}
+.panel-hd small{font-weight:500; color:var(--muted); font-size:12.5px}
+.btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:5px 12px; font-weight:600; cursor:pointer; font-size:13.5px}
+.btn.pri{background:var(--colab); border-color:var(--colab); color:#2B1D00}
+.btn:hover{filter:brightness(.97)}
+
+/* 오렌지3 캔버스 */
+.canvas{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px; position:relative}
+.canvas svg{display:block; width:100%; height:auto}
+.lk{fill:none; stroke:#9AA3AE; stroke-width:2.2}
+.lk.on{stroke:var(--orange); stroke-width:3}
+.lkl{font-size:14px; fill:var(--orange-d); font-weight:600; paint-order:stroke; stroke:var(--canvas); stroke-width:4px; font-family:var(--font-ui)}
+.wg{cursor:pointer}
+.wg .ring{fill:var(--surface); stroke:var(--line); stroke-width:2}
+.wg .ic{stroke-width:2.2}
+.wg.data .ic{fill:var(--w-data); stroke:var(--w-data-s)}
+.wg.model .ic{fill:var(--w-model); stroke:var(--w-model-s)}
+.wg.eval .ic{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.wg text.nm{font-size:16px; font-weight:700; fill:var(--ink); font-family:var(--font-ui)}
+.wg text.em{font-size:26px}
+.wg text.bd{font-size:14px; font-weight:700; fill:var(--orange-d); font-family:var(--font-mono)}
+.wg.sel .ring{stroke:var(--orange); stroke-width:4}
+.wg.warn .ring{stroke:var(--bad); stroke-dasharray:4 3}
+.wg:hover .ring{stroke:var(--orange)}
+.wset{border-top:1px solid var(--line-soft); padding:12px 14px 14px; min-height:150px}
+.wset h3{margin:0 0 2px; font-size:15px; display:flex; gap:8px; align-items:center}
+.wset .map{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:8px; padding:6px 10px; margin:8px 0 10px}
+.wset .map code{font-size:12.5px}
+.wset .hint{font-size:13px; color:var(--muted); margin:6px 0 0}
+.row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:6px 0}
+.row label{font-size:13.5px}
+.roles{width:100%; border-collapse:collapse; font-size:13.5px}
+.roles th,.roles td{border-bottom:1px solid var(--line-soft); padding:5px 6px; text-align:left}
+.roles th{font-size:12px; color:var(--muted); font-weight:600}
+.roles select{border:1px solid var(--line); border-radius:6px; padding:2px 6px; background:var(--surface)}
+.roles tr.tg td:first-child{font-weight:700}
+.scores{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+.scores th,.scores td{border:1px solid var(--line-soft); padding:5px 8px; text-align:right}
+.scores th:first-child,.scores td:first-child{text-align:left}
+.scores th{background:var(--code-line); font-size:12px}
+.alert{background:var(--bad-bg); color:var(--bad); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+.okmsg{background:var(--ok-bg); color:var(--ok); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+input[type=range]{accent-color:var(--orange); width:180px}
+.chip{display:inline-block; font-size:11.5px; font-weight:700; border-radius:99px; padding:1px 8px; white-space:nowrap}
+.chip.data{background:var(--w-data); color:#6A3D06}
+.chip.model{background:var(--w-model); color:#6E1F44}
+.chip.eval{background:var(--w-eval); color:#0D4F4F}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .chip{color:var(--ink)} }
+
+/* 코랩 */
+.nb{background:var(--code-bg); padding:8px 0 10px}
+.cell{display:grid; grid-template-columns:44px minmax(0,1fr); gap:0; margin:6px 10px 6px 4px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:background .15s,border-color .15s}
+.cell:hover{border-color:var(--line)}
+.cell.hl{background:var(--hl-soft); border-color:var(--hl)}
+.gut{display:flex; flex-direction:column; align-items:center; gap:2px; padding-top:7px}
+.run{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:var(--surface); cursor:pointer; display:grid; place-items:center; font-size:11px; padding:0}
+.run:hover{border-color:var(--ink-2)}
+.cnt{font-family:var(--font-mono); font-size:11px; color:var(--code-gutter)}
+.src{min-width:0}
+.ctag{display:flex; gap:6px; align-items:center; padding:6px 0 2px; flex-wrap:wrap}
+.ctag small{color:var(--muted); font-size:12px}
+pre.code{margin:0 0 4px; background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; padding:8px 11px; font-family:var(--font-mono); font-size:13px; line-height:1.55; overflow-x:auto; white-space:pre}
+.k{color:var(--syn-kw)} .f{color:var(--syn-fn)} .s{color:var(--syn-str)} .n{color:var(--syn-num)} .c{color:var(--syn-com); font-style:italic}
+.chg{background:color-mix(in srgb,var(--orange) 22%,transparent); border-radius:3px; box-shadow:0 0 0 1px color-mix(in srgb,var(--orange) 45%,transparent)}
+.out{font-family:var(--font-mono); font-size:12.5px; white-space:pre; overflow-x:auto; padding:4px 11px 6px; margin:0 0 4px; color:var(--ink)}
+.out.err{color:var(--bad); background:var(--bad-bg); border-radius:6px; white-space:pre-wrap}
+.out.stale{opacity:.45}
+.out .note{font-family:var(--font-ui); color:var(--warn); font-size:12px; white-space:normal}
+table.df{border-collapse:collapse; font-size:12px; margin:2px 0}
+table.df th,table.df td{border-bottom:1px solid var(--line-soft); padding:2px 9px; text-align:right}
+table.df th{font-weight:600}
+
+/* 견주기 · 연습 */
+.sect{margin:18px 0 0}
+.sect h2{font-size:18px; margin:0 0 8px}
+.cmp{width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--r-m); overflow:hidden; font-size:14px; font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{border:1px solid var(--line-soft); padding:8px 10px; text-align:center}
+.cmp th{background:var(--code-line); font-size:13px}
+.cmp td:first-child{text-align:left; font-weight:600}
+.cmp input{width:90px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; text-align:center; background:var(--surface)}
+.why{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:var(--r-m); padding:10px 14px; margin:10px 0 0; font-size:14px; color:var(--ink-2)}
+.why b{color:var(--ink)}
+.qz{display:grid; gap:10px}
+.q{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m); padding:11px 14px}
+.q .qh{display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-bottom:6px}
+.q .qh b{display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--surface); font-size:12px}
+.q pre{margin:0; font-family:var(--font-mono); font-size:13.5px; white-space:pre-wrap}
+.q input.bl{font-family:var(--font-mono); font-size:13.5px; width:13ch; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:1px 5px; border-radius:4px 4px 0 0}
+.q .fb{font-size:13px; margin-top:6px; min-height:1.2em}
+.q .fb.ok{color:var(--ok)} .q .fb.no{color:var(--bad)}
+.q.done{border-color:var(--ok); background:color-mix(in srgb,var(--ok-bg) 60%,var(--surface))}
+.picks{display:flex; gap:6px; flex-wrap:wrap}
+.picks button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:4px 12px; cursor:pointer; font-size:13.5px}
+.picks button.ok{background:var(--ok-bg); border-color:var(--ok); color:var(--ok)}
+.picks button.no{background:var(--bad-bg); border-color:var(--bad); color:var(--bad)}
+.qsum{font-weight:700; margin:0 0 10px}
+
+footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
+.sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
+.bun-gif{width:120px; height:auto}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-size:16px; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 16px}
+.ptp span{font-size:19px; line-height:1}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="head"><div class="wrap">
+  <p class="kicker">🍊 Ⅱ-05 모델 구현 · 교과서 100~115쪽</p>
+  <h1>오렌지3 블록 → <em>코랩 파이썬</em>, 짝지어 보기</h1>
+  <p class="lede">왼쪽 <b>오렌지3 위젯</b>을 누르면 오른쪽에서 <b>같은 일을 하는 코드</b>에 불이 들어옵니다. 위젯 설정을 바꾸면 코드 숫자도 함께 바뀌어요.
+    코드는 코랩처럼 <b>▶</b>로 한 칸씩 실행합니다. 어떤 모델이든 <b>나누기 → 학습 → 예측 · 평가</b> 순서가 같다는 걸 찾아보세요.</p>
+  <div class="tabs" role="tablist" aria-label="설계도">
+    <button class="tab" role="tab" data-t="reg" aria-selected="true">① 예측 · 청년 인구 <small>(선형 회귀)</small></button>
+    <button class="tab" role="tab" data-t="cls" aria-selected="false">② 분류 · 붓꽃 <small>(k-최근접 이웃)</small></button>
+    <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 빈칸 채우기 연습</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <div id="benchView">
+    <div class="steps" id="stepBar"></div>
+    <p class="howto"><b>해 보기</b> ① 위젯을 하나씩 눌러 짝이 되는 코드 찾기 → ② 코드 <b>▶ 모두 실행</b> → ③ Data Sampler 비율이나 설정을 바꾸고 다시 실행 → ④ 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
+    <div class="bench">
+      <section class="panel" aria-label="오렌지3 캔버스">
+        <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
+        <div class="canvas"><svg id="cv" viewBox="0 0 668 370" role="group" aria-label="오렌지3 워크플로"></svg></div>
+        <div class="wset" id="wset"></div>
+      </section>
+      <section class="panel" aria-label="코랩 노트북">
+        <div class="panel-hd"><span class="dot" style="background:var(--colab)"></span><span class="mono" id="nbName">02_model.ipynb</span><span class="sp"></span>
+          <button class="btn" id="resetRt" type="button">런타임 초기화</button><button class="btn pri" id="runAll" type="button">▶ 모두 실행</button></div>
+        <div class="nb" id="nb"></div>
+      </section>
+    </div>
+    <div class="sect">
+      <h2>견주어 보기 — 블록과 코드, 점수가 같을까?</h2>
+      <table class="cmp" id="cmp"></table>
+      <div class="why" id="why"></div>
+    </div>
+  </div>
+  <div id="quizView" hidden>
+    <div class="sect">
+      <h2>✏️ 위젯을 코드로 — 빈칸 채우기</h2>
+      <p class="howto">빈칸에 알맞은 말을 쓰고 <b>Enter</b>. 막히면 <b>힌트</b>의 위젯 이름을 위 작업대에서 눌러 보세요.</p>
+      <p class="qsum" id="qsum"></p>
+      <div class="qz" id="qz"></div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <span>2026학년도 2학기 「인공지능 기초」 · 교과서 「인공지능 기초」(미래엔) Ⅱ-05 예제를 바탕으로 만들었습니다.</span>
+  <span>이 창의 «오렌지3»는 연습용 흉내입니다 — 실제 오렌지3와 점수가 조금 다를 수 있어요. 코랩 쪽은 노트북 02와 같은 방법으로 계산합니다.</span>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+'use strict';
+/* ── 데이터(파일 안에 넣음) ───────────────────────────── */
+var RAW = { youth: `청년,도서관,박물관,미술관,공연장
+79395,10,13,4,9
+92444,4,8,3,5
+48291,4,17,3,4
+18433,3,0,1,1
+6217,3,2,0,1
+17854,3,2,1,1
+10463,3,4,0,1
+12702,4,2,0,2
+7327,3,1,0,1
+4755,2,21,2,1
+6409,5,4,0,2
+5104,2,5,1,2
+9945,4,0,0,1
+4394,2,2,0,2
+4552,1,5,1,2
+6071,2,6,2,1
+5274,2,5,3,2
+4224,1,1,1,1
+84037,5,0,0,2
+113679,6,0,0,0
+65362,7,2,2,9
+125706,9,5,0,0
+72431,5,0,2,1
+59273,2,1,0,1
+136139,8,2,2,5
+124800,5,0,1,3
+67770,4,3,0,1
+90446,6,0,0,1
+234452,14,6,0,6
+75892,6,1,0,2
+178809,11,0,0,4
+22787,2,2,0,1
+111793,8,4,1,1
+127721,7,1,4,4
+120282,8,9,1,4
+85777,5,1,1,2
+81023,6,0,0,1
+17543,3,4,2,2
+50928,3,1,0,1
+167085,12,7,4,2
+78071,6,2,1,1
+166634,12,2,1,5
+80644,6,0,0,2
+42529,3,2,1,0
+77588,5,1,0,2
+73467,8,7,2,3
+124724,8,6,4,1
+100658,7,1,0,2
+128147,17,13,7,6
+63705,5,3,2,1
+61497,6,4,1,3
+146003,7,4,2,3
+295089,16,4,2,5
+104661,6,5,2,2
+61641,8,2,2,0
+49642,7,6,0,1
+25852,4,8,4,1
+8998,2,2,0,1
+10763,4,0,4,2
+17567,6,7,3,0
+54775,4,2,2,2
+72216,2,1,0,2
+39066,2,2,1,0
+43622,6,0,0,1
+49352,3,3,0,1
+93853,8,10,1,5
+25814,5,2,2,2
+22333,3,1,2,1
+166359,9,15,2,8
+18703,4,6,0,1
+63211,6,7,0,2
+92650,8,3,0,2
+3419,1,1,0,1
+15579,2,1,0,2
+10614,3,3,0,1
+8459,3,6,0,1
+5372,2,1,1,1
+5227,1,2,0,1
+4165,2,6,0,1
+4875,1,1,0,1
+10396,2,1,0,2
+4745,1,3,0,1
+53860,6,3,0,4
+60873,3,2,1,3
+65320,7,7,3,2
+30861,1,3,1,2
+31710,6,10,0,2
+124407,7,3,0,4
+19107,3,3,0,2
+20230,2,3,1,1
+14205,2,6,0,1
+10195,5,7,0,2
+90129,3,8,1,1
+2534,1,2,0,1
+4944,2,3,0,1
+2778,2,1,1,2
+1753,1,1,0,0
+4710,1,0,0,1
+5213,2,1,1,0
+7018,1,2,0,1
+8003,2,1,0,1
+33122,4,3,0,1
+9308,2,2,1,1
+3115,1,2,0,0
+9049,3,1,1,1
+1065,1,1,0,1
+31610,3,5,8,10
+85009,5,0,0,7
+51545,4,1,4,3
+124484,4,6,2,3
+139143,6,0,0,3
+23643,2,4,0,14
+81193,6,4,0,2
+38396,5,0,0,1
+36839,3,0,1,17
+126195,6,3,1,2
+102576,8,4,1,4
+166356,9,1,1,4
+72537,2,1,0,3
+75098,5,3,0,2
+57587,3,1,0,10
+154774,6,1,3,8
+129072,7,7,2,4
+49944,3,3,0,2
+11532,1,2,1,2
+23392,1,2,1,0
+19844,4,0,0,3
+21500,1,3,0,1
+94326,5,4,1,4
+64567,3,3,0,3
+72487,2,7,1,14
+70129,5,2,0,3
+94073,6,1,2,5
+76408,2,1,1,1
+64966,2,4,2,6
+41606,1,1,0,1
+48139,2,1,0,1
+46603,2,0,0,4
+59591,2,2,0,2
+36608,8,1,0,2
+61560,7,37,19,118
+51300,6,17,3,16
+84178,4,7,4,7
+106189,8,3,3,7
+139244,6,3,0,8
+145707,6,5,0,1
+110146,5,0,0,1
+157608,11,9,4,10
+81565,7,3,0,3
+79396,7,2,0,4
+142240,11,4,2,2
+129030,9,2,1,1
+131055,4,7,0,8
+144881,7,5,0,24
+116402,8,0,0,4
+181285,9,2,1,2
+129975,12,1,0,8
+80391,4,0,0,2
+142767,5,2,1,4
+143409,6,1,0,1
+216385,5,2,1,1
+123297,8,4,5,12
+175610,13,8,4,22
+200929,12,5,2,5
+127472,9,2,0,4
+103852,12,7,0,2
+51451,2,2,1,7
+88114,5,3,0,3
+41391,1,0,0,3
+58715,8,0,0,2
+56211,4,6,0,2
+43599,4,9,1,5
+13312,2,1,0,1
+123328,10,4,1,4
+120211,10,3,0,3
+145092,4,3,0,2
+144925,10,2,0,2
+76369,5,2,0,2
+160249,11,2,0,5
+8855,2,4,3,0
+2626,1,0,0,0
+53717,4,6,5,4
+64937,8,1,1,6
+72890,9,7,1,2
+27576,4,5,0,1
+35819,6,1,1,1
+7100,1,5,2,1
+3528,2,0,1,1
+2993,2,2,0,1
+7866,4,3,4,1
+4798,3,2,2,1
+11496,3,1,4,1
+5374,2,2,0,1
+4899,1,6,2,1
+11643,2,4,1,1
+16754,3,5,3,0
+19513,3,1,1,2
+3960,2,0,2,0
+8156,2,2,0,1
+6792,4,2,1,1
+8180,3,2,0,1
+6250,1,2,5,1
+3671,2,6,2,0
+99573,7,7,6,14
+97206,7,2,0,4
+66096,6,3,2,5
+68275,7,9,2,2
+21328,5,5,1,3
+12996,4,1,2,2
+13744,5,2,1,1
+20608,6,4,2,2
+2552,1,2,0,1
+2968,2,2,1,0
+2712,2,0,1,1
+2769,3,1,0,0
+3208,2,2,1,1
+8619,3,2,0,2
+6873,2,2,2,1
+131924,11,31,9,12
+37762,11,31,12,3
+75963,6,9,2,6
+145944,6,0,0,3
+21409,4,11,1,1
+19733,5,2,1,1
+107866,6,8,1,3
+45151,5,1,1,1
+27867,4,1,0,1
+10406,2,0,0,1
+40801,4,4,2,1
+8680,5,4,0,1
+10203,2,6,0,2
+8078,2,2,0,1
+4293,2,1,0,1
+23222,3,3,1,3
+13982,4,7,1,2
+10305,3,5,0,1
+47039,4,4,2,4
+60018,3,1,2,3
+88797,6,4,1,1
+64069,5,2,4,0
+53280,7,6,2,2
+28845,6,6,0,2
+3807,1,2,0,1
+7493,2,2,0,1
+6472,2,4,0,2
+9925,2,1,0,1
+25823,4,1,1,1
+5088,1,3,0,1
+30784,5,5,0,1
+3691,3,2,0,1`, iris: `꽃잎 길이,꽃잎 너비,꽃받침 길이,꽃받침 너비,종
+5.1,3.5,1.4,0.2,0
+4.9,3.0,1.4,0.2,0
+4.7,3.2,1.3,0.2,0
+4.6,3.1,1.5,0.2,0
+5.0,3.6,1.4,0.2,0
+5.4,3.9,1.7,0.4,0
+4.6,3.4,1.4,0.3,0
+5.0,3.4,1.5,0.2,0
+4.4,2.9,1.4,0.2,0
+4.9,3.1,1.5,0.1,0
+5.4,3.7,1.5,0.2,0
+4.8,3.4,1.6,0.2,0
+4.8,3.0,1.4,0.1,0
+4.3,3.0,1.1,0.1,0
+5.8,4.0,1.2,0.2,0
+5.7,4.4,1.5,0.4,0
+5.4,3.9,1.3,0.4,0
+5.1,3.5,1.4,0.3,0
+5.7,3.8,1.7,0.3,0
+5.1,3.8,1.5,0.3,0
+5.4,3.4,1.7,0.2,0
+5.1,3.7,1.5,0.4,0
+4.6,3.6,1.0,0.2,0
+5.1,3.3,1.7,0.5,0
+4.8,3.4,1.9,0.2,0
+5.0,3.0,1.6,0.2,0
+5.0,3.4,1.6,0.4,0
+5.2,3.5,1.5,0.2,0
+5.2,3.4,1.4,0.2,0
+4.7,3.2,1.6,0.2,0
+4.8,3.1,1.6,0.2,0
+5.4,3.4,1.5,0.4,0
+5.2,4.1,1.5,0.1,0
+5.5,4.2,1.4,0.2,0
+4.9,3.1,1.5,0.2,0
+5.0,3.2,1.2,0.2,0
+5.5,3.5,1.3,0.2,0
+4.9,3.6,1.4,0.1,0
+4.4,3.0,1.3,0.2,0
+5.1,3.4,1.5,0.2,0
+5.0,3.5,1.3,0.3,0
+4.5,2.3,1.3,0.3,0
+4.4,3.2,1.3,0.2,0
+5.0,3.5,1.6,0.6,0
+5.1,3.8,1.9,0.4,0
+4.8,3.0,1.4,0.3,0
+5.1,3.8,1.6,0.2,0
+4.6,3.2,1.4,0.2,0
+5.3,3.7,1.5,0.2,0
+5.0,3.3,1.4,0.2,0
+7.0,3.2,4.7,1.4,1
+6.4,3.2,4.5,1.5,1
+6.9,3.1,4.9,1.5,1
+5.5,2.3,4.0,1.3,1
+6.5,2.8,4.6,1.5,1
+5.7,2.8,4.5,1.3,1
+6.3,3.3,4.7,1.6,1
+4.9,2.4,3.3,1.0,1
+6.6,2.9,4.6,1.3,1
+5.2,2.7,3.9,1.4,1
+5.0,2.0,3.5,1.0,1
+5.9,3.0,4.2,1.5,1
+6.0,2.2,4.0,1.0,1
+6.1,2.9,4.7,1.4,1
+5.6,2.9,3.6,1.3,1
+6.7,3.1,4.4,1.4,1
+5.6,3.0,4.5,1.5,1
+5.8,2.7,4.1,1.0,1
+6.2,2.2,4.5,1.5,1
+5.6,2.5,3.9,1.1,1
+5.9,3.2,4.8,1.8,1
+6.1,2.8,4.0,1.3,1
+6.3,2.5,4.9,1.5,1
+6.1,2.8,4.7,1.2,1
+6.4,2.9,4.3,1.3,1
+6.6,3.0,4.4,1.4,1
+6.8,2.8,4.8,1.4,1
+6.7,3.0,5.0,1.7,1
+6.0,2.9,4.5,1.5,1
+5.7,2.6,3.5,1.0,1
+5.5,2.4,3.8,1.1,1
+5.5,2.4,3.7,1.0,1
+5.8,2.7,3.9,1.2,1
+6.0,2.7,5.1,1.6,1
+5.4,3.0,4.5,1.5,1
+6.0,3.4,4.5,1.6,1
+6.7,3.1,4.7,1.5,1
+6.3,2.3,4.4,1.3,1
+5.6,3.0,4.1,1.3,1
+5.5,2.5,4.0,1.3,1
+5.5,2.6,4.4,1.2,1
+6.1,3.0,4.6,1.4,1
+5.8,2.6,4.0,1.2,1
+5.0,2.3,3.3,1.0,1
+5.6,2.7,4.2,1.3,1
+5.7,3.0,4.2,1.2,1
+5.7,2.9,4.2,1.3,1
+6.2,2.9,4.3,1.3,1
+5.1,2.5,3.0,1.1,1
+5.7,2.8,4.1,1.3,1
+6.3,3.3,6.0,2.5,2
+5.8,2.7,5.1,1.9,2
+7.1,3.0,5.9,2.1,2
+6.3,2.9,5.6,1.8,2
+6.5,3.0,5.8,2.2,2
+7.6,3.0,6.6,2.1,2
+4.9,2.5,4.5,1.7,2
+7.3,2.9,6.3,1.8,2
+6.7,2.5,5.8,1.8,2
+7.2,3.6,6.1,2.5,2
+6.5,3.2,5.1,2.0,2
+6.4,2.7,5.3,1.9,2
+6.8,3.0,5.5,2.1,2
+5.7,2.5,5.0,2.0,2
+5.8,2.8,5.1,2.4,2
+6.4,3.2,5.3,2.3,2
+6.5,3.0,5.5,1.8,2
+7.7,3.8,6.7,2.2,2
+7.7,2.6,6.9,2.3,2
+6.0,2.2,5.0,1.5,2
+6.9,3.2,5.7,2.3,2
+5.6,2.8,4.9,2.0,2
+7.7,2.8,6.7,2.0,2
+6.3,2.7,4.9,1.8,2
+6.7,3.3,5.7,2.1,2
+7.2,3.2,6.0,1.8,2
+6.2,2.8,4.8,1.8,2
+6.1,3.0,4.9,1.8,2
+6.4,2.8,5.6,2.1,2
+7.2,3.0,5.8,1.6,2
+7.4,2.8,6.1,1.9,2
+7.9,3.8,6.4,2.0,2
+6.4,2.8,5.6,2.2,2
+6.3,2.8,5.1,1.5,2
+6.1,2.6,5.6,1.4,2
+7.7,3.0,6.1,2.3,2
+6.3,3.4,5.6,2.4,2
+6.4,3.1,5.5,1.8,2
+6.0,3.0,4.8,1.8,2
+6.9,3.1,5.4,2.1,2
+6.7,3.1,5.6,2.4,2
+6.9,3.1,5.1,2.3,2
+5.8,2.7,5.1,1.9,2
+6.8,3.2,5.9,2.3,2
+6.7,3.3,5.7,2.5,2
+6.7,3.0,5.2,2.3,2
+6.3,2.5,5.0,1.9,2
+6.5,3.0,5.2,2.0,2
+6.2,3.4,5.4,2.3,2
+5.9,3.0,5.1,1.8,2` };
+function parseCsv(t){
+  var L = t.trim().split(/\r?\n/), head = L[0].split(',');
+  return { cols: head, rows: L.slice(1).map(function(l){ return l.split(',').map(Number); }) };
+}
+var DATA = { youth: parseCsv(RAW.youth), iris: parseCsv(RAW.iris) };
+
+/* ── numpy RandomState(MT19937) · permutation · train_test_split 과 같은 순서 ── */
+function MT(seed){
+  var mt = new Uint32Array(624); mt[0] = seed >>> 0;
+  for(var i = 1; i < 624; i++){ var p = mt[i-1] ^ (mt[i-1] >>> 30); mt[i] = (Math.imul(1812433253, p) + i) >>> 0; }
+  var idx = 624;
+  this.next = function(){
+    if(idx >= 624){
+      for(var k = 0; k < 624; k++){
+        var y = (mt[k] & 0x80000000) | (mt[(k+1) % 624] & 0x7fffffff);
+        mt[k] = mt[(k+397) % 624] ^ (y >>> 1) ^ ((y & 1) ? 0x9908b0df : 0);
+      }
+      idx = 0;
+    }
+    var z = mt[idx++];
+    z ^= z >>> 11; z ^= (z << 7) & 0x9d2c5680; z ^= (z << 15) & 0xefc60000; z ^= z >>> 18;
+    return z >>> 0;
+  };
+}
+function interval(rng, max){
+  if(max === 0) return 0;
+  var mask = max; mask |= mask >>> 1; mask |= mask >>> 2; mask |= mask >>> 4; mask |= mask >>> 8; mask |= mask >>> 16;
+  var v; while((v = (rng.next() & mask) >>> 0) > max){} return v;
+}
+function permutation(n, seed){
+  var rng = new MT(seed), a = []; for(var i = 0; i < n; i++) a.push(i);
+  for(var j = n - 1; j > 0; j--){ var r = interval(rng, j), t = a[j]; a[j] = a[r]; a[r] = t; }
+  return a;
+}
+function tts(n, testSize, seed){            /* → {test:[], train:[]} 행 번호 */
+  var nTest = Math.ceil(testSize * n), p = permutation(n, seed);
+  return { test: p.slice(0, nTest), train: p.slice(nTest) };
+}
+function orangeSplit(n, pct, seed){         /* 오렌지3 Data Sampler 흉내: 앞쪽 pct% 를 Data Sample(훈련) */
+  var p = permutation(n, seed), nTr = Math.round(n * pct / 100);
+  return { train: p.slice(0, nTr), test: p.slice(nTr) };
+}
+
+/* ── 모델 ───────────────────────────── */
+function solve(A, b){                        /* 가우스 소거(작은 행렬) */
+  var n = b.length, M = A.map(function(r, i){ return r.concat([b[i]]); });
+  for(var c = 0; c < n; c++){
+    var pv = c; for(var r = c + 1; r < n; r++) if(Math.abs(M[r][c]) > Math.abs(M[pv][c])) pv = r;
+    var t = M[c]; M[c] = M[pv]; M[pv] = t;
+    for(var r2 = 0; r2 < n; r2++){ if(r2 === c) continue; var f = M[r2][c] / M[c][c]; for(var k = c; k <= n; k++) M[r2][k] -= f * M[c][k]; }
+  }
+  return M.map(function(r, i){ return r[n] / r[i]; });
+}
+function linreg(X, y){
+  var n = X.length, p = X[0].length, mx = [], my = 0, i, j, k;
+  for(j = 0; j < p; j++){ var s = 0; for(i = 0; i < n; i++) s += X[i][j]; mx.push(s / n); }
+  for(i = 0; i < n; i++) my += y[i]; my /= n;
+  var A = [], b = [];
+  for(j = 0; j < p; j++){ A.push([]); var sb = 0;
+    for(k = 0; k < p; k++){ var s2 = 0; for(i = 0; i < n; i++) s2 += (X[i][j] - mx[j]) * (X[i][k] - mx[k]); A[j].push(s2); }
+    for(i = 0; i < n; i++) sb += (X[i][j] - mx[j]) * (y[i] - my); b.push(sb); }
+  var w = solve(A, b), b0 = my; for(j = 0; j < p; j++) b0 -= w[j] * mx[j];
+  return { coef: w, intercept: b0, predict: function(Z){ return Z.map(function(z){ var s = b0; for(var q = 0; q < p; q++) s += w[q] * z[q]; return s; }); } };
+}
+function knn(X, y, k, regress){
+  return { predict: function(Z){ return Z.map(function(z){
+    var d = X.map(function(x, i){ var s = 0; for(var q = 0; q < x.length; q++){ var e = x[q] - z[q]; s += e * e; } return [s, i]; });
+    d.sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; });
+    var nb = d.slice(0, k).map(function(t){ return y[t[1]]; });
+    if(regress) return nb.reduce(function(a, b){ return a + b; }, 0) / nb.length;
+    var cnt = {}; nb.forEach(function(c){ cnt[c] = (cnt[c] || 0) + 1; });
+    var best = null; Object.keys(cnt).map(Number).sort(function(a, b){ return a - b; }).forEach(function(c){ if(best === null || cnt[c] > cnt[best]) best = c; });
+    return best; }); } };
+}
+/* ── 지표 ───────────────────────────── */
+function mse(t, p){ var s = 0; for(var i = 0; i < t.length; i++){ var e = t[i] - p[i]; s += e * e; } return s / t.length; }
+function mae(t, p){ var s = 0; for(var i = 0; i < t.length; i++) s += Math.abs(t[i] - p[i]); return s / t.length; }
+function r2(t, p){ var m = t.reduce(function(a, b){ return a + b; }, 0) / t.length, a = 0, b = 0;
+  for(var i = 0; i < t.length; i++){ a += (t[i] - p[i]) * (t[i] - p[i]); b += (t[i] - m) * (t[i] - m); } return 1 - a / b; }
+function cmat(t, p, K){ var M = []; for(var i = 0; i < K; i++){ M.push([]); for(var j = 0; j < K; j++) M[i].push(0); }
+  for(var q = 0; q < t.length; q++) M[t[q]][p[q]]++; return M; }
+function clsStats(M){
+  var K = M.length, tot = 0, ok = 0, prec = [], rec = [], sup = [];
+  for(var i = 0; i < K; i++){ var rs = 0, cs = 0; for(var j = 0; j < K; j++){ rs += M[i][j]; cs += M[j][i]; tot += M[i][j]; }
+    ok += M[i][i]; prec.push(cs ? M[i][i] / cs : 0); rec.push(rs ? M[i][i] / rs : 0); sup.push(rs); }
+  var w = function(a){ var s = 0; for(var i = 0; i < K; i++) s += a[i] * sup[i]; return s / tot; };
+  var f1 = prec.map(function(p, i){ return p + rec[i] ? 2 * p * rec[i] / (p + rec[i]) : 0; });
+  return { acc: ok / tot, prec: prec, rec: rec, wPrec: w(prec), wRec: w(rec), wF1: w(f1) };
+}
+
+/* ── 파이썬처럼 찍기 ───────────────────────────── */
+function pyf(x){
+  if(!isFinite(x)) return String(x);
+  if(Number.isInteger(x) && Math.abs(x) < 1e16) return x + '.0';
+  var s = String(x);
+  if(/e/.test(s)) s = s.replace(/e([+-])(\d)$/, 'e$10$2');
+  return s;
+}
+function npFixed(v){                         /* numpy 처럼: 소수 여덟 자리 · 끝 0 은 빈칸 */
+  var s = v.toFixed(8).replace(/0+$/, ''), m = s.match(/^(-?\d+)\.(\d*)$/);
+  return m ? { i: m[1], d: m[2] } : { i: s, d: '' };
+}
+function npRow(vals){
+  var p = vals.map(npFixed), d = Math.max.apply(null, p.map(function(x){ return x.d.length; })),
+      iw = Math.max.apply(null, p.map(function(x){ return x.i.length; }));
+  return p.map(function(x){ return pad(x.i, iw) + '.' + x.d + sp(d - x.d.length); });
+}
+function pad(s, w){ s = String(s); while(s.length < w) s = ' ' + s; return s; }
+function sp(n){ return n > 0 ? new Array(n + 1).join(' ') : ''; }
+function npCol(vals){                        /* array([[a],\n       [b]]) */
+  var r = npRow(vals);
+  return 'array([' + r.map(function(x, i){ return (i ? '       ' : '') + '[' + x + ']'; }).join(',\n') + '])';
+}
+function npInts(M){
+  var w = 0; M.forEach(function(r){ r.forEach(function(v){ w = Math.max(w, String(v).length); }); });
+  return 'array([' + M.map(function(r, i){ return (i ? '       ' : '') + '[' + r.map(function(v){ return pad(v, w); }).join(', ') + ']'; }).join(',\n') + '])';
+}
+function npPrint1(vals){ return '[' + npRow(vals).join(' ') + ']'; }
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function hl(code){
+  return code.split('\n').map(function(line){
+    var out = '', i = 0, m;
+    while(i < line.length){
+      var rest = line.slice(i);
+      if(rest[0] === '#'){ out += '<span class="c">' + esc(rest) + '</span>'; break; }
+      if((m = rest.match(/^'[^']*'/))){ out += '<span class="s">' + esc(m[0]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^⟦([^⟧]*)⟧/))){ out += '<span class="chg">' + hl(m[1]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^(import|from|as|print|None|True|False)\b/))){ out += '<span class="k">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^\d+(\.\d+)?/))){ out += '<span class="n">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^([A-Za-z_가-힣][\w가-힣]*)(?=\()/))){ out += '<span class="f">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^[A-Za-z_가-힣][\w가-힣.]*/))){ out += esc(m[0]); i += m[0].length; continue; }
+      out += esc(rest[0]); i++;
+    }
+    return out;
+  }).join('\n');
+}
+function dfHead(D, cols){
+  var idx = cols.map(function(c){ return D.cols.indexOf(c); });
+  return '<table class="df"><tr><th></th>' + cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>' +
+    D.rows.slice(0, 5).map(function(r, i){ return '<tr><th>' + i + '</th>' + idx.map(function(j){ return '<td>' + r[j] + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+}
+
+/* ══════════ 설계도 두 개 ══════════ */
+var ADDR = "주소 = 'https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/'";
+var IRIS_NAMES = ['setosa(0)', 'versicolor(1)', 'virginica(2)'];
+var S = {
+  reg: { pct: 80, rep: true, seed: 0, roles: { '청년':'target', '도서관':'feature', '박물관':'skip', '미술관':'skip', '공연장':'feature' }, book: 0.64 },
+  cls: { pct: 80, rep: true, seed: 10, k: 5, cat: false, roles: { '꽃잎 길이':'feature', '꽃잎 너비':'feature', '꽃받침 길이':'feature', '꽃받침 너비':'feature', '종':'target' }, book: 0.967 }
+};
+var DS = { reg: 'youth', cls: 'iris' };
+var WID = {
+  reg: [
+    { id:'file', nm:'File', em:'📄', kind:'data', x:65, y:185 },
+    { id:'sampler', nm:'Data Sampler', em:'🎲', kind:'data', x:220, y:185 },
+    { id:'model', nm:'Linear Regression', em:'📈', kind:'model', x:220, y:305 },
+    { id:'score', nm:'Test and Score', em:'🧪', kind:'eval', x:435, y:95 },
+    { id:'pred', nm:'Predictions', em:'🔮', kind:'eval', x:435, y:305 }
+  ],
+  cls: [
+    { id:'file', nm:'File', em:'📄', kind:'data', x:65, y:185 },
+    { id:'sampler', nm:'Data Sampler', em:'🎲', kind:'data', x:220, y:185 },
+    { id:'model', nm:'kNN', em:'👥', kind:'model', x:220, y:305 },
+    { id:'score', nm:'Test and Score', em:'🧪', kind:'eval', x:435, y:95 },
+    { id:'pred', nm:'Predictions', em:'🔮', kind:'eval', x:435, y:305 },
+    { id:'cm', nm:'Confusion Matrix', em:'🔢', kind:'eval', x:578, y:95 }
+  ]
+};
+var LINKS = {
+  reg: [['file','sampler','Data'],['sampler','score','Data Sample',-16],['sampler','score','Remaining Data',16],['model','score','Learner'],['model','pred','Model'],['sampler','pred','Remaining Data',0]],
+  cls: [['file','sampler','Data'],['sampler','score','Data Sample',-16],['sampler','score','Remaining Data',16],['model','score','Learner'],['model','pred','Model'],['sampler','pred','Remaining Data',0],['score','cm','Evaluation Results']]
+};
+/* 위젯 ↔ 코드 짝(교과서 101~103쪽 구현 과정) */
+var MAPTXT = {
+  file:   ['데이터 준비 · 속성과 정답 나누기', '<code>pd.read_csv(…)</code> 로 불러오고, Role 의 feature → <code>x</code>, target → <code>y</code>'],
+  sampler:['① 데이터 분리', '<code>train_test_split(x, y, test_size=…)</code> — Data Sample = <code>x_train · y_train</code>, Remaining Data = <code>x_test · y_test</code>'],
+  model:  ['모델 고르기', '<code>model = …()</code> — 위젯을 바꾸는 것 = 코드 한 줄(클래스 이름)을 바꾸는 것'],
+  score:  ['② 모델 학습 · ③ 평가', 'Learner 를 꽂는 순간 학습 = <code>model.fit(x_train, y_train)</code>, 점수 = 평가 함수들'],
+  pred:   ['③ 예측', '<code>Predicted = model.predict(x_test)</code> — 시험용 데이터로 답을 내 봄'],
+  cm:     ['③ 모델 평가(분류)', '<code>confusion_matrix(y_test, Predicted)</code> — 무엇을 무엇으로 헷갈렸나']
+};
+var cur = 'reg', selW = null, RT = { reg: null, cls: null };
+function feats(t){ var D = DATA[DS[t]], r = S[t].roles; return D.cols.filter(function(c){ return r[c] === 'feature'; }); }
+function target(t){ var D = DATA[DS[t]], r = S[t].roles; return D.cols.filter(function(c){ return r[c] === 'target'; })[0]; }
+function colIdx(t, cols){ var D = DATA[DS[t]]; return cols.map(function(c){ return D.cols.indexOf(c); }); }
+function testSize(t){ return Math.round(100 - S[t].pct) / 100; }
+function q(a){ return "'" + a + "'"; }
+
+/* 코드 칸: [위젯, 코드(⟦바뀌는 곳⟧), 실행 함수] */
+function cells(t){
+  var st = S[t], f = feats(t), y = target(t), ts = testSize(t),
+      rs = st.rep ? ', ⟦random_state=' + st.seed + '⟧' : '';
+  if(t === 'reg') return [
+    { w:'file', code: "import pandas as pd\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'youth_population.csv')\ndf.head()", run: 'load' },
+    { w:'file', code: "x = df[[⟦" + f.map(q).join(', ') + "⟧]]\ny = df[[" + q(y) + "]]\n\nx.shape, y.shape", run: 'xy' },
+    { w:'sampler', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nprint('훈련용 :', x_train.shape)\nprint('시험용 :', x_test.shape)", run: 'split' },
+    { w:'model', code: "model = LinearRegression()", run: 'make' },
+    { w:'score', code: "model.fit(x_train, y_train)", run: 'fit' },
+    { w:'model', code: "model.coef_, model.intercept_      # 기울기(속성마다 하나) · 절편", run: 'coef' },
+    { w:'pred', code: "Predicted = model.predict(x_test)\n\nPredicted[:5]     # 예측한 청년 수 다섯 개", run: 'predict' },
+    { w:'score', code: "print('평균제곱오차(MSE) :', mean_squared_error(y_test, Predicted))\nprint('결정계수(R²)      :', model.score(x_test, y_test))", run: 'evalReg' }
+  ];
+  var kk = st.k === 5 ? '' : '⟦n_neighbors=' + st.k + '⟧';
+  return [
+    { w:'file', code: "import pandas as pd\nimport sklearn.metrics\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\n\n" + ADDR + "\ndf = pd.read_csv(주소 + 'iris.csv')\ndf.head()", run: 'load' },
+    { w:'file', code: "x = df[[⟦" + f.map(q).join(', ') + "⟧]]\ny = df[" + q(y) + "]\n\nx.shape, y.shape", run: 'xy' },
+    { w:'sampler', code: "x_train, x_test, y_train, y_test = train_test_split(\n    x, y, test_size=⟦" + ts + "⟧" + rs + ")\n\nx_train.shape, x_test.shape", run: 'split' },
+    { w:'model', code: "model = KNeighborsClassifier(" + kk + ")", run: 'make' },
+    { w:'score', code: "model.fit(x_train, y_train)", run: 'fit' },
+    { w:'pred', code: "Predicted = model.predict(x_test)\n\nprint('예측한 종 :', Predicted[:10])\nprint('진짜 종   :', y_test.values[:10])", run: 'predict' },
+    { w:'cm', code: "sklearn.metrics.confusion_matrix(y_test, Predicted)", run: 'cm' },
+    { w:'score', code: "print('정확도 :', sklearn.metrics.accuracy_score(y_test, Predicted))\nprint('정밀도 :', sklearn.metrics.precision_score(y_test, Predicted, average=None))\nprint('재현율 :', sklearn.metrics.recall_score(y_test, Predicted, average=None))", run: 'evalCls' }
+  ];
+}
+
+/* ── 코랩 실행(작은 런타임) ───────────────────────────── */
+function newRt(){ return { n: 0, vars: {}, outs: {}, cnt: {}, codeAt: {} }; }
+function nameErr(nm){ return { err: "NameError: name '" + nm + "' is not defined\n→ 위 칸을 먼저 실행하세요. 코랩은 «실행한 칸»만 기억합니다." }; }
+function need(V, names){ for(var i = 0; i < names.length; i++) if(!(names[i] in V)) return nameErr(names[i]); return null; }
+function exec(t, c){
+  var rt = RT[t], V = rt.vars, D = DATA[DS[t]], st = S[t], e;
+  switch(c.run){
+    case 'load':
+      V.pd = 1; V.df = D; V['주소'] = 1;
+      return { html: dfHead(D, D.cols) };
+    case 'xy':
+      if((e = need(V, ['df']))) return e;
+      var f = feats(t); if(!f.length) return { err: 'KeyError: 속성(feature)이 하나도 없습니다 → File 위젯에서 feature 를 하나 이상 고르세요.' };
+      V.x = { cols: f, idx: colIdx(t, f) }; V.y = colIdx(t, [target(t)])[0];
+      return { text: '((' + D.rows.length + ', ' + f.length + '), (' + D.rows.length + (t === 'reg' ? ', 1' : ',') + '))' };
+    case 'split':
+      if((e = need(V, ['x', 'y']))) return e;
+      var seed = st.rep ? st.seed : (Math.random() * 4294967296) >>> 0, sp2 = tts(D.rows.length, testSize(t), seed);
+      V.split = sp2; V.x_train = 1; V.x_test = 1; V.y_train = 1; V.y_test = 1; V.featsAtSplit = V.x;
+      var a = '(' + sp2.train.length + ', ' + V.x.cols.length + ')', b = '(' + sp2.test.length + ', ' + V.x.cols.length + ')';
+      return { text: t === 'reg' ? '훈련용 : ' + a + '\n시험용 : ' + b : '(' + a + ', ' + b + ')',
+               note: st.rep ? '' : 'random_state 가 없어서 실행할 때마다 다르게 나눕니다.' };
+    case 'make':
+      V.model = { kind: t === 'reg' ? 'lin' : 'knn', k: st.k, fitted: null };
+      return { text: '' };
+    case 'fit':
+      if((e = need(V, ['model', 'x_train']))) return e;
+      var X = V.featsAtSplit, tr = V.split.train;
+      var Xtr = tr.map(function(i){ return X.idx.map(function(j){ return D.rows[i][j]; }); }), ytr = tr.map(function(i){ return D.rows[i][V.y]; });
+      V.model.fitted = V.model.kind === 'lin' ? linreg(Xtr, ytr) : knn(Xtr, ytr, V.model.k);
+      V.model.X = X;
+      return { text: V.model.kind === 'lin' ? 'LinearRegression()' : 'KNeighborsClassifier(' + (V.model.k === 5 ? '' : 'n_neighbors=' + V.model.k) + ')' };
+    case 'coef':
+      if((e = need(V, ['model']))) return e;
+      if(!V.model.fitted) return { err: "AttributeError: 'LinearRegression' object has no attribute 'coef_'\n→ 아직 학습(fit)하지 않았어요. model.fit 칸을 먼저 실행하세요." };
+      var m = V.model.fitted;
+      return { text: '(array([[' + npRow(m.coef).join(', ') + ']]), array([' + npRow([m.intercept])[0] + ']))' };
+    case 'predict':
+      if((e = need(V, ['model', 'x_test']))) return e;
+      if(!V.model.fitted) return { err: "NotFittedError: This " + (V.model.kind === 'lin' ? 'LinearRegression' : 'KNeighborsClassifier') + " instance is not fitted yet.\n→ 학습(model.fit) 칸을 먼저 실행하세요. 오렌지3에서 Learner 를 Test and Score 에 안 꽂은 것과 같아요." };
+      var te = V.split.test, Xm = V.model.X;
+      var Xte = te.map(function(i){ return Xm.idx.map(function(j){ return D.rows[i][j]; }); });
+      V.Predicted = V.model.fitted.predict(Xte); V.y_true = te.map(function(i){ return D.rows[i][V.y]; });
+      if(t === 'reg') return { text: npCol(V.Predicted.slice(0, 5)) };
+      return { text: '예측한 종 : [' + V.Predicted.slice(0, 10).join(' ') + ']\n진짜 종   : [' + V.y_true.slice(0, 10).join(' ') + ']' };
+    case 'cm':
+      if((e = need(V, ['Predicted']))) return e;
+      return { text: npInts(cmat(V.y_true, V.Predicted, 3)) };
+    case 'evalReg':
+      if((e = need(V, ['Predicted']))) return e;
+      V.score = r2(V.y_true, V.Predicted);
+      return { text: '평균제곱오차(MSE) : ' + pyf(mse(V.y_true, V.Predicted)) + '\n결정계수(R²)      : ' + pyf(V.score) };
+    case 'evalCls':
+      if((e = need(V, ['Predicted']))) return e;
+      var cs = clsStats(cmat(V.y_true, V.Predicted, 3)); V.score = cs.acc;
+      return { text: '정확도 : ' + pyf(cs.acc) + '\n정밀도 : ' + npPrint1(cs.prec) + '\n재현율 : ' + npPrint1(cs.rec) };
+  }
+}
+function runCell(i){
+  var t = cur, C = cells(t), rt = RT[t] || (RT[t] = newRt());
+  var res = exec(t, C[i]); rt.n++; rt.cnt[i] = rt.n; rt.outs[i] = res; rt.codeAt[i] = C[i].code;
+  drawNb(); drawCmp();
+}
+function runAll(){ var C = cells(cur); RT[cur] = newRt(); for(var i = 0; i < C.length; i++) runCell(i); }
+
+/* ── 오렌지3 쪽(설정이 바뀌면 바로 다시 계산) ───────────────────────────── */
+function orange(t){
+  var st = S[t], D = DATA[DS[t]], f = feats(t);
+  if(!f.length) return { err: '속성(feature)이 없습니다' };
+  var sp2 = orangeSplit(D.rows.length, st.pct, st.rep ? 42 : ((Math.random() * 4294967296) >>> 0)),
+      ix = colIdx(t, f), yi = colIdx(t, [target(t)])[0];
+  var Xtr = sp2.train.map(function(i){ return ix.map(function(j){ return D.rows[i][j]; }); }), ytr = sp2.train.map(function(i){ return D.rows[i][yi]; });
+  var Xte = sp2.test.map(function(i){ return ix.map(function(j){ return D.rows[i][j]; }); }), yte = sp2.test.map(function(i){ return D.rows[i][yi]; });
+  if(t === 'reg' || !st.cat){
+    var p = t === 'reg' ? linreg(Xtr, ytr).predict(Xte) : knn(Xtr, ytr, st.k, true).predict(Xte);
+    var m = mse(yte, p);
+    return { reg: true, n: [Xtr.length, Xte.length], MSE: m, RMSE: Math.sqrt(m), MAE: mae(yte, p), R2: r2(yte, p), asReg: t === 'cls' };
+  }
+  var pc = knn(Xtr, ytr, st.k).predict(Xte), M = cmat(yte, pc, 3), cs = clsStats(M);
+  return { reg: false, n: [Xtr.length, Xte.length], CA: cs.acc, F1: cs.wF1, Prec: cs.wPrec, Recall: cs.wRec, M: M };
+}
+var OR = null;
+
+/* ── 그리기: 캔버스 ───────────────────────────── */
+function wpos(t, id){ return WID[t].filter(function(w){ return w.id === id; })[0]; }
+function drawCanvas(){
+  var t = cur, svg = document.getElementById('cv'), h = '';
+  h += '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9AA3AE"/></marker></defs>';
+  LINKS[t].forEach(function(L){
+    var a = wpos(t, L[0]), b = wpos(t, L[1]), off = L[3] || 0, R = 40;
+    var ang = Math.atan2(b.y - a.y, b.x - a.x), nx = -Math.sin(ang) * off, ny = Math.cos(ang) * off;
+    var x1 = a.x + Math.cos(ang) * R + nx, y1 = a.y + Math.sin(ang) * R + ny, x2 = b.x - Math.cos(ang) * R + nx, y2 = b.y - Math.sin(ang) * R + ny;
+    var on = selW && (L[0] === selW || L[1] === selW);
+    h += '<path class="lk' + (on ? ' on' : '') + '" d="M' + x1 + ',' + y1 + ' L' + x2 + ',' + y2 + '" marker-end="url(#ah)"/>';
+    var mx = (x1 + x2) / 2 + nx * 0.6, my = (y1 + y2) / 2 + ny * 0.6 - 4;
+    if(L[2] && on) h += '<text class="lkl" x="' + mx + '" y="' + my + '" text-anchor="middle">' + esc(L[2]) + '</text>';
+  });
+  WID[t].forEach(function(w){
+    var warn = (w.id === 'file' && ((t === 'cls' && !S.cls.cat) || !feats(t).length));
+    var badge = '';
+    if(OR && !OR.err){
+      if(w.id === 'sampler') badge = OR.n[0] + ' / ' + OR.n[1] + '행';
+      if(w.id === 'score') badge = OR.reg ? 'R² ' + OR.R2.toFixed(3) : 'CA ' + OR.CA.toFixed(3);
+      if(w.id === 'model' && t === 'cls') badge = 'k = ' + S.cls.k;
+    }
+    h += '<g class="wg ' + w.kind + (selW === w.id ? ' sel' : '') + (warn ? ' warn' : '') + '" data-w="' + w.id + '" tabindex="0" role="button" aria-label="' + w.nm + ' 위젯">' +
+      '<circle class="ring" cx="' + w.x + '" cy="' + w.y + '" r="38"/>' +
+      '<circle class="ic" cx="' + w.x + '" cy="' + w.y + '" r="30"/>' +
+      '<text class="em" x="' + w.x + '" y="' + (w.y + 9) + '" text-anchor="middle">' + w.em + '</text>' +
+      '<text class="nm" x="' + w.x + '" y="' + (w.y + 60) + '" text-anchor="middle">' + w.nm + '</text>' +
+      (badge ? '<text class="bd" x="' + w.x + '" y="' + (w.y - 48) + '" text-anchor="middle">' + badge + '</text>' : '') + '</g>';
+  });
+  svg.innerHTML = h;
+}
+
+/* ── 그리기: 위젯 설정 창 ───────────────────────────── */
+function drawSet(){
+  var t = cur, st = S[t], box = document.getElementById('wset'), w = selW && wpos(t, selW), h = '';
+  if(!w){ box.innerHTML = '<h3>👆 위젯을 하나 눌러 보세요</h3><p class="hint">그 위젯과 같은 일을 하는 코드가 오른쪽에서 <b style="background:var(--hl-soft)">노랗게</b> 표시됩니다. 거꾸로 코드 칸을 눌러도 위젯이 골라져요.</p>' + orangeScoreHtml(); return; }
+  var mp = MAPTXT[w.id];
+  h += '<h3><span class="chip ' + w.kind + '">' + w.nm + '</span>' + mp[0] + '</h3><div class="map">코드에서는 → ' + mp[1] + '</div>';
+  if(w.id === 'file'){
+    var D = DATA[DS[t]];
+    h += '<table class="roles"><tr><th>열 이름</th><th>Type</th><th>Role</th></tr>' + D.cols.map(function(c){
+      var isT = st.roles[c] === 'target';
+      var type = (t === 'cls' && isT) ? '<select data-type><option value="num"' + (st.cat ? '' : ' selected') + '>numeric</option><option value="cat"' + (st.cat ? ' selected' : '') + '>categorical</option></select>'
+        : (isT && t === 'reg' ? 'numeric' : 'numeric');
+      var role = isT ? '<b>target</b>' : '<select data-role="' + esc(c) + '"><option value="feature"' + (st.roles[c] === 'feature' ? ' selected' : '') + '>feature</option><option value="skip"' + (st.roles[c] === 'skip' ? ' selected' : '') + '>skip</option></select>';
+      return '<tr class="' + (isT ? 'tg' : '') + '"><td>' + esc(c) + '</td><td>' + type + '</td><td>' + role + '</td></tr>'; }).join('') + '</table>';
+    if(t === 'reg') h += '<p class="hint">교과서처럼 <b>도서관 · 공연장</b> 두 속성만 feature 로 씁니다. 박물관 · 미술관을 feature 로 바꾸면 코드의 <code>x = df[[…]]</code> 가 어떻게 바뀌는지 보세요.</p>';
+    else h += st.cat ? '<div class="okmsg">✅ 종이 categorical 이라 오렌지3가 <b>분류</b>를 합니다. 코드에서 <code>KNeighborsClassifier</code> 를 고른 것과 같아요.</div>'
+                     : '<div class="alert">⚠️ 종이 0 · 1 · 2 숫자라서 오렌지3가 <b>numeric</b> 으로 읽었어요. 이대로면 분류가 아니라 <b>예측</b>(평균 내기)을 합니다 → Type 을 <b>categorical</b> 로 바꾸세요.</div>';
+  }
+  if(w.id === 'sampler'){
+    h += '<div class="row"><label for="pct">Fixed proportion of data</label><input id="pct" type="range" min="50" max="90" step="5" value="' + st.pct + '"><b class="mono">' + st.pct + '%</b></div>' +
+      '<div class="row"><label><input type="checkbox" id="rep"' + (st.rep ? ' checked' : '') + '> Replicable (deterministic sampling)</label></div>' +
+      '<p class="hint">훈련용 <b>' + st.pct + '%</b> = 시험용 <b>' + (100 - st.pct) + '%</b> → 코드의 <code>test_size=' + testSize(t) + '</code>. Replicable 을 끄면 코드에서 <code>random_state</code> 가 사라지고, 실행할 때마다 다르게 나눕니다.</p>';
+  }
+  if(w.id === 'model'){
+    if(t === 'reg') h += '<p class="hint">설정할 것이 없어요. 위젯 이름 <b>Linear Regression</b> = 코드의 <code>LinearRegression()</code>. <code>model.coef_</code> 는 이 위젯의 «Coefficients» 출력과 같습니다.</p>';
+    else h += '<div class="row"><label for="kk">Number of neighbors</label><input id="kk" type="range" min="1" max="15" step="1" value="' + st.k + '"><b class="mono">' + st.k + '</b></div>' +
+      '<p class="hint">파이썬 기본값도 5입니다. 5가 아니면 코드에 <code>n_neighbors=' + st.k + '</code> 가 생겨요. (Ⅱ-04: 이웃 수를 바꾸면 경계가 달라짐)</p>';
+  }
+  if(w.id === 'score' || w.id === 'cm' || w.id === 'pred') h += orangeScoreHtml(w.id);
+  box.innerHTML = h;
+}
+function f3(v){ return v.toFixed(3); }
+function orangeScoreHtml(which){
+  if(!OR) return '';
+  if(OR.err) return '<div class="alert">' + OR.err + '</div>';
+  var h = '';
+  if(which === 'pred') return '<p class="hint">시험용(Remaining Data) <b>' + OR.n[1] + '행</b>에 모델이 낸 답을 표로 보여 주는 위젯입니다. 코드의 <code>Predicted</code> 와 같아요.</p>';
+  if(which === 'cm' && !OR.reg){
+    h += '<table class="scores"><tr><th>실제 \\ 예측</th>' + IRIS_NAMES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '</tr>' +
+      OR.M.map(function(r, i){ return '<tr><td>' + IRIS_NAMES[i] + '</td>' + r.map(function(v){ return '<td>' + v + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+    return h + '<p class="hint">대각선 = 맞힌 개수. 코드의 <code>confusion_matrix</code> 결과와 같은 모양입니다.</p>';
+  }
+  if(OR.reg) h += '<table class="scores"><tr><th>Model</th><th>MSE</th><th>RMSE</th><th>MAE</th><th>R2</th></tr><tr><td>' + (OR.asReg ? 'kNN(예측!)' : 'Linear Regression') + '</td><td>' + Math.round(OR.MSE).toLocaleString() + '</td><td>' + f3(OR.RMSE) + '</td><td>' + f3(OR.MAE) + '</td><td><b>' + f3(OR.R2) + '</b></td></tr></table>';
+  else h += '<table class="scores"><tr><th>Model</th><th>CA</th><th>F1</th><th>Prec</th><th>Recall</th></tr><tr><td>kNN</td><td><b>' + f3(OR.CA) + '</b></td><td>' + f3(OR.F1) + '</td><td>' + f3(OR.Prec) + '</td><td>' + f3(OR.Recall) + '</td></tr></table>';
+  h += '<p class="hint">Test on test data · 훈련 ' + OR.n[0] + '행 / 시험 ' + OR.n[1] + '행.' + (OR.reg ? '' : ' 오렌지3의 Prec · Recall 은 세 종을 <b>평균</b> 낸 한 숫자, 코드의 <code>average=None</code> 은 <b>종마다</b> 하나씩입니다.') + '</p>';
+  if(OR.asReg) h += '<div class="alert">종을 숫자로 읽어서 CA 대신 MSE · R2 가 나왔어요 — File 위젯에서 Type 을 categorical 로!</div>';
+  return h;
+}
+
+/* ── 그리기: 노트북 ───────────────────────────── */
+var WNAME = { file:'File', sampler:'Data Sampler', model:'모델 위젯', score:'Test and Score', pred:'Predictions', cm:'Confusion Matrix' };
+var WKIND = { file:'data', sampler:'data', model:'model', score:'eval', pred:'eval', cm:'eval' };
+function drawNb(){
+  var t = cur, C = cells(t), rt = RT[t], nb = document.getElementById('nb'), first = -1;
+  /* 코드가 바뀐 첫 칸부터 아래는 모두 «다시 실행» — 그 아래 칸은 바뀐 결과를 아직 모름 */
+  if(rt) for(var q = 0; q < C.length; q++) if(rt.outs[q] && rt.codeAt[q] !== C[q].code){ first = q; break; }
+  nb.innerHTML = C.map(function(c, i){
+    var o = rt && rt.outs[i], stale = o && first >= 0 && i >= first, out = '';
+    if(o){
+      if(o.err) out = '<div class="out err' + (stale ? ' stale' : '') + '">' + esc(o.err) + '</div>';
+      else if(o.html) out = '<div class="out' + (stale ? ' stale' : '') + '">' + o.html + '</div>';
+      else if(o.text || o.note) out = '<div class="out' + (stale ? ' stale' : '') + '">' + esc(o.text || '') + (o.note ? '\n<span class="note">💡 ' + esc(o.note) + '</span>' : '') + '</div>';
+      if(stale && i === first) out += '<div class="out"><span class="note">🔁 위젯 설정이 바뀌어 코드가 달라졌어요 — 이 칸부터 아래를 다시 실행하세요(▶ 모두 실행).</span></div>';
+    }
+    var wn = c.w === 'model' ? (t === 'reg' ? 'Linear Regression' : 'kNN') : WNAME[c.w];
+    var extra = c.run === 'fit' ? '꽂으면 학습' : c.run === 'coef' ? 'Coefficients' : '';
+    return '<div class="cell' + (selW === c.w ? ' hl' : '') + '" data-i="' + i + '" data-w="' + c.w + '" tabindex="0">' +
+      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행">▶</button><span class="cnt">[' + (rt && rt.cnt[i] ? rt.cnt[i] : ' ') + ']</span></div>' +
+      '<div class="src"><div class="ctag"><span class="chip ' + WKIND[c.w] + '">' + wn + '</span>' + (extra ? '<small>' + extra + '</small>' : '') + '</div>' +
+      '<pre class="code">' + hl(c.code) + '</pre>' + out + '</div></div>';
+  }).join('');
+}
+
+/* ── 견주어 보기 ───────────────────────────── */
+function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+function drawCmp(){
+  var t = cur, rt = RT[t], py = rt && rt.vars.score != null ? rt.vars.score : null, nm = t === 'reg' ? '청년 인구 R²' : '붓꽃 정확도';
+  var mine = store('o2c_mine_' + t) || '';
+  var orv = OR && !OR.err ? (OR.reg ? (t === 'reg' ? OR.R2 : null) : OR.CA) : null;
+  document.getElementById('cmp').innerHTML = '<tr><th></th><th>이 창의 오렌지3</th><th>이 창의 코랩(파이썬)</th><th>내 오렌지3 점수</th><th>교과서</th></tr>' +
+    '<tr><td>' + nm + '</td><td>' + (orv == null ? '—' : orv.toFixed(3)) + '</td><td>' + (py == null ? '<small>코드를 실행하면 나와요</small>' : py.toFixed(3)) + '</td>' +
+    '<td><input id="mine" inputmode="decimal" placeholder="0.○○" value="' + esc(mine) + '" aria-label="내 오렌지3 점수"></td><td>약 ' + S[t].book + (t === 'reg' ? ' (107쪽)' : ' (110쪽)') + '</td></tr>';
+  document.getElementById('why').innerHTML = '<b>점수가 조금씩 다르지요?</b> 모델은 같아도 <b>시험지(테스트 데이터)로 뽑힌 행</b>이 다르기 때문입니다. ' +
+    '코드의 <code>random_state=' + S[t].seed + '</code> 는 교과서와 같은 행을 뽑아서 교과서 점수와 같게 나오고, 오렌지3는 자기 방식으로 뽑습니다. ' +
+    '→ 모델을 비교할 때는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 재야 합니다.' +
+    '<br><b>정리 한 줄</b> — «블록은 ○○할 때 좋고, 코드는 ○○할 때 좋다.»';
+}
+
+/* ── 빈칸 연습 ───────────────────────────── */
+var QZ = [
+  { w:'File', k:'data', pre:'y = df[[\'', post:'\']]', a:['청년'], q:'Role 이 target 인 열(청년 인구 예측)' },
+  { w:'Data Sampler', k:'data', pre:'train_test_split(x, y, test_size=', post:')', a:['0.2', '.2'], q:'Data Sampler 80% (훈련용) 는?' },
+  { w:'Linear Regression', k:'model', pre:'model = ', post:'()', a:['LinearRegression'], q:'Linear Regression 위젯을 놓는 것은?' },
+  { w:'Test and Score(꽂으면 학습)', k:'eval', pre:'model.', post:'(x_train, y_train)', a:['fit'], q:'Learner 를 Test and Score 에 꽂아 학습시키는 것은?' },
+  { w:'Predictions', k:'eval', pre:'Predicted = model.', post:'(x_test)', a:['predict'], q:'Predictions 위젯이 시험용 데이터에 답을 내는 것은?' },
+  { w:'Test and Score(R2)', k:'eval', pre:'model.', post:'(x_test, y_test)', a:['score'], q:'Test and Score 의 R2 를 코드로 구하면?' },
+  { w:'File(categorical) + kNN', k:'model', pre:'model = ', post:'()', a:['KNeighborsClassifier'], q:'종을 categorical 로 두고 kNN 으로 «분류»하는 모델은?' },
+  { w:'kNN', k:'model', pre:'KNeighborsClassifier(n_neighbors=', post:')', a:['3'], q:'Number of neighbors 를 3 으로 바꾸면?' },
+  { w:'Data Sampler', k:'data', pre:'train_test_split(x, y, test_size=', post:')', a:['0.3', '.3'], q:'Data Sampler 를 70% 로 바꾸면?' },
+  { w:'Confusion Matrix', k:'eval', pre:'sklearn.metrics.', post:'(y_test, Predicted)', a:['confusion_matrix'], q:'Confusion Matrix 위젯은?' },
+  { w:'Test and Score(CA)', k:'eval', pre:'sklearn.metrics.', post:'(y_test, Predicted)', a:['accuracy_score'], q:'Test and Score 의 CA(정확도)는?' }
+];
+var QP = [
+  { q:'train_test_split(…) 은 어느 위젯?', o:['File', 'Data Sampler', 'Test and Score'], a:1 },
+  { q:'pd.read_csv(…) 는 어느 위젯?', o:['File', 'Data Sampler', 'Predictions'], a:0 },
+  { q:'Remaining Data 는 코드에서?', o:['x_train · y_train', 'x_test · y_test', 'Predicted'], a:1 },
+  { q:'예측 → 분류로 바꿀 때, 코드에서 바뀌는 것은?', o:['모든 줄', '모델 만드는 한 줄', 'train_test_split 줄'], a:1 }
+];
+var qdone = {};
+function drawQuiz(){
+  var h = QZ.map(function(z, i){
+    return '<div class="q' + (qdone['b' + i] ? ' done' : '') + '"><div class="qh"><b>' + (i + 1) + '</b><span class="chip ' + z.k + '">' + z.w + '</span>' + z.q + '</div>' +
+      '<pre>' + esc(z.pre) + '<input class="bl" data-q="' + i + '" autocomplete="off" spellcheck="false" aria-label="빈칸 ' + (i + 1) + '"' + (qdone['b' + i] ? ' value="' + esc(z.a[0]) + '" disabled' : '') + '>' + esc(z.post) + '</pre>' +
+      '<div class="fb" id="fb' + i + '">' + (qdone['b' + i] ? '✅ 맞아요' : '') + '</div></div>';
+  }).join('') + QP.map(function(z, i){
+    return '<div class="q' + (qdone['p' + i] ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + i + 1) + '</b>코드 → 위젯 · ' + esc(z.q) + '</div><div class="picks">' +
+      z.o.map(function(o, k){ return '<button type="button" data-p="' + i + '" data-k="' + k + '"' + (qdone['p' + i] && k === z.a ? ' class="ok"' : '') + '>' + esc(o) + '</button>'; }).join('') + '</div><div class="fb" id="fp' + i + '"></div></div>';
+  }).join('');
+  document.getElementById('qz').innerHTML = h;
+  var n = Object.keys(qdone).length, N = QZ.length + QP.length;
+  document.getElementById('qsum').textContent = '맞힌 문제 ' + n + ' / ' + N + (n === N ? ' 🎉 다 맞혔어요!' : '');
+}
+document.getElementById('qz').addEventListener('keydown', function(e){
+  var inp = e.target.closest('input.bl'); if(!inp || e.key !== 'Enter') return;
+  var i = +inp.dataset.q, z = QZ[i], v = inp.value.trim().replace(/^['"]|['"]$/g, ''), fb = document.getElementById('fb' + i);
+  if(z.a.indexOf(v) >= 0){ qdone['b' + i] = 1; drawQuiz(); var nx = document.querySelector('input.bl:not([disabled])'); if(nx) nx.focus(); }
+  else { fb.className = 'fb no'; fb.textContent = v ? '🤔 다시! 힌트 — «' + z.w + '» 위젯을 눌렀을 때 노랗게 표시되는 코드를 보세요.' + (v.toLowerCase() === z.a[0].toLowerCase() ? ' (대소문자도 똑같이!)' : '') : '빈칸에 써 보세요.'; }
+});
+document.getElementById('qz').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-p]'); if(!b) return;
+  var i = +b.dataset.p, k = +b.dataset.k, z = QP[i];
+  if(k === z.a){ qdone['p' + i] = 1; drawQuiz(); }
+  else { b.className = 'no'; document.getElementById('fp' + i).className = 'fb no'; document.getElementById('fp' + i).textContent = '🤔 다시 골라 보세요.'; }
+});
+
+/* ── 이벤트 ───────────────────────────── */
+function refresh(){ OR = orange(cur); drawCanvas(); drawSet(); drawNb(); drawCmp(); }
+function pick(id){ selW = selW === id ? null : id; drawCanvas(); drawSet(); drawNb();
+  var c = document.querySelector('.cell.hl'); if(c && innerWidth < 980) c.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+document.getElementById('cv').addEventListener('click', function(e){ var g = e.target.closest('.wg'); if(g) pick(g.dataset.w); });
+document.getElementById('cv').addEventListener('keydown', function(e){ var g = e.target.closest('.wg'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); pick(g.dataset.w); } });
+document.getElementById('nb').addEventListener('click', function(e){
+  var r = e.target.closest('[data-run]'); if(r){ runCell(+r.dataset.run); return; }
+  var c = e.target.closest('.cell'); if(c && !e.target.closest('.out')){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
+});
+document.getElementById('nb').addEventListener('keydown', function(e){
+  var c = e.target.closest('.cell'); if(!c || e.target.closest('button')) return;
+  if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); runCell(+c.dataset.i); var nx = document.querySelector('.cell[data-i="' + (+c.dataset.i + 1) + '"]'); if(nx) nx.focus(); }
+});
+document.getElementById('wset').addEventListener('input', function(e){
+  var st = S[cur], tg = e.target;
+  if(tg.id === 'pct') st.pct = +tg.value;
+  else if(tg.id === 'kk') st.k = +tg.value;
+  else if(tg.id === 'rep') st.rep = tg.checked;
+  else if(tg.hasAttribute('data-type')) st.cat = tg.value === 'cat';
+  else if(tg.hasAttribute('data-role')) st.roles[tg.getAttribute('data-role')] = tg.value;
+  else return;
+  OR = orange(cur); drawCanvas(); drawNb(); drawCmp();
+  if(tg.type === 'range'){ var b = tg.parentNode.querySelector('b'); if(b) b.textContent = tg.id === 'pct' ? st.pct + '%' : st.k; var hs = document.getElementById('wset').querySelector('.hint, .okmsg, .alert'); }
+  if(tg.type !== 'range') drawSet(); else { var keep = tg.id; drawSet(); var el = document.getElementById(keep); if(el) el.focus(); }
+});
+document.addEventListener('input', function(e){ if(e.target.id === 'mine') store('o2c_mine_' + cur, e.target.value); });
+document.getElementById('runAll').addEventListener('click', runAll);
+document.getElementById('resetRt').addEventListener('click', function(){ RT[cur] = null; drawNb(); drawCmp(); });
+document.querySelector('.tabs').addEventListener('click', function(e){
+  var b = e.target.closest('.tab'); if(!b) return;
+  [].forEach.call(document.querySelectorAll('.tab'), function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+  var t = b.dataset.t;
+  document.getElementById('benchView').hidden = t === 'quiz'; document.getElementById('quizView').hidden = t !== 'quiz';
+  if(t === 'quiz'){ drawQuiz(); return; }
+  cur = t; selW = null; document.getElementById('nbName').textContent = '02_model.ipynb · ' + (t === 'reg' ? '① 예측' : '② 분류');
+  drawSteps(); refresh();
+});
+function drawSteps(){
+  var mk = function(k, n, w){ return '<span><span class="chip ' + k + '">' + w + '</span> <b>' + n + '</b></span>'; };
+  document.getElementById('stepBar').innerHTML = mk('data', '데이터 준비', 'File') + '<i>→</i>' + mk('data', '① 분리', 'Data Sampler') + '<i>→</i>' +
+    mk('model', '모델 고르기', cur === 'reg' ? 'Linear Regression' : 'kNN') + '<i>→</i>' + mk('eval', '② 학습 · ③ 평가', 'Test and Score') + '<i>→</i>' + mk('eval', '③ 예측', 'Predictions') +
+    (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
+}
+var hashT = (location.hash.match(/^#(reg|cls|quiz)$/) || [])[1];
+drawSteps(); refresh();
+if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
+</script>
+</body>
+</html>

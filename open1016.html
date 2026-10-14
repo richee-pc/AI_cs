@@ -1303,6 +1303,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <a href="#lessonPanel">오늘 할 순서</a>
   <a href="#learn05">교과서로 배우기 Ⅱ-05</a>
   <a href="#blocks">블록 → 파이썬</a>
+  <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener">🍊 비교 창</a>
   <a href="#code">코드 한 줄씩 읽기</a>
   <a href="#implement">구현 · 평가 해석</a>
 </div></div></nav>
@@ -3219,6 +3220,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <tr><td><b>Confusion Matrix</b> · CA · Prec · Recall</td><td><code>confusion_matrix(...)</code> · <code>accuracy_score(...)</code> · <code>precision_score(...)</code> · <code>recall_score(...)</code></td><td>③ 모델 평가(분류)</td></tr>
     </table></div>
     <p class="note" style="margin-top:12px"><b>모델만 바꾸면 끝.</b> 예측에서 분류로 넘어갈 때 오렌지3에서는 <b>블록 하나</b>, 파이썬에서는 <b>한 줄</b>(<code>LinearRegression()</code> → <code>KNeighborsClassifier()</code>)만 바뀝니다. 나머지 순서는 그대로입니다.</p>
+    <div class="colabcta" style="background:linear-gradient(120deg,#FFF1E2,var(--blue-xl)); border-color:#F5B36B"><span><b style="color:#B9560D">🍊 직접 짝지어 보기 — 오렌지3 ↔ 코랩 비교 창</b>위젯을 누르면 짝이 되는 코드에 불이 들어오고, Data Sampler 비율 · 이웃 수를 바꾸면 코드 숫자도 함께 바뀝니다. 코드는 ▶ 로 실행해 노트북 02와 같은 점수를 확인해요. 빈칸 채우기 연습도 있어요.</span>
+      <a href="https://richee-pc.github.io/AI_cs/orange.html" target="_blank" rel="noopener" style="background:#E8731C">🍊 비교 창 열기</a></div>
   </div>
 
   <div class="tool">
@@ -5489,7 +5492,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=f770c17a"></script>
+<script src="lessons.js?v=8dc055fe"></script>
 <script>
 /* 공개수업 쪽: 차시 U05 고정 · D분반 · 50분 흐름(교사용) 보이기 · 다른 쪽으로 가는 단계는 뺌 */
 (function(){
@@ -6858,6 +6861,7 @@ grade();
       if(/^https?:/.test(h) && !/^https:\/\/richee-pc\.github\.io\//.test(h)) return;   /* 코랩 · 데이터 · 바깥 누리집은 그대로 */
       if(/^(mailto|javascript|data):/.test(h)) return;
       var m = h.match(SITE);
+      if(m && m[1] === 'orange.html'){ a.target = '_blank'; a.rel = 'noopener'; return; }   /* 오렌지3 ↔ 코랩 비교 창은 열어 둠 */
       if(m && m[3] && (!m[1] || m[1] === 'unit2.html') && document.getElementById(decodeURIComponent(m[3].slice(1)))){
         a.setAttribute('href', m[3]); a.removeAttribute('target'); return; }
       var sp = document.createElement('span'); sp.className = 'nolink ' + (a.className || '');
