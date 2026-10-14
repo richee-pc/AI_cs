@@ -108,3 +108,19 @@ nav .row.mega .sep{margin:0 4px}
 #ipPick{border-radius:16px; gap:0} #ipPick button{padding:7px 9px; font-size:.8125rem}
 /* 17) 설계도의 긴 데이터 주소가 좁은 화면에서 줄바꿈되게 */
 #blocks li code, #blocks p code{overflow-wrap:anywhere; word-break:break-all}
+
+/* 18) Ⅱ-05 전시 복습 카드 — 먼저 답해 보고 눌러서 확인 */
+.rev5 .rvgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px; margin-top:8px}
+.rev5 .rv{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
+.rev5 .rv[open]{background:var(--white); border-color:var(--blue)}
+.rev5 .rv summary{display:block!important; cursor:pointer; list-style:none; font-weight:700; line-height:1.6; color:var(--ink)}
+.rev5 summary::-webkit-details-marker{display:none}
+.rev5 summary b{display:inline-grid; place-items:center; min-width:30px; height:24px; border-radius:99px; background:var(--fill); color:var(--on-fill,#fff); font-size:.75rem; margin-right:7px; padding:0 7px; vertical-align:1px}
+.rev5 summary::after{content:"눌러서 답 보기 ▾"; display:block; margin-top:6px; font-size:.75rem; font-weight:600; color:var(--blue-d)}
+.rev5 .rv[open] summary::after{content:"접기 ▴"}
+.rev5 .rva{margin-top:8px; font-size:.9375rem; line-height:1.7; color:var(--ink2)}
+.rev5 .rva p{margin:0 0 6px}
+.rev5 .rvflow{display:flex; flex-wrap:wrap; gap:4px; align-items:center; font-size:.8125rem; color:var(--muted)}
+.rev5 .rvflow span{border-radius:99px; padding:2px 9px; font-weight:700; color:#3a2a10}
+.rev5 .rvflow .d{background:#FFD39F} .rev5 .rvflow .m{background:#FAC1D9} .rev5 .rvflow .e{background:#C3F3F3}
+.rev5 .rvgo{margin:10px 0 0; font-size:.9375rem; color:var(--ink2)}

@@ -241,6 +241,50 @@ textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-
 .pfb:empty{display:none}
 .pfb.ok{color:var(--ok)} .pfb.no{color:var(--bad)} .pfb.hint{color:var(--warn)} .pfb.info{color:var(--muted)}
 
+/* 평가 지표 */
+.sect.mt h2 small{font-size:13px; font-weight:500; color:var(--muted); margin-left:6px}
+.mnav{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 6px}
+.mnav a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:4px 12px}
+.mnav a:hover{border-color:var(--orange); color:var(--orange-d)}
+.mh{font-size:17px; margin:26px 0 8px; scroll-margin-top:12px}
+.mh .tm{font-size:12px; font-weight:600; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:2px 9px; margin-left:6px; vertical-align:2px}
+.mcard{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:0 var(--r-m) var(--r-m) 0; padding:9px 13px; margin:0 0 10px; font-size:14px; color:var(--ink-2); line-height:1.7}
+.mcard b{color:var(--ink)} .mcard p{margin:0 0 6px} .mcard p:last-child{margin:0}
+.warnline{display:block; color:var(--warn); font-size:13px; margin-top:2px}
+.mtbl{overflow-x:auto; margin:0 0 10px}
+.mt-def{min-width:760px; font-size:13.5px}
+.mt-def td{text-align:left!important; vertical-align:top; line-height:1.6}
+.mt-def td:first-child{font-family:var(--font-mono); white-space:nowrap}
+.mt-def.kor{min-width:600px} .mt-def.kor td:first-child{font-family:var(--font-ui); font-weight:600}
+.eq{font-family:var(--font-mono); font-size:13px; white-space:nowrap; display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap}
+.fr{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 2px}
+.fr > span{padding:0 4px; line-height:1.35}
+.fr > span:first-child{border-bottom:1.5px solid currentColor}
+.tool2{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); padding:12px 14px; margin:0 0 12px}
+.tool2 h4{margin:0 0 8px; font-size:15px}
+.tool2 .row label{min-width:68px; font-weight:600; font-size:13.5px}
+.mi{flex:1; min-width:200px; font-family:var(--font-mono); font-size:13.5px; border:1px solid var(--line); border-radius:7px; padding:5px 9px; background:var(--surface)}
+.calc{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; margin:8px 0}
+.calc th,.calc td{border:1px solid var(--line-soft); padding:4px 8px; text-align:right}
+.calc th{background:var(--code-line); font-size:12px}
+.calc tr.sum td{font-weight:700; background:var(--hl-soft)}
+.steps2{display:grid; gap:6px; margin:6px 0 0}
+.steps2 div{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:7px 11px; font-size:13.5px; line-height:1.7}
+.steps2 div b.v{font-family:var(--font-mono); color:var(--orange-d); font-size:15px}
+.steps2 small{color:var(--muted); display:block}
+.cmgrid{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:620px; margin:0 0 12px}
+.cmgrid .h,.cmgrid .h0{font-size:12.5px; font-weight:700; color:var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; padding:4px}
+.cmgrid .cc{border-radius:10px; padding:9px 11px; font-size:13.5px; line-height:1.45}
+.cmgrid .cc small{display:block; color:var(--ink-2); font-size:12px}
+.tp{background:var(--ok-bg)} .tn{background:color-mix(in srgb,var(--ok-bg) 55%,var(--surface))} .fp{background:var(--warn-bg)} .fn{background:var(--bad-bg)}
+.cmin{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:520px; align-items:center; margin:8px 0}
+.cmin > b{font-size:12.5px; color:var(--muted); text-align:center}
+.cmin label{display:flex; gap:6px; align-items:center; border-radius:8px; padding:6px 9px; font-weight:700; font-size:13px}
+.cmin input{width:100%; min-width:0; font-family:var(--font-mono); font-size:14px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.presets{gap:6px}
+.mcard.pick{border-left-color:var(--ok)}
+@media (max-width:640px){ .cmgrid,.cmin{grid-template-columns:62px 1fr 1fr} }
+
 footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
 .sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
@@ -260,6 +304,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
   <div class="tabs" role="tablist" aria-label="설계도">
     <button class="tab" role="tab" data-t="reg" aria-selected="true">① 예측 · 청년 인구 <small>(선형 회귀)</small></button>
     <button class="tab" role="tab" data-t="cls" aria-selected="false">② 분류 · 붓꽃 <small>(k-최근접 이웃)</small></button>
+    <button class="tab" role="tab" data-t="metric" aria-selected="false">📏 평가 지표</button>
     <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 위젯 ↔ 코드 퀴즈</button>
   </div>
 </div></header>
@@ -285,6 +330,86 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
       <h2>견주어 보기 — 블록과 코드, 점수가 같을까?</h2>
       <table class="cmp" id="cmp"></table>
       <div class="why" id="why"></div>
+    </div>
+  </div>
+  <div id="metricView" hidden>
+    <div class="sect mt">
+      <h2>📏 모델 평가 지표 — 무엇을 재고, 어떻게 계산하나 <small>교과서 106~112쪽 · 오렌지3 Test and Score 표 읽기</small></h2>
+      <p class="howto">모든 지표는 <b>시험용(테스트) 데이터</b>에서 <b>진짜 정답 y</b> 와 <b>모델의 예측 ŷ</b>(와이 햇)을 견주어 냅니다. 학습에 쓴 데이터로 재면 «외운 문제로 본 시험»이라 점수가 부풀려져요.
+        <b>예측(숫자) 모델</b>과 <b>분류(무엇인지) 모델</b>은 쓰는 지표가 다릅니다.</p>
+      <nav class="mnav"><a href="#m-reg">① 예측 모델 지표</a><a href="#m-cls">② 분류 모델 지표</a><a href="#m-multi">③ 세 종류 이상(붓꽃)</a><a href="#m-orange">④ 오렌지3 표 한눈에</a><a href="#m-pick">⑤ 어떤 지표를 볼까</a></nav>
+
+      <h3 class="mh" id="m-reg">① 예측(회귀) 모델 — 숫자를 얼마나 가깝게 맞혔나 <span class="tm">청년 인구 · 선형 회귀</span></h3>
+      <div class="mcard"><b>오차(잔차)</b> = 진짜 값 − 예측값 &nbsp; <span class="eq">e = y − ŷ</span> &nbsp; — 양수면 «덜 맞힘»(실제가 더 큼), 음수면 «더 맞힘». 모든 예측 지표는 이 <b>오차</b>를 모아서 만듭니다.</div>
+      <div class="mtbl"><table class="cmp mt-def">
+        <tr><th>오렌지3 열</th><th>이름</th><th>계산식</th><th>좋은 방향</th><th>이렇게 말해요</th></tr>
+        <tr><td>MSE</td><td>평균제곱오차</td><td><span class="eq">MSE = <span class="fr"><span>Σ (y − ŷ)²</span><span>n</span></span></span></td><td>0에 가깝게 ↓</td><td>오차를 <b>제곱</b>해 평균 — 큰 실수에 벌을 크게 줌. 단위가 «명²»이라 혼자서는 크기를 느끼기 어렵고 <b>모델끼리 견줄 때</b> 씀</td></tr>
+        <tr><td>RMSE</td><td>평균제곱근오차</td><td><span class="eq">RMSE = √MSE</span></td><td>0에 가깝게 ↓</td><td>MSE 에 루트 → 단위가 정답과 같아짐(명). «평균 <b>약 ○명</b> 빗나간다»</td></tr>
+        <tr><td>MAE</td><td>평균절대오차</td><td><span class="eq">MAE = <span class="fr"><span>Σ |y − ŷ|</span><span>n</span></span></span></td><td>0에 가깝게 ↓</td><td>오차의 크기만 평균 — 가장 말하기 쉬움. «평균 ○명 빗나간다». 큰 실수에 덜 민감</td></tr>
+        <tr><td>MAPE</td><td>평균절대백분율오차</td><td><span class="eq">MAPE = <span class="fr"><span>100</span><span>n</span></span> × Σ <span class="fr"><span>|y − ŷ|</span><span>|y|</span></span> (%)</span></td><td>0에 가깝게 ↓</td><td>«실제 값의 평균 ○% 만큼 빗나간다» — 값의 크기가 서로 다른 데이터끼리 견줄 때. 실제 값이 0이면 못 씀</td></tr>
+        <tr><td>R2</td><td>결정계수 R²</td><td><span class="eq">R² = 1 − <span class="fr"><span>Σ (y − ŷ)²</span><span>Σ (y − ȳ)²</span></span></span></td><td>1에 가깝게 ↑</td><td>정답이 <b>달라지는 정도</b>(평균 ȳ 에서 흩어진 정도)를 모델이 몇 % 설명하나. 1 = 완벽, 0 = 평균만 찍은 것과 같음, <b>0보다 작으면 평균 찍기보다 못함</b>. «64%를 맞혔다»가 아님!</td></tr>
+        <tr><td>CVRMSE</td><td>변동계수 RMSE</td><td><span class="eq">CVRMSE = <span class="fr"><span>RMSE</span><span>ȳ</span></span> × 100 (%)</span></td><td>0에 가깝게 ↓</td><td>RMSE 를 평균 크기로 나눔 — «평균의 ○% 정도 빗나간다». 오렌지3 표에서 켜서 볼 수 있음</td></tr>
+      </table></div>
+      <div class="tool2">
+        <h4>🧮 직접 계산해 보기 — 숫자를 바꿔 보세요</h4>
+        <div class="row"><label>실제값 y</label><input id="mY" class="mi" value="120, 95, 140, 80, 110, 130"></div>
+        <div class="row"><label>예측값 ŷ</label><input id="mP" class="mi" value="112, 104, 128, 86, 115, 124"></div>
+        <div id="mRegOut"></div>
+      </div>
+      <div class="tool2" id="mRegOurs"></div>
+
+      <h3 class="mh" id="m-cls">② 분류 모델 — 맞았나, 틀렸나 <span class="tm">혼동 행렬(오분류표)에서 모두 나옴</span></h3>
+      <div class="mcard">하나를 <b>«찾고 싶은 쪽(양성)»</b>으로 정하면 결과는 네 칸으로 나뉩니다. <b>행 = 실제 정답, 열 = 모델의 예측</b>(코드 <code>confusion_matrix</code> · 오렌지3 Confusion Matrix 와 같은 방향).
+        <span class="warnline">⚠ 교과서 111쪽 예제 2 표는 반대(행 = 예측, 열 = 실제)라 머리글부터 확인!</span></div>
+      <div class="cmgrid">
+        <div class="h0"></div><div class="h">예측: 양성</div><div class="h">예측: 음성</div>
+        <div class="h">실제: 양성</div><div class="cc tp"><b>TP</b> 진짜 양성<small>양성을 양성으로 맞힘</small></div><div class="cc fn"><b>FN</b> 거짓 음성<small>양성을 놓침</small></div>
+        <div class="h">실제: 음성</div><div class="cc fp"><b>FP</b> 거짓 양성<small>음성을 양성이라 함(헛경보)</small></div><div class="cc tn"><b>TN</b> 진짜 음성<small>음성을 음성으로 맞힘</small></div>
+      </div>
+      <div class="mtbl"><table class="cmp mt-def">
+        <tr><th>오렌지3 열</th><th>이름</th><th>계산식</th><th>묻는 것</th><th>언제 중요한가</th></tr>
+        <tr><td>CA</td><td>정확도(Classification Accuracy)</td><td><span class="eq"><span class="fr"><span>TP + TN</span><span>TP + TN + FP + FN</span></span></span></td><td>전체 중 맞힌 비율</td><td>양성 · 음성 개수가 비슷할 때. 한쪽이 아주 적으면 속음(아래 «함정»)</td></tr>
+        <tr><td>Prec</td><td>정밀도(Precision)</td><td><span class="eq"><span class="fr"><span>TP</span><span>TP + FP</span></span></span></td><td>«양성이라고 한 것 중 진짜 양성은?»</td><td><b>헛경보가 곤란할 때</b> — 스팸 분류(정상 메일을 스팸함에 넣으면 못 봄)</td></tr>
+        <tr><td>Recall</td><td>재현율(Recall) · 민감도</td><td><span class="eq"><span class="fr"><span>TP</span><span>TP + FN</span></span></span></td><td>«진짜 양성 중 찾아낸 것은?»</td><td><b>놓치면 안 될 때</b> — 암 진단 · 부적합 수질 · 화재 경보</td></tr>
+        <tr><td>Spec</td><td>특이도(Specificity)</td><td><span class="eq"><span class="fr"><span>TN</span><span>TN + FP</span></span></span></td><td>«진짜 음성 중 음성이라 한 것은?»</td><td>정상인 것을 정상이라 잘 거르는지(재현율의 음성 쪽 짝)</td></tr>
+        <tr><td>F1</td><td>F1 점수</td><td><span class="eq">2 × <span class="fr"><span>정밀도 × 재현율</span><span>정밀도 + 재현율</span></span></span></td><td>정밀도와 재현율의 <b>조화 평균</b></td><td>둘 중 하나만 높은 «반쪽 모델»을 걸러 냄 — 둘 다 높아야 높음</td></tr>
+        <tr><td>MCC</td><td>매튜스 상관계수</td><td><span class="eq"><span class="fr"><span>TP·TN − FP·FN</span><span>√((TP+FP)(TP+FN)(TN+FP)(TN+FN))</span></span></span></td><td>네 칸을 모두 반영한 «예측과 정답의 상관»</td><td>−1 ~ 1. 1 = 완벽, 0 = 찍기 수준, 음수 = 거꾸로. 한쪽이 적은 데이터에서도 믿을 만함</td></tr>
+        <tr><td>AUC</td><td>ROC 곡선 아래 넓이</td><td>확률 순으로 줄 세웠을 때<br>진짜 양성이 음성보다 위에 올 확률</td><td>«기준선을 어떻게 잡든 얼마나 잘 가르나»</td><td>0.5 = 찍기, 1 = 완벽. 모델이 내는 <b>확률</b>로 계산(predict_proba) — 기준(0.5)을 바꿔도 덜 흔들리는 평가</td></tr>
+        <tr><td>LogLoss</td><td>로그 손실</td><td><span class="eq">− <span class="fr"><span>1</span><span>n</span></span> Σ log(정답에 준 확률)</span></td><td>«정답을 얼마나 자신 있게 맞혔나»</td><td>0에 가까울수록 좋음. 틀린 답에 큰 확신을 주면 크게 깎임</td></tr>
+      </table></div>
+      <div class="tool2">
+        <h4>🧮 직접 계산해 보기 — 네 칸에 숫자를 넣어 보세요</h4>
+        <div class="row presets"><button type="button" class="btn" data-pre="100,20,30,90">교과서 예제 2(클래식 = 양성)</button><button type="button" class="btn" data-pre="0,1,0,999">함정: 1,000명 중 환자 1명, «전원 정상»</button><button type="button" class="btn" data-pre="6,4,3,87">점수 계산기 예(양성 10)</button></div>
+        <div class="cmin">
+          <span></span><b>예측: 양성</b><b>예측: 음성</b>
+          <b>실제: 양성</b><label class="tp">TP <input id="cTP" inputmode="numeric" value="100"></label><label class="fn">FN <input id="cFN" inputmode="numeric" value="20"></label>
+          <b>실제: 음성</b><label class="fp">FP <input id="cFP" inputmode="numeric" value="30"></label><label class="tn">TN <input id="cTN" inputmode="numeric" value="90"></label>
+        </div>
+        <div id="mClsOut"></div>
+      </div>
+
+      <h3 class="mh" id="m-multi">③ 종류가 셋 이상이면 — 붓꽃 세 종류 <span class="tm">종마다 따로 → 평균</span></h3>
+      <div class="mcard">정밀도 · 재현율은 <b>종마다 «그 종 = 양성, 나머지 = 음성»</b>으로 하나씩 냅니다(코드 <code>average=None</code>). 오렌지3 표의 Prec · Recall · F1 은 이것을 <b>종마다 실제 개수(support)로 가중 평균</b>한 한 숫자예요(Target class: Average over classes).</div>
+      <div class="tool2" id="mMulti"></div>
+
+      <h3 class="mh" id="m-orange">④ 오렌지3 Test and Score 표 한눈에</h3>
+      <div class="mtbl"><table class="cmp mt-def kor">
+        <tr><th>보이는 곳</th><th>뜻</th></tr>
+        <tr><td>Model</td><td>꽂은 학습 위젯(Linear Regression · kNN · Tree …) — 여러 개를 꽂으면 줄이 늘어 한 표에서 견줌</td></tr>
+        <tr><td>예측 모델일 때</td><td><b>MSE · RMSE · MAE · R2</b> (설정에 따라 MAPE · CVRMSE 도). 표 머리글을 오른쪽 클릭하면 보일 열을 고를 수 있어요</td></tr>
+        <tr><td>분류 모델일 때</td><td><b>AUC · CA · F1 · Prec · Recall · MCC</b> (설정에 따라 Spec · LogLoss 도). 오렌지3 버전에 따라 기본으로 보이는 열이 조금 달라요</td></tr>
+        <tr><td>Target class</td><td><b>Average over classes</b> = 종마다 낸 값을 실제 개수로 가중 평균 · 특정 종을 고르면 «그 종 = 양성»으로 계산</td></tr>
+        <tr><td>Test on test data</td><td>Data Sampler 의 <b>Remaining Data</b>(시험용)로 채점 — 코드의 <code>x_test · y_test</code></td></tr>
+        <tr><td>Cross validation</td><td>교차 검증 — 데이터를 k 조각으로 나눠 <b>돌아가며 한 조각씩 시험지</b>로 쓰고 점수를 평균. 시험지 운에 덜 흔들림(Number of folds = 조각 수)</td></tr>
+        <tr><td>Test on train data</td><td>공부한 문제로 시험 — 점수가 부풀려지니 <b>평가로 쓰면 안 됨</b>(과적합 확인용)</td></tr>
+      </table></div>
+
+      <h3 class="mh" id="m-pick">⑤ 어떤 지표를 볼까</h3>
+      <div class="mcard pick">
+        <p><b>숫자를 맞히는 모델</b> → 모델끼리 견줄 때 <b>MSE · RMSE</b>, 사람에게 설명할 때 <b>MAE · RMSE</b>(«평균 ○명 빗나감»), 얼마나 설명하는지 <b>R²</b>.</p>
+        <p><b>무엇인지 가려내는 모델</b> → 양쪽 개수가 비슷하면 <b>정확도</b>, <b>놓치면 큰일</b>이면 <b>재현율</b>, <b>헛경보가 곤란</b>하면 <b>정밀도</b>, 둘 다 중요하면 <b>F1</b>, 한쪽이 아주 적으면 <b>MCC · F1</b>.</p>
+        <p><b>지표 하나만 보지 않기</b> — 정확도 99.9%여도 환자를 한 명도 못 찾을 수 있어요. 그리고 모델끼리는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 견줍니다.</p>
+      </div>
     </div>
   </div>
   <div id="quizView" hidden>
@@ -1238,7 +1363,7 @@ function orangeScoreHtml(which){
   var h = '';
   if(which === 'pred') return '<p class="hint">시험용(Remaining Data) <b>' + OR.n[1] + '행</b>에 모델이 낸 답을 표로 보여 주는 위젯입니다. 코드의 <code>Predicted</code> 와 같아요.</p>';
   if(which === 'cm' && !OR.reg){
-    h += '<table class="scores"><tr><th>실제 \\ 예측</th>' + IRIS_NAMES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '</tr>' +
+    h += '<table class="scores"><tr><th>실제 ↓ · 예측 →</th>' + IRIS_NAMES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '</tr>' +
       OR.M.map(function(r, i){ return '<tr><td>' + IRIS_NAMES[i] + '</td>' + r.map(function(v){ return '<td>' + v + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
     return h + '<p class="hint">대각선 = 맞힌 개수. 코드의 <code>confusion_matrix</code> 결과와 같은 모양입니다.</p>';
   }
@@ -1499,6 +1624,79 @@ document.getElementById('qz').addEventListener('click', function(e){
   else { b.className = 'no'; document.getElementById('fp' + i).className = 'fb no'; document.getElementById('fp' + i).textContent = '🤔 다시 골라 보세요.'; }
 });
 
+/* ── 평가 지표 계산기 ───────────────────────────── */
+function nums(id){ return document.getElementById(id).value.split(/[,\s]+/).filter(function(x){ return x !== ''; }).map(Number); }
+function fx(v, d){ if(!isFinite(v)) return '—'; return (Math.round(v * Math.pow(10, d)) / Math.pow(10, d)).toLocaleString('ko-KR', { maximumFractionDigits: d }); }
+function frac(a, b){ return '<span class="fr"><span>' + a + '</span><span>' + b + '</span></span>'; }
+function drawRegCalc(){
+  var y = nums('mY'), p = nums('mP'), out = document.getElementById('mRegOut');
+  if(!y.length || y.length !== p.length || y.concat(p).some(isNaN)){ out.innerHTML = '<div class="alert">실제값과 예측값의 개수가 같아야 해요(숫자를 쉼표로 구분).</div>'; return; }
+  var n = y.length, ym = y.reduce(function(a, b){ return a + b; }, 0) / n, se = 0, ae = 0, ape = 0, st = 0, rows = '';
+  y.forEach(function(v, i){ var e = v - p[i]; se += e * e; ae += Math.abs(e); ape += v ? Math.abs(e) / Math.abs(v) : NaN; st += (v - ym) * (v - ym);
+    rows += '<tr><td>' + (i + 1) + '</td><td>' + fx(v, 2) + '</td><td>' + fx(p[i], 2) + '</td><td>' + (e > 0 ? '+' : '') + fx(e, 2) + '</td><td>' + fx(e * e, 2) + '</td><td>' + fx(Math.abs(e), 2) + '</td><td>' + fx(Math.abs(e) / Math.abs(v) * 100, 1) + '%</td><td>' + fx((v - ym) * (v - ym), 2) + '</td></tr>'; });
+  var mse = se / n, rmse = Math.sqrt(mse), mae = ae / n, mape = ape / n * 100, r2 = 1 - se / st;
+  out.innerHTML = '<div class="mtbl"><table class="calc"><tr><th>#</th><th>실제 y</th><th>예측 ŷ</th><th>오차 e = y − ŷ</th><th>e²</th><th>|e|</th><th>|e| ÷ |y|</th><th>(y − ȳ)²</th></tr>' + rows +
+    '<tr class="sum"><td>합</td><td colspan="3">n = ' + n + ' · 평균 ȳ = ' + fx(ym, 2) + '</td><td>' + fx(se, 2) + '</td><td>' + fx(ae, 2) + '</td><td>' + fx(ape * 100, 1) + '%</td><td>' + fx(st, 2) + '</td></tr></table></div>' +
+    '<div class="steps2">' +
+    '<div><b>MSE</b> = ' + frac('Σ e²', 'n') + ' = ' + frac(fx(se, 2), n) + ' = <b class="v">' + fx(mse, 3) + '</b><small>오차를 제곱해 평균 — 단위가 «정답²»</small></div>' +
+    '<div><b>RMSE</b> = √MSE = √' + fx(mse, 3) + ' = <b class="v">' + fx(rmse, 3) + '</b><small>«평균 약 ' + fx(rmse, 1) + ' 만큼 빗나간다» — 정답과 같은 단위</small></div>' +
+    '<div><b>MAE</b> = ' + frac('Σ |e|', 'n') + ' = ' + frac(fx(ae, 2), n) + ' = <b class="v">' + fx(mae, 3) + '</b><small>오차 크기의 평균 — 큰 실수에 덜 민감해서 RMSE 보다 작거나 같아요</small></div>' +
+    '<div><b>MAPE</b> = ' + frac('100', 'n') + ' × Σ ' + frac('|e|', '|y|') + ' = ' + frac('100', n) + ' × ' + fx(ape, 4) + ' = <b class="v">' + fx(mape, 2) + '%</b><small>실제 값의 평균 ' + fx(mape, 1) + '% 만큼 빗나감</small></div>' +
+    '<div><b>R²</b> = 1 − ' + frac('Σ (y − ŷ)²', 'Σ (y − ȳ)²') + ' = 1 − ' + frac(fx(se, 2), fx(st, 2)) + ' = <b class="v">' + fx(r2, 3) + '</b><small>값이 달라지는 정도의 ' + fx(r2 * 100, 1) + '%를 설명' + (r2 < 0 ? ' — 0보다 작으면 평균만 찍는 것보다 못해요!' : '') + '</small></div>' +
+    '<div><b>CVRMSE</b> = ' + frac('RMSE', 'ȳ') + ' × 100 = ' + frac(fx(rmse, 3), fx(ym, 2)) + ' × 100 = <b class="v">' + fx(rmse / ym * 100, 2) + '%</b><small>평균 크기에 견준 오차</small></div></div>';
+}
+function drawRegOurs(){
+  var o = orange('reg'), D = DATA.youth, yi = D.cols.indexOf('청년'), ym = D.rows.reduce(function(a, r){ return a + r[yi]; }, 0) / D.rows.length, box = document.getElementById('mRegOurs');
+  if(o.err){ box.innerHTML = ''; return; }
+  var fi = ['도서관', '공연장'].map(function(c){ return D.cols.indexOf(c); }), sp3 = tts(D.rows.length, 0.2, 0), Xr = function(i){ return fi.map(function(j){ return D.rows[i][j]; }); };
+  var lm = linreg(sp3.train.map(Xr), sp3.train.map(function(i){ return D.rows[i][yi]; })), yt = sp3.test.map(function(i){ return D.rows[i][yi]; }), pt = lm.predict(sp3.test.map(Xr)), cm2 = mse(yt, pt);
+  var row = function(nm, a, b, c, d){ return '<tr><td style="text-align:left">' + nm + '</td><td>' + fx(a, 0) + '</td><td>' + fx(b, 1) + '</td><td>' + fx(c, 1) + '</td><td><b>' + fx(d, 3) + '</b></td></tr>'; };
+  box.innerHTML = '<h4>📌 우리 청년 인구 모델(Linear Regression · 도서관 · 공연장)은?</h4><div class="mtbl"><table class="calc"><tr><th></th><th>MSE</th><th>RMSE</th><th>MAE</th><th>R2</th></tr>' +
+    row('코드 · 교과서 나누기(random_state=0)', cm2, Math.sqrt(cm2), mae(yt, pt), r2(yt, pt)) + row('이 창의 오렌지3(Data Sampler 80%)', o.MSE, o.RMSE, o.MAE, o.R2) + '</table></div>' +
+    '<div class="steps2"><div>두 줄의 점수가 다른 건 <b>시험지로 뽑힌 행</b>이 달라서예요. 아래는 이 창의 오렌지3 값으로 읽어 봅니다.<br>MSE ' + fx(o.MSE / 1e8, 1) + '억 — 크다고 놀라지 마세요. 청년 수가 수만 명 단위라 제곱하면 «억»이 됩니다.<br>RMSE · MAE 로 바꾸면 «평균 약 <b class="v">' + fx(o.RMSE, 0) + '</b>명 · <b class="v">' + fx(o.MAE, 0) + '</b>명 빗나간다» — 지역 청년 수 평균(약 ' + fx(ym, 0) + '명)과 견주어 보세요.<br>R² ' + fx(o.R2, 3) + ' = 청년 수가 달라지는 정도의 약 ' + fx(o.R2 * 100, 0) + '%를 도서관 · 공연장 수로 설명. 나머지는? → 박물관 · 미술관을 feature 로 넣어 보기(① 탭 File 위젯).</div></div>';
+}
+function drawClsCalc(){
+  var g = function(id){ return Math.max(0, +document.getElementById(id).value || 0); };
+  var TP = g('cTP'), FN = g('cFN'), FP = g('cFP'), TN = g('cTN'), N = TP + FN + FP + TN, out = document.getElementById('mClsOut');
+  var acc = (TP + TN) / N, pr = TP / (TP + FP), rc = TP / (TP + FN), sp = TN / (TN + FP), f1 = 2 * pr * rc / (pr + rc),
+      den = Math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN)), mcc = den ? (TP * TN - FP * FN) / den : NaN;
+  out.innerHTML = '<div class="steps2">' +
+    '<div><b>CA 정확도</b> = ' + frac('TP + TN', '전체') + ' = ' + frac(TP + ' + ' + TN, N) + ' = <b class="v">' + fx(acc, 3) + '</b></div>' +
+    '<div><b>Prec 정밀도</b> = ' + frac('TP', 'TP + FP') + ' = ' + frac(TP, TP + ' + ' + FP) + ' = <b class="v">' + fx(pr, 3) + '</b><small>양성이라고 한 ' + (TP + FP) + '개 중 진짜 양성 ' + TP + '개</small></div>' +
+    '<div><b>Recall 재현율</b> = ' + frac('TP', 'TP + FN') + ' = ' + frac(TP, TP + ' + ' + FN) + ' = <b class="v">' + fx(rc, 3) + '</b><small>진짜 양성 ' + (TP + FN) + '개 중 찾아낸 것 ' + TP + '개 — ' + FN + '개를 놓침</small></div>' +
+    '<div><b>Spec 특이도</b> = ' + frac('TN', 'TN + FP') + ' = ' + frac(TN, TN + ' + ' + FP) + ' = <b class="v">' + fx(sp, 3) + '</b></div>' +
+    '<div><b>F1</b> = 2 × ' + frac('정밀도 × 재현율', '정밀도 + 재현율') + ' = 2 × ' + frac(fx(pr, 3) + ' × ' + fx(rc, 3), fx(pr, 3) + ' + ' + fx(rc, 3)) + ' = <b class="v">' + fx(f1, 3) + '</b></div>' +
+    '<div><b>MCC</b> = ' + frac('TP·TN − FP·FN', '√((TP+FP)(TP+FN)(TN+FP)(TN+FN))') + ' = ' + frac(TP + '·' + TN + ' − ' + FP + '·' + FN, '√(' + (TP + FP) + '·' + (TP + FN) + '·' + (TN + FP) + '·' + (TN + FN) + ')') + ' = <b class="v">' + fx(mcc, 3) + '</b></div>' +
+    (TP === 0 && FN > 0 && acc > 0.9 ? '<div class="alert">정확도는 ' + fx(acc * 100, 1) + '% 인데 재현율이 0 — 찾아야 할 양성을 하나도 못 찾았어요. 그래서 정확도 하나만 보면 속습니다!</div>' : '') + '</div>';
+}
+function drawMulti(){
+  var D = DATA.iris, f = ['꽃잎 길이', '꽃잎 너비', '꽃받침 길이', '꽃받침 너비'], ix = f.map(function(c){ return D.cols.indexOf(c); }), yi = D.cols.indexOf('종');
+  var sp2 = tts(D.rows.length, 0.2, 10), X = function(i){ return ix.map(function(j){ return D.rows[i][j]; }); };
+  var m = knn(sp2.train.map(X), sp2.train.map(function(i){ return D.rows[i][yi]; }), 5), yt = sp2.test.map(function(i){ return D.rows[i][yi]; }), pt = m.predict(sp2.test.map(X));
+  var M = cmat(yt, pt, 3), cs = clsStats(M), N = yt.length, rows = '', mac = [0, 0, 0];
+  for(var k = 0; k < 3; k++){
+    var TP = M[k][k], FP = 0, FN = 0, sup = 0; for(var j = 0; j < 3; j++){ if(j !== k){ FP += M[j][k]; FN += M[k][j]; } sup += M[k][j]; }
+    var f1 = cs.prec[k] + cs.rec[k] ? 2 * cs.prec[k] * cs.rec[k] / (cs.prec[k] + cs.rec[k]) : 0; mac[0] += cs.prec[k] / 3; mac[1] += cs.rec[k] / 3; mac[2] += f1 / 3;
+    rows += '<tr><td style="text-align:left">' + IRIS_NAMES[k] + '</td><td>' + TP + '</td><td>' + FP + '</td><td>' + FN + '</td><td>' + frac(TP, TP + '+' + FP) + ' = ' + fx(cs.prec[k], 3) + '</td><td>' + frac(TP, TP + '+' + FN) + ' = ' + fx(cs.rec[k], 3) + '</td><td>' + fx(f1, 3) + '</td><td>' + sup + '</td></tr>';
+  }
+  document.getElementById('mMulti').innerHTML = '<h4>교과서 결과(시험용 30개, k = 5) — 코드 <code>confusion_matrix</code></h4><div class="mtbl"><table class="calc"><tr><th>실제 ↓ · 예측 →</th>' + IRIS_NAMES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '</tr>' +
+    M.map(function(r, i){ return '<tr><th>' + IRIS_NAMES[i] + '</th>' + r.map(function(v, j){ return '<td' + (i === j ? ' style="background:var(--ok-bg);font-weight:700"' : v ? ' style="background:var(--bad-bg)"' : '') + '>' + v + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>' +
+    '<div class="mtbl"><table class="calc"><tr><th>종(= 양성)</th><th>TP</th><th>FP</th><th>FN</th><th>정밀도</th><th>재현율</th><th>F1</th><th>실제 개수</th></tr>' + rows +
+    '<tr class="sum"><td style="text-align:left">단순 평균(macro)</td><td colspan="3"></td><td>' + fx(mac[0], 3) + '</td><td>' + fx(mac[1], 3) + '</td><td>' + fx(mac[2], 3) + '</td><td>' + N + '</td></tr>' +
+    '<tr class="sum"><td style="text-align:left">가중 평균 = 오렌지3</td><td colspan="3"></td><td>' + fx(cs.wPrec, 3) + '</td><td>' + fx(cs.wRec, 3) + '</td><td>' + fx(cs.wF1, 3) + '</td><td>' + N + '</td></tr></table></div>' +
+    '<div class="steps2"><div><b>정확도</b> = ' + frac('대각선 합', '전체') + ' = ' + frac(M[0][0] + ' + ' + M[1][1] + ' + ' + M[2][2], N) + ' = <b class="v">' + fx(cs.acc, 3) + '</b></div>' +
+    '<div><b>가중 평균</b> = Σ (종의 값 × ' + frac('그 종 실제 개수', '전체') + ') — 개수가 많은 종이 평균에 더 크게 반영됩니다. 다중 분류에서 <b>가중 평균 재현율은 정확도와 같아져요</b>(' + fx(cs.wRec, 3) + ').</div></div>';
+}
+function drawMetric(){ drawRegCalc(); drawRegOurs(); drawClsCalc(); drawMulti(); }
+document.getElementById('metricView').addEventListener('input', function(e){
+  if(e.target.id === 'mY' || e.target.id === 'mP') drawRegCalc();
+  if(/^c(TP|FN|FP|TN)$/.test(e.target.id)) drawClsCalc();
+});
+document.getElementById('metricView').addEventListener('click', function(e){
+  var b = e.target.closest('[data-pre]'); if(!b) return;
+  var v = b.dataset.pre.split(','); ['cTP', 'cFN', 'cFP', 'cTN'].forEach(function(id, k){ document.getElementById(id).value = v[k]; }); drawClsCalc();
+});
+
 /* ── 이벤트 ───────────────────────────── */
 function refresh(){ OR = orange(cur); drawCanvas(); drawSet(); drawNb(); drawCmp(); }
 function pick(id){ selW = selW === id ? null : id; drawCanvas(); drawSet(); drawNb();
@@ -1553,8 +1751,9 @@ document.querySelector('.tabs').addEventListener('click', function(e){
   var b = e.target.closest('.tab'); if(!b) return;
   [].forEach.call(document.querySelectorAll('.tab'), function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
   var t = b.dataset.t;
-  document.getElementById('benchView').hidden = t === 'quiz'; document.getElementById('quizView').hidden = t !== 'quiz';
+  document.getElementById('benchView').hidden = t === 'quiz' || t === 'metric'; document.getElementById('quizView').hidden = t !== 'quiz'; document.getElementById('metricView').hidden = t !== 'metric';
   if(t === 'quiz'){ drawQuiz(); return; }
+  if(t === 'metric'){ drawMetric(); return; }
   cur = t; selW = null; document.getElementById('nbName').textContent = '02_model.ipynb · ' + (t === 'reg' ? '① 예측' : '② 분류');
   drawSteps(); refresh();
 });
@@ -1564,7 +1763,7 @@ function drawSteps(){
     mk('model', '모델 고르기', cur === 'reg' ? 'Linear Regression' : 'kNN') + '<i>→</i>' + mk('eval', '② 학습 · ③ 평가', 'Test and Score') + '<i>→</i>' + mk('eval', '③ 예측', 'Predictions') +
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
 }
-var hashT = (location.hash.match(/^#(reg|cls|quiz)$/) || [])[1];
+var hashT = (location.hash.match(/^#(reg|cls|quiz|metric)$/) || [])[1];
 (function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); if(m && MODES[m]) MODE = m; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
