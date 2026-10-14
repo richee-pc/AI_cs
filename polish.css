@@ -109,18 +109,49 @@ nav .row.mega .sep{margin:0 4px}
 /* 17) 설계도의 긴 데이터 주소가 좁은 화면에서 줄바꿈되게 */
 #blocks li code, #blocks p code{overflow-wrap:anywhere; word-break:break-all}
 
-/* 18) Ⅱ-05 전시 복습 카드 — 먼저 답해 보고 눌러서 확인 */
-.rev5 .rvgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px; margin-top:8px}
-.rev5 .rv{background:var(--tint); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
-.rev5 .rv[open]{background:var(--white); border-color:var(--blue)}
-.rev5 .rv summary{display:block!important; cursor:pointer; list-style:none; font-weight:700; line-height:1.6; color:var(--ink)}
-.rev5 summary::-webkit-details-marker{display:none}
-.rev5 summary b{display:inline-grid; place-items:center; min-width:30px; height:24px; border-radius:99px; background:var(--fill); color:var(--on-fill,#fff); font-size:.75rem; margin-right:7px; padding:0 7px; vertical-align:1px}
-.rev5 summary::after{content:"눌러서 답 보기 ▾"; display:block; margin-top:6px; font-size:.75rem; font-weight:600; color:var(--blue-d)}
-.rev5 .rv[open] summary::after{content:"접기 ▴"}
-.rev5 .rva{margin-top:8px; font-size:.9375rem; line-height:1.7; color:var(--ink2)}
-.rev5 .rva p{margin:0 0 6px}
-.rev5 .rvflow{display:flex; flex-wrap:wrap; gap:4px; align-items:center; font-size:.8125rem; color:var(--muted)}
-.rev5 .rvflow span{border-radius:99px; padding:2px 9px; font-weight:700; color:#3a2a10}
-.rev5 .rvflow .d{background:#FFD39F} .rev5 .rvflow .m{background:#FAC1D9} .rev5 .rvflow .e{background:#C3F3F3}
-.rev5 .rvgo{margin:10px 0 0; font-size:.9375rem; color:var(--ink2)}
+/* 18) Ⅱ-05 전시 복습 — 한눈에 보는 그림판(기본 보이기 · «답 가리고 묻기»로 흐리게) */
+.rev6 .rvhead{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between}
+.rev6 .rvhead h3{margin:0}
+.rev6 .rvhide{border:1px solid var(--line); background:var(--white); border-radius:99px; padding:5px 13px; font:inherit; font-size:.8125rem; font-weight:700; color:var(--blue-d); cursor:pointer}
+.rev6 .rvmap{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr)); gap:12px; margin-top:12px}
+.rev6 .rvp{background:var(--tint); border:1px solid var(--line); border-radius:16px; padding:12px 14px; position:relative}
+.rev6 .rvq{margin:0 0 10px; font-weight:800; color:var(--ink); line-height:1.5}
+.rev6 .rvq b{display:inline-grid; place-items:center; min-width:30px; height:24px; border-radius:99px; background:var(--fill); color:var(--on-fill,#fff); font-size:.75rem; margin-right:7px; padding:0 7px; vertical-align:1px}
+.rev6 .rva{transition:filter .25s, opacity .25s}
+.rev6 .rvp.shut .rva{filter:blur(7px); opacity:.55; pointer-events:none; user-select:none}
+.rev6 .rvp.shut{cursor:pointer}
+.rev6 .rvp.shut::after{content:"눌러서 답 보기"; position:absolute; left:50%; top:58%; transform:translate(-50%,-50%); background:var(--white); border:1px solid var(--line); border-radius:99px; padding:5px 13px; font-size:.8125rem; font-weight:700; color:var(--blue-d)}
+.rev6 .rvfrow{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin:0 0 8px}
+.rev6 .rvfrow .rvlab{flex-basis:100%; font-size:.75rem; font-weight:800; color:var(--muted)}
+.rev6 .rvpl{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:4px 9px; font-size:.875rem; font-weight:700}
+.rev6 .rvpl.dk{background:var(--ink); color:var(--white)}
+.rev6 .rvpl.ok{background:#E2F4EC; border-color:#7CC7A4; color:#0E6B47}
+.rev6 .rvpl.hot{background:#FFF1D6; border-color:#F2B44B; color:#8A5300}
+.rev6 i{font-style:normal; color:var(--muted); font-weight:800}
+.rev6 .rvcap{margin:6px 0 0; font-size:.875rem; line-height:1.65; color:var(--ink2)}
+.rev6 .rvroot{display:inline-block; background:var(--ink); color:var(--white); border-radius:10px; padding:4px 11px; font-weight:800; font-size:.875rem; margin-bottom:8px}
+.rev6 .rvbr{display:grid; gap:7px; border-left:3px solid var(--line); padding-left:10px}
+.rev6 .rvnode{border-radius:12px; padding:7px 10px; font-size:.875rem; line-height:1.45}
+.rev6 .rvnode > small{margin-left:6px; font-size:.75rem; font-weight:700; color:var(--muted)}
+.rev6 .rvnode.sup{background:#E6F0FF} .rev6 .rvnode.uns{background:#F3E8FF} .rev6 .rvnode.rl{background:#FFF1E2}
+.rev6 .rvleaf{background:var(--white); border-radius:9px; padding:5px 9px; margin-top:6px; font-size:.8125rem}
+.rev6 .rvleaf small{display:block; color:var(--muted); font-size:.75rem}
+.rev6 .rvwch{display:flex; flex-wrap:wrap; align-items:center; gap:5px}
+.rev6 .rvw{display:inline-flex; flex-direction:column; align-items:center; gap:3px; font-size:.75rem; font-weight:700; color:var(--ink)}
+.rev6 .rvw em{display:grid; place-items:center; width:44px; height:44px; border-radius:50%; font-style:normal; font-size:1.25rem; box-shadow:0 0 0 3px var(--white), 0 0 0 4px var(--line)}
+.rev6 .rvw.d em{background:#FFD39F} .rev6 .rvw.m em{background:#FAC1D9} .rev6 .rvw.e em{background:#C3F3F3}
+.rev6 .rvtoday{margin:12px 0 0; background:var(--white); border:1.5px dashed var(--blue); border-radius:12px; padding:9px 13px; font-size:.9375rem; color:var(--ink2); line-height:1.6}
+:root[data-theme="dark"] .rev6 .rvnode.sup{background:#16345A} :root[data-theme="dark"] .rev6 .rvnode.uns{background:#2C2147} :root[data-theme="dark"] .rev6 .rvnode.rl{background:#3A2A14}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .rev6 .rvnode.sup{background:#16345A} :root:not([data-theme="light"]) .rev6 .rvnode.uns{background:#2C2147} :root:not([data-theme="light"]) .rev6 .rvnode.rl{background:#3A2A14} }
+.rev6 .rvfrow{gap:3px}
+.rev6 .rvpl{padding:3px 7px; font-size:.8125rem}
+.rev6 .rvwch{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; align-items:start}
+.rev6 .rvwch > i{display:none}
+.rev6 .rvw{position:relative; text-align:center; font-size:.6875rem; line-height:1.3; word-break:keep-all}
+.rev6 .rvw em{width:40px; height:40px; font-size:1.125rem; margin:0 auto}
+.rev6 .rvw:not(:last-child)::after{content:"→"; position:absolute; right:-9px; top:11px; color:var(--muted); font-weight:800}
+.rev6 .rvfrow{gap:2px; flex-wrap:nowrap}
+.rev6 .rvfrow .rvlab{flex:none; width:100%}
+.rev6 .rvfrow{flex-wrap:wrap}
+.rev6 .rvpl{padding:2px 6px; font-size:.75rem; white-space:nowrap}
+.rev6 .rvfrow > i{font-size:.75rem}

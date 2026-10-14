@@ -2037,21 +2037,47 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   <!-- ═════════ Ⅱ-05 ═════════ -->
   <div class="lpane" id="learn05" role="tabpanel" hidden>
     <div class="lhead"><span class="lno">Ⅱ-05</span><div><b>기계학습 모델 구현</b><span>교과서 100~115쪽 · 성취기준 02-04 · 둘째 주 3차시 «블록 → 파이썬» · 프로젝트 ③에서 우리 데이터로</span></div></div>
-    <div class="tool rev5" id="review05">
-      <h3>⏪ 지난 시간 돌아보기 <span class="tm">2분 · 먼저 답해 보고 눌러서 확인</span></h3>
-      <div class="rvgrid">
-        <details class="rv"><summary><b>Q1</b>머핀과 치와와, 규칙으로 가를 수 있을까?<br>규칙을 짜는 것과 <u>기계학습</u>은 무엇이 다를까?</summary>
-          <div class="rva"><p><b>규칙 프로그래밍</b> — 사람이 «눈이 둘, 코가 까맣고…» 규칙을 적는다 → 예외가 끝없이 나옴.</p>
-          <p><b>기계학습</b> — 데이터(문제 + 정답)를 주면 컴퓨터가 <b>규칙을 스스로 찾는다</b>. 그래서 좋은 데이터가 중요!</p></div></details>
-        <details class="rv"><summary><b>Q2</b>정답(레이블)이 있는 데이터로 배우면?<br>정답이 없으면?</summary>
-          <div class="rva"><p><b>지도학습</b>(정답 있음) — <b>분류</b>: 무엇인지 가려내기(로지스틱 회귀 · 의사결정트리 · k-최근접 이웃) · <b>예측</b>: 숫자 맞히기(선형 회귀)</p>
-          <p><b>비지도학습</b>(정답 없음) — <b>군집</b>: 비슷한 것끼리 묶기(k-평균)</p></div></details>
-        <details class="rv"><summary><b>Q3</b>지난 시간 오렌지3로 만든 이 설계도는<br>무엇을 하는 모델이었지?</summary>
-          <div class="rva"><p class="rvflow"><span class="d">File</span>→<span class="d">Data Sampler</span>→<span class="m">Linear Regression</span>→<span class="e">Test and Score</span></p>
-          <p>도서관 · 공연장 수로 <b>청년 인구(숫자)</b>를 맞히는 <b>예측 모델 — 선형 회귀</b>. 점수는 Test and Score 의 <b>MSE · R²</b>.</p></div></details>
+    <div class="tool rev6" id="review05">
+      <div class="rvhead"><h3>⏪ 지난 시간 한눈에 <span class="tm">2분 · 그림을 보며 말해 보기</span></h3>
+        <button type="button" class="rvhide" aria-pressed="false">🙈 답 가리고 묻기</button></div>
+      <div class="rvmap">
+        <div class="rvp"><p class="rvq"><b>Q1</b>규칙 프로그래밍 vs 기계학습, 무엇이 다를까?</p>
+          <div class="rva">
+            <div class="rvfrow"><span class="rvlab">규칙 프로그래밍</span><span class="rvpl">📜 규칙</span><i>+</i><span class="rvpl">📦 데이터</span><i>→</i><span class="rvpl dk">💻</span><i>→</i><span class="rvpl ok">✅ 답</span></div>
+            <div class="rvfrow"><span class="rvlab">기계학습</span><span class="rvpl">📦 데이터</span><i>+</i><span class="rvpl ok">✅ 답</span><i>→</i><span class="rvpl dk">🧠</span><i>→</i><span class="rvpl hot">📜 규칙</span></div>
+            <p class="rvcap">🧁 vs 🐶 머핀과 치와와 — 사람이 규칙을 적으면 예외가 끝이 없어요. 사진과 정답을 주면 기계가 <b>규칙을 스스로 찾아요.</b></p>
+          </div></div>
+        <div class="rvp"><p class="rvq"><b>Q2</b>정답이 있으면? 없으면?</p>
+          <div class="rva">
+            <div class="rvroot">🤖 기계학습</div>
+            <div class="rvbr">
+              <div class="rvnode sup"><b>지도학습</b><small>정답 O</small>
+                <div class="rvleaf"><b>분류</b> «무엇일까?»<small>로지스틱 회귀 · 의사결정트리 · k-최근접 이웃</small></div>
+                <div class="rvleaf"><b>예측</b> «얼마일까?»<small>선형 회귀</small></div></div>
+              <div class="rvnode uns"><b>비지도학습</b><small>정답 X</small>
+                <div class="rvleaf"><b>군집</b> «끼리끼리»<small>k-평균</small></div></div>
+              <div class="rvnode rl"><b>강화학습</b><small>보상</small>
+                <div class="rvleaf"><b>미로 로봇</b><small>탐험과 이용</small></div></div>
+            </div>
+          </div></div>
+        <div class="rvp"><p class="rvq"><b>Q3</b>지난 시간 오렌지3 설계도는 무엇을 했지?</p>
+          <div class="rva">
+            <div class="rvwch"><span class="rvw d"><em>📄</em>File</span><i>→</i><span class="rvw d"><em>🎲</em>Data Sampler</span><i>→</i><span class="rvw m"><em>📈</em>Linear Regression</span><i>→</i><span class="rvw e"><em>🧪</em>Test and Score</span></div>
+            <p class="rvcap">🏛️ 도서관 · 🎭 공연장 수 → 🧑‍🎓 청년 인구(숫자)<br>= <b>숫자 맞히기(예측) · 선형 회귀</b><br>채점: <b>MSE</b> 틀린 정도 ↓ · <b>R²</b> 설명력 ↑</p>
+          </div></div>
       </div>
-      <p class="rvgo">➡ <b>오늘</b> — 그 블록 하나하나가 <b>파이썬 코드 몇 줄</b>인지 짝지어 보고, 코드로 <b>완성</b>합니다. 어떤 모델이든 «나누기 → 학습 → 평가» 순서는 같아요.</p>
+      <div class="rvtoday">➡ <b>오늘</b> — 블록 하나 = 코드 한두 줄! 오렌지3로 만든 설계도를 <b>파이썬 코드로 완성</b>해요. 순서는 똑같아요: <b>나누기 → 공부시키기 → 시험 · 채점</b></div>
     </div>
+    <script>
+    (function(){ var r = document.getElementById('review05'); if(!r) return;
+      r.addEventListener('click', function(e){
+        var h = e.target.closest('.rvhide');
+        if(h){ var on = !r.classList.contains('hid'); r.classList.toggle('hid', on); h.setAttribute('aria-pressed', on); h.textContent = on ? '👀 답 모두 보기' : '🙈 답 가리고 묻기';
+          [].forEach.call(r.querySelectorAll('.rvp'), function(p){ p.classList.toggle('shut', on); }); return; }
+        var p = e.target.closest('.rvp'); if(p && r.classList.contains('hid')) p.classList.toggle('shut');
+      });
+    })();
+    </script>
     <div class="qbig"><b>오늘의 질문</b>새 바지가 헐렁하면 입어 보고 줄이고, 또 입어 보고 줄입니다.
       모델도 <u>입혀 보고(평가) 고치는(수정)</u> 일을 되풀이합니다. 그런데 «잘 맞는지»는 무엇으로 잴까요?</div>
     <div class="tool fig">
@@ -5481,7 +5507,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=0d0a394f"></script>
+<script src="lessons.js?v=96c76850"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
@@ -6809,7 +6835,7 @@ grade();
 })();
 </script>
 
-<link rel="stylesheet" href="polish.css?v=b3d3c79d">
+<link rel="stylesheet" href="polish.css?v=07bc71ca">
 <script src="polish.js?v=4d3812ad"></script>
 </body>
 </html>

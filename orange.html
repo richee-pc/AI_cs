@@ -305,6 +305,15 @@ table.enc td,table.enc th{text-align:center}
 .say i{display:inline-block; min-width:64px; border-bottom:1.5px solid var(--ink-2); margin:0 3px}
 .hint code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
 
+/* 다음 단계 안내 · 정리 퀴즈 */
+.nextstep{margin:14px 12px 6px 48px; background:var(--ok-bg); border:1.5px solid var(--ok); border-radius:12px; padding:12px 14px; font-size:14.5px; line-height:1.7; color:var(--ink)}
+.nextstep .btn{display:inline-block; margin:8px 8px 0 0}
+.modebar .mode small{font-size:11px; font-weight:600; color:var(--muted); margin-left:2px}
+.modebar .mode.on small{color:inherit; opacity:.75}
+textarea.qsin{min-height:38px; margin-top:4px}
+pre.ghost2{margin:6px 0 0; background:var(--hl-soft); border-radius:6px; padding:5px 9px; font-family:var(--font-mono); font-size:13px; white-space:pre-wrap}
+.q .qh code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
 footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
 .sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
@@ -326,14 +335,14 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
     <button class="tab" role="tab" data-t="cls" aria-selected="false">② 종류 맞히기 · 붓꽃 <small>(분류 · k-최근접 이웃)</small></button>
     <button class="tab" role="tab" data-t="metric" aria-selected="false">📏 평가 지표</button>
     <button class="tab" role="tab" data-t="impl" aria-selected="false">🧭 구현 · 해석</button>
-    <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 위젯 ↔ 코드 퀴즈</button>
+    <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 정리 퀴즈</button>
   </div>
 </div></header>
 
 <main class="wrap">
   <div id="benchView">
     <div class="steps" id="stepBar"></div>
-    <p class="howto"><b>이렇게 해요</b> ① <b>🟢 빈칸</b>은 선생님 설명을 들으며 함께, 그다음 <b>🟡 따라 적기 → 🔴 스스로 적기</b>는 혼자 도전 → ② 위에서부터 칸을 채우고 <b>✓ 확인</b>(맞으면 저절로 실행!) · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b>를 읽거나 왼쪽 <b>위젯</b>을 눌러 보기 → ③ ① 숫자 맞히기를 다 하면 ② 종류 맞히기로 → ④ 맨 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
+    <p class="howto"><b>오늘 순서</b> ① 숫자 맞히기: <b>🟢 빈칸</b>(선생님 설명과 함께) → <b>🟡 따라 적기</b>(혼자) → ② 종류 맞히기: <b>🟢 빈칸</b> → <b>🟡 따라 적기</b> → 마지막에 <b>✏️ 정리 퀴즈</b>. (🔴 스스로 적기는 다음 시간 복습용) · 다 채우면 아래에 <b>다음 단계 안내</b>가 떠요 → ② 위에서부터 칸을 채우고 <b>✓ 확인</b>(맞으면 저절로 실행!) · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b>를 읽거나 왼쪽 <b>위젯</b>을 눌러 보기 → ③ ① 숫자 맞히기를 다 하면 ② 종류 맞히기로 → ④ 맨 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
     <div class="bench">
       <section class="panel" aria-label="오렌지3 캔버스">
         <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
@@ -479,10 +488,13 @@ proba = [0.02, 0.41, 0.57]   # setosa · versicolor · virginica</pre>
   </div>
   <div id="quizView" hidden>
     <div class="sect">
-      <h2>✏️ 위젯을 코드로 — 빈칸 채우기</h2>
-      <p class="howto">빈칸에 알맞은 말을 쓰고 <b>Enter</b>. 막히면 <b>힌트</b>의 위젯 이름을 위 작업대에서 눌러 보세요.</p>
+      <h2>✏️ 정리 퀴즈 — 위젯 ↔ 코드</h2>
+      <p class="howto"><b>A 빈칸</b>은 알맞은 말을 쓰고 <b>Enter</b> · <b>B 코드 → 위젯</b>은 골라요 · <b>C 한 줄 스스로 적기</b>는 위젯이 하는 일을 코드 <b>한 줄</b>로 써서 <b>✓ 확인</b>. 막히면 ① ② 탭에서 위젯을 눌러 짝이 되는 코드를 찾아보세요.</p>
       <p class="qsum" id="qsum"></p>
+      <h3 class="mh">A · 빈칸 채우기</h3>
       <div class="qz" id="qz"></div>
+      <h3 class="mh">C · 한 줄 스스로 적기 <span class="tm">코드를 보지 않고 직접 써 보기</span></h3>
+      <div class="qz" id="qs"></div>
     </div>
   </div>
 </main>
@@ -1447,7 +1459,7 @@ function orangeScoreHtml(which){
 var WNAME = { file:'File', sampler:'Data Sampler', model:'모델 위젯', score:'Test and Score', pred:'Predictions', cm:'Confusion Matrix' };
 var WKIND = { file:'data', sampler:'data', model:'model', score:'eval', pred:'eval', cm:'eval' };
 var MODE = 'blank';
-var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기', self:'🔴 스스로 적기' };
+var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기', self:'🔴 스스로 적기 <small>복습</small>' };
 /* 👀 보기(완성 코드)는 선생님 링크(?mode=view 또는 ?t=1)로 열었을 때만 — 학생 화면에는 🟢 🟡 🔴 세 단계 */
 var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
 if(!TEACH) delete MODES.view;
@@ -1632,6 +1644,23 @@ function drawNb(){
       codeEditor(i, c) + lexHtml(i, c) + out + '</div></div>';
   }).join('');
   drawModeBar();
+  nb.insertAdjacentHTML('beforeend', nextStepHtml());
+}
+function doneCount(){ var C = cells(cur), n = 0, N = 0; C.forEach(function(c, i){ if(c.text || c.given) return; N++; if(SOLVED[akey(i)] === plain(c.code)) n++; }); return [n, N]; }
+function nextStepHtml(){
+  if(MODE === 'view') return '';
+  var d = doneCount(); if(d[0] < d[1]) return '';
+  var b = function(lab, attr){ return '<button type="button" class="btn pri" ' + attr + '>' + lab + '</button>'; }, h;
+  if(MODE === 'blank') h = '🎉 <b>' + (cur === 'reg' ? '① 숫자 맞히기' : '② 종류 맞히기') + ' 빈칸 완성!</b> 이번엔 같은 코드를 <b>직접 따라 적어</b> 볼까요? 손으로 쓰면 더 오래 기억나요.' + b('🟡 따라 적기로 →', 'data-gomode="copy"');
+  else if(MODE === 'copy' && cur === 'reg') h = '🎉 <b>① 숫자 맞히기 끝!</b> 이제 <b>② 종류 맞히기(붓꽃)</b>로 가요 — 모델 한 줄만 바뀌는 걸 찾아보세요.' + b('② 붓꽃 🟢 빈칸 시작 →', 'data-gotab="cls"');
+  else if(MODE === 'copy') h = '🎉 <b>오늘 실습 끝!</b> 점수 읽는 법은 <b>📏 평가 지표</b>, 마무리는 <b>✏️ 정리 퀴즈</b>(한 줄 스스로 적기 포함)로!' + b('✏️ 정리 퀴즈 →', 'data-gotab="quiz"') + b('📏 평가 지표 →', 'data-gotab="metric"');
+  else h = '🎉 <b>스스로 적기 완성!</b> 코드를 보지 않고 다 썼어요. 대단해요!' + (cur === 'reg' ? b('② 붓꽃으로 →', 'data-gotab="cls"') : '');
+  return '<div class="nextstep">' + h.replace('<button', '<br><button') + '</div>';
+}
+function goTab(t, mode){
+  var b = document.querySelector('.tab[data-t="' + t + '"]'); if(!b) return;
+  if(mode){ MODE = mode; store('o2c_mode', MODE); }
+  b.click(); window.scrollTo({ top: document.querySelector('.tabs').getBoundingClientRect().top + scrollY - 10, behavior:'smooth' });
 }
 
 /* ── 견주어 보기 ───────────────────────────── */
@@ -1669,6 +1698,41 @@ var QP = [
   { q:'Remaining Data 는 코드에서?', o:['x_train · y_train', 'x_test · y_test', 'Predicted'], a:1 },
   { q:'예측 → 분류로 바꿀 때, 코드에서 바뀌는 것은?', o:['모든 줄', '모델 만드는 한 줄', 'train_test_split 줄'], a:1 }
 ];
+var QS = [
+  { w:'File', k:'data', q:'붓꽃 파일(<code>주소 + \'iris.csv\'</code>)을 열어 <b>df</b> 에 담는 한 줄', r:[[/^df=pd\.read_csv\(주소\+'iris\.csv'\)$/m, "df = pd.read_csv(…) — 괄호 안에 주소 + 'iris.csv'"]], a:"df = pd.read_csv(주소 + 'iris.csv')" },
+  { w:'File · Role', k:'data', q:'문제 <b>x</b> 에 «도서관» · «공연장» 두 칸을 담는 한 줄(대괄호 두 겹)', r:[[/^x=df\[\[(?=[^\]]*'도서관')(?=[^\]]*'공연장')[^\]]*\]\]$/m, "x = df[['도서관', '공연장']] — 두 겹 대괄호"]], a:"x = df[['도서관', '공연장']]" },
+  { w:'Data Sampler 70%', k:'data', q:'공부용 70% · 시험용 <b>30%</b> 로 나누는 한 줄(random_state=0)', r:[[/^x_train,x_test,y_train,y_test=train_test_split\(x,y/m, '왼쪽 네 이름 순서 + train_test_split(x, y, …'], [/test_size=(0\.3|\.3)(?![0-9])/, '시험용 30% → test_size=0.3'], [/random_state=0(?![0-9])/, 'random_state=0']], a:"x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)" },
+  { w:'Linear Regression', k:'model', q:'선형 회귀 모델을 만들어 <b>model</b> 에 담는 한 줄', r:[[/^model=LinearRegression\(\)$/m, 'model = LinearRegression()']], a:'model = LinearRegression()' },
+  { w:'kNN (이웃 7)', k:'model', q:'이웃 <b>7개</b>에게 물어보는 분류 모델을 만드는 한 줄', r:[[/^model=KNeighborsClassifier\(n_neighbors=7\)$/m, 'model = KNeighborsClassifier(n_neighbors=7)']], a:'model = KNeighborsClassifier(n_neighbors=7)' },
+  { w:'Test and Score에 꽂기', k:'eval', q:'모델을 <b>공부시키는</b> 한 줄', r:[[/^model\.fit\(x_train,y_train\)$/m, 'model.fit(공부 문제, 공부 답)']], a:'model.fit(x_train, y_train)' },
+  { w:'Predictions', k:'eval', q:'시험 문제를 풀게 해서 답안을 <b>Predicted</b> 에 담는 한 줄', r:[[/^Predicted=model\.predict\(x_test\)$/m, 'Predicted = model.predict(시험 문제)']], a:'Predicted = model.predict(x_test)' },
+  { w:'Test and Score · R2', k:'eval', q:'숫자 맞히기 모델의 <b>R²</b> 를 구하는 한 줄', r:[[/^model\.score\(x_test,y_test\)$/m, 'model.score(시험 문제, 시험 답)']], a:'model.score(x_test, y_test)' },
+  { w:'Confusion Matrix', k:'eval', q:'<b>오답 정리표</b>를 만드는 한 줄(진짜 답을 먼저)', r:[[/^sklearn\.metrics\.confusion_matrix\(y_test,Predicted\)$/m, 'sklearn.metrics.confusion_matrix(y_test, Predicted)']], a:'sklearn.metrics.confusion_matrix(y_test, Predicted)' }
+];
+var qsAns = {}, qsTry = {}, qsShow = {};
+function drawQS(){
+  document.getElementById('qs').innerHTML = QS.map(function(z, i){
+    var done = qdone['s' + i];
+    return '<div class="q' + (done ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + QP.length + i + 1) + '</b><span class="chip ' + z.k + '">' + z.w + '</span>' + z.q + '</div>' +
+      (done ? '<pre>' + esc(z.a) + '</pre><div class="fb ok">✅ 맞아요!</div>' :
+      '<textarea class="type qsin" data-s="' + i + '" rows="1" spellcheck="false" autocomplete="off" placeholder="코드 한 줄">' + esc(qsAns[i] || '') + '</textarea>' +
+      '<div class="pact"><button type="button" class="btn chk" data-sc="' + i + '">✓ 확인</button>' + ((qsTry[i] || 0) >= 2 && !qsShow[i] ? '<button type="button" class="btn" data-ss="' + i + '">👀 정답 보기</button>' : '') + '<small class="kb">Enter 로 확인</small></div>' +
+      (qsShow[i] ? '<pre class="ghost2">' + esc(z.a) + '</pre>' : '') + '<div class="fb" id="fs' + i + '"></div>') + '</div>';
+  }).join('');
+}
+function checkQS(i){
+  var z = QS[i], g = normCode(qsAns[i] || ''), miss = z.r.filter(function(r){ return !r[0].test(g); }), fb = document.getElementById('fs' + i);
+  if(g && !miss.length){ qdone['s' + i] = 1; drawQuiz(); return; }
+  qsTry[i] = (qsTry[i] || 0) + 1;
+  if(qsTry[i] === 2){ drawQuiz(); fb = document.getElementById('fs' + i); }
+  if(fb){ fb.className = 'fb no'; fb.textContent = !g ? '✍️ 코드 한 줄을 써 보세요.' : '🤔 ' + miss[0][1]; }
+}
+document.getElementById('qs').addEventListener('input', function(e){ if(e.target.dataset.s != null) qsAns[+e.target.dataset.s] = e.target.value; });
+document.getElementById('qs').addEventListener('keydown', function(e){ if(e.target.dataset.s != null && e.key === 'Enter'){ e.preventDefault(); checkQS(+e.target.dataset.s); } });
+document.getElementById('qs').addEventListener('click', function(e){
+  var c = e.target.closest('[data-sc]'); if(c){ checkQS(+c.dataset.sc); return; }
+  var s2 = e.target.closest('[data-ss]'); if(s2){ qsShow[+s2.dataset.ss] = 1; drawQuiz(); }
+});
 var qdone = {};
 function drawQuiz(){
   var h = QZ.map(function(z, i){
@@ -1676,11 +1740,12 @@ function drawQuiz(){
       '<pre>' + esc(z.pre) + '<input class="bl" data-q="' + i + '" autocomplete="off" spellcheck="false" aria-label="빈칸 ' + (i + 1) + '"' + (qdone['b' + i] ? ' value="' + esc(z.a[0]) + '" disabled' : '') + '>' + esc(z.post) + '</pre>' +
       '<div class="fb" id="fb' + i + '">' + (qdone['b' + i] ? '✅ 맞아요' : '') + '</div></div>';
   }).join('') + QP.map(function(z, i){
-    return '<div class="q' + (qdone['p' + i] ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + i + 1) + '</b>코드 → 위젯 · ' + esc(z.q) + '</div><div class="picks">' +
+    return (i === 0 ? '<h3 class="mh" style="margin-top:14px">B · 코드 → 위젯 고르기</h3>' : '') + '<div class="q' + (qdone['p' + i] ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + i + 1) + '</b>코드 → 위젯 · ' + esc(z.q) + '</div><div class="picks">' +
       z.o.map(function(o, k){ return '<button type="button" data-p="' + i + '" data-k="' + k + '"' + (qdone['p' + i] && k === z.a ? ' class="ok"' : '') + '>' + esc(o) + '</button>'; }).join('') + '</div><div class="fb" id="fp' + i + '"></div></div>';
   }).join('');
   document.getElementById('qz').innerHTML = h;
-  var n = Object.keys(qdone).length, N = QZ.length + QP.length;
+  drawQS();
+  var n = Object.keys(qdone).length, N = QZ.length + QP.length + QS.length;
   document.getElementById('qsum').textContent = '맞힌 문제 ' + n + ' / ' + N + (n === N ? ' 🎉 다 맞혔어요!' : '');
 }
 document.getElementById('qz').addEventListener('keydown', function(e){
@@ -1829,7 +1894,9 @@ document.getElementById('nb').addEventListener('click', function(e){
   var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
   var hb = e.target.closest('[data-hint]'); if(hb){ var i = +hb.dataset.hint, fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb hint'; fb.innerHTML = '💡 <code>' + esc(cells(cur)[i].hint || '') + '</code> · 막히면 왼쪽 <b>위젯</b>을 눌러 짝이 되는 코드를 떠올려 보세요.'; } return; }
   var sb = e.target.closest('[data-show]'); if(sb){ SHOWN[akey(+sb.dataset.show)] = 1; drawNb(); return; }
-  if(e.target.closest('input, textarea, .pact, .mission, .pfb, .read, .tcell, .lex')) return;
+  var gm = e.target.closest('[data-gomode]'); if(gm){ MODE = gm.dataset.gomode; store('o2c_mode', MODE); drawNb(); document.getElementById('modeBar').scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  var gt = e.target.closest('[data-gotab]'); if(gt){ goTab(gt.dataset.gotab, gt.dataset.gotab === 'cls' ? 'blank' : null); return; }
+  if(e.target.closest('input, textarea, .pact, .mission, .pfb, .read, .tcell, .lex, .nextstep')) return;
   var c = e.target.closest('.cell'); if(c && !e.target.closest('.out')){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
 });
 document.getElementById('nb').addEventListener('input', function(e){
