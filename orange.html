@@ -329,7 +329,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
   <p class="kicker">🍊 Ⅱ-05 모델 구현 · 교과서 100~115쪽</p>
   <h1>오렌지3 블록 → <em>코랩 파이썬</em>, 짝지어 실습하기</h1>
   <p class="lede">왼쪽은 <b>블록(오렌지3)</b>, 오른쪽은 <b>코드(코랩)</b>예요. 왼쪽 위젯을 누르면 <b>같은 일을 하는 코드</b>에 노란 불이 들어와요.
-    내 수준에 맞게 <b>🟢 빈칸</b> · <b>🟡 따라 적기</b> · <b>🔴 스스로 적기</b>를 골라 칸을 완성하면 <b>▶</b>로 실행돼요. 블록이든 코드든 <b>나누기 → 공부시키기 → 시험 · 채점</b> 순서는 똑같아요!</p>
+    <b>🟢 빈칸</b>을 채우고, 같은 코드를 <b>🟡 따라 적으면</b> ▶로 실행돼요. 블록이든 코드든 <b>나누기 → 공부시키기 → 시험 · 채점</b> 순서는 똑같아요!</p>
   <div class="tabs" role="tablist" aria-label="설계도">
     <button class="tab" role="tab" data-t="reg" aria-selected="true">① 숫자 맞히기 · 청년 인구 <small>(예측 · 선형 회귀)</small></button>
     <button class="tab" role="tab" data-t="cls" aria-selected="false">② 종류 맞히기 · 붓꽃 <small>(분류 · k-최근접 이웃)</small></button>
@@ -342,7 +342,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 <main class="wrap">
   <div id="benchView">
     <div class="steps" id="stepBar"></div>
-    <p class="howto"><b>오늘 순서</b> ① 숫자 맞히기: <b>🟢 빈칸</b>(선생님 설명과 함께) → <b>🟡 따라 적기</b>(혼자) → ② 종류 맞히기: <b>🟢 빈칸</b> → <b>🟡 따라 적기</b> → 마지막에 <b>✏️ 정리 퀴즈</b>. (🔴 스스로 적기는 다음 시간 복습용) · 다 채우면 아래에 <b>다음 단계 안내</b>가 떠요 → ② 위에서부터 칸을 채우고 <b>✓ 확인</b>(맞으면 저절로 실행!) · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b>를 읽거나 왼쪽 <b>위젯</b>을 눌러 보기 → ③ ① 숫자 맞히기를 다 하면 ② 종류 맞히기로 → ④ 맨 아래 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
+    <p class="howto"><b>오늘 순서</b> ① 숫자 맞히기 <b>🟢 빈칸</b>(선생님과 함께) → <b>🟡 따라 적기</b> → ② 종류 맞히기 <b>🟢 빈칸</b> → <b>🟡 따라 적기</b> → <b>✏️ 정리 퀴즈</b> · 칸을 다 채우면 아래에 <b>다음 단계 안내</b>가 떠요 · 막히면 <b>📘 설명</b> · <b>🔍 한 줄씩 풀이</b> · 왼쪽 <b>위젯</b>을 보세요 · 마지막에 <b>견주어 보기</b>에 내 오렌지3 점수 적기</p>
     <div class="bench">
       <section class="panel" aria-label="오렌지3 캔버스">
         <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 연결하면 바로 계산</small></div>
@@ -1699,21 +1699,21 @@ var QP = [
   { q:'예측 → 분류로 바꿀 때, 코드에서 바뀌는 것은?', o:['모든 줄', '모델 만드는 한 줄', 'train_test_split 줄'], a:1 }
 ];
 var QS = [
-  { w:'File', k:'data', q:'붓꽃 파일(<code>주소 + \'iris.csv\'</code>)을 열어 <b>df</b> 에 담는 한 줄', r:[[/^df=pd\.read_csv\(주소\+'iris\.csv'\)$/m, "df = pd.read_csv(…) — 괄호 안에 주소 + 'iris.csv'"]], a:"df = pd.read_csv(주소 + 'iris.csv')" },
-  { w:'File · Role', k:'data', q:'문제 <b>x</b> 에 «도서관» · «공연장» 두 칸을 담는 한 줄(대괄호 두 겹)', r:[[/^x=df\[\[(?=[^\]]*'도서관')(?=[^\]]*'공연장')[^\]]*\]\]$/m, "x = df[['도서관', '공연장']] — 두 겹 대괄호"]], a:"x = df[['도서관', '공연장']]" },
-  { w:'Data Sampler 70%', k:'data', q:'공부용 70% · 시험용 <b>30%</b> 로 나누는 한 줄(random_state=0)', r:[[/^x_train,x_test,y_train,y_test=train_test_split\(x,y/m, '왼쪽 네 이름 순서 + train_test_split(x, y, …'], [/test_size=(0\.3|\.3)(?![0-9])/, '시험용 30% → test_size=0.3'], [/random_state=0(?![0-9])/, 'random_state=0']], a:"x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)" },
-  { w:'Linear Regression', k:'model', q:'선형 회귀 모델을 만들어 <b>model</b> 에 담는 한 줄', r:[[/^model=LinearRegression\(\)$/m, 'model = LinearRegression()']], a:'model = LinearRegression()' },
-  { w:'kNN (이웃 7)', k:'model', q:'이웃 <b>7개</b>에게 물어보는 분류 모델을 만드는 한 줄', r:[[/^model=KNeighborsClassifier\(n_neighbors=7\)$/m, 'model = KNeighborsClassifier(n_neighbors=7)']], a:'model = KNeighborsClassifier(n_neighbors=7)' },
-  { w:'Test and Score에 꽂기', k:'eval', q:'모델을 <b>공부시키는</b> 한 줄', r:[[/^model\.fit\(x_train,y_train\)$/m, 'model.fit(공부 문제, 공부 답)']], a:'model.fit(x_train, y_train)' },
-  { w:'Predictions', k:'eval', q:'시험 문제를 풀게 해서 답안을 <b>Predicted</b> 에 담는 한 줄', r:[[/^Predicted=model\.predict\(x_test\)$/m, 'Predicted = model.predict(시험 문제)']], a:'Predicted = model.predict(x_test)' },
-  { w:'Test and Score · R2', k:'eval', q:'숫자 맞히기 모델의 <b>R²</b> 를 구하는 한 줄', r:[[/^model\.score\(x_test,y_test\)$/m, 'model.score(시험 문제, 시험 답)']], a:'model.score(x_test, y_test)' },
-  { w:'Confusion Matrix', k:'eval', q:'<b>오답 정리표</b>를 만드는 한 줄(진짜 답을 먼저)', r:[[/^sklearn\.metrics\.confusion_matrix\(y_test,Predicted\)$/m, 'sklearn.metrics.confusion_matrix(y_test, Predicted)']], a:'sklearn.metrics.confusion_matrix(y_test, Predicted)' }
+  { w:'File', k:'data', q:'붓꽃 파일(<code>주소 + \'iris.csv\'</code>)을 열어 <strong>df</strong> 에 담는 한 줄', r:[[/^df=pd\.read_csv\(주소\+'iris\.csv'\)$/m, "df = pd.read_csv(…) — 괄호 안에 주소 + 'iris.csv'"]], a:"df = pd.read_csv(주소 + 'iris.csv')" },
+  { w:'File · Role', k:'data', q:'문제 <strong>x</strong> 에 «도서관» · «공연장» 두 칸을 담는 한 줄(대괄호 두 겹)', r:[[/^x=df\[\[(?=[^\]]*'도서관')(?=[^\]]*'공연장')[^\]]*\]\]$/m, "x = df[['도서관', '공연장']] — 두 겹 대괄호"]], a:"x = df[['도서관', '공연장']]" },
+  { w:'Data Sampler 70%', k:'data', q:'공부용 70% · 시험용 <strong>30%</strong> 로 나누는 한 줄(random_state=0)', r:[[/^x_train,x_test,y_train,y_test=train_test_split\(x,y/m, '왼쪽 네 이름 순서 + train_test_split(x, y, …'], [/test_size=(0\.3|\.3)(?![0-9])/, '시험용 30% → test_size=0.3'], [/random_state=0(?![0-9])/, 'random_state=0']], a:"x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)" },
+  { w:'Linear Regression', k:'model', q:'선형 회귀 모델을 만들어 <strong>model</strong> 에 담는 한 줄', r:[[/^model=LinearRegression\(\)$/m, 'model = LinearRegression()']], a:'model = LinearRegression()' },
+  { w:'kNN (이웃 7)', k:'model', q:'이웃 <strong>7개</strong>에게 물어보는 분류 모델을 만드는 한 줄', r:[[/^model=KNeighborsClassifier\(n_neighbors=7\)$/m, 'model = KNeighborsClassifier(n_neighbors=7)']], a:'model = KNeighborsClassifier(n_neighbors=7)' },
+  { w:'Test and Score에 꽂기', k:'eval', q:'모델을 <strong>공부시키는</strong> 한 줄', r:[[/^model\.fit\(x_train,y_train\)$/m, 'model.fit(공부 문제, 공부 답)']], a:'model.fit(x_train, y_train)' },
+  { w:'Predictions', k:'eval', q:'시험 문제를 풀게 해서 답안을 <strong>Predicted</strong> 에 담는 한 줄', r:[[/^Predicted=model\.predict\(x_test\)$/m, 'Predicted = model.predict(시험 문제)']], a:'Predicted = model.predict(x_test)' },
+  { w:'Test and Score · R2', k:'eval', q:'숫자 맞히기 모델의 <strong>R²</strong> 를 구하는 한 줄', r:[[/^model\.score\(x_test,y_test\)$/m, 'model.score(시험 문제, 시험 답)']], a:'model.score(x_test, y_test)' },
+  { w:'Confusion Matrix', k:'eval', q:'<strong>오답 정리표</strong>를 만드는 한 줄(진짜 답을 먼저)', r:[[/^sklearn\.metrics\.confusion_matrix\(y_test,Predicted\)$/m, 'sklearn.metrics.confusion_matrix(y_test, Predicted)']], a:'sklearn.metrics.confusion_matrix(y_test, Predicted)' }
 ];
 var qsAns = {}, qsTry = {}, qsShow = {};
 function drawQS(){
   document.getElementById('qs').innerHTML = QS.map(function(z, i){
     var done = qdone['s' + i];
-    return '<div class="q' + (done ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + QP.length + i + 1) + '</b><span class="chip ' + z.k + '">' + z.w + '</span>' + z.q + '</div>' +
+    return '<div class="q' + (done ? ' done' : '') + '"><div class="qh"><b>' + (QZ.length + QP.length + i + 1) + '</b><span class="chip ' + z.k + '">' + z.w + '</span><span>' + z.q + '</span></div>' +
       (done ? '<pre>' + esc(z.a) + '</pre><div class="fb ok">✅ 맞아요!</div>' :
       '<textarea class="type qsin" data-s="' + i + '" rows="1" spellcheck="false" autocomplete="off" placeholder="코드 한 줄">' + esc(qsAns[i] || '') + '</textarea>' +
       '<div class="pact"><button type="button" class="btn chk" data-sc="' + i + '">✓ 확인</button>' + ((qsTry[i] || 0) >= 2 && !qsShow[i] ? '<button type="button" class="btn" data-ss="' + i + '">👀 정답 보기</button>' : '') + '<small class="kb">Enter 로 확인</small></div>' +
