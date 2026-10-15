@@ -4147,3 +4147,26 @@ if(ST.level){
   sheetLevel();
 }
 </script>
+<script>
+/* 공개수업 모드 — 공개수업 쪽(open1016)에서 ?from=open 으로 들어오면 수업 사이트로 가는 길을 막음 */
+(function(){
+  var KEY = 'e2c-open', on = false;
+  try{ if(/[?&]from=open\b/.test(location.search)) sessionStorage.setItem(KEY, '1'); on = sessionStorage.getItem(KEY) === '1'; }
+  catch(e){ on = /[?&]from=open\b/.test(location.search); }
+  if(!on) return;
+  var OPEN = 'https://richee-pc.github.io/AI_cs/open1016.html';
+  function fix(root){
+    [].forEach.call((root || document).querySelectorAll('a[href]'), function(a){
+      var h = a.getAttribute('href') || '';
+      if(!/^https:\/\/richee-pc\.github\.io\/AI_cs\//.test(h)) return;      /* 코랩 · 바깥 누리집은 그대로 */
+      if(/\/AI_cs\/(open1016|orange)\.html/.test(h)) return;
+      if(a.classList.contains('backlink')){ a.href = OPEN; a.textContent = '← 10/16 공개수업 자료'; return; }
+      var sp = document.createElement('span'); sp.innerHTML = a.innerHTML; sp.style.fontWeight = '500';
+      a.parentNode.replaceChild(sp, a);
+    });
+  }
+  fix(document);
+  new MutationObserver(function(ms){ ms.forEach(function(x){ [].forEach.call(x.addedNodes, function(n){ if(n.nodeType === 1) fix(n.parentNode || n); }); }); })
+    .observe(document.body, { childList:true, subtree:true });
+})();
+</script>
