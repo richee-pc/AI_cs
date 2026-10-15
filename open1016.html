@@ -2080,6 +2080,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
             <p class="rvcap">🏛️ 도서관 · 🎭 공연장 수 → 🧑‍🎓 청년 인구(숫자)<br>= <b>숫자 맞히기(예측) · 선형 회귀</b><br>채점: <b>MSE</b> 틀린 정도 ↓ · <b>R²</b> 설명력 ↑</p>
           </div></div>
       </div>
+      <div class="rvsum"><p class="rvsh">📌 한 줄 정리</p>
+        <div class="rvsg">
+          <div class="rvs"><b>🤖 기계학습</b><span>데이터에서 <strong>스스로 규칙을 배워</strong>, 처음 보는 문제도 맞히는 컴퓨터의 공부법</span></div>
+          <div class="rvs"><b>🏷️ 분류 vs 🔢 예측</b><span>정답이 <strong>범주</strong>(«무엇일까?») → 분류 · <strong>숫자</strong>(«얼마일까?») → 예측. 숫자로 적혀 있어도 <strong>중간 값이 말이 안 되면 범주</strong>(붓꽃 0 · 1 · 2 → categorical)</span></div>
+          <div class="rvs"><b>📦 분류 vs 🧺 군집</b><span>분류 = <strong>이름표 붙은 상자</strong>에 나눠 담기(정답 O · 지도) · 군집 = 이름표 없이 <strong>비슷한 것끼리 모으기</strong>(정답 X · 비지도). kNN 의 k = 물어볼 이웃 수, k-평균의 k = 나눌 무리 수</span></div>
+        </div></div>
       <div class="rvtoday">➡ <b>오늘</b> — 블록 하나 = 코드 한두 줄! 오렌지3로 만든 설계도를 <b>파이썬 코드로 완성</b>해요. 순서는 똑같아요: <b>나누기 → 공부시키기 → 시험 · 채점</b></div>
     </div>
     <script>
@@ -2087,7 +2093,8 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       r.addEventListener('click', function(e){
         var h = e.target.closest('.rvhide');
         if(h){ var on = !r.classList.contains('hid'); r.classList.toggle('hid', on); h.setAttribute('aria-pressed', on); h.textContent = on ? '👀 답 모두 보기' : '🙈 답 가리고 묻기';
-          [].forEach.call(r.querySelectorAll('.rvp'), function(p){ p.classList.toggle('shut', on); }); return; }
+          [].forEach.call(r.querySelectorAll('.rvp, .rvsum'), function(p){ p.classList.toggle('shut', on); }); return; }
+        var sm = e.target.closest('.rvsum'); if(sm && r.classList.contains('hid')){ sm.classList.toggle('shut'); return; }
         var p = e.target.closest('.rvp'); if(p && r.classList.contains('hid')) p.classList.toggle('shut');
       });
     })();
@@ -6859,7 +6866,7 @@ grade();
 })();
 </script>
 
-<link rel="stylesheet" href="polish.css?v=07bc71ca">
+<link rel="stylesheet" href="polish.css?v=30167133">
 <script src="polish.js?v=4d3812ad"></script>
 <style>
 #lessonBar, .lbar, .lpfoot, .homefab, .lff-top, .lff-next[data-les], #videos, #code, #implement, #learn05 .nbcards a:not(:first-child), #learn05 .ws.diam{display:none!important}

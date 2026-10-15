@@ -155,3 +155,12 @@ nav .row.mega .sep{margin:0 4px}
 .rev6 .rvfrow{flex-wrap:wrap}
 .rev6 .rvpl{padding:2px 6px; font-size:.75rem; white-space:nowrap}
 .rev6 .rvfrow > i{font-size:.75rem}
+.rev6 .rvsum{margin:12px 0 0; background:var(--white); border:1px solid var(--line); border-left:5px solid var(--fill); border-radius:0 14px 14px 0; padding:10px 14px; position:relative}
+.rev6 .rvsh{margin:0 0 6px; font-weight:800; color:var(--blue-d); font-size:.9375rem}
+.rev6 .rvsg{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:8px 14px; transition:filter .25s, opacity .25s}
+.rev6 .rvs{font-size:.875rem; line-height:1.65; color:var(--ink2)}
+.rev6 .rvs > b{display:block; color:var(--ink); font-size:.9062rem; margin-bottom:1px}
+.rev6 .rvs strong{color:var(--ink)}
+.rev6 .rvsum.shut{cursor:pointer}
+.rev6 .rvsum.shut .rvsg{filter:blur(6px); opacity:.55; pointer-events:none; user-select:none}
+.rev6 .rvsum.shut::after{content:"눌러서 보기"; position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); background:var(--white); border:1px solid var(--line); border-radius:99px; padding:5px 13px; font-size:.8125rem; font-weight:700; color:var(--blue-d)}
