@@ -314,6 +314,16 @@ textarea.qsin{min-height:38px; margin-top:4px}
 pre.ghost2{margin:6px 0 0; background:var(--hl-soft); border-radius:6px; padding:5px 9px; font-family:var(--font-mono); font-size:13px; white-space:pre-wrap}
 .q .qh code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
 
+/* 약자 풀이 */
+.abh{margin:14px 0 6px; font-size:15px}
+.mt-def.abbr td:nth-child(2){font-family:var(--font-ui); white-space:normal; min-width:150px}
+.mt-def.abbr td:nth-child(2) b{color:var(--orange-d); font-size:15px}
+.mt-def.abbr td:nth-child(2) small,.mt-def.abbr td small{display:block; color:var(--muted); font-size:12px}
+.mt-def.abbr tr.key td{background:color-mix(in srgb,var(--orange) 7%,var(--surface))}
+.mt-def.abbr tr.key td:first-child{font-weight:700; color:var(--orange-d)}
+.mt-def.abbr td:last-child{white-space:nowrap}
+.mcard .rem{display:block; margin-top:6px; color:var(--ink)}
+
 footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
 .sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
@@ -367,7 +377,35 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
       <h2>📏 모델 평가 지표 — 무엇을 재고, 어떻게 계산하나 <small>교과서 106~112쪽 · 오렌지3 Test and Score 표 읽기</small></h2>
       <p class="howto">모든 지표는 <b>시험용(테스트) 데이터</b>에서 <b>진짜 정답 y</b> 와 <b>모델의 예측 ŷ</b>(와이 햇)을 견주어 냅니다. 학습에 쓴 데이터로 재면 «외운 문제로 본 시험»이라 점수가 부풀려져요.
         <b>예측(숫자) 모델</b>과 <b>분류(무엇인지) 모델</b>은 쓰는 지표가 다릅니다.</p>
-      <nav class="mnav"><a href="#m-reg">① 예측 모델 지표</a><a href="#m-cls">② 분류 모델 지표</a><a href="#m-multi">③ 세 종류 이상(붓꽃)</a><a href="#m-orange">④ 오렌지3 표 한눈에</a><a href="#m-pick">⑤ 어떤 지표를 볼까</a></nav>
+      <nav class="mnav"><a href="#m-abbr">⓪ 약자 풀이</a><a href="#m-reg">① 예측 모델 지표</a><a href="#m-cls">② 분류 모델 지표</a><a href="#m-multi">③ 세 종류 이상(붓꽃)</a><a href="#m-orange">④ 오렌지3 표 한눈에</a><a href="#m-pick">⑤ 어떤 지표를 볼까</a></nav>
+
+
+      <h3 class="mh" id="m-abbr">⓪ 약자 풀이 — 왜 이런 이름일까? <span class="tm">풀 영어를 쪼개 보면 계산 방법이 보여요</span></h3>
+      <div class="mcard"><b>외우는 요령</b> — 약자를 풀어 쓴 영어 단어가 곧 <b>계산 방법</b>이에요. 예를 들어 <b>MSE</b>(Mean · Squared · Error)는 이름을 <b>거꾸로 읽으면 계산 순서</b>: 오차(Error) → 제곱(Squared) → 평균(Mean).
+        <span class="rem">✋ 한 문장으로: <b>정밀도는 «쏜 것 중에 맞은 것», 재현율은 «찾을 것 중에 찾은 것»!</b></span></div>
+      <h4 class="abh">🔢 숫자 맞히기(예측 · 회귀) 모델</h4>
+      <div class="mtbl"><table class="cmp mt-def abbr">
+        <tr><th>약자</th><th>풀 영어</th><th>쪼개 읽기 — 왜 이런 이름?</th><th>한마디</th><th>좋은 방향</th></tr>
+        <tr class="key"><td>MSE</td><td><b>M</b>ean <b>S</b>quared <b>E</b>rror<br><small>평균 제곱 오차</small></td><td><b>Error</b> 오차(진짜 − 예측) → <b>Squared</b> 제곱(± 부호를 없애고 크게 틀린 것에 벌을 더) → <b>Mean</b> 평균</td><td>틀린 만큼을 제곱해서 평균</td><td>↓ 0에 가깝게</td></tr>
+        <tr><td>RMSE</td><td><b>R</b>oot <b>M</b>ean <b>S</b>quared <b>E</b>rror<br><small>평균 제곱근 오차</small></td><td>MSE 에 <b>Root</b>(√ 루트)를 씌움 → 제곱했던 단위가 원래대로(명² → 명)</td><td>«평균 약 ○명 빗나간다»</td><td>↓</td></tr>
+        <tr><td>MAE</td><td><b>M</b>ean <b>A</b>bsolute <b>E</b>rror<br><small>평균 절대 오차</small></td><td><b>Absolute</b> 절댓값 — 부호만 떼고 틀린 크기 그대로 → 평균</td><td>틀린 크기의 평균(말하기 가장 쉬움)</td><td>↓</td></tr>
+        <tr><td>MAPE</td><td><b>M</b>ean <b>A</b>bsolute <b>P</b>ercentage <b>E</b>rror<br><small>평균 절대 백분율 오차</small></td><td><b>Percentage</b> 백분율 — 틀린 크기를 진짜 값으로 나눠 %로</td><td>«평균 ○% 빗나간다»</td><td>↓</td></tr>
+        <tr class="key"><td>R² (R2)</td><td><b>R</b>-squared<br><small>결정계수 · Coefficient of Determination</small></td><td><b>R</b> = 상관계수 r(두 값이 함께 움직이는 정도, <b>R</b>elation)을 <b>²</b> 제곱한 값 · <b>Determination</b> 결정 = 정답이 달라지는 이유를 얼마나 «정해 주나(설명하나)»</td><td>값이 다른 이유를 몇 % 설명?<br><small>0.64 = 64% 설명(64% 맞힘 아님!)</small></td><td>↑ 1에 가깝게</td></tr>
+        <tr><td>CVRMSE</td><td><b>C</b>oefficient of <b>V</b>ariation of RMSE<br><small>변동계수 RMSE</small></td><td>RMSE 를 평균으로 나눈 <b>비율</b>(Coefficient of Variation = 평균에 견준 흩어짐)</td><td>«평균의 ○% 정도 빗나감»</td><td>↓</td></tr>
+      </table></div>
+      <h4 class="abh">🏷️ 종류 맞히기(분류) 모델</h4>
+      <div class="mtbl"><table class="cmp mt-def abbr">
+        <tr><th>약자</th><th>풀 영어</th><th>쪼개 읽기 — 왜 이런 이름?</th><th>한마디</th><th>좋은 방향</th></tr>
+        <tr class="key"><td>CA</td><td><b>C</b>lassification <b>A</b>ccuracy<br><small>분류 정확도</small></td><td><b>Classification</b> 분류 + <b>Accuracy</b> 정확도 → «분류를 얼마나 정확히 했나»</td><td>전체 중 맞힌 비율</td><td>↑ 1에 가깝게</td></tr>
+        <tr class="key"><td>Prec</td><td><b>Prec</b>ision<br><small>정밀도</small></td><td><b>Precise</b> = 딱 맞는, 정밀한 🎯 — 과녁에 쏜 화살이 <b>딱 맞았나</b></td><td>«○이야!» 한 것 중 진짜 ○<br><small>헛방(헛경보)이 없나 · 스팸 거르기</small></td><td>↑</td></tr>
+        <tr class="key"><td>Recall</td><td><b>Recall</b><br><small>재현율 · 민감도(Sensitivity)</small></td><td><b>Re-call</b> = 다시 불러내다, 기억해 내다 📣 — 진짜 ○들을 <b>빠짐없이 불러냈나</b></td><td>진짜 ○ 중 찾아낸 것<br><small>놓친 게 없나 · 병 찾기</small></td><td>↑</td></tr>
+        <tr><td>Spec</td><td><b>Spec</b>ificity<br><small>특이도</small></td><td><b>Specific</b> = 특정한 — 음성(아닌 것)을 <b>콕 집어</b> 아니라고 하나</td><td>진짜 음성 중 음성이라 한 것</td><td>↑</td></tr>
+        <tr><td>F1</td><td><b>F1</b> score<br><small>F1 점수</small></td><td><b>F</b> = F-measure(측정값) 이름에서, <b>1</b> = 정밀도와 재현율을 <b>1 : 1</b>로 똑같이 중요하게 봄</td><td>정밀도 · 재현율을 합친 점수<br><small>둘 다 높아야 높음</small></td><td>↑ 1이 만점</td></tr>
+        <tr><td>MCC</td><td><b>M</b>atthews <b>C</b>orrelation <b>C</b>oefficient<br><small>매튜스 상관계수</small></td><td>만든 사람(<b>Matthews</b>) 이름 + <b>Correlation Coefficient</b> 상관계수 = 예측과 정답이 함께 맞아떨어지는 정도</td><td>네 칸(TP · FN · FP · TN)을 모두 본 점수</td><td>↑ −1 ~ 1</td></tr>
+        <tr><td>AUC</td><td><b>A</b>rea <b>U</b>nder the <b>C</b>urve<br><small>곡선 아래 넓이</small></td><td>ROC <b>Curve</b>(곡선) <b>Under</b>(아래) <b>Area</b>(넓이) — 그래프 아래가 넓을수록 잘 가름</td><td>기준을 어떻게 잡아도 잘 가르나<br><small>0.5 = 찍기, 1 = 완벽</small></td><td>↑</td></tr>
+        <tr><td>LogLoss</td><td><b>Log</b>arithmic <b>Loss</b><br><small>로그 손실</small></td><td><b>Log</b>(로그)로 계산한 <b>Loss</b>(잃은 점수) — 틀린 답에 큰 확신을 주면 크게 깎임</td><td>정답을 얼마나 자신 있게 맞혔나</td><td>↓ 0에 가깝게</td></tr>
+      </table></div>
+      <p class="hint" style="margin:-2px 0 0">진한 줄(MSE · R² · CA · Prec · Recall)이 오늘 꼭 알아야 할 다섯 개예요. 나머지는 오렌지3 Test and Score 표에서 볼 수 있는 약자예요.</p>
 
       <h3 class="mh" id="m-reg">① 예측(회귀) 모델 — 숫자를 얼마나 가깝게 맞혔나 <span class="tm">청년 인구 · 선형 회귀</span></h3>
       <div class="mcard"><b>오차(잔차)</b> = 진짜 값 − 예측값 &nbsp; <span class="eq">e = y − ŷ</span> &nbsp; — 양수면 «덜 맞힘»(실제가 더 큼), 음수면 «더 맞힘». 모든 예측 지표는 이 <b>오차</b>를 모아서 만듭니다.</div>
