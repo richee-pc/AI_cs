@@ -1,0 +1,706 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════
+     data2colab · 데이터 정리(오렌지3 위젯) ↔ 코랩 코드 실습 창
+     ─────────────────────────────────────────────────────────────────────
+     고2 「인공지능 기초」 데이터 탐구 ② — 교과서 Ⅱ-02 70~83쪽 전처리 ❶~⓮
+     orange.html(orange2colab)과 같은 꼴. 연습 데이터는 data/water_quality.csv
+     (노트북 20 «연습» 설정과 같은 상반기 200행 + 하반기 195행~ · 겹치는 5행)
+     계산은 pandas 와 같은 결과(중복 5 · 결측 처리 376 · IQR −7.5~12.5 → 322행 · r −0.084)
+     ══════════════════════════════════════════════════════════════════════ -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>data2colab · 데이터 정리에서 코랩까지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="오렌지3 위젯으로 하는 데이터 정리를 코랩 파이썬 코드와 짝지어 연습하는 창 — 데이터 탐구 ②">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧹</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --font-ui:'IBM Plex Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-mono:'IBM Plex Mono','D2Coding','Consolas',monospace;
+  --bg:#EDF0F4; --surface:#FFFFFF; --canvas:#F7F5F0; --dot:#DDD6CA;
+  --line:#D5DCE5; --line-soft:#E5EAF1;
+  --ink:#171C24; --ink-2:#3F4856; --muted:#6B7685;
+  --code-bg:#FBFCFE; --code-line:#EEF2F7; --code-gutter:#98A4B5;
+  --syn-kw:#8A3FFC; --syn-fn:#0F62FE; --syn-str:#0E7C5A; --syn-num:#B45309; --syn-com:#8B97A8;
+  --ok:#127A56; --ok-bg:#E2F4EC; --bad:#C0392F; --bad-bg:#FBEBE9; --warn:#9A6608; --warn-bg:#FDF2DE;
+  --hl:#FFC53D; --hl-soft:#FFF3D2;
+  --orange:#E8731C; --orange-d:#B9560D; --orange-wash:#E8731C14;
+  --colab:#F9AB00;
+  --w-data:#FFD39F; --w-model:#FAC1D9; --w-eval:#C3F3F3; --w-pred:#C3F3F3;
+  --w-data-s:#E89A3C; --w-model-s:#D9709B; --w-eval-s:#3FB3B3;
+  --r-s:6px; --r-m:10px; --r-l:14px;
+  --sh:0 1px 2px rgba(23,28,36,.06),0 4px 14px rgba(23,28,36,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+    --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+    --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+    --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+    --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+    --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+    --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+  --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+  --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+  --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+  --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+  --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+  --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--font-ui); font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%}
+button,input,select{font:inherit; color:inherit}
+code,.mono{font-family:var(--font-mono)}
+.wrap{max-width:1320px; margin:0 auto; padding:0 16px}
+
+/* 머리 */
+.head{background:var(--surface); border-bottom:1px solid var(--line)}
+.head .wrap{padding-top:18px; padding-bottom:14px}
+.kicker{display:inline-flex; gap:6px; align-items:center; font-size:12.5px; font-weight:700; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:3px 11px; margin:0 0 6px}
+h1{margin:0; font-size:clamp(22px,3.2vw,30px); line-height:1.3; letter-spacing:-.01em}
+h1 em{font-style:normal; color:var(--orange)}
+.lede{margin:6px 0 0; color:var(--ink-2); max-width:68em}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px}
+.tab{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:7px 15px; font-weight:600; cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.tab:focus-visible,.wg:focus-visible,.cell:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* 구현 과정 띠 */
+.steps{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:16px 0 4px; font-size:13px}
+.steps span{background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:3px 11px; color:var(--ink-2)}
+.steps span b{color:var(--ink)}
+.steps i{font-style:normal; color:var(--muted)}
+.howto{margin:6px 0 14px; font-size:13.5px; color:var(--muted)}
+.howto b{color:var(--ink-2)}
+
+/* 작업대 */
+.bench{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:14px; align-items:start}
+@media (max-width:980px){ .bench{grid-template-columns:1fr} }
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); overflow:hidden; min-width:0}
+.panel-hd{display:flex; align-items:center; gap:8px; padding:9px 14px; border-bottom:1px solid var(--line-soft); font-weight:700; font-size:14px}
+.panel-hd .dot{width:10px; height:10px; border-radius:50%}
+.panel-hd .sp{flex:1}
+.panel-hd small{font-weight:500; color:var(--muted); font-size:12.5px}
+.btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:5px 12px; font-weight:600; cursor:pointer; font-size:13.5px}
+.btn.pri{background:var(--colab); border-color:var(--colab); color:#2B1D00}
+.btn:hover{filter:brightness(.97)}
+
+/* 오렌지3 캔버스 */
+.canvas{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px; position:relative}
+.canvas svg{display:block; width:100%; height:auto}
+/* 오렌지3식 연결선: 출력 귀 → 입력 귀를 잇는 부드러운 곡선 */
+.lk{fill:none; stroke:#8E959E; stroke-width:2.4; stroke-linecap:round}
+.lk.on{stroke:var(--orange); stroke-width:3.2}
+.lkl{font-size:14px; fill:var(--orange-d); font-weight:600; paint-order:stroke; stroke:var(--canvas); stroke-width:4px; font-family:var(--font-ui)}
+/* 오렌지3식 위젯: 분류 색 원판 + 양옆 연결 고리(왼쪽 입력 · 오른쪽 출력) + 가운데 선 그림 + 아래 이름 */
+.wg{cursor:pointer}
+.wg .halo{fill:none; stroke:transparent; stroke-width:4}
+.wg .disc{stroke-width:1.5}
+.wg.data .disc{fill:var(--w-data); stroke:var(--w-data-s)}
+.wg.model .disc{fill:var(--w-model); stroke:var(--w-model-s)}
+.wg.eval .disc{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.wg .anc{fill:none; stroke:#A7ADB5; stroke-width:3.2; stroke-linecap:round}
+.wg .anc.on{stroke:#7D848D}
+.wg .adot{fill:#7D848D}
+.wg .ico{fill:none; stroke:#3A3F47; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+.wg .ico .f{fill:#3A3F47; stroke:none}
+.wg .ico .w{fill:#FFFFFF; fill-opacity:.85}
+.wg text.nm{font-size:15px; font-weight:600; fill:var(--ink); font-family:var(--font-ui)}
+.wg text.bd{font-size:14px; font-weight:700; fill:var(--orange-d); font-family:var(--font-mono)}
+.wg.sel .halo{stroke:var(--orange)}
+.wg.sel text.nm{fill:var(--orange-d)}
+.wg.warn .halo{stroke:var(--bad); stroke-dasharray:4 3}
+.wg:hover .halo{stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .wg .ico{stroke:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .f{fill:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .w{fill:#000; fill-opacity:.25} }
+:root[data-theme="dark"] .wg .ico{stroke:#F1F3F6} :root[data-theme="dark"] .wg .ico .f{fill:#F1F3F6} :root[data-theme="dark"] .wg .ico .w{fill:#000; fill-opacity:.25}
+.wset{border-top:1px solid var(--line-soft); padding:12px 14px 14px; min-height:150px}
+.wset h3{margin:0 0 2px; font-size:15px; display:flex; gap:8px; align-items:center}
+.wset .map{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:8px; padding:6px 10px; margin:8px 0 10px}
+.wset .map code{font-size:12.5px}
+.wset .hint{font-size:13px; color:var(--muted); margin:6px 0 0}
+.row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:6px 0}
+.row label{font-size:13.5px}
+.roles{width:100%; border-collapse:collapse; font-size:13.5px}
+.roles th,.roles td{border-bottom:1px solid var(--line-soft); padding:5px 6px; text-align:left}
+.roles th{font-size:12px; color:var(--muted); font-weight:600}
+.roles select{border:1px solid var(--line); border-radius:6px; padding:2px 6px; background:var(--surface)}
+.roles tr.tg td:first-child{font-weight:700}
+.scores{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+.scores th,.scores td{border:1px solid var(--line-soft); padding:5px 8px; text-align:right}
+.scores th:first-child,.scores td:first-child{text-align:left}
+.scores th{background:var(--code-line); font-size:12px}
+.alert{background:var(--bad-bg); color:var(--bad); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+.okmsg{background:var(--ok-bg); color:var(--ok); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+input[type=range]{accent-color:var(--orange); width:180px}
+.chip{display:inline-block; font-size:11.5px; font-weight:700; border-radius:99px; padding:1px 8px; white-space:nowrap}
+.chip.data{background:var(--w-data); color:#6A3D06}
+.chip.model{background:var(--w-model); color:#6E1F44}
+.chip.eval{background:var(--w-eval); color:#0D4F4F}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .chip{color:var(--ink)} }
+
+/* 코랩 */
+.nb{background:var(--code-bg); padding:8px 0 10px}
+.cell{display:grid; grid-template-columns:44px minmax(0,1fr); gap:0; margin:6px 10px 6px 4px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:background .15s,border-color .15s}
+.cell:hover{border-color:var(--line)}
+.cell.hl{background:var(--hl-soft); border-color:var(--hl)}
+.gut{display:flex; flex-direction:column; align-items:center; gap:2px; padding-top:7px}
+.run{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:var(--surface); cursor:pointer; display:grid; place-items:center; font-size:11px; padding:0}
+.run:hover{border-color:var(--ink-2)}
+.cnt{font-family:var(--font-mono); font-size:11px; color:var(--code-gutter)}
+.src{min-width:0}
+.ctag{display:flex; gap:6px; align-items:center; padding:6px 0 2px; flex-wrap:wrap}
+.ctag small{color:var(--muted); font-size:12px}
+pre.code{margin:0 0 4px; background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; padding:8px 11px; font-family:var(--font-mono); font-size:13px; line-height:1.55; overflow-x:auto; white-space:pre}
+.k{color:var(--syn-kw)} .f{color:var(--syn-fn)} .s{color:var(--syn-str)} .n{color:var(--syn-num)} .c{color:var(--syn-com); font-style:italic}
+.chg{background:color-mix(in srgb,var(--orange) 22%,transparent); border-radius:3px; box-shadow:0 0 0 1px color-mix(in srgb,var(--orange) 45%,transparent)}
+.out{font-family:var(--font-mono); font-size:12.5px; white-space:pre; overflow-x:auto; padding:4px 11px 6px; margin:0 0 4px; color:var(--ink)}
+.out.err{color:var(--bad); background:var(--bad-bg); border-radius:6px; white-space:pre-wrap}
+.out.stale{opacity:.45}
+.out .note{font-family:var(--font-ui); color:var(--warn); font-size:12px; white-space:normal}
+table.df{border-collapse:collapse; font-size:12px; margin:2px 0}
+table.df th,table.df td{border-bottom:1px solid var(--line-soft); padding:2px 9px; text-align:right}
+table.df th{font-weight:600}
+
+/* 견주기 · 연습 */
+.sect{margin:18px 0 0}
+.sect h2{font-size:18px; margin:0 0 8px}
+.cmp{width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--r-m); overflow:hidden; font-size:14px; font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{border:1px solid var(--line-soft); padding:8px 10px; text-align:center}
+.cmp th{background:var(--code-line); font-size:13px}
+.cmp td:first-child{text-align:left; font-weight:600}
+.cmp input{width:90px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; text-align:center; background:var(--surface)}
+.why{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:var(--r-m); padding:10px 14px; margin:10px 0 0; font-size:14px; color:var(--ink-2)}
+.why b{color:var(--ink)}
+.qz{display:grid; gap:10px}
+.q{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m); padding:11px 14px}
+.q .qh{display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-bottom:6px}
+.q .qh b{display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--surface); font-size:12px}
+.q pre{margin:0; font-family:var(--font-mono); font-size:13.5px; white-space:pre-wrap}
+.q input.bl{font-family:var(--font-mono); font-size:13.5px; width:13ch; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:1px 5px; border-radius:4px 4px 0 0}
+.q .fb{font-size:13px; margin-top:6px; min-height:1.2em}
+.q .fb.ok{color:var(--ok)} .q .fb.no{color:var(--bad)}
+.q.done{border-color:var(--ok); background:color-mix(in srgb,var(--ok-bg) 60%,var(--surface))}
+.picks{display:flex; gap:6px; flex-wrap:wrap}
+.picks button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:4px 12px; cursor:pointer; font-size:13.5px}
+.picks button.ok{background:var(--ok-bg); border-color:var(--ok); color:var(--ok)}
+.picks button.no{background:var(--bad-bg); border-color:var(--bad); color:var(--bad)}
+.qsum{font-weight:700; margin:0 0 10px}
+
+/* 연습 단계 */
+.modebar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface)}
+.modebar .mode{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 13px; font-weight:600; font-size:13.5px; cursor:pointer}
+.modebar .mode.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.modebar .mode:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+.modebar small{margin-left:auto; color:var(--muted); font-size:12.5px}
+.modebar small b{color:var(--ink)}
+.tcell{margin:10px 14px 4px 48px; font-size:14px; color:var(--ink-2); line-height:1.65}
+.tcell.sm{font-size:13.5px; margin:14px 14px 2px 48px; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--syn-fn); border-radius:0 8px 8px 0; padding:7px 11px; color:var(--ink-2)}
+.tcell .tag{display:inline-block; font-size:11.5px; font-weight:700; color:var(--syn-fn); margin-right:6px}
+.lex{margin:2px 0 6px; background:color-mix(in srgb,var(--syn-fn) 6%,var(--surface)); border:1px solid color-mix(in srgb,var(--syn-fn) 22%,var(--line)); border-radius:7px; padding:5px 10px; font-size:13px}
+.lex summary{cursor:pointer; font-weight:700; color:var(--syn-fn); list-style:none}
+.lex summary::-webkit-details-marker{display:none}
+.lex summary::before{content:'▸ '} .lex[open] summary::before{content:'▾ '}
+.lex summary small{font-weight:500; color:var(--muted)}
+.lex ol{margin:5px 0 2px; padding:0; list-style:none; display:grid; grid-template-columns:minmax(0,max-content) minmax(0,1fr); gap:5px 12px; align-items:baseline}
+.lex li{display:contents; color:var(--ink-2); line-height:1.55}
+.lex li > span:last-child{color:var(--ink-2)}
+.lex li code{font-size:12px; background:var(--surface); border:1px solid var(--line-soft); border-radius:4px; padding:0 5px; white-space:pre-wrap; overflow-wrap:break-word; max-width:36ch; justify-self:start}
+.lex li .ln{font-size:12px; color:var(--muted); white-space:nowrap}
+.lex li b{color:var(--ink)}
+@media (max-width:640px){ .lex ol{grid-template-columns:1fr; gap:2px} .lex li > span:last-child{margin-bottom:5px} .lex li code{max-width:none} }
+.modebar .lexbtn{font-weight:500}
+.tcell h4{margin:4px 0 4px; font-size:15.5px; color:var(--ink)}
+.tcell p{margin:0}
+.tcell b{color:var(--ink)}
+.tcell code,.read code,.mission code,.pfb code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+.read{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:7px; padding:7px 11px; margin:2px 0 6px; line-height:1.6; white-space:normal}
+.read b{color:var(--ink)}
+.cell.lock .run{opacity:.45}
+pre.code.ghost{opacity:.62; user-select:none; -webkit-user-select:none}
+pre.code.solved{border-color:var(--ok)}
+pre.code input.bl{font-family:var(--font-mono); font-size:13px; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:0 3px; border-radius:4px 4px 0 0; min-width:4ch; color:var(--ink)}
+pre.code input.bl.bad{border-bottom-color:var(--bad); background:var(--bad-bg)}
+pre.code input.bl:focus{outline:2px solid var(--orange); outline-offset:1px}
+textarea.type{display:block; width:100%; font-family:var(--font-mono); font-size:13px; line-height:1.55; border:1px solid var(--line); border-radius:7px; padding:8px 11px; background:var(--surface); resize:vertical; tab-size:4}
+textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-color:transparent}
+.mission{font-size:13.5px; background:var(--warn-bg); color:var(--ink); border-radius:7px; padding:8px 11px; margin:0 0 6px; line-height:1.6}
+.pact{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 2px}
+.pact .chk{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.pact .kb{color:var(--muted); font-size:12px}
+.pfb{font-size:13px; margin:4px 0 6px}
+.pfb:empty{display:none}
+.pfb.ok{color:var(--ok)} .pfb.no{color:var(--bad)} .pfb.hint{color:var(--warn)} .pfb.info{color:var(--muted)}
+
+footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
+.sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
+.bun-gif{width:120px; height:auto}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-size:16px; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 16px}
+.ptp span{font-size:19px; line-height:1}
+[hidden]{display:none!important}
+/* ── datalab 전용 ── */
+.canvas.wide{overflow-x:auto}
+.canvas.wide svg{min-width:820px}
+.wg.tr .disc{fill:#FFC9A3; stroke:#E58A4E}
+.wg.vis .disc{fill:#FFC2BC; stroke:#E07B72}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .wg.tr .disc{fill:#6B3E22} :root:not([data-theme="light"]) .wg.vis .disc{fill:#6A2E2A} }
+:root[data-theme="dark"] .wg.tr .disc{fill:#6B3E22} :root[data-theme="dark"] .wg.vis .disc{fill:#6A2E2A}
+.chip.tr{background:#FFC9A3; color:#6A3008}
+.chip.vis{background:#FFC2BC; color:#6E1F1A}
+.wset dl{margin:6px 0 0; display:grid; grid-template-columns:max-content minmax(0,1fr); gap:5px 12px; font-size:13.5px}
+.wset dt{font-weight:700; color:var(--muted); font-size:12.5px}
+.wset dd{margin:0; color:var(--ink-2)}
+.rc{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+.rc th,.rc td{border:1px solid var(--line-soft); padding:5px 8px; text-align:center}
+.rc th{background:var(--code-line); font-size:12.5px}
+.rc td:first-child{text-align:left}
+.rc input{width:80px; border:1px solid var(--line); border-radius:6px; padding:2px 6px; text-align:center; background:var(--surface)}
+.rc .same{font-weight:700}
+.rc .same.ok{color:var(--ok)} .rc .same.no{color:var(--bad)}
+.plot{display:block; max-width:420px; width:100%; height:auto; background:var(--surface); border:1px solid var(--line-soft); border-radius:6px; margin:4px 0}
+.plot text{font-family:var(--font-ui); font-size:11px; fill:var(--ink-2)}
+.plot .ax{stroke:var(--ink-2); stroke-width:1}
+.plot .gd{stroke:var(--line-soft); stroke-width:1}
+.plot .bx{fill:color-mix(in srgb,var(--syn-fn) 18%,transparent); stroke:var(--syn-fn); stroke-width:1.4}
+.plot .md{stroke:var(--orange); stroke-width:2.2}
+.plot .wk{stroke:var(--ink-2); stroke-width:1.2}
+.plot .fl{fill:none; stroke:var(--bad); stroke-width:1.2}
+.plot .pt{fill:var(--syn-fn); fill-opacity:.45}
+.plot .lim{stroke:var(--bad); stroke-dasharray:4 3; stroke-width:1}
+.two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px}
+@media (max-width:860px){ .two{grid-template-columns:1fr} }
+.frame2{background:var(--surface); border:1px dashed var(--line); border-radius:var(--r-m); padding:10px 14px; font-size:14px; line-height:2}
+.frame2 i{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--ink-2); margin:0 3px}
+.chkl label{display:flex; gap:8px; align-items:flex-start; font-size:14px; margin:4px 0}
+details.ans{margin:8px 0 0; font-size:13.5px; color:var(--ink-2)}
+details.ans summary{cursor:pointer; font-weight:700; color:var(--syn-fn)}
+.gobox{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0}
+.gobox a{display:inline-block; text-decoration:none; font-weight:700; font-size:14px; border-radius:10px; padding:8px 14px; border:1px solid var(--line); background:var(--surface); color:var(--ink)}
+.gobox a.pri{background:var(--colab); border-color:var(--colab); color:#2B1D00}
+.backhome{display:inline-block; margin:0 0 6px; font-size:13px; font-weight:700; color:var(--ink-2); text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="head"><div class="wrap">
+  <a class="backhome" href="plan.html">← 우리 반 수업 홈</a>
+  <p class="kicker">🧹 데이터 탐구 ② · 교과서 Ⅱ-02 70~83쪽</p>
+  <h1>오렌지3 위젯 ↔ <em>코랩 코드</em>, 데이터 정리 짝지어 보기</h1>
+  <p class="lede">왼쪽은 <b>오렌지3 위젯</b>, 오른쪽은 <b>코랩 코드</b>예요. 위젯을 누르면 <b>같은 일을 하는 코드</b>에 노란 불이 들어와요.
+    먼저 <b>연습 데이터(약수터 수질)</b>로 한 바퀴 돌려 보고, 똑같은 순서를 <b>코랩 노트북 20</b>에서 <b>우리 모둠 데이터</b>로 합니다.
+    블록이든 코드든 <b>잇기 → 바꾸기 → 중복 · 결측 · 이상치 치우기 → 그래프 → 상관</b> 순서는 똑같아요!</p>
+</div></header>
+
+<main class="wrap">
+  <div class="steps" id="stepBar"></div>
+  <p class="howto"><b>오늘 순서</b> <b>🟢 빈칸</b>을 채우고 ▶ 실행(위에서부터 차례로) → 막히면 <b>🔍 한 줄씩 풀이</b> · 왼쪽 <b>위젯</b> → 다 되면 <b>🟡 따라 적기</b>(시간이 남으면) → 아래 <b>«우리 데이터로»</b> 버튼으로 코랩 노트북 20 · <b>데이터 정리 AI</b>를 썼다면 맨 아래 <b>행 수 대조표</b>로 검증</p>
+  <div class="bench">
+    <section class="panel" aria-label="오렌지3 캔버스">
+      <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 눌러 보세요 · 옆으로 밀면 더 보여요</small></div>
+      <div class="canvas wide"><svg id="cv" viewBox="0 0 970 410" role="group" aria-label="오렌지3 데이터 정리 워크플로"></svg></div>
+      <div class="wset" id="wset"></div>
+    </section>
+    <section class="panel" aria-label="코랩 노트북">
+      <div class="panel-hd"><span class="dot" style="background:var(--colab)"></span><span class="mono">20_연습 · 약수터 수질.ipynb</span><span class="sp"></span>
+        <button class="btn" id="resetRt" type="button">런타임 초기화</button><button class="btn pri" id="runAll" type="button">▶ 모두 실행</button></div>
+      <div class="modebar" id="modeBar" role="group" aria-label="연습 단계"></div>
+      <div class="nb" id="nb"><div class="tcell">데이터를 불러오는 중…</div></div>
+    </section>
+  </div>
+
+  <div class="sect">
+    <h2>📋 단계별 행 수 — «데이터 정리 AI» 결과와 견주기</h2>
+    <p class="howto">칸을 실행하면 <b>코드로 확인한 행 수</b>가 채워져요. 데이터 정리 AI를 썼다면 AI가 말한 숫자를 옆 칸에 적어 보세요. <b>다르면</b> AI가 기준에 없는 일을 했거나, 우리가 기준을 다르게 전한 거예요 → 거절하고 다시 지시!</p>
+    <table class="rc" id="rc"></table>
+  </div>
+
+  <div class="sect">
+    <h2>🔁 이제 우리 데이터로 — 코랩 노트북 20</h2>
+    <div class="two">
+      <div class="why" style="margin:0"><b>똑같은 순서, 설정 칸만 바꿔요.</b> 노트북 20 맨 위 <b>⓪ 우리 모둠 설정</b> 칸에 활동지 ④의 전처리 기준을 옮기면, 오늘 연습한 ❶~⓮ 코드가 <b>우리 데이터</b>에 그대로 돌아갑니다.
+        <ul style="margin:6px 0 0; padding-left:18px">
+          <li><code>x열</code> · <code>y열</code> — 가설의 «원인 쪽» · «결과 쪽» (연습: 질산성질소 · 일반세균)</li>
+          <li><code>바꿀열</code> · <code>바꿀값</code> — ❸ 표기 통일 (연습: 판정 Y → 1)</li>
+          <li><code>결측처리</code> — '삭제' · '평균' · '그대로' / <code>이상치기준</code> — 'IQR' · (최소, 최대) · '그대로'</li>
+          <li>1학기에 파이썬을 배우지 않았다면 <b>설정 칸만</b> 바꾸고 나머지는 ▶ 실행만 해도 돼요.</li>
+        </ul>
+        <div class="gobox"><a class="pri" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">▶ 코랩 노트북 20 열기 (사본 저장 먼저)</a><a href="unit2.html?l=D2">데이터 탐구 ② 오늘 순서</a></div></div>
+      <div class="why" style="margin:0; border-left-color:var(--syn-fn)"><b>오렌지3로 따라 하고 싶다면</b> — 왼쪽 캔버스와 같은 위젯을 이어 보세요. 우리 파일은 <b>File</b> 위젯으로 열고, 결측 처리는 <b>Impute</b>(«Remove instances with unknown values» = 삭제 · «Average» = 평균), 이상치는 <b>Box Plot</b>으로 보고 <b>Select Rows</b>로 범위를 정해 거릅니다.
+        <p style="margin:6px 0 0">어느 쪽으로 했든 <b>단계별 행 수</b>가 같아야 해요. 같은 기준이면 블록과 코드의 결과는 같습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>✍️ 1차 해석 — <em style="font-style:normal; color:var(--orange-d)">AI 없이</em> 먼저 (활동지 ④)</h2>
+    <div class="two">
+      <div class="q"><div class="qh">그래프 자가 점검</div>
+        <div class="chkl">
+          <label><input type="checkbox"> 축을 잘라 차이를 부풀리지 않았다</label>
+          <label><input type="checkbox"> 표본 수(n)를 적었다</label>
+          <label><input type="checkbox"> 상관을 원인과 결과로 말하지 않았다</label>
+          <label><input type="checkbox"> 불리한 데이터도 남겼다(이상치를 지운 이유를 적었다)</label>
+        </div></div>
+      <div class="frame2">그래프에서 보이는 것: <i></i>와 <i></i>는 함께 <i></i> (상관계수 <i></i>, n=<i></i>).<br>
+        데이터가 말하지 않는 것: <i></i> 때문이라고는 말할 수 없다(<i></i>의 영향).
+        <details class="ans"><summary>연습 데이터로 쓴 예 보기</summary>
+          «질산성질소와 일반세균은 거의 함께 움직이지 않는다(상관계수 −0.08, n=322). 일반세균과 가장 관련이 큰 속성은 분원성대장균군(0.23)이지만 약한 관계다.»<br>
+          «이상치 기준(IQR)으로 54행이 빠졌으므로, 일반세균이 많이 나온 날의 특징은 이 그래프로는 말할 수 없다.»</details></div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <span>교과서 「인공지능 기초」(미래엔) Ⅱ-02 70~83쪽 실습을 우리 수업에 맞게 다시 만든 연습 창 · 연습 데이터: 약수터 수질(교과서 부록 221쪽 자료)</span>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+var $ = function(id){ return document.getElementById(id); };
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+
+/* ══════════ 데이터 ══════════ */
+var ADDR = "주소 = 'https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/'";
+var RAW = null;               // {cols, rows}  — water_quality.csv 전체
+function parseCsv(t){
+  var L = t.replace(/\r/g, '').split('\n').filter(function(x){ return x !== ''; });
+  var cols = L[0].replace(/^﻿/, '').split(',');
+  var rows = L.slice(1).map(function(l){ return l.split(','); });
+  var num = cols.map(function(c, j){ return rows.every(function(r){ return r[j] === '' || !isNaN(Number(r[j])); }); });
+  rows = rows.map(function(r){ return r.map(function(v, j){ return v === '' ? null : (num[j] ? Number(v) : v); }); });
+  return { cols: cols, rows: rows, num: num };
+}
+function copyDf(d){ return { cols: d.cols.slice(), num: d.num.slice(), rows: d.rows.map(function(r){ return r.slice(); }) }; }
+function ci(d, c){ return d.cols.indexOf(c); }
+function colv(d, c){ var j = ci(d, c); return d.rows.map(function(r){ return r[j]; }); }
+function quant(a, q){ var s = a.slice().sort(function(x, y){ return x - y; }), p = (s.length - 1) * q, lo = Math.floor(p), hi = Math.ceil(p); return s[lo] + (s[hi] - s[lo]) * (p - lo); }
+function pear(a, b){
+  var n = a.length, ma = 0, mb = 0, i; for(i = 0; i < n; i++){ ma += a[i]; mb += b[i]; } ma /= n; mb /= n;
+  var sab = 0, saa = 0, sbb = 0; for(i = 0; i < n; i++){ var x = a[i] - ma, y = b[i] - mb; sab += x * y; saa += x * x; sbb += y * y; }
+  return sab / Math.sqrt(saa * sbb);
+}
+function shp(d){ return '(' + d.rows.length + ', ' + d.cols.length + ')'; }
+function pyNum(v){ if(v === null) return 'NaN'; if(Number.isInteger(v)) return String(v); return String(v); }
+function headTable(d, n){
+  var h = '<table class="df"><tr><th></th>' + d.cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>';
+  d.rows.slice(0, n).forEach(function(r, i){ h += '<tr><th>' + i + '</th>' + r.map(function(v, j){ return '<td>' + esc(v === null ? 'NaN' : (d.num[j] && !Number.isInteger(v) ? v.toFixed(1) : v)) + '</td>'; }).join('') + '</tr>'; });
+  return h + '</table>';
+}
+function series(pairs, name, dtype){
+  var w = Math.max.apply(null, pairs.map(function(p){ return p[0].length; }).concat([2]));
+  var pad = function(s, n){ s = String(s); while(s.length < n) s += ' '; return s; };
+  return pairs.map(function(p){ return pad(p[0], w + 3) + p[1]; }).join('\n') + '\n' + (name ? 'Name: ' + name + ', ' : '') + 'dtype: ' + dtype;
+}
+
+/* ══════════ 노트북 칸 ══════════
+   code 안 ⟦답⟧ = 빈칸. run(st) 은 st(데이터 상태)를 바꾸고 출력 HTML 을 돌려줌. */
+var X = '질산성질소', Y = '일반세균';
+var MAPV = { 'Y': '1', 'N': '0', '0(여시니아)': '0' };
+var C = [
+  { no:'❶❷', t:'데이터 읽기', pg:'72쪽', w:['file', 'file2'], rows:'처음',
+    code: "import pandas as pd\n" + ADDR + "\ndf = pd.⟦read_csv⟧(주소 + 'water_quality.csv').iloc[:200]    # 상반기 200행\ndf2 = pd.read_csv(주소 + 'water_quality.csv').iloc[195:]    # 하반기 (195~199행은 겹침)\nprint(df.⟦shape⟧, df2.shape)\ndf.head()",
+    lex: [['pd.read_csv(…)', 'CSV 파일을 표(데이터프레임)로 읽어요. 공공데이터 CSV가 깨지면 <code>encoding=\'cp949\'</code>'], ['.iloc[:200]', '앞에서 200행만 — 연습을 위해 한 파일을 둘로 나눴어요'], ['df.shape', '(행 수, 열 수)']],
+    run: function(st){ st.df = { cols: RAW.cols.slice(), num: RAW.num.slice(), rows: RAW.rows.slice(0, 200).map(function(r){ return r.slice(); }) };
+      st.df2 = { cols: RAW.cols.slice(), num: RAW.num.slice(), rows: RAW.rows.slice(195).map(function(r){ return r.slice(); }) };
+      st.rec['처음(두 파일)'] = st.df.rows.length + st.df2.rows.length;
+      return { txt: shp(st.df) + ' ' + shp(st.df2), html: headTable(st.df, 5) }; } },
+  { no:'❹', t:'데이터 통합 — 위아래로 잇기', pg:'73쪽', w:['concat'], rows:'통합 후',
+    code: "df = pd.⟦concat⟧([df, df2], ignore_index=True)\ndf.shape",
+    lex: [['pd.concat([df, df2])', '두 표를 위아래로 이어 붙여요. 열 이름이 같아야 해요'], ['ignore_index=True', '행 번호를 0부터 새로 매겨요']],
+    run: function(st){ st.df.rows = st.df.rows.concat(st.df2.rows); st.rec['통합 후'] = st.df.rows.length; return { txt: shp(st.df) }; } },
+  { no:'❸', t:'데이터 변환 — 표기 통일', pg:'73쪽', w:['edit'], rows:null,
+    code: "df['판정'] = df['판정'].⟦replace⟧({'Y': '1', 'N': '0', '0(여시니아)': '0'})\ndf['판정'].⟦value_counts⟧()",
+    lex: [["df['판정']", '판정 열 하나를 꺼내요'], ['.replace({옛: 새})', '같은 뜻을 다르게 적은 값을 하나로 — Y와 1은 둘 다 «적합»'], ['.value_counts()', '값마다 몇 개인지 세어 확인']],
+    run: function(st){ var j = ci(st.df, '판정'), cnt = {}; st.df.rows.forEach(function(r){ if(MAPV[r[j]] !== undefined) r[j] = MAPV[r[j]]; cnt[r[j]] = (cnt[r[j]] || 0) + 1; });
+      var p = Object.keys(cnt).sort(function(a, b){ return cnt[b] - cnt[a]; }).map(function(k){ return [k, cnt[k]]; });
+      return { txt: '판정\n' + series(p, 'count', 'int64') }; } },
+  { no:'❺❻', t:'중복 확인 · 삭제', pg:'74쪽', w:['unique'], rows:'중복 삭제 후',
+    code: "print(df.⟦duplicated⟧().sum())\ndf = df.⟦drop_duplicates⟧()\ndf.shape",
+    lex: [['df.duplicated().sum()', '모든 칸이 앞 행과 똑같은 행이 몇 개인지'], ['df.drop_duplicates()', '똑같은 행은 첫 번째만 남기고 지워요']],
+    run: function(st){ var seen = {}, keep = [], dup = 0; st.df.rows.forEach(function(r){ var k = JSON.stringify(r); if(seen[k]) dup++; else { seen[k] = 1; keep.push(r); } });
+      st.df.rows = keep; st.rec['중복 삭제 후'] = keep.length; return { txt: dup + '\n' + shp(st.df) }; } },
+  { no:'❼', t:'결측치 찾기', pg:'75쪽', w:['fstat'], rows:null,
+    code: "df.⟦isnull⟧().⟦sum⟧()",
+    lex: [['df.isnull()', '빈칸이면 True, 아니면 False 인 표'], ['.sum()', 'True 를 1로 세어 열마다 빈칸 개수']],
+    run: function(st){ var p = st.df.cols.map(function(c, j){ return [c, st.df.rows.filter(function(r){ return r[j] === null; }).length]; });
+      return { txt: series(p, '', 'int64') }; } },
+  { no:'❽', t:'결측치 처리 — 삭제', pg:'76쪽', w:['impute'], rows:'결측 처리 후',
+    code: "df = df.⟦dropna⟧(subset=['" + X + "', '" + Y + "'])\ndf.shape",
+    lex: [['df.dropna(…)', '빈칸이 있는 행을 지워요. 평균으로 채우려면 <code>fillna(df[열].mean())</code>'], ["subset=[…]", '이 두 열에 빈칸이 있는 행만 — 가설에 쓰는 열'], ['df.shape', '지우면 n이 줄어요 → 그래프 아래에 적기']],
+    run: function(st){ var a = ci(st.df, X), b = ci(st.df, Y); st.df.rows = st.df.rows.filter(function(r){ return r[a] !== null && r[b] !== null; });
+      st.rec['결측 처리 후'] = st.df.rows.length; return { txt: shp(st.df) }; } },
+  { no:'❾', t:'이상치 탐색 — 상자그림 · IQR', pg:'76쪽 · 83쪽', w:['box'], rows:null,
+    code: "import matplotlib.pyplot as plt\nplt.⟦boxplot⟧(df['" + Y + "'])\nplt.show()\nQ1 = df['" + Y + "'].⟦quantile⟧(0.25)\nQ3 = df['" + Y + "'].quantile(0.75)\nIQR = Q3 - Q1\n아래, 위 = Q1 - 1.5 * IQR, Q3 + 1.5 * IQR\nprint(아래, 위)",
+    lex: [['plt.boxplot(…)', '상자그림 — 상자 밖 점이 이상치 «후보»'], ['quantile(0.25)', '아래에서 25% 자리 값(Q1). 0.75 는 Q3'], ['IQR = Q3 − Q1', '가운데 50%의 폭'], ['Q1 − 1.5×IQR, Q3 + 1.5×IQR', '이 범위 밖이면 후보 (83쪽 읽을거리)']],
+    run: function(st){ var v = colv(st.df, Y), q1 = quant(v, .25), q3 = quant(v, .75), iqr = q3 - q1; st.lo = q1 - 1.5 * iqr; st.hi = q3 + 1.5 * iqr;
+      var out = v.filter(function(x){ return x < st.lo || x > st.hi; }).length;
+      return { html: boxSvg(v, q1, q3, st.lo, st.hi), txt: pyNum(st.lo) + ' ' + pyNum(st.hi),
+        read: '이상치 후보 <b>' + out + '개</b>(전체 ' + v.length + '개 중). 일반세균은 대부분 0이라 상자가 납작해요. 이걸 IQR로 다 지워도 될까요? — <b>측정 오류인지, 실제로 많이 나온 날인지 사람이 판단</b>하고 이유를 활동지 ④에 한 줄.' }; } },
+  { no:'❿', t:'이상치 처리 — 조건으로 행 고르기', pg:'77쪽', w:['rows'], rows:'이상치 처리 후',
+    code: "df = df[(df['" + Y + "'] >= 아래) & (df['" + Y + "'] ⟦<=⟧ 위)]\ndf.shape",
+    lex: [["df[조건]", '조건이 True 인 행만 남겨요'], ['&', '«그리고» — 두 조건을 모두 만족'], ['>= 아래 · <= 위', '정상 범위 안의 값']],
+    run: function(st){ var b = ci(st.df, Y), n0 = st.df.rows.length; st.df.rows = st.df.rows.filter(function(r){ return r[b] >= st.lo && r[b] <= st.hi; });
+      st.rec['이상치 처리 후'] = st.df.rows.length; return { txt: shp(st.df), read: '<b>' + (n0 - st.df.rows.length) + '행</b>이 빠졌어요. 지운 이유를 적어 두세요 — 발표 때 «불리한 데이터를 왜 뺐나요?»에 답할 근거예요.' }; } },
+  { no:'⓬', t:'데이터 축소 — 쓰지 않을 열 빼기', pg:'78쪽', w:['cols'], rows:null,
+    code: "df = df.⟦drop⟧(['연번'], axis=1)\nlist(df.columns)",
+    lex: [["df.drop([…], axis=1)", '열을 지워요(axis=1 이 «열»). 번호 · 이름 · 연락처처럼 분석에 안 쓰거나 개인을 알아볼 수 있는 열'], ['list(df.columns)', '남은 열 이름 확인']],
+    run: function(st){ var j = ci(st.df, '연번'); st.df.cols.splice(j, 1); st.df.num.splice(j, 1); st.df.rows.forEach(function(r){ r.splice(j, 1); });
+      return { txt: '[' + st.df.cols.map(function(c){ return "'" + c + "'"; }).join(', ') + ']' }; } },
+  { no:'⓭', t:'핵심 속성 찾기 — 산점도', pg:'79쪽', w:['scatter'], rows:null,
+    code: "plt.⟦scatter⟧(df['" + X + "'], df['" + Y + "'])\nplt.xlabel('" + X + "')\nplt.ylabel('" + Y + "')\nplt.title(f'n={len(df)}')\nplt.show()",
+    lex: [['plt.scatter(x, y)', '점 하나 = 행 하나. 가로축 «원인 쪽», 세로축 «결과 쪽»'], ["plt.title(f'n=…')", '그래프에 표본 수 n 을 꼭 적어요']],
+    run: function(st){ return { html: scatterSvg(colv(st.df, X), colv(st.df, Y)) }; } },
+  { no:'⓮', t:'상관관계 분석', pg:'79쪽', w:['corr'], rows:null,
+    code: "corr = df.⟦corr⟧(numeric_only=True)\ncorr['" + Y + "'].sort_values()",
+    lex: [['df.corr(numeric_only=True)', '숫자 열끼리 상관계수(−1 ~ 1) 표'], ["corr['" + Y + "']", '일반세균과 다른 열의 상관만'], ['.sort_values()', '작은 것부터 — 끝으로 갈수록 함께 늘어나는 관계']],
+    run: function(st){ var y = colv(st.df, Y), p = [];
+      st.df.cols.forEach(function(c, j){ if(!st.df.num[j]) return; p.push([c, pear(colv(st.df, c), y)]); });
+      p.sort(function(a, b){ return a[1] - b[1]; });
+      var rx = p.filter(function(x){ return x[0] === X; })[0][1];
+      return { txt: series(p.map(function(x){ return [x[0], x[1].toFixed(6)]; }), Y, 'float64'),
+        read: '우리 가설(' + X + ' → ' + Y + ')의 상관계수는 <b>' + rx.toFixed(3) + '</b> — 0에 가까우면 관계가 약해요. 함께 움직여도 <b>원인이라고는 말할 수 없어요</b>.' }; } },
+  { no:'⓫', t:'저장', pg:'77쪽', w:['save'], rows:null,
+    code: "df.⟦to_csv⟧('우리데이터_전처리.csv', index=False, encoding='utf-8-sig')",
+    lex: [['df.to_csv(…)', '치운 데이터를 파일로 — Ⅳ단원 프로젝트 · 오렌지3에서도 그대로 씀'], ["encoding='utf-8-sig'", '엑셀에서 열어도 한글이 안 깨져요']],
+    run: function(st){ return { txt: '저장함 — 우리데이터_전처리.csv (' + st.df.rows.length + '행) · 코랩 왼쪽 📁 폴더에서 내려받기' }; } }
+];
+
+/* ── 그래프 ── */
+function boxSvg(v, q1, q3, lo, hi){
+  var s = v.slice().sort(function(a, b){ return a - b; }), md = quant(v, .5), mx = s[s.length - 1];
+  var wl = s.filter(function(x){ return x >= lo; })[0], wh = s.filter(function(x){ return x <= hi; }).pop();
+  var W = 420, H = 260, top = 18, bot = 228, Ymax = Math.max(mx, hi) * 1.05 || 1, Ymin = Math.min(0, lo);
+  var y = function(t){ return bot - (t - Ymin) / (Ymax - Ymin) * (bot - top); };
+  var g = '', i, tick = niceStep(Ymax - Ymin);
+  for(i = Math.ceil(Ymin / tick) * tick; i <= Ymax; i += tick) g += '<line class="gd" x1="50" x2="400" y1="' + y(i) + '" y2="' + y(i) + '"/><text x="44" y="' + (y(i) + 4) + '" text-anchor="end">' + fmt(i) + '</text>';
+  var cx = 225, bw = 70, fl = '';
+  s.forEach(function(x){ if(x < lo || x > hi) fl += '<circle class="fl" cx="' + cx + '" cy="' + y(x) + '" r="3.2"/>'; });
+  return '<svg class="plot" viewBox="0 0 ' + W + ' ' + H + '"><text x="210" y="13" text-anchor="middle">' + Y + ' 상자그림</text>' + g +
+    '<line class="lim" x1="60" x2="390" y1="' + y(hi) + '" y2="' + y(hi) + '"/><text x="392" y="' + (y(hi) - 3) + '" text-anchor="end" style="fill:var(--bad)">위 ' + fmt(hi) + '</text>' +
+    '<line class="wk" x1="' + cx + '" x2="' + cx + '" y1="' + y(wl) + '" y2="' + y(q1) + '"/><line class="wk" x1="' + cx + '" x2="' + cx + '" y1="' + y(q3) + '" y2="' + y(wh) + '"/>' +
+    '<line class="wk" x1="' + (cx - 18) + '" x2="' + (cx + 18) + '" y1="' + y(wl) + '" y2="' + y(wl) + '"/><line class="wk" x1="' + (cx - 18) + '" x2="' + (cx + 18) + '" y1="' + y(wh) + '" y2="' + y(wh) + '"/>' +
+    '<rect class="bx" x="' + (cx - bw / 2) + '" y="' + y(q3) + '" width="' + bw + '" height="' + Math.max(1.5, y(q1) - y(q3)) + '"/>' +
+    '<line class="md" x1="' + (cx - bw / 2) + '" x2="' + (cx + bw / 2) + '" y1="' + y(md) + '" y2="' + y(md) + '"/>' + fl +
+    '<line class="ax" x1="50" x2="50" y1="' + top + '" y2="' + bot + '"/></svg>';
+}
+function scatterSvg(xs, ys){
+  var W = 420, H = 280, L = 50, R = 405, T = 22, B = 240;
+  var xmax = Math.max.apply(null, xs) * 1.05 || 1, ymax = Math.max.apply(null, ys) * 1.08 || 1;
+  var sx = function(v){ return L + v / xmax * (R - L); }, sy = function(v){ return B - v / ymax * (B - T); };
+  var g = '', i, tx = niceStep(xmax), ty = niceStep(ymax);
+  for(i = 0; i <= ymax; i += ty) g += '<line class="gd" x1="' + L + '" x2="' + R + '" y1="' + sy(i) + '" y2="' + sy(i) + '"/><text x="' + (L - 6) + '" y="' + (sy(i) + 4) + '" text-anchor="end">' + fmt(i) + '</text>';
+  for(i = 0; i <= xmax; i += tx) g += '<text x="' + sx(i) + '" y="' + (B + 15) + '" text-anchor="middle">' + fmt(i) + '</text>';
+  var p = ''; xs.forEach(function(x, k){ p += '<circle class="pt" cx="' + sx(x).toFixed(1) + '" cy="' + sy(ys[k]).toFixed(1) + '" r="3"/>'; });
+  return '<svg class="plot" viewBox="0 0 ' + W + ' ' + H + '"><text x="' + ((L + R) / 2) + '" y="14" text-anchor="middle">n=' + xs.length + '</text>' + g + p +
+    '<line class="ax" x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + B + '"/><line class="ax" x1="' + L + '" x2="' + R + '" y1="' + B + '" y2="' + B + '"/>' +
+    '<text x="' + ((L + R) / 2) + '" y="' + (H - 4) + '" text-anchor="middle">' + X + '</text><text x="12" y="' + ((T + B) / 2) + '" text-anchor="middle" transform="rotate(-90 12 ' + ((T + B) / 2) + ')">' + Y + '</text></svg>';
+}
+function niceStep(r){ var raw = r / 5, p = Math.pow(10, Math.floor(Math.log10(raw || 1))), m = raw / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }
+function fmt(v){ return Math.abs(v - Math.round(v)) < 1e-9 ? String(Math.round(v)) : v.toFixed(1); }
+
+/* ══════════ 오렌지3 캔버스 ══════════ */
+var W = [
+  { id:'file',    nm:'File',               k:'data', x:60,  y:200, set:'파일 주소에 water_quality.csv · 앞 200행', do:'파일을 열어 표로 읽어요 — 코드의 <code>pd.read_csv</code>' },
+  { id:'file2',   nm:'File (2)',           k:'data', x:60,  y:330, set:'같은 파일 · 195행부터(하반기)', do:'두 번째 파일 — 연습을 위해 일부러 겹치는 5행을 넣었어요' },
+  { id:'concat',  nm:'Concatenate',        k:'tr',   x:180, y:200, set:'Primary Data = File, Additional Data = File (2)', do:'두 표를 위아래로 이어요 — <code>pd.concat</code>' },
+  { id:'edit',    nm:'Edit Domain',        k:'tr',   x:300, y:200, set:'판정 → Values: Y → 1, N → 0, 0(여시니아) → 0', do:'값 이름을 고쳐 같은 뜻을 하나로 — <code>replace</code>' },
+  { id:'unique',  nm:'Unique',             k:'tr',   x:420, y:200, set:'Group by: 모든 열 · Instance to select: First', do:'똑같은 행을 하나만 남겨요 — <code>drop_duplicates</code>' },
+  { id:'fstat',   nm:'Feature Statistics', k:'data', x:520, y:70,  set:'«Missing» 열을 봅니다', do:'열마다 평균 · 분포 · <b>빈칸(Missing) 개수</b> — <code>isnull().sum()</code>' },
+  { id:'impute',  nm:'Impute',             k:'tr',   x:540, y:200, set:'Default method: Remove instances with unknown values (평균이면 Average/Most frequent)', do:'빈칸 처리 — 삭제는 <code>dropna</code>, 평균은 <code>fillna</code>' },
+  { id:'box',     nm:'Box Plot',           k:'vis',  x:640, y:70,  set:'Variable: 일반세균', do:'상자그림으로 이상치 후보를 봐요 — <code>plt.boxplot</code>' },
+  { id:'rows',    nm:'Select Rows',        k:'tr',   x:660, y:200, set:'일반세균 is between −7.5 and 12.5', do:'조건에 맞는 행만 남겨요 — <code>df[조건]</code>' },
+  { id:'cols',    nm:'Select Columns',     k:'tr',   x:780, y:200, set:'연번 → Ignored', do:'분석에 쓰지 않을 열을 빼요 — <code>drop(axis=1)</code>' },
+  { id:'scatter', nm:'Scatter Plot',       k:'vis',  x:880, y:70,  set:'Axis x: 질산성질소 · Axis y: 일반세균', do:'두 열의 관계를 점으로 — <code>plt.scatter</code>' },
+  { id:'corr',    nm:'Correlations',       k:'data', x:880, y:330, set:'Pearson correlation', do:'열끼리 상관계수 — <code>df.corr()</code>' },
+  { id:'save',    nm:'Save Data',          k:'data', x:900, y:200, set:'우리데이터_전처리.csv', do:'치운 데이터를 저장 — <code>to_csv</code>' }
+];
+var LINKS = [['file','concat'],['file2','concat'],['concat','edit'],['edit','unique'],['unique','fstat'],['unique','impute'],['impute','box'],['impute','rows'],['rows','cols'],['cols','scatter'],['cols','corr'],['cols','save']];
+var ICON = {
+  file:   '<path d="M-9,-14 h11 l7,7 v21 h-18 z" class="w"/><path d="M2,-14 v7 h7"/><path d="M-5,0 h10 M-5,5 h10 M-5,10 h6"/>',
+  concat: '<rect x="-11" y="-14" width="22" height="11" rx="1.5" class="w"/><rect x="-11" y="3" width="22" height="11" rx="1.5" class="w"/><path d="M0,-3 v6"/>',
+  edit:   '<rect x="-13" y="-11" width="20" height="22" rx="2" class="w"/><path d="M-9,-5 h12 M-9,0 h8 M-9,5 h10"/><path d="M4,10 l10,-10 l-3,-3 l-10,10 z" class="w"/>',
+  unique: '<rect x="-13" y="-12" width="18" height="10" rx="1.5" class="w"/><rect x="-5" y="-4" width="18" height="10" rx="1.5" class="w"/><path d="M-12,10 l4,4 l8,-9"/>',
+  fstat:  '<path d="M-13,12 h26"/><rect x="-11" y="2" width="5" height="10" class="w"/><rect x="-3" y="-8" width="5" height="20" class="w"/><rect x="5" y="-3" width="5" height="15" class="w"/>',
+  impute: '<rect x="-13" y="-11" width="26" height="22" rx="2" class="w"/><path d="M-13,-3 h26 M-13,4 h26 M-2,-11 v22"/><rect class="f" x="1" y="-2" width="11" height="5" opacity=".7"/>',
+  box:    '<path d="M0,-14 v6 M0,8 v6 M-5,-14 h10 M-5,14 h10"/><rect x="-8" y="-8" width="16" height="16" class="w"/><path d="M-8,1 h16" stroke-width="2.6"/>',
+  rows:   '<path d="M-13,-12 h26 l-10,11 v11 l-6,3 v-14 z" class="w"/>',
+  cols:   '<rect x="-13" y="-11" width="26" height="22" rx="2" class="w"/><path d="M-4.3,-11 v22 M4.3,-11 v22"/><rect class="f" x="-12" y="-10" width="7" height="20" opacity=".55"/>',
+  scatter:'<path d="M-13,-14 v27 h27"/><circle class="f" cx="-7" cy="6" r="2"/><circle class="f" cx="-3" cy="-1" r="2"/><circle class="f" cx="2" cy="4" r="2"/><circle class="f" cx="6" cy="-6" r="2"/><circle class="f" cx="10" cy="-2" r="2"/>',
+  corr:   '<rect x="-13" y="-13" width="26" height="26" rx="2" class="w"/><path d="M-4.3,-13 v26 M4.3,-13 v26 M-13,-4.3 h26 M-13,4.3 h26"/><rect class="f" x="-12" y="-12" width="7" height="7" opacity=".75"/><rect class="f" x="-3.5" y="-3.5" width="7" height="7" opacity=".75"/><rect class="f" x="5" y="5" width="7" height="7" opacity=".75"/>',
+  save:   '<path d="M-12,-12 h19 l5,5 v19 h-24 z" class="w"/><rect x="-7" y="-12" width="12" height="7"/><rect x="-8" y="3" width="16" height="9"/>'
+};
+function wpos(id){ return W.filter(function(w){ return w.id === id; })[0]; }
+function cellOf(id){ for(var i = 0; i < C.length; i++) if(C[i].w.indexOf(id) >= 0) return i; return -1; }
+var selW = null, selC = -1;
+function drawCanvas(){
+  var svg = $('cv'), h = '', R = 30, A = 37, hasIn = {}, hasOut = {};
+  LINKS.forEach(function(L){ hasOut[L[0]] = 1; hasIn[L[1]] = 1; });
+  LINKS.forEach(function(L){
+    var a = wpos(L[0]), b = wpos(L[1]), x1 = a.x + A, y1 = a.y, x2 = b.x - A, y2 = b.y, dx = Math.max(30, Math.abs(x2 - x1) * 0.5);
+    var on = selW && (L[0] === selW || L[1] === selW);
+    h += '<path class="lk' + (on ? ' on' : '') + '" d="M' + x1 + ',' + y1 + ' C' + (x1 + dx) + ',' + y1 + ' ' + (x2 - dx) + ',' + y2 + ' ' + x2 + ',' + y2 + '"/>';
+  });
+  var arcL = 'M' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 0 ' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
+  var arcR = 'M' + (A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 1 ' + (A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
+  W.forEach(function(w){
+    var c = cellOf(w.id), done = RT.ran[c], badge = '';
+    if(done && RT.st){ if(w.id === 'concat') badge = RT.st.rec['통합 후'] + '행'; if(w.id === 'unique') badge = RT.st.rec['중복 삭제 후'] + '행'; if(w.id === 'impute') badge = RT.st.rec['결측 처리 후'] + '행'; if(w.id === 'rows') badge = RT.st.rec['이상치 처리 후'] + '행'; }
+    h += '<g class="wg ' + (w.k === 'data' ? 'data' : w.k) + (selW === w.id ? ' sel' : '') + '" data-w="' + w.id + '" tabindex="0" role="button" aria-label="' + w.nm + ' 위젯" transform="translate(' + w.x + ',' + w.y + ')">' +
+      '<circle class="halo" r="' + (A + 6) + '"/>' +
+      (hasIn[w.id] ? '<path class="anc on" d="' + arcL + '"/><circle class="adot" cx="' + (-A) + '" cy="0" r="3"/>' : '') +
+      (hasOut[w.id] ? '<path class="anc on" d="' + arcR + '"/><circle class="adot" cx="' + A + '" cy="0" r="3"/>' : '') +
+      '<circle class="disc" r="' + R + '"/><g class="ico">' + (ICON[w.id] || ICON[w.id.replace(/\d/, '')] || ICON.file) + '</g>' +
+      '<text class="nm" x="0" y="' + (A + 21) + '" text-anchor="middle">' + w.nm + '</text>' +
+      (badge ? '<text class="bd" x="0" y="' + (-A - 10) + '" text-anchor="middle">' + badge + '</text>' : '') + '</g>';
+  });
+  svg.innerHTML = h;
+}
+function drawSet(){
+  var box = $('wset'), w = selW && wpos(selW);
+  if(!w){ box.innerHTML = '<h3>👆 위젯을 하나 눌러 보세요</h3><p class="hint">그 위젯과 같은 일을 하는 코드가 오른쪽에서 <b style="background:var(--hl-soft)">노랗게</b> 표시됩니다. 거꾸로 코드 칸을 눌러도 위젯이 골라져요. 칸을 실행하면 위젯 위에 <b>남은 행 수</b>가 떠요.</p>'; return; }
+  var c = C[cellOf(w.id)];
+  box.innerHTML = '<h3><span class="chip ' + w.k + '">' + w.nm + '</span> ' + c.no + ' ' + c.t + ' <small style="color:var(--muted); font-weight:500">교과서 ' + c.pg + '</small></h3>' +
+    '<dl><dt>하는 일</dt><dd>' + (MODE === 'blank' && !solved(cellOf(w.id)) ? mask(w.do, blanks(c.code)) : w.do) + '</dd><dt>오렌지3 설정</dt><dd>' + w.set + '</dd></dl>';
+}
+function pick(id){ selW = selW === id ? null : id; selC = selW ? cellOf(selW) : -1; drawCanvas(); drawSet(); drawNb();
+  if(selC >= 0){ var el = document.querySelector('.cell[data-i="' + selC + '"]'); if(el) el.scrollIntoView({ block:'nearest', behavior:'smooth' }); } }
+
+/* ══════════ 노트북: 빈칸 · 따라 적기 · 실행 ══════════ */
+var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+var MODES = TEACH ? { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기' } : { blank:'🟢 빈칸', copy:'🟡 따라 적기' };
+var MODE = (location.search.match(/[?&]mode=(view|blank|copy)\b/) || [])[1] || store('d2c_mode') || 'blank';
+if(!MODES[MODE]) MODE = 'blank';
+var SOLVED = {}; try{ SOLVED = JSON.parse(store('d2c_solved') || '{}') || {}; }catch(e){ SOLVED = {}; }
+var DRAFT = {};
+var RT = { ran: {}, st: null, outs: {}, cnt: {}, n: 0 };
+var LEXOPEN = {};
+function plain(code){ return code.replace(/[⟦⟧]/g, ''); }
+function blanks(code){ var a = [], re = /⟦([^⟧]*)⟧/g, m; while((m = re.exec(code))) a.push(m[1]); return a; }
+function mask(t, bl){ bl.forEach(function(a){ if(a.length > 1) t = t.split(a).join('___'); }); return t; }
+function key(i){ return MODE + '|' + i; }
+function solved(i){ return MODE === 'view' || SOLVED[key(i)] === 1; }
+function normCode(s){ return s.split('\n').map(function(l){ return l.replace(/#.*$/, ''); }).join('').replace(/\s+/g, '').replace(/"/g, "'"); }
+function hl(code){
+  var out = '', re = /(#[^\n]*)|('[^'\n]*'|"[^"\n]*")|\b(import|as|print|for|in|if|else|True|False|None|and|or|not)\b|\b(\d+(?:\.\d+)?)\b|(\.[A-Za-z_]+(?=\())/g, last = 0, m;
+  while((m = re.exec(code))){ out += esc(code.slice(last, m.index));
+    out += m[1] ? '<span class="c">' + esc(m[1]) + '</span>' : m[2] ? '<span class="s">' + esc(m[2]) + '</span>' : m[3] ? '<span class="k">' + m[3] + '</span>' : m[4] ? '<span class="n">' + m[4] + '</span>' : '<span class="f">' + esc(m[5]) + '</span>';
+    last = re.lastIndex; }
+  return out + esc(code.slice(last));
+}
+function codeHtml(i, c){
+  if(MODE === 'view' || solved(i)) return '<pre class="code' + (MODE !== 'view' ? ' solved' : '') + '">' + hl(plain(c.code)) + '</pre>' + (MODE !== 'view' && !RT.ran[i] ? '<div class="pfb ok">✓ 맞았어요! ▶ 를 눌러 실행해 보세요.</div>' : '');
+  if(MODE === 'blank'){
+    var parts = c.code.split(/⟦[^⟧]*⟧/), bl = blanks(c.code), h = '';
+    parts.forEach(function(p, k){ h += hl(p); if(k < bl.length){ var v = (DRAFT[key(i)] || [])[k] || ''; h += '<input class="bl" data-i="' + i + '" data-k="' + k + '" size="' + Math.max(4, bl[k].length + 1) + '" value="' + esc(v) + '" aria-label="빈칸 ' + (k + 1) + '" autocomplete="off" spellcheck="false">'; } });
+    return '<pre class="code">' + h + '</pre><div class="pact"><button class="btn chk" type="button" data-chk="' + i + '">확인</button><span class="kb">빈칸 ' + bl.length + '개 · Enter 로도 확인</span></div><div class="pfb" id="fb' + i + '"></div>';
+  }
+  return '<pre class="code ghost" aria-hidden="true">' + hl(plain(c.code)) + '</pre><textarea class="type" data-i="' + i + '" rows="' + (plain(c.code).split('\n').length + 1) + '" spellcheck="false" placeholder="위 코드를 그대로 따라 적어 보세요">' + esc(DRAFT[key(i)] || '') + '</textarea>' +
+    '<div class="pact"><button class="btn chk" type="button" data-chk="' + i + '">확인</button><span class="kb">띄어쓰기 · 주석은 달라도 괜찮아요</span></div><div class="pfb" id="fb' + i + '"></div>';
+}
+function check(i){
+  var c = C[i], fb = $('fb' + i);
+  if(MODE === 'blank'){
+    var bl = blanks(c.code), ok = true, ins = document.querySelectorAll('input.bl[data-i="' + i + '"]');
+    [].forEach.call(ins, function(inp){ var good = inp.value.trim() === bl[+inp.dataset.k]; inp.classList.toggle('bad', !good); if(!good) ok = false; });
+    if(!ok){ fb.className = 'pfb no'; fb.textContent = '빨간 칸을 다시 보세요. 막히면 아래 🔍 한 줄씩 풀이를 열어 보세요.'; return; }
+  } else {
+    var ta = document.querySelector('textarea.type[data-i="' + i + '"]');
+    if(normCode(ta.value) !== normCode(plain(c.code))){ fb.className = 'pfb no'; fb.textContent = '아직 달라요. 철자 · 괄호 · 따옴표를 한 글자씩 견주어 보세요.'; return; }
+  }
+  SOLVED[key(i)] = 1; store('d2c_solved', JSON.stringify(SOLVED)); drawNb();
+  var f2 = $('fb' + i); if(f2){ f2.className = 'pfb ok'; f2.textContent = '맞았어요! ▶ 로 실행해 보세요.'; }
+}
+function runCell(i){
+  for(var k = 0; k < i; k++) if(!RT.ran[k]){ RT.outs[i] = { err: "NameError: name 'df' is not defined\n→ 위 칸(" + C[k].no + ")을 먼저 실행하세요. 코랩은 «실행한 칸»만 기억합니다." }; drawNb(); return false; }
+  if(!solved(i)){ RT.outs[i] = { err: '아직 빈칸이 남았어요 — 칸을 채우고 «확인»을 누른 뒤 실행하세요.' }; drawNb(); return false; }
+  var st = { rec: {} }, out = null;
+  for(k = 0; k <= i; k++) out = C[k].run(st);
+  RT.st = st; RT.ran[i] = true; RT.outs[i] = out; RT.cnt[i] = ++RT.n;
+  for(k = i + 1; k < C.length; k++) if(RT.outs[k]) RT.outs[k].stale = true;
+  drawNb(); drawCanvas(); drawRc(); return true;
+}
+function runAll(){ for(var i = 0; i < C.length; i++){ if(!runCell(i)) break; } }
+function drawModeBar(){
+  var done = 0; C.forEach(function(c, i){ if(SOLVED[key(i)]) done++; });
+  $('modeBar').innerHTML = Object.keys(MODES).map(function(m){ return '<button class="mode' + (m === MODE ? ' on' : '') + '" type="button" data-mode="' + m + '">' + MODES[m] + '</button>'; }).join('') +
+    (MODE !== 'view' ? '<small>완성 <b>' + done + '</b> / ' + C.length + '칸</small>' : '<small>교사 시범 · 모든 칸이 열려 있어요</small>');
+}
+function drawNb(){
+  drawModeBar();
+  if(!RAW) return;
+  var h = '<div class="tcell sm"><span class="tag">연습 데이터</span>약수터 수질 검사(교과서 부록) — 판정 표기가 <b>1 · Y · 0(여시니아)</b>로 섞여 있고, 일부러 <b>두 파일로 나누고 5행을 겹쳐</b> 두어 ❶~⓮가 모두 실행돼요. 가설: «<b>' + X + '</b>이 많을수록 <b>' + Y + '</b>이 많을 것이다».</div>';
+  C.forEach(function(c, i){
+    var o = RT.outs[i], lexOpen = LEXOPEN[i];
+    h += '<div class="cell' + (selC === i ? ' hl' : '') + '" data-i="' + i + '" tabindex="-1">' +
+      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + c.no + ' 실행">▶</button><span class="cnt">[' + (RT.cnt[i] || ' ') + ']</span></div>' +
+      '<div class="src"><div class="ctag"><b>' + c.no + ' ' + c.t + '</b><small>교과서 ' + c.pg + '</small>' + c.w.map(function(id){ var w = wpos(id); return '<span class="chip ' + w.k + '">' + w.nm + '</span>'; }).join('') + '</div>' +
+      codeHtml(i, c) +
+      '<details class="lex"' + (lexOpen ? ' open' : '') + ' data-lex="' + i + '"><summary>🔍 한 줄씩 풀이 <small>— 빈칸 답은 나오지 않아요</small></summary><ol>' +
+        c.lex.map(function(l){ return '<li><span><code>' + esc(MODE === 'blank' && !solved(i) ? mask(l[0], blanks(c.code)) : l[0]) + '</code></span><span>' + l[1] + '</span></li>'; }).join('') + '</ol></details>' +
+      (o ? (o.err ? '<div class="out err">' + esc(o.err) + '</div>' : '<div class="out' + (o.stale ? ' stale' : '') + '">' + (o.html || '') + (o.txt ? esc(o.txt) : '') + '</div>' + (o.read && !o.stale ? '<div class="read">📖 ' + o.read + '</div>' : '')) : '') +
+      '</div></div>';
+  });
+  var all = C.every(function(c, i){ return RT.ran[i]; });
+  if(all) h += '<div class="nextstep">🎉 연습 데이터로 한 바퀴 끝! ' + (MODE === 'blank' ? '시간이 남으면 <button class="btn" type="button" data-mode="copy">🟡 따라 적기</button>로 한 번 더, ' : '') +
+    '이제 <a class="btn pri" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">▶ 코랩 노트북 20</a>에서 <b>우리 모둠 데이터</b>로 같은 순서를 돌려요.</div>';
+  $('nb').innerHTML = h;
+}
+var AIV = {}; try{ AIV = JSON.parse(store('d2c_ai') || '{}') || {}; }catch(e){ AIV = {}; }
+function drawRc(){
+  var st = RT.st, rows = ['처음(두 파일)', '통합 후', '중복 삭제 후', '결측 처리 후', '이상치 처리 후'];
+  var h = '<tr><th>단계</th><th>코드로 확인한 행 수</th><th>데이터 정리 AI가 말한 행 수</th><th>같은가?</th></tr>';
+  rows.forEach(function(r){
+    var v = st && st.rec[r] !== undefined ? st.rec[r] : '', a = AIV[r] || '', same = v !== '' && a !== '' ? (Number(a) === v ? '<span class="same ok">✓ 같음</span>' : '<span class="same no">✗ 다름 → 다시 지시</span>') : '';
+    h += '<tr><td>' + r + '</td><td>' + (v === '' ? '<span style="color:var(--muted)">실행 전</span>' : v) + '</td><td><input data-ai="' + r + '" inputmode="numeric" value="' + esc(a) + '" aria-label="' + r + ' 데이터 정리 AI 행 수"></td><td>' + same + '</td></tr>';
+  });
+  $('rc').innerHTML = h;
+}
+function drawSteps(){
+  var mk = function(k, n, w){ return '<span><span class="chip ' + k + '">' + w + '</span> <b>' + n + '</b></span>'; };
+  $('stepBar').innerHTML = mk('data', '읽기', 'File') + '<i>→</i>' + mk('tr', '잇기', 'Concatenate') + '<i>→</i>' + mk('tr', '바꾸기', 'Edit Domain') + '<i>→</i>' + mk('tr', '중복', 'Unique') + '<i>→</i>' +
+    mk('tr', '결측', 'Impute') + '<i>→</i>' + mk('vis', '이상치 보기', 'Box Plot') + '<i>→</i>' + mk('tr', '이상치 거르기', 'Select Rows') + '<i>→</i>' + mk('tr', '축소', 'Select Columns') + '<i>→</i>' +
+    mk('vis', '그래프', 'Scatter Plot') + '<i>→</i>' + mk('data', '상관', 'Correlations');
+}
+
+/* ── 이벤트 ── */
+$('cv').addEventListener('click', function(e){ var g = e.target.closest('.wg'); if(g) pick(g.dataset.w); });
+$('cv').addEventListener('keydown', function(e){ var g = e.target.closest('.wg'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); pick(g.dataset.w); } });
+document.addEventListener('click', function(e){
+  var m = e.target.closest('[data-mode]'); if(m){ MODE = m.dataset.mode; store('d2c_mode', MODE); drawNb(); drawSet(); return; }
+  var r = e.target.closest('[data-run]'); if(r){ runCell(+r.dataset.run); return; }
+  var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
+  var cell = e.target.closest('.cell'); if(cell && !e.target.closest('input,textarea,button,details,summary')){ var i = +cell.dataset.i; if(selC !== i){ selC = i; selW = C[i].w[0]; drawCanvas(); drawSet(); drawNb(); } }
+});
+document.addEventListener('toggle', function(e){ if(e.target.dataset && e.target.dataset.lex !== undefined) LEXOPEN[e.target.dataset.lex] = e.target.open; }, true);
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(t.matches('input.bl')){ var a = DRAFT[key(+t.dataset.i)] = DRAFT[key(+t.dataset.i)] || []; a[+t.dataset.k] = t.value; t.classList.remove('bad'); }
+  if(t.matches('textarea.type')) DRAFT[key(+t.dataset.i)] = t.value;
+  if(t.matches('[data-ai]')){ AIV[t.dataset.ai] = t.value.replace(/\D/g, ''); store('d2c_ai', JSON.stringify(AIV)); var keep = t.dataset.ai; drawRc(); var el = document.querySelector('[data-ai="' + keep + '"]'); if(el){ el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Enter' && e.target.matches('input.bl')){ e.preventDefault(); check(+e.target.dataset.i); } });
+$('runAll').addEventListener('click', function(){ if(MODE !== 'view' && !C.every(function(c, i){ return solved(i); })){ runAll(); return; } runAll(); });
+$('resetRt').addEventListener('click', function(){ RT = { ran: {}, st: null, outs: {}, cnt: {}, n: 0 }; drawNb(); drawCanvas(); drawRc(); });
+
+drawSteps(); drawCanvas(); drawSet(); drawModeBar(); drawRc();
+fetch('data/water_quality.csv').then(function(r){ return r.text(); }).then(function(t){ RAW = parseCsv(t); drawNb(); })
+  .catch(function(){ $('nb').innerHTML = '<div class="tcell">연습 데이터를 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요.</div>'; });
+})();
+</script>
+<link rel="stylesheet" href="polish.css?v=30167133">
+<script src="polish.js?v=4d3812ad"></script>
+</body>
+</html>
