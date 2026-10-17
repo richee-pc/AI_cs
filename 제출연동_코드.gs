@@ -1,5 +1,5 @@
 /**
- * 인공지능 기초 활동지 수집기  v32
+ * 인공지능 기초 활동지 수집기  v33
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 2학년 진로선택
  *
  * 한 스프레드시트 안에 활동별로 탭이 하나씩 생깁니다.
@@ -13,6 +13,9 @@
  *   ── Ⅱ단원 수업 활동 ──
  *   · Ⅱ 학습활동기록    ← unit2.html 활동 기록지 (전처리 체험 · 유형 고르기 ·
  *                        k-최근접 이웃 · 선형 회귀 · 퍼셉트론 · O/X 를 한 줄로)
+ *   ── 프로젝트 모둠 편성 (v33) ──
+ *   · 모둠편성설문      ← team.html (신경망 차시 끝 2분 설문 · 선생님만 봄)
+ *                        편성안은 편집기에서 «모둠편성안만들기» 실행 → «편성안_인기A» 등 탭
  *   ── Ⅲ단원 수업 활동 (차시마다 학생이 쓰고 그때그때 냅니다) ──
  *   · Ⅲ 발전이야기      ← 활동 ①
  *   · Ⅲ 사회문제해결    ← 활동 ②
@@ -99,7 +102,7 @@
 var SUBMIT_KEY = 'chosun-ai-2026';
 
 // 학생 페이지가 이 번호를 보고 «코드가 최신인지» 확인합니다. 건드리지 마세요.
-var VER = 32;
+var VER = 33;
 
 var SHEETS = {
 
@@ -223,6 +226,17 @@ var SHEETS = {
               d.prep || '', d.kinds || '', d.knn || '', d.reg || '', d.percep || '', d.ox || '',
               d.q1 || '', d.q2 || '', d.q3 || '',
               d.rub1 || '', d.rub2 || ''];
+    }
+  },
+
+  team: {
+    name: '모둠편성설문',
+    head: ['제출 시각', '분반', '학번', '이름', '희망 짝', '파이썬', '관심 분야',
+           '희망 진로', '희망 역할', '같은 모둠이 어려운 친구'],
+    width: [140, 70, 80, 90, 120, 90, 180, 160, 110, 160],
+    row: function (d) {
+      return [new Date(), d.cls || '', String(d.sid || '').replace(/\D/g, ''), d.name || '',
+              d.partner || '', d.python || '', d.interest || '', d.career || '', d.role || '', d.avoid || ''];
     }
   },
 
@@ -2193,4 +2207,182 @@ function 테스트한줄넣기() {
       m0b: note, rule: note
     }) } });
   });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   모둠 편성안 만들기 (v33) — 편집기에서 «모둠편성안만들기» 를 골라 ▶ 실행
+   «모둠편성설문» 탭의 응답으로 분반마다 «편성안_인기A» 같은 탭을 새로 만듭니다.
+   · 모둠 수 = 인원 ÷ 4 반올림(27~29명 → 7모둠) · 서로 고른 짝 우선 · 피하고 싶은 친구는 떼어 놓음
+   · 파이썬 배운 학생 고르게 · 같은 관심 분야는 한 모둠 2명까지 · 희망 역할 겹치지 않게
+   · 같은 학번이 두 번 내면 나중 것만 씀 · 응답 안 한 학생은 설문 탭 맨 아래에 분반·학번·이름만 적고 다시 실행
+   · 다시 실행하면 «편성안_» 탭을 새로 만듭니다(손으로 고친 탭은 이름을 바꿔 두세요)
+   ══════════════════════════════════════════════════════════════ */
+var TEAM_CLASSES = ['인기A', '인기D', '인기E'];
+var TEAM_ROLES = ['기록·정리', '데이터 찾기', '분석·시각화', '발표'];
+
+function 모둠편성안만들기() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(SHEETS.team.name);
+  if (!sh) throw new Error('«' + SHEETS.team.name + '» 탭이 없습니다. 설문 응답이 하나라도 들어와야 생깁니다.');
+  var v = sh.getDataRange().getDisplayValues();
+  var byId = {};
+  for (var r = 1; r < v.length; r++) {
+    var x = v[r], id = String(x[2] || '').replace(/\D/g, ''), name = String(x[3] || '').replace(/\s/g, '');
+    if (!x[1] || (!id && !name)) continue;
+    byId[x[1] + '|' + (id || name)] = {
+      cls: String(x[1]).trim(), id: id, name: name, partnerText: String(x[4] || '').trim(),
+      python: x[5] === '예', pythonText: x[5] || '(미응답)',
+      interests: x[6] ? String(x[6]).split(/\s*,\s*/).filter(function (t) { return t; }) : [],
+      career: x[7] || '', role: x[8] || '', avoidText: String(x[9] || '').trim()
+    };
+  }
+  var all = Object.keys(byId).map(function (k) { return byId[k]; });
+  TEAM_CLASSES.forEach(function (c) {
+    var st = all.filter(function (s) { return s.cls === c; });
+    var tab = '편성안_' + c, old = ss.getSheetByName(tab);
+    if (old) ss.deleteSheet(old);
+    if (!st.length) return;
+    teamWrite_(ss.insertSheet(tab), c, teamBuild_(st, 4, 20261019, 30));
+  });
+}
+
+function teamNone_(t) { return !t || /^(없음|없어요|x|-|무|.)$/i.test(String(t).replace(/\s/g, '')); }
+function teamMatch_(text, st) {
+  var t = String(text || '').replace(/\s/g, '');
+  if (teamNone_(t)) return -1;
+  var num = (t.match(/\d{4,6}/) || [])[0], i;
+  if (num) for (i = 0; i < st.length; i++) if (st[i].id === num) return i;
+  var w = t.replace(/[\d()（）\[\]]/g, '');
+  var hit = st.filter(function (s) { return s.name && s.name === w; });
+  if (hit.length === 1) return hit[0].idx;
+  hit = st.filter(function (s) { return s.name && w && (w.indexOf(s.name) >= 0 || (w.length >= 2 && s.name.indexOf(w) >= 0)); });
+  return hit.length === 1 ? hit[0].idx : -1;
+}
+
+function teamBuild_(st, size, seed, restarts) {
+  var n = st.length, T = Math.max(1, Math.round(n / size)), i, j, t;
+  for (i = 0; i < n; i++) st[i].idx = i;
+  st.forEach(function (s) {
+    s.partner = teamMatch_(s.partnerText, st); if (s.partner === s.idx) s.partner = -1;
+    s.partnerMissing = !teamNone_(s.partnerText) && s.partner < 0;
+    s.avoid = teamMatch_(s.avoidText, st); if (s.avoid === s.idx) s.avoid = -1;
+  });
+  var avoid = {};
+  st.forEach(function (s) { if (s.avoid >= 0) { avoid[s.idx + '-' + s.avoid] = 1; avoid[s.avoid + '-' + s.idx] = 1; } });
+  function mutual(s) { return s.partner >= 0 && st[s.partner].partner === s.idx; }
+  var base = Math.floor(n / T), extra = n % T, cap = [];
+  for (t = 0; t < T; t++) cap.push(base + (t < extra ? 1 : 0));
+  var P = st.filter(function (s) { return s.python; }).length;
+
+  function cost(a) {
+    var c = 0, teams = [], k;
+    for (k = 0; k < T; k++) teams.push([]);
+    for (k = 0; k < n; k++) teams[a[k]].push(st[k]);
+    teams.forEach(function (m) {
+      var py = m.filter(function (s) { return s.python; }).length, ic = {}, rc = {}, p, q;
+      c += 30 * Math.pow(py - P / T, 2);
+      if (py === 0 && P >= T) c += 120;
+      m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); if (s.role) rc[s.role] = (rc[s.role] || 0) + 1; });
+      Object.keys(ic).forEach(function (x) { if (x !== '기타') c += 4 * (ic[x] - 1) + 40 * Math.max(0, ic[x] - 2); });
+      Object.keys(rc).forEach(function (x) { c += 6 * (rc[x] - 1); });
+      for (p = 0; p < m.length; p++) for (q = p + 1; q < m.length; q++) if (avoid[m[p].idx + '-' + m[q].idx]) c += 1000;
+    });
+    st.forEach(function (s) { if (s.partner >= 0 && a[s.idx] !== a[s.partner]) c += mutual(s) ? 150 : 70; });
+    return c;
+  }
+  var rnd = (function (a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var x = Math.imul(a ^ a >>> 15, 1 | a); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; })(seed);
+  function initial() {
+    var used = {}, units = [], a = [], fill = [], k, cur = 0;
+    st.forEach(function (s) { if (!used[s.idx] && mutual(s) && !used[s.partner]) { units.push([s.idx, s.partner]); used[s.idx] = used[s.partner] = 1; } });
+    st.forEach(function (s) { if (!used[s.idx]) { units.push([s.idx]); used[s.idx] = 1; } });
+    for (k = units.length - 1; k > 0; k--) { var r = Math.floor(rnd() * (k + 1)), tmp = units[k]; units[k] = units[r]; units[r] = tmp; }
+    var pyc = function (u) { return u.filter(function (q) { return st[q].python; }).length; };
+    units.sort(function (u, w) { return pyc(w) - pyc(u); });
+    for (k = 0; k < n; k++) a.push(-1);
+    for (k = 0; k < T; k++) fill.push(0);
+    units.forEach(function (u) {
+      for (var z = 0; z < T; z++) {
+        var tt = (cur + z) % T;
+        if (fill[tt] + u.length <= cap[tt]) { u.forEach(function (q) { a[q] = tt; }); fill[tt] += u.length; cur = (tt + 1) % T; return; }
+      }
+      u.forEach(function (q) { for (var y = 0; y < T; y++) if (fill[y] < cap[y]) { a[q] = y; fill[y]++; return; } });
+    });
+    return a;
+  }
+  function improve(a) {
+    var best = cost(a), better = true, guard = 0, p, q, tmp, c;
+    while (better && guard++ < 60) {
+      better = false;
+      for (p = 0; p < n; p++) for (q = p + 1; q < n; q++) {
+        if (a[p] === a[q]) continue;
+        tmp = a[p]; a[p] = a[q]; a[q] = tmp; c = cost(a);
+        if (c < best - 1e-9) { best = c; better = true; } else { a[q] = a[p]; a[p] = tmp; }
+      }
+    }
+    return best;
+  }
+  var bestA = null, bestC = Infinity;
+  for (var rr = 0; rr < restarts; rr++) { var a0 = initial(), c0 = improve(a0); if (c0 < bestC) { bestC = c0; bestA = a0.slice(); } }
+
+  var teams = [];
+  for (t = 0; t < T; t++) teams.push([]);
+  for (i = 0; i < n; i++) teams[bestA[i]].push(st[i]);
+  teams.forEach(function (m) { m.sort(function (x, y) { return (x.id || x.name).localeCompare(y.id || y.name); }); });
+  teams.sort(function (x, y) { return (x[0].id || '').localeCompare(y[0].id || ''); });
+  var teamOf = {}, warn = [];
+  teams.forEach(function (m, k) { m.forEach(function (s) { teamOf[s.idx] = k; }); });
+  st.forEach(function (s) {
+    if (s.partnerMissing) warn.push(s.name + ' — 희망 짝 «' + s.partnerText + '»을(를) 명단에서 찾지 못함');
+    else if (s.partner >= 0 && teamOf[s.idx] !== teamOf[s.partner]) warn.push(s.name + ' — 희망 짝(' + st[s.partner].name + ')과 다른 모둠');
+    if (!teamNone_(s.avoidText) && s.avoid < 0) warn.push(s.name + ' — «같은 모둠이 어려운 친구» 이름을 찾지 못함(설문 탭에서 직접 확인)');
+  });
+  teams.forEach(function (m, k) {
+    var py = m.filter(function (s) { return s.python; }).length, ic = {}, p, q;
+    if (py === 0 && P >= T) warn.push((k + 1) + '모둠 — 파이썬을 배운 학생이 없음');
+    m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); });
+    Object.keys(ic).forEach(function (x) { if (x !== '기타' && ic[x] >= 3) warn.push((k + 1) + '모둠 — «' + x + '» ' + ic[x] + '명'); });
+    for (p = 0; p < m.length; p++) for (q = p + 1; q < m.length; q++)
+      if (avoid[m[p].idx + '-' + m[q].idx]) warn.push((k + 1) + '모둠 — 같은 모둠이 어렵다고 한 학생이 함께 있음(설문 탭 확인)');
+  });
+  return { teams: teams, teamOf: teamOf, st: st, warn: warn, python: P };
+}
+
+function teamWrite_(sh, cls, r) {
+  var rows = [], fmt = [], E = ['', '', '', '', '', '', '', ''];
+  function line(first, kind) { rows.push([first].concat(E)); fmt.push(kind); }
+  line(cls + ' 모둠 편성안', 'title');
+  line('학생 ' + r.st.length + '명 · ' + r.teams.length + '모둠 · 파이썬 배운 학생 ' + r.python + '명 — 선생님만 보는 탭입니다. 학생에게는 모둠 번호와 이름만 알려 주세요.', 'note');
+  rows.push(['모둠', '학번', '이름', '파이썬', '관심 분야', '희망 진로', '희망 역할', '희망 짝', '짝 반영']); fmt.push('head');
+  r.teams.forEach(function (m, k) {
+    m.forEach(function (s) {
+      var p = s.partner >= 0 ? r.st[s.partner] : null;
+      rows.push([(k + 1) + '모둠', s.id, s.name, s.pythonText, s.interests.join(', '), s.career, s.role, s.partnerText,
+        p ? (r.teamOf[s.idx] === r.teamOf[p.idx] ? '○' : '× 다른 모둠') : (s.partnerMissing ? '? 못 찾음' : '')]);
+      fmt.push('row' + (k % 2));
+    });
+    var py = m.filter(function (s) { return s.python; }).length, ic = {}, rc = {};
+    m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); if (s.role) rc[s.role] = (rc[s.role] || 0) + 1; });
+    var emptyR = TEAM_ROLES.filter(function (x) { return !rc[x]; });
+    rows.push(['', m.length + '명', '파이썬 ' + py, '', Object.keys(ic).map(function (x) { return x + (ic[x] > 1 ? '×' + ic[x] : ''); }).join(', '),
+      '', emptyR.length ? '빈 역할: ' + emptyR.join(', ') : '역할 고르게', '', '']);
+    fmt.push('sum');
+  });
+  line('', 'blank');
+  line('점검할 것', 'head2');
+  (r.warn.length ? r.warn : ['특이 사항 없음']).forEach(function (w) { line(w, 'warn'); });
+  line('• 동의서를 내지 않은 학생은 촬영 모둠에서 빼고, 응답하지 않은 학생은 «모둠편성설문» 탭에 분반·학번·이름만 적은 뒤 다시 실행하세요.', 'note');
+  line('• 고칠 때는 이 탭의 «모둠» 칸만 바꾸면 됩니다. 다시 실행하면 이 탭은 새로 만들어지니, 손으로 고친 안은 탭 이름을 바꿔 두세요.', 'note');
+  sh.getRange(1, 1, rows.length, 9).setValues(rows);
+  [70, 80, 80, 80, 180, 140, 150, 120, 90].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  fmt.forEach(function (f, i) {
+    var rg = sh.getRange(i + 1, 1, 1, 9);
+    if (f === 'title') rg.merge().setFontSize(14).setFontWeight('bold');
+    else if (f === 'note') rg.merge().setFontColor('#5a6475').setWrap(true);
+    else if (f === 'head') rg.setBackground('#1f6f8b').setFontColor('#ffffff').setFontWeight('bold');
+    else if (f === 'head2') rg.merge().setBackground('#1f6f8b').setFontColor('#ffffff').setFontWeight('bold');
+    else if (f === 'row1') rg.setBackground('#f2f6fa');
+    else if (f === 'sum') rg.setBackground('#e8eef6').setFontColor('#3b4a63').setFontSize(9);
+    else if (f === 'warn') rg.merge().setFontColor('#a33a00');
+  });
+  sh.setFrozenRows(3);
 }

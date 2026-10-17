@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>모둠 편성 설문 · 인공지능 기초</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+<!-- 데이터 탐구 · 인공지능 프로젝트(→ 수행평가 ②) 모둠을 짜기 위한 2분 설문.
+     신경망(Ⅱ-06·07) 차시 마지막 단계에서 연다. 응답은 제출 수집기 «모둠편성설문» 탭으로 가고(v33),
+     편성안은 수집기 편집기에서 «모둠편성안만들기»를 실행해 만든다. 응답은 선생님만 본다. -->
+<style>
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=dbc4300e') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=6d9188a9') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=4d425e6e') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=73628b16') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+
+:root{
+  --ground:#F2F6FD; --card:#FFFFFF; --ink:#0F1A31; --muted:#5A6884; --line:#DCE4F2;
+  --blue:#1B49B8; --blue-deep:#123283; --blue-wash:#E6EDFF;
+  --alert:#B4231D; --alert-wash:#FCEBE9; --ok:#136B47; --ok-wash:#DFF3E9;
+  --key:#8A5200; --key-wash:#FFF2D9;
+  --disp:'AIDisp','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  --body:'AIBody','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+    --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+    --alert:#FF9A92; --alert-wash:#3A1D1B; --ok:#6FD6A8; --ok-wash:#123325;
+    --key:#F0C173; --key-wash:#38290F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+  --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+  --alert:#FF9A92; --alert-wash:#3A1D1B; --ok:#6FD6A8; --ok-wash:#123325;
+  --key:#F0C173; --key-wash:#38290F;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground); color:var(--ink); font-family:var(--body); font-weight:500;
+  line-height:1.6; padding:clamp(16px,3vw,40px) 16px 120px}
+.wrap{max-width:760px; margin:0 auto}
+.home{display:inline-block; margin:0 0 14px; color:var(--blue); font-weight:700; text-decoration:none; font-size:.9375rem}
+.eyebrow{display:inline-block; font-size:.8125rem; font-weight:700; letter-spacing:.08em; color:var(--blue);
+  background:var(--blue-wash); padding:4px 12px; border-radius:99px}
+h1{font-family:var(--disp); font-weight:800; font-size:clamp(1.6rem,4.4vw,2.3rem); line-height:1.2; margin:10px 0 8px}
+.lead{margin:0 0 6px; color:var(--muted); font-size:1rem}
+.lead b{color:var(--ink)}
+.promise{margin:12px 0 22px; padding:12px 16px; border-radius:12px; background:var(--ok-wash); color:var(--ok);
+  font-weight:700; font-size:.9375rem}
+form{display:flex; flex-direction:column; gap:14px}
+.q{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.q > label, .q > .t{display:block; font-weight:800; font-size:1.0625rem; margin:0 0 4px}
+.q .t i, .q > label i{font-style:normal; color:var(--blue); margin-right:6px}
+.q .h{margin:0 0 10px; color:var(--muted); font-size:.875rem; font-weight:500}
+.q .opt{color:var(--muted); font-weight:600; font-size:.8125rem; margin-left:6px}
+.row3{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:10px}
+@media (max-width:560px){ .row3{grid-template-columns:1fr} }
+.row3 label{font-size:.875rem; font-weight:700; color:var(--muted)}
+input[type=text], select{width:100%; font:inherit; font-size:1rem; padding:10px 12px; margin-top:4px;
+  border:1.5px solid var(--line); border-radius:10px; background:var(--ground); color:var(--ink)}
+input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offset:1px; border-color:var(--blue)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chips label{position:relative; cursor:pointer}
+.chips input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.chips span{display:inline-block; padding:8px 14px; border-radius:99px; border:1.5px solid var(--line);
+  background:var(--ground); font-weight:700; font-size:.9375rem; user-select:none}
+.chips input:checked + span{background:var(--blue); border-color:var(--blue); color:#fff}
+.chips input:focus-visible + span{outline:2px solid var(--blue); outline-offset:2px}
+.chips input:disabled + span{opacity:.4; cursor:not-allowed}
+.secret{border-style:dashed}
+.secret .t::after{content:" 🔒"}
+.send{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:6px}
+.send button{font:inherit; font-weight:800; font-size:1.0625rem; padding:12px 26px; border:0; border-radius:12px;
+  background:var(--blue); color:#fff; cursor:pointer}
+.send button:disabled{opacity:.5; cursor:wait}
+.sendmsg{font-weight:700; font-size:.9375rem}
+.sendmsg.ok{color:var(--ok)} .sendmsg.bad{color:var(--alert)} .sendmsg.wait{color:var(--key)}
+.done{display:none; text-align:center; padding:28px 18px; background:var(--card); border:1px solid var(--line); border-radius:16px}
+.done b{display:block; font-family:var(--disp); font-size:1.5rem; margin-bottom:6px}
+.done p{margin:0; color:var(--muted)}
+.sign{display:flex; flex-direction:column; align-items:center; gap:6px; margin:36px auto 0}
+.sign .bun-gif{width:120px; height:auto}
+.sign .ptp{font-size:.8125rem; font-weight:700; color:var(--muted); background:var(--card); border:1px solid var(--line);
+  padding:3px 12px; border-radius:99px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="home" href="plan.html">← 우리 반 수업 홈</a>
+  <span class="eyebrow">데이터 탐구 · 인공지능 프로젝트</span>
+  <h1>모둠 편성 설문 🧩</h1>
+  <p class="lead">다음 시간부터 함께할 모둠을 짜기 위한 설문이에요. 이 모둠은 <b>데이터 탐구 4차시 → 인공지능 프로젝트 → 수행평가 ②</b>까지 이어집니다.</p>
+  <p class="lead">모둠은 여러분의 희망을 <b>최대한 반영해 선생님이 정하고</b>, 첫 프로젝트 시간에 알려 줄게요. 2분이면 끝나요.</p>
+  <p class="promise">🔒 답은 선생님만 봅니다. 친구에게 공개되지 않아요.</p>
+
+  <form id="tf" novalidate>
+    <div class="q">
+      <div class="row3">
+        <label>분반
+          <select id="cls" required>
+            <option value="">고르기</option>
+            <option>인기A</option><option>인기D</option><option>인기E</option>
+          </select></label>
+        <label>학번 <input type="text" id="sid" inputmode="numeric" autocomplete="off" placeholder="예: 20512" maxlength="6"></label>
+        <label>이름 <input type="text" id="sname" autocomplete="off" maxlength="12"></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label for="partner"><i>1</i>같은 모둠을 하고 싶은 친구 1명</label>
+      <p class="h">같은 반 친구의 이름(또는 학번) 한 명만. 최대한 같은 모둠이 되도록 반영해요. 없으면 «없음».</p>
+      <input type="text" id="partner" autocomplete="off" maxlength="20">
+    </div>
+
+    <div class="q">
+      <span class="t"><i>2</i>1학기 「정보」에서 파이썬을 배웠나요?</span>
+      <div class="chips" id="python">
+        <label><input type="radio" name="py" value="예"><span>예</span></label>
+        <label><input type="radio" name="py" value="아니요"><span>아니요</span></label>
+        <label><input type="radio" name="py" value="잘 모르겠어요"><span>잘 모르겠어요</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="t"><i>3</i>관심 있는 분야 <span class="opt">최대 2개</span></span>
+      <p class="h">지속가능발전목표(SDGs)와 이어지는 분야예요.</p>
+      <div class="chips" id="interest"></div>
+    </div>
+
+    <div class="q">
+      <label for="career"><i>4</i>희망 진로나 학과 <span class="opt">선택</span></label>
+      <p class="h">아직 정하지 않았으면 비워 두세요.</p>
+      <input type="text" id="career" autocomplete="off" maxlength="30">
+    </div>
+
+    <div class="q">
+      <span class="t"><i>5</i>모둠에서 맡고 싶은 역할</span>
+      <div class="chips" id="role"></div>
+    </div>
+
+    <div class="q secret">
+      <label for="avoid" class="t"><i>6</i>같은 모둠이 어려운 친구 <span class="opt">선택 · 선생님만 봅니다</span></label>
+      <p class="h">적지 않아도 됩니다. 친구에게 공개되지 않아요.</p>
+      <input type="text" id="avoid" autocomplete="off" maxlength="20">
+    </div>
+
+    <div class="send">
+      <button type="submit" id="go">제출하기</button>
+      <span class="sendmsg" id="msg" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <div class="done" id="done">
+    <b>고마워요! ✅</b>
+    <p>모둠은 첫 프로젝트 시간에 알려 줄게요. 고칠 게 생기면 다시 제출하면 마지막 것만 씁니다.</p>
+  </div>
+
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169"
+         alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div>
+
+<script>
+(function(){
+var INTERESTS = ['환경·기후','에너지','건강·의료','식품·농업','물·해양','동물·생태',
+  '교통·도시','교육','경제·일자리','스포츠','게임·미디어','기타'];
+var ROLES = ['기록·정리','데이터 찾기','분석·시각화','발표'];
+var $ = function(id){ return document.getElementById(id); };
+function chips(box, list, type, name){
+  $(box).innerHTML = list.map(function(x){
+    return '<label><input type="' + type + '" name="' + name + '" value="' + x + '"><span>' + x + '</span></label>';
+  }).join('');
+}
+chips('interest', INTERESTS, 'checkbox', 'it');
+chips('role', ROLES, 'radio', 'rl');
+// 관심 분야는 2개까지
+$('interest').addEventListener('change', function(){
+  var on = [].filter.call(document.querySelectorAll('input[name=it]'), function(i){ return i.checked; }).length;
+  [].forEach.call(document.querySelectorAll('input[name=it]'), function(i){ i.disabled = !i.checked && on >= 2; });
+});
+// 분반은 다음에도 기억(이 기기에서만)
+try{ var c0 = localStorage.getItem('ai_team_cls'); if(c0) $('cls').value = c0; }catch(e){}
+
+function picked(name){
+  return [].filter.call(document.querySelectorAll('input[name=' + name + ']'), function(i){ return i.checked; })
+    .map(function(i){ return i.value; });
+}
+$('tf').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var msg = $('msg'), btn = $('go');
+  var d = {
+    key: SUBMIT_KEY, type: 'team',
+    cls: $('cls').value, sid: $('sid').value.replace(/\D/g, ''), name: $('sname').value.replace(/\s/g, ''),
+    partner: $('partner').value.trim(), python: picked('py')[0] || '',
+    interest: picked('it').join(', '), career: $('career').value.trim(),
+    role: picked('rl')[0] || '', avoid: $('avoid').value.trim()
+  };
+  var need = !d.cls ? '분반을 골라 주세요' : !d.sid ? '학번을 숫자로 적어 주세요' : !d.name ? '이름을 적어 주세요'
+    : !d.partner ? '1번: 친구 이름이나 «없음»을 적어 주세요' : !d.python ? '2번을 골라 주세요'
+    : !d.interest ? '3번: 관심 분야를 하나 이상 골라 주세요' : !d.role ? '5번: 역할을 골라 주세요' : '';
+  if(need){ msg.className = 'sendmsg wait'; msg.textContent = need; return; }
+  try{ localStorage.setItem('ai_team_cls', d.cls); }catch(e){}
+  btn.disabled = true; msg.className = 'sendmsg wait'; msg.textContent = '확인하는 중…';
+  sheetVer(function(ver){
+    if(ver >= 1 && ver < 33){
+      msg.className = 'sendmsg bad'; msg.textContent = '선생님 수집기가 아직 이 설문을 받을 수 없어요. 선생님께 알려 주세요.';
+      btn.disabled = false; return;
+    }
+    msg.textContent = '보내는 중…';
+    var body = JSON.stringify(d);
+    var ok = function(){ $('tf').style.display = 'none'; $('done').style.display = 'block'; };
+    var bad = function(){ msg.className = 'sendmsg bad'; msg.textContent = '보내지 못했어요. 다시 눌러 보세요.'; btn.disabled = false; };
+    postSealed(body)
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.ok) ok(); else bad(); })
+      .catch(function(){ postSealed(body, true).then(ok).catch(bad); });
+  });
+});
+
+/* ── 제출 (unit1~4.html 과 같은 수집기 · 개시표) ── */
+var SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbz1ZjbQCcCK2vu2rbxFB_MUFbDOoQupP2gk3q08XwPsMWr2pL27kYcgMdp1zcIcOP7IwA/exec';
+var SUBMIT_KEY = 'chosun-ai-2026';
+function postSealed(body, noCors){
+  var d = null; try{ d = JSON.parse(body); }catch(e){}
+  var kind = (d && d.type) ? d.type : '';
+  var send = function(b){
+    var o = { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:b };
+    if(noCors) o.mode = 'no-cors';
+    return fetch(SUBMIT_URL, o);
+  };
+  if(!kind) return send(body);
+  return gateToken(kind)
+    .then(function(tok){ if(tok){ d.tok = tok; body = JSON.stringify(d); } })
+    .catch(function(){})
+    .then(function(){ return send(body); });
+}
+var TOK_CACHE = {}, TOK_LIFE = 20 * 60 * 1000;
+function gateToken(kind){
+  var c = TOK_CACHE[kind];
+  if(c && Date.now() - c.at < TOK_LIFE) return Promise.resolve(c.tok);
+  return fetch(SUBMIT_URL + '?start=' + encodeURIComponent(kind) + '&key=' + encodeURIComponent(SUBMIT_KEY) + '&t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(j && j.tok){ TOK_CACHE[kind] = { tok:j.tok, at:Date.now() }; return j.tok; } return ''; })
+    .catch(function(){ return ''; });
+}
+var SHEET_VER = null;
+function sheetVer(cb){
+  if(SHEET_VER !== null){ cb(SHEET_VER); return; }
+  fetch(SUBMIT_URL, { method:'GET' })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ SHEET_VER = (j && j.ver) || 1; cb(SHEET_VER); })
+    .catch(function(){ SHEET_VER = -1; cb(-1); });
+}
+})();
+</script>
+<link rel="stylesheet" href="polish.css?v=30167133">
+<script src="polish.js?v=4d3812ad"></script>
+</body>
+</html>
