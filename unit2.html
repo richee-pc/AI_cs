@@ -2332,20 +2332,32 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       케라스로 층을 쌓아 직접 만들어 봅니다(교과서 정확도 0.975 → 정규화 뒤 0.991).</div>
     <div class="colabcta"><span><b>🧪 코랩 17의 2부가 Ⅱ-07입니다</b>독버섯 ❶~⓫ · 과적합 확인 · 하이퍼파라미터 튜닝 표 · 정규화 · 괴산장터 후기 감성 분석(오렌지와 같은 VADER) · 딥러닝 vs k-NN 시간 재기.</span>
       <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 17 Ⅱ-06·07 전체</a></div>
-    <div class="g2">
-      <div class="cc wide"><b>📊 정형 데이터</b><span>표(csv · 엑셀)처럼 행과 열이 정해진 데이터 — 선형 회귀 · k-NN에서 쓴 것.</span></div>
-      <div class="cc wide"><b>🖼️ 🔊 📝 정형화되지 않은 데이터</b><span>이미지 · 음성 · 글. 딥러닝이 특히 잘 다룬다 — 얼굴 인식 출석, 체온 보고 음료 추천, «로그인 기능 만들어 줘»(124쪽 생각 열기).</span></div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow"><b>📊 정형 데이터<small>124쪽</small></b>
+          <p class="dfn"><b>행과 열로 된 표</b> 형식으로 정리되어 칸마다 값의 의미가 정해진 데이터(csv · 엑셀). 선형 회귀 · k-NN에서 쓴 데이터.</p>
+          <p class="easy">칸이 딱딱 나뉜 <b>출석부</b>처럼, 어느 칸에 무엇이 적히는지 정해진 자료.</p></div>
+        <div class="drow"><b>🖼️ 🔊 📝 정형화되지 않은 데이터<small>124쪽 · 비정형 데이터</small></b>
+          <p class="dfn">이미지 · 음성 · 글처럼 <b>정해진 표 형식이 없는</b> 데이터. 딥러닝이 특히 잘 다룬다 — 얼굴 인식 출석, 체온 보고 음료 추천, «로그인 기능 만들어 줘».</p>
+          <p class="easy"><b>그림일기 · 녹음한 목소리 · 편지</b>처럼 칸이 없는 자료. 컴퓨터가 알아보기 어려워서 딥러닝이 필요해요.</p></div>
     </div>
     <h3 class="lh">① 딥러닝 모델을 만드는 순서 <small>125쪽</small></h3>
     <div class="flow2 big"><span><b>데이터 분리</b><br><code>train_test_split</code></span><i>→</i>
       <span><b>모델 설계</b><br>생성 <code>Sequential()</code> → 층 추가 <code>add(Dense)</code> → 컴파일 <code>compile()</code></span><i>→</i>
       <span><b>모델 학습</b><br><code>fit(epochs, batch_size)</code></span><i>→</i><span class="out"><b>모델 평가</b><br><code>evaluate()</code></span></div>
-    <div class="g3" style="margin-top:12px">
-      <p class="side"><b>텐서플로(125쪽 옆)</b>구글이 만든 딥러닝 라이브러리. GPU로 행렬 계산이 빠르다. 속은 C · C++, 파이썬 등 여러 언어에서 쓴다.</p>
-      <p class="side"><b>API(125쪽 옆)</b>Application Programming Interface — 운영 체제나 소프트웨어를 <b>이어 주는 연결 고리</b>.</p>
-      <p class="side"><b>케라스(125쪽 옆)</b>텐서플로 안의 여러 API 중 <b>가장 쓰기 쉬운</b> 것. <code>from tensorflow import keras</code></p>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow"><b>텐서플로<small>125쪽 옆 · TensorFlow</small></b>
+          <p class="dfn">구글이 만든 <b>딥러닝 라이브러리</b>. GPU로 행렬 계산을 빠르게 하며, 속은 C · C++로 만들어져 파이썬 등 여러 언어에서 쓴다.</p>
+          <p class="easy">딥러닝을 만드는 부품이 잔뜩 든 <b>레고 공장</b>. 부품을 처음부터 깎지 않고 가져다 쓰면 돼요.</p></div>
+        <div class="drow"><b>API · 케라스<small>125쪽 옆 · Keras</small></b>
+          <p class="dfn"><b>API</b>는 운영 체제나 소프트웨어를 이어 주는 연결 고리. <b>케라스</b>는 텐서플로의 여러 API 중 가장 쓰기 쉬운 것 — <code>from tensorflow import keras</code></p>
+          <p class="easy">API는 식당 <b>메뉴판</b> — 주방(복잡한 코드)에 안 들어가도 «이거 주세요»만 하면 돼요. 케라스는 그중 <b>그림이 제일 많은 쉬운 메뉴판</b>.</p></div>
+        <div class="drow"><b>Sequential · Dense 층<small>125~127쪽</small></b>
+          <p class="dfn"><code>Sequential()</code>은 층을 <b>차례로 쌓는</b> 모델, <code>Dense</code>는 앞 층의 <b>모든 뉴런과 연결된</b> 층(완전 연결층). <code>add(Dense(뉴런 수, activation=…))</code>로 쌓는다.</p>
+          <p class="easy">Sequential은 블록을 한 층씩 올리는 <b>탑 쌓기</b>, Dense는 앞줄 친구 <b>모두와 손을 잡은</b> 줄.</p></div>
+        <div class="drow"><b>최적화 알고리즘<small>125 · 128쪽 · optimizer</small></b>
+          <p class="dfn">손실이 줄어드는 쪽으로 가중치를 고치는 방법. <b>경사하강법</b>을 바탕으로 방향과 학습률을 조절해 학습을 빠르고 정확하게 한다 — <code>optimizer='adam'</code>.</p>
+          <p class="easy">눈 가리고 산에서 내려올 때 <b>발밑이 기울어진 쪽으로 한 걸음씩</b>. 보폭(학습률)을 잘 정해야 빠르고 안전하게 내려와요.</p></div>
     </div>
-    <p class="side bot" style="margin-top:8px"><b>🤖 최적화 알고리즘(125 · 128쪽)</b>«경사하강법을 똑똑하게 하기 위한 방법이야.» 방향과 학습률을 조절해 학습 시간을 줄이고 성능을 높인다 — <code>optimizer='adam'</code>.</p>
     <div class="tool fig">
       <h3>버섯 데이터가 숫자가 되고, 층을 지나 확률이 되기까지 <span class="tm">126~128쪽 과정 ❸~❼</span></h3>
       <div class="lepair">
@@ -2370,6 +2382,11 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="ordcards code" id="lrCode"></div>
       <div class="ordrow" id="lrCodeOut"></div>
     </div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow"><b>에포크 · 배치 사이즈<small>128쪽 · epochs · batch_size</small></b>
+          <p class="dfn"><b>에포크</b>는 훈련 데이터 전체를 한 번 다 학습하는 것, <b>배치 사이즈</b>는 가중치를 한 번 고치기 전에 한꺼번에 보는 데이터 개수.</p>
+          <p class="easy">문제집 한 권을 다 풀면 1에포크. <b>10문제씩 풀고 채점·오답 정리</b>하면 배치 사이즈 10.</p></div>
+    </div>
     <div class="tool">
       <h3>에포크와 배치 — 한 번에 몇 걸음? <span class="tm">128쪽</span></h3>
       <p class="desc">버섯 8,124개 중 80%가 훈련 데이터입니다. <b>배치 사이즈</b>만큼 볼 때마다 가중치를 한 번 고칩니다(경사하강법 한 걸음).
@@ -2390,11 +2407,16 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="keyout" id="cuOut"></div>
       <p class="side bot" style="margin-top:8px"><b>🤖 하이퍼파라미터 튜닝(129쪽 옆)</b>«최적의 하이퍼파라미터 조합을 찾기 위해 여러 실험을 거쳐 선택하는 것.» 과녁을 보며 조준을 조금씩 고치는 것과 같다. 코랩 17의 2-3에 <b>실험 표</b>가 있어요.</p>
     </div>
-    <div class="g2">
-      <div class="cc wide"><b>과적합</b><span>훈련 데이터에만 지나치게 맞춰져 <b>새 데이터를 못 맞히는</b> 것. 훈련 점수와 테스트 점수를 비교해 찾는다(129쪽).</span></div>
-      <div class="cc wide"><b>정규화</b><span>속성값 범위를 0~1로 맞추기(<code>MinMaxScaler</code>). 큰 값 쪽으로 치우치지 않게 — 독버섯 0.975 → 0.991(130쪽).</span></div>
-      <div class="cc wide"><b>하이퍼파라미터 튜닝</b><span>에포크 · 배치 · 은닉층 수 · 뉴런 수 · 활성화 함수 — 사람이 정하는 값을 바꿔 가며 가장 좋은 조합 찾기.</span></div>
-      <div class="cc wide"><b>딥러닝 vs 다른 기계학습</b><span>데이터가 많을수록 딥러닝이 유리하지만 <b>학습 시간이 더 걸린다.</b> 딥러닝은 특징을 <b>스스로</b> 찾는다(138쪽).</span></div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow key"><b>과적합<small>129쪽 · overfitting</small></b>
+          <p class="dfn">모델이 훈련 데이터에만 지나치게 맞춰져 <b>새 데이터(테스트 데이터)를 잘 못 맞히는</b> 현상. 훈련 점수와 테스트 점수를 비교해 찾는다.</p>
+          <p class="easy">문제집 <b>답을 통째로 외워서</b> 똑같은 문제는 100점인데, 숫자만 바뀐 새 문제는 못 푸는 것.</p></div>
+        <div class="drow"><b>하이퍼파라미터 · 튜닝<small>129쪽 옆</small></b>
+          <p class="dfn"><b>하이퍼파라미터</b>는 학습 전에 <b>사람이 정하는 값</b>(에포크 · 배치 · 은닉층 수 · 뉴런 수 · 활성화 함수 · 학습률). 가중치처럼 모델이 스스로 배우는 값과 다르다. <b>튜닝</b>은 여러 실험으로 가장 좋은 조합을 찾는 것.</p>
+          <p class="easy">라면 끓일 때 <b>물 양 · 불 세기 · 시간</b>은 내가 정하는 값. 여러 번 끓여 보며 제일 맛있는 조합을 찾아요.</p></div>
+        <div class="drow"><b>정규화<small>130쪽 · MinMaxScaler</small></b>
+          <p class="dfn">속성마다 다른 값의 범위를 <b>0~1처럼 같은 범위로</b> 맞추는 것. 큰 값 쪽으로 치우치지 않게 한다 — 독버섯 0.975 → 0.991.</p>
+          <p class="easy">키(cm)와 몸무게(kg)를 <b>같은 0~1 자</b>로 재기. 숫자가 큰 쪽만 중요해 보이지 않게요.</p></div>
     </div>
     <div class="tool fig">
       <h3>더 알아보기 — 정규화 한 번에 달라진 점수 <span class="tm">130쪽</span></h3>
@@ -2415,6 +2437,17 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     </div>
     <div class="tool">
       <h3>딥러닝을 활용한 문제 해결 — 세 가지 <span class="tm">131~137쪽</span></h3>
+      <div class="defs" style="margin:10px 0 14px">
+        <div class="drow"><b>컴퓨터 비전<small>131~137쪽 · 01</small></b>
+          <p class="dfn">컴퓨터가 <b>이미지 · 영상</b>을 보고 그 안의 물체를 인식하고 이해하는 분야.</p>
+          <p class="easy">컴퓨터에게 <b>눈</b>을 달아 주기 — «이건 플라스틱 병이야!»</p></div>
+        <div class="drow"><b>음성 인식<small>131~137쪽 · 02</small></b>
+          <p class="dfn"><b>소리 데이터</b>를 분석해 말이나 소리의 종류를 알아내는 분야.</p>
+          <p class="easy">컴퓨터에게 <b>귀</b>를 달아 주기 — «방금 운 건 박새야!»</p></div>
+        <div class="drow"><b>자연어 처리 · 감성 분석<small>131~137쪽 · 03</small></b>
+          <p class="dfn"><b>자연어 처리</b>는 사람이 쓰는 말과 글을 컴퓨터가 이해 · 처리하는 분야. <b>감성 분석</b>은 글에 담긴 긍정 · 부정 · 중립 감정을 수치로 나타내는 것.</p>
+          <p class="easy">컴퓨터가 후기를 읽고 <b>«기분 좋은 글이네!»</b> 알아채기.</p></div>
+      </div>
       <div class="solve3">
         <div class="s3"><i>01 컴퓨터 비전 · 티처블 머신</i><b>🗑️ 쓰레기 분리 배출</b>
           <ol><li><b>이미지 프로젝트</b> · 클래스 플라스틱 · 유리 · 종이</li><li>사진을 <b>비슷한 개수</b>로(교과서 53 · 53 · 44), 밝기 · 크기 · 각도는 <b>다양하게</b></li>
@@ -2442,6 +2475,11 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
     <div class="ws"><b><i>코드 없이</i> 티처블 머신 · 오렌지로도 <span style="font-weight:600; color:var(--muted)">131~137쪽</span></b><div>
       쓰레기 사진(플라스틱 · 유리 · 종이) 분류에서 생수병이 유리로 잘못 분류되면 — <b>여러 각도의 사진을 더 넣어</b> 다시 학습합니다.
       클래스마다 <b>비슷한 개수</b>로 모아야 한쪽으로 치우치지 않습니다. 이 감각이 프로젝트 ②의 «데이터 점검»과 같습니다.</div></div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow key"><b>딥러닝 vs 다른 기계학습<small>138쪽</small></b>
+          <p class="dfn">다른 기계학습(선형 회귀 · k-NN 등)은 <b>사람이 중요한 특징(속성)을 골라</b> 주지만, 딥러닝은 데이터에서 <b>특징을 스스로 찾는다</b>. 데이터가 많을수록 유리하지만 학습 시간이 더 걸린다.</p>
+          <p class="easy">다른 기계학습은 선생님이 «귀 모양을 봐» <b>힌트를 주는</b> 것, 딥러닝은 사진을 아주 많이 보며 <b>힌트를 스스로 찾는</b> 것 — 대신 시간이 오래 걸려요.</p></div>
+    </div>
     <div class="tool fig">
       <h3>그림으로 — 딥러닝과 다른 기계학습, 무엇이 다를까? <span class="tm">138쪽 그림 Ⅱ-19</span></h3>
       <svg class="fsvg" viewBox="0 0 760 290" role="img" aria-label="데이터 양이 늘수록 딥러닝 성능은 계속 오르고 기계학습은 멈추는 그래프, 그리고 사람이 특징을 뽑는 기계학습과 스스로 뽑는 딥러닝 비교">
