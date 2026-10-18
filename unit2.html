@@ -272,6 +272,10 @@
 .lsteps td{border-top:1px solid var(--line); padding:7px 9px; vertical-align:top; color:var(--ink)}
 .lsteps td small{display:block; font-size:0.75rem; color:var(--muted)}
 .lsteps .easy1{margin:10px 0 0; background:var(--warm-bg); border-radius:10px; padding:7px 11px; font-size:0.875rem; color:var(--ink2)}
+.pgsteps{margin:6px 0 0; padding-left:1.4em; line-height:1.75; font-size:0.9062rem}
+.pgsteps li{margin:3px 0}
+.pgsteps li b:first-child{color:var(--blue-d); margin-right:4px}
+.dget{margin:8px 0 0; background:var(--good-bg); border-radius:10px; padding:7px 10px; font-size:0.8125rem; line-height:1.6; color:var(--ink2)}
 .defs{display:grid; gap:8px}
 .drow{display:grid; grid-template-columns:minmax(0,170px) minmax(0,1fr) minmax(0,1fr); gap:6px 14px; align-items:start; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 14px}
 .drow.key{border:2px solid var(--blue-l); background:var(--blue-xl)}
@@ -2323,6 +2327,21 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       은닉층 6-4-4로 만들고 에포크 600에서 멈춥니다. <b>훈련 손실과 테스트 손실</b>을 적어 보세요.
       은닉층을 하나로 줄이면 어떻게 될까요?</div></div>
     <div class="tool">
+      <h3>놀이터 사용법 — 이렇게 눌러요 <span class="tm">122쪽 · 3분이면 끝</span></h3>
+      <p class="desc">화면은 왼쪽부터 <b>DATA → FEATURES → HIDDEN LAYERS → OUTPUT</b> 순서. 맨 위에 ▶ 재생 · ↺ 리셋 · Epoch(학습 횟수) · Learning rate(학습률) · Activation(활성화 함수)이 있어요.</p>
+      <ol class="pgsteps">
+        <li><b>데이터 고르기</b> 왼쪽 DATA의 네 그림 중 <b>오른쪽 아래 소용돌이(Spiral)</b>를 누른다.</li>
+        <li><b>1단계 — 처음 그대로</b> 아무것도 바꾸지 말고 ▶ → Epoch가 <b>600 근처에서 ⏸</b> → 오른쪽 위 OUTPUT의 <b>Test loss · Training loss</b>를 아래 기록지에.</li>
+        <li><b>2단계 — 층 쌓기</b> ↺ 리셋 → FEATURES 7개(X₁ · X₂ · X₁² · X₂² · X₁X₂ · sin X₁ · sin X₂)를 <b>모두 켜기</b> → HIDDEN LAYERS의 <b>+</b>로 은닉층 3개 → 층마다 위쪽 <b>+ / −</b>로 뉴런 <b>6 · 4 · 4</b> → ▶ → 600에서 ⏸ → 기록.</li>
+        <li><b>내 실험</b> 은닉층을 1개로 줄이기, 학습률이나 활성화 함수 바꾸기 → 손실이 어떻게 변하는지 비교.</li>
+      </ol>
+      <div class="g3" style="margin-top:10px">
+        <p class="side"><b>배경 색 = 모델의 판단</b>주황 · 파랑 영역이 «여기는 이쪽 편»이라는 뜻. 점 색과 맞을수록 잘 배운 것.</p>
+        <p class="side"><b>선 굵기 = 가중치</b>굵을수록 영향이 크고, 파랑은 +, 주황은 −. 학습하는 동안 선이 바뀌는 게 «가중치를 고치는» 모습.</p>
+        <p class="side bot"><b>이럴 땐?</b>Test loss가 Training loss보다 훨씬 크면 <b>과적합</b> 신호(Ⅱ-07). 학습률을 3처럼 크게 하면 손실이 출렁여요 — 보폭이 너무 크면 산을 못 내려와요.</p>
+      </div>
+    </div>
+    <div class="tool">
       <h3>탐구 활동 기록지 — 텐서플로 놀이터 <span class="tm">122쪽 · 진단: 상 · 중 · 하</span></h3>
       <p class="desc"><a href="https://playground.tensorflow.org" target="_blank" rel="noopener"><b>playground.tensorflow.org ↗</b></a> 에서 <b>Spiral</b> 데이터 · 모든 속성(FEATURES) 선택 후 에포크 600에서 멈추고 오른쪽 위 손실값을 적으세요. (이 칸은 저장되지 않으니 활동지에도 옮겨 적으세요)</p>
       <div class="playrec">
@@ -2469,10 +2488,12 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <div class="s3"><i>01 컴퓨터 비전 · 티처블 머신</i><b>🗑️ 쓰레기 분리 배출</b>
           <ol><li><b>이미지 프로젝트</b> · 클래스 플라스틱 · 유리 · 종이</li><li>사진을 <b>비슷한 개수</b>로(교과서 53 · 53 · 44), 밝기 · 크기 · 각도는 <b>다양하게</b></li>
             <li>학습 → 안 쓴 사진으로 확인 · <b>고급</b>에서 에포크 · 배치</li><li>생수병이 유리로? → <b>여러 각도 사진 추가</b> 후 다시 학습</li><li>내보내기 → Tensorflow → Keras → <code>keras_model.h5</code> · <code>labels.txt</code></li></ol>
+          <p class="dget">📥 <b>데이터는 클래스룸에서</b> «① 쓰레기사진_플라스틱·유리·종이.zip» → 압축 풀기 → <b>학습용</b> 폴더 사진을 클래스마다 업로드 · <b>확인용</b> 사진은 학습 후 미리보기로 시험.</p>
           <span class="s3go"><a href="https://teachablemachine.withgoogle.com/train/image" target="_blank" rel="noopener">티처블 머신 ↗</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/11_teachable_machine.ipynb" target="_blank" rel="noopener">▶ 코랩 11 (133쪽 코드)</a></span></div>
         <div class="s3"><i>02 음성 인식 · 티처블 머신</i><b>🐦 새 소리 — 왜가리 vs 박새</b>
           <ol><li><b>오디오 프로젝트</b> · 배경 소음 · 왜가리 · 박새</li><li>마이크로 녹화 → 샘플 추출, 또는 zip 업로드(음성 + json)</li>
             <li>최소 개수 이상, 두 새는 <b>비슷한 개수</b>로</li><li>학습 → 울음소리 재생하며 확률 비교</li><li>클래스 추가로 <b>다중 분류</b> · 샘플 다운로드로 재사용</li></ol>
+          <p class="dget">📥 <b>데이터는 클래스룸에서</b> «② 새소리_샘플.zip»을 한 번 풀면 zip 3개 → <b>안쪽 zip은 풀지 말고</b> 클래스 «배경 소음 · 왜가리 · 박새» 카드의 <b>⋮ → 샘플 업로드</b>로 각각 올리기.</p>
           <span class="s3go"><a href="https://teachablemachine.withgoogle.com/train/audio" target="_blank" rel="noopener">티처블 머신 ↗</a></span>
           <p class="hint">왜가리는 하천, 박새는 산 — 소리만 듣고 <b>사는 곳</b>을 짐작할 수 있다.</p></div>
         <div class="s3"><i>03 자연어 처리 · 오렌지</i><b>🛒 괴산장터 후기 감성 분석</b>
