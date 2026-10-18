@@ -265,6 +265,13 @@
 .l04viz figcaption{text-align:center; font-size:.8438rem; font-weight:800; color:var(--blue-d); margin-top:4px}
 </style>
 <style id="css-u67">
+.lsteps{margin-top:12px; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:12px 14px; overflow-x:auto}
+.lsteps h4{margin:0 0 8px; color:var(--blue-d); font-size:1rem}
+.lsteps table{width:100%; min-width:560px; border-collapse:collapse; font-size:0.875rem; line-height:1.6}
+.lsteps th{background:var(--blue-xl); color:var(--blue-d); text-align:left; padding:6px 9px}
+.lsteps td{border-top:1px solid var(--line); padding:7px 9px; vertical-align:top; color:var(--ink)}
+.lsteps td small{display:block; font-size:0.75rem; color:var(--muted)}
+.lsteps .easy1{margin:10px 0 0; background:var(--warm-bg); border-radius:10px; padding:7px 11px; font-size:0.875rem; color:var(--ink2)}
 .defs{display:grid; gap:8px}
 .drow{display:grid; grid-template-columns:minmax(0,170px) minmax(0,1fr) minmax(0,1fr); gap:6px 14px; align-items:start; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 14px}
 .drow.key{border:2px solid var(--blue-l); background:var(--blue-xl)}
@@ -2257,6 +2264,16 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="g2" style="margin-top:8px">
         <p class="side"><b>단층 → 다층 퍼셉트론(118쪽)</b>처음엔 퍼셉트론 하나(단층)로 단순한 문제를 풀었지만, 문제가 복잡해지자 여러 개를 이은 <b>다층 퍼셉트론</b>을 고안했다. 직접 확인 → <a href="#nn">XOR 실험</a></p>
         <p class="side bot"><b>스스로 해 보기(118쪽) — 매점에 갈까?</b>간식이 먹고 싶나 · 점심을 잘 먹을까 · 돈이 있나 · 시간이 있나. 사람마다 다른 «중요도»가 <b>가중치</b>입니다. <a href="#nn">눌러서 해 보기</a></p>
+      </div>
+      <div class="lsteps">
+        <h4>퍼셉트론 하나 → 다층 퍼셉트론 → 딥러닝, 한 줄로 이어 보기</h4>
+        <table>
+          <tr><th>단계</th><th>구조</th><th>풀 수 있는 것</th><th>왜?</th></tr>
+          <tr><td><b>① 퍼셉트론 1개</b><small>단층</small></td><td>입력 → 출력</td><td>AND · OR</td><td>퍼셉트론 하나는 <b>직선 하나</b>로 참 · 거짓을 가른다. XOR은 참인 두 점 (0,1) · (1,0)이 대각선으로 마주 봐서 <b>직선 하나로는 못 나눈다</b>.</td></tr>
+          <tr><td><b>② 다층 퍼셉트론</b><small>= 얕은 신경망 · 그림 왼쪽</small></td><td>입력 → <b>은닉층 1개</b> → 출력</td><td><b>XOR</b></td><td>은닉층의 두 퍼셉트론이 OR(하나라도?) · NAND(둘 다는 아니지?)를 맡고, 출력층이 둘을 AND로 묶으면 «딱 하나일 때만» = XOR. <b>직선 두 개</b>로 가운데 띠를 가른 셈.</td></tr>
+          <tr><td><b>③ 심층 신경망</b><small>= 딥러닝 · 그림 오른쪽</small></td><td>입력 → <b>은닉층 여러 개</b> → 출력</td><td>사진 · 소리 · 글, 놀이터 Spiral</td><td>층마다 앞 층의 결과를 다시 조합해 더 복잡한 경계와 특징(선 → 눈 · 귀 → 얼굴)을 만든다.</td></tr>
+        </table>
+        <p class="easy1">🧒 <b>쉽게 말하면</b> 퍼셉트론 한 개는 <b>자 하나로 선 긋기</b>. XOR은 자 하나로 못 나눠서 은닉층(자 두 개)을 넣었고, 자를 계속 늘려 층층이 쌓은 게 딥러닝이에요. <a href="#nn">XOR 실험에서 직접 확인</a></p>
       </div>
     </div>
     <div class="tool fig">
