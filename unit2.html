@@ -265,17 +265,25 @@
 .l04viz figcaption{text-align:center; font-size:.8438rem; font-weight:800; color:var(--blue-d); margin-top:4px}
 </style>
 <style id="css-u67">
+.defs{display:grid; gap:8px}
+.drow{display:grid; grid-template-columns:minmax(0,170px) minmax(0,1fr) minmax(0,1fr); gap:6px 14px; align-items:start; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 14px}
+.drow.key{border:2px solid var(--blue-l); background:var(--blue-xl)}
+.drow > b{color:var(--blue-d); font-size:1rem; line-height:1.35}
+.drow.key > b{font-size:1.125rem}
+.drow small{display:block; font-size:0.75rem; font-weight:600; color:var(--muted); margin-top:2px}
+.drow p{margin:0; font-size:0.875rem; line-height:1.65; color:var(--ink)}
+.drow .dfn{background:var(--tint); border-radius:10px; padding:6px 10px}
+.drow p::before{display:block; font-size:0.6875rem; font-weight:800; letter-spacing:.03em; margin-bottom:2px}
+.drow .dfn::before{content:"정의"; color:var(--blue-d)}
+.drow .easy{background:var(--warm-bg); border-radius:10px; padding:6px 10px; color:var(--ink2)}
+.cc .ez{display:block; margin-top:6px; font-style:normal; font-size:0.8125rem; color:var(--warm)}
+.drow .easy::before{content:"🧒 쉽게 말하면"; color:var(--warm)}
+@media (max-width:760px){ .drow{grid-template-columns:minmax(0,1fr)} }
 .u67plan{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:8px; margin:0 0 12px}
 .u67plan div{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:8px 11px}
 .u67plan i{font-style:normal; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:1px 8px}
 .u67plan b{display:block; margin:4px 0 1px; color:var(--blue-d)}
 .u67plan span{font-size:0.8125rem; color:var(--ink2); line-height:1.5}
-.u67time{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:8px; margin:4px 0 10px; position:relative}
-.u67time div{background:var(--tint); border-radius:12px; padding:8px 11px; border-top:4px solid var(--blue-l)}
-.u67time div.hot{background:var(--good-bg); border-top-color:var(--good)}
-.u67time i{display:block; font-style:normal; font-weight:800; font-size:0.8125rem; color:var(--muted)}
-.u67time b{display:block; color:var(--blue-d); font-size:0.9375rem}
-.u67time span{font-size:0.8125rem; color:var(--ink2); line-height:1.5}
 .lossrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr)); gap:8px; margin-top:8px}
 .lossrow div{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:7px 11px; font-size:0.875rem}
 .lossrow code{display:block; font-family:var(--mono); font-size:0.8125rem; color:var(--blue-d); margin-top:2px}
@@ -2164,25 +2172,44 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       사람의 뇌는 어떻게 알아볼까요? 그 <u>뇌를 흉내 내면</u> 컴퓨터도 알아볼 수 있을까요?</div>
     <div class="colabcta"><span><b>🧪 Ⅱ-06은 개념 수업 · 코딩은 Ⅱ-07부터</b>교과서 Ⅱ-06(116~123쪽)에는 코딩이 없어요 — 이 탭의 그림 · «퍼셉트론과 XOR» · 놀이터(122쪽)로 배웁니다. 노트북 17 1부는 그 그림을 코드로 돌려 보는 <b>체험(선택)</b>, 2부가 교과서 Ⅱ-07 코딩(독버섯 ❶~⓫ · 정규화 · 감성 분석 · 시간 재기)입니다.</span>
       <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 17 Ⅱ-06·07 전체</a></div>
-    <div class="u67plan">
-      <div><i>5분</i><b>생각 열기</b><span>뇌를 흉내 내면? · 연표</span></div>
-      <div><i>15분</i><b>Ⅱ-06 그림으로</b><span>퍼셉트론 → XOR → 층 쌓기 → 역전파</span></div>
-      <div><i>20분</i><b>코랩 17 ★</b><span>1-1 · 1-4 → 독버섯 ❶~⓫ → 정규화</span></div>
-      <div><i>10분</i><b>Ⅱ-07 정리</b><span>딥러닝 vs 기계학습 · 30초 확인</span></div>
-    </div>
     <div class="nest"><div class="n1">인공지능<div class="n2">기계학습<div class="n3">딥러닝</div></div></div>
-      <p>딥러닝은 기계학습의 한 종류 — <b>인공신경망</b>을 깊게 쌓아 배웁니다(117쪽).</p></div>
-    <div class="tool fig">
-      <h3>생각 열기 — 1940년대 생각이 왜 이제야? <span class="tm">116쪽</span></h3>
-      <div class="u67time">
-        <div><i>1940년대</i><b>인공신경망 처음 제안</b><span>뉴런을 수식으로 흉내 내자</span></div>
-        <div><i>1950~60년대</i><b>퍼셉트론</b><span>그런데 XOR을 못 푼다 → 한동안 얼어붙음</span></div>
-        <div><i>1980년대</i><b>다층 퍼셉트론 · 오차 역전파</b><span>층을 쌓고 거꾸로 고치는 법</span></div>
-        <div class="hot"><i>2000년대~</i><b>계산 능력 폭발 · 데이터 폭발</b><span>챗봇 · 이미지 처리에 널리 쓰이기 시작</span></div>
-        <div><i>2016</i><b>알파고</b><span>은닉층 13개(127쪽 옆)</span></div>
-        <div class="hot"><i>지금</i><b>생성형 AI</b><span>그림 · 글 · 코드를 만든다(121쪽)</span></div>
+      <p>딥러닝은 기계학습의 한 종류, 기계학습은 인공지능의 한 종류입니다. 큰 상자 안에 작은 상자가 들어 있어요.</p></div>
+    <div class="tool">
+      <h3>개념 정의 — 한 문장으로 딱! <span class="tm">116~119쪽</span></h3>
+      <p class="desc">왼쪽 <b>정의</b>는 시험·발표에서 쓰는 정확한 문장, 오른쪽 <b>쉽게 말하면</b>은 초등학생 동생에게 설명하듯 풀어 쓴 말입니다.</p>
+      <div class="defs">
+        <div class="drow key"><b>인공신경망<small>Artificial Neural Network</small></b>
+          <p class="dfn">사람 뇌의 <b>신경세포(뉴런)</b>가 서로 연결되어 신호를 주고받는 방식을 본떠, <b>인공 뉴런(퍼셉트론)을 층층이 연결</b>해 만든 기계학습 모델.</p>
+          <p class="easy">작은 계산기 친구들이 줄을 서서 <b>쪽지 전달 놀이</b>를 해요. 앞 친구한테 받은 쪽지를 보고 «이건 중요해!» 하고 계산해서 뒤 친구에게 넘기면, 맨 끝 친구가 정답을 말해요.</p></div>
+        <div class="drow key"><b>딥러닝<small>Deep Learning · 심층 학습</small></b>
+          <p class="dfn"><b>은닉층을 여러 개 깊게 쌓은 인공신경망(심층 신경망)</b>으로 데이터의 특징을 스스로 찾아 학습하는 기계학습 방법.</p>
+          <p class="easy">«딥(deep)»은 <b>깊다</b>는 뜻 — 줄이 아주 길다는 말이에요. 강아지 사진을 보면 첫 줄은 «선», 다음 줄은 «눈·귀», 그다음 줄은 «강아지 얼굴!»처럼 <b>뒤로 갈수록 더 큰 모양</b>을 알아봐요.</p></div>
+        <div class="drow"><b>인공 뉴런 · 퍼셉트론<small>117쪽</small></b>
+          <p class="dfn">여러 입력에 <b>가중치를 곱해 더하고 편향</b>을 더한 뒤, <b>활성화 함수</b>를 거쳐 출력을 내는 신경망의 가장 작은 단위.</p>
+          <p class="easy">«할까, 말까?»를 정하는 <b>작은 결정 상자</b> 하나. 이런 상자 수백·수천 개가 모이면 신경망이 돼요.</p></div>
+        <div class="drow"><b>가중치<small>117쪽</small></b>
+          <p class="dfn">각 입력이 결과에 미치는 <b>영향력(중요도)</b>을 나타내는 값. 학습하면서 계속 바뀐다.</p>
+          <p class="easy">친구들 의견 중 <b>누구 말을 더 크게 들을지</b>. 배고픈 게 제일 중요하면 «배고픔»의 가중치가 커요.</p></div>
+        <div class="drow"><b>편향<small>117쪽</small></b>
+          <p class="dfn">가중합에 더해져 뉴런이 <b>얼마나 쉽게 켜질지(출력할지)</b>를 조절하는 값.</p>
+          <p class="easy">원래 성격. 원래 매점을 좋아하는 친구는 <b>조금만 배고파도</b> 매점에 가요.</p></div>
+        <div class="drow"><b>활성화 함수<small>117쪽 · 렐루 · 시그모이드</small></b>
+          <p class="dfn">가중합 + 편향을 받아 <b>다음 층으로 보낼 값</b>을 정하는 함수.</p>
+          <p class="easy">문 앞의 <b>문지기</b>. 신호가 약하면 «통과 못 해!», 세면 «지나가!» 하고 보내 줘요.</p></div>
+        <div class="drow"><b>입력층 · 은닉층 · 출력층<small>118쪽</small></b>
+          <p class="dfn">데이터가 들어오는 층 · 그 사이에서 계산하는 층 · 최종 결과를 내는 층. 은닉층이 2개 이상이면 <b>심층 신경망</b>.</p>
+          <p class="easy"><b>귀</b>(듣기) → <b>머릿속</b>(생각하기, 밖에서 안 보여서 «숨은» 층) → <b>입</b>(대답하기).</p></div>
+        <div class="drow"><b>손실함수<small>119쪽</small></b>
+          <p class="dfn">모델의 예측값과 실제 정답의 <b>차이(오차)를 숫자로</b> 나타내는 함수. 0에 가까울수록 좋다.</p>
+          <p class="easy">다트를 던졌을 때 <b>과녁 한가운데서 얼마나 떨어졌는지</b> 재는 자. 0이면 정중앙!</p></div>
+        <div class="drow"><b>오차 역전파<small>119쪽</small></b>
+          <p class="dfn">출력층의 오차를 <b>입력층 쪽으로 거꾸로</b> 전달하며, 오차가 줄어드는 방향으로 가중치와 편향을 고치는 학습 방법.</p>
+          <p class="easy">전달 놀이에서 답이 틀리면 맨 끝 친구부터 <b>거꾸로</b> «너는 이만큼 잘못 전했어» 알려 줘요. 그러면 다음엔 조금씩 덜 틀려요.</p></div>
+        <div class="drow"><b>학습 · 에포크<small>119 · 128쪽</small></b>
+          <p class="dfn">순전파(답 내기) → 손실 계산 → 역전파(고치기)를 반복해 손실을 줄이는 과정이 <b>학습</b>. 훈련 데이터 전체를 한 번 다 학습하면 <b>1에포크</b>.</p>
+          <p class="easy">문제집 한 권을 <b>처음부터 끝까지 한 번</b> 풀고 채점·오답 정리하면 1에포크. 600에포크면 600번 반복!</p></div>
       </div>
-      <p class="side bot"><b>🤖 말풍선(116쪽)</b>«선형 회귀, K-최근접 이웃 다 좋지! 하지만 인간의 사고 과정은 더욱 복잡해… 성능도 만족스럽지 않아.» — 그래서 <b>뇌를 흉내 낸</b> 모델이 나왔습니다.</p>
+      <p class="side bot" style="margin-top:10px"><b>한 줄로 이어 보기</b>인공 뉴런을 <b>층으로 이으면</b> 인공신경망, 은닉층을 <b>깊게 쌓아</b> 학습하면 딥러닝. 학습은 «답 내기 → 얼마나 틀렸나 재기 → 거꾸로 고치기»의 반복입니다.</p>
     </div>
     <h3 class="lh">① 뉴런 → 퍼셉트론 <small>117쪽 그림 Ⅱ-16</small></h3>
     <div class="flow2 big"><span>입력 × <b>가중치</b></span><i>→</i><span>모두 더하고 + <b>편향</b></span><i>→</i><span><b>활성화 함수</b>(렐루·시그모이드)</span><i>→</i><span class="out"><b>임계값</b>을 넘으면 참</span></div>
@@ -2258,9 +2285,9 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="kcards" id="lrUse"></div>
     </div>
     <div class="g3" style="margin-top:12px">
-      <div class="cc"><b>CNN 합성곱 신경망</b><span>이미지에서 특징을 찾는다. 합성곱층(필터) + 풀링층(대푯값)을 반복.</span></div>
-      <div class="cc"><b>RNN 순환 신경망</b><span>순서가 있는 데이터 — 문장, 시간에 따라 쌓인 값.</span></div>
-      <div class="cc"><b>GAN 생성적 적대 신경망</b><span>가짜를 만드는 쪽과 가려내는 쪽이 겨루며 이미지를 만든다.</span></div>
+      <div class="cc"><b>CNN 합성곱 신경망</b><span>이미지에서 특징을 찾는다. 합성곱층(필터) + 풀링층(대푯값)을 반복. <i class="ez">🧒 돋보기로 그림을 한 칸씩 훑으며 «여기 선이 있네!» 찾기.</i></span></div>
+      <div class="cc"><b>RNN 순환 신경망</b><span>순서가 있는 데이터 — 문장, 시간에 따라 쌓인 값. <i class="ez">🧒 앞 말을 기억하며 듣는 끝말잇기 선수.</i></span></div>
+      <div class="cc"><b>GAN 생성적 적대 신경망</b><span>가짜를 만드는 쪽과 가려내는 쪽이 겨루며 이미지를 만든다. <i class="ez">🧒 그림 따라 그리는 친구 vs 진짜·가짜 감별사 — 겨룰수록 둘 다 실력이 늘어요.</i></span></div>
     </div>
     <div class="tool">
       <h3>읽을거리 실험 — 합성곱과 풀링을 손으로 <span class="tm">123쪽 CNN</span></h3>
@@ -5525,7 +5552,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=39ac69c2"></script>
+<script src="lessons.js?v=5d9cf1dc"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
