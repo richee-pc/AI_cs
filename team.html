@@ -97,7 +97,7 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
   <span class="eyebrow">데이터 탐구 · 인공지능 프로젝트</span>
   <h1>모둠 편성 설문 🧩</h1>
   <p class="lead">다음 시간부터 함께할 모둠을 짜기 위한 설문이에요. 이 모둠은 <b>데이터 탐구 4차시 → 인공지능 프로젝트 → 수행평가 ②</b>까지 이어집니다.</p>
-  <p class="lead">모둠은 여러분의 희망을 <b>최대한 반영해 선생님이 정하고</b>, 다음 시간(데이터 탐구 ①)에 알려 줄게요. 2분이면 끝나요.</p>
+  <p class="lead">모둠은 여러분의 희망을 <b>최대한 반영</b>하되, 모둠마다 <b>수업 참여와 이해 정도가 고르게 섞이도록</b> 선생님이 함께 살펴 정해요. 그래서 희망한 친구와 꼭 같은 모둠이 되지 않을 수도 있어요. 결과는 다음 시간(데이터 탐구 ①)에 알려 줄게요. 2분이면 끝나요.</p>
   <p class="promise">🔒 답은 선생님만 봅니다. 친구에게 공개되지 않아요.</p>
 
   <form id="tf" novalidate>
@@ -141,7 +141,8 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
     </div>
 
     <div class="q">
-      <span class="t"><i>5</i>모둠에서 맡고 싶은 역할</span>
+      <span class="t"><i>5</i>모둠에서 맡고 싶은 역할 <span class="opt">최대 2개</span></span>
+      <p class="h">어느 역할이든 괜찮으면 «뭐든 상관없음»을 골라 주세요.</p>
       <div class="chips" id="role"></div>
     </div>
 
@@ -173,7 +174,7 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
 (function(){
 var INTERESTS = ['환경·기후','에너지','건강·의료','식품·농업','물·해양','동물·생태',
   '교통·도시','교육','경제·일자리','스포츠','게임·미디어','기타'];
-var ROLES = ['기록·정리','데이터 찾기','분석·시각화','발표'];
+var ROLES = ['기록·정리','데이터 찾기','분석·시각화','발표','뭐든 상관없음'];
 var $ = function(id){ return document.getElementById(id); };
 function chips(box, list, type, name){
   $(box).innerHTML = list.map(function(x){
@@ -181,7 +182,15 @@ function chips(box, list, type, name){
   }).join('');
 }
 chips('interest', INTERESTS, 'checkbox', 'it');
-chips('role', ROLES, 'radio', 'rl');
+chips('role', ROLES, 'checkbox', 'rl');
+// 역할은 2개까지 · «뭐든 상관없음»은 혼자만
+$('role').addEventListener('change', function(ev){
+  var all = [].slice.call(document.querySelectorAll('input[name=rl]')), any = all[all.length - 1];
+  if(ev.target === any && any.checked) all.forEach(function(i){ if(i !== any) i.checked = false; });
+  if(ev.target !== any && ev.target.checked) any.checked = false;
+  var on = all.filter(function(i){ return i.checked && i !== any; }).length;
+  all.forEach(function(i){ if(i !== any) i.disabled = !i.checked && on >= 2; });
+});
 // 관심 분야는 2개까지
 $('interest').addEventListener('change', function(){
   var on = [].filter.call(document.querySelectorAll('input[name=it]'), function(i){ return i.checked; }).length;
@@ -202,7 +211,7 @@ $('tf').addEventListener('submit', function(ev){
     cls: $('cls').value, sid: $('sid').value.replace(/\D/g, ''), name: $('sname').value.replace(/\s/g, ''),
     partner: $('partner').value.trim(), python: picked('py')[0] || '',
     interest: picked('it').join(', '), career: $('career').value.trim(),
-    role: picked('rl')[0] || '', avoid: $('avoid').value.trim()
+    role: picked('rl').join(', '), avoid: $('avoid').value.trim()
   };
   var need = !d.cls ? '분반을 골라 주세요' : !d.sid ? '학번을 숫자로 적어 주세요' : !d.name ? '이름을 적어 주세요'
     : !d.partner ? '1번: 친구 이름이나 «없음»을 적어 주세요' : !d.python ? '2번을 골라 주세요'

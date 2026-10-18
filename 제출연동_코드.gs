@@ -2219,6 +2219,8 @@ function 테스트한줄넣기() {
    ══════════════════════════════════════════════════════════════ */
 var TEAM_CLASSES = ['인기A', '인기D', '인기E'];
 var TEAM_ROLES = ['기록·정리', '데이터 찾기', '분석·시각화', '발표'];
+// 희망 역할은 «기록·정리, 발표»처럼 최대 2개 · «뭐든 상관없음»이나 빈칸은 어느 역할이든 가능
+function teamRoles_(v) { return String(v || '').split(/\s*,\s*/).filter(function (r) { return TEAM_ROLES.indexOf(r) >= 0; }); }
 
 function 모둠편성안만들기() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -2282,7 +2284,7 @@ function teamBuild_(st, size, seed, restarts) {
       var py = m.filter(function (s) { return s.python; }).length, ic = {}, rc = {}, p, q;
       c += 30 * Math.pow(py - P / T, 2);
       if (py === 0 && P >= T) c += 120;
-      m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); if (s.role) rc[s.role] = (rc[s.role] || 0) + 1; });
+      m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); var r0 = teamRoles_(s.role)[0]; if (r0) rc[r0] = (rc[r0] || 0) + 1; });
       Object.keys(ic).forEach(function (x) { if (x !== '기타') c += 4 * (ic[x] - 1) + 40 * Math.max(0, ic[x] - 2); });
       Object.keys(rc).forEach(function (x) { c += 6 * (rc[x] - 1); });
       for (p = 0; p < m.length; p++) for (q = p + 1; q < m.length; q++) if (avoid[m[p].idx + '-' + m[q].idx]) c += 1000;
@@ -2361,8 +2363,10 @@ function teamWrite_(sh, cls, r) {
       fmt.push('row' + (k % 2));
     });
     var py = m.filter(function (s) { return s.python; }).length, ic = {}, rc = {};
-    m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); if (s.role) rc[s.role] = (rc[s.role] || 0) + 1; });
+    var anyR = 0;
+    m.forEach(function (s) { s.interests.forEach(function (x) { ic[x] = (ic[x] || 0) + 1; }); var rl = teamRoles_(s.role); if (!rl.length) anyR++; rl.forEach(function (r) { rc[r] = (rc[r] || 0) + 1; }); });
     var emptyR = TEAM_ROLES.filter(function (x) { return !rc[x]; });
+    if (emptyR.length <= anyR) emptyR = [];
     rows.push(['', m.length + '명', '파이썬 ' + py, '', Object.keys(ic).map(function (x) { return x + (ic[x] > 1 ? '×' + ic[x] : ''); }).join(', '),
       '', emptyR.length ? '빈 역할: ' + emptyR.join(', ') : '역할 고르게', '', '']);
     fmt.push('sum');
