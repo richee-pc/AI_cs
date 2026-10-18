@@ -2174,16 +2174,11 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/17_unit2_06_07_deeplearning.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 17 Ⅱ-06·07 전체</a></div>
     <div class="nest"><div class="n1">인공지능<div class="n2">기계학습<div class="n3">딥러닝</div></div></div>
       <p>딥러닝은 기계학습의 한 종류, 기계학습은 인공지능의 한 종류입니다. 큰 상자 안에 작은 상자가 들어 있어요.</p></div>
-    <div class="tool">
-      <h3>개념 정의 — 한 문장으로 딱! <span class="tm">116~119쪽</span></h3>
-      <p class="desc">왼쪽 <b>정의</b>는 시험·발표에서 쓰는 정확한 문장, 오른쪽 <b>쉽게 말하면</b>은 초등학생 동생에게 설명하듯 풀어 쓴 말입니다.</p>
-      <div class="defs">
+    <h3 class="lh">① 뉴런 → 퍼셉트론 <small>117쪽 그림 Ⅱ-16</small></h3>
+    <div class="defs" style="margin:10px 0 14px">
         <div class="drow key"><b>인공신경망<small>Artificial Neural Network</small></b>
           <p class="dfn">사람 뇌의 <b>신경세포(뉴런)</b>가 서로 연결되어 신호를 주고받는 방식을 본떠, <b>인공 뉴런(퍼셉트론)을 층층이 연결</b>해 만든 기계학습 모델.</p>
           <p class="easy">작은 계산기 친구들이 줄을 서서 <b>쪽지 전달 놀이</b>를 해요. 앞 친구한테 받은 쪽지를 보고 «이건 중요해!» 하고 계산해서 뒤 친구에게 넘기면, 맨 끝 친구가 정답을 말해요.</p></div>
-        <div class="drow key"><b>딥러닝<small>Deep Learning · 심층 학습</small></b>
-          <p class="dfn"><b>은닉층을 여러 개 깊게 쌓은 인공신경망(심층 신경망)</b>으로 데이터의 특징을 스스로 찾아 학습하는 기계학습 방법.</p>
-          <p class="easy">«딥(deep)»은 <b>깊다</b>는 뜻 — 줄이 아주 길다는 말이에요. 강아지 사진을 보면 첫 줄은 «선», 다음 줄은 «눈·귀», 그다음 줄은 «강아지 얼굴!»처럼 <b>뒤로 갈수록 더 큰 모양</b>을 알아봐요.</p></div>
         <div class="drow"><b>인공 뉴런 · 퍼셉트론<small>117쪽</small></b>
           <p class="dfn">여러 입력에 <b>가중치를 곱해 더하고 편향</b>을 더한 뒤, <b>활성화 함수</b>를 거쳐 출력을 내는 신경망의 가장 작은 단위.</p>
           <p class="easy">«할까, 말까?»를 정하는 <b>작은 결정 상자</b> 하나. 이런 상자 수백·수천 개가 모이면 신경망이 돼요.</p></div>
@@ -2196,22 +2191,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <div class="drow"><b>활성화 함수<small>117쪽 · 렐루 · 시그모이드</small></b>
           <p class="dfn">가중합 + 편향을 받아 <b>다음 층으로 보낼 값</b>을 정하는 함수.</p>
           <p class="easy">문 앞의 <b>문지기</b>. 신호가 약하면 «통과 못 해!», 세면 «지나가!» 하고 보내 줘요.</p></div>
-        <div class="drow"><b>입력층 · 은닉층 · 출력층<small>118쪽</small></b>
-          <p class="dfn">데이터가 들어오는 층 · 그 사이에서 계산하는 층 · 최종 결과를 내는 층. 은닉층이 2개 이상이면 <b>심층 신경망</b>.</p>
-          <p class="easy"><b>귀</b>(듣기) → <b>머릿속</b>(생각하기, 밖에서 안 보여서 «숨은» 층) → <b>입</b>(대답하기).</p></div>
-        <div class="drow"><b>손실함수<small>119쪽</small></b>
-          <p class="dfn">모델의 예측값과 실제 정답의 <b>차이(오차)를 숫자로</b> 나타내는 함수. 0에 가까울수록 좋다.</p>
-          <p class="easy">다트를 던졌을 때 <b>과녁 한가운데서 얼마나 떨어졌는지</b> 재는 자. 0이면 정중앙!</p></div>
-        <div class="drow"><b>오차 역전파<small>119쪽</small></b>
-          <p class="dfn">출력층의 오차를 <b>입력층 쪽으로 거꾸로</b> 전달하며, 오차가 줄어드는 방향으로 가중치와 편향을 고치는 학습 방법.</p>
-          <p class="easy">전달 놀이에서 답이 틀리면 맨 끝 친구부터 <b>거꾸로</b> «너는 이만큼 잘못 전했어» 알려 줘요. 그러면 다음엔 조금씩 덜 틀려요.</p></div>
-        <div class="drow"><b>학습 · 에포크<small>119 · 128쪽</small></b>
-          <p class="dfn">순전파(답 내기) → 손실 계산 → 역전파(고치기)를 반복해 손실을 줄이는 과정이 <b>학습</b>. 훈련 데이터 전체를 한 번 다 학습하면 <b>1에포크</b>.</p>
-          <p class="easy">문제집 한 권을 <b>처음부터 끝까지 한 번</b> 풀고 채점·오답 정리하면 1에포크. 600에포크면 600번 반복!</p></div>
-      </div>
-      <p class="side bot" style="margin-top:10px"><b>한 줄로 이어 보기</b>인공 뉴런을 <b>층으로 이으면</b> 인공신경망, 은닉층을 <b>깊게 쌓아</b> 학습하면 딥러닝. 학습은 «답 내기 → 얼마나 틀렸나 재기 → 거꾸로 고치기»의 반복입니다.</p>
     </div>
-    <h3 class="lh">① 뉴런 → 퍼셉트론 <small>117쪽 그림 Ⅱ-16</small></h3>
     <div class="flow2 big"><span>입력 × <b>가중치</b></span><i>→</i><span>모두 더하고 + <b>편향</b></span><i>→</i><span><b>활성화 함수</b>(렐루·시그모이드)</span><i>→</i><span class="out"><b>임계값</b>을 넘으면 참</span></div>
     <p class="hint">교과서 계산: 1×0.3 + 0×0.8 + 1×0.4 + (−0.1) = <b>0.6</b>. 직접 바꿔 보려면 아래 «퍼셉트론과 XOR»로.</p>
     <div class="tool fig">
@@ -2257,10 +2237,19 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
       <div class="keyout" id="afOut"></div>
     </div>
     <h3 class="lh">② 층을 쌓으면 딥러닝 <small>118~119쪽</small></h3>
-    <div class="cgrid three">
-      <div class="cc"><b>입력층 · 은닉층 · 출력층</b><span>값이 들어오는 층, 사이에서 계산하는 층, 최종 답이 나오는 층. <b>은닉층이 여러 개</b>면 심층 신경망 = 딥러닝.</span></div>
-      <div class="cc"><b>손실함수</b><span>«얼마나 틀렸나»를 재는 함수. 0에 가까울수록 좋다. 숫자 예측 MSE · 이진 분류 이진 교차 엔트로피 · 다중 분류 범주형 교차 엔트로피.</span></div>
-      <div class="cc"><b>오차 역전파</b><span>출력층에서 입력층 쪽으로 <b>거꾸로</b> 가며 가중치와 편향을 고친다. 크게 틀릴수록 크게 고친다.</span></div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow key"><b>딥러닝<small>Deep Learning · 심층 학습</small></b>
+          <p class="dfn"><b>은닉층을 여러 개 깊게 쌓은 인공신경망(심층 신경망)</b>으로 데이터의 특징을 스스로 찾아 학습하는 기계학습 방법.</p>
+          <p class="easy">«딥(deep)»은 <b>깊다</b>는 뜻 — 줄이 아주 길다는 말이에요. 강아지 사진을 보면 첫 줄은 «선», 다음 줄은 «눈·귀», 그다음 줄은 «강아지 얼굴!»처럼 <b>뒤로 갈수록 더 큰 모양</b>을 알아봐요.</p></div>
+        <div class="drow"><b>입력층 · 은닉층 · 출력층<small>118쪽</small></b>
+          <p class="dfn">데이터가 들어오는 층 · 그 사이에서 계산하는 층 · 최종 결과를 내는 층. 은닉층이 2개 이상이면 <b>심층 신경망</b>.</p>
+          <p class="easy"><b>귀</b>(듣기) → <b>머릿속</b>(생각하기, 밖에서 안 보여서 «숨은» 층) → <b>입</b>(대답하기).</p></div>
+        <div class="drow"><b>손실함수<small>119쪽</small></b>
+          <p class="dfn">모델의 예측값과 실제 정답의 <b>차이(오차)를 숫자로</b> 나타내는 함수. 0에 가까울수록 좋다.</p>
+          <p class="easy">다트를 던졌을 때 <b>과녁 한가운데서 얼마나 떨어졌는지</b> 재는 자. 0이면 정중앙!</p></div>
+        <div class="drow"><b>오차 역전파<small>119쪽</small></b>
+          <p class="dfn">출력층의 오차를 <b>입력층 쪽으로 거꾸로</b> 전달하며, 오차가 줄어드는 방향으로 가중치와 편향을 고치는 학습 방법.</p>
+          <p class="easy">전달 놀이에서 답이 틀리면 맨 끝 친구부터 <b>거꾸로</b> «너는 이만큼 잘못 전했어» 알려 줘요. 그러면 다음엔 조금씩 덜 틀려요.</p></div>
     </div>
     <div class="tool fig">
       <h3>그림으로 — 얕은 신경망과 심층 신경망 <span class="tm">118쪽 그림 Ⅱ-17</span></h3>
@@ -2279,6 +2268,7 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <div><b>셋 이상 중 하나</b><code>범주형 교차 엔트로피</code></div>
       </div>
       <p class="side" style="margin-top:8px"><b>되돌아보기 ▶ 96쪽 선형 회귀</b>평균제곱오차가 작을수록 정확한 모델이었다. 딥러닝도 똑같이 <b>손실함숫값이 0에 가까울수록</b> 정확하다.</p>
+      <p class="side bot" style="margin-top:10px"><b>한 줄로 이어 보기</b>인공 뉴런을 <b>층으로 이으면</b> 인공신경망, 은닉층을 <b>깊게 쌓아</b> 학습하면 딥러닝. 학습은 «답 내기 → 얼마나 틀렸나 재기 → 거꾸로 고치기»의 반복입니다.</p>
     </div>
     <div class="tool" style="margin-top:12px">
       <h3>이건 어느 분야일까? <span class="tm">120~121쪽</span></h3>
@@ -2305,6 +2295,11 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
         <div><em>최댓값 풀링 → 3×3</em><div class="cvg" id="cvPool"></div></div>
       </div>
       <div class="keyout" id="cvOut"></div>
+    </div>
+    <div class="defs" style="margin:10px 0 14px">
+        <div class="drow"><b>학습 · 에포크<small>119 · 128쪽</small></b>
+          <p class="dfn">순전파(답 내기) → 손실 계산 → 역전파(고치기)를 반복해 손실을 줄이는 과정이 <b>학습</b>. 훈련 데이터 전체를 한 번 다 학습하면 <b>1에포크</b>.</p>
+          <p class="easy">문제집 한 권을 <b>처음부터 끝까지 한 번</b> 풀고 채점·오답 정리하면 1에포크. 600에포크면 600번 반복!</p></div>
     </div>
     <div class="ws"><b><i>활동</i> 텐서플로 놀이터에서 신경망 만들어 보기 <span style="font-weight:600; color:var(--muted)">122쪽</span></b><div>
       <a href="https://playground.tensorflow.org" target="_blank" rel="noopener">playground.tensorflow.org ↗</a>에서 <b>Spiral(소용돌이)</b> 데이터 · 모든 속성 선택 ·
@@ -5552,7 +5547,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=5d9cf1dc"></script>
+<script src="lessons.js?v=c72317d5"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
