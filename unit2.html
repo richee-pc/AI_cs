@@ -276,6 +276,32 @@
 .pgsteps li{margin:3px 0}
 .pgsteps li b:first-child{color:var(--blue-d); margin-right:4px}
 .dget{margin:8px 0 0; background:var(--good-bg); border-radius:10px; padding:7px 10px; font-size:0.8125rem; line-height:1.6; color:var(--ink2)}
+.xgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:10px}
+.xgrid > div{background:var(--tint); border-radius:14px; padding:11px 13px; font-size:0.875rem; line-height:1.65; color:var(--ink2)}
+.xgrid > div > b:first-child{display:block; color:var(--blue-d); font-size:0.9375rem; margin-bottom:3px}
+.xlt{display:flex; align-items:center; gap:7px; margin:2px 0}
+.xlt i{width:13px; height:13px; border-radius:50%; flex:none; box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)}
+.xlt i.g{background:#22B573} .xlt i.y{background:#F5B700} .xlt i.n{background:transparent; box-shadow:inset 0 0 0 2px var(--muted)}
+.xcls{display:inline-block; font-size:0.75rem; font-weight:800; color:var(--on-fill); background:var(--fill); border-radius:99px; padding:1px 9px; margin-right:4px}
+.xcls.de{background:var(--warm)}
+.xfor{margin:12px 0 6px; font-size:0.875rem; font-weight:700; color:var(--ink2)}
+.xsites{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px}
+.xs{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 13px; font-size:0.8438rem; line-height:1.6}
+.xs.top{border:2px solid var(--blue-l)}
+.xs > a{font-weight:800; font-size:0.9688rem}
+.xs em{display:block; font-style:normal; color:var(--muted); font-size:0.75rem; margin:1px 0 4px}
+.xs ol{margin:0; padding-left:1.2em} .xs ol li{margin:1px 0}
+.xs > span{display:block; margin-top:5px; font-size:0.7812rem; color:var(--warm)}
+.xcards{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px; margin-bottom:8px}
+.xcards > div{background:var(--white); border:1px solid var(--line); border-top:4px solid var(--good); border-radius:14px; padding:11px 13px; font-size:0.8438rem; line-height:1.6; display:flex; flex-direction:column; gap:3px}
+.xcards b{font-size:0.9688rem; color:var(--ink)} .xcards em{font-style:normal; color:var(--muted); font-size:0.75rem}
+.xcards .q{color:var(--blue-d); font-weight:600} .xcards .w{color:var(--warm); font-size:0.7812rem}
+.xcards a{margin-top:4px; font-weight:800}
+.xlot{margin-top:12px; background:var(--tint); border-radius:14px; padding:11px 13px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px}
+.xlot input{width:60px; font-size:0.9375rem; padding:4px 6px; border:1px solid var(--line); border-radius:8px; background:var(--white); color:var(--ink)}
+.xlotout{flex-basis:100%; display:flex; flex-wrap:wrap; gap:6px; font-size:0.875rem; color:var(--ink2)}
+.xlotout span{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:4px 10px; font-weight:800; color:var(--blue-d)}
+.xlotout i{font-style:normal; font-weight:600; color:var(--muted); margin-right:5px; font-size:0.75rem}
 .defs{display:grid; gap:8px}
 .drow{display:grid; grid-template-columns:minmax(0,170px) minmax(0,1fr) minmax(0,1fr); gap:6px 14px; align-items:start; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:11px 14px}
 .drow.key{border:2px solid var(--blue-l); background:var(--blue-xl)}
@@ -2608,177 +2634,171 @@ table.cmt td.fn, table.cmt td.fp{background:var(--warm-bg); color:var(--warm); f
   </details>
   <p class="note" style="margin-top:14px"><b>정답은 없습니다.</b>
     같은 이야기를 읽어도 누구는 더위와 건강을, 누구는 물을, 누구는 전기와 쓰레기를 문제로 봅니다.
-    이야기 속 말 중에는 <b>«느낌»이나 «소문»</b>도 섞여 있으니, 무엇이 데이터로 확인할 수 있는 것인지부터 가려 보세요.
-    같은 실마리를 고른 모둠이 여럿이어도 괜찮습니다 — 찾는 데이터와 해석이 달라 발표 때 좋은 토의거리가 됩니다.</p>
+    이야기 속 말 중에는 <b>«느낌»</b>이나 <b>«들은 말»</b>(누가 그랬다더라 · 아직 확인 안 된 이야기)도 섞여 있으니, 무엇이 데이터로 확인할 수 있는 것인지부터 가려 보세요.
+    <b>각자 문제를 정의한 뒤 모둠이 그중 하나를 골라 다듬어, 모둠 문제 하나</b>를 끝까지 풉니다.</p>
+
+  <div class="card xrule" id="exrule">
+    <h3 style="margin-top:0">📋 모둠 탐구 사용 설명서 <small>네 차시 공통 · 이 쪽에는 «오늘 할 일과 링크»만 있어요</small></h3>
+    <div class="xgrid">
+      <div><b>📝 쓰는 곳은 «모둠 슬라이드» 하나</b>구글 슬라이드 한 벌이 <b>활동지이자 발표자료</b>예요. 이 쪽에 적지 말고 슬라이드에 씁니다. 링크는 선생님이 수업 때 알려 줘요.<br><span class="xcls">D·E반</span> 1차시는 «개인 활동지»에 쓰고, 2차시에 내 장이 모둠 슬라이드로 <b>자동으로</b> 옮겨져요.</div>
+      <div><b>🚦 신호등</b><span class="xlt"><i class="g"></i>초록 = 필요할 때 스스로(자료 찾기 AI)</span><span class="xlt"><i class="y"></i>노랑 = 정해진 활동에서만(데이터 정리 · 질문하는 · 발표 연습 AI)</span><span class="xlt"><i class="n"></i>표시 없음 = AI 없이 내 생각 먼저</span></div>
+      <div><b>✍️ AI 사용 기록 — 매 차시 끝나기 3분 전</b>슬라이드 맨 뒤 «AI 사용 기록» 장에 <b>오늘 쓴 AI를 한 줄씩</b>: 쓴 도구 · 내 질문 · AI 답 요지 · 받아들임/고침/거절 · 이유. 나중에 쓰면 잊어버려요.</div>
+      <div><b>🕓 기여는 «버전 기록»으로 보여요</b>슬라이드 <b>파일 → 버전 기록</b>에서 누가 언제 어느 칸을 썼는지 선생님이 봅니다. <b>내 칸은 내가</b> 쓰고, 다른 사람 칸은 지우지 않아요. 한 사람이 다 쓰면 그것도 보여요.</div>
+      <div><b>⭐ 자기 · 동료평가 두 번(점수 미반영)</b>1차 = 2차시 끝 <b>구글 설문</b>(A반 10/23 · D·E반 10/26)<br>2차 = 4차시 <b>플랫폼</b>(A · E반 10/29 · D반 10/30). 쓴 사람은 선생님만 알아요.</div>
+      <div><b>🛟 막히면</b>데이터를 못 찾으면 아래 <a href="#excards">데이터 카드</a> · 로그인이 필요한 사이트는 <b>새로 가입하지 말고</b> 선생님께 · 플랫폼 계정은 3차시에 선생님이 알려 주는 «계정 확인» 링크로.</div>
+    </div>
+    <p class="note" style="margin:12px 0 0"><b>꼭 지킬 세 가지.</b>
+      ① AI가 알려 준 숫자·통계·출처는 <b>원래 누리집에서 직접 확인</b>하고 씁니다 — AI는 그럴듯한 가짜 숫자를 지어내기도 합니다.
+      ② AI에 <b>이름·연락처·사진·친구 정보</b>를 넣지 않습니다.
+      ③ 그래프를 그렸으면 «<b>이 데이터가 대표하지 못하는 사람·지역·기간은?</b>»을 한 줄 적습니다.</p>
+  </div>
+
+  <div class="card" id="exsites">
+    <h3 style="margin-top:0">🔎 데이터 찾는 곳 <small>교과서 67쪽 «데이터를 확보할 수 있는 대표 누리집» + 우리 탐구에 쓸 곳</small></h3>
+    <p class="desc" style="margin-top:0">찾은 파일은 <b>모둠 데이터 폴더</b>에 올리고, 슬라이드 «데이터 출처» 장에 <b>데이터 이름 · 제공 기관 · 기준 연도 · 주소 · 이용 조건</b> 다섯 가지를 바로 적어요.</p>
+    <div class="xsites">
+      <div class="xs top"><a href="https://www.data.go.kr" target="_blank" rel="noopener">공공데이터포털 ↗</a><em>교과서 67쪽 · 정부 · 공공기관 데이터 한곳에</em>
+        <ol><li>검색창에 낱말(폭염 · 수질 · 전력 · 급식)</li><li><b>«파일데이터»</b> 탭 고르기</li><li>제목을 눌러 <b>CSV 다운로드</b>(로그인 없이 되는 것 먼저)</li><li>«제공기관 · 수정일 · 이용허락범위» 옮겨 적기</li></ol><span>«오픈API»는 신청이 필요해요 — 파일데이터만</span></div>
+      <div class="xs top"><a href="https://kosis.kr" target="_blank" rel="noopener">KOSIS 국가통계포털 ↗</a><em>교과서 지도서 보충 · 나라가 승인한 통계</em>
+        <ol><li><b>국내통계 → 주제별 통계</b>(보건 · 환경 · 에너지)</li><li>표 이름 누르기</li><li><b>조회설정</b>에서 시점 · 지역 고르기</li><li><b>다운로드 → CSV</b> · 단위 확인</li></ol><span>표가 가로로 넓으면 «행렬전환»</span></div>
+      <div class="xs top"><a href="https://data.kma.go.kr" target="_blank" rel="noopener">기상자료개방포털 ↗</a><em>기온 · 폭염일수 · 강수량</em>
+        <ol><li><b>기후통계분석 → 기상현상일수</b>에서 폭염일수 바로 보기</li><li>일별 값은 <b>데이터 → 지상 → 종관기상관측(ASOS)</b></li><li>지점(광주) · 기간 · 요소(최고기온) 고르기</li><li>CSV 받기</li></ol><span>내려받기에 로그인이 필요하면 선생님께</span></div>
+      <div class="xs"><a href="https://www.aihub.or.kr" target="_blank" rel="noopener">AI 허브 ↗</a><em>교과서 67쪽 · AI 학습용 큰 데이터(이미지 · 음성 · 글)</em>
+        <ol><li>«AI 데이터찾기»에서 낱말 검색</li><li>설명 · 크기 · 이용 조건 읽기</li></ol><span>내려받기는 가입 · 신청 필요 → 이번엔 둘러보기, 쓰려면 선생님께</span></div>
+      <div class="xs"><a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener">캐글 ↗</a><em>교과서 67쪽 · 세계 데이터 대회 · 영어</em>
+        <ol><li><b>Datasets</b>에서 영어 낱말(heat wave, water quality)</li><li>«Data Card»로 열 설명 · 라이선스 확인</li></ol><span>내려받기는 로그인 필요 → 선생님께</span></div>
+      <div class="xs"><a href="https://dacon.io" target="_blank" rel="noopener">데이콘 ↗</a><em>교과서 67쪽 · 한국 AI 대회 플랫폼</em>
+        <ol><li>«대회» 또는 «데이터»에서 주제 고르기</li><li>«데이터» 탭에서 설명 읽기</li></ol><span>내려받기는 로그인 필요 → 선생님께</span></div>
+      <div class="xs"><a href="https://datalab.naver.com" target="_blank" rel="noopener">네이버 데이터랩 ↗</a><em>지도서 보충 · 검색어 추세</em>
+        <ol><li><b>검색어트렌드</b>에 «폭염» «에어컨» 넣기</li><li>기간 · 연령 고르고 조회 → 그래프 캡처</li></ol><span>숫자 표 내려받기는 로그인 필요 — 그래프 캡처 + 출처로 충분</span></div>
+      <div class="xs"><a href="https://data.seoul.go.kr" target="_blank" rel="noopener">서울 열린데이터광장 ↗</a><em>지도서 보충 · 서울 지역 데이터</em>
+        <ol><li>낱말 검색 → «Sheet» 또는 «File»</li><li>CSV 받기</li></ol><span>서울 데이터예요 — 우리 지역과 다른 점을 한계에 적기</span></div>
+      <div class="xs"><a href="https://www.price.go.kr" target="_blank" rel="noopener">참가격(한국소비자원) ↗</a><em>지도서 보충 · 생필품 가격</em>
+        <ol><li>품목 검색(생수 · 음료)</li><li>기간별 가격 표 확인</li></ol><span>«폭염 때 음료 값» 같은 질문에</span></div>
+    </div>
+  </div>
+
+  <div class="card" id="excards">
+    <h3 style="margin-top:0">🃏 데이터 카드 <small>못 찾았을 때 · 바로 받는 데이터 · 정당한 선택이에요</small></h3>
+    <div class="xcards">
+      <div><b>💧 약수터 수질 검사</b><em>SDG 6 · 교과서 부록 221~226쪽 자료 · 381행</em>
+        <span>측정값 7개(일반세균 · 총대장균군 · 암모니아성질소 · 질산성질소 …) + 판정(적합 / 부적합)</span>
+        <span class="q">질문 예) 어떤 측정값이 «부적합» 판정과 가장 관련이 클까?</span>
+        <span class="w">판정 표기가 1 · Y · N · 0으로 섞여 있어요 → 전처리 기준에 «하나로 통일»</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/water_quality.csv" target="_blank" rel="noopener">water_quality.csv 받기</a></div>
+      <div><b>😮‍💨 스트레스 수준</b><em>SDG 3 · 교과서 부록 213~218쪽 자료 · 2,001행</em>
+        <span>습도 · 체온(°F) · 걸음 수 → 스트레스 수준 0 · 1 · 2</span>
+        <span class="q">질문 예) 습도가 높을수록 스트레스 수준이 높을까?</span>
+        <span class="w">체온 단위가 화씨(°F) — 발표 때 단위 밝히기</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/stress_lysis.csv" target="_blank" rel="noopener">stress_lysis.csv 받기</a></div>
+      <div><b>🩺 건강검진 3만 명</b><em>SDG 3 · 국민건강보험공단 건강검진정보(공공데이터포털) 일부 · 30,000행</em>
+        <span>성별 · 연령대 · 키 · 몸무게 · 허리둘레 · 혈압 · 혈당 · 음주 · 흡연 …</span>
+        <span class="q">질문 예) 허리둘레와 혈압은 함께 커질까? 연령대마다 다를까?</span>
+        <span class="w">가입자일련번호 · 시도코드 열은 지우기 · 3,000행만 뽑아 써도 충분</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/health_checkup_30k.csv" target="_blank" rel="noopener">health_checkup_30k.csv 받기</a></div>
+    </div>
+    <p class="hint" style="margin-bottom:0">출처 예) «약수터 수질 검사 결과 — 「인공지능 기초」(미래엔) 부록 221쪽 자료, 수업용으로 정리» · 카드의 질문 예는 그대로 쓰지 말고 <b>우리 말로</b> 바꿔요.</p>
+  </div>
 
   <div class="flowlist" style="margin-top:22px">
     <div class="fcard" id="ex1">
       <div class="fnum">①<span>차시</span></div>
       <div class="fbody"><b>문제 정하고 데이터 찾기 — 무엇이 진짜 문제인가</b>
         <i>① 문제 인식 및 정의 → ② 데이터 관점 탐구 설계 · <span class="lt n">AI 없이</span></i>
+        <p class="xfor"><span class="xcls">A반</span> 모둠 슬라이드에 씁니다</p>
         <div class="tline">
-          <div class="tl"><em>3′</em><div><b>수업 안내</b> 네 차시의 흐름 · 산출물 · 모둠 역할(기록 · 데이터 탐색 · 분석 · 발표) → AI 신호등과 AI 활용 윤리 체크리스트 — <b>오늘은 AI를 쓰지 않습니다</b></div></div>
-          <div class="tl"><em>8′</em><div><b>활동 1 · 나만의 문제 정의</b> 함께 읽으며 «문제라고 생각하는 문장»에 밑줄 3′ → 데이터로 확인할 수 있는 것 / 없는 것(느낌 · 소문) 나누고 <b>한 문장 정의</b>와 핵심 요소 5′ <small>활동지 ①</small></div></div>
-          <div class="tl"><em>6′</em><div><b>활동 2 · 모둠 문제 정의문</b> 한 사람씩 1분 읽기 → 데이터로 확인할 수 있는지 따지기 → 가장 좋은 정의를 근거와 함께 골라 다듬기 → <b>선생님 확인</b></div></div>
-          <div class="tl"><em>18′</em><div><b>활동 3 · 가설과 탐구 질문 정의서</b> «○○할수록 △△할 것이다» 개인 가설과 사전 지식 5′ → 모둠 <b>탐구 질문 정의서</b> 13′(가설 · 필요한 데이터 · 꼭 필요한 열 · 출처 후보 · 분석 · 시각화 계획 · AI 활용 계획 · 역할) <small>활동지 ① · ② · (심화) 가설과 반대 결과가 나오면 무엇을 뜻하는지(대립 가설)</small></div></div>
-          <div class="tl"><em>13′</em><div><b>활동 4 · 데이터 수집 시작</b> 사이트를 나눠 찾고, 찾은 즉시 <b>데이터 이름 · 제공 기관 · 기준 연도 · 주소 · 이용 조건</b>을 적습니다 <small>찾은 파일은 모둠 공유 폴더에</small></div></div>
-          <div class="tl"><em>2′</em><div><b>정리</b> 다음 시간 — 찾은 데이터를 마저 모아 믿을 만한지 따지고, 정리해서 그래프를 그리고 해석합니다</div></div>
+          <div class="tl"><em>3′</em><div><b>수업 안내</b> 네 차시 흐름 · 모둠 역할 · 신호등 — <b>오늘은 AI를 쓰지 않아요</b></div></div>
+          <div class="tl"><em>8′</em><div><b>나의 문제 정의</b> <a href="#story">문제 상황</a>을 읽고 «문제라고 생각하는 문장»에 밑줄 → 데이터로 확인할 수 있는 것 / 없는 것(느낌 · 들은 말) → 한 문장 정의<small>📝 슬라이드 «나의 문제 정의»(내 이름 장)</small></div></div>
+          <div class="tl"><em>6′</em><div><b>모둠 문제 정의문</b> 한 사람씩 1분 읽기 → 가장 좋은 정의를 골라 다듬기 → <b>선생님 확인 ✓</b><small>📝 «모둠 문제 정의» 장 · 선생님이 ✓를 눌러야 다음으로</small></div></div>
+          <div class="tl"><em>18′</em><div><b>가설과 탐구 질문 정의서</b> «○○할수록 △△할 것이다» → 필요한 데이터 · 꼭 필요한 열 · 그래프 계획 · 역할<small>📝 «탐구 질문 정의서» 두 장</small></div></div>
+          <div class="tl"><em>13′</em><div><b>데이터 찾기</b> <a href="#exsites">데이터 찾는 곳</a>을 모둠원끼리 나눠 찾기 → 파일은 모둠 데이터 폴더 → 출처 다섯 가지<small>📝 «데이터 출처» 장 · 못 찾으면 <a href="#excards">데이터 카드</a></small></div></div>
+          <div class="tl"><em>2′</em><div><b>정리</b> 다음 시간 — 데이터를 평가하고 코랩으로 정리 · 그래프</div></div>
         </div>
-        <div class="frame"><b>가설 틀</b>가설: <span class="blank"></span>할수록 <span class="blank"></span>할 것이다. 왜냐하면 <span class="blank"></span> 때문이다.<br>이미 아는 것: <span class="blank"></span> · 더 알아야 할 것: <span class="blank"></span></div>
-        <div class="tw" style="margin:10px 0"><table>
-          <tr><th style="width:120px">실마리</th><th>검색어 카드 <span style="font-weight:500">— 활동 4</span></th></tr>
-          <tr><td>폭염 · 전력</td><td>폭염일수, 일 최고기온, 학교 전기 사용량</td></tr>
-          <tr><td>건강 · 수면</td><td>청소년 수면시간, 청소년건강행태조사</td></tr>
-          <tr><td>급식 · 쓰레기</td><td>학교급식 잔반, 음식물류 폐기물</td></tr>
-          <tr><td>물</td><td>먹는물 수질, 약수터 수질검사, 녹조</td></tr>
-          <tr><td>못 찾았을 때</td><td>선생님의 <b>데이터 카드</b> 또는 교과서 부록 <b>스트레스</b>(213~218쪽) · <b>물 수질</b>(221~226쪽) 데이터 — 써도 괜찮아요. 정당한 선택이에요.</td></tr>
-        </table></div>
-        <div class="frame"><b>출처 기록</b>데이터 이름 <span class="blank"></span> · 제공 기관 <span class="blank"></span> · 기준 연도 <span class="blank"></span> · 주소(URL) <span class="blank"></span> · 이용 조건(공공누리 유형) <span class="blank"></span><br>예) 일별 최고기온 · 기상청 · 2015~2025 · (주소) · 공공누리 1유형 — «누가, 언제, 어떻게 모았나요?»</div>
-        <div class="tbx"><b>📗 교과서 Ⅱ-01과 이어지는 곳</b>
-          기계학습 <a href="#learn01">다섯 단계</a>(63쪽)의 <b>① 문제 정의 → ② 데이터 수집 계획</b>을 사람의 판단으로 합니다.
-          이야기 속 «느낌 · 소문»을 가려내는 일이 곧 <b>정확성 · 관련성</b>(좋은 데이터 네 기준)을 따지는 첫걸음입니다.</div>
-        <div class="fgo" style="margin-top:10px"><a href="https://www.data.go.kr" target="_blank" rel="noopener">공공데이터포털 ↗</a><a href="https://kosis.kr" target="_blank" rel="noopener">KOSIS ↗</a><a href="https://data.kma.go.kr" target="_blank" rel="noopener">기상자료개방포털 ↗</a><a href="#learn01">교과서 Ⅱ-01 다섯 단계</a></div>
-        <p class="hint">로그인이 필요한 사이트(AI 허브 · 캐글)는 새로 가입하지 말고 선생님께 요청 — 공유 폴더로 줍니다. 교과서 67쪽 «데이터를 확보할 수 있는 대표 누리집»도 참고.</p></div>
+        <p class="xfor"><span class="xcls de">D·E반</span> 오늘은 혼자 — «개인 활동지»에 씁니다 · 모둠은 다음 시간부터</p>
+        <div class="tline">
+          <div class="tl"><em>5′</em><div><b>모둠 설문 · 수업 안내</b> 설문 안 낸 사람만 <a href="team.html">모둠 설문</a> · 수업 모형 다섯 단계와 네 차시</div></div>
+          <div class="tl"><em>8′</em><div><b>나의 문제 정의</b> <a href="#story">문제 상황</a> 밑줄 → 확인할 수 있는 것 / 없는 것 → 한 문장 정의<small>📝 개인 활동지 «나의 문제 정의»</small></div></div>
+          <div class="tl"><em>15′</em><div><b>나의 가설</b> «○○할수록 △△할 것이다» · 필요한 데이터 · 꼭 필요한 열<small>📝 개인 활동지 «나의 가설»</small></div></div>
+          <div class="tl"><em>20′</em><div><b>내 데이터 후보 1~2개</b> <a href="#exsites">데이터 찾는 곳</a>에서 찾고 출처 다섯 가지 · 파일 주소도 적기<small>📝 개인 활동지 «내가 찾은 데이터»</small></div></div>
+          <div class="tl"><em>2′</em><div><b>정리</b> 내 장은 다음 시간 <b>모둠 슬라이드로 자동으로</b> 옮겨져요</div></div>
+        </div>
+        <div class="fgo" style="margin-top:10px"><a href="#story">📖 문제 상황</a><a href="#exsites">🔎 데이터 찾는 곳</a><a href="#excards">🃏 데이터 카드</a><a href="#learn01b">📗 교과서 Ⅱ-01 다섯 단계</a></div>
+      </div>
     </div>
+
     <div class="fcard" id="ex2">
       <div class="fnum">②<span>차시</span></div>
       <div class="fbody"><b>정리하고 분석하기 — 해석은 내가 먼저</b>
         <i>② 데이터 관점 탐구 설계 → ③ AI 보조 데이터 탐구 · <span class="lt n">이번엔 AI 없이 · 코랩 노트북 20</span></i>
+        <p class="xfor"><span class="xcls">A반</span></p>
         <div class="tline">
-          <div class="tl"><em>2′</em><div><b>오늘의 흐름</b> 데이터 확정 → 정리 → 그래프 → <b>내가 먼저 해석</b> · 오늘은 <b>코랩 노트북 20</b>으로 정리하고 그립니다(플랫폼 AI는 3차시부터)</div></div>
-          <div class="tl"><em>12′</em><div><b>활동 1 · 데이터 수집 마무리와 평가</b> 가설에 답할 데이터 고르고 빠진 출처 채우기 4′ → 데이터 평가 체크리스트 5′(«아니요» 문항만 근거와 보완 방법) → <b>승인 기준 세 가지 모둠이 먼저 점검</b> 3′ — 선생님은 돌며 확인, 기다리지 말고 다음 활동으로 <small>활동지 ③</small></div></div>
-          <div class="tl"><em>12′</em><div><b>활동 2 · 전처리 기준과 전처리</b> 모둠 전처리 기준과 <b>기준마다 이유 한 줄</b> 5′ → <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">코랩 노트북 20</a> 설정 칸에 기준 그대로 넣고 실행 5′ → <b>변경 내역 확인</b>(지운 행 수) 2′ <small>활동지 ④ 전처리 칸 · 기준이 곧 설계도예요</small></div></div>
-          <div class="tl"><em>20′</em><div><b>활동 3 · 시각화와 1차 해석</b> 역할별로 코랩 그래프 · 상관 분석 10′ → <b>내 말로 1차 해석</b> 8′(그래프에서 직접 본 근거 한 가지 이상) → (먼저 끝나면) 교과서 Ⅱ-02 · 아래 «교과서로 배우기»로 개념 확인 2′ <small>활동지 ④ 학습 내용 요약서 · (심화) 상관계수 · 두 변수에 함께 영향을 주는 제3의 변수</small></div></div>
-          <div class="tl"><em>4′</em><div><b>활동 4 · 1차 동료평가</b>(자기평가 포함, 질문하는 AI를 쓰기 전에 · 성적에 넣지 않음) 3′ → 다음 시간 안내 1′</div></div>
+          <div class="tl"><em>2′</em><div><b>오늘의 흐름</b> 데이터 확정 → 평가 → 코랩으로 정리 · 그래프 → <b>내가 먼저 해석</b></div></div>
+          <div class="tl"><em>12′</em><div><b>데이터 평가</b> 가설에 답할 데이터 고르기 → 체크리스트(«아니요»만 근거) → <b>선생님 확인 ✓</b><small>📝 «데이터 평가» 장</small></div></div>
+          <div class="tl"><em>12′</em><div><b>전처리 기준 → 코랩</b> 기준마다 이유 한 줄 → <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">코랩 노트북 20</a> 설정 칸에 넣고 실행 → 지운 행 수<small>📝 «전처리 기준» 장</small></div></div>
+          <div class="tl"><em>20′</em><div><b>각자 코랩으로 그래프 · 1차 해석</b> 교과서 Ⅱ-02 ❶~⓮(결측치 · 이상치 · 상자그림 · 상관)를 <b>모두 각자</b> → 맡은 그래프 캡처 → 내 말로 해석<small>📝 «나의 시각화와 1차 해석»(내 이름 장)</small></div></div>
+          <div class="tl"><em>4′</em><div><b>1차 동료평가</b> 구글 설문(링크는 선생님) → 다음 시간 안내</div></div>
         </div>
-        <div class="ws"><b><i>활동 1</i> 데이터 평가 체크리스트 — 활동지 ③</b><div>
-          <div class="chk" data-save="eval11">
-            <label><input type="checkbox" data-k="a1"> <span><span class="grp">적합성</span>가설에 답하는 데 필요한 속성(열)이 모두 있다</span></label>
-            <label><input type="checkbox" data-k="a2"> <span><span class="grp">적합성</span>대상·지역·기간이 우리 문제와 맞는다</span></label>
-            <label><input type="checkbox" data-k="a3"> <span><span class="grp">적합성</span>단위와 수준(개인·학교·지역)이 비교하기에 알맞다</span></label>
-            <label><input type="checkbox" data-k="b1"> <span><span class="grp">신뢰성</span>제공 기관이 분명하고 믿을 만하다</span></label>
-            <label><input type="checkbox" data-k="b2"> <span><span class="grp">신뢰성</span>수집 방법과 기준이 공개되어 있다</span></label>
-            <label><input type="checkbox" data-k="b3"> <span><span class="grp">신뢰성</span>기준 연도가 문제를 설명하기에 충분히 최근이다</span></label>
-            <label><input type="checkbox" data-k="c1"> <span><span class="grp">품질·충분성</span>결측치·오류가 얼마나 있는지 확인했다</span></label>
-            <label><input type="checkbox" data-k="c2"> <span><span class="grp">품질·충분성</span>분석하기에 충분한 양(행 수)이다</span></label>
-            <label><input type="checkbox" data-k="c3"> <span><span class="grp">품질·충분성</span>대표하지 못하는 집단이나 기간을 확인했다</span></label>
-            <label><input type="checkbox" data-k="d1"> <span><span class="grp">윤리</span>개인을 알아볼 수 있는 정보가 없다</span></label>
-            <label><input type="checkbox" data-k="d2"> <span><span class="grp">윤리</span>이용 조건(공공누리·라이선스)을 확인했다</span></label>
-          </div><span class="chkstat" data-for="eval11"></span>
-          <span class="eg"><b>«아니요»인 문항만</b> 근거 한 줄과 보완 방법(다른 데이터 · 범위 좁히기)을 씁니다. «가설에 불리한 결과가 나올 데이터라도 빼지 않고 남겨 둡니다.»<br>
-            <b>승인 기준 — 모둠이 먼저 점검</b> □ 이 데이터로 가설에 답할 수 있다 □ 믿을 만하고 분석에 충분하다 □ 모둠원 모두에게 역할이 있다</span></div></div>
-        <div class="tbx"><b>📗 교과서 Ⅱ-01 63~69쪽과 짝짓기</b>
-          <ul>
-            <li><b>좋은 데이터 네 기준 ↔ 체크리스트</b> — 정확성 ↔ 품질(결측치·오류) · 관련성 ↔ 적합성 · 시의성 ↔ 기준 연도 · 다양성 ↔ «대표하지 못하는 집단·기간»</li>
-            <li><b>데이터 확보 두 길</b>(64~65쪽) — 공개 데이터를 쓰면 <b>출처와 이용 조건</b>을, 설문으로 <b>직접 모으면</b> «목적 확인 → 방법 선정 → 저장 → 검증» 순서와 <b>동의서 네 가지</b>(수집·이용 목적 · 수집 항목 · 보유 기간 · 거부할 권리)를 활동지 ③에 적습니다.</li>
-            <li><b>데이터 편향</b>(66쪽) — 체크리스트 «대표하지 못하는 집단·기간»에 <b>표본을 잘못 뽑은 편향인지, 현실의 불공정이 스며든 편향인지</b> 한 줄로 구분해 적습니다.</li>
-          </ul></div>
-        <div class="ws"><b><i>활동 2</i> 전처리 기준 예시 카드 — 교과서 71쪽 «전처리 네 가지»로</b><div style="padding:0"><div style="overflow-x:auto"><table>
-          <tr><th>교과서 말</th><th>항목</th><th>기준(예)</th><th>이유 한 줄(예)</th></tr>
-          <tr><td><b>축소</b></td><td>불필요한 행·열</td><td>분석에 안 쓰는 열(관측소 번호 등) 삭제</td><td>비교할 열만 남기려고</td></tr>
-          <tr><td><b>정제</b></td><td>결측치</td><td>결측 행 삭제 또는 평균 대체</td><td>지우면 n이 줄어드는 것을 기록</td></tr>
-          <tr><td><b>정제</b></td><td>이상치</td><td>측정 오류(예: 기온 99℃)는 삭제 · 애매하면 상자그림의 IQR 기준(83쪽)</td><td>실제 값과 오류를 구분</td></tr>
-          <tr><td><b>변환</b></td><td>형식 통일</td><td>날짜 YYYY-MM-DD, 단위 ℃·시간</td><td>두 데이터를 연결하려고</td></tr>
-          <tr><td><b>통합</b></td><td>두 데이터 합치기</td><td>«지역 · 연도» 같은 공통 열로 붙이기</td><td>기온과 보건실 방문을 한 표에서 비교하려고</td></tr>
-        </table></div></div></div>
-        <div class="g2" style="margin-top:10px">
-          <div class="ws" style="margin:0"><b><i>활동 2</i> 코랩으로 정리한 뒤 확인</b><div>
-            <div class="frame" style="margin-top:0"><b>설정 칸에 넣을 것</b>지역 (  ) · 기간 (  ) · 남길 열 (  ), (  ) · 빈칸 처리 (  ) — 모둠이 정한 기준 그대로</div>
-            <div class="chk" data-save="agent">
-              <label><input type="checkbox" data-k="g1"> 지워진 행 수를 확인했다</label>
-              <label><input type="checkbox" data-k="g2"> 빈칸 처리가 우리 기준과 같다</label>
-              <label><input type="checkbox" data-k="g3"> 단위가 통일되었다</label>
-              <label><input type="checkbox" data-k="g4"> 기준에 없던 변경이 없다</label>
-            </div><span class="eg">기준과 다르면 설정 칸을 고쳐 다시 실행합니다. 단계별 행 수는 활동지 ④ 전처리 칸에 적어 둡니다.</span></div></div>
-          <div class="ws" style="margin:0"><b><i>활동 3</i> 그래프 자가 점검</b><div>
-            <div class="chk" data-save="graph">
-              <label><input type="checkbox" data-k="h1"> 축을 잘라 차이를 부풀리지 않았다</label>
-              <label><input type="checkbox" data-k="h2"> 표본 수(n)를 적었다</label>
-              <label><input type="checkbox" data-k="h3"> 상관을 원인과 결과로 말하지 않았다</label>
-              <label><input type="checkbox" data-k="h4"> 불리한 데이터도 남겼다</label>
-            </div><span class="eg">1차 해석은 <b>그래프에서 직접 본 근거</b>를 한 가지 이상. 예) «7~8월에 기온과 잔반량이 함께 늘었다(n=62일).»
-              그리고 <b>데이터가 말하지 않는 것</b>도 한 줄 — «기온 때문에 늘었다고는 말할 수 없다(메뉴 영향).»</span></div></div>
+        <p class="xfor"><span class="xcls de">D·E반</span> 오늘부터 모둠 — 내 개인 장이 모둠 슬라이드에 들어와 있어요</p>
+        <div class="tline">
+          <div class="tl"><em>3′</em><div><b>모둠 발표 · 자리 이동</b> 모둠 슬라이드 열기</div></div>
+          <div class="tl"><em>10′</em><div><b>모둠 문제 정하기</b> 개인 정의 · 가설 1분씩 → 모둠 문제 정의문 + 가설 → <b>선생님 확인 ✓</b><small>📝 «모둠 문제 정의» · «탐구 질문 정의서»</small></div></div>
+          <div class="tl"><em>8′</em><div><b>데이터 고르기 · 평가</b> 각자 찾아온 데이터 중 하나 → 체크리스트 → <b>선생님 확인 ✓</b><small>📝 «데이터 출처» · «데이터 평가»</small></div></div>
+          <div class="tl"><em>25′</em><div><b>전처리 → 각자 코랩 → 그래프 · 해석</b> 기준 → <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">코랩 노트북 20</a>(Ⅱ-02 ❶~⓮ 각자) → 맡은 그래프 → 1차 해석 한 줄<small>📝 «전처리 기준» · «나의 시각화와 1차 해석»</small></div></div>
+          <div class="tl"><em>4′</em><div><b>1차 동료평가</b> 구글 설문 → 다음 시간 안내</div></div>
         </div>
-        <div class="tbx"><b>📗 교과서 Ⅱ-02 70~83쪽을 내 데이터로</b> — 먼저 <a href="https://richee-pc.github.io/AI_cs/datalab.html" target="_blank" rel="noopener">🧹 데이터 정리 ↔ 코랩 실습 창</a>에서 연습 데이터로 오렌지3 위젯과 코드를 짝지어 한 바퀴 돌려 본 뒤, <a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">코랩 노트북 20</a>: 맨 위 설정 칸에 우리 기준만 옮기면 교과서 ❶~⓮ 코드가 우리 데이터에 그대로 돌아갑니다. 데이터 정리 AI로 치웠다면 단계별 행 수를 대조해 검증합니다. 1학기에 파이썬을 배우지 않았다면 <b>설정 칸만</b> 바꿔도 됩니다.
-          <ul>
-            <li><b>결측치</b> — <code>isnull().sum()</code>으로 세고, 지웠다면 줄어든 n을 그래프 아래에 적습니다(71~76쪽).</li>
-            <li><b>이상치</b> — 상자그림 바깥 점을 <a href="#learn02">IQR 계산기</a>로 확인하고, «측정 오류인가 · 실제로 극단적인 값인가»를 사람이 판단합니다(83쪽).</li>
-            <li><b>핵심 속성</b> — 가설의 두 변수 사이 <b>상관계수</b>를 구하고(78~79쪽), 가장 관련이 큰 속성 한두 개를 적어 둡니다. 이것이 <b>Ⅳ단원 프로젝트에서 모델의 입력(특성)</b>을 고르는 근거가 됩니다. 단, 함께 움직인다 ≠ 원인.</li>
-          </ul></div>
-        <div class="fgo" style="margin-top:10px"><a href="https://richee-pc.github.io/AI_cs/datalab.html" target="_blank" rel="noopener">🧹 데이터 정리 ↔ 코랩 실습 창</a><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">▶ 코랩 노트북 20</a><a href="#prep">전처리 체험</a><a href="#learn02">교과서 Ⅱ-02 · IQR 계산기</a></div></div>
+        <p class="hint" style="margin:8px 0 0">코랩은 <b>개인</b>(교과서 Ⅱ-02 방식 익히기), 플랫폼의 데이터 정리 AI는 3차시에 <b>모둠</b>이 코랩 결과와 대조하는 데 씁니다.</p>
+        <div class="fgo" style="margin-top:10px"><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/20_data_inquiry_my_data.ipynb" target="_blank" rel="noopener">▶ 코랩 노트북 20</a><a href="https://richee-pc.github.io/AI_cs/datalab.html" target="_blank" rel="noopener">🧹 데이터 정리 실습 창(연습 먼저)</a><a href="#learn01b">📗 Ⅱ-01 좋은 데이터</a><a href="#learn02">📗 Ⅱ-02 이상치 · 상관</a><a href="#prep">전처리 체험</a></div>
+      </div>
     </div>
+
     <div class="fcard" id="ex3">
       <div class="fnum">③<span>차시</span></div>
       <div class="fbody"><b>공동 해석과 해결안 — AI 반문으로 다진다</b>
-        <i>③ AI 보조 데이터 탐구(공동 해석) → ④ AI 비판적 문답 기반 해결안 검증 · <span class="lt y">노랑 · 질문하는 AI</span></i>
+        <i>③ AI 보조 데이터 탐구 → ④ AI 비판적 문답 기반 해결안 검증 · <span class="lt y">노랑 · 데이터 정리 AI · 질문하는 AI</span> <span class="lt g">초록 · 자료 찾기 AI</span></i>
         <div class="tline">
-          <div class="tl"><em>2′</em><div><b>도입</b> 지난 시간 돌아보기 · 오늘 흐름</div></div>
-          <div class="tl"><em>15′</em><div><b>활동 1 · 해석 공유와 공동 해석</b> 한 사람씩 1분, 내 그래프와 해석을 <b>근거 수치와 함께</b> 7′ → 모둠 공동 해석 6′ → 진행 방향 2′(가설에 답할 수 없으면 ②로 돌아가 데이터 다시 찾기) <small>활동지 ④ 모둠 칸</small></div></div>
-          <div class="tl y"><em>30′</em><div><b>활동 2 · 해결안 초안과 AI 반문 검증</b> AI 없이 해결안 초안 7′ → 질문하는 AI에 넣고 <b>다섯 관점</b> 반문 받기 5′ <span class="lt y">노랑</span> → 반문을 데이터로 검증해 <b>채택 · 수정 · 거절과 근거</b> 10′ → 해결안 보완 · 한계 · 진행 방향 8′ <small>활동지 ⑤ · 초안이 없으면 AI를 시작하지 않습니다 · (심화) 한계를 보완할 추가 데이터 하나</small></div></div>
-          <div class="tl"><em>3′</em><div><b>정리 · 발표 준비</b> 활동지 슬라이드를 발표 순서대로 놓고, 마지막 장에 <b>데이터 출처와 AI 활용 여부</b>. 발표자만이 아니라 모두가 설명할 수 있게</div></div>
+          <div class="tl"><em>3′</em><div><b>플랫폼 로그인</b> 선생님이 알려 주는 «계정 확인» 링크에서 내 아이디 확인 → 로그인</div></div>
+          <div class="tl y"><em>7′</em><div><b>데이터 정리 AI와 대조</b> <span class="lt y">노랑</span> 모둠 전처리 기준을 <b>그대로</b> 넣기 → 코랩 결과와 <b>행 수 · 평균</b> 비교 → 다르면 이유 찾고 채택 · 수정 · 거절<small>📝 «전처리 기준» 장의 «AI 대조» 칸 · CSV는 코랩 20에서 만든 «플랫폼용_utf8.csv»</small></div></div>
+          <div class="tl"><em>13′</em><div><b>공동 해석</b> 한 사람씩 1분, 그래프와 근거 수치 → 공동 해석 한 문장 → 답할 수 없으면 ②로 돌아가도 OK<small>📝 «모둠 공동 해석» 장</small></div></div>
+          <div class="tl y"><em>24′</em><div><b>해결안과 AI 반문</b> <b>AI 없이</b> 초안 6′ → <span class="lt y">질문하는 AI</span> 다섯 관점 반문 4′ → 반문마다 채택 · 수정 · 거절 + 데이터 근거 8′ → 보완 · 한계 6′ · 근거가 더 필요하면 <span class="lt g">자료 찾기 AI</span><small>📝 «해결안 초안» · «AI 반문 기록» · «보완한 해결안»</small></div></div>
+          <div class="tl"><em>3′</em><div><b>정리</b> 발표에 쓸 장 고르기(나머지는 <b>슬라이드 건너뛰기</b>) · <b>AI 사용 기록</b> 쓰기</div></div>
         </div>
-        <div class="frame"><b>토의 규칙</b>① 한 사람씩 1분 안에 자기 그래프와 해석을 말한다. ② 해석과 함께 <b>근거 수치</b>를 꼭 말한다. ③ 해석이 다르면 누가 맞는지가 아니라 <b>어떤 데이터가 더 필요한지</b> 정한다.</div>
-        <div class="frame"><b>공동 해석 문장 틀</b>우리 모둠은 <span class="blank"></span> 때문에 <span class="blank"></span>라고 해석한다. 아직 확인하지 못한 점은 <span class="blank"></span>이다.</div>
-        <div class="g2" style="margin-top:10px">
-          <div class="ws" style="margin:0"><b><i>활동 2</i> 해결안 초안 틀 — 활동지 ⑤</b><div><ol>
-            <li>해결안 — 누구에게, 무엇을, 어떻게</li>
-            <li>데이터 근거 — 그래프 번호 · 핵심 수치 · 출처</li>
-            <li>기대 효과</li><li>예상되는 한계</li></ol>
-            <span class="eg">예) «폭염일에 보건실 방문이 늘었으니, 그늘막보다 보건실 냉방과 수분 보충 물품이 먼저입니다.»</span></div></div>
-          <div class="ws" style="margin:0"><b><i>활동 2</i> 질문하는 AI의 다섯 관점</b><div><ul>
-            <li><b>대안 탐색</b> — 다른 해결안은 없나?</li>
-            <li><b>논리적 타당성</b> — 근거와 결론이 이어지나?</li>
-            <li><b>반박</b> — 반대 데이터는 없나?</li>
-            <li><b>실현 가능성</b> — 예산 · 시간으로 할 수 있나?</li>
-            <li><b>사회적 영향</b> — 누가 불리해지나?</li></ul>
-            <span class="eg">AI의 질문을 다 받아들일 필요는 없어요. <b>거절한다면 어떤 데이터가 근거인가요?</b> 시간이 모자라면 해결안과 가장 관련 깊은 관점 <b>2개</b>를 먼저 검증합니다.</span></div></div>
-        </div>
-        <div class="tbx"><b>📗 교과서와 이어지는 곳</b>
-          해결안의 한계를 쓸 때 Ⅱ-01의 <b>데이터 편향</b>(66쪽)으로 «우리 데이터가 대표하지 못한 사람»을 밝힙니다.</div></div>
+        <p class="hint" style="margin:8px 0 0">다섯 관점: 대안 · 논리 · 반박 · 실현 가능성 · 사회적 영향. AI의 질문을 다 받아들일 필요는 없어요 — 거절하면 <b>어떤 데이터가 근거</b>인지 적어요.</p>
+        <div class="fgo" style="margin-top:10px"><a href="#learn01b">📗 Ⅱ-01 데이터 편향(66쪽) — 한계 쓸 때</a></div>
+      </div>
     </div>
+
     <div class="fcard" id="ex4">
       <div class="fnum">④<span>차시</span></div>
       <div class="fbody"><b>발표하고 설명하기 — 내 판단을 지킨다</b>
         <i>⑤ AI 티치백 성찰과 공유 · <span class="lt y">노랑 · 발표 연습 AI</span></i>
         <div class="tline">
-          <div class="tl"><em>4′</em><div><b>발표 안내</b> 모둠마다 발표 3분 + 선생님 질문 2분 · <b>질문은 발표하지 않은 친구에게도</b> 갑니다 · 순서는 추첨 · 평가 방식(EPD)</div></div>
-          <div class="tl y"><em>8′</em><div><b>활동 1 · 발표 연습 AI 자가점검</b> ① 처음 듣는 친구에게 설명하듯 해결안을 말한다 ② AI가 되묻는 질문에 내 말로 답한다 ③ 막힌 곳을 표시하고 활동지 · 데이터로 보완한다 <span class="lt y">노랑</span> <small>AI를 쓰지 않으면 발표 점검 체크리스트로</small></div></div>
-          <div class="tl"><em>35′</em><div><b>활동 2 · 모둠 발표와 구술 설명</b> 발표 3분(문제 정의 → 데이터와 평가 → 해석 → 해결안과 AI 반문 처리) + 선생님 질문 2분 — 모둠원 누구나 지목될 수 있어요</div></div>
-          <div class="tl"><em>3′</em><div><b>활동 3 · 2차 자기 · 동료평가와 성찰 한 줄</b> 한 양식에 — 성찰: «AI 사용 기록에서 내가 거절하거나 고친 판단과 그 근거» · 성적에 넣지 않고 피드백에만</div></div>
+          <div class="tl"><em>3′</em><div><b>발표 안내 · 순서 추첨</b> 발표 3분 + 선생님 질문 2분 · <b>모둠원 누구나</b> 지목될 수 있어요</div></div>
+          <div class="tl y"><em>8′</em><div><b>발표 연습 AI</b> <span class="lt y">노랑</span> 처음 듣는 친구에게 하듯 설명 → AI가 되물으면 내 말로 답 → 막힌 곳 보완<small>📝 «보완한 해결안과 발표 연습» 장</small></div></div>
+          <div class="tl"><em>35′</em><div><b>발표 3분 + 질문 2분 × 7모둠</b> 문제 정의 → 데이터와 평가 → 해석 → 해결안과 AI 반문 처리 → 출처 · AI 활용<small>📝 고른 장만 발표(슬라이드 건너뛰기)</small></div></div>
+          <div class="tl"><em>4′</em><div><b>2차 자기 · 동료평가 · 성찰 · AI 사용 기록</b> 플랫폼 평가 → «자기평가와 성찰» 장 한 줄 → AI 사용 기록</div></div>
         </div>
-        <div class="g2" style="margin-top:10px">
-          <div class="ws" style="margin:0"><b><i>활동 2</i> 선생님이 물을 수 있는 것</b><div><ul>
-            <li>이 데이터를 믿을 수 있다고 판단한 이유는?</li>
-            <li>이 그래프의 관계를 원인과 결과라고 말할 수 있나요?</li>
-            <li>받아들이지 않은 AI 반문과 그 이유는?</li>
-            <li>해결안을 가장 크게 바꾼 AI의 질문은?</li></ul>
-            <span class="eg">막히면 활동지를 보며 답해도 됩니다. <b>모둠원 누구나</b> 답할 수 있게 준비하세요.</span></div></div>
-          <div class="ws" style="margin:0"><b><i>활동 3</i> 성찰 쓰기 틀</b><div>
-            <div class="frame" style="margin-top:0">이번 탐구에서 AI의 도움을 받은 부분은 <span class="blank"></span>이고, 내가 끝까지 판단한 부분은 <span class="blank"></span>이다. 다음에는 <span class="blank"></span>을(를) 바꾸겠다.</div>
-            <span class="eg">«오늘 찾은 데이터의 관계는 인공지능 프로젝트에서 모델의 입력이 됩니다.»</span></div></div>
+        <div class="xlot" id="exLot">
+          <b>🎲 발표 순서 추첨</b>
+          <label>모둠 수 <input type="number" id="exLotN" min="2" max="12" value="7"></label>
+          <button type="button" class="mini" id="exLotGo">추첨하기</button>
+          <div class="xlotout" id="exLotOut">버튼을 누르면 순서가 나와요.</div>
         </div>
-        <div class="tbx"><b>📗 이어지는 곳</b>
-          오늘 찾은 «관계 있는 속성»은 Ⅱ-04 <a href="#models">모델 고르는 다섯 걸음</a>을 거쳐 Ⅳ단원 프로젝트 모델의 입력이 됩니다.</div>
-        <div class="fgo" style="margin-top:10px"><a href="https://richee-pc.github.io/AI_cs/unit4.html">Ⅳ단원 프로젝트로 이어집니다 →</a></div></div>
+        <p class="hint" style="margin:8px 0 0">선생님이 물을 수 있는 것 — 이 데이터를 믿은 이유는? · 원인과 결과라고 말할 수 있나? · 받아들이지 않은 AI 반문과 이유는? · 해결안을 가장 크게 바꾼 AI 질문은?</p>
+        <div class="fgo" style="margin-top:10px"><a href="#models">📗 Ⅱ-04 모델 고르는 다섯 걸음 — 다음 주 프로젝트로</a></div>
+      </div>
     </div>
   </div>
-
-  <div class="g2" style="margin-top:22px">
-    <div class="note" style="margin:0"><b>모둠 슬라이드 한 벌이 활동지이자 발표자료입니다.</b>
-      선생님이 모둠별로 미리 만들어 공유합니다.<br>
-      활동지 ① 문제 정의(개인) · ② 탐구 질문 정의서 · ③ 데이터 평가 체크리스트와 출처 ·
-      ④ 학습 내용 요약서(<b>모둠원마다 한 장</b> — 내 그래프 · 1차 해석) · ⑤ 해결안과 AI 반문 기록.<br>
-      코랩으로 분석했다면 <b>각자의 코랩 노트북</b>도 함께 냅니다.</div>
-    <div class="ask" style="margin:0"><b>AI를 쓸 때마다 한 줄씩 — 의사결정 기록</b><br>
-      쓴 도구 · 내가 한 질문 · AI 답의 요지 · <b>받아들임/고침/거절</b> · <b>그렇게 한 이유</b>.
-      플랫폼의 «의사결정 기록» 화면에도 남습니다. 선생님이 보는 것은 AI를 <b>얼마나</b> 썼는가가 아니라 <b>어떻게 판단했는가</b>입니다.<br>
-      자기·동료평가는 <b>두 번</b>(②차시 끝 · ④차시) — 성적에 넣지 않고 피드백에만 씁니다.</div>
-  </div>
-  <p class="note" style="margin-top:14px"><b>꼭 지킬 세 가지.</b>
-    ① AI가 알려 준 숫자·통계·출처는 <b>원래 누리집 두 곳에서 직접 확인</b>하고 씁니다 — AI는 그럴듯한 가짜 숫자를 지어내기도 합니다.
-    ② AI에 <b>이름·연락처·사진·친구 정보</b>를 넣지 않습니다.
-    ③ 그래프를 그렸으면 «<b>이 데이터가 대표하지 못하는 사람·지역·기간은 누구인가?</b>»를 한 줄 적습니다 —
-    Ⅱ-01에서 배우는 확증·선택·역사적·생존자 편향이 바로 여기서 생깁니다.</p>
+<script>
+(function(){
+  var go = document.getElementById('exLotGo'); if(!go) return;
+  go.addEventListener('click', function(){
+    var n = Math.max(2, Math.min(12, parseInt(document.getElementById('exLotN').value, 10) || 7));
+    var a = []; for(var i = 1; i <= n; i++) a.push(i);
+    for(var j = a.length - 1; j > 0; j--){ var k = Math.floor(Math.random() * (j + 1)); var t = a[j]; a[j] = a[k]; a[k] = t; }
+    document.getElementById('exLotOut').innerHTML = a.map(function(m, i){ return '<span><i>' + (i + 1) + '번째</i>' + m + '모둠</span>'; }).join('');
+  });
+})();
+</script>
 </div></section>
 
 <section id="prep"><div class="wrap">
@@ -5623,7 +5643,7 @@ ox('lrOx07', [
 ]);
 })();
 </script>
-<script src="lessons.js?v=1a2abaf4"></script>
+<script src="lessons.js?v=11cb3218"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
    #models 고르기 도우미 · #implement 구현 아홉 걸음 · 점수 계산기 · 해석 함정
