@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이터 찾는 곳 · 인공지능 기초</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔎</text></svg>">
+<!-- 데이터 탐구(Ⅱ단원 #explore)와 인공지능 프로젝트(Ⅳ단원 P1·P2)가 함께 쓰는 «데이터 찾는 곳». 두 쪽에서 링크만 건다. -->
+<style>
+@font-face{font-family:'AIDisp'; src:url('font/disp-med.woff2?v=dbc4300e') format('woff2');
+  font-weight:300 500; font-style:normal; font-display:swap}
+@font-face{font-family:'AIDisp'; src:url('font/disp-bold.woff2?v=6d9188a9') format('woff2');
+  font-weight:600 900; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-reg.woff2?v=4d425e6e') format('woff2');
+  font-weight:300 550; font-style:normal; font-display:swap}
+@font-face{font-family:'AIBody'; src:url('font/body-bold.woff2?v=73628b16') format('woff2');
+  font-weight:551 900; font-style:normal; font-display:swap}
+
+:root{
+  --ground:#F2F6FD; --card:#FFFFFF; --ink:#0F1A31; --muted:#5A6884; --line:#DCE4F2;
+  --blue:#1B49B8; --blue-deep:#123283; --blue-wash:#E6EDFF;
+  --alert:#B4231D; --alert-wash:#FCEBE9; --ok:#136B47; --ok-wash:#DFF3E9;
+  --key:#8A5200; --key-wash:#FFF2D9;
+  --disp:'AIDisp','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+  --body:'AIBody','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+    --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+    --alert:#FF9A92; --alert-wash:#3A1D1B; --ok:#6FD6A8; --ok-wash:#123325;
+    --key:#F0C173; --key-wash:#38290F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1020; --card:#151D31; --ink:#EDF1FA; --muted:#9AA8C4; --line:#28334D;
+  --blue:#7FA5FF; --blue-deep:#A8C2FF; --blue-wash:#1B2848;
+  --alert:#FF9A92; --alert-wash:#3A1D1B; --ok:#6FD6A8; --ok-wash:#123325;
+  --key:#F0C173; --key-wash:#38290F;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground); color:var(--ink); font-family:var(--body); font-weight:500;
+  line-height:1.6; padding:clamp(16px,3vw,40px) 16px 120px}
+.wrap{max-width:980px; margin:0 auto}
+.home{display:inline-block; margin:0 0 14px; color:var(--blue); font-weight:700; text-decoration:none; font-size:.9375rem}
+.eyebrow{display:inline-block; font-size:.8125rem; font-weight:700; letter-spacing:.08em; color:var(--blue); background:var(--blue-wash); padding:4px 12px; border-radius:99px}
+h1{font-family:var(--disp); font-weight:800; font-size:clamp(1.6rem,4.4vw,2.3rem); line-height:1.2; margin:10px 0 8px}
+h2{font-family:var(--disp); font-weight:800; font-size:1.375rem; margin:34px 0 6px}
+h2 small{font-family:var(--body); font-size:.8125rem; color:var(--muted); font-weight:600; margin-left:6px}
+.lead{margin:0 0 6px; color:var(--muted)} .lead b{color:var(--ink)}
+.toc{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 4px}
+.toc a{font-weight:800; font-size:.9375rem; text-decoration:none; color:var(--blue); background:var(--card); border:1.5px solid var(--line); border-radius:99px; padding:7px 14px}
+.src5{background:var(--key-wash); color:var(--key); border-radius:12px; padding:11px 15px; font-size:.9375rem; margin:14px 0 0}
+.src5 b{color:var(--ink)}
+.use{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 10px}
+.use span{font-size:.75rem; font-weight:800; border-radius:99px; padding:2px 10px; background:var(--blue-wash); color:var(--blue-deep)}
+.use span.p{background:var(--ok-wash); color:var(--ok)}
+.xsites,.xcards{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr)); gap:10px}
+.xs{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:11px 13px; font-size:.8438rem; line-height:1.6}
+.xs.top{border:2px solid var(--blue)}
+.xs > a{font-weight:800; font-size:.9688rem}
+.xs em{display:block; font-style:normal; color:var(--muted); font-size:.75rem; margin:1px 0 4px}
+.xs ol{margin:0; padding-left:1.2em}
+.xs > span{display:block; margin-top:5px; font-size:.7812rem; color:var(--key)}
+.xcards > div{background:var(--card); border:1px solid var(--line); border-top:4px solid var(--ok); border-radius:14px; padding:11px 13px; font-size:.8438rem; line-height:1.6; display:flex; flex-direction:column; gap:3px}
+.xcards b{font-size:.9688rem} .xcards em{font-style:normal; color:var(--muted); font-size:.75rem}
+.xcards .q{color:var(--blue); font-weight:600} .xcards .w{color:var(--key); font-size:.7812rem}
+.xcards a{margin-top:4px; font-weight:800}
+a{color:var(--blue)}
+.tw{overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:14px}
+table{border-collapse:collapse; width:100%; font-size:.875rem; line-height:1.55}
+th,td{padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top}
+th{background:var(--blue-wash); color:var(--blue-deep); font-weight:800; white-space:nowrap}
+tr:last-child td{border-bottom:0}
+code{font-size:.8125rem; background:var(--blue-wash); padding:1px 5px; border-radius:6px}
+.note{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:0 12px 12px 0; padding:10px 14px; font-size:.9375rem; margin:14px 0 0}
+.hint{color:var(--muted); font-size:.875rem}
+.sign{display:flex; flex-direction:column; align-items:center; gap:6px; margin:36px auto 0}
+.sign .bun-gif{width:120px; height:auto}
+.sign .ptp{font-size:.8125rem; font-weight:700; color:var(--muted); background:var(--card); border:1px solid var(--line); padding:3px 12px; border-radius:99px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="home" href="plan.html">← 우리 반 수업 홈</a>
+  <p class="eyebrow">데이터 탐구 · 인공지능 프로젝트 공통</p>
+  <h1>🔎 데이터 찾는 곳</h1>
+  <p class="lead">데이터 탐구(Ⅱ단원)와 인공지능 프로젝트(Ⅳ단원)에서 <b>같이 쓰는 창</b>이에요. 찾는 순서까지 적어 두었으니 사이트를 열고 그대로 따라 하세요.
+    로그인이 필요한 사이트는 <b>새로 가입하지 말고</b> 선생님께 말해요.</p>
+  <div class="toc"><a href="#sites">① 대표 누리집 · 찾는 순서</a><a href="#cards">② 못 찾았을 때 — 데이터 카드</a><a href="#school">③ 프로젝트용 학교 데이터셋</a><a href="#pub">④ 공개 CSV 아이디어</a></div>
+  <p class="src5">📌 찾으면 바로 슬라이드 «데이터 출처» 칸에 <b>다섯 가지</b> — 데이터 이름 · 제공 기관 · 기준 연도 · 주소 · 이용 조건.
+    AI가 알려 준 숫자 · 출처는 <b>원래 누리집에서 직접 확인</b>하고 씁니다.</p>
+
+  <h2 id="sites">① 대표 누리집과 찾는 순서 <small>교과서 67쪽 + 지도서 보충</small></h2>
+  <div class="use"><span>데이터 탐구 ①</span><span class="p">인공지능 프로젝트 ① · ②</span></div>
+  <div class="xsites">
+      <div class="xs top"><a href="https://www.data.go.kr" target="_blank" rel="noopener">공공데이터포털 ↗</a><em>교과서 67쪽 · 정부 · 공공기관 데이터 한곳에</em>
+        <ol><li>검색창에 낱말(폭염 · 수질 · 전력 · 급식)</li><li><b>«파일데이터»</b> 탭 고르기</li><li>제목을 눌러 <b>CSV 다운로드</b>(로그인 없이 되는 것 먼저)</li><li>«제공기관 · 수정일 · 이용허락범위» 옮겨 적기</li></ol><span>«오픈API»는 신청이 필요해요 — 파일데이터만</span></div>
+      <div class="xs top"><a href="https://kosis.kr" target="_blank" rel="noopener">KOSIS 국가통계포털 ↗</a><em>교과서 지도서 보충 · 나라가 승인한 통계</em>
+        <ol><li><b>국내통계 → 주제별 통계</b>(보건 · 환경 · 에너지)</li><li>표 이름 누르기</li><li><b>조회설정</b>에서 시점 · 지역 고르기</li><li><b>다운로드 → CSV</b> · 단위 확인</li></ol><span>표가 가로로 넓으면 «행렬전환»</span></div>
+      <div class="xs top"><a href="https://data.kma.go.kr" target="_blank" rel="noopener">기상자료개방포털 ↗</a><em>기온 · 폭염일수 · 강수량</em>
+        <ol><li><b>기후통계분석 → 기상현상일수</b>에서 폭염일수 바로 보기</li><li>일별 값은 <b>데이터 → 지상 → 종관기상관측(ASOS)</b></li><li>지점(광주) · 기간 · 요소(최고기온) 고르기</li><li>CSV 받기</li></ol><span>내려받기에 로그인이 필요하면 선생님께</span></div>
+      <div class="xs"><a href="https://www.aihub.or.kr" target="_blank" rel="noopener">AI 허브 ↗</a><em>교과서 67쪽 · AI 학습용 큰 데이터(이미지 · 음성 · 글)</em>
+        <ol><li>«AI 데이터찾기»에서 낱말 검색</li><li>설명 · 크기 · 이용 조건 읽기</li></ol><span>내려받기는 가입 · 신청 필요 → 이번엔 둘러보기, 쓰려면 선생님께</span></div>
+      <div class="xs"><a href="https://www.kaggle.com/datasets" target="_blank" rel="noopener">캐글 ↗</a><em>교과서 67쪽 · 세계 데이터 대회 · 영어</em>
+        <ol><li><b>Datasets</b>에서 영어 낱말(heat wave, water quality)</li><li>«Data Card»로 열 설명 · 라이선스 확인</li></ol><span>내려받기는 로그인 필요 → 선생님께</span></div>
+      <div class="xs"><a href="https://dacon.io" target="_blank" rel="noopener">데이콘 ↗</a><em>교과서 67쪽 · 한국 AI 대회 플랫폼</em>
+        <ol><li>«대회» 또는 «데이터»에서 주제 고르기</li><li>«데이터» 탭에서 설명 읽기</li></ol><span>내려받기는 로그인 필요 → 선생님께</span></div>
+      <div class="xs"><a href="https://datalab.naver.com" target="_blank" rel="noopener">네이버 데이터랩 ↗</a><em>지도서 보충 · 검색어 추세</em>
+        <ol><li><b>검색어트렌드</b>에 «폭염» «에어컨» 넣기</li><li>기간 · 연령 고르고 조회 → 그래프 캡처</li></ol><span>숫자 표 내려받기는 로그인 필요 — 그래프 캡처 + 출처로 충분</span></div>
+      <div class="xs"><a href="https://data.seoul.go.kr" target="_blank" rel="noopener">서울 열린데이터광장 ↗</a><em>지도서 보충 · 서울 지역 데이터</em>
+        <ol><li>낱말 검색 → «Sheet» 또는 «File»</li><li>CSV 받기</li></ol><span>서울 데이터예요 — 우리 지역과 다른 점을 한계에 적기</span></div>
+      <div class="xs"><a href="https://www.price.go.kr" target="_blank" rel="noopener">참가격(한국소비자원) ↗</a><em>지도서 보충 · 생필품 가격</em>
+        <ol><li>품목 검색(생수 · 음료)</li><li>기간별 가격 표 확인</li></ol><span>«폭염 때 음료 값» 같은 질문에</span></div>
+          <div class="xs"><a href="https://www.airkorea.or.kr" target="_blank" rel="noopener">에어코리아 ↗</a><em>미세먼지 · 오존 측정값</em>
+        <ol><li><b>통계정보 → 최종확정 측정자료 조회</b></li><li>지역 · 기간 고르고 내려받기</li></ol><span>측정소 이름 · 단위(㎍/㎥)를 출처에 함께</span></div>
+      <div class="xs"><a href="https://sdgs.un.org/goals" target="_blank" rel="noopener">UN SDGs 누리집 ↗</a><em>Ⅳ단원 185쪽 · 세부 목표 169개 원문</em>
+        <ol><li>목표 번호 누르기</li><li><b>Targets and Indicators</b>에서 세부 목표 번호 확인</li></ol><span>인공지능 프로젝트 주제 정의서 «세부 목표 번호» 칸에</span></div>
+      <div class="xs"><a href="https://aiforgood.itu.int/" target="_blank" rel="noopener">AI for Good ↗</a><em>Ⅳ단원 184쪽 · SDGs를 푸는 실제 AI 사례</em>
+        <ol><li>사례 검색</li><li>«무엇을 입력받아 무엇을 판단하나» 메모</li></ol><span>데이터가 아니라 아이디어를 얻는 곳</span></div>
+    </div>
+
+  <h2 id="cards">② 못 찾았을 때 — 데이터 카드 <small>바로 받는 데이터 · 정당한 선택이에요</small></h2>
+  <div class="use"><span>데이터 탐구 ① · ②</span><span class="p">인공지능 프로젝트 ② (분류 모델에 바로)</span></div>
+  <div class="xcards">
+      <div><b>💧 약수터 수질 검사</b><em>SDG 6 · 교과서 부록 221~226쪽 자료 · 381행</em>
+        <span>측정값 7개(일반세균 · 총대장균군 · 암모니아성질소 · 질산성질소 …) + 판정(적합 / 부적합)</span>
+        <span class="q">질문 예) 어떤 측정값이 «부적합» 판정과 가장 관련이 클까?</span>
+        <span class="w">판정 표기가 1 · Y · N · 0으로 섞여 있어요 → 전처리 기준에 «하나로 통일»</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/water_quality.csv" target="_blank" rel="noopener">water_quality.csv 받기</a></div>
+      <div><b>😮‍💨 스트레스 수준</b><em>SDG 3 · 교과서 부록 213~218쪽 자료 · 2,001행</em>
+        <span>습도 · 체온(°F) · 걸음 수 → 스트레스 수준 0 · 1 · 2</span>
+        <span class="q">질문 예) 습도가 높을수록 스트레스 수준이 높을까?</span>
+        <span class="w">체온 단위가 화씨(°F) — 발표 때 단위 밝히기</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/stress_lysis.csv" target="_blank" rel="noopener">stress_lysis.csv 받기</a></div>
+      <div><b>🩺 건강검진 3만 명</b><em>SDG 3 · 국민건강보험공단 건강검진정보(공공데이터포털) 일부 · 30,000행</em>
+        <span>성별 · 연령대 · 키 · 몸무게 · 허리둘레 · 혈압 · 혈당 · 음주 · 흡연 …</span>
+        <span class="q">질문 예) 허리둘레와 혈압은 함께 커질까? 연령대마다 다를까?</span>
+        <span class="w">가입자일련번호 · 시도코드 열은 지우기 · 3,000행만 뽑아 써도 충분</span>
+        <a href="https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/health_checkup_30k.csv" target="_blank" rel="noopener">health_checkup_30k.csv 받기</a></div>
+    </div>
+  <p class="hint">출처 예) «약수터 수질 검사 결과 — 「인공지능 기초」(미래엔) 부록 221쪽 자료, 수업용으로 정리» · 카드의 질문 예는 그대로 쓰지 말고 <b>우리 말로</b> 바꿔요.</p>
+
+  <h2 id="school">③ 프로젝트용 — 학교가 갖고 있는 SDGs 데이터셋 <small>선생님이 바로 줍니다</small></h2>
+  <div class="use"><span class="p">인공지능 프로젝트 ② — 우리 데이터를 못 올렸을 때</span></div>
+  <p class="lead">이걸 쓰는 것도 정당한 선택이에요 — 대신 «왜 이 데이터로 이 문제를 풀 수 있는가»는 직접 설명해야 합니다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:60px">SDG</th><th>데이터</th><th style="width:110px">학습 유형</th><th>정답(레이블) · 크기</th></tr>
+    <tr><td><b>3</b></td><td>스트레스 정도 — 습도·체온·걸음 수 <span style="color:var(--muted)">(교과서 부록 213~218쪽)</span></td><td>분류 · kNN</td><td>스트레스 단계 0·1·2 · 약 2,000행</td></tr>
+    <tr><td><b>6</b></td><td>약수터 수질 — 일반세균·대장균군·질산성질소 등 <span style="color:var(--muted)">(부록 221~226쪽)</span></td><td>분류 · 로지스틱</td><td>판정 적합/부적합 · 약 380행</td></tr>
+    <tr><td><b>2</b></td><td>세계 기아 지수(GHI) <span style="color:var(--muted)">(교과서 199~208쪽)</span></td><td>예측 · 선형 회귀</td><td>나라별 연도 지수 · 약 130행</td></tr>
+    <tr><td><b>14</b></td><td>전복 — 길이·직경·두께·무게 <span style="color:var(--muted)">(오렌지3 시범 데이터)</span></td><td>예측 · 회귀</td><td>순살 무게 · 약 4,200행</td></tr>
+    <tr><td><b>3</b></td><td>당뇨 초기 증상 설문</td><td>분류</td><td>양성/음성 · 520행</td></tr>
+    <tr><td><b>13</b></td><td>나라별 이산화탄소 배출량 · 해수면 높이 변화</td><td>예측 · 회귀</td><td>연도별 값</td></tr>
+  </table></div>
+
+  <h2 id="pub">④ 프로젝트 데이터 아이디어 — 바로 열어 볼 수 있는 공개 CSV</h2>
+  <div class="use"><span class="p">인공지능 프로젝트 ①(주제 고를 때) · ②</span></div>
+  <p class="lead">교사 연수에서 공개된 저장소(<a href="https://github.com/jobsiggang/2026_AI_Datascience" target="_blank" rel="noopener">github.com/jobsiggang/2026_AI_Datascience ↗</a>)의 데이터입니다.
+    <b>원래 출처 기관</b>을 확인해 함께 적고, 코랩에서는 <code>pd.read_csv(주소, encoding='cp949')</code>처럼 <b>인코딩</b>을 맞춰야 한글이 보입니다.</p>
+  <div class="tw"><table>
+    <tr><th style="width:70px">SDG</th><th>데이터</th><th>이런 문제를 풀 수 있어요</th><th style="width:22%">원래 출처</th><th style="width:90px">CSV</th></tr>
+    <tr><td><b>15 · 13</b></td><td>산불 발생 기록(일시 · 장소 · 원인 · 피해 면적, 2,000여 건)</td><td>원인 · 계절로 피해 규모 예측 · 위험 지역 군집</td><td>산림청 산불통계(공공데이터포털)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/mountain_fire.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>3</b></td><td>모기 지수(수변부 · 주거지 · 공원, 날짜별 1,800여 일)</td><td>기온 · 강수 데이터와 합쳐 모기 지수 예측</td><td>서울시 모기예보제(열린데이터광장)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/mosquito_value.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>2 · 12</b></td><td>사과(후지 · 홍로) 품질 — 무게 · 당도 · 산도 · 착색</td><td>당도 예측 · 품종 분류 · 지역별 군집</td><td>농촌진흥청 등 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/Fuji.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>7</b></td><td>시간대별 발전원별 전력 거래량(태양광 · 풍력 …)</td><td>시간 · 계절로 태양광 발전량 예측</td><td>전력거래소(공공데이터포털)</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/power.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>7 · 13</b></td><td>시간대별 풍력 발전량(2013~)</td><td>풍속 · 계절로 풍력 발전량 예측</td><td>전력거래소</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/windpower.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>3 · 13</b></td><td>울산 황사 일수 · 기온 · 습도 장기 기록</td><td>연도별 추세 회귀 · 외삽 주의</td><td>기상자료개방포털</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/ulsan_yellowdust.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>6 · 3</b></td><td>하천 중금속 측정값</td><td>측정 지점 군집 · 기준 초과 판정</td><td>환경부 수질 측정 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/heavymetal.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>CP949</small></td></tr>
+    <tr><td><b>11</b></td><td>행정동 시간대별 이동 건수</td><td>이동이 많은 동네 · 시간대 군집</td><td>부산 행정동 생활이동 <small>(출처 확인 필요)</small></td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/moving.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+    <tr><td><b>4</b></td><td>학생 공부 시간 · 수면 · 출석 → 시험 점수(2만 명, 영어)</td><td>점수 예측 회귀 · 범주형 인코딩 연습</td><td>캐글 공개 데이터</td><td><a href="https://raw.githubusercontent.com/jobsiggang/2026_AI_Datascience/main/Exam_Score_Prediction.csv" target="_blank" rel="noopener">열기 ↗</a><br><small>UTF-8</small></td></tr>
+  </table></div>
+
+  <p class="note"><b>데이터를 찾았으면 세 가지를 먼저 확인</b> —
+    ① 정답으로 쓸 열이 있는가(지도학습이라면) ② 행이 충분한가(적어도 수백 행) ③ 개인을 알아볼 수 있는 열이 없는가.</p>
+
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div>
+<link rel="stylesheet" href="polish.css?v=30167133">
+<script src="polish.js?v=4d3812ad"></script>
+</body>
+</html>
