@@ -966,6 +966,15 @@ nav a.plan:hover{background:var(--good); color:#fff}
 .pad-ask p,.pad-plat p{margin:0; font-size:.9688rem; line-height:1.6}
 .pad-plat p{font-weight:700; color:var(--warm)}
 .pad-next{margin:12px 0 0; font-size:.9375rem; color:var(--ink2); background:var(--white); border:1px dashed var(--line); border-radius:14px; padding:10px 14px}
+.tm-ov{position:fixed; inset:0; z-index:102; background:var(--sky-bg); overflow:auto; padding:3vh 3vw}
+.tm-ov h2{font-family:var(--disp); font-size:clamp(1.8rem,4vw,3.4rem); margin:0 0 .6vh}
+.tm-ov .tm-s{font-size:clamp(1rem,1.8vw,1.6rem); color:var(--ink2); margin:0 0 2.4vh}
+.tm-g{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22vw),1fr)); gap:1.6vh 1.4vw}
+.tm-c{background:var(--white); border:1.5px solid var(--line); border-radius:18px; padding:1.6vh 1.4vw}
+.tm-c b{display:block; font-size:clamp(1.2rem,2.2vw,2rem); color:var(--blue-d)}
+.tm-c p{margin:.6vh 0 0; font-size:clamp(1.3rem,2.5vw,2.3rem); font-weight:800; line-height:1.35}
+.tm-n{margin-top:2.6vh; font-size:clamp(1rem,1.8vw,1.6rem); background:#FFF7E6; border:1.5px solid #F3D9A4; border-radius:14px; padding:1.4vh 1.4vw}
+.tm-x{position:fixed; top:2vh; right:2vw; font:inherit; font-weight:800; padding:8px 16px; border-radius:99px; border:1px solid var(--line); background:var(--white); color:var(--blue-d); cursor:pointer}
 .linkbox{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; margin:14px 0 6px; padding:12px 14px; border:1.5px solid var(--line); border-radius:16px; background:var(--white)}
 .linkbox input{width:7.5em; font:inherit; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:6px 8px; border:1.5px solid var(--line); border-radius:10px}
 .linkbox code{font-size:.8125rem; word-break:break-all}
@@ -1014,6 +1023,7 @@ nav a.plan:hover{background:var(--good); color:#fff}
     <button type="button" class="mini gh" id="rNext">다음 ▶</button>
     <button type="button" class="mini gh" id="rReset">처음으로</button>
     <button type="button" class="mini" id="rBig" style="background:var(--good); border-color:var(--good)">🖥 교실 화면</button>
+    <button type="button" class="mini gh" id="rTeam">👥 모둠 발표</button>
     <span class="clk" id="rClock">0:00 / 50:00</span>
   </div>
   <div class="linkbox"><b>🔗 빔 ↔ 패드</b> 방 번호 <input id="kRoom" maxlength="8" placeholder="예: AB12" aria-label="방 번호">
@@ -1088,12 +1098,13 @@ nav a.plan:hover{background:var(--good); color:#fff}
   <div class="ov-time" id="ovTime">0:00</div>
   <div class="tbar ov-bar" id="ovBar"></div>
   <div class="ov-foot"><span id="ovNext"></span><span id="ovOrder"></span>
-    <span class="ov-btns"><button type="button" id="ovPrev">◀</button><button type="button" id="ovGo">▶</button><button type="button" id="ovNextB">▶▶</button><button type="button" id="ovFull">⛶ 전체 화면</button><button type="button" id="ovClose">닫기</button></span></div>
+    <span class="ov-btns"><button type="button" id="ovPrev">◀</button><button type="button" id="ovGo">▶</button><button type="button" id="ovNextB">▶▶</button><button type="button" id="ovTeam">👥 모둠</button><button type="button" id="ovFull">⛶ 전체 화면</button><button type="button" id="ovClose">닫기</button></span></div>
 </div>
 
+<div class="tm-ov" id="tm" hidden><button type="button" class="tm-x" id="tmX">닫기 ✕</button><div id="tmIn"></div></div>
 <div class="pad-ov" id="pad" hidden><div class="pad-in">
   <div class="pad-top"><span id="pdLesson"></span><span class="sp"></span><span class="ov-sync" id="pdSync"></span>
-    <button type="button" id="pdBeam">🖥 이 기기를 빔으로</button><button type="button" id="pdClose">전체 진행표 ▾</button></div>
+    <button type="button" id="pdTeam">👥 모둠</button><button type="button" id="pdBeam">🖥 이 기기를 빔으로</button><button type="button" id="pdClose">전체 진행표 ▾</button></div>
   <div class="pad-now"><div class="pad-time"><b id="pdTime">0:00</b><small id="pdClock"></small></div>
     <div class="pad-ctl"><button type="button" id="pdPrev" aria-label="이전 활동">◀</button><button type="button" id="pdGo" aria-label="시작 · 멈춤">▶</button><button type="button" id="pdNext" aria-label="다음 활동">▶▶</button></div></div>
   <div class="tbar" id="pdBar"></div>
@@ -1121,14 +1132,14 @@ var LESSONS = [
   d:['10/22 (목)','— (D1x)','— (D1x)'], std:'[12정02-03]',
   goal:'여러 문제가 얽힌 상황에서 데이터로 확인할 수 있는 문제를 정의하고, 문제 해결 가설과 필요한 데이터를 계획하여 수집할 수 있다.',
   acts:['[활동1] 문제 상황 읽고 나만의 문제 정의','[활동2] 모둠 문제 정의문','[활동3] 가설과 탐구 질문 정의서','[활동4] 데이터 수집 시작'],
-  prep:['동의서 회수 확인 — 학생 + 보호자 서명 페이지, 미제출자 명단','모둠 편성표(설문 → 편성안 탭) · 역할(기록 · 데이터 탐색 · 분석 · 발표)','수업 PPT','문제 상황 「그 여름, 우리 학교에서 생긴 일」 인쇄본','모둠 구글 슬라이드(활동지 ①·②) 미리 공유','AI 활용 윤리 체크리스트','실마리별 검색어 카드 · 데이터 카드 · 대체 데이터(교과서 부록 스트레스 213~218쪽 · 물 수질 221~226쪽) 공유 폴더','로그인 필요 사이트(AI 허브 · 캐글) 데이터 미리 받기','촬영: 교사 · 학생 화면 녹화, 교실 뒤 풀샷'],
+  prep:['동의서 회수 확인 — 학생 + 보호자 서명 페이지, 미제출자 명단','모둠 편성표(설문 → 편성안 탭) · 역할(기록 · 데이터 탐색 · 분석 · 발표)','수업 PPT','문제 상황 「그 여름, 우리 학교에서 생긴 일」 — 인쇄 없음: 빔에 수업 쪽 «문제 상황» 카드(unit2 #story) · 학생도 각자 화면으로','모둠 구글 슬라이드(활동지 ①·②) 미리 공유','AI 활용 윤리 체크리스트','실마리별 검색어 카드 · 데이터 카드 · 대체 데이터(교과서 부록 스트레스 213~218쪽 · 물 수질 221~226쪽) 공유 폴더','로그인 필요 사이트(AI 허브 · 캐글) 데이터 미리 받기','촬영: 교사 · 학생 화면 녹화, 교실 뒤 풀샷'],
   out:['AI 활용 윤리 체크리스트','활동지 ①(나의 문제 정의 · 가설)','활동지 ② 탐구 질문 정의서','데이터 후보와 출처 기록'],
   seg:[
    [1,'접속 먼저 — 🔑 내 계정 · 내 활동지 → 우리 모둠 활동지 열기 · 수업 안내','n','',['수업 홈의 «내 계정 · 내 활동지»에 학번과 이름을 넣고, 처음 한 번은 내 구글 메일을 등록한 뒤 «우리 모둠 활동지»부터 열어 두세요. 네 시간 동안 직접 문제를 정하고 데이터로 답을 찾아, 마지막 시간에 모둠별로 발표합니다.'],[],['모둠 발표 화면 → 자리 이동 → 🔑 접속 · 메일 등록 확인(«액세스 권한 필요» = 다른 계정으로 로그인 → 계정 바꾸기 · 메일을 잘못 넣었으면 계정 시트 «등록 메일» 칸 비우기)','[사회] 편성된 모둠과 역할(기록 · 데이터 탐색 · 분석 · 발표) 확인'],''],
    [2,'수업 안내 · AI 신호등과 윤리 체크리스트','n','',['초록은 필요할 때 스스로 골라 쓰는 AI, 노랑은 정해진 활동에서 AI가 돕거나 질문하는 때예요. 신호등이 없는 활동은 AI 없이 합니다. 오늘은 AI를 쓰지 않습니다.'],[],['[인지] 신호등 기준을 예시 1~2개로','[정서] AI 로그는 감시용이 아니라 판단 과정을 보려는 것'],''],
-   [3,'활동 1 · 문제 상황 함께 읽기','n','① 문제 인식 및 정의',['이 가운데 무엇이 «진짜 문제»일까요? 문제라고 생각하는 문장에 밑줄을 그어 보세요.'],[],['교사가 낭독, 학생은 밑줄','실마리는 미리 알려 주지 않는다'],''],
-   [5,'활동 1 · 나의 문제 정의와 핵심 요소 (활동지 ①)','n','① 문제 인식 및 정의',['밑줄 친 것 가운데 데이터로 확인할 수 있는 것은 무엇일까요? 선생님 말씀은 사실일까요, 느낌일까요?'],['이 문제는 어떤 데이터로 확인할 수 있을까?'],['[인지] 범위가 넓거나 데이터로 확인할 수 없는 정의에 질문형 비계','«느낌»(담임 선생님)과 «소문»(할머니)을 확증 편향 · 일화적 증거의 예로','[정서] 말하기가 부담스러운 학생은 기록 역할 먼저'],''],
-   [6,'활동 2 · 모둠 문제 정의문 합의','n','① 문제 인식 및 정의',['네 사람의 밑줄을 모아 보세요. 어떤 실마리가 가장 많이 겹치나요?'],[],['토의: ① 1분씩 읽기 ② 데이터로 확인 가능한지 따지기 ③ 근거와 함께 골라 다듬기','교사 확인(단계 전환): 데이터로 확인할 수 있는 범위로 쓰였는지 순회 확인 뒤 ②로','[사회] 모든 모둠원의 밑줄이 한 번 이상 반영','같은 실마리를 고른 모둠이 여럿이어도 괜찮다 — 발표의 토의거리'],''],
+   [3,'활동 1 · 문제 상황 함께 읽기','n','① 문제 인식 및 정의',['이 가운데 무엇이 «진짜 문제»일까요? 문제라고 생각하는 문장을 골라 슬라이드 «문제라고 생각한 문장» 칸에 옮겨 적어 보세요.'],[],['빔에 수업 쪽 «문제 상황»을 띄우고 교사가 낭독 · 학생은 각자 화면으로 따라 읽기(인쇄 없음)','실마리는 미리 알려 주지 않는다'],''],
+   [5,'활동 1 · 나의 문제 정의와 핵심 요소 (활동지 ①)','n','① 문제 인식 및 정의',['옮겨 적은 문장 가운데 데이터로 확인할 수 있는 것은 무엇일까요? 선생님 말씀은 사실일까요, 느낌일까요?'],['이 문제는 어떤 데이터로 확인할 수 있을까?'],['[인지] 범위가 넓거나 데이터로 확인할 수 없는 정의에 질문형 비계','«느낌»(담임 선생님)과 «소문»(할머니)을 확증 편향 · 일화적 증거의 예로','[정서] 말하기가 부담스러운 학생은 기록 역할 먼저'],''],
+   [6,'활동 2 · 모둠 문제 정의문 합의','n','① 문제 인식 및 정의',['네 사람이 고른 문장을 모아 보세요. 어떤 실마리가 가장 많이 겹치나요?'],[],['토의: ① 1분씩 읽기 ② 데이터로 확인 가능한지 따지기 ③ 근거와 함께 골라 다듬기','교사 확인(단계 전환): 데이터로 확인할 수 있는 범위로 쓰였는지 순회 확인 뒤 ②로','[사회] 모든 모둠원이 고른 문장이 한 번 이상 반영','같은 실마리를 고른 모둠이 여럿이어도 괜찮다 — 발표의 토의거리'],''],
    [5,'활동 3 · 개인 가설과 사전 지식 (활동지 ①)','n','② 데이터 관점 탐구 설계',['«○○할수록 △△할 것이다»처럼 데이터로 확인할 수 있는 문장으로 써 봅시다.'],[],['[정서] 가설이 틀려도 데이터로 확인했다면 그 자체로 탐구 성과'],''],
    [13,'활동 3 · 탐구 질문 정의서 (활동지 ②)','n','② 데이터 관점 탐구 설계',['이 가설에 답하려면 어떤 열(속성)이 꼭 있어야 할까요?'],['기온과 수면 시간을 같은 기간, 같은 지역 단위로 맞출 수 있나요?'],['가설 · 필요한 데이터 · 꼭 필요한 열 · 출처 후보 · 분석 · 시각화 계획 · AI 활용 계획 · 역할','[인지] 가설 문장 틀과 속성 예시를 수준별로','(심화) 반대 결과가 나오면 무엇을 뜻하는지(대립 가설)','[사회] 출처 후보를 모둠원이 하나씩 맡아'],''],
    [13,'활동 4 · 데이터 수집 시작과 출처 기록','n','② 데이터 관점 탐구 설계',['이 데이터는 누가, 언제, 어떻게 모았나요?','검색어를 바꿔도 안 나오면 실마리를 넓혀 보세요. «폭염일수»가 없으면 «일 최고기온»은 어떨까요?'],[],['오래 걸리는 모둠에는 데이터 카드 · 대체 데이터(교과서 부록)','로그인 필요 사이트는 교사가 받아 둔 파일로','[정서] 대체 데이터를 써도 괜찮다고 미리 알려 준다','[사회] 찾은 파일은 모둠 공유 폴더에','시간이 부족하면 출처는 이름 · 제공 기관만, 나머지는 2차시 활동 1에서'],''],
@@ -1159,11 +1170,11 @@ var LESSONS = [
   d:['— (D1)','10/23 (금)','10/22 (목)'], std:'[12정02-03]',
   goal:'여러 문제가 얽힌 상황에서 데이터로 확인할 수 있는 문제를 스스로 정의하고, 가설과 필요한 데이터를 계획하여 데이터 후보를 찾을 수 있다.',
   acts:['[활동1] 줄글 읽고 나의 문제 정의','[활동2] 나의 가설 · 필요한 데이터','[활동3] 내 데이터 후보와 출처'],
-  prep:['동의서 회수 확인','모둠 설문(team.html) — 아직 안 한 학생','문제 상황 「그 여름, 우리 학교에서 생긴 일」 인쇄본','개인 활동지(🔑 내 계정에서 열림)','데이터 카드 · 대체 데이터','촬영: 교사 · 학생 화면 녹화'],
+  prep:['동의서 회수 확인','모둠 설문(team.html) — 아직 안 한 학생','문제 상황 「그 여름, 우리 학교에서 생긴 일」 — 인쇄 없음: 빔에 수업 쪽 «문제 상황» 카드(unit2 #story) · 학생도 각자 화면으로','개인 활동지(🔑 내 계정에서 열림)','데이터 카드 · 대체 데이터','촬영: 교사 · 학생 화면 녹화'],
   out:['개인 활동지 — 나의 문제 정의 · 나의 가설 · 내가 찾은 데이터와 출처'],
   seg:[
    [5,'접속 먼저 — 🔑 내 계정 → 내 개인 활동지 · 수업 안내','n','',['🔑 내 계정 · 내 활동지에 학번과 이름을 넣고, 처음 한 번은 내 구글 메일을 등록한 뒤 «내 개인 활동지»를 여세요. 오늘은 혼자, 다음 시간부터 모둠으로 합니다. 오늘은 AI를 쓰지 않아요.'],[],['«액세스 권한 필요» = 다른 계정으로 로그인 → 계정 바꾸기','모둠 설문 안 한 학생은 이 시간 안에','모형 다섯 단계 · 네 차시 흐름은 수업 쪽 «이 수업은?» 카드로'],''],
-   [8,'활동 1 · 줄글 읽고 나의 문제 정의','n','① 문제 인식 및 정의',['이 가운데 무엇이 «진짜 문제»일까요? 문제라고 생각하는 문장에 밑줄을 긋고, 데이터로 확인할 수 있는 것과 없는 것을 나눠 보세요.'],['이 문제는 어떤 데이터로 확인할 수 있을까?'],['실마리는 미리 알려 주지 않는다','«느낌»과 «사실» 구분'],''],
+   [8,'활동 1 · 줄글 읽고 나의 문제 정의','n','① 문제 인식 및 정의',['이 가운데 무엇이 «진짜 문제»일까요? 문제라고 생각하는 문장을 골라 옮겨 적고, 데이터로 확인할 수 있는 것과 없는 것을 나눠 보세요.'],['이 문제는 어떤 데이터로 확인할 수 있을까?'],['실마리는 미리 알려 주지 않는다','«느낌»과 «사실» 구분'],''],
    [15,'활동 2 · 나의 가설 · 필요한 데이터 · 꼭 필요한 열','n','② 데이터 관점 탐구 설계',['«○○할수록 △△할 것이다»처럼 데이터로 확인할 수 있는 문장으로 써 봅시다. 이 가설에 답하려면 어떤 열이 꼭 있어야 할까요?'],['기간 · 지역 단위를 맞출 수 있나요?'],['[인지] 가설 문장 틀과 열 예시를 수준별로','[정서] 가설이 틀려도 데이터로 확인하면 성과'],''],
    [20,'활동 3 · 내 데이터 후보 1~2개 · 출처 다섯 가지','n','② 데이터 관점 탐구 설계',['이 데이터는 누가, 언제, 어떻게 모았나요? 찾자마자 적어 두세요.'],[],['데이터 찾는 곳(datasites.html) · 못 찾으면 데이터 카드','로그인 필요 사이트는 교사가 받아 둔 파일로','파일은 내 드라이브에(다음 시간 모둠 폴더로)'],''],
    [2,'정리 · 다음 시간은 모둠','n','',['오늘 쓴 내 장은 다음 시간 모둠 슬라이드로 옮겨져요. 다음 시간에는 모둠 문제를 정하고 데이터를 정리합니다.'],[],['수업 후: 모둠 편성 → 모둠 슬라이드 · 데이터 폴더 · 플랫폼 모둠 업로드(10/26 전)'],'']
@@ -1281,13 +1292,25 @@ var LESSONS = [
    GUIDE — 차시 · 활동마다 (seg 와 같은 순서)
    d: 빔 «지금 할 일»(학생 말투) · w: 열어 둘 창 · ok: 다 했으면 · k: 패드 «꼭 확인»
    ══════════════════════════════════════════════════════════════ */
+
+/* 모둠 발표 — 분반 번호(0 A · 1 D · 2 E)별. 공개 저장소라 이름 가운데 글자를 가림(학생은 알아봄) */
+var TEAMS = {
+0:{ title:'인기A 데이터 탐구 모둠', note:'이 모둠은 데이터 탐구 4차시 → 인공지능 프로젝트 → 수행평가 ②까지 이어져요.', g:[
+ ['양○환','임○완','박○준','정○등'],
+ ['지○도','이○현','임○준','유○우'],
+ ['최○수','황○우','구○찬','김○호'],
+ ['조○승','김○준','서○우','최○성'],
+ ['강○찬','윤○성','한○우','하○한'],
+ ['이○온','김○우','신○민','채○기'],
+ ['양○혁','허○혁','안○진','박○성']]}
+};
 var GUIDE = {
 D1:[
  {d:['수업 쪽 맨 위 «🔑 내 계정 · 내 활동지»','학번 5자리 + 이름 → 확인','처음 한 번: 내 구글 메일 등록','«👥 우리 모둠 활동지» 열어 두기'],w:'🌐 수업 쪽 · 🔑 내 계정 · 📝 모둠 슬라이드',ok:'모둠 슬라이드가 열렸으면 준비 끝',k:['모든 모둠 슬라이드가 열렸나','«액세스 권한 필요» = 다른 계정 로그인']},
  {d:['신호등 세 가지 듣기','오늘은 AI 없이 — 플랫폼은 안 열어요','슬라이드 «약속» 장 윤리 네 칸 ✓'],w:'📝 모둠 슬라이드 «약속» 장',ok:'모둠원 모두 ✓',k:['윤리 체크 모두 ✓','오늘 AI 안 씀을 분명히']},
- {d:['선생님이 읽는 줄글 듣기','«문제다» 싶은 문장에 밑줄'],w:'📄 줄글 인쇄본',ok:'밑줄 두 개 이상',k:['실마리 미리 말하지 않기']},
+ {d:['🌐 수업 쪽 «문제 상황» 펼치기','선생님이 읽는 동안 화면으로 따라 읽기','«문제다» 싶은 문장 → 슬라이드 «문제라고 생각한 문장» 칸에'],w:'🌐 수업 쪽 «문제 상황» · 📝 내 이름 장',ok:'문장 두 개 이상 옮겼으면 OK',k:['실마리 미리 말하지 않기']},
  {d:['내 이름 장 «나의 문제 정의»','데이터로 확인할 수 있는 것 / 어려운 것 나누기','나의 문제 정의 한 문장'],w:'📝 내 이름 장',ok:'한 문장을 썼으면 옆 친구와 비교',k:['데이터로 확인할 수 있는 정의인가','느낌 · 소문과 사실을 나눴나']},
- {d:['한 사람씩 1분, 내 정의 읽기','데이터로 확인할 수 있나 따지기','하나 골라 다듬기 → 모둠 정의문','선생님 ✓ 받기'],w:'📝 «모둠 문제 정의» 장',ok:'선생님 ✓를 받아야 다음으로',k:['모든 모둠 ✓ (관문)','모둠원 밑줄이 한 번씩 반영됐나']},
+ {d:['한 사람씩 1분, 내 정의 읽기','데이터로 확인할 수 있나 따지기','하나 골라 다듬기 → 모둠 정의문','선생님 ✓ 받기'],w:'📝 «모둠 문제 정의» 장',ok:'선생님 ✓를 받아야 다음으로',k:['모든 모둠 ✓ (관문)','모둠원이 고른 문장이 한 번씩 반영됐나']},
  {d:['«○○할수록 △△할 것이다»','왜 그렇게 생각하는지 한 줄'],w:'📝 내 이름 장 «나의 가설»',ok:'가설 한 문장',k:['데이터로 확인할 수 있는 문장인가']},
  {d:['모둠 가설 한 문장','필요한 데이터 · 꼭 필요한 열','어떤 그래프로 비교할지','누가 무엇을 맡을지'],w:'📝 «탐구 질문 정의서» 장',ok:'네 칸을 다 채웠으면 데이터 찾기',k:['꼭 필요한 열이 구체적인가','기간 · 지역 단위가 맞는가']},
  {d:['🌐 수업 쪽 «데이터 찾는 곳»에서 찾기','찾은 파일은 📁 모둠 데이터 폴더에','찾자마자 출처 다섯 가지 적기','못 찾으면 «데이터 카드»'],w:'🌐 데이터 찾는 곳 · 📁 데이터 폴더 · 📝',ok:'데이터 후보 하나 이상 + 출처',k:['로그인 필요 사이트 → 교사 파일','대체 데이터 써도 된다고 알리기','폴더에 파일이 들어갔나']},
@@ -1295,7 +1318,7 @@ D1:[
 ],
 D1x:[
  {d:['수업 쪽 맨 위 «🔑 내 계정 · 내 활동지»','학번 5자리 + 이름 → 확인','처음 한 번: 내 구글 메일 등록','«📝 내 개인 활동지» 열기'],w:'🌐 수업 쪽 · 🔑 내 계정 · 📝 개인 활동지',ok:'개인 활동지가 열렸으면 준비 끝',k:['메일 등록 · 개인 활동지 열림','모둠 설문 안 한 학생','오늘 AI 안 씀']},
- {d:['줄글 읽고 «문제다» 싶은 문장에 밑줄','데이터로 확인할 수 있는 것 / 어려운 것','나의 문제 정의 한 문장'],w:'📄 줄글 · 📝 «나의 문제 정의» 장',ok:'한 문장 완성',k:['데이터로 확인할 수 있는 정의인가','느낌과 사실 구분']},
+ {d:['🌐 수업 쪽 «문제 상황» 읽기','«문제다» 싶은 문장 → 개인 활동지에 옮겨 적기','데이터로 확인할 수 있는 것 / 어려운 것','나의 문제 정의 한 문장'],w:'🌐 수업 쪽 «문제 상황» · 📝 «나의 문제 정의» 장',ok:'한 문장 완성',k:['데이터로 확인할 수 있는 정의인가','느낌과 사실 구분']},
  {d:['«○○할수록 △△할 것이다»','이 가설에 필요한 데이터','꼭 필요한 열(속성)'],w:'📝 «나의 가설» 장',ok:'세 칸을 채웠으면 데이터 찾기로',k:['가설이 데이터로 확인 가능한가','열이 구체적인가']},
  {d:['🌐 수업 쪽 «데이터 찾는 곳»에서 1~2개','파일은 내 드라이브에 저장','찾자마자 출처 다섯 가지 적기','못 찾으면 «데이터 카드»'],w:'🌐 데이터 찾는 곳 · 📝 «내가 찾은 데이터» 장',ok:'후보 하나 이상 + 출처',k:['로그인 필요 사이트 → 교사 파일','출처 다섯 칸']},
  {d:['«AI 사용 기록»: «오늘 AI 안 씀»','내 장은 다음 시간 모둠 슬라이드로 옮겨져요'],w:'📝',ok:'수고했어요!',k:['수업 후 모둠 편성 → 슬라이드 · 폴더 · 플랫폼 모둠']}
@@ -1593,6 +1616,19 @@ $('kNew').addEventListener('click', function(){
   setRoom(x); SY.joined = true; changed();
 });
 $('kBeam').addEventListener('click', bigOpen);
+/* 👥 모둠 발표 큰 화면 */
+function teamOpen(){
+  var t = window.TEAMS && TEAMS[T.cls];
+  $('tmIn').innerHTML = !t ? '<h2>👥 모둠 발표</h2><p class="tm-s">' + (T.cls < 0 ? '분반을 먼저 고르세요.' : CLS[T.cls] + '반 모둠은 편성이 끝나면 들어가요.') + '</p>'
+    : '<h2>' + esc(t.title) + ' 🧩</h2><p class="tm-s">' + esc(t.note) + '</p><div class="tm-g">' +
+      t.g.map(function(g, i){ return '<div class="tm-c"><b>' + (i + 1) + '모둠</b><p>' + g.map(esc).join(' · ') + '</p></div>'; }).join('') +
+      '</div><div class="tm-n">🔑 수업 쪽 → «내 계정 · 내 활동지»에 학번 + 이름 → (처음 한 번) 내 구글 메일 등록 → «👥 우리 모둠 활동지» 열기 → 내 이름이 적힌 장(👤)부터!</div>';
+  $('tm').hidden = false;
+  try{ var fp = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); if(fp && fp.catch) fp.catch(function(){}); }catch(e){}
+}
+function teamClose(){ $('tm').hidden = true; }
+$('rTeam').addEventListener('click', teamOpen); $('ovTeam').addEventListener('click', teamOpen);
+$('pdTeam').addEventListener('click', teamOpen); $('tmX').addEventListener('click', teamClose);
 $('kPad').addEventListener('click', padOpen);
 setInterval(pull, 2000);
 
@@ -1619,7 +1655,7 @@ document.addEventListener('keydown', function(e){
   else if(e.key === 'ArrowRight'){ step(1); }
   else if(e.key === 'ArrowLeft'){ step(-1); }
   else if(e.key === 'f' || e.key === 'F'){ $('ov').hidden ? bigOpen() : bigClose(); }
-  else if(e.key === 'Escape'){ bigClose(); padClose(); }
+  else if(e.key === 'Escape'){ if(!$('tm').hidden) teamClose(); else { bigClose(); padClose(); } }
 });
 document.addEventListener('fullscreenchange', function(){ if(!document.fullscreenElement && !$('ov').hidden){ /* 전체 화면만 풀림 — 화면은 그대로 */ } });
 
