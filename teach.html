@@ -918,6 +918,59 @@ nav a.plan:hover{background:var(--good); color:#fff}
 .ov-btns{margin-left:auto; display:flex; gap:8px}
 .ov-btns button{font-family:var(--sans); font-weight:800; font-size:1rem; padding:8px 16px; border-radius:99px;
   border:1px solid var(--line); background:var(--white); color:var(--blue-d); cursor:pointer}
+/* 빔 — 학생이 지금 할 일 */
+.ov-do{margin:0; padding:0; list-style:none; counter-reset:d; display:grid; gap:1.3vh}
+.ov-do li{counter-increment:d; display:flex; gap:.7em; align-items:baseline; font-weight:700; color:var(--ink);
+  font-size:clamp(1.2rem,2.7vw,2.6rem); line-height:1.35}
+.ov-do li::before{content:counter(d); flex:none; display:inline-grid; place-items:center; width:1.55em; height:1.55em; border-radius:50%;
+  background:var(--blue-d); color:#fff; font-size:.78em; transform:translateY(-.08em)}
+.ov-do:empty{display:none}
+.ov-win{margin-top:2vh; font-size:clamp(1rem,1.9vw,1.75rem); color:var(--ink2); font-weight:700}
+.ov-win:empty,.ov-ok:empty{display:none}
+.ov-win::before{content:'열어 둘 창  '; color:var(--blue-d); font-weight:900}
+.ov-ok{margin-top:1vh; font-size:clamp(1rem,1.9vw,1.75rem); color:var(--good); font-weight:800}
+.ov-ok::before{content:'✔ '}
+.big-ov.has-do .ov-txt h2{font-size:clamp(1.5rem,3.4vw,3.3rem); margin:.4vh 0 2.2vh}
+.big-ov.has-do .ov-txt p{display:none}
+.big-ov.has-do .ov-lamp i{width:min(15vh,11vw); height:min(15vh,11vw)}
+.big-ov.has-do .ov-time{font-size:clamp(3rem,10vh,8rem)}
+.ov-sync{font-size:.8em; font-weight:700}
+.ov-sync.on{color:var(--good)} .ov-sync.off{color:var(--cut)}
+/* 패드 — 교사용 지금 카드 */
+.pad-ov{position:fixed; inset:0; z-index:101; background:var(--sky-bg); overflow-y:auto; -webkit-overflow-scrolling:touch; padding:14px 16px 40px}
+.pad-in{max-width:860px; margin:0 auto}
+.pad-top{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; font-size:.9375rem; color:var(--ink2); font-weight:700}
+.pad-top b{color:var(--ink)} .pad-top .sp{flex:1}
+.pad-top button,.pad-ctl button{font-family:var(--sans); font-weight:800; border-radius:14px; border:1px solid var(--line); background:var(--white); color:var(--blue-d); cursor:pointer}
+.pad-top button{font-size:.875rem; padding:7px 12px}
+.pad-now{display:flex; align-items:center; gap:14px; margin:12px 0 6px}
+.pad-time b{display:block; font-family:var(--disp); font-size:3.2rem; line-height:1; color:var(--blue-d); font-variant-numeric:tabular-nums}
+.pad-time b.late{color:var(--cut)} .pad-time small{color:var(--muted); font-size:.8125rem; font-weight:700}
+.pad-ctl{margin-left:auto; display:flex; gap:8px}
+.pad-ctl button{font-size:1.5rem; min-width:64px; min-height:58px}
+.pad-ctl #pdGo{background:var(--blue-d); color:#fff; border-color:var(--blue-d)}
+.pad-card{background:var(--white); border:1.5px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--sh)}
+.pad-card em{font-style:normal; font-size:.8125rem; font-weight:800; color:var(--blue-d)}
+.pad-card h3{margin:2px 0 10px; font-size:1.3rem; line-height:1.4}
+.pad-card h3 .lt{margin-left:6px; vertical-align:middle}
+.pad-sec{margin:12px 0 0}
+.pad-sec>b{display:block; font-size:.8125rem; font-weight:900; letter-spacing:.02em; margin-bottom:4px}
+.pad-say p{margin:0 0 6px; font-size:1.0625rem; line-height:1.6; background:var(--tint); border-radius:12px; padding:10px 12px}
+.pad-say>b{color:var(--blue-d)}
+.pad-chk label{display:flex; gap:10px; align-items:flex-start; font-size:1.0625rem; font-weight:700; line-height:1.5; padding:9px 4px; border-bottom:1px dashed var(--line); cursor:pointer}
+.pad-chk input{width:22px; height:22px; flex:none; margin-top:2px; accent-color:var(--good)}
+.pad-chk label.on{color:var(--muted); text-decoration:line-through}
+.pad-chk>b{color:var(--good)}
+.pad-pt ul,.pad-stu ol{margin:0; padding-left:20px; font-size:.9688rem; line-height:1.6; color:var(--ink2)}
+.pad-pt>b{color:var(--warm)} .pad-ask>b{color:var(--good)} .pad-plat>b{color:var(--warm)} .pad-stu>b{color:var(--muted)}
+.pad-ask p,.pad-plat p{margin:0; font-size:.9688rem; line-height:1.6}
+.pad-plat p{font-weight:700; color:var(--warm)}
+.pad-next{margin:12px 0 0; font-size:.9375rem; color:var(--ink2); background:var(--white); border:1px dashed var(--line); border-radius:14px; padding:10px 14px}
+.linkbox{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; margin:14px 0 6px; padding:12px 14px; border:1.5px solid var(--line); border-radius:16px; background:var(--white)}
+.linkbox input{width:7.5em; font:inherit; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:6px 8px; border:1.5px solid var(--line); border-radius:10px}
+.linkbox code{font-size:.8125rem; word-break:break-all}
+.linkbox .st{font-size:.8125rem; font-weight:800}
+.linkbox .st.on{color:var(--good)} .linkbox .st.off{color:var(--cut)}
 </style>
 
 <nav><div class="wrap"><div class="row">
@@ -962,6 +1015,13 @@ nav a.plan:hover{background:var(--good); color:#fff}
     <button type="button" class="mini gh" id="rReset">처음으로</button>
     <button type="button" class="mini" id="rBig" style="background:var(--good); border-color:var(--good)">🖥 교실 화면</button>
     <span class="clk" id="rClock">0:00 / 50:00</span>
+  </div>
+  <div class="linkbox"><b>🔗 빔 ↔ 패드</b> 방 번호 <input id="kRoom" maxlength="8" placeholder="예: AB12" aria-label="방 번호">
+    <button type="button" class="mini gh" id="kNew">새 번호</button>
+    <button type="button" class="mini" id="kBeam">🖥 이 기기 = 빔</button>
+    <button type="button" class="mini" id="kPad" style="background:var(--warm); border-color:var(--warm)">📱 이 기기 = 패드</button>
+    <span class="st" id="kStat"></span>
+    <span style="flex-basis:100%; font-size:.8438rem; color:var(--ink2)">두 기기에 <b>같은 방 번호</b>를 넣으면 패드에서 누른 ◀ ▶ ❚❚ 가 빔에 2초 안에 따라갑니다. 다른 기기 주소: <code id="kUrl">—</code></span>
   </div>
   <div class="tbar" id="rBar"></div>
   <div class="segs" id="rSegs"></div>
@@ -1020,16 +1080,26 @@ nav a.plan:hover{background:var(--good); color:#fff}
 </div></section>
 
 <div class="big-ov" id="ov" hidden>
-  <div class="ov-top"><span id="ovLesson"></span><span id="ovClock"></span></div>
+  <div class="ov-top"><span id="ovLesson"></span><span><span class="ov-sync" id="ovSync"></span> <span id="ovClock"></span></span></div>
   <div class="ov-main">
     <div class="ov-lamp" id="ovLamp"><i></i><b id="ovSig"></b></div>
-    <div class="ov-txt"><em id="ovStage"></em><h2 id="ovTitle"></h2><p id="ovSay"></p></div>
+    <div class="ov-txt"><em id="ovStage"></em><h2 id="ovTitle"></h2><ol class="ov-do" id="ovDo"></ol><p id="ovSay"></p><div class="ov-win" id="ovWin"></div><div class="ov-ok" id="ovOk"></div></div>
   </div>
   <div class="ov-time" id="ovTime">0:00</div>
   <div class="tbar ov-bar" id="ovBar"></div>
   <div class="ov-foot"><span id="ovNext"></span><span id="ovOrder"></span>
-    <span class="ov-btns"><button type="button" id="ovPrev">◀</button><button type="button" id="ovGo">▶</button><button type="button" id="ovNextB">▶▶</button><button type="button" id="ovClose">닫기</button></span></div>
+    <span class="ov-btns"><button type="button" id="ovPrev">◀</button><button type="button" id="ovGo">▶</button><button type="button" id="ovNextB">▶▶</button><button type="button" id="ovFull">⛶ 전체 화면</button><button type="button" id="ovClose">닫기</button></span></div>
 </div>
+
+<div class="pad-ov" id="pad" hidden><div class="pad-in">
+  <div class="pad-top"><span id="pdLesson"></span><span class="sp"></span><span class="ov-sync" id="pdSync"></span>
+    <button type="button" id="pdBeam">🖥 이 기기를 빔으로</button><button type="button" id="pdClose">전체 진행표 ▾</button></div>
+  <div class="pad-now"><div class="pad-time"><b id="pdTime">0:00</b><small id="pdClock"></small></div>
+    <div class="pad-ctl"><button type="button" id="pdPrev" aria-label="이전 활동">◀</button><button type="button" id="pdGo" aria-label="시작 · 멈춤">▶</button><button type="button" id="pdNext" aria-label="다음 활동">▶▶</button></div></div>
+  <div class="tbar" id="pdBar"></div>
+  <div class="pad-card" id="pdCard"></div>
+  <div class="pad-next" id="pdNextSeg"></div>
+</div></div>
 
 <footer><div class="wrap">
   <p style="margin:0">교사용 운영판 · 최종 수업지도안(AI 확장 데이터 탐구·검증 모형 / AI 모델링 기반 컴퓨팅 문제해결 모형, 2026-10 전문가 검토 자료)을 그대로 옮겼습니다.</p>
@@ -1047,8 +1117,8 @@ nav a.plan:hover{background:var(--good); color:#fff}
    날짜: [인기A, 인기D, 인기E] — unit2·unit4 의 표와 같게
    ══════════════════════════════════════════════════════════════ */
 var LESSONS = [
-{ id:'D1', model:'데이터', no:1, title:'데이터 탐구 ① 문제 정하고 데이터 찾기',
-  d:['10/22 (목)','10/23 (금)','10/22 (목)'], std:'[12정02-03]',
+{ id:'D1', model:'데이터', no:1, title:'데이터 탐구 ① 문제 정하고 데이터 찾기 (A반 · 모둠)',
+  d:['10/22 (목)','— (D1x)','— (D1x)'], std:'[12정02-03]',
   goal:'여러 문제가 얽힌 상황에서 데이터로 확인할 수 있는 문제를 정의하고, 문제 해결 가설과 필요한 데이터를 계획하여 수집할 수 있다.',
   acts:['[활동1] 문제 상황 읽고 나만의 문제 정의','[활동2] 모둠 문제 정의문','[활동3] 가설과 탐구 질문 정의서','[활동4] 데이터 수집 시작'],
   prep:['동의서 회수 확인 — 학생 + 보호자 서명 페이지, 미제출자 명단','모둠 편성표(설문 → 편성안 탭) · 역할(기록 · 데이터 탐색 · 분석 · 발표)','수업 PPT','문제 상황 「그 여름, 우리 학교에서 생긴 일」 인쇄본','모둠 구글 슬라이드(활동지 ①·②) 미리 공유','AI 활용 윤리 체크리스트','실마리별 검색어 카드 · 데이터 카드 · 대체 데이터(교과서 부록 스트레스 213~218쪽 · 물 수질 221~226쪽) 공유 폴더','로그인 필요 사이트(AI 허브 · 캐글) 데이터 미리 받기','촬영: 교사 · 학생 화면 녹화, 교실 뒤 풀샷'],
@@ -1064,8 +1134,8 @@ var LESSONS = [
    [13,'활동 4 · 데이터 수집 시작과 출처 기록','n','② 데이터 관점 탐구 설계',['이 데이터는 누가, 언제, 어떻게 모았나요?','검색어를 바꿔도 안 나오면 실마리를 넓혀 보세요. «폭염일수»가 없으면 «일 최고기온»은 어떨까요?'],[],['오래 걸리는 모둠에는 데이터 카드 · 대체 데이터(교과서 부록)','로그인 필요 사이트는 교사가 받아 둔 파일로','[정서] 대체 데이터를 써도 괜찮다고 미리 알려 준다','[사회] 찾은 파일은 모둠 공유 폴더에','시간이 부족하면 출처는 이름 · 제공 기관만, 나머지는 2차시 활동 1에서'],''],
    [2,'정리 · 다음 차시 안내','n','',['다음 시간 처음에는 찾은 데이터를 마저 모아 믿을 만한지 따지고, 이어서 데이터를 정리해 그래프를 그리고 해석합니다.'],[],[],'']
   ]},
-{ id:'D2', model:'데이터', no:2, title:'데이터 탐구 ② 정리하고 분석하기',
-  d:['10/23 (금)','10/26 (월)','10/26 (월)'], std:'[12정02-03], [12정02-04]',
+{ id:'D2', model:'데이터', no:2, title:'데이터 탐구 ② 정리하고 분석하기 (A반)',
+  d:['10/23 (금)','— (D2x)','— (D2x)'], std:'[12정02-03], [12정02-04]',
   goal:'수집한 데이터를 평가하고, 세운 기준에 따라 데이터를 전처리 · 시각화하여 데이터의 범위 안에서 해석할 수 있다.',
   acts:['[활동1] 데이터 수집 마무리와 평가','[활동2] 전처리 기준 수립과 전처리','[활동3] 시각화와 1차 해석','[활동4] 1차 동료평가'],
   prep:['수업 PPT','데이터 카드 · 대체 데이터','전처리 기준 수립 가이드 · 예시 카드','코랩 노트북 20 — 교사 시연(연습 데이터) 후 학생은 ⓪ 설정 칸만 바꿔 «모두 실행» · 한글 글꼴 셀 · 모둠별 코랩 도우미(파이썬 이수 학생)','플랫폼: 데이터 정리 AI · 자료 찾기 AI · 자기 · 동료평가, 교사 대시보드 — 학운위(10/26) 전 수업은 코랩 + 구글 설문 동료평가','활동지 ③ · ④','1차시 활동지 ① 코멘트'],
@@ -1084,6 +1154,35 @@ var LESSONS = [
    [2,'활동 3 · (선택) 자료 찾기 AI로 개념 보강','g','③ AI 보조 데이터 탐구',['AI가 알려 준 개념은 출처 두 곳에서 확인하고, 내 말로 한 줄 씁시다.'],[],['1차 해석을 쓴 뒤에만','(심화) 상관계수 · 두 변수에 함께 영향을 주는 제3의 변수','시간이 부족하면 (선택) · (심화)부터 생략'],'출처 인용 시 비판적 활용 체크리스트 · 위임형 질문은 대시보드에서 바로 개입'],
    [3,'활동 4 · 1차 동료평가(자기평가 포함)','n','',[],[],['자기 · 동료 1~5점: 참여도 · 경청 · 설득 · 역할 수행 / 본인만 서술','성취기준 판정에 쓰지 않음 · 참여가 낮은 학생은 다음 차시에 역할로 격려'],'플랫폼 1차 평가 — 교사 화면 «지금 차례»를 4로 바꿔야 열림(창이 좁으면 단추가 숨음) · 질문하는 AI 전에(심의 전이면 구글 설문)'],
    [1,'정리 · 다음 차시 안내','n','',['다음 시간에는 해석을 모아 공동 해석을 정하고, 해결안을 만들어 AI의 반문으로 다져 봅니다.'],[],[],'']
+  ]},
+{ id:'D1x', model:'데이터', no:1, title:'데이터 탐구 ① 혼자 먼저 — 나의 문제 · 가설 · 데이터 (D · E반)',
+  d:['— (D1)','10/23 (금)','10/22 (목)'], std:'[12정02-03]',
+  goal:'여러 문제가 얽힌 상황에서 데이터로 확인할 수 있는 문제를 스스로 정의하고, 가설과 필요한 데이터를 계획하여 데이터 후보를 찾을 수 있다.',
+  acts:['[활동1] 줄글 읽고 나의 문제 정의','[활동2] 나의 가설 · 필요한 데이터','[활동3] 내 데이터 후보와 출처'],
+  prep:['동의서 회수 확인','모둠 설문(team.html) — 아직 안 한 학생','문제 상황 「그 여름, 우리 학교에서 생긴 일」 인쇄본','개인 활동지(🔑 내 계정에서 열림)','데이터 카드 · 대체 데이터','촬영: 교사 · 학생 화면 녹화'],
+  out:['개인 활동지 — 나의 문제 정의 · 나의 가설 · 내가 찾은 데이터와 출처'],
+  seg:[
+   [5,'접속 먼저 — 🔑 내 계정 → 내 개인 활동지 · 수업 안내','n','',['🔑 내 계정 · 내 활동지에 학번과 이름을 넣고, 처음 한 번은 내 구글 메일을 등록한 뒤 «내 개인 활동지»를 여세요. 오늘은 혼자, 다음 시간부터 모둠으로 합니다. 오늘은 AI를 쓰지 않아요.'],[],['«액세스 권한 필요» = 다른 계정으로 로그인 → 계정 바꾸기','모둠 설문 안 한 학생은 이 시간 안에','모형 다섯 단계 · 네 차시 흐름은 수업 쪽 «이 수업은?» 카드로'],''],
+   [8,'활동 1 · 줄글 읽고 나의 문제 정의','n','① 문제 인식 및 정의',['이 가운데 무엇이 «진짜 문제»일까요? 문제라고 생각하는 문장에 밑줄을 긋고, 데이터로 확인할 수 있는 것과 없는 것을 나눠 보세요.'],['이 문제는 어떤 데이터로 확인할 수 있을까?'],['실마리는 미리 알려 주지 않는다','«느낌»과 «사실» 구분'],''],
+   [15,'활동 2 · 나의 가설 · 필요한 데이터 · 꼭 필요한 열','n','② 데이터 관점 탐구 설계',['«○○할수록 △△할 것이다»처럼 데이터로 확인할 수 있는 문장으로 써 봅시다. 이 가설에 답하려면 어떤 열이 꼭 있어야 할까요?'],['기간 · 지역 단위를 맞출 수 있나요?'],['[인지] 가설 문장 틀과 열 예시를 수준별로','[정서] 가설이 틀려도 데이터로 확인하면 성과'],''],
+   [20,'활동 3 · 내 데이터 후보 1~2개 · 출처 다섯 가지','n','② 데이터 관점 탐구 설계',['이 데이터는 누가, 언제, 어떻게 모았나요? 찾자마자 적어 두세요.'],[],['데이터 찾는 곳(datasites.html) · 못 찾으면 데이터 카드','로그인 필요 사이트는 교사가 받아 둔 파일로','파일은 내 드라이브에(다음 시간 모둠 폴더로)'],''],
+   [2,'정리 · 다음 시간은 모둠','n','',['오늘 쓴 내 장은 다음 시간 모둠 슬라이드로 옮겨져요. 다음 시간에는 모둠 문제를 정하고 데이터를 정리합니다.'],[],['수업 후: 모둠 편성 → 모둠 슬라이드 · 데이터 폴더 · 플랫폼 모둠 업로드(10/26 전)'],'']
+  ]},
+{ id:'D2x', model:'데이터', no:2, title:'데이터 탐구 ② 모둠으로 모으고 정리하기 (D · E반)',
+  d:['— (D2)','10/26 (월)','10/26 (월)'], std:'[12정02-03], [12정02-04]',
+  goal:'개인의 문제 정의와 가설을 모아 모둠 문제를 정하고, 데이터를 평가 · 전처리 · 시각화하여 데이터의 범위 안에서 해석할 수 있다.',
+  acts:['[활동1] 모둠 문제 정의문과 가설','[활동2] 데이터 고르기와 평가','[활동3] 전처리 · AI 대조 · 그래프 · 1차 해석','[활동4] 1차 자기 · 동료평가'],
+  prep:['모둠 발표 화면 · 모둠 슬라이드(개인 장 옮김) · 데이터 폴더','코랩 노트북 20 — 교사 시연(연습 데이터)','플랫폼: 데이터 정리 AI · 자료 찾기 AI · 1차 평가 · 지금 차례 3','데이터 카드 · 대체 데이터','예시 데이터(더운 날과 아이스크림 CSV)'],
+  out:['모둠 문제 정의문 · 가설','데이터 평가','전처리 기준 · AI 대조 · 그래프 · 1차 해석','AI 사용 기록','1차 자기 · 동료평가'],
+  seg:[
+   [3,'모둠 발표 · 자리 이동 · 모둠 슬라이드 · 플랫폼 로그인','n','',['모둠 슬라이드에는 지난 시간 내 장이 이미 들어 있어요. AI 탐구 교실 아이디와 비밀번호는 🔑 내 계정에서 확인해요.'],[],['처음 메일 등록 안 한 학생 확인','플랫폼 로그인 막히는 학생은 🔑 화면 아이디 확인'],'지금 차례 3'],
+   [10,'활동 1 · 1분씩 → 모둠 문제 정의문 + 가설 → 선생님 확인','n','① 문제 인식 및 정의',['한 사람씩 1분, 내 문제 정의와 가설을 읽어 주세요. 데이터로 확인할 수 있는 것을 골라 모둠 문장으로 다듬습니다.'],[],['교사 확인(관문): 데이터로 확인할 수 있는 범위인가','[사회] 모든 모둠원 의견이 한 번 이상 반영'],''],
+   [8,'활동 2 · 찾아온 데이터 하나 고르기 → 평가 체크리스트 → 선생님 확인','n','② 데이터 관점 탐구 설계',['가설에 답할 수 있는 데이터를 하나 고르고, «아니요» 문항에만 이유를 써요.'],[],['적합성 · 신뢰성 · 품질 · 충분성 · 윤리','못 정한 모둠은 데이터 카드로 바로'],''],
+   [6,'활동 3 · 선생님 시연 — 코랩 20(결측치 · 상자그림 · 산점도 · 상관계수)','n','③ AI 보조 데이터 탐구',['선생님 화면을 보며 같이 읽어 봅시다. 상자그림 밖의 점은 지워야 할까요? 상관계수 0.8은 원인이라는 뜻일까요?'],['이 점은 입력 실수일까요, 실제 값일까요?'],['연습 데이터 그대로 «모두 실행»','학생은 코드를 쓰지 않음 — ⓪ 설정 칸만'],''],
+   [3,'활동 3 · 모둠 전처리 기준과 이유','n','③ AI 보조 데이터 탐구',['빈칸과 튀는 값을 어떻게 할지 먼저 정합니다. 기준이 곧 설계도예요.'],['이 행을 지우면 결과가 어떻게 달라지나요?'],['기준은 값으로(«300보다 큰 값») — 줄 번호 X'],''],
+   [8,'활동 3 · 각자 ⓪ 설정 «모두 실행» · 대표는 데이터 정리 AI → 행 수 대조','y','③ AI 보조 데이터 탐구',['데이터 정리 AI가 지운 행이 우리 기준에 있던 것인가요?'],[],['대조 안 하고 넘어가는 모둠이 없게 순회','«18번 행 지우기» 같은 줄 번호 카드 누른 모둠 확인'],'데이터 정리 AI — 대화 하나에 규칙 하나(값으로) → [적용] → 행 수 · «내 데이터» 확인 → 다음 규칙은 «결과 CSV 받기» 파일을 새 대화에 · 대시보드 «회피 발화»는 이 도구에선 오탐'],
+   [8,'활동 3 · 맡은 그래프 → AI 없이 1차 해석','n','③ AI 보조 데이터 탐구',['그래프에서 직접 본 근거를 하나 이상 들어 써 봅시다. 데이터가 말하지 않는 것은 무엇일까요?'],[],['그래프 왜곡 · 상관과 인과 혼동 · 표본 편향 점검'],'(선택) 자료 찾기 AI — 1차 해석을 쓴 뒤에만'],
+   [4,'활동 4 · 1차 자기 · 동료평가 · AI 사용 기록','n','',['오늘 쓴 AI는 슬라이드 맨 뒤 «AI 사용 기록»에 한 줄씩 적어요.'],[],['성적 미반영 · 피드백용'],'지금 차례 4로 바꿔야 1차 평가가 열림']
   ]},
 { id:'D3', model:'데이터', no:3, title:'데이터 탐구 ③ 공동 해석과 해결안',
   d:['10/28 (수)','10/27 (화)','10/27 (화)'], std:'[12정02-03], [12정02-04]',
@@ -1178,6 +1277,74 @@ var LESSONS = [
   ]},
 ];
 
+/* ══════════════════════════════════════════════════════════════
+   GUIDE — 차시 · 활동마다 (seg 와 같은 순서)
+   d: 빔 «지금 할 일»(학생 말투) · w: 열어 둘 창 · ok: 다 했으면 · k: 패드 «꼭 확인»
+   ══════════════════════════════════════════════════════════════ */
+var GUIDE = {
+D1:[
+ {d:['수업 쪽 맨 위 «🔑 내 계정 · 내 활동지»','학번 5자리 + 이름 → 확인','처음 한 번: 내 구글 메일 등록','«👥 우리 모둠 활동지» 열어 두기'],w:'🌐 수업 쪽 · 🔑 내 계정 · 📝 모둠 슬라이드',ok:'모둠 슬라이드가 열렸으면 준비 끝',k:['모든 모둠 슬라이드가 열렸나','«액세스 권한 필요» = 다른 계정 로그인']},
+ {d:['신호등 세 가지 듣기','오늘은 AI 없이 — 플랫폼은 안 열어요','슬라이드 «약속» 장 윤리 네 칸 ✓'],w:'📝 모둠 슬라이드 «약속» 장',ok:'모둠원 모두 ✓',k:['윤리 체크 모두 ✓','오늘 AI 안 씀을 분명히']},
+ {d:['선생님이 읽는 줄글 듣기','«문제다» 싶은 문장에 밑줄'],w:'📄 줄글 인쇄본',ok:'밑줄 두 개 이상',k:['실마리 미리 말하지 않기']},
+ {d:['내 이름 장 «나의 문제 정의»','데이터로 확인할 수 있는 것 / 어려운 것 나누기','나의 문제 정의 한 문장'],w:'📝 내 이름 장',ok:'한 문장을 썼으면 옆 친구와 비교',k:['데이터로 확인할 수 있는 정의인가','느낌 · 소문과 사실을 나눴나']},
+ {d:['한 사람씩 1분, 내 정의 읽기','데이터로 확인할 수 있나 따지기','하나 골라 다듬기 → 모둠 정의문','선생님 ✓ 받기'],w:'📝 «모둠 문제 정의» 장',ok:'선생님 ✓를 받아야 다음으로',k:['모든 모둠 ✓ (관문)','모둠원 밑줄이 한 번씩 반영됐나']},
+ {d:['«○○할수록 △△할 것이다»','왜 그렇게 생각하는지 한 줄'],w:'📝 내 이름 장 «나의 가설»',ok:'가설 한 문장',k:['데이터로 확인할 수 있는 문장인가']},
+ {d:['모둠 가설 한 문장','필요한 데이터 · 꼭 필요한 열','어떤 그래프로 비교할지','누가 무엇을 맡을지'],w:'📝 «탐구 질문 정의서» 장',ok:'네 칸을 다 채웠으면 데이터 찾기',k:['꼭 필요한 열이 구체적인가','기간 · 지역 단위가 맞는가']},
+ {d:['🌐 수업 쪽 «데이터 찾는 곳»에서 찾기','찾은 파일은 📁 모둠 데이터 폴더에','찾자마자 출처 다섯 가지 적기','못 찾으면 «데이터 카드»'],w:'🌐 데이터 찾는 곳 · 📁 데이터 폴더 · 📝',ok:'데이터 후보 하나 이상 + 출처',k:['로그인 필요 사이트 → 교사 파일','대체 데이터 써도 된다고 알리기','폴더에 파일이 들어갔나']},
+ {d:['슬라이드 맨 뒤 «AI 사용 기록»: «오늘 AI 안 씀»','다음 시간: 데이터 평가 → 정리 → 그래프'],w:'📝 «AI 사용 기록» 장',ok:'수고했어요!',k:['다음 수업 전 플랫폼 지금 차례 → 3']}
+],
+D1x:[
+ {d:['수업 쪽 맨 위 «🔑 내 계정 · 내 활동지»','학번 5자리 + 이름 → 확인','처음 한 번: 내 구글 메일 등록','«📝 내 개인 활동지» 열기'],w:'🌐 수업 쪽 · 🔑 내 계정 · 📝 개인 활동지',ok:'개인 활동지가 열렸으면 준비 끝',k:['메일 등록 · 개인 활동지 열림','모둠 설문 안 한 학생','오늘 AI 안 씀']},
+ {d:['줄글 읽고 «문제다» 싶은 문장에 밑줄','데이터로 확인할 수 있는 것 / 어려운 것','나의 문제 정의 한 문장'],w:'📄 줄글 · 📝 «나의 문제 정의» 장',ok:'한 문장 완성',k:['데이터로 확인할 수 있는 정의인가','느낌과 사실 구분']},
+ {d:['«○○할수록 △△할 것이다»','이 가설에 필요한 데이터','꼭 필요한 열(속성)'],w:'📝 «나의 가설» 장',ok:'세 칸을 채웠으면 데이터 찾기로',k:['가설이 데이터로 확인 가능한가','열이 구체적인가']},
+ {d:['🌐 수업 쪽 «데이터 찾는 곳»에서 1~2개','파일은 내 드라이브에 저장','찾자마자 출처 다섯 가지 적기','못 찾으면 «데이터 카드»'],w:'🌐 데이터 찾는 곳 · 📝 «내가 찾은 데이터» 장',ok:'후보 하나 이상 + 출처',k:['로그인 필요 사이트 → 교사 파일','출처 다섯 칸']},
+ {d:['«AI 사용 기록»: «오늘 AI 안 씀»','내 장은 다음 시간 모둠 슬라이드로 옮겨져요'],w:'📝',ok:'수고했어요!',k:['수업 후 모둠 편성 → 슬라이드 · 폴더 · 플랫폼 모둠']}
+],
+D2:[
+ {d:['🔑 → 👥 모둠 슬라이드 열기','🤖 AI 탐구 교실 로그인(아이디 · 비번은 🔑에)','오늘: 평가 → 정리 → 그래프 → 내 해석'],w:'🔑 · 📝 모둠 슬라이드 · 🤖 AI 탐구 교실',ok:'세 창이 열렸으면 준비 끝',k:['플랫폼 지금 차례 3','로그인 안 되는 학생']},
+ {d:['찾은 데이터 중 가설에 답할 것 하나 고르기','빠진 출처 칸 채우기'],w:'📁 데이터 폴더 · 📝 «데이터 출처» 장',ok:'데이터 하나 확정',k:['못 정한 모둠 → 데이터 카드로 바로']},
+ {d:['적합 · 신뢰 · 품질 · 충분 · 윤리 체크','«아니요»에만 이유 한 줄과 보완 방법'],w:'📝 «데이터 평가» 장',ok:'체크리스트 완성',k:['«아니요» 근거가 있나']},
+ {d:['승인 세 기준 스스로 점검','선생님 ✓ 기다리는 동안 다음 장 미리 보기'],w:'📝',ok:'선생님 ✓ 받으면 다음으로',k:['모든 모둠 ✓ (관문)','미충족 모둠엔 슬라이드 댓글']},
+ {d:['앞 화면 보기 — 코랩 20 «모두 실행»','결측치 표 · 상자그림 읽기','상자 밖의 점: 실수일까, 진짜일까?'],w:'▶ 앞 화면(코랩 20)',ok:'',k:['연습 데이터 결과 381 → 376 → 322 · r −0.084']},
+ {d:['빈칸 → 지울까 · 채울까','튀는 값 → 지울까 · 둘까','이유 한 줄씩 → «전처리 기준» 칸'],w:'📝 «전처리 기준» 장',ok:'기준을 값으로 적었으면 다음',k:['기준이 값으로 적혔나(«300보다 큰 값»)']},
+ {d:['각자: 코랩 20 → 파일 → 드라이브에 사본 저장','⓪ 설정: 파일 · x열 · y열 · 우리 기준','모둠 대표: 🤖 데이터 정리 AI에 파일 + 규칙 하나'],w:'▶ 코랩 20 · 🤖 데이터 정리 AI',ok:'⓪ 설정을 다 고쳤으면 기다리기',k:['코랩 사본 저장했나','대표가 규칙을 하나씩 말하나']},
+ {d:['앞 화면: 산점도 · 상관계수 읽기','1에 가까우면? 0이면? −1이면?','상관 ≠ 원인'],w:'▶ 앞 화면(코랩 20)',ok:'',k:['상관과 인과 구분 강조']},
+ {d:['코랩 «모두 실행» → 단계별 행 수','AI 결과와 행 수 · 지운 줄 대조','다르면 ⓪ AI결과파일로 줄 단위 검증','맡은 그래프 캡처 → 내 이름 장'],w:'▶ 코랩 · 🤖 · 📝',ok:'행 수가 맞고 그래프를 붙였으면 해석으로',k:['대조 안 하고 넘어가는 모둠 없게','줄 번호 카드(«18번 행») 누른 모둠','[적용] 없이 «진행할게요»만 → 새 대화']},
+ {d:['그래프에서 본 근거 하나 이상','«데이터가 말하지 않는 것» 한 줄','AI 없이, 내 말로'],w:'📝 «1차 해석» 장',ok:'두 줄 이상 썼으면 OK',k:['그래프 왜곡 · 상관=인과 · 표본 편향 · 체리피킹']},
+ {d:['(선택) 🤖 자료 찾기 AI로 개념 확인','출처 다섯 칸 확인 → 내 말로 한 줄'],w:'🤖 자료 찾기 AI',ok:'',k:['1차 해석을 쓴 학생만']},
+ {d:['🤖 홈 → 1차 자기 · 동료평가','모든 칸 점수 고르고 제출'],w:'🤖 AI 탐구 교실 홈',ok:'제출하면 끝',k:['지금 차례 → 4 (그래야 평가가 열림)']},
+ {d:['슬라이드 맨 뒤 «AI 사용 기록» 한 줄씩'],w:'📝 «AI 사용 기록» 장',ok:'수고했어요!',k:['다음 수업 전 지금 차례 4 확인']}
+],
+D2x:[
+ {d:['모둠 발표 보고 자리 이동','🔑 → «👥 우리 모둠 활동지» (내 장이 들어 있어요)','🤖 AI 탐구 교실 로그인(아이디 · 비번은 🔑에)'],w:'🔑 · 📝 모둠 슬라이드 · 🤖 AI 탐구 교실',ok:'세 창이 열렸으면 준비 끝',k:['플랫폼 지금 차례 3','처음 메일 등록 안 한 학생']},
+ {d:['한 사람씩 1분 — 내 문제 정의 · 가설','데이터로 확인할 수 있는 것 고르기','모둠 문제 정의문 + 모둠 가설','선생님 ✓ 받기'],w:'📝 «모둠 문제 정의» · «탐구 질문 정의서» 장',ok:'선생님 ✓를 받아야 다음으로',k:['모든 모둠 ✓ (관문)','모두의 의견이 한 번씩 반영됐나']},
+ {d:['찾아온 데이터 중 하나 고르기 → 📁 폴더','평가 체크리스트 · «아니요»에만 이유','선생님 ✓ 받기'],w:'📁 데이터 폴더 · 📝 «데이터 평가» 장',ok:'선생님 ✓',k:['못 정한 모둠 → 데이터 카드','모든 모둠 ✓ (관문)']},
+ {d:['앞 화면 보기 — 코랩 20 «모두 실행»','결측치 · 상자그림 · 산점도 · 상관계수','상관 ≠ 원인'],w:'▶ 앞 화면(코랩 20)',ok:'',k:['연습 데이터 결과 381 → 376 → 322 · r −0.084']},
+ {d:['빈칸 → 지울까 · 채울까','튀는 값 → 지울까 · 둘까 (값으로)','이유 한 줄씩'],w:'📝 «전처리 기준» 장',ok:'기준을 값으로 적었으면 다음',k:['기준이 값으로 적혔나']},
+ {d:['각자: 코랩 20 사본 → ⓪ 설정 → «모두 실행»','대표: 🤖 데이터 정리 AI — 규칙 하나씩 [적용]','행 수 · 지운 줄 대조'],w:'▶ 코랩 20 · 🤖 데이터 정리 AI',ok:'행 수가 맞으면 그래프로',k:['대조 안 하고 넘어가는 모둠 없게','줄 번호 카드 누른 모둠','[적용] 없이 «진행할게요»만 → 새 대화']},
+ {d:['맡은 그래프 캡처 → 내 이름 장','그래프에서 본 근거로 해석 한 줄 (AI 없이)','«데이터가 말하지 않는 것» 한 줄'],w:'▶ 코랩 · 📝 «1차 해석» 장',ok:'두 줄 이상 썼으면 OK',k:['상관=인과 혼동 · 표본 편향']},
+ {d:['🤖 홈 → 1차 자기 · 동료평가 → 제출','슬라이드 맨 뒤 «AI 사용 기록» 한 줄씩'],w:'🤖 홈 · 📝',ok:'수고했어요!',k:['지금 차례 → 4 (평가 열기)']}
+],
+D3:[
+ {d:['🔑 → 👥 모둠 슬라이드 · 🤖 로그인','오늘: 공동 해석 → 해결안 → AI 반문'],w:'🔑 · 📝 · 🤖',ok:'',k:['플랫폼 지금 차례 4','2차시에 데이터 못 정한 모둠 개별 지원']},
+ {d:['내 그래프 + 해석, 한 사람 1분','근거 수치를 꼭 말하기','해석이 다르면: «어떤 데이터가 더 필요할까?»'],w:'📝 내 이름 장',ok:'',k:['조용한 학생에게 먼저','근거 수치를 말하나']},
+ {d:['«우리 모둠은 (  ) 때문에 (  )라고 해석한다»','«아직 확인 못 한 점은 (  )이다»'],w:'📝 «1차 해석» 모둠 칸',ok:'두 문장 완성',k:['수치가 들어 있나']},
+ {d:['이 데이터로 가설에 답할 수 있나?','못 하면 데이터를 다시 찾기(② 단계)'],w:'📝',ok:'',k:['회귀 모둠 → 보조 데이터셋']},
+ {d:['해결안: 누구에게 · 무엇을 · 어떻게','데이터 근거 · 기대 효과 · 한계','AI는 아직 켜지 않아요'],w:'📝 «해결안» 장',ok:'초안이 있어야 AI 시작',k:['초안 없는 모둠은 AI 시작 X']},
+ {d:['슬라이드 «파일 → 다운로드 → PDF»','🤖 질문하는 AI에 PDF + 해결안','반문 두 개 읽기'],w:'📝 · 🤖 질문하는 AI',ok:'',k:['PDF 업로드 막히는 모둠','1차 평가 안 한 학생 → 먼저 평가']},
+ {d:['질문마다 «반영할게요 / 반영 안 할게요»','이유 + 데이터 근거 쓰기','⚠ 함정 질문: 전제가 틀리면 «반영 안 할게요»','3회차까지'],w:'🤖 질문하는 AI',ok:'',k:['대시보드 «함정형 질문 채택» → 개입','전부 채택 / 전부 거절 모둠에 근거 묻기']},
+ {d:['고친 해결안을 슬라이드에','한계 한 줄 · 더 필요한 데이터'],w:'📝 «해결안» 장',ok:'',k:['모든 주장에 근거 · AI 반문 처리 · 한계']},
+ {d:['발표에 쓸 장 고르기(나머지 «슬라이드 건너뛰기»)','마지막 장: 출처 · AI 활용','«AI 사용 기록» 한 줄씩'],w:'📝',ok:'수고했어요!',k:['수업 후: Claude에게 모둠별 발문 표','다음 수업 전 지금 차례 5']}
+],
+D4:[
+ {d:['발표 순서 확인(앞 화면)','발표 2분 30초 + 선생님 질문 1분 30초','질문은 발표하지 않은 친구에게도 가요'],w:'📝 · 🤖',ok:'',k:['지금 차례 5','추첨 → 교실 화면에 순서']},
+ {d:['🤖 발표 연습 AI에 한 부분씩 설명','AI가 일부러 틀리면 바로잡기','세 번 → «자가점검 만들기» → 제출','발표 분량 2분 30초 안으로'],w:'🤖 발표 연습 AI',ok:'자가점검을 제출하면 2차 평가가 열려요',k:['시간이 부족하면 모둠 대표 1명만']},
+ {d:['발표 모둠: 앞으로 · 고른 장만','듣는 모둠: 질문 하나 생각하기','선생님 질문은 발표자 외 모둠원에게'],w:'📝 앞 화면(발표 슬라이드)',ok:'',k:['루브릭 E · 구술 D 기록','발문 카드 사용']},
+ {d:['🤖 홈 → 2차 자기 · 동료평가','안 열리면: 발표 연습 AI 자가점검부터 제출','성찰 한 줄 · «AI 사용 기록»'],w:'🤖 홈 · 📝',ok:'',k:['2차 평가가 잠긴 학생 = 자가점검 미제출']},
+ {d:['선생님이 띄운 설문 링크 열기','솔직하게 — 점수와 상관없어요'],w:'🌐 설문',ok:'제출하면 끝 · 수고했어요!',k:['미동의 학생은 교과서 Ⅳ-01 읽기']}
+]
+};
+
 </script>
 <script>
 (function(){
@@ -1193,7 +1360,7 @@ function esc(x){ return String(x == null ? '' : x)
 var CLS = ['인기A','인기D','인기E'];
 var SIGN = { n:'AI 없이 · 내 생각 먼저', g:'초록 · 자율적 사용', y:'노랑 · 유도적 사용' };
 var KEY = 'ai_teach_v1';
-var T = { cls:-1, lid:'', chk:{}, memo:{}, run:null, order:'' };
+var T = { cls:-1, lid:'', chk:{}, memo:{}, run:null, order:'', room:'', kchk:{} };
 try{ var o = JSON.parse(localStorage.getItem(KEY) || '{}'); for(var k in o) if(k in T) T[k] = o[k]; }catch(e){}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(T)); }catch(e){} }
 
@@ -1229,7 +1396,7 @@ $('tCls').addEventListener('click', function(e){
   T.cls = +b.getAttribute('data-c');
   var tl = todayLesson(T.cls);
   if(tl && (!T.run || !T.run.running)) pickLesson(tl.l.id, true);
-  save(); drawPick(); drawAll();
+  save(); drawPick(); drawAll(); changed();
 });
 $('tLessons').addEventListener('click', function(e){
   var b = e.target.closest('.lbtn'); if(!b) return;
@@ -1238,7 +1405,7 @@ $('tLessons').addEventListener('click', function(e){
 function pickLesson(id, quiet){
   if(T.lid === id) return;
   if(T.run && T.run.running && !quiet && !confirm('타이머가 돌고 있습니다. 다른 차시로 바꿀까요?')) return;
-  T.lid = id; T.run = null; save();
+  T.lid = id; T.run = null; save(); changed();
 }
 
 /* ── 진행 상태 ─────────────────────────────────────── */
@@ -1260,10 +1427,10 @@ setInterval(function(){
   tick(); drawLive();
   if(Date.now() - lastSave > 3000){ save(); lastSave = Date.now(); }
 }, 250);
-function go(){ var r = run(); if(!r) return; tick(); r.running = !r.running; r.at = Date.now(); save(); drawAll(); }
-function step(d){ var r = run(); if(!r) return; tick(); r.idx = Math.max(0, Math.min(L().seg.length - 1, r.idx + d)); r.at = Date.now(); save(); drawAll(); }
-function jump(i){ var r = run(); if(!r) return; tick(); r.idx = i; r.at = Date.now(); save(); drawAll(); }
-function reset(){ if(!L()) return; if(T.run && total(T.run) > 5 && !confirm('타이머를 처음으로 돌릴까요?')) return; T.run = null; run(); save(); drawAll(); }
+function go(){ var r = run(); if(!r) return; tick(); r.running = !r.running; r.at = Date.now(); save(); drawAll(); changed(); }
+function step(d){ var r = run(); if(!r) return; tick(); r.idx = Math.max(0, Math.min(L().seg.length - 1, r.idx + d)); r.at = Date.now(); save(); drawAll(); changed(); }
+function jump(i){ var r = run(); if(!r) return; tick(); r.idx = i; r.at = Date.now(); save(); drawAll(); changed(); }
+function reset(){ if(!L()) return; if(T.run && total(T.run) > 5 && !confirm('타이머를 처음으로 돌릴까요?')) return; T.run = null; run(); save(); drawAll(); changed(); }
 
 /* ── 그리기 ───────────────────────────────────────── */
 function drawAll(){
@@ -1298,15 +1465,22 @@ function drawLive(){
     var sm = el.querySelector('small[data-el]'), sec = r.el[i], lim = l.seg[i][0] * 60;
     sm.textContent = sec > 0 ? mmss(sec) : ''; sm.className = sec > lim ? 'over' : '';
   });
+  drawPad(l, r, bar);
   /* 교실 화면 */
   if($('ov').hidden) return;
-  var s = l.seg[r.idx], left = s[0] * 60 - r.el[r.idx];
+  var s = l.seg[r.idx], left = s[0] * 60 - r.el[r.idx], g = gd(l, r.idx), gk = l.id + '|' + r.idx;
+  $('ov').classList.toggle('has-do', !!g);
+  if($('ovDo').getAttribute('data-k') !== gk){
+    $('ovDo').setAttribute('data-k', gk);
+    $('ovDo').innerHTML = g ? g.d.map(li).join('') : '';
+    $('ovWin').textContent = g && g.w || ''; $('ovOk').textContent = g && g.ok || '';
+  }
   $('ovLesson').textContent = l.title + (T.cls >= 0 ? ' · ' + CLS[T.cls] : '');
   $('ovClock').textContent = '수업 ' + mmss(tot) + ' / 50:00';
   $('ovLamp').className = 'ov-lamp ' + s[2]; $('ovSig').textContent = SIGN[s[2]];
   $('ovStage').textContent = s[3] || '';
   $('ovTitle').textContent = s[1];
-  $('ovSay').textContent = s[4][0] || s[5][0] || '';
+  $('ovSay').textContent = g ? '' : (s[4][0] || s[5][0] || '');
   var tm = $('ovTime'); tm.textContent = mmss(left); tm.className = 'ov-time' + (left < 0 ? ' late' : '');
   $('ovBar').innerHTML = bar;
   var nx = l.seg[r.idx + 1];
@@ -1314,6 +1488,114 @@ function drawLive(){
   $('ovOrder').innerHTML = T.order && /발표/.test(s[1]) ? '발표 순서 <b>' + esc(T.order) + '</b>' : '';
   $('ovGo').textContent = r.running ? '❚❚' : '▶';
 }
+function li(x){ return '<li>' + esc(x) + '</li>'; }
+function gd(l, i){ return (window.GUIDE && GUIDE[l.id] && GUIDE[l.id][i]) || null; }
+/* 패드 — 지금 활동의 멘트 · 꼭 확인 · 중점 · 순회 질문 · 플랫폼 */
+function drawPad(l, r, bar){
+  if($('pad').hidden) return;
+  var s = l.seg[r.idx], left = s[0] * 60 - r.el[r.idx], g = gd(l, r.idx);
+  $('pdLesson').innerHTML = '<b>' + esc(l.title) + '</b>' + (T.cls >= 0 ? ' · ' + CLS[T.cls] : '');
+  var tm = $('pdTime'); tm.textContent = mmss(left); tm.className = left < 0 ? 'late' : '';
+  $('pdClock').textContent = '활동 ' + (r.idx + 1) + ' / ' + l.seg.length + ' · 이 활동 ' + s[0] + '분 · 수업 ' + mmss(total(r)) + ' / 50:00';
+  $('pdGo').textContent = r.running ? '❚❚' : '▶';
+  $('pdBar').innerHTML = bar;
+  var key = l.id + '|' + T.cls + '|' + r.idx;
+  if($('pdCard').getAttribute('data-k') === key) return;
+  $('pdCard').setAttribute('data-k', key);
+  var h = (s[3] ? '<em>' + esc(s[3]) + '</em>' : '') + '<h3>' + esc(s[1]) +
+    '<span class="lt ' + s[2] + '">' + (s[2] === 'n' ? 'AI 없이' : SIGN[s[2]]) + '</span></h3>';
+  if(s[4].length) h += '<div class="pad-sec pad-say"><b>🎤 이렇게 말해요</b>' + s[4].map(function(x){ return '<p>' + esc(x) + '</p>'; }).join('') + '</div>';
+  if(g && g.k && g.k.length) h += '<div class="pad-sec pad-chk"><b>✅ 넘어가기 전에 꼭 확인</b>' + g.k.map(function(x, j){
+    var on = !!T.kchk[key + '|' + j];
+    return '<label class="' + (on ? 'on' : '') + '"><input type="checkbox" data-j="' + j + '"' + (on ? ' checked' : '') + '> ' + esc(x) + '</label>'; }).join('') + '</div>';
+  if(s[7]) h += '<div class="pad-sec pad-plat"><b>🤖 플랫폼</b><p>' + esc(s[7]) + '</p></div>';
+  if(s[6].length) h += '<div class="pad-sec pad-pt"><b>🎯 중점 · 유의점</b><ul>' + s[6].map(li).join('') + '</ul></div>';
+  if(s[5].length) h += '<div class="pad-sec pad-ask"><b>🚶 순회하며 물어보기</b>' + s[5].map(function(x){ return '<p>«' + esc(x) + '»</p>'; }).join('') + '</div>';
+  if(g) h += '<div class="pad-sec pad-stu"><b>🖥 지금 빔에 보이는 학생 할 일</b><ol>' + g.d.map(li).join('') + '</ol></div>';
+  $('pdCard').innerHTML = h;
+  var nx = l.seg[r.idx + 1], ng = gd(l, r.idx + 1);
+  $('pdNextSeg').innerHTML = nx ? '다음 ▶ <b>' + esc(nx[1]) + '</b> (' + nx[0] + '분)' +
+    (ng && ng.k && ng.k.length ? '<br><span style="font-size:.875rem">미리 챙길 것: ' + esc(ng.k[0]) + '</span>' : '')
+    : '마지막 활동이에요 — 수업 후 메모는 «전체 진행표 ▾»에서';
+}
+$('pdCard').addEventListener('change', function(e){
+  var x = e.target; if(!x.matches('input')) return;
+  var k = this.getAttribute('data-k') + '|' + x.getAttribute('data-j');
+  if(x.checked) T.kchk[k] = 1; else delete T.kchk[k];
+  x.parentNode.classList.toggle('on', x.checked); save();
+});
+function padOpen(){ if(!L()) return; bigClose(); $('pad').hidden = false; document.body.style.overflow = 'hidden'; $('pdCard').removeAttribute('data-k'); drawLive(); }
+function padClose(){ $('pad').hidden = true; if($('ov').hidden) document.body.style.overflow = ''; }
+$('pdPrev').addEventListener('click', function(){ step(-1); });
+$('pdNext').addEventListener('click', function(){ step(1); });
+$('pdGo').addEventListener('click', go);
+$('pdClose').addEventListener('click', padClose);
+$('pdBeam').addEventListener('click', function(){ padClose(); bigOpen(); });
+$('ovFull').addEventListener('click', function(){ try{ var fp = document.documentElement.requestFullscreen(); if(fp && fp.catch) fp.catch(function(){}); }catch(e){} });
+
+/* ── 빔 ↔ 패드 연결 — 방 번호가 같은 기기끼리 지금 차시 · 활동 · 타이머를 나눔 ──
+   중계: 🔑 내 계정 웹 앱(?sync=set|get, 6시간 캐시 · 학생 정보 없음). 연결이 안 돼도 각 기기는 혼자 그대로 동작 */
+var SYNC = 'https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec';
+var SY = { v:0, ok:null, busy:false, joined:false };
+function roomOk(){ return /^[A-Z0-9]{4,8}$/.test(T.room || ''); }
+function pack(){
+  tick(); var r = T.run;
+  return { v:SY.v, sent:Date.now(), cls:T.cls, lid:T.lid, order:T.order,
+    run: r ? { lid:r.lid, idx:r.idx, el:r.el.map(function(x){ return Math.round(x * 10) / 10; }), running:r.running } : null };
+}
+function changed(){ if(!roomOk()) return; SY.v = Math.max(SY.v + 1, Date.now()); push(); }
+function push(){
+  if(!roomOk()) return;
+  fetch(SYNC + '?sync=set&room=' + T.room + '&s=' + encodeURIComponent(JSON.stringify(pack())))
+    .then(function(x){ return x.json(); }).then(function(j){ SY.ok = !!j.ok; stat(); })
+    .catch(function(){ SY.ok = false; stat(); });
+}
+function pull(){
+  if(!roomOk() || SY.busy || document.hidden) return; SY.busy = true;
+  fetch(SYNC + '?sync=get&room=' + T.room + '&t=' + Date.now())
+    .then(function(x){ return x.json(); }).then(function(j){
+      SY.busy = false; SY.ok = !!j.ok; stat();
+      if(!j.s){ if(!SY.joined){ SY.joined = true; changed(); } return; }   /* 빈 방 — 내 상태를 먼저 올림 */
+      SY.joined = true;
+      var o = JSON.parse(j.s); if(!(o.v > SY.v)) return;
+      adopt(o);
+    }).catch(function(){ SY.busy = false; SY.ok = false; stat(); });
+}
+function adopt(o){
+  SY.v = o.v;
+  var newLesson = o.lid !== T.lid || o.cls !== T.cls;
+  T.cls = o.cls; T.lid = o.lid; T.order = o.order || '';
+  if(o.run && lessonBy(o.run.lid)){
+    var lag = Math.max(0, Math.min(8, (Date.now() - o.sent) / 1000)), el = o.run.el.slice();
+    if(o.run.running) el[o.run.idx] += lag;
+    T.run = { lid:o.run.lid, idx:o.run.idx, el:el, running:o.run.running, at:Date.now() };
+  } else T.run = null;
+  save(); if(newLesson) drawPick(); drawAll();
+  if(T.order) $('dOut').textContent = T.order;
+}
+function stat(){
+  var t = !roomOk() ? '' : SY.ok === null ? '연결 중… (' + T.room + ')' : SY.ok ? '● 연결됨 ' + T.room : '○ 연결 안 됨 — 혼자 동작';
+  var c = 'ov-sync ' + (SY.ok ? 'on' : SY.ok === false ? 'off' : '');
+  $('ovSync').textContent = t; $('ovSync').className = c;
+  $('pdSync').textContent = t; $('pdSync').className = c;
+  $('kStat').textContent = t || '방 번호를 넣으면 연결돼요'; $('kStat').className = 'st ' + (SY.ok ? 'on' : SY.ok === false ? 'off' : '');
+  var base = 'https://richee-pc.github.io/AI_cs/teach.html?room=' + (T.room || '번호');
+  $('kUrl').textContent = base + '&view=pad  (빔은 &view=room)';
+}
+function setRoom(v){
+  T.room = String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
+  $('kRoom').value = T.room; SY.v = 0; SY.ok = null; SY.joined = false; save(); stat(); pull();
+}
+$('kRoom').addEventListener('change', function(){ setRoom(this.value); });
+$('kNew').addEventListener('click', function(){
+  var A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', x = '';
+  for(var i = 0; i < 4; i++) x += A[Math.floor(Math.random() * A.length)];
+  setRoom(x); SY.joined = true; changed();
+});
+$('kBeam').addEventListener('click', bigOpen);
+$('kPad').addEventListener('click', padOpen);
+setInterval(pull, 2000);
+
 $('rSegs').addEventListener('click', function(e){
   var el = e.target.closest('.sg2'); if(el) jump(+el.getAttribute('data-i'));
 });
@@ -1322,7 +1604,7 @@ $('rPrev').addEventListener('click', function(){ step(-1); });
 $('rNext').addEventListener('click', function(){ step(1); });
 $('rReset').addEventListener('click', reset);
 function bigOpen(){ if(!L()) return; $('ov').hidden = false; document.body.style.overflow = 'hidden';
-  try{ if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); }catch(e){}
+  try{ var fp = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); if(fp && fp.catch) fp.catch(function(){}); }catch(e){}
   drawLive(); }
 function bigClose(){ $('ov').hidden = true; document.body.style.overflow = '';
   try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} }
@@ -1337,7 +1619,7 @@ document.addEventListener('keydown', function(e){
   else if(e.key === 'ArrowRight'){ step(1); }
   else if(e.key === 'ArrowLeft'){ step(-1); }
   else if(e.key === 'f' || e.key === 'F'){ $('ov').hidden ? bigOpen() : bigClose(); }
-  else if(e.key === 'Escape'){ bigClose(); }
+  else if(e.key === 'Escape'){ bigClose(); padClose(); }
 });
 document.addEventListener('fullscreenchange', function(){ if(!document.fullscreenElement && !$('ov').hidden){ /* 전체 화면만 풀림 — 화면은 그대로 */ } });
 
@@ -1369,7 +1651,7 @@ $('dGo').addEventListener('click', function(){
   var n = Math.max(2, Math.min(12, +$('dN').value || 7)), a = [];
   for(var i = 1; i <= n; i++) a.push(i);
   for(var j = a.length - 1; j > 0; j--){ var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t; }
-  T.order = a.map(function(x){ return x + '모둠'; }).join(' → '); save();
+  T.order = a.map(function(x){ return x + '모둠'; }).join(' → '); save(); changed();
   $('dOut').textContent = T.order; drawLive();
 });
 if(T.order) $('dOut').textContent = T.order;
@@ -1389,7 +1671,12 @@ if(T.cls >= 0 && (!T.run || !T.run.running)){
 }
 if(T.run && T.run.running) tick();          /* 새로고침 사이 시간 */
 if(!T.lid) T.lid = LESSONS[0].id;
-drawPick(); drawAll();
+var Q = new URLSearchParams(location.search);
+if(Q.get('room')) T.room = Q.get('room').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
+$('kRoom').value = T.room || '';
+drawPick(); drawAll(); stat(); pull();
+if(Q.get('view') === 'room') bigOpen();
+else if(Q.get('view') === 'pad') padOpen();
 })();
 </script>
 
