@@ -74,8 +74,6 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
 .chips input:checked + span{background:var(--blue); border-color:var(--blue); color:#fff}
 .chips input:focus-visible + span{outline:2px solid var(--blue); outline-offset:2px}
 .chips input:disabled + span{opacity:.4; cursor:not-allowed}
-.secret{border-style:dashed}
-.secret .t::after{content:" 🔒"}
 .send{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:6px}
 .send button{font:inherit; font-weight:800; font-size:1.0625rem; padding:12px 26px; border:0; border-radius:12px;
   background:var(--blue); color:#fff; cursor:pointer}
@@ -97,7 +95,7 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
   <span class="eyebrow">데이터 탐구 · 인공지능 프로젝트</span>
   <h1>모둠 편성 설문 🧩</h1>
   <p class="lead">다음 시간부터 함께할 모둠을 짜기 위한 설문이에요. 이 모둠은 <b>데이터 탐구 4차시 → 인공지능 프로젝트 → 수행평가 ②</b>까지 이어집니다.</p>
-  <p class="lead">모둠은 여러분의 희망을 <b>최대한 반영</b>하되, 모둠마다 <b>수업 참여와 이해 정도가 고르게 섞이도록</b> 선생님이 함께 살펴 정해요. 그래서 희망한 친구와 꼭 같은 모둠이 되지 않을 수도 있어요. 결과는 다음 시간(데이터 탐구 ①)에 알려 줄게요. 2분이면 끝나요.</p>
+  <p class="lead">모둠은 여러분의 희망을 <b>최대한 반영</b>하되, 모둠마다 <b>관심 분야와 맡고 싶은 역할이 고르게 섞이도록</b> 선생님이 함께 살펴 정해요. 그래서 희망한 친구와 꼭 같은 모둠이 되지 않을 수도 있어요. 결과는 다음 시간(데이터 탐구 ①)에 알려 줄게요. 2분이면 끝나요.</p>
   <p class="promise">🔒 답은 선생님만 봅니다. 친구에게 공개되지 않아요.</p>
 
   <form id="tf" novalidate>
@@ -114,13 +112,14 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
     </div>
 
     <div class="q">
-      <label for="partner"><i>1</i>같은 모둠을 하고 싶은 친구 1명</label>
-      <p class="h">같은 반 친구의 이름(또는 학번) 한 명만. 최대한 같은 모둠이 되도록 반영해요. 없으면 «없음».</p>
+      <label for="partner"><i>1</i>함께하고 싶은 친구 1명 <span class="opt">선택</span></label>
+      <p class="h">같은 반 친구의 이름(또는 학번) 한 명만. 가능하면 반영해요. 없으면 비워 두세요.</p>
       <input type="text" id="partner" autocomplete="off" maxlength="20">
     </div>
 
     <div class="q">
       <span class="t"><i>2</i>1학기 「정보」에서 파이썬을 배웠나요?</span>
+      <p class="h">점수와 상관없어요. 모둠마다 경험이 고르게 섞이도록 참고만 해요.</p>
       <div class="chips" id="python">
         <label><input type="radio" name="py" value="예"><span>예</span></label>
         <label><input type="radio" name="py" value="아니요"><span>아니요</span></label>
@@ -144,12 +143,6 @@ input[type=text]:focus, select:focus{outline:2px solid var(--blue); outline-offs
       <span class="t"><i>5</i>모둠에서 맡고 싶은 역할 <span class="opt">최대 2개</span></span>
       <p class="h">어느 역할이든 괜찮으면 «뭐든 상관없음»을 골라 주세요.</p>
       <div class="chips" id="role"></div>
-    </div>
-
-    <div class="q secret">
-      <label for="avoid" class="t"><i>6</i>같은 모둠이 어려운 친구 <span class="opt">선택 · 선생님만 봅니다</span></label>
-      <p class="h">적지 않아도 됩니다. 친구에게 공개되지 않아요.</p>
-      <input type="text" id="avoid" autocomplete="off" maxlength="20">
     </div>
 
     <div class="send">
@@ -209,12 +202,12 @@ $('tf').addEventListener('submit', function(ev){
   var d = {
     key: SUBMIT_KEY, type: 'team',
     cls: $('cls').value, sid: $('sid').value.replace(/\D/g, ''), name: $('sname').value.replace(/\s/g, ''),
-    partner: $('partner').value.trim(), python: picked('py')[0] || '',
+    partner: $('partner').value.trim() || '없음', python: picked('py')[0] || '',
     interest: picked('it').join(', '), career: $('career').value.trim(),
-    role: picked('rl').join(', '), avoid: $('avoid').value.trim()
+    role: picked('rl').join(', ')
   };
   var need = !d.cls ? '분반을 골라 주세요' : !d.sid ? '학번을 숫자로 적어 주세요' : !d.name ? '이름을 적어 주세요'
-    : !d.partner ? '1번: 친구 이름이나 «없음»을 적어 주세요' : !d.python ? '2번을 골라 주세요'
+    : !d.python ? '2번을 골라 주세요'
     : !d.interest ? '3번: 관심 분야를 하나 이상 골라 주세요' : !d.role ? '5번: 역할을 골라 주세요' : '';
   if(need){ msg.className = 'sendmsg wait'; msg.textContent = need; return; }
   try{ localStorage.setItem('ai_team_cls', d.cls); }catch(e){}
