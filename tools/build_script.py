@@ -22,7 +22,7 @@ P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
 data = {}
 for lid in LESSONS:
     m = load(lid)
-    data[lid] = [{k: v for k, v in g.items() if k in ('scr', 'run', 'say', 'stuck')} for g in m.SEG]
+    data[lid] = [{k: v for k, v in g.items() if k in ('scr', 'run', 'say', 'stuck', 'ex')} for g in m.SEG]
 block = 'var SCRIPT = ' + json.dumps(data, ensure_ascii=False).replace('{PIN}', 'PIN') + ';'
 s2 = re.sub(r'/\* SCRIPT-BEGIN.*?SCRIPT-END \*/', lambda _: '/* SCRIPT-BEGIN — tools/build_script.py 가 씀 */\n' + block + '\n/* SCRIPT-END */', s, flags=re.S)
 assert s2 != s or block in s, 'teach.html 에 SCRIPT-BEGIN 표시가 없어요'
@@ -49,7 +49,9 @@ if a.html:
                   f'<div class="cols"><div><h4>🎬 진행 순서</h4><ol>{li(g["run"])}</ol>'
                   + (f'<h4>✅ 넘어가기 전 확인</h4><ul class="ok">{li(g["chk"])}</ul>' if g['chk'] else '') +
                   f'</div><div><h4>🎤 이렇게 말해요</h4>' + ''.join(f'<p class="say">{e(x)}</p>' for x in g['say']) + '</div></div>'
-                  + (f'<div class="stuck"><b>⚠ 막히면</b><ul>{li(g["stuck"])}</ul></div>' if g['stuck'] else '') + '</section>')
+                  + (f'<div class="stuck"><b>⚠ 막히면</b><ul>{li(g["stuck"])}</ul></div>' if g['stuck'] else '')
+                  + ('<div class="ex">' + ''.join(f'<figure><img src="file:///{os.path.join(SITE, p).replace(os.sep, "/")}"><figcaption>빔 예시 · {e(c)}</figcaption></figure>' for p, c in g.get('ex', [])) + '</div>' if g.get('ex') else '')
+                  + '</section>')
     page = f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>{e(m.TITLE)} — 진행 대본</title><style>
 @page{{size:A4; margin:9mm 10mm}} *{{box-sizing:border-box}}
 body{{font-family:"Malgun Gothic","Noto Sans KR",sans-serif; font-size:8.9pt; line-height:1.42; color:#1d2433; margin:0}}
@@ -69,6 +71,7 @@ h4{{margin:2px 0 2px; font-size:8.8pt; color:#4a5568}}
 .ok li{{color:#1f7a45; font-weight:700}}
 .stuck{{background:#fff7e0; border-top:1px solid #f0dfae; padding:4px 10px}} .stuck ul{{margin:0}}
 .note{{background:#fdecec; border-left:4px solid #d64545; padding:5px 10px; margin:6px 0; border-radius:0 6px 6px 0}}
+.ex{{display:flex; gap:8px; padding:5px 10px; border-top:1px dashed #d5dbe6}} .ex figure{{margin:0; text-align:center}} .ex img{{height:120px; border:1px solid #d5dbe6; border-radius:5px}} .ex figcaption{{font-size:7.6pt; color:#4a5568}}
 .pg{{break-before:page}}
 </style></head><body>
 <h1>{e(m.TITLE)} — 진행 대본</h1>
