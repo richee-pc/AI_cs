@@ -944,7 +944,10 @@ nav a.plan:hover{background:var(--good); color:#fff}
 .ov-ex figcaption{flex:none; font-size:clamp(.85rem,1.45vw,1.35rem); font-weight:800; color:var(--ink2); padding:.7vh .4vw .2vh; text-align:center; line-height:1.35}
 .ov-ex figcaption::before{content:'예시  '; color:var(--blue-d); font-weight:900}
 .ov-ex figure.zoom{position:fixed; inset:3vh 3vw; z-index:130; cursor:zoom-out; padding:1.4vh; box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
-.big-ov.has-ex .ov-txt{flex:1 1 auto}
+.big-ov.has-ex .ov-main{align-items:stretch; gap:2.4vw}
+.big-ov.has-ex .ov-lamp{align-self:center}
+.big-ov.has-ex .ov-txt{flex:1 1 auto; display:flex; flex-direction:column; justify-content:center; overflow:hidden}
+.big-ov.has-ex .ov-txt h2{font-size:clamp(1.25rem,2.5vw,2.5rem); margin:.3vh 0 1.6vh}
 .big-ov.has-ex .ov-do li{font-size:clamp(1.05rem,2.1vw,2.1rem)}
 .big-ov.has-ex .ov-lamp i{width:min(12vh,8vw); height:min(12vh,8vw)}
 .pad-ex{display:flex; gap:8px; overflow-x:auto} .pad-ex img{height:84px; border-radius:8px; border:1px solid var(--line)}
