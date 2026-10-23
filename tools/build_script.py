@@ -3,19 +3,20 @@
 ① teach.html 의 SCRIPT 블록(패드 «🎬 진행 순서 · 🎤 멘트 · 🆘 막히면»)을 바꾸고
 ② --html 경로를 주면 인쇄용 대본 HTML을 씁니다(--pin 은 인쇄본에만 들어감 · 공개 저장소에는 넣지 않음).
    python tools/build_script.py                       # 운영판만
-   python tools/build_script.py --html 대본.html --pin 0000
+   python tools/build_script.py --html 대본.html --pin 0000            # D2 인쇄본
+   python tools/build_script.py --lesson D3 --html 대본3.html
 """
 import os, re, sys, json, html, argparse, importlib.util
 sys.stdout.reconfigure(encoding='utf-8')
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(SITE, 'tools', 'src')
-LESSONS = ['D2']                     # 대본이 있는 차시 — script_<id>.py
+LESSONS = ['D2', 'D3', 'D4']                     # 대본이 있는 차시 — script_<id>.py
 
 def load(lid):
     sp = importlib.util.spec_from_file_location('s', os.path.join(SRC, f'script_{lid.lower()}.py'))
     m = importlib.util.module_from_spec(sp); sp.loader.exec_module(m); return m
 
-ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default='')
+ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default=''); ap.add_argument('--lesson', default='D2')
 a = ap.parse_args()
 
 P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
@@ -29,8 +30,8 @@ assert s2 != s or block in s, 'teach.html 에 SCRIPT-BEGIN 표시가 없어요'
 open(P, 'w', encoding='utf-8').write(s2); print('teach.html SCRIPT', {k: len(v) for k, v in data.items()})
 
 if a.html:
-    m = load('D2')
-    i = s2.index("{ id:'D2',"); j = s2.index('{ id:', i + 5)
+    m = load(a.lesson)
+    i = s2.index("{ id:'%s'," % a.lesson); j = s2.index('{ id:', i + 5)
     segs = re.findall(r"^   \[(\d+),'((?:[^'\\]|\\.)*)','(\w)'", s2[i:j], re.M)
     assert len(segs) == len(m.SEG), (len(segs), len(m.SEG))
     NOGLYPH = {'🖥 ': '', '🆘': '⚠', '🔗 ': '', '⛶ ': '', '📱 ': '', '🖥': ''}   # 인쇄 글꼴에 없는 그림 문자
@@ -38,7 +39,7 @@ if a.html:
         x = x.replace('{PIN}', a.pin or 'PIN')
         for k, v in NOGLYPH.items(): x = x.replace(k, v)
         return html.escape(x)
-    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · 데이터 정리 AI', 'y')}
+    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI'}[a.lesson], 'y')}
     rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(t)}</td><td><span class="tag {LT[c][1]}">{LT[c][0]}</span></td><td>{e(g["scr"])}</td></tr>'
                    for (mn, t, c), g in zip(segs, m.SEG))
     cards = ''
