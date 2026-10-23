@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>투자 심사</title>
+<style>
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--gold:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--gbg:#E9F7EF;--bbg:#EAF1FE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--gbg:#1F3528;--bbg:#1F2B44}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--gbg:#1F3528;--bbg:#1F2B44}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.6;word-break:keep-all}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:28px;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--ink2);margin:0 0 16px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;margin:0 0 14px}
+input,select,textarea{font:inherit;width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);margin:4px 0}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:11px 18px;cursor:pointer;background:var(--blue);color:#fff}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1 1 140px}
+.crit{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
+@media (max-width:620px){.crit{grid-template-columns:1fr}}
+.crit div{background:var(--bbg);border-radius:12px;padding:8px 12px;font-size:14.5px}.crit b{display:block;font-size:16px}
+.team{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 12px}
+.team.done{border-color:var(--green)}
+.team h3{margin:0 0 8px;font-size:20px;display:flex;align-items:center;gap:8px}.team h3 small{font-size:14px;color:var(--green);font-weight:700}
+.q{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}.q>span{flex:0 0 150px;font-weight:700;font-size:15.5px}
+.sc{display:flex;gap:5px}.sc button{width:42px;height:42px;padding:0;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px}
+.sc button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:10px 0}
+.pick button{background:var(--card);color:var(--ink);border:2px solid var(--line);font-size:18px;padding:14px 0}
+.pick button.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.msg{min-height:1.6em;font-weight:700;margin:6px 0 0}.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
+.gold{background:var(--ybg)}
+.hide{display:none}
+.res{display:grid;gap:10px}
+.rt{display:grid;grid-template-columns:90px 1fr 70px;gap:10px;align-items:center;font-size:16px}
+.bar{height:26px;background:var(--bbg);border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold)}
+.rt.top{font-weight:800}.rt.top .bar i{background:var(--green)}
+.avg{font-size:13.5px;color:var(--ink2);grid-column:2/4;margin-top:-6px}
+.notes{font-size:14px;color:var(--ink2);grid-column:1/4;margin:-4px 0 4px;padding-left:12px;border-left:3px solid var(--line)}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>💰 투자 심사</h1>
+<p class="sub">데이터 탐구 4차시 — 다른 모둠 발표를 들으며 세 기준으로 평가하고, 마지막에 «투자하고 싶은» 해결안에 한 표! 성적과는 상관없어요.</p>
+
+<div class="crit">
+  <div><b>📊 데이터 근거</b>해결안의 근거가 데이터로 확실한가</div>
+  <div><b>🚀 실현 가능성</b>실제로 해 볼 수 있는 해결안인가</div>
+  <div><b>🤖 AI 반문 처리</b>AI 질문을 받아들이거나 거절한 이유가 분명한가</div>
+</div>
+
+<!-- 학생 -->
+<div id="stu">
+  <div class="card" id="login">
+    <b>🔑 학번과 이름</b>
+    <div class="row"><input id="sid" inputmode="numeric" placeholder="학번 (예: 20114)"><input id="snm" placeholder="이름"></div>
+    <button id="go">시작하기</button>
+    <p class="msg" id="lm"></p>
+  </div>
+  <div id="board" class="hide">
+    <p class="sub" id="who"></p>
+    <div id="teams"></div>
+    <div class="card gold">
+      <b>💰 투자 한 표 — 모든 발표가 끝난 뒤</b>
+      <p class="sub" style="margin:4px 0 0">가장 «돈을 대고 싶은» 해결안 하나. 우리 모둠은 고를 수 없어요. 바꾸고 싶으면 다시 누르면 돼요.</p>
+      <div class="pick" id="pick"></div>
+      <p class="msg" id="pm"></p>
+    </div>
+  </div>
+</div>
+
+<!-- 선생님 (vote.html?t) -->
+<div id="tch" class="hide">
+  <div class="card">
+    <div class="row"><select id="tcls"><option value="A">A반</option><option value="D">D반</option><option value="E">E반</option></select><input id="tpin" type="password" inputmode="numeric" placeholder="PIN"><button id="tgo">결과 보기</button></div>
+    <label style="font-size:14.5px"><input type="checkbox" id="tnote" style="width:auto"> 한마디도 보기(빔에 띄울 땐 끄기)</label>
+    <p class="msg" id="tm"></p>
+  </div>
+  <div class="card hide" id="tres"><div class="sub" id="tinfo"></div><div class="res" id="tlist"></div></div>
+</div>
+
+<div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
+</div>
+<script>
+(function(){
+'use strict';
+var API = 'https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec';
+var $ = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var CR = [['s1','📊 데이터 근거'],['s2','🚀 실현 가능성'],['s3','🤖 AI 반문 처리']];
+function call(q){
+  var u = API + '?' + Object.keys(q).map(function(k){ return k + '=' + encodeURIComponent(q[k]); }).join('&') + '&_=' + Date.now();
+  return fetch(u).then(function(r){ return r.json(); }).catch(function(){ return { ok:false, msg:'연결이 안 돼요. 다시 눌러 주세요.' }; });
+}
+function say(el, t, ok){ el.textContent = t || ''; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+/* ── 학생 ── */
+var ME = null;
+function start(){
+  var id = $('sid').value.replace(/\D/g, ''), nm = $('snm').value.replace(/\s/g, '');
+  if(id.length !== 5 || !nm){ say($('lm'), '학번 5자리와 이름을 넣어 주세요.'); return; }
+  $('go').disabled = true; say($('lm'), '확인 중…', true);
+  call({ vote:'me', id:id, name:nm }).then(function(r){
+    $('go').disabled = false;
+    if(!r.ok){ say($('lm'), r.msg); return; }
+    ME = { id:id, name:nm, cls:r.cls, my:r.my, teams:r.teams };
+    try { sessionStorage.setItem('vote_me', JSON.stringify({ id:id, name:nm })); } catch(e){}
+    $('login').classList.add('hide'); $('board').classList.remove('hide');
+    $('who').innerHTML = '<b>' + esc(r.cls) + '반 ' + r.my + '모둠</b> · 발표가 끝날 때마다 그 모둠 칸을 채우고 «저장». 우리 모둠은 목록에 없어요.';
+    draw(r.mine || { rate:{}, pick:0 });
+  });
+}
+function draw(mine){
+  var others = ME.teams.filter(function(n){ return n !== ME.my; });
+  $('teams').innerHTML = others.map(function(n){
+    var m = mine.rate[n] || [];
+    return '<div class="team' + (m.length ? ' done' : '') + '" data-t="' + n + '"><h3>' + n + '모둠 <small>' + (m.length ? '✓ 저장됨' : '') + '</small></h3>'
+      + CR.map(function(c, i){ return '<div class="q"><span>' + c[1] + '</span><div class="sc" data-k="' + c[0] + '" data-v="' + (m[i] || '') + '">'
+        + [1,2,3,4,5].map(function(v){ return '<button type="button" data-v="' + v + '"' + (m[i] == v ? ' class="on"' : '') + '>' + v + '</button>'; }).join('') + '</div></div>'; }).join('')
+      + '<input maxlength="200" placeholder="한마디(선택) — 좋았던 점이나 궁금한 점" value="' + esc(m[3] || '') + '">'
+      + '<button type="button" class="save">저장</button><p class="msg"></p></div>';
+  }).join('');
+  $('pick').innerHTML = others.map(function(n){ return '<button type="button" data-t="' + n + '"' + (mine.pick === n ? ' class="on"' : '') + '>' + n + '모둠</button>'; }).join('');
+  if(mine.pick) say($('pm'), '💰 ' + mine.pick + '모둠에 투자했어요.', true);
+}
+$('teams').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  var box = b.closest('.team');
+  if(b.parentNode.classList.contains('sc')){
+    b.parentNode.setAttribute('data-v', b.getAttribute('data-v'));
+    [].forEach.call(b.parentNode.children, function(x){ x.classList.toggle('on', x === b); });
+    return;
+  }
+  if(!b.classList.contains('save')) return;
+  var q = { vote:'put', id:ME.id, name:ME.name, k:'rate', t:box.getAttribute('data-t'), m:box.querySelector('input').value };
+  var miss = false;
+  [].forEach.call(box.querySelectorAll('.sc'), function(s){ var v = s.getAttribute('data-v'); if(!v) miss = true; q[s.getAttribute('data-k')] = v; });
+  var msg = box.querySelector('.msg');
+  if(miss){ say(msg, '세 기준을 모두 골라 주세요.'); return; }
+  b.disabled = true; say(msg, '저장 중…', true);
+  call(q).then(function(r){
+    b.disabled = false;
+    if(!r.ok){ say(msg, r.msg); return; }
+    say(msg, '저장했어요. 바꾸려면 고치고 다시 «저장».', true);
+    box.classList.add('done'); box.querySelector('h3 small').textContent = '✓ 저장됨';
+  });
+});
+$('pick').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  var t = Number(b.getAttribute('data-t'));
+  say($('pm'), '투자 중…', true);
+  call({ vote:'put', id:ME.id, name:ME.name, k:'pick', t:t }).then(function(r){
+    if(!r.ok){ say($('pm'), r.msg); return; }
+    [].forEach.call($('pick').children, function(x){ x.classList.toggle('on', x === b); });
+    say($('pm'), '💰 ' + t + '모둠에 투자했어요.', true);
+  });
+});
+$('go').addEventListener('click', start);
+$('snm').addEventListener('keydown', function(e){ if(e.key === 'Enter') start(); });
+try { var s = JSON.parse(sessionStorage.getItem('vote_me') || 'null'); if(s){ $('sid').value = s.id; $('snm').value = s.name; } } catch(e){}
+
+/* ── 선생님: vote.html?t ── */
+var timer = null;
+function res(){
+  var cls = $('tcls').value, pin = $('tpin').value;
+  call({ vote:'res', cls:cls, pin:pin }).then(function(r){
+    if(!r.ok){ say($('tm'), r.msg); clearInterval(timer); timer = null; return; }
+    say($('tm'), '10초마다 새로 고침 · ' + r.at, true);
+    $('tres').classList.remove('hide');
+    $('tinfo').innerHTML = '<b>' + r.cls + '반</b> · 참여 ' + r.voters + ' / ' + r.size + '명';
+    var max = Math.max.apply(null, r.teams.map(function(t){ return t.pick; }).concat([1]));
+    var top = r.teams.reduce(function(m, t){ return Math.max(m, t.pick); }, 0);
+    var showNote = $('tnote').checked;
+    $('tlist').innerHTML = r.teams.map(function(t){
+      var f = function(x){ return t.rate ? x.toFixed(1) : '–'; };
+      return '<div class="rt' + (top && t.pick === top ? ' top' : '') + '"><span>' + (top && t.pick === top ? '🏆 ' : '') + t.n + '모둠</span>'
+        + '<div class="bar"><i style="width:' + (100 * t.pick / max) + '%"></i></div><span>💰 ' + t.pick + '표</span>'
+        + '<div class="avg">평가 ' + t.rate + '명 · 📊 ' + f(t.a) + ' · 🚀 ' + f(t.b) + ' · 🤖 ' + f(t.c) + '</div></div>'
+        + (showNote && t.notes.length ? '<div class="notes">' + t.notes.map(esc).join('<br>') + '</div>' : '');
+    }).join('');
+  });
+}
+if(/[?&]t\b/.test(location.search)){
+  $('stu').classList.add('hide'); $('tch').classList.remove('hide');
+  $('tgo').addEventListener('click', function(){ res(); clearInterval(timer); timer = setInterval(res, 10000); });
+  $('tnote').addEventListener('change', res);
+}
+})();
+</script>
+</body>
+</html>
