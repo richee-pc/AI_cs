@@ -4,19 +4,19 @@
 ② --html 경로를 주면 인쇄용 대본 HTML을 씁니다(--pin 은 인쇄본에만 들어감 · 공개 저장소에는 넣지 않음).
    python tools/build_script.py                       # 운영판만
    python tools/build_script.py --html 대본.html --pin 0000            # D2 인쇄본
-   python tools/build_script.py --lesson D3 --html 대본3.html
+   python tools/build_script.py --lesson D3 --html 대본3.html [--de]   # --de: D · E반 판
 """
 import os, re, sys, json, html, argparse, importlib.util
 sys.stdout.reconfigure(encoding='utf-8')
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(SITE, 'tools', 'src')
-LESSONS = ['D2', 'D3', 'D4']                     # 대본이 있는 차시 — script_<id>.py
+LESSONS = ['D2', 'D2x', 'D3', 'D4']                     # 대본이 있는 차시 — script_<id>.py
 
 def load(lid):
     sp = importlib.util.spec_from_file_location('s', os.path.join(SRC, f'script_{lid.lower()}.py'))
     m = importlib.util.module_from_spec(sp); sp.loader.exec_module(m); return m
 
-ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default=''); ap.add_argument('--lesson', default='D2')
+ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default=''); ap.add_argument('--lesson', default='D2'); ap.add_argument('--de', action='store_true')
 a = ap.parse_args()
 
 P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
@@ -31,6 +31,9 @@ open(P, 'w', encoding='utf-8').write(s2); print('teach.html SCRIPT', {k: len(v) 
 
 if a.html:
     m = load(a.lesson)
+    if a.de:                                     # D · E반 인쇄본 — TITLE_DE · BEFORE_DE · LATE_DE · SEG_DE{번호: 바꿀 칸}
+        for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_DE', getattr(m, k)))
+        for n, ov in getattr(m, 'SEG_DE', {}).items(): m.SEG[n] = {**m.SEG[n], **ov}
     i = s2.index("{ id:'%s'," % a.lesson); j = s2.index('{ id:', i + 5)
     segs = re.findall(r"^   \[(\d+),'((?:[^'\\]|\\.)*)','(\w)'", s2[i:j], re.M)
     assert len(segs) == len(m.SEG), (len(segs), len(m.SEG))
@@ -39,14 +42,15 @@ if a.html:
         x = x.replace('{PIN}', a.pin or 'PIN')
         for k, v in NOGLYPH.items(): x = x.replace(k, v)
         return html.escape(x)
-    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI'}[a.lesson], 'y')}
-    rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(t)}</td><td><span class="tag {LT[c][1]}">{LT[c][0]}</span></td><td>{e(g["scr"])}</td></tr>'
+    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI'}[a.lesson], 'y')}
+    tg = lambda c, g: f'<span class="tag {LT[c][1]}">' + ('노랑 · ' + g['tool'] if c == 'y' and g.get('tool') else LT[c][0]) + '</span>'   # tool: 그 활동만 다른 노랑 도구
+    rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(t)}</td><td>{tg(c, g)}</td><td>{e(g["scr"])}</td></tr>'
                    for (mn, t, c), g in zip(segs, m.SEG))
     cards = ''
     for (mn, t, c), g in zip(segs, m.SEG):
         li = lambda xs: ''.join(f'<li>{e(x)}</li>' for x in xs)
         cards += (f'<section class="seg"><header><b class="tm">{g["t"]}</b><b class="ti">{e(t)}</b>'
-                  f'<span class="tag {LT[c][1]}">{LT[c][0]}</span><span class="scr">빔: {e(g["scr"])}</span></header>'
+                  f'{tg(c, g)}<span class="scr">빔: {e(g["scr"])}</span></header>'
                   f'<div class="cols"><div><h4>🎬 진행 순서</h4><ol>{li(g["run"])}</ol>'
                   + (f'<h4>✅ 넘어가기 전 확인</h4><ul class="ok">{li(g["chk"])}</ul>' if g['chk'] else '') +
                   f'</div><div><h4>🎤 이렇게 말해요</h4>' + ''.join(f'<p class="say">{e(x)}</p>' for x in g['say']) + '</div></div>'
