@@ -20,11 +20,18 @@ ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pi
 a = ap.parse_args()
 
 P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
-data = {}
+KEEP = ('scr', 'run', 'say', 'stuck', 'ex', 'chk')
+data, data_de, meta = {}, {}, {}
 for lid in LESSONS:
     m = load(lid)
-    data[lid] = [{k: v for k, v in g.items() if k in ('scr', 'run', 'say', 'stuck', 'ex')} for g in m.SEG]
-block = 'var SCRIPT = ' + json.dumps(data, ensure_ascii=False).replace('{PIN}', 'PIN') + ';'
+    data[lid] = [{k: v for k, v in g.items() if k in KEEP} for g in m.SEG]
+    meta[lid] = {'before': m.BEFORE, 'late': m.LATE}
+    if hasattr(m, 'SEG_DE'):                     # D · E반 판 — 패드는 반을 보고 고름
+        data_de[lid] = [{k: v for k, v in {**g, **m.SEG_DE.get(n, {})}.items() if k in KEEP} for n, g in enumerate(m.SEG)]
+    if hasattr(m, 'BEFORE_DE') or hasattr(m, 'LATE_DE'):
+        meta[lid]['de'] = {'before': getattr(m, 'BEFORE_DE', m.BEFORE), 'late': getattr(m, 'LATE_DE', m.LATE)}
+J = lambda o: json.dumps(o, ensure_ascii=False).replace('{PIN}', 'PIN')
+block = 'var SCRIPT = ' + J(data) + ';\nvar SCRIPT_DE = ' + J(data_de) + ';\nvar SCRIPT_META = ' + J(meta) + ';'
 s2 = re.sub(r'/\* SCRIPT-BEGIN.*?SCRIPT-END \*/', lambda _: '/* SCRIPT-BEGIN — tools/build_script.py 가 씀 */\n' + block + '\n/* SCRIPT-END */', s, flags=re.S)
 assert s2 != s or block in s, 'teach.html 에 SCRIPT-BEGIN 표시가 없어요'
 open(P, 'w', encoding='utf-8').write(s2); print('teach.html SCRIPT', {k: len(v) for k, v in data.items()})
