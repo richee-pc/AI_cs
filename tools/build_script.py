@@ -10,7 +10,7 @@ import os, re, sys, json, html, argparse, importlib.util
 sys.stdout.reconfigure(encoding='utf-8')
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(SITE, 'tools', 'src')
-LESSONS = ['D2', 'D2x', 'D3', 'D4', 'P1', 'P2', 'P3']                     # 대본이 있는 차시 — script_<id>.py
+LESSONS = ['D2', 'D2x', 'D3', 'D4', 'P1', 'P2', 'P3', 'P4']                     # 대본이 있는 차시 — script_<id>.py
 
 def load(lid):
     sp = importlib.util.spec_from_file_location('s', os.path.join(SRC, f'script_{lid.lower()}.py'))
@@ -34,7 +34,7 @@ if a.html:
     if a.de:                                     # D · E반 인쇄본 — TITLE_DE · BEFORE_DE · LATE_DE · SEG_DE{번호: 바꿀 칸}
         for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_DE', getattr(m, k)))
         for n, ov in getattr(m, 'SEG_DE', {}).items(): m.SEG[n] = {**m.SEG[n], **ov}
-    i = s2.index("{ id:'%s'," % a.lesson); j = s2.index('{ id:', i + 5)
+    i = s2.index("{ id:'%s'," % a.lesson); j = s2.find('{ id:', i + 5); j = j if j > 0 else s2.index('\n];', i)   # 마지막 차시면 배열 끝까지
     segs = re.findall(r"^   \[(\d+),'((?:[^'\\]|\\.)*)','(\w)'", s2[i:j], re.M)
     assert len(segs) == len(m.SEG), (len(segs), len(m.SEG))
     NOGLYPH = {'🖥 ': '', '🆘': '⚠', '🔗 ': '', '⛶ ': '', '📱 ': '', '🖥': ''}   # 인쇄 글꼴에 없는 그림 문자
@@ -42,7 +42,7 @@ if a.html:
         x = x.replace('{PIN}', a.pin or 'PIN')
         for k, v in NOGLYPH.items(): x = x.replace(k, v)
         return html.escape(x)
-    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI', 'P1': '주제 정하기 AI', 'P2': '—', 'P3': '질문하는 AI'}[a.lesson], 'y')}
+    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI', 'P1': '주제 정하기 AI', 'P2': '—', 'P3': '질문하는 AI', 'P4': '돌아보기 AI'}[a.lesson], 'y')}
     tg = lambda c, g: f'<span class="tag {LT[c][1]}">' + ('노랑 · ' + g['tool'] if c == 'y' and g.get('tool') else LT[c][0]) + '</span>'   # tool: 그 활동만 다른 노랑 도구
     rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(t)}</td><td>{tg(c, g)}</td><td>{e(g["scr"])}</td></tr>'
                    for (mn, t, c), g in zip(segs, m.SEG))

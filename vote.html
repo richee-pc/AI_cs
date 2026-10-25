@@ -45,9 +45,9 @@ button:disabled{opacity:.5;cursor:default}
 <body>
 <div class="wrap">
 <h1>💰 투자 심사</h1>
-<p class="sub">데이터 탐구 4차시 — 다른 모둠 발표를 들으며 세 기준으로 평가하고, 마지막에 «투자하고 싶은» 해결안에 한 표! 성적과는 상관없어요. <a href="vote_guide.pdf" target="_blank" rel="noopener">📄 사용법 안내(PDF)</a></p>
+<p class="sub" id="vsub">데이터 탐구 4차시 — 다른 모둠 발표를 들으며 세 기준으로 평가하고, 마지막에 «투자하고 싶은» 해결안에 한 표! 성적과는 상관없어요. <a href="vote_guide.pdf" target="_blank" rel="noopener">📄 사용법 안내(PDF)</a></p>
 
-<div class="crit">
+<div class="crit" id="vcrit">
   <div><b>📊 데이터 근거</b>해결안의 근거가 데이터로 확실한가</div>
   <div><b>🚀 실현 가능성</b>실제로 해 볼 수 있는 해결안인가</div>
   <div><b>🤖 AI 반문 처리</b>AI 질문을 받아들이거나 거절한 이유가 분명한가</div>
@@ -91,8 +91,18 @@ button:disabled{opacity:.5;cursor:default}
 var API = 'https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec';
 var $ = function(id){ return document.getElementById(id); };
 var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var RD = /[?&]r=P4\b/i.test(location.search) ? 'P4' : '';   // r=P4 → 인공지능 프로젝트 4차시 판(서버 탭도 따로)
 var CR = [['s1','📊 데이터 근거'],['s2','🚀 실현 가능성'],['s3','🤖 AI 반문 처리']];
+if(RD){
+  CR[0] = ['s1','📈 성능 근거'];
+  $('vsub').innerHTML = '인공지능 프로젝트 4차시 — 다른 모둠 발표를 들으며 세 기준으로 평가하고, 마지막에 «투자하고 싶은» AI 모델에 한 표! 성적과는 상관없어요. 방법은 데이터 탐구 때와 같아요(<a href="vote_guide.pdf" target="_blank" rel="noopener">📄 사용법</a>).';
+  $('vcrit').innerHTML = '<div><b>📈 성능 근거</b>평가지표 숫자로 «쓸 만한 모델»임을 보였나</div>'
+    + '<div><b>🚀 실현 가능성</b>실제 사용자가 쓸 수 있는 서비스인가</div>'
+    + '<div><b>🤖 AI 반문 처리</b>AI 반문을 테스트로 확인하고 판단했나</div>';
+  document.title = '💰 투자 심사 · 인공지능 프로젝트';
+}
 function call(q){
+  if(RD) q.r = RD;
   var u = API + '?' + Object.keys(q).map(function(k){ return k + '=' + encodeURIComponent(q[k]); }).join('&') + '&_=' + Date.now();
   return fetch(u).then(function(r){ return r.json(); }).catch(function(){ return { ok:false, msg:'연결이 안 돼요. 다시 눌러 주세요.' }; });
 }
@@ -179,7 +189,7 @@ function res(){
       var f = function(x){ return t.rate ? x.toFixed(1) : '–'; };
       return '<div class="rt' + (top && t.pick === top ? ' top' : '') + '"><span>' + (top && t.pick === top ? '🏆 ' : '') + t.n + '모둠</span>'
         + '<div class="bar"><i style="width:' + (100 * t.pick / max) + '%"></i></div><span>💰 ' + t.pick + '표</span>'
-        + '<div class="avg">평가 ' + t.rate + '명 · 📊 ' + f(t.a) + ' · 🚀 ' + f(t.b) + ' · 🤖 ' + f(t.c) + '</div></div>'
+        + '<div class="avg">평가 ' + t.rate + '명 · ' + (RD ? '📈 ' : '📊 ') + f(t.a) + ' · 🚀 ' + f(t.b) + ' · 🤖 ' + f(t.c) + '</div></div>'
         + (showNote && t.notes.length ? '<div class="notes">' + t.notes.map(esc).join('<br>') + '</div>' : '');
     }).join('');
   });
