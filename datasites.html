@@ -146,14 +146,15 @@ code{font-size:.8125rem; background:var(--blue-wash); padding:1px 5px; border-ra
   <div class="use"><span class="p">인공지능 프로젝트 ② — 우리 데이터를 못 올렸을 때</span></div>
   <p class="lead">이걸 쓰는 것도 정당한 선택이에요 — 대신 «왜 이 데이터로 이 문제를 풀 수 있는가»는 직접 설명해야 합니다.</p>
   <div class="tw"><table>
-    <tr><th style="width:60px">SDG</th><th>데이터</th><th style="width:110px">학습 유형</th><th>정답(레이블) · 크기</th></tr>
-    <tr><td><b>3</b></td><td>스트레스 정도 — 습도·체온·걸음 수 <span style="color:var(--muted)">(교과서 부록 213~218쪽)</span></td><td>분류 · kNN</td><td>스트레스 단계 0·1·2 · 약 2,000행</td></tr>
-    <tr><td><b>6</b></td><td>약수터 수질 — 일반세균·대장균군·질산성질소 등 <span style="color:var(--muted)">(부록 221~226쪽)</span></td><td>분류 · 로지스틱</td><td>판정 적합/부적합 · 약 380행</td></tr>
-    <tr><td><b>2</b></td><td>세계 기아 지수(GHI) <span style="color:var(--muted)">(교과서 199~208쪽)</span></td><td>예측 · 선형 회귀</td><td>나라별 연도 지수 · 약 130행</td></tr>
-    <tr><td><b>14</b></td><td>전복 — 길이·직경·두께·무게 <span style="color:var(--muted)">(오렌지3 시범 데이터)</span></td><td>예측 · 회귀</td><td>순살 무게 · 약 4,200행</td></tr>
-    <tr><td><b>3</b></td><td>당뇨 초기 증상 설문</td><td>분류</td><td>양성/음성 · 520행</td></tr>
-    <tr><td><b>13</b></td><td>나라별 이산화탄소 배출량 · 해수면 높이 변화</td><td>예측 · 회귀</td><td>연도별 값</td></tr>
+    <tr><th style="width:60px">SDG</th><th>데이터</th><th style="width:110px">학습 유형</th><th>정답(레이블) · 크기</th><th style="width:90px">CSV</th></tr>
+    <tr><td><b>3</b></td><td>스트레스 정도 — 습도·체온·걸음 수 <span style="color:var(--muted)">(교과서 부록 213~218쪽)</span></td><td>분류 · kNN</td><td>스트레스 단계 0·1·2 · 약 2,000행</td><td><a href="data/stress_lysis.csv" download>내려받기</a></td></tr>
+    <tr><td><b>6</b></td><td>약수터 수질 — 일반세균·대장균군·질산성질소 등 <span style="color:var(--muted)">(부록 221~226쪽)</span></td><td>분류 · 로지스틱</td><td>판정 적합/부적합 · 약 380행</td><td><a href="data/water_quality.csv" download>내려받기</a></td></tr>
+    <tr><td><b>2</b></td><td>세계 기아 지수(GHI) <span style="color:var(--muted)">(교과서 199~208쪽)</span></td><td>예측 · 선형 회귀</td><td>나라별 연도 지수 · 약 130행</td><td><a href="data/ghi.csv" download>내려받기</a></td></tr>
+    <tr><td><b>14</b></td><td>전복 — 길이·직경·두께·무게 <span style="color:var(--muted)">(오렌지3 시범 데이터)</span></td><td>예측 · 회귀</td><td>순살 무게 · 약 4,200행</td><td><small>선생님께</small></td></tr>
+    <tr><td><b>3</b></td><td>당뇨 초기 증상 설문</td><td>분류</td><td>양성/음성 · 520행</td><td><small>선생님께</small></td></tr>
+    <tr><td><b>13</b></td><td>나라별 이산화탄소 배출량 · 해수면 높이 변화</td><td>예측 · 회귀</td><td>연도별 값</td><td><small>선생님께</small></td></tr>
   </table></div>
+  <p class="lead" id="workflows"><b>🍊 막혔을 때 — 완성 워크플로(.ows)</b> 오렌지3에서 <i>File → Open</i>으로 열고, 맨 앞 <b>File</b> 위젯에서 우리 데이터를 고르면 그대로 돌아가요: <a href="data/workflows/classify_workflow.ows" download>분류</a> · <a href="data/workflows/regress_workflow.ows" download>예측(회귀)</a> · <a href="data/workflows/cluster_workflow.ows" download>군집</a>. 받은 파일은 📁 작업 폴더 › 🤖 인공지능 프로젝트 › <b>AI 데이터 · 오렌지3 파일</b>에 올려 두세요.</p>
 
   <h2 id="pub">④ 프로젝트 데이터 아이디어 — 바로 열어 볼 수 있는 공개 CSV</h2>
   <div class="use"><span class="p">인공지능 프로젝트 ①(주제 고를 때) · ②</span></div>
