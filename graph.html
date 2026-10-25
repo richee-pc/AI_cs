@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그래프 만들기</title>
+<style>
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--gold:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--gbg:#E9F7EF;--bbg:#EAF1FE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--gbg:#1F3528;--bbg:#1F2B44}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--gbg:#1F3528;--bbg:#1F2B44}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.6;word-break:keep-all}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:28px;line-height:1.3;margin:0 0 4px}
+h2{font-size:20px;margin:0 0 8px}
+.sub{color:var(--ink2);margin:0 0 16px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;margin:0 0 14px}
+.drop{border:2.5px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;color:var(--ink2);cursor:pointer}
+.drop.on{border-color:var(--blue);background:var(--bbg)}
+.drop b{color:var(--ink)}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:10px 16px;cursor:pointer;background:var(--blue);color:#fff}
+button.gh{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row label{display:flex;flex-direction:column;font-size:14.5px;color:var(--ink2);font-weight:700;flex:1 1 170px;min-width:0}
+select,input{font:inherit;width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);margin-top:3px}
+.msg{font-size:15px;margin:8px 0 0}.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
+.tip{background:var(--ybg);border-radius:12px;padding:10px 14px;font-size:15px;margin:10px 0 0}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0 0}
+.stat div{background:var(--bbg);border-radius:12px;padding:8px 12px;font-size:14.5px}.stat b{display:block;font-size:20px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin-top:8px}th,td{border:1px solid var(--line);padding:4px 8px;text-align:right}th:first-child,td:first-child{text-align:left}th{background:var(--bbg)}
+.gwrap{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:12px;margin:0 0 14px}
+.gwrap h3{margin:0 0 2px;font-size:17px}.gwrap p{margin:0 0 8px;font-size:14.5px;color:var(--ink2)}
+canvas{width:100%;height:auto;display:block;border-radius:10px;background:#fff}
+.gbtn{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.gbtn button{padding:7px 12px;font-size:15px}
+.frame{background:var(--gbg);border-radius:12px;padding:10px 14px;font-size:15.5px}
+.frame li{margin:3px 0}
+.hide{display:none}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
+@media (max-width:620px){h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>📈 그래프 만들기</h1>
+<p class="sub">코랩이 안 될 때 쓰는 대신 화면이에요. 로그인 없이 우리 CSV를 올리면 코랩 21과 같은 그래프 · 상관계수 r · 표본 수 n이 나와요.
+  파일은 <b>내 컴퓨터 안에서만</b> 읽고 어디에도 보내지 않아요.</p>
+
+<div class="card">
+  <h2>① 파일 올리기</h2>
+  <div class="drop" id="drop"><b>📁 «우리데이터_전처리.csv»를 여기에 끌어다 놓거나 눌러서 고르기</b><br>
+    <small>모둠 데이터 폴더에서 먼저 내 컴퓨터로 내려받아요 · 엑셀 파일이면 «다른 이름으로 저장 → CSV», 구글 시트면 «파일 → 다운로드 → CSV»</small></div>
+  <input type="file" id="file" accept=".csv,.txt,text/csv" class="hide">
+  <div class="row" style="margin-top:10px"><button type="button" class="gh" id="demo">연습 데이터로 해 보기(아이스크림)</button></div>
+  <p class="msg" id="lm"></p>
+</div>
+
+<div class="card hide" id="setCard">
+  <h2>② 설정 — 코랩 21의 ✏️ 칸과 같아요</h2>
+  <div class="row">
+    <label>x열 (가로축)<select id="xc"></select></label>
+    <label>y열 (세로축)<select id="yc"></select></label>
+    <label>그래프 종류<select id="gt">
+      <option>산점도</option><option>산점도+추세선</option><option>선 그래프</option><option>막대(구간 평균)</option>
+      <option>막대(항목별 평균)</option><option>상자그림(구간별)</option><option>히스토그램</option><option>히트맵</option><option selected>전부 보기</option></select></label>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <label>시간열 (선 그래프)<select id="tc"></select></label>
+    <label>항목열 (항목별 막대)<select id="cc"></select></label>
+    <label>구간 수<input type="number" id="bins" min="2" max="8" value="3"></label>
+  </div>
+  <div class="tip">💡 고르기 어려우면 <b>전부 보기</b>로 다 그려 보고, <b>우리 가설을 가장 정직하게 보여 주는 것</b>을 하나 골라 캡처해요. 1차시에 맡은 그래프부터!</div>
+  <div class="stat" id="stat"></div>
+  <div id="desc"></div>
+  <p class="msg" id="sm"></p>
+</div>
+
+<div id="graphs"></div>
+
+<div class="card hide" id="frameCard">
+  <h2>③ 1차 해석 — AI 없이 먼저 (슬라이드 «나의 시각화와 1차 해석»)</h2>
+  <div class="frame"><b>그래프 자가 점검</b> — ☐ 세로축을 잘라 부풀리지 않았다 ☐ n을 적었다 ☐ 상관을 원인과 결과로 말하지 않았다 ☐ 불리한 데이터도 남겼다
+    <ul>
+      <li><b>내가 고른 그래프와 이유</b>: «____ 그래프를 고른 까닭은 ____ 을(를) 보이기 위해서다.»</li>
+      <li><b>그래프에서 직접 본 것</b>: <span id="seen">«____ 가 높을수록 ____ 는 ____ (r = ____, n = ____).»</span></li>
+      <li><b>나의 1차 해석</b>: «그래서 ____ 라고 생각한다.»</li>
+      <li><b>이 데이터가 말하지 않는 것</b>: «____ 때문이라고는 말할 수 없다(____ 의 영향 · ____ 기간/지역만).»</li>
+    </ul></div>
+  <p class="sub" style="margin:10px 0 0">캡처: 그래프 아래 <b>📋 그림 복사</b> → 슬라이드에서 Ctrl+V. 안 되면 <b>💾 그림 저장</b> 후 «삽입 → 이미지», 또는 Win+Shift+S.</p>
+</div>
+
+<div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
+</div>
+<script>
+(function(){
+'use strict';
+var $ = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var D = null, PRACTICE = false;          // D = {head:[...], rows:[[...]]}
+var W = 960, H = 560, PADL = 86, PADR = 30, PADT = 56, PADB = 74;
+var COL = '#2F6FEC', RED = '#D64545', INK = '#1D2433', INK2 = '#5B6478', GRID = '#E6E9EF';
+var FONT = '"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif';
+
+/* ── 파일 읽기 ── */
+function decode(buf){
+  try { return new TextDecoder('utf-8', { fatal: true }).decode(buf); }
+  catch(e){ try { return new TextDecoder('euc-kr').decode(buf); } catch(e2){ return new TextDecoder('utf-8').decode(buf); } }
+}
+function parseCSV(t){
+  t = t.replace(/^﻿/, '');
+  var rows = [], row = [], cell = '', q = false;
+  var sep = (t.split('\n')[0].split('\t').length > t.split('\n')[0].split(',').length) ? '\t' : ',';
+  for(var i = 0; i < t.length; i++){
+    var c = t[i];
+    if(q){ if(c === '"'){ if(t[i + 1] === '"'){ cell += '"'; i++; } else q = false; } else cell += c; continue; }
+    if(c === '"') q = true;
+    else if(c === sep){ row.push(cell); cell = ''; }
+    else if(c === '\n'){ row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if(c !== '\r') cell += c;
+  }
+  if(cell !== '' || row.length){ row.push(cell); rows.push(row); }
+  rows = rows.filter(function(r){ return r.some(function(x){ return String(x).trim() !== ''; }); });
+  return { head: rows[0].map(function(h, i){ return String(h).trim() || ('열' + (i + 1)); }), rows: rows.slice(1) };
+}
+function num(v){ if(v == null) return NaN; var s = String(v).replace(/[,%\s원개명℃°]/g, ''); if(s === '' || s === '-') return NaN; return Number(s); }
+function isNumCol(i){ var ok = 0, all = 0; D.rows.forEach(function(r){ var v = r[i]; if(v != null && String(v).trim() !== ''){ all++; if(!isNaN(num(v))) ok++; } }); return all > 0 && ok / all >= 0.8; }
+function isTimeCol(i){ var h = D.head[i]; if(/날짜|일자|연도|년|월|date|year|time|시간/i.test(h)) return true;
+  var s = D.rows.slice(0, 10).map(function(r){ return r[i]; }); return s.every(function(v){ return /^\d{4}[-./]\d{1,2}([-./]\d{1,2})?$/.test(String(v).trim()); }); }
+
+function load(text, name, practice){
+  try { D = parseCSV(text); } catch(e){ say($('lm'), '파일을 읽지 못했어요. CSV 파일인지 확인해 주세요.'); return; }
+  if(!D.head.length || D.rows.length < 2){ say($('lm'), '행이 너무 적어요. 첫 줄이 열 이름인 CSV인지 확인해 주세요.'); return; }
+  PRACTICE = !!practice;
+  say($('lm'), (practice ? '🧊 연습 데이터' : '✅ ' + name) + ' — 열 ' + D.head.length + '개 · 행 ' + D.rows.length + '개를 읽었어요.' + (practice ? ' (빈칸 1행 · 튀는 값 1480은 정리해 둔 것 · 그래프에 «연습» 표시가 찍혀요)' : ''), true);
+  var nums = [], texts = [], times = [];
+  D.head.forEach(function(h, i){ if(isTimeCol(i)) times.push(i); else if(isNumCol(i)) nums.push(i); else texts.push(i); });
+  var opt = function(list, pick){ return list.map(function(i){ return '<option value="' + i + '"' + (i === pick ? ' selected' : '') + '>' + esc(D.head[i]) + '</option>'; }).join(''); };
+  var all = D.head.map(function(_, i){ return i; });
+  var numsAll = all.filter(isNumCol);
+  $('xc').innerHTML = opt(numsAll.length ? numsAll : all, nums[0] != null ? nums[0] : numsAll[0]);
+  $('yc').innerHTML = opt(numsAll.length ? numsAll : all, nums[1] != null ? nums[1] : (nums[0] != null ? nums[0] : numsAll[1]));
+  $('tc').innerHTML = '<option value="-1">(없음)</option>' + opt(all, times[0] != null ? times[0] : -1);
+  $('cc').innerHTML = '<option value="-1">(없음)</option>' + opt(all, texts[0] != null ? texts[0] : -1);
+  if(numsAll.length < 2) say($('lm'), '숫자 열이 2개보다 적어요 — 산점도 · 상관계수는 숫자 열 두 개가 필요해요. 히스토그램 · 항목별 막대는 그릴 수 있어요.');
+  $('setCard').classList.remove('hide'); $('frameCard').classList.remove('hide');
+  draw();
+}
+function readFile(f){
+  if(!f) return;
+  if(/\.xlsx?$/i.test(f.name)){ say($('lm'), '엑셀 파일이에요. 엑셀에서 «다른 이름으로 저장 → CSV UTF-8»로 저장하거나, 구글 시트에서 «파일 → 다운로드 → CSV»로 받아 올려 주세요.'); return; }
+  var r = new FileReader(); r.onload = function(){ load(decode(r.result), f.name, false); }; r.readAsArrayBuffer(f);
+}
+$('drop').addEventListener('click', function(){ $('file').click(); });
+$('file').addEventListener('change', function(){ readFile(this.files[0]); });
+['dragenter', 'dragover'].forEach(function(ev){ $('drop').addEventListener(ev, function(e){ e.preventDefault(); this.classList.add('on'); }); });
+['dragleave', 'drop'].forEach(function(ev){ $('drop').addEventListener(ev, function(e){ e.preventDefault(); this.classList.remove('on'); }); });
+$('drop').addEventListener('drop', function(e){ readFile(e.dataTransfer.files[0]); });
+$('demo').addEventListener('click', function(){
+  fetch('data/example_icecream_hot_days.csv').then(function(r){ return r.arrayBuffer(); }).then(function(b){
+    var t = decode(b).replace(/^﻿/, '').split('\n');           // 코랩 21 연습과 같게: 빈칸 행 · 1000 넘는 판매량 지우기
+    var keep = [t[0]].concat(t.slice(1).filter(function(l){ var c = l.split(','); return c.length > 2 && c[2].trim() !== '' && Number(c[2]) < 1000; }));
+    load(keep.join('\n'), '연습', true);
+  }).catch(function(){ say($('lm'), '연습 데이터를 못 불러왔어요. 인터넷 연결을 확인해 주세요.'); });
+});
+['xc', 'yc', 'gt', 'tc', 'cc', 'bins'].forEach(function(id){ $(id).addEventListener('change', draw); });
+function say(el, t, ok){ el.textContent = t || ''; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+/* ── 통계 ── */
+function pairs(){ var xi = +$('xc').value, yi = +$('yc').value, P = [];
+  D.rows.forEach(function(r){ var x = num(r[xi]), y = num(r[yi]); if(!isNaN(x) && !isNaN(y)) P.push([x, y, r]); }); return P; }
+function mean(a){ return a.reduce(function(s, v){ return s + v; }, 0) / a.length; }
+function q(a, p){ var s = a.slice().sort(function(m, n){ return m - n; }), k = (s.length - 1) * p, f = Math.floor(k); return s[f] + (s[Math.min(f + 1, s.length - 1)] - s[f]) * (k - f); }
+function corr(P){ var mx = mean(P.map(function(p){ return p[0]; })), my = mean(P.map(function(p){ return p[1]; })), a = 0, b = 0, c = 0;
+  P.forEach(function(p){ a += (p[0] - mx) * (p[1] - my); b += (p[0] - mx) * (p[0] - mx); c += (p[1] - my) * (p[1] - my); }); return (b && c) ? a / Math.sqrt(b * c) : NaN; }
+function fit(P){ var mx = mean(P.map(function(p){ return p[0]; })), my = mean(P.map(function(p){ return p[1]; })), a = 0, b = 0;
+  P.forEach(function(p){ a += (p[0] - mx) * (p[1] - my); b += (p[0] - mx) * (p[0] - mx); }); var k = b ? a / b : 0; return [k, my - k * mx]; }
+function f2(v){ return Math.abs(v) >= 1000 ? Math.round(v).toLocaleString() : (Math.round(v * 100) / 100).toString(); }
+function qcut(P, k){                              // 개수가 비슷하게 구간 나누기(코랩 qcut과 같은 생각)
+  var xs = P.map(function(p){ return p[0]; }), edges = [];
+  for(var i = 0; i <= k; i++) edges.push(q(xs, i / k));
+  edges = edges.filter(function(e, i){ return i === 0 || e > edges[i - 1]; });
+  var G = []; for(var j = 0; j < edges.length - 1; j++) G.push({ lo: edges[j], hi: edges[j + 1], v: [] });
+  P.forEach(function(p){ for(var j = 0; j < G.length; j++){ if(p[0] <= G[j].hi || j === G.length - 1){ G[j].v.push(p[1]); break; } } });
+  return G.filter(function(g){ return g.v.length; });
+}
+
+/* ── 그리기 도구 ── */
+function canvas(){ var c = document.createElement('canvas'); c.width = W; c.height = H; var g = c.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); g.font = '15px ' + FONT; return [c, g]; }
+function nice(lo, hi){ if(lo === hi){ lo -= 1; hi += 1; } var span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / 5))), m = span / 5 / step;
+  step *= m > 5 ? 10 : m > 2 ? 5 : m > 1 ? 2 : 1; return [Math.floor(lo / step) * step, Math.ceil(hi / step) * step, step]; }
+function axes(g, xr, yr, xl, yl, title, xcat){
+  var x0 = PADL, x1 = W - PADR, y0 = H - PADB, y1 = PADT;
+  g.strokeStyle = GRID; g.fillStyle = INK2; g.lineWidth = 1; g.textAlign = 'right'; g.textBaseline = 'middle';
+  for(var v = yr[0]; v <= yr[1] + yr[2] / 2; v += yr[2]){ var y = y0 - (v - yr[0]) / (yr[1] - yr[0]) * (y0 - y1);
+    g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); g.fillText(f2(v), x0 - 8, y); }
+  if(xr){ g.textAlign = 'center'; g.textBaseline = 'top';
+    for(var u = xr[0]; u <= xr[1] + xr[2] / 2; u += xr[2]){ var x = x0 + (u - xr[0]) / (xr[1] - xr[0]) * (x1 - x0); g.fillText(f2(u), x, y0 + 8); } }
+  g.strokeStyle = '#9AA3B5'; g.beginPath(); g.moveTo(x0, y1); g.lineTo(x0, y0); g.lineTo(x1, y0); g.stroke();
+  g.fillStyle = INK; g.font = 'bold 16px ' + FONT; g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+  g.fillText(xl, (x0 + x1) / 2, H - 22);
+  g.save(); g.translate(22, (y0 + y1) / 2); g.rotate(-Math.PI / 2); g.fillText(yl, 0, 0); g.restore();
+  g.font = 'bold 19px ' + FONT; g.fillText(title, W / 2, 32); g.font = '15px ' + FONT;
+  return { X: function(v){ return x0 + (v - xr[0]) / (xr[1] - xr[0]) * (x1 - x0); }, Y: function(v){ return y0 - (v - yr[0]) / (yr[1] - yr[0]) * (y0 - y1); }, x0: x0, x1: x1, y0: y0, y1: y1 };
+}
+function mark(g){ if(!PRACTICE) return; g.save(); g.translate(W / 2, H / 2); g.rotate(-0.25); g.fillStyle = 'rgba(120,130,150,0.18)'; g.font = 'bold 96px ' + FONT; g.textAlign = 'center'; g.fillText('연습 데이터', 0, 30); g.restore(); }
+function card(title, how, c){
+  var w = document.createElement('div'); w.className = 'gwrap';
+  w.innerHTML = '<h3>' + esc(title) + '</h3><p>' + how + '</p>';
+  w.appendChild(c);
+  var b = document.createElement('div'); b.className = 'gbtn';
+  b.innerHTML = '<button type="button">📋 그림 복사</button><button type="button" class="gh">💾 그림 저장</button><span class="msg"></span>';
+  b.children[0].onclick = function(){ var m = b.children[2];
+    if(!navigator.clipboard || !window.ClipboardItem){ say(m, '이 브라우저는 복사가 안 돼요 — 💾 그림 저장을 써요.'); return; }
+    c.toBlob(function(bl){ navigator.clipboard.write([new ClipboardItem({ 'image/png': bl })]).then(function(){ say(m, '복사했어요 — 슬라이드에서 Ctrl+V', true); }, function(){ say(m, '복사가 막혔어요 — 💾 그림 저장을 써요.'); }); }); };
+  b.children[1].onclick = function(){ var a = document.createElement('a'); a.download = title.replace(/[\\/:*?"<>|]/g, '') + '.png'; a.href = c.toDataURL('image/png'); a.click(); };
+  w.appendChild(b); $('graphs').appendChild(w);
+}
+
+/* ── 그래프 여덟 ── */
+function draw(){
+  if(!D) return;
+  $('graphs').innerHTML = '';
+  var xi = +$('xc').value, yi = +$('yc').value, xn = D.head[xi], yn = D.head[yi], gt = $('gt').value, k = Math.max(2, Math.min(8, +$('bins').value || 3));
+  var pick = function(name){ return gt === name || gt === '전부 보기'; };
+  var P = pairs(), n = P.length, r = n > 2 ? corr(P) : NaN;
+  var drop = D.rows.length - n;
+  $('stat').innerHTML = '<div>표본 수<b>n = ' + n + '</b>' + (drop ? '빈칸 · 글자로 ' + drop + '행 빠짐' : '') + '</div>'
+    + '<div>상관계수<b>r = ' + (isNaN(r) ? '–' : r.toFixed(3)) + '</b>' + (isNaN(r) ? '' : (Math.abs(r) >= 0.7 ? '강한 ' : Math.abs(r) >= 0.3 ? '보통 ' : '약한 ') + (r > 0 ? '함께 늘어나는(+)' : '반대로 움직이는(−)') + ' 관계') + '</div>'
+    + (n > 2 ? '<div>추세선 기울기<b>' + f2(fit(P)[0]) + '</b>' + esc(xn) + ' 1 늘 때 ' + esc(yn) + ' 평균 변화</div>' : '');
+  var dx = P.map(function(p){ return p[0]; }), dy = P.map(function(p){ return p[1]; });
+  var row = function(a){ return a.length ? [a.length, mean(a), Math.min.apply(null, a), q(a, .25), q(a, .5), q(a, .75), Math.max.apply(null, a)].map(f2) : []; };
+  $('desc').innerHTML = n ? '<table><tr><th></th><th>개수 n</th><th>평균</th><th>최솟값</th><th>Q1(25%)</th><th>중앙값</th><th>Q3(75%)</th><th>최댓값</th></tr>'
+    + '<tr><td>' + esc(xn) + '</td><td>' + row(dx).join('</td><td>') + '</td></tr><tr><td>' + esc(yn) + '</td><td>' + row(dy).join('</td><td>') + '</td></tr></table>' : '';
+  say($('sm'), n < 10 && n > 0 ? '⚠ 데이터가 ' + n + '개뿐이에요. 해석할 때 «n이 작다»를 꼭 함께 적어요.' : (n === 0 ? '⚠ 두 열 모두 숫자인 행이 없어요 — x열 · y열을 다시 골라요.' : ''), n >= 10);
+  $('seen').textContent = n > 2 ? '«' + xn + '가 높을수록 ' + yn + '는 ____ (r = ' + r.toFixed(2) + ', n = ' + n + ').»' : '«____ 가 높을수록 ____ 는 ____ (r = ____, n = ____).»';
+  if(!n) return;
+
+  if(pick('산점도') || pick('산점도+추세선')){
+    var withLine = gt === '산점도+추세선' || gt === '전부 보기';
+    var cg = canvas(), c = cg[0], g = cg[1], xr = nice(Math.min.apply(null, dx), Math.max.apply(null, dx)), yr = nice(Math.min.apply(null, dy), Math.max.apply(null, dy));
+    var A = axes(g, xr, yr, xn, yn, xn + '와 ' + yn + ' (n=' + n + (isNaN(r) ? '' : ', r=' + r.toFixed(2)) + ')');
+    g.fillStyle = 'rgba(47,111,236,0.65)'; P.forEach(function(p){ g.beginPath(); g.arc(A.X(p[0]), A.Y(p[1]), 6, 0, 7); g.fill(); });
+    if(withLine && n > 2){ var f = fit(P); g.strokeStyle = RED; g.lineWidth = 3; g.beginPath(); g.moveTo(A.X(xr[0]), A.Y(f[0] * xr[0] + f[1])); g.lineTo(A.X(xr[1]), A.Y(f[0] * xr[1] + f[1])); g.stroke();
+      g.fillStyle = RED; g.textAlign = 'left'; g.fillText('추세선: 1 늘 때 평균 ' + f2(f[0]) + '씩', A.x0 + 10, A.y1 + 14); }
+    mark(g); card(withLine ? '산점도 + 추세선' : '산점도', '<b>언제</b> 두 숫자가 함께 움직이는지 · <b>읽는 법</b> 오른쪽 위로 모이면 «함께 늘어남», 흩어지면 «관계 약함» · <b>조심</b> 점 하나 = 행 하나, 상관 ≠ 원인', c);
+  }
+  if(pick('선 그래프')){
+    var ti = +$('tc').value;
+    if(ti < 0){ if(gt === '선 그래프') card('선 그래프', '⚠ 시간열을 골라요(날짜 · 연도 열).', document.createElement('div')); }
+    else {
+      var T = D.rows.map(function(rw){ var raw = String(rw[ti]).trim(), t = Date.parse(raw.replace(/[./]/g, '-')); if(isNaN(t)) t = num(raw); return [t, num(rw[yi]), raw]; })
+        .filter(function(p){ return !isNaN(p[0]) && !isNaN(p[1]); }).sort(function(a, b){ return a[0] - b[0]; });
+      if(T.length > 1){ var cg2 = canvas(), c2 = cg2[0], g2 = cg2[1], ys = T.map(function(p){ return p[1]; }), yr2 = nice(0, Math.max.apply(null, ys));
+        var A2 = axes(g2, null, yr2, D.head[ti], yn, D.head[ti] + '에 따른 ' + yn + ' (n=' + T.length + ')');
+        var X2 = function(i){ return A2.x0 + i / (T.length - 1) * (A2.x1 - A2.x0); };
+        g2.strokeStyle = COL; g2.lineWidth = 2.5; g2.beginPath(); T.forEach(function(p, i){ i ? g2.lineTo(X2(i), A2.Y(p[1])) : g2.moveTo(X2(i), A2.Y(p[1])); }); g2.stroke();
+        g2.fillStyle = COL; T.forEach(function(p, i){ g2.beginPath(); g2.arc(X2(i), A2.Y(p[1]), 3.5, 0, 7); g2.fill(); });
+        g2.fillStyle = INK2; g2.textAlign = 'center'; g2.textBaseline = 'top'; var step = Math.ceil(T.length / 8);
+        T.forEach(function(p, i){ if(i % step === 0 || i === T.length - 1) g2.fillText(p[2].slice(-5), X2(i), A2.y0 + 8); });
+        mark(g2); card('선 그래프 — 시간에 따른 변화', '<b>언제</b> 날짜 · 연도 순서대로 변화 · <b>조심</b> 세로축은 0부터(잘라 내면 변화가 과장돼 보여요)', c2); }
+    }
+  }
+  if(pick('막대(구간 평균)') || pick('상자그림(구간별)')){
+    var G = qcut(P, k);
+    if(pick('막대(구간 평균)')){
+      var cg3 = canvas(), c3 = cg3[0], g3 = cg3[1], ms = G.map(function(o){ return mean(o.v); }), yr3 = nice(0, Math.max.apply(null, ms));
+      var A3 = axes(g3, null, yr3, xn + ' 구간', yn + ' 평균', xn + ' 구간별 ' + yn + ' 평균'), bw = (A3.x1 - A3.x0) / G.length;
+      G.forEach(function(o, i){ var x = A3.x0 + bw * i + bw * 0.18, w = bw * 0.64, y = A3.Y(ms[i]);
+        g3.fillStyle = COL; g3.fillRect(x, y, w, A3.y0 - y); g3.fillStyle = INK; g3.textAlign = 'center'; g3.textBaseline = 'bottom';
+        g3.fillText(f2(ms[i]) + ' (n=' + o.v.length + ')', x + w / 2, y - 4); g3.textBaseline = 'top'; g3.fillStyle = INK2; g3.fillText(f2(o.lo) + '~' + f2(o.hi), x + w / 2, A3.y0 + 8); });
+      mark(g3); card('막대 — 구간별 평균', '<b>언제</b> «x가 높은 날엔 y가 더 많을까?»를 한눈에 · <b>조심</b> 구간 수에 따라 모양이 달라져요 · 막대 위 n = 그 구간의 날 수', c3);
+    }
+    if(pick('상자그림(구간별)')){
+      var cg4 = canvas(), c4 = cg4[0], g4 = cg4[1], yr4 = nice(Math.min.apply(null, dy), Math.max.apply(null, dy));
+      var A4 = axes(g4, null, yr4, xn + ' 구간', yn, xn + ' 구간별 ' + yn + '의 퍼짐'), bw4 = (A4.x1 - A4.x0) / G.length;
+      G.forEach(function(o, i){ var cx = A4.x0 + bw4 * (i + 0.5), w = bw4 * 0.4, Q1 = q(o.v, .25), Q2 = q(o.v, .5), Q3 = q(o.v, .75), iqr = Q3 - Q1;
+        var lo = Math.min.apply(null, o.v.filter(function(v){ return v >= Q1 - 1.5 * iqr; })), hi = Math.max.apply(null, o.v.filter(function(v){ return v <= Q3 + 1.5 * iqr; }));
+        g4.strokeStyle = INK; g4.lineWidth = 2; g4.fillStyle = 'rgba(47,111,236,0.25)';
+        g4.fillRect(cx - w / 2, A4.Y(Q3), w, A4.Y(Q1) - A4.Y(Q3)); g4.strokeRect(cx - w / 2, A4.Y(Q3), w, A4.Y(Q1) - A4.Y(Q3));
+        g4.strokeStyle = RED; g4.beginPath(); g4.moveTo(cx - w / 2, A4.Y(Q2)); g4.lineTo(cx + w / 2, A4.Y(Q2)); g4.stroke(); g4.strokeStyle = INK;
+        g4.beginPath(); g4.moveTo(cx, A4.Y(Q3)); g4.lineTo(cx, A4.Y(hi)); g4.moveTo(cx, A4.Y(Q1)); g4.lineTo(cx, A4.Y(lo));
+        g4.moveTo(cx - w / 4, A4.Y(hi)); g4.lineTo(cx + w / 4, A4.Y(hi)); g4.moveTo(cx - w / 4, A4.Y(lo)); g4.lineTo(cx + w / 4, A4.Y(lo)); g4.stroke();
+        g4.fillStyle = RED; o.v.forEach(function(v){ if(v < lo || v > hi){ g4.beginPath(); g4.arc(cx, A4.Y(v), 4, 0, 7); g4.fill(); } });
+        g4.fillStyle = INK2; g4.textAlign = 'center'; g4.textBaseline = 'top'; g4.fillText(f2(o.lo) + '~' + f2(o.hi) + ' (n=' + o.v.length + ')', cx, A4.y0 + 8); });
+      mark(g4); card('상자그림 — 구간별 퍼짐', '<b>읽는 법</b> 상자 = 가운데 절반(Q1~Q3), 빨간 선 = 중앙값, 빨간 점 = 튀는 값 · <b>조심</b> 구간마다 n이 적으면 상자가 불안정해요', c4);
+    }
+  }
+  if(pick('막대(항목별 평균)')){
+    var ci = +$('cc').value;
+    if(ci < 0){ if(gt === '막대(항목별 평균)') card('막대 — 항목별 평균', '⚠ 항목열을 골라요(요일 · 지역 · 지점 같은 글자 열).', document.createElement('div')); }
+    else { var M = {}; D.rows.forEach(function(rw){ var key = String(rw[ci]).trim(), y = num(rw[yi]); if(key && !isNaN(y)) (M[key] = M[key] || []).push(y); });
+      var keys = Object.keys(M).sort(function(a, b){ return mean(M[b]) - mean(M[a]); }).slice(0, 15);
+      if(keys.length){ var cg5 = canvas(), c5 = cg5[0], g5 = cg5[1], ms5 = keys.map(function(kk){ return mean(M[kk]); }), yr5 = nice(0, Math.max.apply(null, ms5));
+        var A5 = axes(g5, null, yr5, D.head[ci], yn + ' 평균', D.head[ci] + '별 ' + yn + ' 평균'), bw5 = (A5.x1 - A5.x0) / keys.length;
+        keys.forEach(function(kk, i){ var x = A5.x0 + bw5 * i + bw5 * 0.15, w = bw5 * 0.7, y = A5.Y(ms5[i]);
+          g5.fillStyle = COL; g5.fillRect(x, y, w, A5.y0 - y); g5.fillStyle = INK; g5.textAlign = 'center'; g5.textBaseline = 'bottom'; g5.fillText(f2(ms5[i]), x + w / 2, y - 16);
+          g5.fillStyle = INK2; g5.fillText('n=' + M[kk].length, x + w / 2, y - 2); g5.textBaseline = 'top'; g5.fillText(kk.slice(0, 8), x + w / 2, A5.y0 + 8); });
+        mark(g5); card('막대 — 항목별 평균', '<b>언제</b> 글자 열(요일 · 지역 · 지점)마다 비교 · <b>조심</b> 항목마다 n이 다르면 평균을 그대로 믿기 어려워요', c5); }
+    }
+  }
+  if(pick('히스토그램')){
+    var cg6 = canvas(), c6 = cg6[0], g6 = cg6[1], lo6 = Math.min.apply(null, dy), hi6 = Math.max.apply(null, dy), B = 10, wbin = (hi6 - lo6) / B || 1, cnt = new Array(B).fill(0);
+    dy.forEach(function(v){ cnt[Math.min(B - 1, Math.floor((v - lo6) / wbin))]++; });
+    var A6 = axes(g6, nice(lo6, hi6), nice(0, Math.max.apply(null, cnt)), yn, '개수', yn + '의 분포 (n=' + n + ')'), X6 = A6.X;
+    cnt.forEach(function(cc, i){ var xa = X6(lo6 + wbin * i), xb = X6(lo6 + wbin * (i + 1)), y = A6.Y(cc); g6.fillStyle = COL; g6.fillRect(xa + 1, y, xb - xa - 2, A6.y0 - y); });
+    var mu = mean(dy); g6.strokeStyle = RED; g6.setLineDash([8, 6]); g6.lineWidth = 2.5; g6.beginPath(); g6.moveTo(X6(mu), A6.y0); g6.lineTo(X6(mu), A6.y1); g6.stroke(); g6.setLineDash([]);
+    g6.fillStyle = RED; g6.textAlign = 'left'; g6.fillText('평균 ' + f2(mu), X6(mu) + 6, A6.y1 + 12);
+    mark(g6); card('히스토그램 — 값이 어디에 몰렸나', '<b>언제</b> y값의 분포(어느 값 근처가 많은지, 한쪽으로 치우쳤는지) · <b>조심</b> 막대 개수에 따라 모양이 달라져요', c6);
+  }
+  if(pick('히트맵')){
+    var NI = D.head.map(function(_, i){ return i; }).filter(isNumCol).slice(0, 8);
+    if(NI.length >= 2){ var cg7 = canvas(), c7 = cg7[0], g7 = cg7[1], m = NI.length, L = 170, T7 = 70, cs = Math.min((W - L - 40) / m, (H - T7 - 30) / m);
+      g7.fillStyle = INK; g7.font = 'bold 19px ' + FONT; g7.textAlign = 'center'; g7.fillText('숫자 열끼리 상관계수', W / 2, 32); g7.font = '14px ' + FONT;
+      NI.forEach(function(a, i){ NI.forEach(function(b, j){ var Q = []; D.rows.forEach(function(rw){ var u = num(rw[a]), v = num(rw[b]); if(!isNaN(u) && !isNaN(v)) Q.push([u, v]); });
+        var rr = Q.length > 2 ? corr(Q) : 0, t = Math.abs(rr || 0); g7.fillStyle = rr >= 0 ? 'rgba(214,69,69,' + t + ')' : 'rgba(47,111,236,' + t + ')';
+        g7.fillRect(L + j * cs, T7 + i * cs, cs - 2, cs - 2); g7.fillStyle = t > 0.55 ? '#fff' : INK; g7.textBaseline = 'middle'; g7.fillText((rr || 0).toFixed(2), L + j * cs + cs / 2, T7 + i * cs + cs / 2); }); });
+      g7.fillStyle = INK2; g7.textAlign = 'right'; NI.forEach(function(a, i){ g7.fillText(D.head[a].slice(0, 10), L - 8, T7 + i * cs + cs / 2); });
+      g7.textAlign = 'center'; g7.textBaseline = 'bottom'; NI.forEach(function(a, j){ g7.fillText(D.head[a].slice(0, 6), L + j * cs + cs / 2, T7 - 6); });
+      mark(g7); card('히트맵 — 숫자 열끼리 상관계수', '<b>읽는 법</b> 빨강 = 함께 늘어남(+), 파랑 = 반대로(−), 흰색 = 관계 약함(0) · <b>조심</b> 색이 진해도 원인과 결과는 아니에요', c7); }
+    else if(gt === '히트맵') card('히트맵', '⚠ 숫자 열이 2개 이상이어야 해요.', document.createElement('div'));
+  }
+}
+})();
+</script>
+</body>
+</html>
