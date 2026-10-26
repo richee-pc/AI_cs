@@ -20,7 +20,7 @@ ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pi
 a = ap.parse_args()
 
 P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
-KEEP = ('scr', 'run', 'say', 'stuck', 'ex', 'chk')
+KEEP = ('scr', 'run', 'say', 'stuck', 'ex', 'chk', 'code')
 data, data_de, meta = {}, {}, {}
 for lid in LESSONS:
     m = load(lid)
@@ -61,6 +61,7 @@ if a.html:
                   f'<div class="cols"><div><h4>🎬 진행 순서</h4><ol>{li(g["run"])}</ol>'
                   + (f'<h4>✅ 넘어가기 전 확인</h4><ul class="ok">{li(g["chk"])}</ul>' if g['chk'] else '') +
                   f'</div><div><h4>🎤 이렇게 말해요</h4>' + ''.join(f'<p class="say">{e(x)}</p>' for x in g['say']) + '</div></div>'
+                  + (f'<div class="code"><b>💻 코랩 코드 설명 — 빔에서 짚을 줄</b><table>' + ''.join(f'<tr><td><code>{e(c)}</code></td><td>{e(d)}</td></tr>' for c, d in g['code']) + '</table></div>' if g.get('code') else '')
                   + (f'<div class="stuck"><b>⚠ 막히면</b><ul>{li(g["stuck"])}</ul></div>' if g['stuck'] else '')
                   + ('<div class="ex">' + ''.join(f'<figure><img src="file:///{os.path.join(SITE, p).replace(os.sep, "/")}"><figcaption>빔 예시 · {e(c)}</figcaption></figure>' for p, c in g.get('ex', [])) + '</div>' if g.get('ex') else '')
                   + '</section>')
@@ -84,6 +85,7 @@ h4{{margin:2px 0 2px; font-size:8.8pt; color:#4a5568}}
 .stuck{{background:#fff7e0; border-top:1px solid #f0dfae; padding:4px 10px}} .stuck ul{{margin:0}}
 .note{{background:#fdecec; border-left:4px solid #d64545; padding:5px 10px; margin:6px 0; border-radius:0 6px 6px 0}}
 .ex{{display:flex; gap:8px; padding:5px 10px; border-top:1px dashed #d5dbe6}} .ex figure{{margin:0; text-align:center}} .ex img{{height:120px; border:1px solid #d5dbe6; border-radius:5px}} .ex figcaption{{font-size:7.6pt; color:#4a5568}}
+.code{{border-top:1px dashed #d5dbe6; padding:4px 10px; background:#f6f8fc}} .code table{{margin:2px 0}} .code td{{font-size:8.4pt}} .code code{{font-family:Consolas,monospace; font-size:8.2pt; color:#7a2e9e; white-space:nowrap}}
 .pg{{break-before:page}}
 </style></head><body>
 <h1>{e(m.TITLE)} — 진행 대본</h1>
