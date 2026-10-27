@@ -16,7 +16,7 @@ def load(lid):
     sp = importlib.util.spec_from_file_location('s', os.path.join(SRC, f'script_{lid.lower()}.py'))
     m = importlib.util.module_from_spec(sp); sp.loader.exec_module(m); return m
 
-ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default=''); ap.add_argument('--lesson', default='D2'); ap.add_argument('--de', action='store_true')
+ap = argparse.ArgumentParser(); ap.add_argument('--html'); ap.add_argument('--pin', default=''); ap.add_argument('--lesson', default='D2'); ap.add_argument('--de', action='store_true'); ap.add_argument('--var', default='')
 a = ap.parse_args()
 
 P = os.path.join(SITE, 'teach.html'); s = open(P, encoding='utf-8').read()
@@ -41,6 +41,8 @@ if a.html:
     if a.de:                                     # D · E반 인쇄본 — TITLE_DE · BEFORE_DE · LATE_DE · SEG_DE{번호: 바꿀 칸}
         for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_DE', getattr(m, k)))
         for n, ov in getattr(m, 'SEG_DE', {}).items(): m.SEG[n] = {**m.SEG[n], **ov}
+    if a.var:                                    # 한 반만 인쇄 — TITLE_<var> · BEFORE_<var> · LATE_<var> (예: --de --var E)
+        for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_' + a.var, getattr(m, k)))
     i = s2.index("{ id:'%s'," % a.lesson); j = s2.find('{ id:', i + 5); j = j if j > 0 else s2.index('\n];', i)   # 마지막 차시면 배열 끝까지
     segs = re.findall(r"^   \[(\d+),'((?:[^'\\]|\\.)*)','(\w)'", s2[i:j], re.M)
     assert len(segs) == len(m.SEG), (len(segs), len(m.SEG))
