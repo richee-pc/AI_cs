@@ -11,6 +11,7 @@ L = {  # 바로 가기
  'ows': ('datasites.html#workflows', '🍊 완성 워크플로(.ows)'), 'orange': ('labs.html#orange', '🍊 오렌지3 따라 하기'),
  'tour1': ('aitour.html', '📘 길잡이(화면으로)'), 'ex': ('aiexample.html', '🌟 예시 프로젝트(약수터 안심이)'), 'exsdg': ('aiexample.html#sdg', '🌍 SDG가 뭐예요?'), 'vote': ('vote.html?r=P4', '💰 투자 심사'),
  'post2': ('https://forms.gle/LJ7CrHKBUDdF4Eqp6', '📝 2차 사후 검사'),
+ 'post1': ('https://forms.gle/n7BamjdjZyLfD44UA', '📝 1차 사후 검사(A · E반)'),
  'colab': ('https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb', '▶ 코랩 · 수행평가 ② 틀'),
  'map': ('unit4.html#pa2', '🔁 오렌지3 ↔ 코랩 대조표'), 'ghi': ('https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/07_ghi_hunger.ipynb', '📗 교과서 기아 예측 예제'),
  'eval': ('unit4.html#evalSheet', '📋 평가표(209쪽)'),
@@ -19,9 +20,9 @@ TOP = ['acc', 'aip', 'ex', 'tour1']   # 맨 위 늘 보이는 바로 가기
 
 LESSONS = [
  ('P1', '프로젝트 ①', '주제 정하기 · 데이터 찾기', '«지금 차례» 1 → 31분에 2', [
-  (0, 3, '시작 — «인공지능» 수업 · AI 모둠 슬라이드 열기', 'me',
-   '<p>AI 탐구 교실 → 수업 두 개 가운데 <b>«인공지능»</b>. 🔑 내 계정에서 <b>🤖 AI 활동지</b>를 열어 둬요. 약속: AI는 플랫폼에서만, 판단은 우리가.</p>', None, None, ['acc', 'aip']),
-  (3, 11, '👤 나의 관심사와 문제 — AI 없이', 'me',
+  (0, 5, '📝 1차 사후 검사(A · E반) · «인공지능» 수업 · AI 모둠 슬라이드 열기', 'me',
+   '<div class="warn"><b>A · E반</b>은 먼저 <b>1차 사후 검사</b>(데이터 탐구를 마치고 · 5분) — D반은 지난 시간에 했어요.</div><p>AI 탐구 교실 → 수업 두 개 가운데 <b>«인공지능»</b>. 🔑 내 계정에서 <b>🤖 AI 활동지</b>를 열어 둬요. 약속: AI는 플랫폼에서만, 판단은 우리가.</p>', None, None, ['post1', 'acc', 'aip']),
+  (5, 11, '👤 나의 관심사와 문제 — AI 없이', 'me',
    '<p>내 이름 장 네 칸: <b>SDG 세부 목표 번호 · 사용자 · 문제 · 예상 데이터와 출처</b>, 그리고 «기계학습으로 풀 수 있나».</p>'
    '<div class="tip">🌍 <b>SDG</b> = 유엔 193개 나라가 2030년까지 함께 이루기로 한 <b>17개 목표</b>(세부 목표 169개). <b>6.1</b>은 «6번 목표(깨끗한 물)의 1번 세부 목표 — 모두에게 안전한 마실 물». 칸에는 6이 아니라 6.1처럼 써요.</div>', None, None, ['exsdg', 'ex']),
   (11, 21, '👥 주제 정하기 AI — 모둠장이 네 사람 생각을 모두', 'lead',
