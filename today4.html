@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이터 탐구 ④ 오늘 순서</title>
+<style>
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--yellow:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:28px;line-height:1.3;margin:0 0 6px}
+.sub{color:var(--ink2);margin:0 0 16px}
+.pick{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pick b{margin-right:4px}
+.pick select{font:inherit;font-weight:700;padding:6px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.pages{flex-basis:100%;font-size:15.5px;color:var(--ink2)}
+.pages span{display:inline-block;background:var(--bbg);color:var(--ink);border-radius:8px;padding:1px 8px;margin:2px 4px 2px 0;font-weight:700}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
+.bar button,.bar a{font:inherit;font-weight:700;border:0;border-radius:12px;padding:10px 16px;cursor:pointer;text-decoration:none}
+.play{background:var(--blue);color:#fff}.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)!important}
+.tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:0 0 22px}
+.tabs a{display:block;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;color:var(--ink);text-decoration:none}
+.tabs a b{display:block}.tabs a span{color:var(--ink2);font-size:14px}
+.prog{position:sticky;top:0;z-index:3;background:var(--bg);padding:8px 0 10px;margin:0 0 6px}
+.prog .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog .track i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.prog p{margin:4px 0 0;font-size:14.5px;color:var(--ink2)}
+.step{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px 18px 14px;margin:0 0 14px;break-inside:avoid}
+.step.now{border-color:var(--blue);box-shadow:0 0 0 4px var(--bbg)}
+.step.done{opacity:.55}
+.head{display:flex;gap:12px;align-items:flex-start}
+.num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--card);font-weight:700;display:grid;place-items:center}
+.step.done .num{background:var(--green)}
+.head h3{margin:0;font-size:19px;line-height:1.4;flex:1}
+.time{flex:none;font-size:14px;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--ybg);color:var(--yellow)}
+.who{display:inline-block;font-size:13.5px;font-weight:700;border-radius:99px;padding:1px 9px;margin:6px 6px 0 0}
+.w-me{background:var(--gbg);color:var(--green)}.w-team{background:var(--bbg);color:var(--blue)}.w-one{background:var(--rbg);color:var(--red)}
+.step ol,.step ul{margin:8px 0 4px;padding-left:22px}.step li{margin:2px 0}
+.step p{margin:6px 0;color:var(--ink2)}
+.step img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);margin:10px 0 2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cap{font-size:14px;color:var(--ink2);margin:2px 0 0}
+.mine{background:var(--ybg);border-left:5px solid var(--yellow);border-radius:12px;padding:10px 14px;margin:10px 0 4px;font-size:16px}
+.mine:empty{display:none}
+.warn{background:var(--rbg);border-left:5px solid var(--red);border-radius:12px;padding:10px 14px;margin:10px 0 2px;font-size:15.5px}
+.tip{background:var(--bbg);border-left:5px solid var(--blue);border-radius:12px;padding:10px 14px;margin:10px 0 2px;font-size:15.5px}
+.chk{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:700;cursor:pointer;width:max-content;max-width:100%}
+.chk input{width:22px;height:22px;accent-color:var(--green)}
+.pg{font-weight:700;color:var(--blue)}
+a{color:var(--blue)}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
+#show{position:fixed;inset:0;background:#0E1016;z-index:9;display:none;flex-direction:column}
+#show.on{display:flex}
+#stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 18px 0;min-height:0}
+#stage img{max-width:min(980px,100%);max-height:100%;border-radius:12px;object-fit:contain}
+#stage .txt{color:#fff;font-size:28px;font-weight:700;text-align:center;max-width:800px;line-height:1.5}
+#capbox{color:#fff;padding:14px 20px 8px;text-align:center;font-size:19px;line-height:1.55;min-height:92px}
+#capbox small{display:block;color:#9AA3B5;font-size:14px}
+#ctl{display:flex;gap:10px;justify-content:center;padding:0 0 14px}
+#ctl button{font:inherit;font-size:15px;background:#2A2F3B;color:#fff;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}
+#sbar{height:4px;background:#2A2F3B}#sbar i{display:block;height:100%;width:0;background:var(--blue)}
+@media (max-width:600px){h1{font-size:23px}.pair{grid-template-columns:1fr}#stage .txt{font-size:22px}#capbox{font-size:16px}}
+@media print{.bar,.prog,#show,.chk{display:none!important}body{background:#fff}.step{opacity:1!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>데이터 탐구 ④ — 오늘은 이 순서대로</h1>
+<p class="sub">앞 20분에 <b>활동지를 끝내고</b>, 사후 검사 뒤에 <b>모둠마다 1분 발표</b>를 해요. 막히면 이 쪽을 위에서부터 다시 보세요. 끝낸 단계는 ✔를 눌러요.</p>
+
+<div class="pick">
+ <b>우리 반 · 모둠</b>
+ <select id="cls" aria-label="반"><option value="">반</option><option>A</option><option>D</option><option>E</option></select>
+ <select id="grp" aria-label="모둠"><option value="">모둠</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select>
+ <div class="pages" id="pages">반과 모둠을 고르면 <b>우리 활동지에서 고칠 쪽 번호</b>가 나와요. 선생님 댓글(공동 해석 쪽 오른쪽)에도 같은 번호가 있어요.</div>
+</div>
+
+<div class="bar"><button class="play" onclick="Show.open()">▶ 영상처럼 보기</button><button class="ghost" onclick="resetAll()">↺ 체크 지우기</button></div>
+
+<div class="tabs">
+ <a href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener"><b>🔑 내 계정 · 내 활동지</b><span>모둠 활동지 열기</span></a>
+ <a href="https://aidbpl-student.web.app/" target="_blank" rel="noopener"><b>🤖 AI 탐구 교실</b><span>평가 · 질문하는 AI · 발표 연습 AI</span></a>
+ <a href="vote.html" target="_blank" rel="noopener"><b>💰 투자 심사</b><span>발표 들을 때</span></a>
+</div>
+
+<div class="prog"><div class="track"><i id="pbar"></i></div><p id="ptxt">0 / 9 단계</p></div>
+
+<div class="step" data-cap="AI 탐구 교실 홈 → 1차 자기 · 동료평가. 우리 모둠원 칸에 점수를 모두 골라야 제출돼요.">
+ <div class="head"><span class="num">1</span><h3>1차 자기 · 동료평가 내기</h3><span class="time">0–2분</span></div>
+ <span class="who w-me">👤 모두 각자</span>
+ <p>AI 탐구 교실 → <b>1차 자기 · 동료평가</b>. 이걸 내야 질문하는 AI가 열려요. 점수만 고르면 2분이면 끝나요.</p>
+ <img src="img/d4/eval2.jpg" alt="자기 · 동료평가 화면(2차 화면 예시, 1차도 같은 모양)" loading="lazy">
+ <p class="cap">1차도 이 화면과 같은 모양이에요.</p>
+ <label class="chk"><input type="checkbox"> 제출했어요</label>
+</div>
+
+<div class="step" data-cap="선생님 댓글에 적힌 대표 그래프 1장을 정하고, 공동 해석 쪽에 «우리 모둠은 ___ 때문에 ___라고 해석한다» 한 문장.">
+ <div class="head"><span class="num">2</span><h3>대표 그래프 1장 → 공동 해석 한 문장 <span class="pg" data-p="J"></span></h3><span class="time">2–6분</span></div>
+ <span class="who w-team">👥 모둠 — AI 없이</span>
+ <div class="mine" id="mine"></div>
+ <ol><li>선생님 댓글을 열어 <b>우리 모둠 할 일</b>을 확인해요(공동 해석 쪽 오른쪽 💬).</li>
+ <li>질문의 x · y가 들어 있는 그래프 <b>하나</b>를 대표로 정해요. 그래프가 없으면 «찾으려 한 자료 · 막힌 곳 · 찾은 숫자» 세 줄도 괜찮아요.</li>
+ <li>«우리 모둠은 (그래프 · r · n) 때문에 ___라고 해석한다» 한 문장.</li></ol>
+ <img src="img/d2/slide_joint.jpg" alt="모둠 공동 해석 쪽 예시" loading="lazy">
+ <label class="chk"><input type="checkbox"> 공동 해석 한 문장 썼어요</label>
+</div>
+
+<div class="step" data-cap="해결안 쪽: 누구에게 · 무엇을 · 어떻게 + 근거 수치 + 예상되는 한계. 다 쓰면 파일 → 다운로드 → PDF.">
+ <div class="head"><span class="num">3</span><h3>해결안 한 문장 + 근거 수치 + 한계 → PDF 받기 <span class="pg" data-p="S"></span></h3><span class="time">6–10분</span></div>
+ <span class="who w-team">👥 모둠 — AI 없이</span>
+ <ul><li><b>해결안</b>: «(누구)에게 (무엇)을 (어떻게) 하자고 제안한다»</li>
+ <li><b>근거 데이터</b>: 그래프 번호 · 핵심 수치(r, n, 평균 등)</li>
+ <li><b>예상되는 한계</b>: 선생님 질문(Q1 · Q2)에 한 줄씩 답하기 — 발표 때 선생님이 따로 묻지 않아요</li></ul>
+ <img src="img/d2/slide_solution.jpg" alt="해결안 초안 쪽 예시" loading="lazy">
+ <div class="tip">다 썼으면 질문하는 AI 담당이 <b>파일 → 다운로드 → PDF 문서</b>. 해결안을 쓰기 <b>전에</b> 받으면 해결안이 빠진 PDF가 돼요.</div>
+ <label class="chk"><input type="checkbox"> 해결안 쓰고 PDF 받았어요</label>
+</div>
+
+<div class="step" data-cap="질문하는 AI 담당 한 명: PDF와 해결안을 넣고 반문 1개를 받아 «반영할게요 / 반영 안 할게요» + 이유. 함정 질문 조심!">
+ <div class="head"><span class="num">4</span><h3>질문하는 AI — 반문 1개 판단하기 <span class="pg" data-p="Q"></span></h3><span class="time">10–14분</span></div>
+ <span class="who w-one">🙋 질문하는 AI 담당 1명</span>
+ <ol><li>AI 탐구 교실 → 질문하는 AI → <b>PDF 올리고 해결안 붙여 넣기</b>.</li>
+ <li>반문 1개에 <b>반영할게요 / 반영 안 할게요 + 이유</b>.</li>
+ <li>활동지 질문하는 AI 쪽에 «반문 → 우리 판단 → 근거» 한 줄.</li></ol>
+ <img src="img/d4/ask1.jpg" alt="질문하는 AI 화면" loading="lazy">
+ <div class="warn"><b>함정 질문이 섞여 있어요.</b> «r이 크니까 원인이라고 단정해도 될까요?» 같은 질문은 <b>반영 안 할게요 + «상관이지 원인은 아니라서»</b>.</div>
+ <label class="chk"><input type="checkbox"> 반문 판단 1개 적었어요</label>
+</div>
+
+<div class="step" data-cap="발표 연습 AI에게 우리 결과를 세 문장으로 설명 → AI가 틀리게 따라 말하면 바로잡기 → 자가점검 만들기 → 제출.">
+ <div class="head"><span class="num">5</span><h3>발표 연습 AI → 자가점검 제출 <span class="pg" data-p="I"></span></h3><span class="time">10–16분</span></div>
+ <span class="who w-me">👤 모두 각자 (질문하는 AI 담당은 끝나고 바로)</span>
+ <ol><li>AI 탐구 교실 → 발표 연습 AI에 «우리가 알아낸 것 → 근거 수치 → 한계» <b>세 문장</b>.</li>
+ <li>AI가 틀리게 말하면 바로잡아요.</li>
+ <li><b>자가점검 만들기 → 제출</b>. 안 내면 2차 평가가 잠겨요!</li>
+ <li>활동지 «AI가 되물은 것» 칸에 한 줄.</li></ol>
+ <div class="pair"><img src="img/d4/teach.jpg" alt="발표 연습 AI 화면" loading="lazy"><img src="img/d4/selfchk.jpg" alt="발표 자가점검 화면" loading="lazy"></div>
+ <label class="chk"><input type="checkbox"> 자가점검 제출했어요</label>
+</div>
+
+<div class="step" data-cap="2차 자기 · 동료평가 + 활동지 맨 뒤 «자기평가와 성찰» 내 칸 + «AI 사용 기록» 한 줄.">
+ <div class="head"><span class="num">6</span><h3>2차 자기 · 동료평가 + 성찰 칸 + AI 사용 기록 <span class="pg" data-p="R"></span></h3><span class="time">16–19분</span></div>
+ <span class="who w-me">👤 모두 각자</span>
+ <ul><li>AI 탐구 교실 → <b>2차 자기 · 동료평가</b>(성찰 한 줄 · AI 사용 기록 포함)</li>
+ <li>활동지 <b>자기평가와 성찰</b>: 내 이름 칸에 «AI 도움 받은 것 / 끝까지 판단한 것 / 다음엔»</li>
+ <li>활동지 <b>AI 사용 기록</b>: 오늘 쓴 AI 한 줄</li></ul>
+ <img src="img/d4/eval2.jpg" alt="2차 평가 화면" loading="lazy">
+ <p class="cap">2차 평가가 안 열리면 → 5단계 자가점검을 아직 안 낸 거예요.</p>
+ <label class="chk"><input type="checkbox"> 2차 평가 · 성찰 칸 다 썼어요</label>
+</div>
+
+<div class="step" data-cap="1차 사후 검사 — 5분. 점수와 상관없으니 솔직하게.">
+ <div class="head"><span class="num">7</span><h3>1차 사후 검사 (5분)</h3><span class="time">19–24분</span></div>
+ <span class="who w-me">👤 모두 각자</span>
+ <p><a href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener"><b>📝 1차 사후 검사 열기</b></a> — 데이터 탐구를 마친 뒤의 검사예요. 점수와 상관없어요.</p>
+ <label class="chk"><input type="checkbox"> 제출했어요</label>
+</div>
+
+<div class="step" data-cap="발표 흐름 쪽에 핵심 한 문장. 발표할 장(대표 그래프 · 공동 해석 · 해결안 · 보완)만 남기고 나머지는 «슬라이드 건너뛰기».">
+ <div class="head"><span class="num">8</span><h3>발표 준비 — 핵심 한 문장 · 발표할 장만 남기기 <span class="pg" data-p="F"></span></h3><span class="time">24–26분</span></div>
+ <span class="who w-team">👥 모둠</span>
+ <ul><li>발표 흐름 쪽 <b>발표 핵심 한 문장</b></li>
+ <li>남길 장: <b>대표 그래프 · 공동 해석 · 해결안 · 보완한 해결안</b> — 나머지는 왼쪽 목록에서 오른쪽 클릭 → <b>슬라이드 건너뛰기</b></li>
+ <li>발표는 <b>1분</b>: 질문 → 대표 그래프 · 수치 → 해결안 → 한계</li></ul>
+ <img src="img/d2/slide_present.jpg" alt="발표 흐름 쪽 예시" loading="lazy">
+ <label class="chk"><input type="checkbox"> 발표 준비 끝</label>
+</div>
+
+<div class="step" data-cap="모둠마다 1분 발표. 듣는 모둠은 💰 투자 심사에 그 모둠을 저장. 모든 발표가 끝나면 우리 모둠 말고 하나에 투자 한 표!">
+ <div class="head"><span class="num">9</span><h3>1분 발표 · 💰 투자 심사 · 투자 한 표</h3><span class="time">26–40분</span></div>
+ <span class="who w-team">👥 모둠</span>
+ <ul><li>발표 순서대로 1분. 선생님 질문은 없어요(활동지 한계 칸에 이미 답했어요).</li>
+ <li>듣는 동안 <a href="vote.html" target="_blank" rel="noopener">💰 투자 심사</a>에서 그 모둠을 📊 데이터 근거 · 🚀 실현 가능성 · 🤖 AI 반문 처리 1~5로 <b>저장</b>.</li>
+ <li>모든 발표가 끝나면 맨 아래 <b>투자 한 표</b>(우리 모둠 X).</li></ul>
+ <img src="img/d4/done.jpg" alt="모든 단계를 마친 AI 탐구 교실 홈" loading="lazy">
+ <p class="cap">다섯 단계에 모두 ✓ — 수고했어요!</p>
+ <label class="chk"><input type="checkbox"> 투자 한 표까지 했어요</label>
+</div>
+
+<div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
+</div>
+
+<div id="show" role="dialog" aria-label="영상처럼 보기">
+ <div id="sbar"><i></i></div>
+ <div id="stage"></div>
+ <div id="capbox"></div>
+ <div id="ctl"><button onclick="Show.go(-1)">◀ 이전</button><button id="pp" onclick="Show.toggle()">❚❚ 멈춤</button><button onclick="Show.go(1)">다음 ▶</button><button onclick="Show.close()">✕ 닫기</button></div>
+</div>
+
+<script>
+/* 모둠 활동지 쪽 번호(10/29 기준) — J 공동 해석 · S 해결안 · Q 질문하는 AI · I 보완 · F 발표 흐름 · L AI 사용 기록 · R 자기평가 */
+var JP={A:{1:18,2:18,3:18,4:18,5:18,6:18,7:18},E:{1:18,2:21,3:21,4:21,5:21,6:21,7:22}};
+var MINE={
+ A1:'16쪽 «2022 월별 남조류» 그래프(n=12)가 대표 · 표 틀 6~8월 B · C열 바꿔 넣기 · 17쪽 플라스틱 그래프는 건너뛰기',
+ A2:'14쪽 구간별 평균 그래프(n=14 · r≈−0.09)가 대표 → «관계가 거의 없다» 한 문장',
+ A3:'시작하자마자 표 틀에서 📈 산점도 1장(x 최고기온 · y 최대전력) → 공동 해석 쪽에 붙이고 r · n',
+ A4:'표 틀의 연령대별 휴대폰 표(10대 181분)가 대표 → 숫자 비교 한 문장 · 조사연도 그래프는 건너뛰기',
+ A5:'그래프 대신 «찾으려 한 자료 · 막힌 곳 · 찾은 숫자 하나» 세 줄 · 해결안은 «자료를 이렇게 모으자»도 OK',
+ A6:'그래프 대신 «찾으려 한 자료(열대야 · 수면) · 막힌 곳 · 찾은 숫자 하나» 세 줄 · 해결안은 «자료를 이렇게 모으자»도 OK',
+ A7:'14쪽 광주 가구 전력 표가 대표 → 숫자 비교 한 문장 + «기온 자료 없음 · 짝이 안 맞음»',
+ E1:'표 틀 9행으로 📈 그래프 1장 → 공동 해석 쪽에 붙이고 n + 한 문장(안 되면 표 숫자 비교)',
+ E2:'남성 수면시간 그래프(n=9 · r=−0.25)가 대표 · 연도 · 개수 그래프와 연습 데이터는 건너뛰기',
+ E3:'그래프 대신 «찾으려 한 것 · 못 찾은 이유 · 찾은 숫자(중학교 7.2시간)» 세 줄',
+ E4:'17쪽 기온 구간별 평균 막대(142.85 → 145.56, 약 2%)가 대표 → 해석 한 문장',
+ E5:'20쪽 산점도(r=0.10 · n=9)가 대표 → «관계가 거의 없다» · 17쪽 평균 기온 그래프는 참고만',
+ E6:'먼저 표 틀 B열(날짜)을 CSV 맨 오른쪽 숫자로 · 2025년 빼기 → 대표 그래프 1장 · «보건실» 아니라 전국 응급실 신고',
+ E7:'산점도(n=6 · r=0.48)가 대표 · «낮은 점 하나가 추세선을 끌어올림»은 한계로'
+};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+var cls=document.getElementById('cls'),grp=document.getElementById('grp');
+function pages(){
+  var c=cls.value,g=grp.value,j=(JP[c]||{})[g],el=document.getElementById('pages');
+  ls('t4cls',c);ls('t4grp',g);
+  document.getElementById('mine').textContent=MINE[c+g]?'📌 우리 모둠 할 일: '+MINE[c+g]:'';
+  var map=j?{J:j,S:j+1,Q:j+2,I:j+3,F:j+4,L:j+6,R:j+7}:null;
+  document.querySelectorAll('.pg').forEach(function(s){s.textContent=map?'('+map[s.dataset.p]+(s.dataset.p==='R'?' · '+map.L:'')+'쪽)':'';});
+  if(!c||!g){el.innerHTML='반과 모둠을 고르면 <b>우리 활동지에서 고칠 쪽 번호</b>가 나와요. 선생님 댓글(공동 해석 쪽 오른쪽)에도 같은 번호가 있어요.';return;}
+  if(!map){el.innerHTML='<b>'+c+'반 '+g+'모둠</b> — 쪽 번호는 공동 해석 쪽 선생님 댓글을 보세요. 순서는 아래와 같아요.';return;}
+  el.innerHTML='<b>'+c+'반 '+g+'모둠</b> 오늘 고칠 쪽: <span>'+map.J+' 공동 해석</span><span>'+map.S+' 해결안</span><span>'+map.Q+' 질문하는 AI</span><span>'+map.I+' 보완 · 발표 연습</span><span>'+map.F+' 발표 흐름</span><span>'+map.L+' AI 사용 기록</span><span>'+map.R+' 자기평가</span>';
+}
+cls.onchange=pages;grp.onchange=pages;
+cls.value=ls('t4cls')||'';grp.value=ls('t4grp')||'';pages();
+var steps=[].slice.call(document.querySelectorAll('.step'));
+function upd(){
+  var n=0,now=false;
+  steps.forEach(function(st,i){var b=st.querySelector('.chk input');st.classList.toggle('done',b.checked);st.classList.remove('now');if(b.checked)n++;else if(!now){st.classList.add('now');now=true;}});
+  document.getElementById('pbar').style.width=(n/steps.length*100)+'%';
+  document.getElementById('ptxt').textContent=n+' / '+steps.length+' 단계'+(n===steps.length?' — 다 했어요! 🎉':'');
+}
+steps.forEach(function(st,i){var b=st.querySelector('.chk input');b.checked=ls('t4s'+i)==='1';b.onchange=function(){ls('t4s'+i,b.checked?'1':'0');upd();if(b.checked&&steps[i+1])steps[i+1].scrollIntoView({behavior:'smooth',block:'start'});};});
+upd();
+function resetAll(){steps.forEach(function(st,i){st.querySelector('.chk input').checked=false;ls('t4s'+i,'0');});upd();window.scrollTo({top:0,behavior:'smooth'});}
+
+var Show=(function(){
+  var list=[],i=0,playing=true,MS=7000,start=0,raf=null;
+  function build(){
+    list=[{txt:'데이터 탐구 ④ — 오늘 순서',cap:'앞 20분에 활동지 끝내기 → 사후 검사 → 1분 발표'}];
+    steps.forEach(function(st){
+      var h=st.querySelector('h3'),title=st.querySelector('.num').textContent+'. '+h.textContent.trim()+' · '+st.querySelector('.time').textContent;
+      var imgs=st.querySelectorAll('img');
+      if(!imgs.length){list.push({txt:title,cap:st.dataset.cap,title:title});return;}
+      imgs.forEach(function(m){list.push({el:m,cap:st.dataset.cap,title:title});});
+    });
+    list.push({txt:'모두 끝! 🎉',cap:'끝난 모둠은 발표 연습 · 다른 모둠 발표 잘 듣기'});
+  }
+  function render(){
+    var s=list[i],stage=document.getElementById('stage');stage.innerHTML='';
+    if(s.el){stage.appendChild(s.el.cloneNode(true));}else{var d=document.createElement('div');d.className='txt';d.textContent=s.txt;stage.appendChild(d);}
+    document.getElementById('capbox').innerHTML=(s.title?'<small>'+s.title+'</small>':'')+(s.cap||'');
+    start=performance.now();tick();
+  }
+  function tick(){
+    cancelAnimationFrame(raf);var bar=document.querySelector('#sbar i');
+    (function f(){var p=Math.min(1,(performance.now()-start)/MS);bar.style.width=((i+(playing?p:0))/list.length*100)+'%';
+      if(playing&&p>=1){if(i<list.length-1){i++;render();}else{playing=false;btn();}return;}
+      raf=requestAnimationFrame(f);})();
+  }
+  function btn(){document.getElementById('pp').textContent=playing?'❚❚ 멈춤':'▶ 재생';}
+  document.addEventListener('keydown',function(e){if(!document.getElementById('show').classList.contains('on'))return;
+    if(e.key==='ArrowRight')Show.go(1);else if(e.key==='ArrowLeft')Show.go(-1);else if(e.key===' '){e.preventDefault();Show.toggle();}else if(e.key==='Escape')Show.close();});
+  return{
+    open:function(){if(!list.length)build();i=0;playing=true;btn();document.getElementById('show').classList.add('on');render();},
+    close:function(){cancelAnimationFrame(raf);document.getElementById('show').classList.remove('on');},
+    go:function(d){i=Math.max(0,Math.min(list.length-1,i+d));render();},
+    toggle:function(){playing=!playing;btn();start=performance.now();tick();}
+  };
+})();
+</script>
+</body>
+</html>
