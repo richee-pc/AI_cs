@@ -75,6 +75,10 @@ h1{font-size:28px;line-height:1.3;margin:0 0 6px}
 #bigT div{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}#bigT button{font:inherit;font-size:20px;font-weight:700;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 20px;cursor:pointer}
 .step.clocknow{border-color:var(--yellow);box-shadow:0 0 0 4px var(--ybg)}
 .step.clocknow .time{background:var(--yellow);color:var(--card)}
+.roles{background:var(--card);border:2px solid var(--blue);border-radius:16px;padding:12px 16px;margin:0 0 16px}
+.roles h2{font-size:18px;margin:0 0 8px}.roles p{margin:8px 0 0}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.rgrid div{background:var(--bbg);border-radius:10px;padding:8px 10px;display:grid;gap:2px}.rgrid span{font-size:14px;color:var(--ink2)}
 a{color:var(--blue)}
 .sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
 #show{position:fixed;inset:0;background:#0E1016;z-index:9;display:none;flex-direction:column}
@@ -94,7 +98,7 @@ a{color:var(--blue)}
 <body>
 <div class="wrap">
 <h1>데이터 탐구 ④ — 오늘은 이 순서대로</h1>
-<p class="sub">⏱ «수업 시작»을 누르면 지금 할 단계가 <b>노란 테두리</b>로 보여요. 앞 20분에 <b>활동지를 끝내고</b>, 사후 검사 뒤에 <b>모둠마다 1분 발표</b>를 해요. 막히면 이 쪽을 위에서부터 다시 보세요. 끝낸 단계는 ✔를 눌러요.</p>
+<p class="sub">⏱ «수업 시작»을 누르면 지금 할 단계가 <b>노란 테두리</b>로 보여요. <b>역할을 나눠 동시에</b> 쓰고 <b>20분에 활동지 마감</b> → 다 같이 평가 · 사후 검사 → <b>추첨 순서로 1분 발표</b>. 끝낸 단계는 ✔를 눌러요.</p>
 
 <div class="pick">
  <b>우리 반 · 모둠</b>
@@ -110,7 +114,7 @@ a{color:var(--blue)}
  <a href="https://aidbpl-student.web.app/" target="_blank" rel="noopener"><b>🤖 AI 탐구 교실</b><span>평가 · 질문하는 AI · 발표 연습 AI</span></a>
  <a href="graph.html" target="_blank" rel="noopener"><b>📈 그래프 만들기</b><span>표 틀 CSV 올려 대표 그래프 · 로그인 없음</span></a>
  <a href="vote.html" target="_blank" rel="noopener"><b>💰 투자 심사</b><span>발표 들을 때</span></a>
- <a href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener"><b>📝 1차 사후 검사</b><span>21분부터 · 5분</span></a>
+ <a href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener"><b>📝 1차 사후 검사</b><span>23분 · 다 같이 5분</span></a>
 </div>
 
 <div class="tools" id="tools">
@@ -121,93 +125,99 @@ a{color:var(--blue)}
  <div class="clock"><span class="label">발표 순서 추첨</span><b id="drawOut">—</b>
   <div class="tbtn"><label for="nGrp" class="sr">모둠 수</label><select id="nGrp"><option>5</option><option>6</option><option selected>7</option><option>8</option></select><button type="button" onclick="Tools.draw()">🎲 추첨</button></div></div>
 </div>
+<div class="roles" id="roles">
+ <h2>0–2분 · 역할 4개 나누기 — 한 쪽에 한 사람</h2>
+ <div class="rgrid">
+  <div><b>🅰 해결안 담당</b><span>공동 해석 · 해결안 · 한계</span></div>
+  <div><b>🅱 질문하는 AI 담당</b><span>반문 2개 판단</span></div>
+  <div><b>🅲 발표자</b><span>핵심 한 문장 · 1분 발표</span></div>
+  <div><b>🅳 기록 담당</b><span>출처 · AI 사용 기록</span></div>
+ </div>
+ <p>⏰ <b>20분에 활동지 마감</b> → 다 같이 평가 · 사후 검사 → <b>28분부터 추첨 순서로 1분 발표</b>. 넷이 한 쪽에 모이지 말고 동시에 써요.</p>
+</div>
 <div class="prog"><div class="track"><i id="pbar"></i></div><p id="ptxt">0 / 9 단계</p></div>
 
-<div class="step" data-s="2" data-e="4" data-cap="AI 탐구 교실 홈 → 1차 자기 · 동료평가. 우리 모둠원 칸에 점수를 모두 골라야 제출돼요.">
+<div class="step" data-s="2" data-e="4" data-cap="모두 각자 — AI 탐구 교실 홈 → 1차 자기 · 동료평가. 우리 모둠원 칸에 점수를 모두 골라야 제출돼요.">
  <div class="head"><span class="num">1</span><h3>1차 자기 · 동료평가 내기</h3><span class="time">2–4분</span></div>
- <span class="who w-me">👤 모두 각자</span>
- <p>AI 탐구 교실 → <b>1차 자기 · 동료평가</b>. 이걸 내야 질문하는 AI가 열려요. 점수만 고르면 2분이면 끝나요.</p>
+ <span class="who w-me">👤 모두 각자 · 다 같이</span>
+ <p>AI 탐구 교실 → <b>1차 자기 · 동료평가</b>. 점수만 고르면 2분이면 끝나요. <b>4분에 다 같이 다음으로</b> 넘어가요.</p>
  <img src="img/d4/eval2.jpg" alt="자기 · 동료평가 화면(2차 화면 예시, 1차도 같은 모양)" loading="lazy">
- <p class="cap">1차도 이 화면과 같은 모양이에요.</p>
  <div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실 열기</a></div>
  <label class="chk"><input type="checkbox"> 제출했어요</label>
 </div>
 
-<div class="step" data-s="4" data-e="8" data-cap="선생님 댓글에 적힌 대표 그래프 1장을 정하고, 공동 해석 쪽에 «우리 모둠은 ___ 때문에 ___라고 해석한다» 한 문장.">
- <div class="head"><span class="num">2</span><h3>대표 그래프 1장 → 공동 해석 한 문장 <span class="pg" data-p="J"></span></h3><span class="time">4–8분</span></div>
- <span class="who w-team">👥 모둠 — AI 없이</span>
+<div class="step" data-s="4" data-e="12" data-cap="🅰 해결안 담당 — 대표 그래프 1장으로 공동 해석 한 문장, 이어서 해결안 쪽: 누구에게 · 무엇을 · 어떻게 + 근거 숫자 + 한계.">
+ <div class="head"><span class="num">2</span><h3>🅰 공동 해석 한 문장 → 해결안 <span class="pg" data-p="J"></span> <span class="pg" data-p="S"></span></h3><span class="time">4–12분</span></div>
+ <span class="who w-one">🅰 해결안 담당 (나머지는 3 · 4단계를 동시에)</span>
  <div class="mine" id="mine"></div>
- <ol><li>선생님 댓글을 열어 <b>우리 모둠 할 일</b>을 확인해요(공동 해석 쪽 오른쪽 💬).</li>
- <li>질문의 x · y가 들어 있는 그래프 <b>하나</b>를 대표로 정해요. 그래프가 없으면 «찾으려 한 자료 · 막힌 곳 · 찾은 숫자» 세 줄도 괜찮아요.</li>
- <li>«우리 모둠은 (그래프 · r · n) 때문에 ___라고 해석한다» 한 문장.</li></ol>
- <img src="img/d2/slide_joint.jpg" alt="모둠 공동 해석 쪽 예시" loading="lazy">
- <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a><a class="go" href="graph.html" target="_blank" rel="noopener">📈 그래프 만들기(표 틀 CSV · 로그인 없음)</a><a class="go" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/21_data_inquiry_my_graph.ipynb" target="_blank" rel="noopener">▶ 코랩 21 나의 시각화</a></div>
- <p class="cap">그래프가 없는 모둠: 표 틀 <b>파일 → 다운로드 → CSV</b> → 📈 그래프 만들기에 올리고 x · y 열 고르기 → 그래프 + r · n 캡처 → 공동 해석 쪽에 붙이기.</p>
- <label class="chk"><input type="checkbox"> 공동 해석 한 문장 썼어요</label>
-</div>
-
-<div class="step" data-s="8" data-e="12" data-cap="해결안 쪽: 누구에게 · 무엇을 · 어떻게 + 근거 수치 + 예상되는 한계. 다 쓰면 파일 → 다운로드 → PDF.">
- <div class="head"><span class="num">3</span><h3>해결안 한 문장 + 근거 수치 + 한계 → PDF 받기 <span class="pg" data-p="S"></span></h3><span class="time">8–12분</span></div>
- <span class="who w-team">👥 모둠 — AI 없이</span>
- <ul><li><b>해결안</b>: «(누구)에게 (무엇)을 (어떻게) 하자고 제안한다»</li>
- <li><b>근거 데이터</b>: 그래프 번호 · 핵심 수치(r, n, 평균 등)</li>
- <li><b>예상되는 한계</b>: 선생님 질문(Q1 · Q2)에 한 줄씩 답하기 — 발표 때 선생님이 따로 묻지 않아요</li></ul>
+ <ol><li><b>공동 해석</b>: «우리 모둠은 (그래프 · r · n) 때문에 ___라고 해석한다». 원인처럼 단정하지 말고 «___할수록 ___하는 경향».</li>
+ <li><b>해결안</b>: «(누구)에게 (무엇)을 (어떻게) 하자고 제안한다»</li>
+ <li><b>근거 데이터</b>: 숫자 하나 이상(r, n, 평균 등)</li>
+ <li><b>예상되는 한계</b>: 선생님 댓글 Q1 · Q2에 한 줄씩</li></ol>
  <img src="img/d2/slide_solution.jpg" alt="해결안 초안 쪽 예시" loading="lazy">
- <div class="tip">다 썼으면 질문하는 AI 담당이 <b>파일 → 다운로드 → PDF 문서</b>. 해결안을 쓰기 <b>전에</b> 받으면 해결안이 빠진 PDF가 돼요.</div>
- <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a></div>
- <label class="chk"><input type="checkbox"> 해결안 쓰고 PDF 받았어요</label>
+ <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a><a class="go" href="graph.html" target="_blank" rel="noopener">📈 그래프 만들기</a></div>
+ <label class="chk"><input type="checkbox"> 공동 해석 · 해결안 다 썼어요</label>
 </div>
 
-<div class="step" data-s="12" data-e="16" data-cap="질문하는 AI 담당 한 명: PDF와 해결안을 넣고 반문 1개를 받아 «반영할게요 / 반영 안 할게요» + 이유. 함정 질문 조심!">
- <div class="head"><span class="num">4</span><h3>질문하는 AI — 반문 1개 판단하기 <span class="pg" data-p="Q"></span></h3><span class="time">12–16분</span></div>
- <span class="who w-one">🙋 질문하는 AI 담당 1명</span>
- <ol><li>AI 탐구 교실 → 질문하는 AI → <b>PDF 올리고 해결안 붙여 넣기</b>.</li>
- <li>반문 1개에 <b>반영할게요 / 반영 안 할게요 + 이유</b>.</li>
- <li>활동지 질문하는 AI 쪽에 «반문 → 우리 판단 → 근거» 한 줄.</li></ol>
+<div class="step" data-s="4" data-e="12" data-cap="🅱 질문하는 AI 담당 — 공동 해석 · 해결안 초안을 넣고 반문 2개를 받아 채택 · 수정 · 거절 + 근거.">
+ <div class="head"><span class="num">3</span><h3>🅱 질문하는 AI — 반문 2개 판단 <span class="pg" data-p="Q"></span></h3><span class="time">4–12분</span></div>
+ <span class="who w-one">🅱 질문하는 AI 담당</span>
+ <ol><li>AI 탐구 교실 → 질문하는 AI → 🅰가 쓰고 있는 <b>공동 해석 · 해결안</b>을 붙여 넣기(PDF는 없어도 돼요).</li>
+ <li>반문 <b>2개</b>에 <b>채택 · 수정 · 거절 + 근거</b>.</li>
+ <li>활동지 질문하는 AI 쪽 표에 두 줄. 수정한 게 있으면 🅰에게 알려 주기.</li></ol>
  <img src="img/d4/ask1.jpg" alt="질문하는 AI 화면" loading="lazy">
- <div class="warn"><b>함정 질문이 섞여 있어요.</b> «r이 크니까 원인이라고 단정해도 될까요?» 같은 질문은 <b>반영 안 할게요 + «상관이지 원인은 아니라서»</b>.</div>
+ <div class="warn"><b>함정 질문이 섞여 있어요.</b> «r이 크니까 원인이라고 단정해도 될까요?» 같은 질문은 <b>거절 + «상관이지 원인은 아니라서»</b>.</div>
  <div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 질문하는 AI 열기</a></div>
- <label class="chk"><input type="checkbox"> 반문 판단 1개 적었어요</label>
+ <label class="chk"><input type="checkbox"> 반문 2개 판단 적었어요</label>
 </div>
 
-<div class="step" data-s="12" data-e="18" data-cap="발표 연습 AI에게 우리 결과를 세 문장으로 설명 → AI가 틀리게 따라 말하면 바로잡기 → 자가점검 만들기 → 제출.">
+<div class="step" data-s="4" data-e="12" data-cap="🅲 발표자 — 발표 흐름 쪽 핵심 한 문장과 1분 발표 4가지 메모. 🅳 기록 담당 — 출처 · AI 활용 쪽과 AI 사용 기록.">
+ <div class="head"><span class="num">4</span><h3>🅲 발표 핵심 한 문장 · 🅳 출처 · AI 사용 기록 <span class="pg" data-p="F"></span> <span class="pg" data-p="O"></span> <span class="pg" data-p="L"></span></h3><span class="time">4–12분</span></div>
+ <span class="who w-one">🅲 발표자 · 🅳 기록 담당</span>
+ <ul><li><b>🅲 발표자</b>: 발표 흐름 쪽 <b>발표 핵심 한 문장</b> + 아래 <a href="#talk">🎤 4가지</a>를 내 말로 메모. 발표할 장만 남기고 나머지는 <b>슬라이드 건너뛰기</b>.</li>
+ <li><b>🅳 기록 담당</b>: <b>출처와 AI 활용</b> 쪽(데이터 이름 · 기관 · 연도 · 주소 / AI를 쓴 곳 / 끝까지 판단한 것) + <b>AI 사용 기록</b> 쪽에 1~4차시 한 줄씩.</li>
+ <li>3명 모둠이면 🅳 일은 🅲가 같이 해요.</li></ul>
+ <img src="img/d2/slide_present.jpg" alt="발표 흐름 쪽 예시" loading="lazy">
+ <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a></div>
+ <label class="chk"><input type="checkbox"> 핵심 한 문장 · 출처 · AI 사용 기록 썼어요</label>
+</div>
+
+<div class="step" data-s="12" data-e="18" data-cap="모두 각자 — 발표 연습 AI에게 세 문장 설명 → 틀리면 바로잡기 → 자가점검 제출. 자가점검을 내야 2차 평가가 열려요.">
  <div class="head"><span class="num">5</span><h3>발표 연습 AI → 자가점검 제출 <span class="pg" data-p="I"></span></h3><span class="time">12–18분</span></div>
- <span class="who w-me">👤 모두 각자 (질문하는 AI 담당은 끝나고 바로)</span>
- <ol><li>AI 탐구 교실 → 발표 연습 AI에 «우리가 알아낸 것 → 근거 수치 → 한계» <b>세 문장</b>.</li>
- <li>AI가 틀리게 말하면 바로잡아요.</li>
- <li><b>자가점검 만들기 → 제출</b>. 안 내면 2차 평가가 잠겨요!</li>
- <li>활동지 «AI가 되물은 것» 칸에 한 줄.</li></ol>
+ <span class="who w-me">👤 모두 각자</span>
+ <ol><li>발표 연습 AI에 «알아낸 것 → 근거 숫자 → 한계» <b>세 문장</b>.</li>
+ <li>AI가 틀리게 말하면 바로잡고 <b>자가점검 만들기 → 제출</b>. <b>안 내면 2차 평가가 잠겨요!</b></li>
+ <li>🅲 발표자는 «AI가 되물은 것 · 막힌 곳 → 보완» 칸에 한 줄.</li></ol>
  <div class="pair"><img src="img/d4/teach.jpg" alt="발표 연습 AI 화면" loading="lazy"><img src="img/d4/selfchk.jpg" alt="발표 자가점검 화면" loading="lazy"></div>
  <div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 발표 연습 AI 열기</a></div>
  <label class="chk"><input type="checkbox"> 자가점검 제출했어요</label>
 </div>
 
-<div class="step" data-s="18" data-e="21" data-cap="2차 자기 · 동료평가 + 활동지 맨 뒤 «자기평가와 성찰» 내 칸 + «AI 사용 기록» 한 줄.">
- <div class="head"><span class="num">6</span><h3>2차 자기 · 동료평가 + 성찰 칸 + AI 사용 기록 <span class="pg" data-p="R"></span></h3><span class="time">18–21분</span></div>
- <span class="who w-me">👤 모두 각자</span>
- <ul><li>AI 탐구 교실 → <b>2차 자기 · 동료평가</b>(성찰 한 줄 · AI 사용 기록 포함)</li>
- <li>활동지 <b>자기평가와 성찰</b>: 내 이름 칸에 «AI 도움 받은 것 / 끝까지 판단한 것 / 다음엔»</li>
- <li>활동지 <b>AI 사용 기록</b>: 오늘 쓴 AI 한 줄</li></ul>
+<div class="step" data-s="18" data-e="20" data-cap="모둠 — 20분 마감 점검: 핵심 한 문장 · 근거 숫자 · 한계 · AI 사용 기록 네 칸. 20분이 되면 활동지에서 손을 떼요.">
+ <div class="head"><span class="num">6</span><h3>⏰ 20분 마감 — 4칸 점검</h3><span class="time">18–20분</span></div>
+ <span class="who w-team">👥 모둠 — 다 같이 확인</span>
+ <div class="tip"><b>네 칸이 다 차 있나요?</b><br>☐ 핵심 한 문장(발표 흐름) ☐ 근거 숫자(해결안) ☐ 한계(해결안) ☐ AI 사용 기록 한 줄<br>빈칸이 있으면 지금 2분 안에 한 줄이라도. <b>20분이 되면 활동지는 끝</b> — 남은 쪽(자기평가와 성찰)은 숙제예요.</div>
+ <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a><button class="go" type="button" onclick="Tools.timer(120)">⏱ 2분 타이머</button></div>
+ <label class="chk"><input type="checkbox"> 네 칸 다 찼어요</label>
+</div>
+
+<div class="step" data-s="20" data-e="28" data-cap="다 같이 멈춤 — 2차 자기 · 동료평가 3분 → 1차 사후 검사 5분. 모두 내야 발표를 시작해요.">
+ <div class="head"><span class="num">7</span><h3>✋ 다 같이 — 2차 평가 → 1차 사후 검사</h3><span class="time">20–28분</span></div>
+ <span class="who w-me">👤 모두 각자 · 반 전체가 같이</span>
+ <ol><li><b>20–23분</b> AI 탐구 교실 → <b>2차 자기 · 동료평가</b>. 안 열리면 5단계 자가점검부터.</li>
+ <li><b>23–28분</b> <a href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener"><b>📝 1차 사후 검사</b></a> — 점수와 상관없으니 솔직하게.</li>
+ <li>선생님이 제출 수를 확인하면 발표를 시작해요.</li></ol>
  <img src="img/d4/eval2.jpg" alt="2차 평가 화면" loading="lazy">
- <p class="cap">2차 평가가 안 열리면 → 5단계 자가점검을 아직 안 낸 거예요.</p>
- <div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 2차 평가 열기</a><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 활동지(성찰 칸)</a></div>
- <label class="chk"><input type="checkbox"> 2차 평가 · 성찰 칸 다 썼어요</label>
+ <div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 2차 평가 열기</a><a class="go" href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener">📝 1차 사후 검사 열기</a><button class="go" type="button" onclick="Tools.timer(480)">⏱ 8분 타이머</button></div>
+ <label class="chk"><input type="checkbox"> 2차 평가 · 사후 검사 다 냈어요</label>
 </div>
 
-<div class="step" data-s="21" data-e="26" data-cap="1차 사후 검사 — 5분. 점수와 상관없으니 솔직하게.">
- <div class="head"><span class="num">7</span><h3>1차 사후 검사 (5분)</h3><span class="time">21–26분</span></div>
- <span class="who w-me">👤 모두 각자</span>
- <p><a href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener"><b>📝 1차 사후 검사 열기</b></a> — 데이터 탐구를 마친 뒤의 검사예요. 점수와 상관없어요.</p>
- <div class="golist"><a class="go" href="https://forms.gle/n7BamjdjZyLfD44UA" target="_blank" rel="noopener">📝 1차 사후 검사 열기</a></div>
- <label class="chk"><input type="checkbox"> 제출했어요</label>
-</div>
-
-<div class="step" data-s="26" data-e="28" data-cap="발표 흐름 쪽에 핵심 한 문장. 발표할 장(대표 그래프 · 공동 해석 · 해결안 · 보완)만 남기고 나머지는 «슬라이드 건너뛰기».">
- <div class="head"><span class="num">8</span><h3>발표 준비 — 핵심 한 문장 · 발표할 장만 남기기 <span class="pg" data-p="F"></span></h3><span class="time">26–28분</span></div>
- <span class="who w-team">👥 모둠</span>
- <ul><li>발표 흐름 쪽 <b>발표 핵심 한 문장</b></li>
- <li>남길 장: <b>대표 그래프 · 공동 해석 · 해결안 · 보완한 해결안</b> — 나머지는 왼쪽 목록에서 오른쪽 클릭 → <b>슬라이드 건너뛰기</b></li>
- <li>발표는 <b>1분</b>: 질문 → 대표 그래프 · 수치 → 해결안 → 한계</li></ul>
+<div class="step" data-s="28" data-e="38" data-cap="추첨 순서대로 모둠마다 정확히 1분 발표. 1분 종이 울리면 그 문장까지만. 듣는 모둠은 💰 투자 심사에 저장.">
+ <div class="head"><span class="num">8</span><h3>🎤 1분 발표 × 7 · 💰 투자 심사</h3><span class="time">28–38분</span></div>
+ <span class="who w-team">👥 🅲 발표자 · 듣는 모둠</span>
+ <ul><li><b>추첨 순서</b>대로 · 앞 모둠이 말하는 동안 다음 모둠은 화면 준비(교체 20초).</li>
+ <li><b>1분 종이 울리면 그 문장까지만</b> — 다 못 해도 다음 모둠으로 넘어가요. 그래서 ④부터 짧게 연습!</li>
+ <li>듣는 모둠은 <a href="vote.html" target="_blank" rel="noopener">💰 투자 심사</a>에서 📊 · 🚀 · 🤖 1~5로 <b>저장</b>.</li></ul>
  <div class="talk" id="talk">
   <h4>🎤 1분 발표 — 꼭 말할 4가지</h4>
   <ol class="four">
@@ -224,21 +234,19 @@ a{color:var(--blue)}
   </ul>
   <p class="cap"><b>듣는 모둠</b>은 투자 심사 3기준으로: 📊 숫자를 말했나 · 🚀 우리 학교에서 할 수 있나 · 🤖 AI 질문을 어떻게 판단했나</p>
  </div>
- <img src="img/d2/slide_present.jpg" alt="발표 흐름 쪽 예시" loading="lazy">
- <div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 모둠 활동지 열기</a><button class="go" type="button" onclick="Tools.draw()">🎲 발표 순서 추첨</button></div>
- <label class="chk"><input type="checkbox"> 발표 준비 끝</label>
+ <div class="golist"><button class="go" type="button" onclick="Tools.draw()">🎲 발표 순서 추첨</button><button class="go" type="button" onclick="Tools.timer(60)">⏱ 발표 1분 타이머</button><a class="go" href="vote.html" target="_blank" rel="noopener">💰 투자 심사 열기</a></div>
+ <label class="chk"><input type="checkbox"> 발표 · 투자 심사 저장했어요</label>
 </div>
 
-<div class="step" data-s="28" data-e="40" data-cap="모둠마다 1분 발표. 듣는 모둠은 💰 투자 심사에 그 모둠을 저장. 모든 발표가 끝나면 우리 모둠 말고 하나에 투자 한 표!">
- <div class="head"><span class="num">9</span><h3>1분 발표 · 💰 투자 심사 · 투자 한 표</h3><span class="time">28–40분</span></div>
- <span class="who w-team">👥 모둠</span>
- <ul><li>발표 순서대로 1분 — <a href="#talk">🎤 꼭 말할 4가지</a>(질문 → 근거 숫자 → 해결안 → 한계 · AI 판단). 선생님 질문은 없어요(한계 칸에 이미 답했어요).</li>
- <li>듣는 동안 <a href="vote.html" target="_blank" rel="noopener">💰 투자 심사</a>에서 그 모둠을 📊 데이터 근거 · 🚀 실현 가능성 · 🤖 AI 반문 처리 1~5로 <b>저장</b>.</li>
- <li>모든 발표가 끝나면 맨 아래 <b>투자 한 표</b>(우리 모둠 X).</li></ul>
+<div class="step" data-s="38" data-e="40" data-cap="투자 한 표(우리 모둠 X) + 숙제: 활동지 맨 뒤 «자기평가와 성찰» 내 칸.">
+ <div class="head"><span class="num">9</span><h3>💰 투자 한 표 · 숙제 안내</h3><span class="time">38–40분</span></div>
+ <span class="who w-me">👤 모두 각자</span>
+ <ul><li>투자 심사 맨 아래 <b>투자 한 표</b>(우리 모둠 X).</li>
+ <li><b>숙제</b>: 활동지 <b>자기평가와 성찰</b> <span class="pg" data-p="R"></span> 내 이름 칸에 «AI 도움 받은 것 / 끝까지 판단한 것 / 다음엔» — 다음 시간 전까지.</li></ul>
  <img src="img/d4/done.jpg" alt="모든 단계를 마친 AI 탐구 교실 홈" loading="lazy">
- <p class="cap">다섯 단계에 모두 ✓ — 수고했어요!</p>
- <div class="golist"><a class="go" href="vote.html" target="_blank" rel="noopener">💰 투자 심사 열기</a><button class="go" type="button" onclick="Tools.timer(60)">⏱ 발표 1분 타이머</button></div>
- <label class="chk"><input type="checkbox"> 투자 한 표까지 했어요</label>
+ <p class="cap">수고했어요!</p>
+ <div class="golist"><a class="go" href="vote.html" target="_blank" rel="noopener">💰 투자 심사 열기</a><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 활동지(성찰 칸)</a></div>
+ <label class="chk"><input type="checkbox"> 투자 한 표 했어요</label>
 </div>
 
 <div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
@@ -253,7 +261,7 @@ a{color:var(--blue)}
 </div>
 
 <script>
-/* 모둠 활동지 쪽 번호(10/29 기준) — J 공동 해석 · S 해결안 · Q 질문하는 AI · I 보완 · F 발표 흐름 · L AI 사용 기록 · R 자기평가 */
+/* 모둠 활동지 쪽 번호(10/29 기준) — J 공동 해석 · S 해결안 · Q 질문하는 AI · I 보완 · F 발표 흐름 · O 출처 · L AI 사용 기록 · R 자기평가 */
 var JP={A:{1:18,2:18,3:18,4:18,5:18,6:18,7:18},D:{1:21,2:21,3:21,4:22,5:21,6:21,7:18},E:{1:18,2:21,3:21,4:21,5:21,6:21,7:22}};
 var MINE={
  A1:'16쪽 «2022 월별 남조류» 그래프(n=12)가 대표 · 표 틀 6~8월 B · C열 바꿔 넣기 · 17쪽 플라스틱 그래프는 건너뛰기',
@@ -284,11 +292,11 @@ function pages(){
   var c=cls.value,g=grp.value,j=(JP[c]||{})[g],el=document.getElementById('pages');
   ls('t4cls',c);ls('t4grp',g);
   document.getElementById('mine').textContent=MINE[c+g]?'📌 우리 모둠 할 일: '+MINE[c+g]:'';
-  var map=j?{J:j,S:j+1,Q:j+2,I:j+3,F:j+4,L:j+6,R:j+7}:null;
-  document.querySelectorAll('.pg').forEach(function(s){s.textContent=map?'('+map[s.dataset.p]+(s.dataset.p==='R'?' · '+map.L:'')+'쪽)':'';});
+  var map=j?{J:j,S:j+1,Q:j+2,I:j+3,F:j+4,O:j+5,L:j+6,R:j+7}:null;
+  document.querySelectorAll('.pg').forEach(function(s){s.textContent=map?'('+map[s.dataset.p]+''+'쪽)':'';});
   if(!c||!g){el.innerHTML='반과 모둠을 고르면 <b>우리 활동지에서 고칠 쪽 번호</b>가 나와요. 선생님 댓글(공동 해석 쪽 오른쪽)에도 같은 번호가 있어요.';return;}
   if(!map){el.innerHTML='<b>'+c+'반 '+g+'모둠</b> — 쪽 번호는 공동 해석 쪽 선생님 댓글을 보세요. 순서는 아래와 같아요.';return;}
-  el.innerHTML='<b>'+c+'반 '+g+'모둠</b> 오늘 고칠 쪽: <span>'+map.J+' 공동 해석</span><span>'+map.S+' 해결안</span><span>'+map.Q+' 질문하는 AI</span><span>'+map.I+' 보완 · 발표 연습</span><span>'+map.F+' 발표 흐름</span><span>'+map.L+' AI 사용 기록</span><span>'+map.R+' 자기평가</span>';
+  el.innerHTML='<b>'+c+'반 '+g+'모둠</b> 오늘 고칠 쪽: <span>'+map.J+' 공동 해석</span><span>'+map.S+' 해결안</span><span>'+map.Q+' 질문하는 AI</span><span>'+map.I+' 보완 · 발표 연습</span><span>'+map.F+' 발표 흐름</span><span>'+map.O+' 출처</span><span>'+map.L+' AI 사용 기록</span><span>'+map.R+' 자기평가</span>';
 }
 cls.onchange=pages;grp.onchange=pages;
 cls.value=ls('t4cls')||'';grp.value=ls('t4grp')||'';pages();
@@ -311,7 +319,7 @@ var Tools=(function(){
   function tick(){
     if(t0===null)return;var m=(Date.now()-t0)/60000,cur=null;document.getElementById('clk').textContent=mmss(m*60);
     steps.forEach(function(st){var on=m>=+st.dataset.s&&m<+st.dataset.e;st.classList.toggle('clocknow',on);if(on&&!cur)cur=st;});
-    document.getElementById('clkTxt').textContent=m<2?'0–2분: 반 · 모둠 고르기 · 질문하는 AI 담당 정하기':cur?('지금 '+[].map.call(steps.filter(function(x){return x.classList.contains('clocknow');}),function(x){return x.querySelector('.num').textContent+'단계';}).join(' · ')):(m>=40?'40분~: 밀린 단계 마저 하기':'');
+    document.getElementById('clkTxt').textContent=m<2?'0–2분: 반 · 모둠 고르기 · 역할 🅰🅱🅲🅳 나누기':cur?('지금 '+[].map.call(steps.filter(function(x){return x.classList.contains('clocknow');}),function(x){return x.querySelector('.num').textContent+'단계';}).join(' · ')):(m>=40?'40분~: 밀린 단계 마저 하기':'');
   }
   function showT(){var v=mmss(left),a=document.getElementById('tmr'),b=document.getElementById('bigNum');a.textContent=v;b.textContent=v;
     a.classList.toggle('tmr-end',left<=0);b.classList.toggle('tmr-end',left<=0);document.getElementById('tpBtn').textContent=run?'❚❚':'▶';}
