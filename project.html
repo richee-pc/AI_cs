@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 프로젝트 오늘 순서</title>
+<style>
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--yellow:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE;--pbg:#F1ECFB;--purple:#6B4FC8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--pbg:#2A2440}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--pbg:#2A2440}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
+.wrap{max-width:880px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:27px;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--ink2);margin:0 0 14px;font-size:15.5px}
+.pick{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pick select{font:inherit;font-weight:700;padding:6px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.pick .note{font-size:14.5px;color:var(--ink2)}
+.ltabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 6px}
+.ltabs.s{margin-bottom:14px}
+.lt{font:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 10px;cursor:pointer;color:var(--ink);min-width:0}
+.lt b{display:block;font-size:14.5px}.lt span{display:block;font-size:12.5px;color:var(--ink2)}
+.lt.today{border-color:var(--yellow)}.lt.today span{color:var(--yellow);font-weight:700}
+.lt.on{border-color:var(--blue);background:var(--bbg)}
+.grp{font-size:13px;font-weight:700;color:var(--ink2);margin:6px 0 4px}
+.top{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
+.top a{display:block;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--ink);text-decoration:none;font-size:15.5px}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:0 0 14px}
+.clock{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:4px;min-width:0;align-content:start}
+.clock .label{font-size:13px;font-weight:700;color:var(--ink2)}
+.clock b{font-size:28px;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.clock #clkTxt{font-size:14px;color:var(--ink2)}
+.tbtn{display:flex;flex-wrap:wrap;gap:6px}
+.tbtn button,.go{font:inherit;font-size:14.5px;font-weight:700;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:5px 11px;cursor:pointer;text-decoration:none}
+.go{background:var(--bbg);border-color:transparent;display:inline-block}
+.golist{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.lhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;border-bottom:3px solid var(--ink);padding-bottom:6px;margin:4px 0 10px}
+.lhead h2{margin:0;font-size:22px}.plat{font-size:14px;font-weight:700;color:var(--purple);background:var(--pbg);border-radius:99px;padding:2px 10px}
+.prog{position:sticky;top:0;z-index:3;background:var(--bg);padding:6px 0 10px;margin:0 0 4px}
+.prog .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog .track i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.prog p{margin:4px 0 0;font-size:14.5px;color:var(--ink2)}
+.step{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:15px 17px 13px;margin:0 0 14px}
+.step.now{border-color:var(--blue);box-shadow:0 0 0 4px var(--bbg)}
+.step.done{opacity:.55}
+.step.clocknow{border-color:var(--yellow);box-shadow:0 0 0 4px var(--ybg)}.step.clocknow .time{background:var(--yellow);color:var(--card)}
+.head{display:flex;gap:12px;align-items:flex-start}
+.num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--card);font-weight:700;display:grid;place-items:center}
+.step.done .num{background:var(--green)}
+.head h3{margin:0;font-size:18.5px;line-height:1.4;flex:1}
+.time{flex:none;font-size:13.5px;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--ybg);color:var(--yellow)}
+.who{display:inline-block;font-size:13.5px;font-weight:700;border-radius:99px;padding:1px 9px;margin:6px 6px 0 0}
+.w-me{background:var(--gbg);color:var(--green)}.w-team{background:var(--bbg);color:var(--blue)}.w-one{background:var(--rbg);color:var(--red)}.w-all{background:var(--pbg);color:var(--purple)}
+.step p{margin:6px 0;color:var(--ink2)}.step ol{margin:6px 0;padding-left:22px;color:var(--ink2)}
+.step code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(--bg);border-radius:6px;padding:0 4px}
+.step img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);margin:10px 0 2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.warn{background:var(--rbg);border-left:5px solid var(--red);border-radius:12px;padding:9px 13px;margin:8px 0 2px;font-size:15.5px}
+.tip{background:var(--bbg);border-left:5px solid var(--blue);border-radius:12px;padding:9px 13px;margin:8px 0 2px;font-size:15.5px}
+.chk{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:700;cursor:pointer;width:max-content;max-width:100%}
+.chk input{width:22px;height:22px;accent-color:var(--green)}
+.pcard{background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:9px 13px;margin:10px 0 2px}
+.pcard summary{cursor:pointer;font-size:15.5px}.pcard summary small{color:var(--ink2);font-size:13px}
+.plt{font-size:12.5px;font-weight:800;padding:1px 9px;border-radius:99px}.plt-y{background:var(--ybg);color:var(--yellow)}.plt-g{background:var(--gbg);color:var(--green)}
+.pr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.pr .pn{grid-column:1/3;font-size:13px;font-weight:800;color:var(--blue)}.pr .pt{margin:0;color:var(--ink);font-size:15.5px;line-height:1.6}
+.pr mark{background:var(--ybg);color:var(--yellow);border-radius:4px;padding:0 2px}
+.cpb{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--blue);cursor:pointer;white-space:nowrap}
+.eg{display:block;font-size:13.5px;color:var(--ink2);margin-top:6px}
+a{color:var(--blue)}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
+@media (max-width:600px){h1{font-size:22px}.ltabs{grid-template-columns:repeat(2,1fr)}.pair{grid-template-columns:1fr}}
+@media print{.pick,.tools,.prog,.chk,.ltabs,.grp{display:none!important}body{background:#fff}.step{opacity:1!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>인공지능 프로젝트 — 오늘은 이 순서대로</h1>
+<p class="sub">이 쪽 하나만 켜 두면 돼요. 반을 고르면 <b>오늘 차시</b>가 열리고, 단계마다 <b>할 일 · 프롬프트 · 실제 화면 · 바로 가기</b>가 함께 있어요. 끝낸 단계는 «했어요»에 체크.</p>
+
+<div class="pick"><b>우리 반</b>
+ <select id="cls" aria-label="반"><option value="">반</option><option>A</option><option>D</option><option>E</option></select>
+ <span class="note" id="note">반을 고르면 오늘 차시가 노란 테두리로 보여요.</span></div>
+
+<div class="grp">인공지능 프로젝트</div>
+<div class="ltabs" id="tabsP"></div>
+<div class="grp">수행평가 ② — 마지막 차시는 발표</div>
+<div class="ltabs s" id="tabsS"></div>
+<div hidden id="tabsAll"><button type="button" class="lt" data-k="P1"><b>프로젝트 ①</b><span data-d="P1"></span></button><button type="button" class="lt" data-k="P2"><b>프로젝트 ②</b><span data-d="P2"></span></button><button type="button" class="lt" data-k="P3"><b>프로젝트 ③</b><span data-d="P3"></span></button><button type="button" class="lt" data-k="P4"><b>프로젝트 ④</b><span data-d="P4"></span></button><button type="button" class="lt" data-k="S1"><b>수행평가 ② · 1</b><span data-d="S1"></span></button><button type="button" class="lt" data-k="S2"><b>수행평가 ② · 2</b><span data-d="S2"></span></button><button type="button" class="lt" data-k="S3"><b>수행평가 ② · 3</b><span data-d="S3"></span></button><button type="button" class="lt" data-k="S4"><b>수행평가 ② · 4</b><span data-d="S4"></span></button></div>
+
+<div class="top"><a href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener"><b>🔑 내 계정 · 활동지</b></a><a href="https://aidbpl-student.web.app/" target="_blank" rel="noopener"><b>🤖 AI 탐구 교실</b></a><a href="aitour.html" target="_blank" rel="noopener"><b>📘 길잡이(화면으로)</b></a></div>
+
+<div class="tools">
+ <div class="clock"><span class="label">수업 시계</span><b id="clk">--:--</b><span id="clkTxt">«수업 시작»을 누르면 지금 할 단계에 노란 불이 들어와요</span>
+  <div class="tbtn"><button type="button" id="cStart">▶ 수업 시작</button><button type="button" id="cStop">■ 시계 끄기</button></div></div>
+ <div class="clock"><span class="label">타이머</span><b id="tmr">01:00</b>
+  <div class="tbtn"><button type="button" data-t="60">1분</button><button type="button" data-t="120">2분</button><button type="button" data-t="300">5분</button><button type="button" id="tPause">❚❚</button></div></div>
+</div>
+
+<section class="les" id="L-P1" data-key="P1" hidden>
+<div class="lhead"><h2>프로젝트 ① · 주제 정하기 · 데이터 찾기</h2><span class="plat">«지금 차례» 1 → 31분에 2</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 7 단계</p></div>
+<div class="step" data-s="0" data-e="3"><div class="head"><span class="num">1</span><h3>시작 — «인공지능» 수업 · AI 모둠 슬라이드 열기</h3><span class="time">0–3분</span></div><span class="who w-me">👤 모두 각자</span><p>AI 탐구 교실 → 수업 두 개 가운데 <b>«인공지능»</b>. 🔑 내 계정에서 <b>🤖 AI 활동지</b>를 열어 둬요. 약속: AI는 플랫폼에서만, 판단은 우리가.</p><div class="golist"><a class="go" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 내 계정 · 활동지</a><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="3" data-e="11"><div class="head"><span class="num">2</span><h3>👤 나의 관심사와 문제 — AI 없이</h3><span class="time">3–11분</span></div><span class="who w-me">👤 모두 각자</span><p>내 이름 장 네 칸: <b>SDG 세부 목표 번호 · 사용자 · 문제 · 예상 데이터와 출처</b>, 그리고 «기계학습으로 풀 수 있나».</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="11" data-e="21"><div class="head"><span class="num">3</span><h3>👥 주제 정하기 AI — 모둠장이 네 사람 생각을 모두</h3><span class="time">11–21분</span></div><span class="who w-one">👑 모둠장</span><p>«주제 정하기 AI» → <b>«모둠 입력»</b> 탭 → 이름마다 관심사 · 발견한 문제(8칸) → <b>모아서 AI에게 보내기</b>. AI가 준 조합마다 <b>채택 · 수정 · 거절과 이유</b>를 활동지에. 답했으면 <b>«다음 단계 →»</b>.</p><div class="warn"><b>이름 칸이 안 보이면</b> → <b>Ctrl + −</b> 두세 번(화면 80 % 이하) · 창 최대화</div><p>주제가 정해지면 7쪽 «내 안은 어떻게 됐나»에 각자 이름과 한 줄.</p><details class="pcard"><summary><b>💬 프롬프트 카드</b> 주제 정하기 AI <span class="plt plt-y">노랑</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">조합 고르기</span><p class="pt">조합 <mark>[번호]</mark>로 할게요. <mark>[누구]</mark>의 <mark>[관심사]</mark>와 <mark>[누구]</mark>의 <mark>[발견한 문제]</mark>가 이어지기 때문이에요. 다만 <mark>[바꾸고 싶은 점]</mark>은 바꾸고 싶어요.</p><button type="button" class="cpb" data-t="조합 [번호]로 할게요. [누구]의 [관심사]와 [누구]의 [발견한 문제]가 이어지기 때문이에요. 다만 [바꾸고 싶은 점]은 바꾸고 싶어요.">복사</button></div><div class="pr"><span class="pn">조합 거절하기</span><p class="pt">조합 <mark>[번호]</mark>는 거절할게요. <mark>[데이터를 구하기 어려워서 / 오렌지3로 만들기 어려워서 / 개인정보가 필요해서]</mark>예요.</p><button type="button" class="cpb" data-t="조합 [번호]는 거절할게요. [데이터를 구하기 어려워서 / 오렌지3로 만들기 어려워서 / 개인정보가 필요해서]예요.">복사</button></div><div class="pr"><span class="pn">범위 답하기</span><p class="pt">우리는 오렌지3로 <mark>[데이터 이름]</mark>(<mark>[행 수]</mark>행쯤)을 써서 <mark>[정답 열]</mark>을 <mark>[분류 / 예측]</mark>해요. 네 차시 안에 <mark>[만들 것]</mark>까지 만들 거예요.</p><button type="button" class="cpb" data-t="우리는 오렌지3로 [데이터 이름]([행 수]행쯤)을 써서 [정답 열]을 [분류 / 예측]해요. 네 차시 안에 [만들 것]까지 만들 거예요.">복사</button></div><div class="pr"><span class="pn">입력 → 처리 → 출력 확인</span><p class="pt">입력은 <mark>[열 이름들]</mark>, 처리는 <mark>[분류 / 예측 / 군집]</mark> 모델, 출력은 <mark>[사용자가 보는 결과]</mark>예요. 이 셋에서 빠진 것이 있는지 질문해 주세요.</p><button type="button" class="cpb" data-t="입력은 [열 이름들], 처리는 [분류 / 예측 / 군집] 모델, 출력은 [사용자가 보는 결과]예요. 이 셋에서 빠진 것이 있는지 질문해 주세요.">복사</button></div><span class="eg">✗ 쓰지 않기: «주제 만들어 줘» · «알아서 정해 줘»</span></details><div class="pair"><img src="img/pj/cc3otn.jpg" alt="모둠 입력 탭에 네 사람 칸을 채운 화면" loading="lazy"><img src="img/pj/kpjm3r.jpg" alt="화면이 낮아 이름 칸이 안 보이는 모습 — Ctrl − 로 줄이기" loading="lazy"></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="21" data-e="28"><div class="head"><span class="num">4</span><h3>주제 정의서 → 선생님 ✓</h3><span class="time">21–28분</span></div><span class="who w-team">👥 모둠</span><p>주제 · 해결할 문제 · 입력 → 처리 → 출력. 확인 기준 넷 — <b>오렌지3로 만들 수 있나 · 학습 유형이 분명한가 · 데이터를 구할 수 있나 · 개인정보 없이 되나</b>. 손 들면 선생님이 ✓.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="28" data-e="31"><div class="head"><span class="num">5</span><h3>학습 유형과 정답 열</h3><span class="time">28–31분</span></div><span class="who w-team">👥 모둠</span><p>«왜 이 기계학습인가» 장 <b>맨 위 칸만</b> — 분류 / 예측 / 군집 + 맞힐 <b>정답 열 이름</b>. 이름이면 분류, 숫자면 예측, 정답이 없으면 군집.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="31" data-e="46"><div class="head"><span class="num">6</span><h3>데이터 찾기 1라운드 — 모둠원마다 하나씩</h3><span class="time">31–46분</span></div><span class="who w-team">👥 모둠</span><p>내 장의 «예상 데이터»를 하나씩 맡아 원래 누리집에서 <b>CSV</b> 내려받기 → 📁 작업 폴더 › 🤖 <b>«AI 데이터 · 오렌지3 파일»</b> → 체크리스트 위쪽(이름 · 기관 · 연도 · 주소 · 이용 조건).</p><div class="warn"><b>통계표 조심</b> — 연도별 · 지역별 평균 표는 행이 몇 개뿐이라 학습이 안 돼요. <b>한 행 = 한 사람(대상) · 수백 행</b>.</div><details class="pcard"><summary><b>💬 프롬프트 카드</b> 자료 찾기 AI <span class="plt plt-g">초록</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">원자료 찾기</span><p class="pt"><mark>[주제]</mark>로 <mark>[분류 / 예측]</mark> 모델을 만들려고 해. 한 행이 한 <mark>[사람 / 학교 / 날짜]</mark>이고 <mark>[정답 열]</mark> 열이 들어 있는 CSV(수백 행 이상)를 내려받을 수 있는 곳을 알려 줘. 연도별 평균 같은 통계표 말고.</p><button type="button" class="cpb" data-t="[주제]로 [분류 / 예측] 모델을 만들려고 해. 한 행이 한 [사람 / 학교 / 날짜]이고 [정답 열] 열이 들어 있는 CSV(수백 행 이상)를 내려받을 수 있는 곳을 알려 줘. 연도별 평균 같은 통계표 말고.">복사</button></div><div class="pr"><span class="pn">검색어 받기</span><p class="pt"><mark>[주제]</mark> 데이터를 공공데이터포털과 캐글에서 찾을 검색어를 한국어 3개, 영어 3개 알려 줘.</p><button type="button" class="cpb" data-t="[주제] 데이터를 공공데이터포털과 캐글에서 찾을 검색어를 한국어 3개, 영어 3개 알려 줘.">복사</button></div><div class="pr"><span class="pn">열 점검 기준</span><p class="pt">찾은 데이터 <mark>[데이터 이름]</mark>의 열은 <mark>[열 목록]</mark>이야. 정답 열로 쓸 수 있는 열과 개인정보라서 빼야 할 열을 어떻게 구분하는지 기준을 알려 줘.</p><button type="button" class="cpb" data-t="찾은 데이터 [데이터 이름]의 열은 [열 목록]이야. 정답 열로 쓸 수 있는 열과 개인정보라서 빼야 할 열을 어떻게 구분하는지 기준을 알려 줘.">복사</button></div><div class="pr"><span class="pn">개념 묻기</span><p class="pt"><mark>[기준선 / 재현율 / 과적합]</mark>을 고등학생 눈높이로, <mark>[우리 주제]</mark> 예시를 넣어 설명해 줘.</p><button type="button" class="cpb" data-t="[기준선 / 재현율 / 과적합]을 고등학생 눈높이로, [우리 주제] 예시를 넣어 설명해 줘.">복사</button></div><span class="eg">✗ 쓰지 않기: «데이터 만들어 줘» · «숫자 알려 줘»</span></details><img src="img/pj/ylskv2.jpg" alt="자료 찾기 AI가 출처와 검색어를 알려 준 화면" loading="lazy"><div class="golist"><a class="go" href="datasites.html#sites" target="_blank" rel="noopener">🔎 데이터 찾는 곳</a><a class="go" href="datasites.html#school" target="_blank" rel="noopener">🏫 학교 데이터셋</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="46" data-e="50"><div class="head"><span class="num">7</span><h3>🚦 데이터 신호등 · AI 사용 기록</h3><span class="time">46–50분</span></div><span class="who w-all">🙌 다 같이</span><p>체크리스트 제목 옆에 <b>🟢 파일 + 정답 열 · 🟡 후보만(다음 시간 13분까지) · 🔴 없음 → 학교 데이터셋</b>. «AI 사용 기록» 한 줄씩. <b>숙제</b>: 내 장 «개념 정리».</p><div class="golist"><a class="go" href="datasites.html#school" target="_blank" rel="noopener">🏫 학교 데이터셋</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-P2" data-key="P2" hidden>
+<div class="lhead"><h2>프로젝트 ② · 데이터 다듬기 · 계획 · 1차 모델</h2><span class="plat">«지금 차례» 2 → 45분에 4 · 오늘은 AI 없이</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 6 단계</p></div>
+<div class="step" data-s="0" data-e="3"><div class="head"><span class="num">1</span><h3>오렌지3 켜기 · 🚦 다시 확인</h3><span class="time">0–3분</span></div><span class="who w-all">🙌 다 같이</span><p>오렌지3가 안 켜지면 모둠원 노트북으로 함께. 🔴 모둠은 지금 학교 데이터셋을 받아요.</p><div class="golist"><a class="go" href="datasites.html#school" target="_blank" rel="noopener">🏫 학교 데이터셋</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="3" data-e="13"><div class="head"><span class="num">2</span><h3>데이터 수집 마무리 · ⏰ 13분 규칙</h3><span class="time">3–13분</span></div><span class="who w-team">👥 모둠</span><p>🟡 모둠은 13분까지 파일 구하기 — <b>13분에 오렌지3에서 안 열리면 학교 데이터셋</b>. 🟢 모둠은 바로 <b>File → Data Table</b>로 보기: 머리글 한 줄 · 합계 · 단위 행 없음 · 한 행 = 한 대상.</p><div class="warn">표가 가로로 김(연도가 열) → 시트에서 행 · 열 바꾸기 · 한글 깨짐 → CSV(UTF-8)로 다시 저장</div><details class="pcard"><summary><b>💬 프롬프트 카드</b> 자료 찾기 AI <span class="plt plt-g">초록</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">원자료 찾기</span><p class="pt"><mark>[주제]</mark>로 <mark>[분류 / 예측]</mark> 모델을 만들려고 해. 한 행이 한 <mark>[사람 / 학교 / 날짜]</mark>이고 <mark>[정답 열]</mark> 열이 들어 있는 CSV(수백 행 이상)를 내려받을 수 있는 곳을 알려 줘. 연도별 평균 같은 통계표 말고.</p><button type="button" class="cpb" data-t="[주제]로 [분류 / 예측] 모델을 만들려고 해. 한 행이 한 [사람 / 학교 / 날짜]이고 [정답 열] 열이 들어 있는 CSV(수백 행 이상)를 내려받을 수 있는 곳을 알려 줘. 연도별 평균 같은 통계표 말고.">복사</button></div><div class="pr"><span class="pn">검색어 받기</span><p class="pt"><mark>[주제]</mark> 데이터를 공공데이터포털과 캐글에서 찾을 검색어를 한국어 3개, 영어 3개 알려 줘.</p><button type="button" class="cpb" data-t="[주제] 데이터를 공공데이터포털과 캐글에서 찾을 검색어를 한국어 3개, 영어 3개 알려 줘.">복사</button></div><div class="pr"><span class="pn">열 점검 기준</span><p class="pt">찾은 데이터 <mark>[데이터 이름]</mark>의 열은 <mark>[열 목록]</mark>이야. 정답 열로 쓸 수 있는 열과 개인정보라서 빼야 할 열을 어떻게 구분하는지 기준을 알려 줘.</p><button type="button" class="cpb" data-t="찾은 데이터 [데이터 이름]의 열은 [열 목록]이야. 정답 열로 쓸 수 있는 열과 개인정보라서 빼야 할 열을 어떻게 구분하는지 기준을 알려 줘.">복사</button></div><div class="pr"><span class="pn">개념 묻기</span><p class="pt"><mark>[기준선 / 재현율 / 과적합]</mark>을 고등학생 눈높이로, <mark>[우리 주제]</mark> 예시를 넣어 설명해 줘.</p><button type="button" class="cpb" data-t="[기준선 / 재현율 / 과적합]을 고등학생 눈높이로, [우리 주제] 예시를 넣어 설명해 줘.">복사</button></div><span class="eg">✗ 쓰지 않기: «데이터 만들어 줘» · «숫자 알려 줘»</span></details><div class="golist"><a class="go" href="datasites.html#school" target="_blank" rel="noopener">🏫 학교 데이터셋</a><a class="go" href="datasites.html#sites" target="_blank" rel="noopener">🔎 데이터 찾는 곳</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="13" data-e="28"><div class="head"><span class="num">3</span><h3>🧹 전처리 다섯 걸음 — 오렌지3 안에서</h3><span class="time">13–28분</span></div><span class="who w-team">👥 모둠</span><ol><li><b>보기</b> — File · Data Table</li><li><b>열 고르기</b> — Select Columns: 개인정보 · 쓸모없는 열 빼기, 정답 열은 <b>Target</b></li><li><b>결측</b> — Feature Statistics로 빈칸 찾기 → Impute로 채우기 또는 Select Rows로 지우기</li><li><b>이상값</b> — 튀는 값이 진짜인지 실수인지 판단</li><li><b>저장</b> — Save Data로 «전처리.csv» → 🤖 폴더</li></ol><p>무엇을 왜 했는지 체크리스트 «X면 보완» 칸에 한 줄.</p><div class="golist"><a class="go" href="labs.html#orange" target="_blank" rel="noopener">🍊 오렌지3 따라 하기</a><a class="go" href="aitour.html" target="_blank" rel="noopener">📘 길잡이(화면으로)</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="28" data-e="33"><div class="head"><span class="num">4</span><h3>계획서 ✓ — 성공 기준은 기준선보다 높게</h3><span class="time">28–33분</span></div><span class="who w-team">👥 모둠</span><p>쓸 열 · 훈련 : 테스트 · <b>성공 기준(지표 + 목표 숫자 + 기준선)</b> · 역할표 «맡은 위젯». 기준선 = 전부 가장 많은 답이라고 찍었을 때 점수(예: 240 ÷ 500 = 0.48).</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="33" data-e="45"><div class="head"><span class="num">5</span><h3>🍊 1차 모델 — 완성 워크플로에서 File만 바꾸기</h3><span class="time">33–45분</span></div><span class="who w-team">👥 모둠</span><p>우리 학습 유형의 .ows를 열고 <b>맨 앞 File만</b> 전처리 파일로 → <b>테스트 데이터</b>로 잰 점수가 1차 점수(Test on train data 아님). 워크플로 · Test and Score 캡처 → «오렌지3 프로토타입» 장, «평가지표 분석» 1차 칸에 숫자.</p><div class="golist"><a class="go" href="datasites.html#workflows" target="_blank" rel="noopener">🍊 완성 워크플로(.ows)</a><a class="go" href="labs.html#orange" target="_blank" rel="noopener">🍊 오렌지3 따라 하기</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="45" data-e="50"><div class="head"><span class="num">6</span><h3>1차 자기 · 동료평가</h3><span class="time">45–50분</span></div><span class="who w-me">👤 모두 각자</span><p>«고치고 다듬기» 단계가 열리면 홈의 <b>1차 평가하기</b> — 점수 모두 + «필요한 점»(필수). «AI 사용 기록»에는 «오늘 AI 안 씀».</p><img src="img/pj/4g5tgr.jpg" alt="1차 자기 · 동료평가 화면" loading="lazy"><div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-P3" data-key="P3" hidden>
+<div class="lhead"><h2>프로젝트 ③ · 평가 해석 · AI 반문 · 개선 · 발표 준비</h2><span class="plat">«지금 차례» 4 → 37분에 5</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 9 단계</p></div>
+<div class="step" data-s="0" data-e="3"><div class="head"><span class="num">1</span><h3>🏆 개선 리더보드 — 1차 점수 칠판에</h3><span class="time">0–3분</span></div><span class="who w-all">🙌 다 같이</span><p>오늘 경쟁은 <b>1차에서 얼마나 좋아졌나(%)</b>. 이유 없는 점수는 순위에서 빠져요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="3" data-e="9"><div class="head"><span class="num">2</span><h3>평가지표 분석 1차</h3><span class="time">3–9분</span></div><span class="who w-team">👥 모둠</span><p>«평가지표 분석» 1차 칸 — <b>점수 · 기준선 · 혼동행렬에서 가장 많이 틀린 곳</b> · 성공 기준을 넘었나. 이게 질문하는 AI에 넣을 재료예요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="9" data-e="12"><div class="head"><span class="num">3</span><h3>질문하는 AI — 활동지 PDF 올리기</h3><span class="time">9–12분</span></div><span class="who w-team">👥 모둠</span><p>활동지 <b>파일 → 다운로드 → PDF</b> → 왼쪽에 끌어 놓기 → 오른쪽 칸에 모델 설명 세 문장 → <b>AI에게 질문 받기</b>. 질문은 2회차까지.</p><div class="warn">«활동지를 PDF로 올리거나…» 알림 → PDF를 안 올림 · 1차 평가가 먼저 뜨면 → 2분 안에 내기</div><details class="pcard"><summary><b>💬 프롬프트 카드</b> 질문하는 AI <span class="plt plt-y">노랑</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">오른쪽 칸 — 모델 설명 세 문장</span><p class="pt">우리는 <mark>[데이터 이름, 행 수]</mark>로 <mark>[정답 열]</mark>을 <mark>[분류 / 예측]</mark>하는 모델을 만들었어요. 입력 열은 <mark>[열들]</mark>이고 <mark>[모델 이름]</mark>을 썼어요. 테스트 데이터 <mark>[지표]</mark>는 <mark>[점수]</mark>(기준선 <mark>[숫자]</mark>)이고, 혼동행렬을 보니 실제 <mark>[○○]</mark>를 <mark>[△△]</mark>로 자주 틀려요.</p><button type="button" class="cpb" data-t="우리는 [데이터 이름, 행 수]로 [정답 열]을 [분류 / 예측]하는 모델을 만들었어요. 입력 열은 [열들]이고 [모델 이름]을 썼어요. 테스트 데이터 [지표]는 [점수](기준선 [숫자])이고, 혼동행렬을 보니 실제 [○○]를 [△△]로 자주 틀려요.">복사</button></div><div class="pr"><span class="pn">반문 채택</span><p class="pt"><mark>[몇 번]</mark> 반문을 받아들여요. 오렌지3에서 <mark>[바꾼 것 하나]</mark>를 바꿔 보니 <mark>[지표]</mark>가 <mark>[전]</mark>에서 <mark>[후]</mark>로 바뀌었어요.</p><button type="button" class="cpb" data-t="[몇 번] 반문을 받아들여요. 오렌지3에서 [바꾼 것 하나]를 바꿔 보니 [지표]가 [전]에서 [후]로 바뀌었어요.">복사</button></div><div class="pr"><span class="pn">반문 거절 🎯</span><p class="pt"><mark>[몇 번]</mark> 반문은 거절해요. 우리 데이터는 <mark>[사실]</mark>이라서 맞지 않아요. 근거는 <mark>[숫자 / 화면]</mark>이에요.</p><button type="button" class="cpb" data-t="[몇 번] 반문은 거절해요. 우리 데이터는 [사실]이라서 맞지 않아요. 근거는 [숫자 / 화면]이에요.">복사</button></div><div class="pr"><span class="pn">아직 모르겠을 때</span><p class="pt"><mark>[몇 번]</mark> 반문은 아직 판단을 못 했어요. <mark>[무엇]</mark>을 확인하면 좋을지 질문으로 좁혀 주세요.</p><button type="button" class="cpb" data-t="[몇 번] 반문은 아직 판단을 못 했어요. [무엇]을 확인하면 좋을지 질문으로 좁혀 주세요.">복사</button></div><div class="pr"><span class="pn">2회차 시작</span><p class="pt">1회차 뒤에 <mark>[바꾼 것]</mark>을 바꿔 <mark>[지표]</mark>가 <mark>[전]</mark>에서 <mark>[후]</mark>가 됐어요. 남은 약점은 <mark>[약점]</mark>이에요.</p><button type="button" class="cpb" data-t="1회차 뒤에 [바꾼 것]을 바꿔 [지표]가 [전]에서 [후]가 됐어요. 남은 약점은 [약점]이에요.">복사</button></div><span class="eg">✗ 쓰지 않기: «고쳐 줘» · «정답 알려 줘»</span></details><img src="img/pj/4n1ngp.jpg" alt="질문하는 AI — PDF를 안 올리면 뜨는 알림" loading="lazy"><div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="12" data-e="21"><div class="head"><span class="num">4</span><h3>1회차 — 반문을 오렌지3로 확인하고 판단</h3><span class="time">12–21분</span></div><span class="who w-team">👥 모둠</span><p>반문마다 먼저 오렌지3로 테스트 → <b>채택 · 수정 · 거절</b>과 근거. 🎯 우리 데이터와 맞지 않는 함정 질문은 근거를 대고 거절. 칠판 «지금» 칸 갱신.</p><div class="golist"><a class="go" href="labs.html#orange" target="_blank" rel="noopener">🍊 오렌지3 따라 하기</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="21" data-e="33"><div class="head"><span class="num">5</span><h3>👤 내 개선 실험 — 한 번에 하나만</h3><span class="time">21–33분</span></div><span class="who w-me">👤 모두 각자</span><p>내 줄에 <b>가설 · 조작 · 결과 · 해석</b> + 편향 유형 하나(확증 · 선택 · 역사적 · 생존자). 두 가지를 한꺼번에 바꾸지 않아요. 모둠 «회차별 변경 기록»에 2회차.</p><div class="tip">이 네 칸이 다음 주 수행평가 ② 요소 3과 똑같은 형식이에요.</div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="33" data-e="37"><div class="head"><span class="num">6</span><h3>최종 점수 · 사용 시나리오 한 장면</h3><span class="time">33–37분</span></div><span class="who w-team">👥 모둠</span><p>«평가지표 분석» 최종 칸에 1차 · 최종 · 기준선 나란히, 성공 기준을 넘었나. «사용 시나리오» — 무엇을 넣고, 무엇을 보고, 틀리면 누가 확인하나. <b>36분 리더보드 마감</b>.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="37" data-e="39"><div class="head"><span class="num">7</span><h3>🏆 시상 · 🎯 근거 있는 거절</h3><span class="time">37–39분</span></div><span class="who w-all">🙌 다 같이</span><p>가장 많이 좋아진 모둠 · 가장 설득력 있게 거절한 모둠.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="39" data-e="48"><div class="head"><span class="num">8</span><h3>발표 흐름 2분 → 발표자료 AI</h3><span class="time">39–48분</span></div><span class="who w-team">👥 모둠</span><p>흐름 먼저: 문제 → 왜 이 기계학습 → 성능과 평가지표 → AI 반문으로 고친 과정 → 한계. 그다음 <b>발표자료 AI</b> — 내 이름이 담당인 칸을 <b>저장 → 확인</b>, 모둠장이 <b>승인</b>, 7칸이 다 승인되면 초안. 마지막 장 «출처와 AI 활용» 꼭.</p><details class="pcard"><summary><b>💬 프롬프트 카드</b> 발표자료 AI <span class="plt plt-y">노랑</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">02 · 1차 프로토타입</span><p class="pt">오렌지3 <mark>[File → … → Test and Score]</mark> · 모델 <mark>[이름]</mark> · 1차 <mark>[지표]</mark> <mark>[점수]</mark> (기준선 <mark>[숫자]</mark>)</p><button type="button" class="cpb" data-t="오렌지3 [File → … → Test and Score] · 모델 [이름] · 1차 [지표] [점수] (기준선 [숫자])">복사</button></div><div class="pr"><span class="pn">03 · 문제점</span><p class="pt">혼동행렬에서 실제 <mark>[○○]</mark>를 <mark>[△△]</mark>로 <mark>[몇]</mark>번 틀림 — 까닭은 <mark>[우리 추측]</mark></p><button type="button" class="cpb" data-t="혼동행렬에서 실제 [○○]를 [△△]로 [몇]번 틀림 — 까닭은 [우리 추측]">복사</button></div><div class="pr"><span class="pn">04 · AI 진단 질문</span><p class="pt">질문하는 AI가 «<mark>[반문]</mark>»을 물음 → 우리는 <mark>[채택 / 거절]</mark> · 이유 <mark>[근거]</mark></p><button type="button" class="cpb" data-t="질문하는 AI가 «[반문]»을 물음 → 우리는 [채택 / 거절] · 이유 [근거]">복사</button></div><div class="pr"><span class="pn">06 · 최종 · 윤리 보완</span><p class="pt"><mark>[바꾼 것]</mark> → <mark>[지표]</mark> <mark>[1차]</mark>에서 <mark>[최종]</mark> · 틀리면 <mark>[누가 피해]</mark> → <mark>[보완]</mark></p><button type="button" class="cpb" data-t="[바꾼 것] → [지표] [1차]에서 [최종] · 틀리면 [누가 피해] → [보완]">복사</button></div><span class="eg">✗ 쓰지 않기: 모둠이 쓰지 않은 내용 지어내기</span></details><div class="pair"><img src="img/pj/6pck3o.jpg" alt="발표자료 AI 일곱 칸 개요" loading="lazy"><img src="img/pj/z2gjav.jpg" alt="모둠장 승인 단추" loading="lazy"></div><div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="48" data-e="50"><div class="head"><span class="num">9</span><h3>AI 사용 기록 — 쓴 사람 이름까지</h3><span class="time">48–50분</span></div><span class="who w-all">🙌 다 같이</span><p>이 슬라이드가 그대로 다음 시간 발표 자료. 질문은 누구에게 갈지 몰라요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-P4" data-key="P4" hidden>
+<div class="lhead"><h2>프로젝트 ④ · 발표 · 돌아보기</h2><span class="plat">«지금 차례» 5</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 7 단계</p></div>
+<div class="step" data-s="0" data-e="3"><div class="head"><span class="num">1</span><h3>발표 순서 추첨 · 💰 투자 심사 들어가기</h3><span class="time">0–3분</span></div><span class="who w-all">🙌 다 같이</span><p>발표 2분 + 선생님 질문 1분 30초 · 질문은 누구에게나.</p><div class="golist"><a class="go" href="vote.html?r=P4" target="_blank" rel="noopener">💰 투자 심사</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="3" data-e="7"><div class="head"><span class="num">2</span><h3>발표 자료 최종 점검</h3><span class="time">3–7분</span></div><span class="who w-team">👥 모둠</span><p>발표할 장만 남기고 «슬라이드 건너뛰기» · 마지막 장 출처와 AI 활용 · 발표자료 AI 초안이면 우리가 고친 곳 · 지표 숫자 하나.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="7" data-e="32"><div class="head"><span class="num">3</span><h3>🎤 발표 2분 + 질문 1분 30초 × 7모둠</h3><span class="time">7–32분</span></div><span class="who w-all">🙌 다 같이</span><p>듣는 모둠은 💰 투자 심사 판에 기록. 우리 차례가 아니어도 우리 지표 숫자로 답할 준비.</p><div class="golist"><a class="go" href="vote.html?r=P4" target="_blank" rel="noopener">💰 투자 심사</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="32" data-e="34"><div class="head"><span class="num">4</span><h3>💰 투자 한 표</h3><span class="time">32–34분</span></div><span class="who w-me">👤 모두 각자</span><p>가장 투자하고 싶은 모둠에 한 표.</p><div class="golist"><a class="go" href="vote.html?r=P4" target="_blank" rel="noopener">💰 투자 심사</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="34" data-e="42"><div class="head"><span class="num">5</span><h3>돌아보기 AI — 파일 올리고 «준비됐어요»</h3><span class="time">34–42분</span></div><span class="who w-me">👤 모두 각자</span><p>«파일»로 활동지 PDF → «준비됐어요» → 질문 셋에 <b>내 말로</b>. 성찰은 활동지 맨 뒤 내 칸에.</p><details class="pcard"><summary><b>💬 프롬프트 카드</b> 돌아보기 AI <span class="plt plt-y">노랑</span> <small>눌러서 열기 · [ ]만 바꿔 복사</small></summary><div class="pr"><span class="pn">시작</span><p class="pt">준비됐어요</p><button type="button" class="cpb" data-t="준비됐어요">복사</button></div><div class="pr"><span class="pn">① 목표와 결과</span><p class="pt">처음 성공 기준은 <mark>[기준]</mark>이었는데, 결과는 <mark>[최종 점수]</mark>예요. 달라진 까닭은 <mark>[까닭]</mark>이에요.</p><button type="button" class="cpb" data-t="처음 성공 기준은 [기준]이었는데, 결과는 [최종 점수]예요. 달라진 까닭은 [까닭]이에요.">복사</button></div><div class="pr"><span class="pn">② 중요한 결정</span><p class="pt">가장 중요했던 결정은 <mark>[결정]</mark>이에요. 그때 <mark>[숫자 / 화면]</mark>을 근거로 판단했어요.</p><button type="button" class="cpb" data-t="가장 중요했던 결정은 [결정]이에요. 그때 [숫자 / 화면]을 근거로 판단했어요.">복사</button></div><div class="pr"><span class="pn">③ 나만의 원칙</span><p class="pt">다음 프로젝트에서 나는 <mark>[원칙]</mark>을 지킬 거예요. 이번에 <mark>[겪은 일]</mark>을 겪었기 때문이에요.</p><button type="button" class="cpb" data-t="다음 프로젝트에서 나는 [원칙]을 지킬 거예요. 이번에 [겪은 일]을 겪었기 때문이에요.">복사</button></div><span class="eg">✗ 쓰지 않기: AI 답을 성찰 칸에 붙여 넣기</span></details><img src="img/pj/005mzk.jpg" alt="돌아보기 AI 첫 화면" loading="lazy"><div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="42" data-e="46"><div class="head"><span class="num">6</span><h3>2차 자기 · 동료평가</h3><span class="time">42–46분</span></div><span class="who w-me">👤 모두 각자</span><p>돌아보기를 낸 뒤에 열려요. 안 열리면 돌아보기부터.</p><img src="img/pj/h8n0hi.jpg" alt="2차 평가는 돌아보기 다음에 열려요" loading="lazy"><div class="golist"><a class="go" href="https://aidbpl-student.web.app/" target="_blank" rel="noopener">🤖 AI 탐구 교실</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="46" data-e="50"><div class="head"><span class="num">7</span><h3>AI 사용 기록 · 다음 주 수행평가 ②</h3><span class="time">46–50분</span></div><span class="who w-all">🙌 다 같이</span><p>같은 모델을 내 코랩으로 다시 만들어요. 오렌지3 파일 · 워크플로를 지우지 마세요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-S1" data-key="S1" hidden>
+<div class="lhead"><h2>수행평가 ② · 1 · 코랩 재구현 (요소 2)</h2><span class="plat">AI는 검색 · 요약만</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 5 단계</p></div>
+<div class="step" data-s="0" data-e="10"><div class="head"><span class="num">1</span><h3>📝 2차 사후 검사</h3><span class="time">0–10분</span></div><span class="who w-me">👤 모두 각자</span><p>인공지능 프로젝트를 마치고 — 10분.</p><div class="golist"><a class="go" href="https://forms.gle/LJ7CrHKBUDdF4Eqp6" target="_blank" rel="noopener">📝 2차 사후 검사</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="10" data-e="13"><div class="head"><span class="num">2</span><h3>수행평가 ② 안내 · 노트북 틀 사본 저장</h3><span class="time">10–13분</span></div><span class="who w-me">👤 모두 각자</span><p>코랩 틀 → <b>파일 → 드라이브에 사본 저장</b>(이름: 수행2_모둠번호_이름).</p><div class="warn">코드 · 보고서 문장을 AI가 만든 그대로 내면 그 요소는 최하점이에요.</div><div class="golist"><a class="go" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">▶ 코랩 · 수행평가 ② 틀</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="13" data-e="19"><div class="head"><span class="num">3</span><h3>교과서 예제로 네 단계 훑기</h3><span class="time">13–19분</span></div><span class="who w-all">🙌 다 같이</span><p>불러오기 → 전처리 → 모델 정의 → 학습 · 점수 — 우리 노트북과 같은 순서.</p><div class="golist"><a class="go" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/07_ghi_hunger.ipynb" target="_blank" rel="noopener">📗 교과서 기아 예측 예제</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="19" data-e="47"><div class="head"><span class="num">4</span><h3>내 노트북 — 우리 팀 데이터로 네 단계</h3><span class="time">19–47분</span></div><span class="who w-me">👤 모두 각자</span><p>우리 팀 CSV 올리기 → 빈칸(____) 채우기 → <b>셀마다 <code># [오렌지3] 위젯 이름 · 담당: 이름</code></b>. 막히면 대조표에서 내 위젯 찾기.</p><div class="golist"><a class="go" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">▶ 코랩 · 수행평가 ② 틀</a><a class="go" href="unit4.html#pa2" target="_blank" rel="noopener">🔁 오렌지3 ↔ 코랩 대조표</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="47" data-e="50"><div class="head"><span class="num">5</span><h3>실행 확인 · 공유 링크 제출</h3><span class="time">47–50분</span></div><span class="who w-me">👤 모두 각자</span><p>런타임 → 모두 실행에서 오류 없이 점수까지 나오나 → 공유 링크 제출.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-S2" data-key="S2" hidden>
+<div class="lhead"><h2>수행평가 ② · 2 · 두 모델 비교와 개선 (요소 3)</h2><span class="plat">AI는 검색 · 요약만</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 4 단계</p></div>
+<div class="step" data-s="0" data-e="5"><div class="head"><span class="num">1</span><h3>같은 지표 · 같은 테스트 데이터인가</h3><span class="time">0–5분</span></div><span class="who w-me">👤 모두 각자</span><p>오렌지3와 코랩이 같은 지표, 같은 비율로 나눴는지 확인.</p><div class="golist"><a class="go" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">▶ 코랩 · 수행평가 ② 틀</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="5" data-e="20"><div class="head"><span class="num">2</span><h3>비교표 — 오렌지3 vs 코랩</h3><span class="time">5–20분</span></div><span class="who w-me">👤 모두 각자</span><p>두 수치를 나란히, 차이가 나면 이유 한 줄(나누기가 달라서 · 설정이 달라서 …).</p><div class="golist"><a class="go" href="unit4.html#pa2" target="_blank" rel="noopener">🔁 오렌지3 ↔ 코랩 대조표</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="20" data-e="45"><div class="head"><span class="num">3</span><h3>개선 실험 한 건 — 편향을 지목해서</h3><span class="time">20–45분</span></div><span class="who w-me">👤 모두 각자</span><p>편향 유형 하나 지목 → <b>가설 · 조작 · 결과 · 해석</b>. 프로젝트 ③ «내 개선 실험»을 코랩으로 다시 해도 좋아요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="45" data-e="50"><div class="head"><span class="num">4</span><h3>저장 · 다음 시간 집필 구간 정하기</h3><span class="time">45–50분</span></div><span class="who w-team">👥 모둠</span><p>보고서에서 누가 어느 구간을 쓸지 모둠에서 정해요.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-S3" data-key="S3" hidden>
+<div class="lhead"><h2>수행평가 ② · 3 · 보고서 · 발표자료 + 구술 ①</h2><span class="plat">AI는 검색 · 요약만</span></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 3 단계</p></div>
+<div class="step" data-s="0" data-e="5"><div class="head"><span class="num">1</span><h3>보고서 틀 · 내 집필 구간 · AI 활용 내역 적는 법</h3><span class="time">0–5분</span></div><span class="who w-me">👤 모두 각자</span><p>AI 활용 내역 = 단계 · 신호등 · 요청 내용 · 채택 여부와 이유. 프로젝트 AI 로그를 그대로 쓸 수 있어요.</p><div class="golist"><a class="go" href="unit4.html#pa2" target="_blank" rel="noopener">🔁 오렌지3 ↔ 코랩 대조표</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="5" data-e="40"><div class="head"><span class="num">2</span><h3>보고서 집필 + 발표자료 — 그동안 구술 ①</h3><span class="time">5–40분</span></div><span class="who w-me">👤 모두 각자</span><p>보고서는 <b>수업 시간 안에</b>, 내 구간에 이름. 선생님이 모둠을 돌며 <b>담당 구간 1문항</b> 구술(모둠당 약 5분) — «내가 쓴 구간을 왜 그렇게 했나»를 근거로.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="40" data-e="50"><div class="head"><span class="num">3</span><h3>발표자료 마지막 장 · 발표 순서 추첨</h3><span class="time">40–50분</span></div><span class="who w-team">👥 모둠</span><p>출처 · AI 활용 범위 장 확인.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+<section class="les" id="L-S4" data-key="S4" hidden>
+<div class="lhead"><h2>수행평가 ② · 4 · 모둠 발표 + 구술 ② — 마지막 차시</h2></div>
+<div class="prog"><div class="track"><i></i></div><p>0 / 3 단계</p></div>
+<div class="step" data-s="0" data-e="3"><div class="head"><span class="num">1</span><h3>발표 순서 · 규칙 · 상호평가 방법</h3><span class="time">0–3분</span></div><span class="who w-all">🙌 다 같이</span><p>발표 2분 → 모둠원 한 사람씩 <b>무작위 구술 1문항</b>(약 30초).</p><div class="golist"><a class="go" href="unit4.html#evalSheet" target="_blank" rel="noopener">📋 평가표(209쪽)</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="3" data-e="43"><div class="head"><span class="num">2</span><h3>🎤 7모둠 발표 + 무작위 구술</h3><span class="time">3–43분</span></div><span class="who w-all">🙌 다 같이</span><p>우리 지표 숫자 · 내가 맡은 위젯 · 개선 실험으로 누구든 답할 수 있게.</p><label class="chk"><input type="checkbox"> 했어요</label></div>
+<div class="step" data-s="43" data-e="50"><div class="head"><span class="num">3</span><h3>상호평가 — 평가표 세 영역</h3><span class="time">43–50분</span></div><span class="who w-me">👤 모두 각자</span><p>교과서 209쪽 평가표로 다른 모둠을 근거와 함께.</p><div class="golist"><a class="go" href="unit4.html#evalSheet" target="_blank" rel="noopener">📋 평가표(209쪽)</a></div><label class="chk"><input type="checkbox"> 했어요</label></div>
+</section>
+
+<div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
+</div>
+<script>
+var SCHED={"A": [["10/30", "P1"], ["11/4", "P2"], ["11/5", "P3"], ["11/6", "P4"], ["11/11", "S1"], ["11/12", "S2"], ["11/13", "S3"], ["11/20", "S4"]], "D": [["11/2", "P1"], ["11/3", "P2"], ["11/6", "P3"], ["11/9", "P4"], ["11/10", "S1"], ["11/13", "S2"], ["11/16", "S3"], ["11/17", "S4"]], "E": [["11/2", "P1"], ["11/3", "P2"], ["11/5", "P3"], ["11/9", "P4"], ["11/10", "S1"], ["11/12", "S2"], ["11/16", "S3"], ["11/17", "S4"]]};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+var cls=document.getElementById('cls'),cur=null,t0=null,clkI=null;
+var all=[].slice.call(document.querySelectorAll('#tabsAll .lt'));
+all.forEach(function(b){(b.dataset.k[0]==='P'?tabsP:tabsS).appendChild(b);b.onclick=function(){show(b.dataset.k,true);};});
+function ymd(d){return (d.getMonth()+1)+'/'+d.getDate();}
+function dnum(s){var p=s.split('/');return (+p[0])*100+(+p[1]);}
+function pickToday(){
+  var c=cls.value,list=SCHED[c];if(!list)return null;
+  var t=new Date(),tn=(t.getMonth()+1)*100+t.getDate(),hit=null;
+  for(var i=0;i<list.length;i++){if(dnum(list[i][0])>=tn){hit=list[i];break;}}
+  return hit;
+}
+function marks(){
+  var c=cls.value,list=SCHED[c]||[],h=pickToday(),t=new Date(),tn=(t.getMonth()+1)*100+t.getDate();
+  document.querySelectorAll('[data-d]').forEach(function(s){var r=list.filter(function(x){return x[1]===s.dataset.d;})[0];s.textContent=r?r[0]:'';});
+  all.forEach(function(b){b.classList.toggle('today',!!h&&h[1]===b.dataset.k&&dnum(h[0])===tn);});
+  var n=document.getElementById('note');
+  if(!c){n.textContent='반을 고르면 오늘 차시가 노란 테두리로 보여요.';return;}
+  n.textContent=h?(dnum(h[0])===tn?'오늘('+h[0]+')은 '+document.querySelector('.lt[data-k="'+h[1]+'"] b').textContent+'이에요.':'다음 시간('+h[0]+')은 '+document.querySelector('.lt[data-k="'+h[1]+'"] b').textContent+'이에요.'):'프로젝트와 수행평가가 모두 끝났어요.';
+}
+function show(k,user){
+  cur=k;ls('pjL',k);
+  all.forEach(function(b){b.classList.toggle('on',b.dataset.k===k);});
+  document.querySelectorAll('.les').forEach(function(s){s.hidden=s.dataset.key!==k;});
+  upd();tick();if(user)document.getElementById('L-'+k).scrollIntoView({behavior:'smooth',block:'start'});
+}
+cls.onchange=function(){ls('pjC',cls.value);marks();var h=pickToday();if(h)show(h[1]);};
+function steps(){return [].slice.call(document.querySelectorAll('#L-'+cur+' .step'));}
+function upd(){
+  var st=steps(),n=0,now=false;
+  st.forEach(function(s){var b=s.querySelector('.chk input');s.classList.toggle('done',b.checked);s.classList.remove('now');if(b.checked)n++;else if(!now){s.classList.add('now');now=true;}});
+  var sec=document.getElementById('L-'+cur);sec.querySelector('.prog i').style.width=(n/st.length*100)+'%';
+  sec.querySelector('.prog p').textContent=n+' / '+st.length+' 단계'+(n===st.length?' — 다 했어요! 🎉':'');
+}
+document.querySelectorAll('.les').forEach(function(sec){var k=sec.dataset.key;
+  [].slice.call(sec.querySelectorAll('.step')).forEach(function(s,i,arr){var b=s.querySelector('.chk input');b.checked=ls('pj_'+k+'_'+i)==='1';
+    b.onchange=function(){ls('pj_'+k+'_'+i,b.checked?'1':'0');upd();if(b.checked&&arr[i+1])arr[i+1].scrollIntoView({behavior:'smooth',block:'start'});};});});
+function mmss(x){x=Math.max(0,Math.round(x));return ('0'+Math.floor(x/60)).slice(-2)+':'+('0'+x%60).slice(-2);}
+function tick(){
+  document.querySelectorAll('.step.clocknow').forEach(function(s){s.classList.remove('clocknow');});
+  if(t0===null||!cur)return;var m=(Date.now()-t0)/60000,on=[];document.getElementById('clk').textContent=mmss(m*60);
+  steps().forEach(function(s){if(m>=+s.dataset.s&&m<+s.dataset.e){s.classList.add('clocknow');on.push(s.querySelector('.num').textContent+'. '+s.querySelector('h3').textContent);}});
+  document.getElementById('clkTxt').textContent=on.length?'지금 '+on.join(' · '):(m>=50?'수업 끝 — 수고했어요!':'');
+}
+document.getElementById('cStart').onclick=function(){t0=Date.now();ls('pjT',String(t0));clearInterval(clkI);clkI=setInterval(tick,1000);tick();};
+document.getElementById('cStop').onclick=function(){t0=null;clearInterval(clkI);try{localStorage.removeItem('pjT');}catch(e){}document.getElementById('clk').textContent='--:--';document.getElementById('clkTxt').textContent='«수업 시작»을 누르면 지금 할 단계에 노란 불이 들어와요';tick();};
+(function(){var v=+ls('pjT');if(v&&Date.now()-v<3*3600000){t0=v;clkI=setInterval(tick,1000);}})();
+var left=60,run=false,tI=null;
+function showT(){var a=document.getElementById('tmr');a.textContent=mmss(left);a.style.color=left<=0?'var(--red)':'';document.getElementById('tPause').textContent=run?'❚❚':'▶';}
+function stepT(){if(!run)return;left--;showT();if(left<=0){run=false;clearInterval(tI);try{var ac=new (window.AudioContext||window.webkitAudioContext)(),o=ac.createOscillator();o.frequency.value=880;o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.6);}catch(e){}showT();}}
+document.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){left=+b.dataset.t;run=true;clearInterval(tI);tI=setInterval(stepT,1000);showT();};});
+document.getElementById('tPause').onclick=function(){if(left<=0)return;run=!run;clearInterval(tI);if(run)tI=setInterval(stepT,1000);showT();};
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.cpb');if(!b)return;var t=b.getAttribute('data-t'),o=b.textContent;
+  function ok(){b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);}
+  function no(){try{prompt('복사하세요',t);}catch(x){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var g=getSelection();g.removeAllRanges();g.addRange(r);b.textContent='Ctrl+C 로 복사';}}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,no);else no();});
+cls.value=ls('pjC')||'';marks();
+var q=(location.hash||'').slice(1).toUpperCase(),h=pickToday(),first=q&&document.getElementById('L-'+q)?q:(cls.value&&h?h[1]:(ls('pjL')||'P1'));
+show(document.getElementById('L-'+first)?first:'P1');
+window.addEventListener('hashchange',function(){var k=location.hash.slice(1).toUpperCase();if(document.getElementById('L-'+k))show(k,true);});
+</script>
+</body>
+</html>

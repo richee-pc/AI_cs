@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 프로젝트 오늘 순서</title>
+<style>
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--yellow:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE;--pbg:#F1ECFB;--purple:#6B4FC8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--pbg:#2A2440}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--pbg:#2A2440}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
+.wrap{max-width:880px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:27px;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--ink2);margin:0 0 14px;font-size:15.5px}
+.pick{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pick select{font:inherit;font-weight:700;padding:6px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.pick .note{font-size:14.5px;color:var(--ink2)}
+.ltabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 6px}
+.ltabs.s{margin-bottom:14px}
+.lt{font:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 10px;cursor:pointer;color:var(--ink);min-width:0}
+.lt b{display:block;font-size:14.5px}.lt span{display:block;font-size:12.5px;color:var(--ink2)}
+.lt.today{border-color:var(--yellow)}.lt.today span{color:var(--yellow);font-weight:700}
+.lt.on{border-color:var(--blue);background:var(--bbg)}
+.grp{font-size:13px;font-weight:700;color:var(--ink2);margin:6px 0 4px}
+.top{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
+.top a{display:block;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--ink);text-decoration:none;font-size:15.5px}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:0 0 14px}
+.clock{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:4px;min-width:0;align-content:start}
+.clock .label{font-size:13px;font-weight:700;color:var(--ink2)}
+.clock b{font-size:28px;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.clock #clkTxt{font-size:14px;color:var(--ink2)}
+.tbtn{display:flex;flex-wrap:wrap;gap:6px}
+.tbtn button,.go{font:inherit;font-size:14.5px;font-weight:700;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:5px 11px;cursor:pointer;text-decoration:none}
+.go{background:var(--bbg);border-color:transparent;display:inline-block}
+.golist{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.lhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;border-bottom:3px solid var(--ink);padding-bottom:6px;margin:4px 0 10px}
+.lhead h2{margin:0;font-size:22px}.plat{font-size:14px;font-weight:700;color:var(--purple);background:var(--pbg);border-radius:99px;padding:2px 10px}
+.prog{position:sticky;top:0;z-index:3;background:var(--bg);padding:6px 0 10px;margin:0 0 4px}
+.prog .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog .track i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.prog p{margin:4px 0 0;font-size:14.5px;color:var(--ink2)}
+.step{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:15px 17px 13px;margin:0 0 14px}
+.step.now{border-color:var(--blue);box-shadow:0 0 0 4px var(--bbg)}
+.step.done{opacity:.55}
+.step.clocknow{border-color:var(--yellow);box-shadow:0 0 0 4px var(--ybg)}.step.clocknow .time{background:var(--yellow);color:var(--card)}
+.head{display:flex;gap:12px;align-items:flex-start}
+.num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--card);font-weight:700;display:grid;place-items:center}
+.step.done .num{background:var(--green)}
+.head h3{margin:0;font-size:18.5px;line-height:1.4;flex:1}
+.time{flex:none;font-size:13.5px;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--ybg);color:var(--yellow)}
+.who{display:inline-block;font-size:13.5px;font-weight:700;border-radius:99px;padding:1px 9px;margin:6px 6px 0 0}
+.w-me{background:var(--gbg);color:var(--green)}.w-team{background:var(--bbg);color:var(--blue)}.w-one{background:var(--rbg);color:var(--red)}.w-all{background:var(--pbg);color:var(--purple)}
+.step p{margin:6px 0;color:var(--ink2)}.step ol{margin:6px 0;padding-left:22px;color:var(--ink2)}
+.step code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(--bg);border-radius:6px;padding:0 4px}
+.step img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);margin:10px 0 2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.warn{background:var(--rbg);border-left:5px solid var(--red);border-radius:12px;padding:9px 13px;margin:8px 0 2px;font-size:15.5px}
+.tip{background:var(--bbg);border-left:5px solid var(--blue);border-radius:12px;padding:9px 13px;margin:8px 0 2px;font-size:15.5px}
+.chk{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:700;cursor:pointer;width:max-content;max-width:100%}
+.chk input{width:22px;height:22px;accent-color:var(--green)}
+.pcard{background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:9px 13px;margin:10px 0 2px}
+.pcard summary{cursor:pointer;font-size:15.5px}.pcard summary small{color:var(--ink2);font-size:13px}
+.plt{font-size:12.5px;font-weight:800;padding:1px 9px;border-radius:99px}.plt-y{background:var(--ybg);color:var(--yellow)}.plt-g{background:var(--gbg);color:var(--green)}
+.pr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.pr .pn{grid-column:1/3;font-size:13px;font-weight:800;color:var(--blue)}.pr .pt{margin:0;color:var(--ink);font-size:15.5px;line-height:1.6}
+.pr mark{background:var(--ybg);color:var(--yellow);border-radius:4px;padding:0 2px}
+.cpb{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--blue);cursor:pointer;white-space:nowrap}
+.eg{display:block;font-size:13.5px;color:var(--ink2);margin-top:6px}
+a{color:var(--blue)}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
+@media (max-width:600px){h1{font-size:22px}.ltabs{grid-template-columns:repeat(2,1fr)}.pair{grid-template-columns:1fr}}
+@media print{.pick,.tools,.prog,.chk,.ltabs,.grp{display:none!important}body{background:#fff}.step{opacity:1!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>인공지능 프로젝트 — 오늘은 이 순서대로</h1>
+<p class="sub">이 쪽 하나만 켜 두면 돼요. 반을 고르면 <b>오늘 차시</b>가 열리고, 단계마다 <b>할 일 · 프롬프트 · 실제 화면 · 바로 가기</b>가 함께 있어요. 끝낸 단계는 «했어요»에 체크.</p>
+
+<div class="pick"><b>우리 반</b>
+ <select id="cls" aria-label="반"><option value="">반</option><option>A</option><option>D</option><option>E</option></select>
+ <span class="note" id="note">반을 고르면 오늘 차시가 노란 테두리로 보여요.</span></div>
+
+<div class="grp">인공지능 프로젝트</div>
+<div class="ltabs" id="tabsP"></div>
+<div class="grp">수행평가 ② — 마지막 차시는 발표</div>
+<div class="ltabs s" id="tabsS"></div>
+<div hidden id="tabsAll"><!--TABS--></div>
+
+<div class="top"><!--TOP--></div>
+
+<div class="tools">
+ <div class="clock"><span class="label">수업 시계</span><b id="clk">--:--</b><span id="clkTxt">«수업 시작»을 누르면 지금 할 단계에 노란 불이 들어와요</span>
+  <div class="tbtn"><button type="button" id="cStart">▶ 수업 시작</button><button type="button" id="cStop">■ 시계 끄기</button></div></div>
+ <div class="clock"><span class="label">타이머</span><b id="tmr">01:00</b>
+  <div class="tbtn"><button type="button" data-t="60">1분</button><button type="button" data-t="120">2분</button><button type="button" data-t="300">5분</button><button type="button" id="tPause">❚❚</button></div></div>
+</div>
+
+<!--LESSONS-->
+
+<div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
+</div>
+<script>
+var SCHED=/*SCHED*/;
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+var cls=document.getElementById('cls'),cur=null,t0=null,clkI=null;
+var all=[].slice.call(document.querySelectorAll('#tabsAll .lt'));
+all.forEach(function(b){(b.dataset.k[0]==='P'?tabsP:tabsS).appendChild(b);b.onclick=function(){show(b.dataset.k,true);};});
+function ymd(d){return (d.getMonth()+1)+'/'+d.getDate();}
+function dnum(s){var p=s.split('/');return (+p[0])*100+(+p[1]);}
+function pickToday(){
+  var c=cls.value,list=SCHED[c];if(!list)return null;
+  var t=new Date(),tn=(t.getMonth()+1)*100+t.getDate(),hit=null;
+  for(var i=0;i<list.length;i++){if(dnum(list[i][0])>=tn){hit=list[i];break;}}
+  return hit;
+}
+function marks(){
+  var c=cls.value,list=SCHED[c]||[],h=pickToday(),t=new Date(),tn=(t.getMonth()+1)*100+t.getDate();
+  document.querySelectorAll('[data-d]').forEach(function(s){var r=list.filter(function(x){return x[1]===s.dataset.d;})[0];s.textContent=r?r[0]:'';});
+  all.forEach(function(b){b.classList.toggle('today',!!h&&h[1]===b.dataset.k&&dnum(h[0])===tn);});
+  var n=document.getElementById('note');
+  if(!c){n.textContent='반을 고르면 오늘 차시가 노란 테두리로 보여요.';return;}
+  n.textContent=h?(dnum(h[0])===tn?'오늘('+h[0]+')은 '+document.querySelector('.lt[data-k="'+h[1]+'"] b').textContent+'이에요.':'다음 시간('+h[0]+')은 '+document.querySelector('.lt[data-k="'+h[1]+'"] b').textContent+'이에요.'):'프로젝트와 수행평가가 모두 끝났어요.';
+}
+function show(k,user){
+  cur=k;ls('pjL',k);
+  all.forEach(function(b){b.classList.toggle('on',b.dataset.k===k);});
+  document.querySelectorAll('.les').forEach(function(s){s.hidden=s.dataset.key!==k;});
+  upd();tick();if(user)document.getElementById('L-'+k).scrollIntoView({behavior:'smooth',block:'start'});
+}
+cls.onchange=function(){ls('pjC',cls.value);marks();var h=pickToday();if(h)show(h[1]);};
+function steps(){return [].slice.call(document.querySelectorAll('#L-'+cur+' .step'));}
+function upd(){
+  var st=steps(),n=0,now=false;
+  st.forEach(function(s){var b=s.querySelector('.chk input');s.classList.toggle('done',b.checked);s.classList.remove('now');if(b.checked)n++;else if(!now){s.classList.add('now');now=true;}});
+  var sec=document.getElementById('L-'+cur);sec.querySelector('.prog i').style.width=(n/st.length*100)+'%';
+  sec.querySelector('.prog p').textContent=n+' / '+st.length+' 단계'+(n===st.length?' — 다 했어요! 🎉':'');
+}
+document.querySelectorAll('.les').forEach(function(sec){var k=sec.dataset.key;
+  [].slice.call(sec.querySelectorAll('.step')).forEach(function(s,i,arr){var b=s.querySelector('.chk input');b.checked=ls('pj_'+k+'_'+i)==='1';
+    b.onchange=function(){ls('pj_'+k+'_'+i,b.checked?'1':'0');upd();if(b.checked&&arr[i+1])arr[i+1].scrollIntoView({behavior:'smooth',block:'start'});};});});
+function mmss(x){x=Math.max(0,Math.round(x));return ('0'+Math.floor(x/60)).slice(-2)+':'+('0'+x%60).slice(-2);}
+function tick(){
+  document.querySelectorAll('.step.clocknow').forEach(function(s){s.classList.remove('clocknow');});
+  if(t0===null||!cur)return;var m=(Date.now()-t0)/60000,on=[];document.getElementById('clk').textContent=mmss(m*60);
+  steps().forEach(function(s){if(m>=+s.dataset.s&&m<+s.dataset.e){s.classList.add('clocknow');on.push(s.querySelector('.num').textContent+'. '+s.querySelector('h3').textContent);}});
+  document.getElementById('clkTxt').textContent=on.length?'지금 '+on.join(' · '):(m>=50?'수업 끝 — 수고했어요!':'');
+}
+document.getElementById('cStart').onclick=function(){t0=Date.now();ls('pjT',String(t0));clearInterval(clkI);clkI=setInterval(tick,1000);tick();};
+document.getElementById('cStop').onclick=function(){t0=null;clearInterval(clkI);try{localStorage.removeItem('pjT');}catch(e){}document.getElementById('clk').textContent='--:--';document.getElementById('clkTxt').textContent='«수업 시작»을 누르면 지금 할 단계에 노란 불이 들어와요';tick();};
+(function(){var v=+ls('pjT');if(v&&Date.now()-v<3*3600000){t0=v;clkI=setInterval(tick,1000);}})();
+var left=60,run=false,tI=null;
+function showT(){var a=document.getElementById('tmr');a.textContent=mmss(left);a.style.color=left<=0?'var(--red)':'';document.getElementById('tPause').textContent=run?'❚❚':'▶';}
+function stepT(){if(!run)return;left--;showT();if(left<=0){run=false;clearInterval(tI);try{var ac=new (window.AudioContext||window.webkitAudioContext)(),o=ac.createOscillator();o.frequency.value=880;o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.6);}catch(e){}showT();}}
+document.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){left=+b.dataset.t;run=true;clearInterval(tI);tI=setInterval(stepT,1000);showT();};});
+document.getElementById('tPause').onclick=function(){if(left<=0)return;run=!run;clearInterval(tI);if(run)tI=setInterval(stepT,1000);showT();};
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.cpb');if(!b)return;var t=b.getAttribute('data-t'),o=b.textContent;
+  function ok(){b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);}
+  function no(){try{prompt('복사하세요',t);}catch(x){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var g=getSelection();g.removeAllRanges();g.addRange(r);b.textContent='Ctrl+C 로 복사';}}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,no);else no();});
+cls.value=ls('pjC')||'';marks();
+var q=(location.hash||'').slice(1).toUpperCase(),h=pickToday(),first=q&&document.getElementById('L-'+q)?q:(cls.value&&h?h[1]:(ls('pjL')||'P1'));
+show(document.getElementById('L-'+first)?first:'P1');
+window.addEventListener('hashchange',function(){var k=location.hash.slice(1).toUpperCase();if(document.getElementById('L-'+k))show(k,true);});
+</script>
+</body>
+</html>
