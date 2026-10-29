@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>예시 프로젝트 · 약수터 안심이</title>
+<style>
+:root{--bg:#F5F6F2;--card:#fff;--ink:#1D2433;--ink2:#4D576B;--line:#DEE1D8;--blue:#2F6FEC;--bbg:#EAF1FE;--green:#1F7A45;--gbg:#E7F5EC;--yellow:#9A6A0F;--ybg:#FFF5DA;--red:#B83A2B;--rbg:#FCEAE7;--teal:#0F7C86;--tbg:#E3F4F5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14181E;--card:#1D222B;--ink:#EBEEF3;--ink2:#B0B8C8;--line:#333A47;--blue:#8CB2F5;--bbg:#1F2B44;--green:#7FD1A1;--gbg:#1E3427;--yellow:#E3BA62;--ybg:#3A3120;--red:#F09484;--rbg:#3D2522;--teal:#7FD0D6;--tbg:#18343A}}
+:root[data-theme="dark"]{--bg:#14181E;--card:#1D222B;--ink:#EBEEF3;--ink2:#B0B8C8;--line:#333A47;--blue:#8CB2F5;--bbg:#1F2B44;--green:#7FD1A1;--gbg:#1E3427;--yellow:#E3BA62;--ybg:#3A3120;--red:#F09484;--rbg:#3D2522;--teal:#7FD0D6;--tbg:#18343A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
+.wrap{max-width:900px;margin:0 auto;padding:26px 16px 70px}
+h1{font-size:30px;line-height:1.3;margin:0 0 6px}
+h2{font-size:23px;margin:0 0 10px;padding-top:6px}
+h3{font-size:18.5px;margin:18px 0 6px}
+p{margin:6px 0}
+.sub{color:var(--ink2);margin:0 0 14px}
+a{color:var(--blue)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 22px}
+.toc a{background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:5px 13px;font-weight:700;font-size:15px;text-decoration:none;color:var(--ink)}
+.toc a.star{background:var(--ybg);border-color:transparent;color:var(--yellow)}
+section{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px 20px;margin:0 0 18px}
+section.core{border:2.5px solid var(--yellow);box-shadow:0 0 0 5px var(--ybg)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+.flow span{background:var(--bbg);border-radius:10px;padding:6px 11px;font-weight:700;font-size:15px}
+.flow span.k{background:var(--ybg);color:var(--yellow)}
+.flow i{font-style:normal;color:var(--ink2)}
+.goal{background:var(--tbg);border-radius:14px;padding:12px 16px;font-size:18px;font-weight:700;color:var(--teal)}
+.sdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:10px 0}
+.sdg div{color:#fff;border-radius:10px;padding:7px 10px;font-size:14px;line-height:1.35;font-weight:700;min-height:58px}
+.sdg b{display:block;font-size:20px}
+.tw{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:520px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg);font-weight:700}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sheet{border:1.5px dashed var(--line);border-radius:14px;padding:10px 14px;margin:10px 0;background:var(--bg)}
+.sheet .lab{display:inline-block;font-size:13px;font-weight:800;color:var(--teal);background:var(--tbg);border-radius:99px;padding:1px 10px;margin-bottom:4px}
+.f{display:grid;grid-template-columns:150px 1fr;gap:4px 12px;font-size:15.5px}
+.f dt{font-weight:700;color:var(--ink2)}.f dd{margin:0}
+.tip,.warn,.good,.bad{border-radius:12px;padding:9px 14px;margin:10px 0;font-size:15.5px}
+.tip{background:var(--bbg);border-left:5px solid var(--blue)}
+.warn{background:var(--rbg);border-left:5px solid var(--red)}
+.good{background:var(--gbg);border-left:5px solid var(--green)}
+.bad{background:var(--rbg);border-left:5px solid var(--red)}
+.pill{display:inline-block;border-radius:99px;padding:0 9px;font-size:13px;font-weight:800}
+.p-ok{background:var(--gbg);color:var(--green)}.p-edit{background:var(--ybg);color:var(--yellow)}.p-no{background:var(--rbg);color:var(--red)}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.four div{background:var(--bg);border-radius:12px;padding:10px 14px;min-width:0}
+.four h4{margin:0 0 4px;font-size:16px;color:var(--yellow)}
+.mock{max-width:420px;margin:12px auto;border:2px solid var(--line);border-radius:22px;padding:14px;background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.mock .bar{font-weight:800;font-size:15px;color:var(--teal);margin-bottom:8px}
+.mock .row{display:flex;justify-content:space-between;font-size:14.5px;border-bottom:1px dashed var(--line);padding:3px 0;font-variant-numeric:tabular-nums}
+.mock .res{margin:10px 0 6px;background:var(--rbg);color:var(--red);border-radius:12px;padding:8px 12px;font-weight:800}
+.mock .why{font-size:14px;color:var(--ink2)}
+.mock .btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.mock .btns span{background:var(--bbg);border-radius:10px;padding:5px 10px;font-size:13.5px;font-weight:700}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;max-width:360px;font-size:14.5px;margin:8px 0}
+.cm div{border-radius:8px;padding:6px 8px;text-align:center;font-variant-numeric:tabular-nums}
+.cm .h{font-weight:700;color:var(--ink2);background:transparent}
+.cm .ok{background:var(--gbg)}.cm .no{background:var(--rbg);font-weight:800}
+.sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:30px}
+.note{font-size:14px;color:var(--ink2)}
+@media (max-width:620px){h1{font-size:24px}.four{grid-template-columns:1fr}.f{grid-template-columns:1fr}}
+@media print{.toc{display:none}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>예시 프로젝트 — «약수터 안심이»</h1>
+<p class="sub">가상의 예시 모둠이 네 차시를 끝까지 해 본 모습이에요. <b>모둠과 이름은 지어냈지만, 데이터와 숫자는 학교 데이터셋 «약수터 수질»(교과서 부록 221~226쪽 · 381행)으로 실제로 계산한 값</b>이에요. 활동지 장 순서대로 «이렇게 쓰면 된다»를 보여 줘요.</p>
+<div class="toc"><a href="#goal">🎯 목표</a><a href="#sdg">🌍 SDG가 뭐예요?</a><a href="#p1">① 주제</a><a href="#p2">② 데이터 · 1차 모델</a><a href="#p3">③ 반문 · 개선</a><a class="star" href="#use">★ 결론을 문제 해결에</a><a href="#types">예측 · 군집이면?</a><a href="#p4">④ 발표</a><a href="#check">✅ 우리 모둠 점검</a></div>
+
+<section id="goal">
+<h2>🎯 이번 프로젝트의 목표</h2>
+<div class="goal">인공지능 · 기계학습을 활용해 실생활 문제를 해결하고 개선한다</div>
+<p>모델을 만드는 것이 끝이 아니에요. 모델이 알려 준 <b>결론</b>을 가지고 <b>사람이 무엇을 다르게 할지</b>까지 가야 «해결»이에요.</p>
+<div class="flow"><span>문제 (SDG)</span><i>→</i><span>데이터</span><i>→</i><span>오렌지3 학습</span><i>→</i><span class="k">결론: 얼마나 정확히 · 무엇이 중요 · 무엇을 틀리나</span><i>→</i><span class="k">활용: 누가 · 언제 · 어떻게</span><i>→</i><span class="k">나아졌나: 확인할 숫자</span></div>
+</section>
+
+<section id="sdg">
+<h2>🌍 SDG가 뭐예요?</h2>
+<p><b>SDGs(지속가능발전목표)</b>는 2015년 유엔에서 세계 193개 나라가 «2030년까지 함께 이루자»고 약속한 <b>17개 목표</b>예요. 목표마다 더 구체적인 <b>세부 목표</b>가 있어서 모두 169개예요. 사람(People) · 지구(Planet) · 번영(Prosperity) · 평화(Peace) · 협력(Partnership), 이렇게 5P로 묶기도 해요.</p>
+<div class="sdg" id="sdgGrid"></div>
+<h3>세부 목표 번호 읽는 법</h3>
+<p><b>6.1</b> = 6번 목표(깨끗한 물과 위생)의 1번 세부 목표 — «2030년까지 모든 사람이 안전하고 저렴한 마실 물을 고르게 이용하게 한다». 활동지 «관심 있는 SDG» 칸에는 <b>6</b>이 아니라 <b>6.1</b>처럼 점 아래까지 써요.</p>
+<div class="tw"><table>
+<tr><th>우리 학교 · 동네에서 본 문제</th><th>이어지는 세부 목표(뜻을 짧게)</th><th>기계학습으로 해 볼 수 있는 것</th></tr>
+<tr><td>약수터 물, 마셔도 될까?</td><td><b>6.1</b> 안전한 마실 물을 모두에게</td><td>수질 측정값으로 적합 / 부적합 <b>분류</b></td></tr>
+<tr><td>급식 잔반이 많이 버려진다</td><td><b>12.3</b> 음식물 쓰레기를 절반으로</td><td>메뉴 · 기온으로 잔반량 <b>예측</b></td></tr>
+<tr><td>시험 기간 수면 부족 · 스트레스</td><td><b>3.4</b> 정신 건강과 웰빙 높이기</td><td>체온 · 습도 · 걸음 수로 스트레스 단계 <b>분류</b></td></tr>
+<tr><td>교실 에어컨 전기가 많이 든다</td><td><b>7.3</b> 에너지 효율 두 배로</td><td>기온 · 시간대로 전력 사용 <b>예측</b></td></tr>
+<tr><td>세계 기아</td><td><b>2.1</b> 굶주림을 끝내기</td><td>나라별 기아 지수 추세 <b>예측</b></td></tr>
+</table></div>
+<p class="note">더 보기: <a href="unit4.html#learn41">Ⅳ-01 SDGs와 AI for Good</a> · <a href="unit4.html#sdgGame">SDG 주사위 여행</a></p>
+</section>
+
+<section id="p1">
+<h2>① 1차시 — 주제 정하기 · 데이터 찾기</h2>
+<div class="sheet"><span class="lab">활동지 3쪽 · 나의 관심사와 문제 (예시 학생 A)</span>
+<dl class="f">
+<dt>관심 있는 SDG</dt><dd>6.1 — 안전한 마실 물</dd>
+<dt>내가 발견한 문제</dt><dd>동네 약수터에서 주민들이 물을 받아 가는데, 검사 결과가 나오기 전까지는 부적합 물을 마실 수도 있다. 검사할 곳은 많고 담당자는 적다.</dd>
+<dt>사용자</dt><dd>구청 수질 담당자 · 약수터를 이용하는 주민</dd>
+<dt>입력 = 예상 데이터</dt><dd>약수터 수질 검사 결과 — 시 · 구청 공개 자료(공공데이터포털)</dd>
+<dt>처리 · 출력</dt><dd>측정값으로 적합 / 부적합 분류 → «부적합 위험» 안내</dd>
+<dt>기계학습으로?</dt><dd>☑ 정답(판정)이 붙은 데이터 ☑ 약수터마다 반복되는 판단 ☐ 규칙만으로 어려움 — <b>잘 모르겠음(3차시에 다시 확인)</b></dd>
+<dt>기계학습이 못 하는 일</dt><dd>물을 깨끗하게 만드는 일 · 최종 판정(실험실 · 담당자)</dd>
+</dl></div>
+
+<div class="sheet"><span class="lab">7쪽 · 주제 정하기 AI와 주제 좁히기 (모둠장이 네 사람 생각을 넣은 뒤)</span>
+<div class="tw"><table>
+<tr><th>AI가 준 연결 뼈대(요지)</th><th>판단</th><th>이유</th></tr>
+<tr><td>조합 1: 약수터 수질 + 마실 물 안전</td><td><span class="pill p-ok">채택</span></td><td>학교 데이터셋에 정답(판정)이 붙은 381행이 있다</td></tr>
+<tr><td>조합 2: 급식 잔반 + 기온</td><td><span class="pill p-edit">수정</span></td><td>잔반 데이터를 구하기 어려워서 다음 프로젝트 아이디어로 남김</td></tr>
+<tr><td>조합 3: 친구들 수면 설문으로 예측</td><td><span class="pill p-no">거절</span></td><td>우리 반 30명으로는 행이 너무 적고 개인정보가 걸린다</td></tr>
+</table></div>
+<p>«내 안은 어떻게 됐나» — 예시 학생 C: 수정(급식 잔반 → 나중 아이디어), 데이터를 못 구해서.</p></div>
+
+<div class="sheet"><span class="lab">8쪽 · 주제 정의서 → 선생님 ✓</span>
+<dl class="f">
+<dt>주제와 해결할 문제</dt><dd>약수터 수질 측정값으로 음용 부적합 위험을 분류해, <b>어느 약수터를 먼저 점검하고 안내할지</b> 정하는 «약수터 안심이»</dd>
+<dt>입력 · 처리 · 출력</dt><dd>측정값 6열 → 분류 → 부적합 위험 + 먼저 볼 순서</dd>
+<dt>확인 기준 넷</dt><dd>☑ 오렌지3로 수업 안에 ☑ 분류(지도학습) ☑ 학교 데이터셋 ☑ 개인정보 없음</dd>
+</dl></div>
+<p><b>학습 유형과 정답 열</b>(«왜 이 기계학습인가» 맨 위): 지도학습-분류 / 정답 열 <b>판정</b>(적합 · 부적합).</p>
+<p><b>46분 🚦</b>: 🟢 — 파일이 «AI 데이터 · 오렌지3 파일» 폴더에 있고 정답 열도 확인.</p>
+</section>
+
+<section id="p2">
+<h2>② 2차시 — 데이터 다듬기 · 계획 · 1차 모델</h2>
+<h3>🧹 전처리 다섯 걸음 — 실제로 이랬어요</h3>
+<div class="tw"><table>
+<tr><th>걸음</th><th>발견한 것</th><th>한 일과 이유(체크리스트 «X면 보완» 칸)</th></tr>
+<tr><td>① 보기</td><td>정답 열 «판정»에 <b>1 · 0 · Y · N · 0(여시니아)</b> 다섯 가지가 섞여 있음(291 · 76 · 9 · 1 · 4행)</td><td>시트에서 Y→1, N→0, 0(여시니아)→0으로 바꿈 — 같은 뜻을 한 가지로(오렌지3라면 Edit Domain)</td></tr>
+<tr><td>② 열 고르기</td><td>«연번»은 번호일 뿐</td><td>Select Columns에서 연번 빼기 · 판정 = Target</td></tr>
+<tr><td>③ 결측</td><td>암모니아성질소 · 질산성질소 · 과망간산칼륨소비량에 빈칸 5행</td><td>5행 지움(381 → <b>376행</b>) — 1 %라 영향이 작음</td></tr>
+<tr><td>④ 이상값</td><td>일반세균 최대 900(평균 12)</td><td><b>지우지 않음</b> — 실제 오염일 수 있고, 지우면 부적합 사례를 잃는다</td></tr>
+<tr><td>⑤ 저장</td><td></td><td>Save Data → «전처리.csv»</td></tr>
+</table></div>
+
+<div class="sheet"><span class="lab">14쪽 · 계획서 — 성공 기준은 숫자로</span>
+<dl class="f">
+<dt>쓸 열</dt><dd>입력: 일반세균 · 총대장균군 · 분원성대장균군 · 암모니아성질소 · 질산성질소 · 과망간산칼륨소비량 / 정답: 판정</dd>
+<dt>나누기</dt><dd>훈련 7 : 테스트 3 (테스트 113행 · 그중 부적합 24행)</dd>
+<dt>기준선</dt><dd>전부 «적합»이라고 찍으면 정확도 <b>0.785</b> — 이보다 높아야 의미가 있다</dd>
+<dt>성공 기준</dt><dd>① 부적합 <b>재현율 0.90 이상</b>(부적합을 놓치면 사람이 마신다) ② 정확도가 기준선 0.785보다 높게</dd>
+<dt>맡은 위젯</dt><dd>A File · Select Columns / B Data Sampler · Tree / C Test and Score / D Confusion Matrix · Predictions</dd>
+</dl></div>
+
+<h3>🍊 1차 모델 — 분류 완성 워크플로에서 File만 바꿔서</h3>
+<div class="tw"><table>
+<tr><th>모델</th><th>정확도</th><th>부적합 재현율(놓치지 않기)</th><th>정밀도(괜한 경보 적기)</th></tr>
+<tr><td>Tree</td><td class="n">0.956</td><td class="n">0.958 (24 중 23)</td><td class="n">0.852</td></tr>
+<tr><td>Logistic Regression</td><td class="n">0.973</td><td class="n">0.958</td><td class="n">0.920</td></tr>
+<tr><td>kNN</td><td class="n">0.841</td><td class="n">0.625 (24 중 15)</td><td class="n">0.625</td></tr>
+</table></div>
+<p>Tree 혼동행렬(테스트 113행):</p>
+<div class="cm"><div class="h"></div><div class="h">예측 적합</div><div class="h">예측 부적합</div><div class="h">실제 적합</div><div class="ok">85</div><div class="no">4 괜한 경보</div><div class="h">실제 부적합</div><div class="no">1 놓침</div><div class="ok">23</div></div>
+<p class="note">숫자는 같은 데이터를 같은 방식(7 : 3 나누기)으로 파이썬에서 재현한 값이에요. 오렌지3에서는 나뉘는 행이 달라 조금씩 달라질 수 있어요.</p>
+</section>
+
+<section id="p3">
+<h2>③ 3차시 — 평가 해석 · AI 반문 · 개선</h2>
+<div class="sheet"><span class="lab">평가지표 분석 1차</span>
+<p>Tree 정확도 0.956 &gt; 기준선 0.785 · 부적합 재현율 0.958 → 성공 기준 ① 달성. <b>가장 위험한 틀림</b> = 부적합을 적합으로(놓침) 1건 — 그 물을 사람이 마실 수 있다.</p></div>
+
+<div class="sheet"><span class="lab">질문하는 AI의 반문과 우리의 판단 (1회차)</span>
+<div class="tw"><table>
+<tr><th>관점</th><th>AI의 반문(요지)</th><th>테스트로 확인한 결과</th><th>판단</th></tr>
+<tr><td>모델 · 설정</td><td>kNN만 낮은 이유는? 측정값마다 단위와 크기가 다르지 않나?</td><td>Preprocess(Normalize)로 단위를 맞추니 kNN 정확도 0.841 → <b>0.965</b>, 재현율 0.625 → <b>0.958</b></td><td><span class="pill p-ok">채택</span></td></tr>
+<tr><td>데이터</td><td>모델이 사실상 열 하나만 보는 건 아닌가? 규칙과 무엇이 다른가?</td><td>트리를 열어 보니 첫 질문이 «총대장균군이 0보다 큰가?» · «총대장균군이 1 이상이면 부적합» 규칙 하나도 정확도 0.973</td><td><span class="pill p-edit">수정</span> 결론과 활용 방향을 바꿈(아래 ★)</td></tr>
+<tr><td>🎯 함정</td><td>데이터를 1만 행으로 늘리면 정확도가 오를 것이다</td><td>테스트에서 이미 0.96~0.97. 모자란 건 양이 아니라 «검사 전에 알 수 있는 정보(비 온 양 · 주변 환경)»</td><td><span class="pill p-no">거절</span> 근거: 혼동행렬 · 트리</td></tr>
+</table></div></div>
+
+<div class="sheet"><span class="lab">내 개선 실험 — 예시 학생 B (한 번에 하나만)</span>
+<dl class="f">
+<dt>가설</dt><dd>트리 깊이를 3으로 줄이면 괜한 경보가 줄 것이다</dd>
+<dt>조작</dt><dd>Tree 위젯 «Limit the maximal tree depth» = 3 (다른 건 그대로)</dd>
+<dt>결과</dt><dd>정확도 0.956 → <b>0.973</b> · 괜한 경보 4 → <b>2</b> · 재현율 0.958 그대로</dd>
+<dt>해석</dt><dd>깊은 트리가 훈련 데이터의 잡음까지 외웠다(과적합). 얕게 하니 새 데이터에 더 잘 맞는다.</dd>
+<dt>편향 유형</dt><dd>선택 편향 — 한 지역 · 특정 기간 약수터 자료뿐이라 다른 지역에 그대로 쓰기 어렵다 → 한계로 적음</dd>
+</dl></div>
+</section>
+
+<section id="use" class="core">
+<h2>★ 결론을 문제 해결에 — 사용 시나리오</h2>
+<p>활동지 «사용 시나리오 — 결론을 문제 해결에» 장 네 칸을 이렇게 채웠어요. <b>이 장이 프로젝트의 핵심</b>이에요.</p>
+<div class="four">
+<div><h4>✎ 오렌지3가 알려 준 결론</h4>
+<p>① 측정값 6개로 부적합을 <b>정확도 0.97 · 재현율 0.96</b>(24건 중 23건)으로 가려낸다.</p>
+<p>② 판단은 거의 <b>«총대장균군»</b>이 좌우한다 — 대장균군이 하나라도 나오면 부적합.</p>
+<p>③ 군집으로 묶으면 «세균이 아주 많은 곳 2곳(모두 부적합) · 보통 365곳 · 유기물이 많은 곳 9곳»으로 나뉜다.</p></div>
+<div><h4>✎ 누가 · 언제 · 어떻게 쓰나</h4>
+<p><b>구청 수질 담당자</b>가 매달 검사 결과를 받는 날 → 새 측정값을 넣으면(Predictions) → <b>부적합 위험 · 묶음</b>이 보이고 → <b>위험한 곳부터</b> «음용 자제» 안내판을 걸고 정밀 재검사를 앞당긴다.</p>
+<p>세균이 많은 묶음은 주변 반려동물 배설물 · 축사를, 유기물이 많은 묶음은 낙엽 · 흙 유입을 점검한다. <b>주민</b>은 약수터 QR로 최근 판정을 본다.</p></div>
+<div><h4>✎ 무엇이 나아지나</h4>
+<p>기대 효과: 부적합 약수터를 <b>더 빨리 찾아 안내</b>하고, 원인에 맞게 관리해 <b>다음 검사의 부적합을 줄인다</b>.</p>
+<p>확인할 숫자: ① 검사 결과 → 안내판까지 걸린 날 수 ② 위험 상위 약수터 가운데 재검사에서도 부적합인 비율 ③ 다음 분기 부적합 약수터 수 — <b>지금 값과 비교</b>할 계획.</p></div>
+<div><h4>✎ 틀렸을 때 안내</h4>
+<p><b>놓침</b>(24건 중 1건): 모델의 «안전»은 «마셔도 됨»이 아니라 «재검사 순서가 뒤»라는 뜻. 최종 판정은 실험실 기준과 담당자가 한다.</p>
+<p><b>괜한 경보</b>(89건 중 2건): 안내판 문구는 «확인 중». 한계: 한 지역 · 기간 자료이고 검사 <b>뒤</b> 값이라 «미리» 아는 것은 아님 → 다음에는 강수량 · 주변 환경 데이터를 더한다.</p></div>
+</div>
+
+<div class="mock" aria-label="약수터 안심이 화면 예시">
+<div class="bar">💧 약수터 안심이 — 담당자 화면(설계안)</div>
+<div class="row"><span>○○ 약수터 · 10월 검사</span><span></span></div>
+<div class="row"><span>일반세균</span><span>65</span></div>
+<div class="row"><span>총대장균군</span><span><b>2</b></span></div>
+<div class="row"><span>질산성질소</span><span>4.8</span></div>
+<div class="res">⚠ 부적합 위험 높음 · 우선 점검 1순위</div>
+<div class="why">근거: 총대장균군 검출(모델이 가장 크게 본 열) · 묶음: 보통 · 이 판정은 재검사 전 안내용이에요</div>
+<div class="btns"><span>📌 «음용 자제» 안내판</span><span>🧪 재검사 요청</span><span>🔍 주변 원인 점검표</span></div>
+</div>
+
+<div class="bad"><b>약한 활용</b> — «AI로 약수터 판정 앱을 만든다.» (그래서 누가 무엇을 다르게 하나요?)</div>
+<div class="good"><b>강한 활용</b> — «담당자가 검사 결과를 받는 날 위험 상위 약수터부터 안내판을 걸고 재검사를 앞당긴다. 안내까지 걸린 날 수와 다음 분기 부적합 수로 나아졌는지 확인한다.»</div>
+<div class="tip">AI 반문 덕분에 방향이 바뀐 점도 결론이에요 — 모델이 규칙을 다시 배웠다는 걸 알았기 때문에 «판정을 대신하는 AI»가 아니라 <b>«순서와 원인을 정해 주는 AI»</b>로 활용을 바꿨어요.</div>
+</section>
+
+<section id="types">
+<h2>우리 모둠이 예측 · 군집이면?</h2>
+<div class="tw"><table>
+<tr><th>학습 유형</th><th>오렌지3 결론 예</th><th>결론 → 활용</th></tr>
+<tr><td><b>분류</b><br>약수터(위)</td><td>정확도 0.97 · 재현율 0.96 · 가장 중요한 열 총대장균군</td><td>위험 상위부터 안내 · 재검사 · 원인 관리</td></tr>
+<tr><td><b>예측(회귀)</b><br>세계 기아 지수 GHI · SDG 2.1</td><td>2000 · 2008 · 2015년 값으로 2023년을 예측 — 평균 오차 <b>1.58점</b>(기준선 «2015년 값 그대로» 1.82점) · R² 0.95. 같은 모델로 앞을 보면 2031년쯤에도 <b>36개국</b>이 «심각(20 이상)»</td><td>국제 원조 · 학교 기부 캠페인을 그 나라들에 먼저. 틀렸을 때: 전쟁 · 재해는 추세 밖(외삽 주의)</td></tr>
+<tr><td><b>군집</b><br>약수터 측정값</td><td>k-평균 3묶음: 세균 매우 많음 2곳 · 보통 365곳 · 유기물 많음 9곳</td><td>묶음마다 관리 방법을 다르게 — 정답 없이도 «어디에 무엇을» 정할 수 있다</td></tr>
+</table></div>
+<p class="note">GHI 데이터: 교과서 199~208쪽 · 학교 데이터셋(datasites «학교 데이터셋»).</p>
+</section>
+
+<section id="p4">
+<h2>④ 4차시 — 2분 발표 대본 예시</h2>
+<ol>
+<li><b>문제(15초)</b> — «동네 약수터 물이 검사 결과가 나오기 전까지 안전한지 모릅니다. SDG 6.1, 안전한 마실 물 문제예요.»</li>
+<li><b>왜 이 기계학습(15초)</b> — «판정이라는 정답이 붙은 381행이 있어서 지도학습 분류를 골랐습니다.»</li>
+<li><b>성능과 평가지표(30초)</b> — «정확도 0.97, 기준선 0.785보다 높고, 부적합 24건 중 23건을 찾았습니다. 놓치면 위험해서 재현율을 가장 중요하게 봤어요.»</li>
+<li><b>AI 반문으로 고친 과정(30초)</b> — «‹규칙과 무엇이 다른가›라는 반문에 트리를 열어 보니 총대장균군 하나로 판단하고 있었어요. 그래서 판정 대신 점검 순서와 원인 관리에 쓰기로 바꿨습니다.»</li>
+<li><b>활용과 한계(30초)</b> — «담당자가 위험 상위 약수터부터 안내하고, 안내까지 걸린 날 수로 나아졌는지 확인합니다. 한 지역 자료라 다른 지역에는 그대로 못 써요.»</li>
+</ol>
+<div class="sheet"><span class="lab">마지막 장 · 출처와 AI 활용</span>
+<dl class="f"><dt>데이터 출처</dt><dd>약수터 수질 검사 결과 — 교과서 부록 221~226쪽(학교 데이터셋) · 원 자료 기관과 연도는 부록에서 확인해 적기</dd>
+<dt>AI를 쓴 곳</dt><dd>주제 정하기 AI(조합 3개 판단) · 질문하는 AI(반문 3개 · 1개 거절) · 발표자료 AI(초안 뒤 우리가 고침)</dd>
+<dt>끝까지 판단한 것</dt><dd>«데이터 1만 행» 반문 거절 · 활용 방향을 «판정 대신 순서와 원인»으로 바꾼 것</dd></dl></div>
+</section>
+
+<section id="check">
+<h2>✅ 우리 모둠 점검 — 예시처럼 되어 있나?</h2>
+<ol>
+<li>SDG를 <b>세부 목표 번호</b>(예: 6.1)까지 썼나?</li>
+<li>정답 열(분류 · 예측)이나 묶을 기준(군집)이 분명한가?</li>
+<li>전처리에서 <b>무엇을 왜</b> 했는지 한 줄씩 남겼나? 불리한 데이터도 남겼나?</li>
+<li>성공 기준이 <b>지표 + 목표 숫자 + 기준선</b>인가?</li>
+<li>AI 반문마다 <b>오렌지3로 확인한 숫자</b>와 판단이 있나? 근거 있는 거절이 있나?</li>
+<li>★ 결론이 <b>숫자 · 가장 중요한 열 · 자주 틀리는 것</b>으로 되어 있나?</li>
+<li>★ 활용이 «앱을 만든다»가 아니라 <b>누가 · 언제 · 결과를 보고 무엇을 하나</b>까지 갔나? 나아졌는지 <b>확인할 숫자</b>가 있나?</li>
+</ol>
+</section>
+<div class="sign">made by ptp 🐰</div>
+</div>
+<script>
+(function(){
+ var G=['빈곤 퇴치','기아 종식','건강과 웰빙','양질의 교육','성평등','깨끗한 물과 위생','깨끗한 에너지','좋은 일자리와 경제 성장','산업 · 혁신 · 사회 기반 시설','불평등 감소','지속 가능한 도시','책임 있는 소비와 생산','기후 행동','해양 생태계','육상 생태계','평화 · 정의 · 제도','목표를 위한 협력'];
+ var C=['#E5243B','#DDA63A','#4C9F38','#C5192D','#FF3A21','#26BDE2','#FCC30B','#A21942','#FD6925','#DD1367','#FD9D24','#BF8B2E','#3F7E44','#0A97D9','#56C02B','#00689D','#19486A'];
+ var g=document.getElementById('sdgGrid');
+ G.forEach(function(t,i){var d=document.createElement('div');d.style.background=C[i];if(i===6||i===1)d.style.color='#1D2433';d.innerHTML='<b>'+(i+1)+'</b>'+t;g.appendChild(d);});
+})();
+</script>
+</body>
+</html>
