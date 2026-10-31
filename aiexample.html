@@ -64,13 +64,15 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 .note{font-size:14px;color:var(--ink2)}
 @media (max-width:620px){h1{font-size:24px}.four{grid-template-columns:1fr}.f{grid-template-columns:1fr}}
 @media print{.toc{display:none}section{break-inside:avoid}}
+#pa2 pre{background:#16233A;color:#E8EEF7;padding:12px 14px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.55;white-space:pre}
+#pa2 h3{margin:22px 0 6px;font-size:17px}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>예시 프로젝트 — «약수터 안심이»</h1>
 <p class="sub">가상의 예시 모둠이 네 차시를 끝까지 해 본 모습이에요. <b>모둠과 이름은 지어냈지만, 데이터와 숫자는 학교 데이터셋 «약수터 수질»(교과서 부록 221~226쪽 · 381행)으로 실제로 계산한 값</b>이에요. 활동지 장 순서대로 «이렇게 쓰면 된다»를 보여 줘요.</p>
-<div class="toc"><a href="#goal">🎯 목표</a><a href="#sdg">🌍 SDG가 뭐예요?</a><a href="#p1">① 주제</a><a href="#p2">② 데이터 · 1차 모델</a><a href="#p3">③ 반문 · 개선</a><a class="star" href="#use">★ 결론을 문제 해결에</a><a href="#types">예측 · 군집이면?</a><a href="#p4">④ 발표</a><a href="#check">✅ 우리 모둠 점검</a></div>
+<div class="toc"><a href="#goal">🎯 목표</a><a href="#sdg">🌍 SDG가 뭐예요?</a><a href="#p1">① 주제</a><a href="#p2">② 데이터 · 1차 모델</a><a href="#p3">③ 반문 · 개선</a><a class="star" href="#use">★ 결론을 문제 해결에</a><a href="#types">예측 · 군집이면?</a><a href="#p4">④ 발표</a><a href="#pa2">⑤ 수행평가 ②</a><a href="#check">✅ 우리 모둠 점검</a></div>
 
 <section id="goal">
 <h2>🎯 이번 프로젝트의 목표</h2>
@@ -243,6 +245,66 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <dl class="f"><dt>데이터 출처</dt><dd>약수터 수질 검사 결과 — 교과서 부록 221~226쪽(학교 데이터셋) · 원 자료 기관과 연도는 부록에서 확인해 적기</dd>
 <dt>AI를 쓴 곳</dt><dd>주제 정하기 AI(조합 3개 판단) · 질문하는 AI(반문 3개 · 1개 거절) · 발표자료 AI(초안 뒤 우리가 고침)</dd>
 <dt>끝까지 판단한 것</dt><dd>«데이터 1만 행» 반문 거절 · 활용 방향을 «판정 대신 순서와 원인»으로 바꾼 것</dd></dl></div>
+</section>
+
+<section id="pa2">
+<h2>⑤ 수행평가 ② — 이어서 이렇게 (코랩 · 개선 · 해결안 적용)</h2>
+<p>프로젝트 ④가 끝나면 같은 주제로 <b>수행평가 ②</b>를 세 차시 해요. 새로 시작하지 않고, <b>활동지 뒤에 장 4개</b>를 덧붙이고 <b>코랩 노트북 하나</b>를 완성해요. 점수는 모두 <b>개인별</b>이에요(내 노트북 · 내 집필 구간 · 내 구술).</p>
+<div class="tip"><a href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_example_water.ipynb" target="_blank" rel="noopener"><b>▶ 예시 노트북 열기 (코랩)</b></a> — 틀(05_project_template)을 «약수터 안심이»로 채우고 실제로 돌린 완성본이에요. · <a href="https://docs.google.com/presentation/d/1ojOZqaxxrzhj4RY0aNKgL0Ywu1QRxPRisERXoB4AXmA/view" target="_blank" rel="noopener">예시 완성본 슬라이드(맨 뒤 4장)</a></div>
+
+<h3>1차시 ① 피드백 반영 계획 — 무엇을 왜 바꿀까</h3>
+<div class="sheet"><span class="lab">덧붙인 장 1 · 피드백 반영</span>
+<dl class="f"><dt>받은 피드백</dt><dd>① 선생님 질문 «정확도만 높으면 되나요? 부적합을 놓치면?» ② 💰 투자 심사 «검사 결과가 나온 뒤에 쓰는 거면, <b>총대장균군만 보면 되는 것 아닌가요?</b>» ③ 돌아보기 «다른 지역에도 맞는지 모르겠다»</dd>
+<dt>고른 것</dt><dd>② — ①은 이미 재현율을 성공 기준으로 정해 뒀고, ③은 새 데이터가 필요해서 한계로 적음</dd>
+<dt>방향 · 방법</dt><dd>데이터 · 모델: 모델이 열 하나에만 기대는지 확인 → Select Columns에서 총대장균군만 빼고 같은 Tree로 다시 학습</dd>
+<dt>맡은 사람</dt><dd>예시 학생 B (실험) · D (발표 장 고치기)</dd></dl></div>
+
+<h3>1차시 ② 코랩 재구현 — 위젯 하나 = 코드 셀 하나 (요소 2)</h3>
+<pre><code># [오렌지3] Edit Domain · 담당: 예시 학생 C  — 정답 열 «판정»에 섞인 다섯 가지 값을 둘로 통일
+df['판정'] = df['판정'].replace({'Y': '1', 'N': '0', '0(여시니아)': '0'})
+df['판정'] = df['판정'].map({'1': '적합', '0': '부적합'})
+
+# [오렌지3] Data Sampler (Fixed proportion 70%) · 담당: 예시 학생 B
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# [오렌지3] Tree · 담당: 예시 학생 B
+model = DecisionTreeClassifier(random_state=0)</code></pre>
+<p class="note">셀마다 <code># [오렌지3] 위젯 이름 · 담당: 이름</code>이 있어야 요소 2의 25점이에요. 결과: 정확도 0.965 · 부적합 재현율 0.900(20 중 18) · 정밀도 0.900 · 기준선 0.823.</p>
+
+<h3>2차시 ③ 같은 지표로 비교 · 개선 실험 (요소 3)</h3>
+<div class="tw"><table>
+<tr><th>지표</th><th>오렌지3 (Tree)</th><th>코랩 (Tree)</th><th>차이가 나는 이유</th></tr>
+<tr><td>정확도</td><td>0.956</td><td>0.965</td><td rowspan="3">두 도구가 테스트로 뽑은 행이 달라요 — 테스트의 부적합이 24 vs 20. 한 건만 놓쳐도 재현율이 0.05씩 움직여요. 둘 다 총대장균군을 가장 크게 봐요(중요도 0.94).</td></tr>
+<tr><td>부적합 재현율</td><td>0.958 (24 중 23)</td><td>0.900 (20 중 18)</td></tr>
+<tr><td>부적합 정밀도</td><td>0.852</td><td>0.900</td></tr>
+</table></div>
+<div class="sheet"><span class="lab">개선 실험 — 예시 학생 B (피드백 + 편향, 한 가지만 바꿈)</span>
+<dl class="f"><dt>가설</dt><dd>총대장균군이 없어도 나머지 다섯 측정값으로 부적합을 비슷하게 가려낼 것이다</dd>
+<dt>조작</dt><dd>Select Columns에서 <b>총대장균군 하나만</b> 빼기 (같은 나누기 · 같은 Tree)</dd>
+<dt>결과</dt><dd>정확도 0.965 → <b>0.779</b> · 재현율 0.900 → <b>0.500</b> (부적합 20 중 10을 놓침)</dd>
+<dt>해석</dt><dd>모델은 사실상 «총대장균군 규칙»이다. 검사를 <b>대신</b>할 수는 없고, 검사 결과가 나온 날 <b>순서를 정하는 데</b> 써야 한다</dd>
+<dt>편향 유형</dt><dd><b>확증 편향</b> — 정확도가 높자 «모델이 수질을 잘 안다»고 믿고 그것만 확인했다 → 일부러 반대 증거를 찾는 실험으로 확인. <b>선택 편향</b>(한 지역 · 한 기간)은 한계로 적음</dd></dl></div>
+
+<h3>2차시 ④ 보고서 내 구간 (반쪽) — 예시 학생 B</h3>
+<div class="sheet"><span class="lab">집필: 예시 학생 B · 맡은 구간 «모델과 개선 실험»</span>
+<p>우리 모둠은 약수터 측정값 6개로 «적합 · 부적합»을 나누는 Tree를 만들었다. 오렌지3에서 정확도 0.956, 코랩에서 0.965가 나왔는데, 두 도구가 테스트로 뽑은 행이 달라서 생긴 차이이고 두 모델 모두 기준선 0.823보다 높았다. 투자 심사에서 «총대장균군만 보면 되는 것 아니냐»는 질문을 받고, 그 열을 빼고 다시 학습해 보았다. 정확도는 0.779, 재현율은 0.500으로 떨어져 부적합 절반을 놓쳤다. 나는 처음에 정확도가 높아서 모델이 수질 전체를 이해한다고 생각했는데(확증 편향), 실제로는 한 열에 기대고 있었다. 그래서 우리 해결안은 검사를 대신하는 AI가 아니라 검사 결과가 나온 날 위험한 약수터부터 안내하고 재검사 순서를 정하는 AI로 남기기로 판단했다.</p>
+<div class="tw"><table>
+<tr><th>단계</th><th>신호등</th><th>요청 내용</th><th>채택 여부와 이유</th></tr>
+<tr><td>③ 반문</td><td>노랑 (질문하는 AI)</td><td>«모델이 열 하나만 보는 건 아닌가?»</td><td>채택 — 트리와 중요도로 확인, 이번 실험의 출발점</td></tr>
+<tr><td>수행 ②</td><td>초록 (검색)</td><td>«확증 편향 뜻과 예»</td><td>채택 — 교과서 · 누리집 두 곳에서 뜻을 확인하고 내 말로 씀</td></tr>
+<tr><td>수행 ②</td><td>—</td><td>코드 · 이 문단</td><td>AI 안 씀 — 틀의 빈칸을 직접 채움</td></tr>
+</table></div></div>
+
+<h3>2~3차시 ⑤ 해결안 적용 · 발표 · 구술</h3>
+<div class="good"><b>개선 뒤 해결안</b> — 구청 수질 담당자가 검사 결과를 받는 날 위험 상위 약수터부터 «음용 자제» 안내 → 재검사 앞당기기 → 원인 점검. 화면에 «재검사 전 안내용 · 최종 판정은 실험실»을 추가하고, «검사 전 예측» 기능은 넣지 않기로 했다. 확인할 숫자: 안내까지 걸린 날 수 · 재검사에서도 부적합인 비율 · 다음 분기 부적합 수.</div>
+<ol>
+<li><b>발표 2분</b> — ① 피드백으로 무엇을 바꿨나(20초) ② 코랩 재구현 결과(30초) ③ 개선 실험 숫자(40초) ④ 그래서 해결안이 어떻게 바뀌었나(30초).</li>
+</ol>
+<div class="sheet"><span class="lab">구술 답 예시 — 근거(숫자 · 화면)를 들어 답해요</span>
+<dl class="f"><dt>담당 1 · 선생님</dt><dd>«Data Sampler를 코드로 어떻게 옮겼고, 왜 오렌지3와 숫자가 달라요?» → «<code>train_test_split</code>에 test_size=0.3을 줬어요. 오렌지3와 뽑힌 행이 달라서 테스트의 부적합이 24개와 20개로 달라졌고, 그래서 재현율이 0.958과 0.900으로 차이가 났어요.»</dd>
+<dt>무작위 1 · 누구든</dt><dd>«기준선이 뭐고, 왜 봐야 해요?» → «전부 ‹적합›이라고 찍기만 해도 0.823이 나와요. 우리 모델 0.965가 그보다 높아야 배운 게 있다고 말할 수 있어요.»</dd>
+<dt>무작위 2 · 누구든</dt><dd>«이 모델의 편향 하나만 말해 볼래요?» → «한 지역 · 한 기간 자료라 선택 편향이 있어요. 다른 지역은 그 지역 자료로 다시 학습해야 해요.»</dd></dl></div>
+<div class="bad">예시 문장을 그대로 옮겨 쓰면 안 돼요 — 우리 데이터 · 우리 숫자 · 내 판단으로 써야 그 요소의 점수가 나와요. AI가 만든 문장을 그대로 내면 그 요소는 최하점이에요.</div>
 </section>
 
 <section id="check">
