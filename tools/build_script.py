@@ -39,7 +39,7 @@ open(P, 'w', encoding='utf-8').write(s2); print('teach.html SCRIPT', {k: len(v) 
 if a.html:
     m = load(a.lesson)
     if a.de:                                     # D · E반 인쇄본 — TITLE_DE · BEFORE_DE · LATE_DE · SEG_DE{번호: 바꿀 칸}
-        for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_DE', getattr(m, k)))
+        for k in ('TITLE', 'BEFORE', 'LATE', 'FLOW'): setattr(m, k, getattr(m, k + '_DE', getattr(m, k, None)))
         for n, ov in getattr(m, 'SEG_DE', {}).items(): m.SEG[n] = {**m.SEG[n], **ov}
     if a.var:                                    # 한 반만 인쇄 — TITLE_<var> · BEFORE_<var> · LATE_<var> (예: --de --var E)
         for k in ('TITLE', 'BEFORE', 'LATE'): setattr(m, k, getattr(m, k + '_' + a.var, getattr(m, k)))
@@ -53,12 +53,12 @@ if a.html:
         return html.escape(x)
     LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI', 'P1': '주제 정하기 AI', 'P2': '—', 'P3': '질문하는 AI', 'P4': '돌아보기 AI'}[a.lesson], 'y')}
     tg = lambda c, g: f'<span class="tag {LT[c][1]}">' + ('노랑 · ' + g['tool'] if c == 'y' and g.get('tool') else LT[c][0]) + '</span>'   # tool: 그 활동만 다른 노랑 도구
-    rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(t)}</td><td>{tg(c, g)}</td><td>{e(g["scr"])}</td></tr>'
+    rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(g.get("tt", t))}</td><td>{tg(c, g)}</td><td>{e(g["scr"])}</td></tr>'
                    for (mn, t, c), g in zip(segs, m.SEG))
     cards = ''
     for (mn, t, c), g in zip(segs, m.SEG):
         li = lambda xs: ''.join(f'<li>{e(x)}</li>' for x in xs)
-        cards += (f'<section class="seg"><header><b class="tm">{g["t"]}</b><b class="ti">{e(t)}</b>'
+        cards += (f'<section class="seg"><header><b class="tm">{g["t"]}</b><b class="ti">{e(g.get("tt", t))}</b>'
                   f'{tg(c, g)}<span class="scr">빔: {e(g["scr"])}</span></header>'
                   f'<div class="cols"><div><h4>🎬 진행 순서</h4><ol>{li(g["run"])}</ol>'
                   + (f'<h4>✅ 넘어가기 전 확인</h4><ul class="ok">{li(g["chk"])}</ul>' if g['chk'] else '') +
@@ -93,7 +93,7 @@ h4{{margin:2px 0 2px; font-size:8.8pt; color:#4a5568}}
 <h1>{e(m.TITLE)} — 진행 대본</h1>
 <p class="sub">활동마다 <b>빔에 띄울 화면 · 🎬 선생님이 누를 순서 · 🎤 학생에게 할 말 · ✅ 넘어가기 전 확인 · ⚠ 막히면</b>. 운영판 패드에도 같은 내용이 지금 활동에 맞춰 떠요.</p>
 <h2>수업 전 (쉬는 시간)</h2><ul>{''.join(f'<li>{e(x)}</li>' for x in m.BEFORE)}</ul>
-<h2>한눈에 — 50분</h2><table><tr><th>시간</th><th>활동</th><th>신호등</th><th>빔 화면</th></tr>{rows}</table>
+''' + (('<h2>학생 화면 흐름 — 어느 창에서 무엇을</h2><table><tr><th>순서</th><th>여는 창</th><th>할 일</th></tr>' + ''.join(f'<tr><td class="t">{e(a1)}</td><td>{e(b1)}</td><td>{e(c1)}</td></tr>' for a1, b1, c1 in getattr(m, 'FLOW', []))) + '</table>' if getattr(m, 'FLOW', None) else '') + f'''<h2>한눈에 — 50분</h2><table><tr><th>시간</th><th>활동</th><th>신호등</th><th>빔 화면</th></tr>{rows}</table>
 <div class="note">{e(m.LATE)}</div>
 <h2 class="pg">활동별 대본</h2>{cards}
 </body></html>'''
