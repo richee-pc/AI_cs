@@ -94,11 +94,11 @@ var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {
 var RD = /[?&]r=P4\b/i.test(location.search) ? 'P4' : '';   // r=P4 → 인공지능 프로젝트 4차시 판(서버 탭도 따로)
 var CR = [['s1','📊 데이터 근거'],['s2','🚀 실현 가능성'],['s3','🤖 AI 반문 처리']];
 if(RD){
-  CR[0] = ['s1','📈 성능 근거'];
+  CR[0] = ['s1','📈 성능 근거']; CR[2] = ['s3','🔧 개선 근거'];   // 표시 이름만 — 키 s1~s3은 그대로(시트 · 수집기 호환)
   $('vsub').innerHTML = '인공지능 프로젝트 4차시 — 다른 모둠 발표를 들으며 세 기준으로 평가하고, 마지막에 «투자하고 싶은» AI 모델에 한 표! 성적과는 상관없어요. 방법은 데이터 탐구 때와 같아요(<a href="vote_guide.pdf" target="_blank" rel="noopener">📄 사용법</a>).';
   $('vcrit').innerHTML = '<div><b>📈 성능 근거</b>평가지표 숫자로 «쓸 만한 모델»임을 보였나</div>'
     + '<div><b>🚀 실현 가능성</b>실제 사용자가 쓸 수 있는 서비스인가</div>'
-    + '<div><b>🤖 AI 반문 처리</b>AI 반문을 테스트로 확인하고 판단했나</div>';
+    + '<div><b>🔧 개선 근거</b>무엇을 바꿔 숫자가 얼마나 달라졌나 — 개선 실험 전 → 후</div>';
   document.title = '💰 투자 심사 · 인공지능 프로젝트';
 }
 function call(q){
@@ -189,7 +189,7 @@ function res(){
       var f = function(x){ return t.rate ? x.toFixed(1) : '–'; };
       return '<div class="rt' + (top && t.pick === top ? ' top' : '') + '"><span>' + (top && t.pick === top ? '🏆 ' : '') + t.n + '모둠</span>'
         + '<div class="bar"><i style="width:' + (100 * t.pick / max) + '%"></i></div><span>💰 ' + t.pick + '표</span>'
-        + '<div class="avg">평가 ' + t.rate + '명 · ' + (RD ? '📈 ' : '📊 ') + f(t.a) + ' · 🚀 ' + f(t.b) + ' · 🤖 ' + f(t.c) + '</div></div>'
+        + '<div class="avg">평가 ' + t.rate + '명 · ' + (RD ? '📈 ' : '📊 ') + f(t.a) + ' · 🚀 ' + f(t.b) + (RD ? ' · 🔧 ' : ' · 🤖 ') + f(t.c) + '</div></div>'
         + (showNote && t.notes.length ? '<div class="notes">' + t.notes.map(esc).join('<br>') + '</div>' : '');
     }).join('');
   });

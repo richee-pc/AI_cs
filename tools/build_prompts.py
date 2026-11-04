@@ -39,7 +39,8 @@ print('unit4', {k: len(v) for k, v in CARDS.items()})
 if len(sys.argv) > 1:
     b = os.path.join(sys.argv[1], 'body.html')
     t = open(b, encoding='utf-8').read()
-    for k in TOOLS:
+    ks = [k for k in TOOLS if f'<!--PR:{k}-->' in t]       # 길잡이에서 뺀 카드(예: 3차시 질문하는 AI)는 건너뜀
+    for k in ks:
         t = put(t, k, card(k, tour=True))
     open(b, 'w', encoding='utf-8').write(t)
-    print('aitour body', len(TOOLS))
+    print('aitour body', ks)
