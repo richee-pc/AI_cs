@@ -51,7 +51,7 @@ if a.html:
         x = x.replace('{PIN}', a.pin or 'PIN')
         for k, v in NOGLYPH.items(): x = x.replace(k, v)
         return html.escape(x)
-    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI', 'P1': '주제 정하기 AI', 'P2': '—', 'P3': '질문하는 AI', 'P4': '돌아보기 AI'}[a.lesson], 'y')}
+    LT = {'n': ('AI 없이', 'n'), 'g': ('초록 · 자료 찾기 AI', 'g'), 'y': ('노랑 · ' + {'D2': '데이터 정리 AI', 'D2x': '데이터 정리 AI', 'D3': '질문하는 AI', 'D4': '발표 연습 AI', 'P1': '주제 정하기 AI', 'P2': '—', 'P3': '발표 자료 AI', 'P4': '돌아보기 AI'}[a.lesson], 'y')}
     tg = lambda c, g: f'<span class="tag {LT[c][1]}">' + ('노랑 · ' + g['tool'] if c == 'y' and g.get('tool') else LT[c][0]) + '</span>'   # tool: 그 활동만 다른 노랑 도구
     rows = ''.join(f'<tr><td class="t">{g["t"]}</td><td>{e(g.get("tt", t))}</td><td>{tg(c, g)}</td><td>{e(g["scr"])}</td></tr>'
                    for (mn, t, c), g in zip(segs, m.SEG))
