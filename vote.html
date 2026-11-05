@@ -39,6 +39,13 @@ button:disabled{opacity:.5;cursor:default}
 .rt.top{font-weight:800}.rt.top .bar i{background:var(--green)}
 .avg{font-size:13.5px;color:var(--ink2);grid-column:2/4;margin-top:-6px}
 .notes{font-size:14px;color:var(--ink2);grid-column:1/4;margin:-4px 0 4px;padding-left:12px;border-left:3px solid var(--line)}
+.win{text-align:center;padding:26px 12px;border-radius:16px;background:var(--ybg);border:2px solid var(--gold);margin:0 0 14px;animation:pop .6s ease-out}
+.win small{display:block;font-size:18px;color:var(--ink2);font-weight:700}
+.win b{display:block;font-size:56px;line-height:1.2;margin:6px 0}
+.win span{font-size:22px;font-weight:700;color:var(--gold)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.win{animation:none}}
+#tend{background:var(--gold)}
 .sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
 </style>
 </head>
@@ -77,9 +84,12 @@ button:disabled{opacity:.5;cursor:default}
 <div id="tch" class="hide">
   <div class="card">
     <div class="row"><select id="tcls"><option value="A">A반</option><option value="D">D반</option><option value="E">E반</option></select><input id="tpin" type="password" inputmode="numeric" placeholder="PIN"><button id="tgo">결과 보기</button></div>
+    <div class="row" style="margin-top:8px"><button id="tend" disabled>🏁 끝 — 1등 발표</button></div>
+    <p class="sub" style="font-size:14px;margin:6px 0 0">«결과 보기»: 투표하는 동안엔 참여 인원 · 모둠별 평가 수만 보여요(빔에 띄워도 순위 비밀). «끝»을 누르면 바로 🏆 1등과 전체 표가 떠요.</p>
     <label style="font-size:14.5px"><input type="checkbox" id="tnote" style="width:auto"> 한마디도 보기(빔에 띄울 땐 끄기)</label>
     <p class="msg" id="tm"></p>
   </div>
+  <div id="twin"></div>
   <div class="card hide" id="tres"><div class="sub" id="tinfo"></div><div class="res" id="tlist"></div></div>
 </div>
 
@@ -174,17 +184,26 @@ $('snm').addEventListener('keydown', function(e){ if(e.key === 'Enter') start();
 try { var s = JSON.parse(sessionStorage.getItem('vote_me') || 'null'); if(s){ $('sid').value = s.id; $('snm').value = s.name; } } catch(e){}
 
 /* ── 선생님: vote.html?t ── */
-var timer = null;
+var timer = null, ENDED = false;
 function res(){
   var cls = $('tcls').value, pin = $('tpin').value;
   call({ vote:'res', cls:cls, pin:pin }).then(function(r){
     if(!r.ok){ say($('tm'), r.msg); clearInterval(timer); timer = null; return; }
-    say($('tm'), '10초마다 새로 고침 · ' + r.at, true);
+    say($('tm'), ENDED ? '🏁 투표 끝 · ' + r.at + ' 기준' : '10초마다 새로 고침 · ' + r.at, true);
+    $('tend').disabled = false;
     $('tres').classList.remove('hide');
     $('tinfo').innerHTML = '<b>' + r.cls + '반</b> · 참여 ' + r.voters + ' / ' + r.size + '명';
     var max = Math.max.apply(null, r.teams.map(function(t){ return t.pick; }).concat([1]));
     var top = r.teams.reduce(function(m, t){ return Math.max(m, t.pick); }, 0);
     var showNote = $('tnote').checked;
+    if(!ENDED){   // 투표 중 — 순위는 숨기고 평가 저장 수만
+      $('twin').innerHTML = '';
+      $('tlist').innerHTML = r.teams.map(function(t){ return '<div class="rt"><span>' + t.n + '모둠</span><span style="grid-column:2/4">평가 ' + t.rate + '명 저장</span></div>'; }).join('');
+      return;
+    }
+    var win = r.teams.filter(function(t){ return top && t.pick === top; }).map(function(t){ return t.n + '모둠'; });
+    $('twin').innerHTML = '<div class="win"><small>' + r.cls + '반 💰 투자 한 표 1등</small><b>🏆 ' + (win.length ? win.join(' · ') : '아직 표가 없어요') + '</b>'
+      + (win.length ? '<span>' + top + '표' + (win.length > 1 ? ' · 공동 1등' : '') + '</span>' : '') + '</div>';
     $('tlist').innerHTML = r.teams.map(function(t){
       var f = function(x){ return t.rate ? x.toFixed(1) : '–'; };
       return '<div class="rt' + (top && t.pick === top ? ' top' : '') + '"><span>' + (top && t.pick === top ? '🏆 ' : '') + t.n + '모둠</span>'
@@ -196,7 +215,8 @@ function res(){
 }
 if(/[?&]t\b/.test(location.search)){
   $('stu').classList.add('hide'); $('tch').classList.remove('hide');
-  $('tgo').addEventListener('click', function(){ res(); clearInterval(timer); timer = setInterval(res, 10000); });
+  $('tgo').addEventListener('click', function(){ ENDED = false; res(); clearInterval(timer); timer = setInterval(res, 10000); });
+  $('tend').addEventListener('click', function(){ ENDED = true; clearInterval(timer); timer = null; res(); });
   $('tnote').addEventListener('change', res);
 }
 })();
