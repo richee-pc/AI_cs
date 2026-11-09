@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>수행평가 ② 길잡이</title>
-<meta name="description" content="수행평가 ② — 아이디어를 생활 속으로: 세 차시 흐름, 아이디어 다듬기 4단계, 생활 적용 문장 만들기, 발표 파트, 채점 근거">
+<meta name="description" content="수행평가 ② — 아이디어를 생활 속으로: 세 차시 흐름, 아이디어 다듬기 4단계, 생활 적용 문장 만들기, 발표 방식, 채점 근거">
 <style>
 :root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--yellow:#B7791F;--ybg:#FFF6DD;--red:#C0392B;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE;--pbg:#F1ECFB;--purple:#6B4FC8}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--ybg:#3A3220;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--pbg:#2A2440}}
@@ -16,6 +16,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","No
 h1{font-size:27px;line-height:1.3;margin:0 0 6px}
 .sub{color:var(--ink2);margin:0 0 12px;font-size:15.5px}
 .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+a.role{color:inherit;text-decoration:none;cursor:pointer}a.role:hover{border-color:var(--acc,#1f6feb)}
 .role{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:9px 12px;min-width:0}
 .role>b{display:block;font-size:16px}.role span{display:block;font-size:14px;color:var(--ink2);line-height:1.5}
 .role.main{border-color:var(--green);background:var(--gbg)}
@@ -27,6 +28,12 @@ section{margin:0 0 30px;scroll-margin-top:10px}
 .tag{font-size:13.5px;font-weight:700;color:var(--purple);background:var(--pbg);border-radius:99px;padding:2px 10px}
 p{margin:6px 0}
 .ink2{color:var(--ink2)}
+.me .mehint{margin:2px 0 8px;color:var(--ink2);font-size:15px}
+.mef{display:flex;gap:8px;flex-wrap:wrap}.mef input{flex:1 1 130px;min-width:0;font:inherit;font-size:16px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.mef button{font:inherit;font-weight:800;font-size:16px;padding:8px 18px;border:0;border-radius:10px;background:var(--blue);color:#fff;cursor:pointer}
+#meOut{margin-top:10px}#meOut .t{font-weight:800;margin-bottom:6px}#meOut .ml{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+#meOut .ml a{display:block;text-decoration:none;color:var(--ink);background:var(--bbg);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;font-weight:700}
+#meOut .ml a span{display:block;font-weight:400;font-size:13.5px;color:var(--ink2)}#meOut .warn{color:var(--red);font-weight:700}
 .card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 17px 12px;margin:0 0 14px;min-width:0}
 .card h3{margin:0 0 4px;font-size:18.5px;line-height:1.4}
 .card ul,.card ol{margin:6px 0;padding-left:22px;color:var(--ink2)}
@@ -60,6 +67,7 @@ p{margin:6px 0}
 .ba .b em{color:var(--ink2)}.ba .a em{color:var(--green)}
 .ba .ar{align-self:center;font-weight:800;color:var(--green);padding:0}
 .where{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+a.chip{text-decoration:none;cursor:pointer}a.chip:hover{filter:brightness(.93)}
 .chip{display:inline-block;font-size:13.5px;font-weight:700;border-radius:99px;padding:2px 10px}
 .c-nb{background:var(--gbg);color:var(--green)}.c-cv{background:var(--pbg);color:var(--purple)}.c-gs{background:var(--ybg);color:var(--yellow)}
 .narrow{background:var(--ybg);border:2px solid var(--yellow);border-radius:16px;padding:12px 15px;margin:0 0 14px}
@@ -134,12 +142,13 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
 <h1>수행평가 ② 길잡이 — 아이디어를 생활 속으로</h1>
 <p class="sub">우리 모델이 <b>우리 학교 · 광주 · 내 일상</b>에서 실제로 쓰이는 장면까지 가 봐요. 세 가지 도구가 하는 일이 달라요.</p>
 <div class="roles">
- <div class="role"><b>🎨 캔바</b><span>모둠 발표 (13쪽)</span></div>
- <div class="role main"><b>💻 내 코랩 노트북</b><span>내 보고서 = <b>채점 근거</b></span></div>
- <div class="role"><b>📄 구글 슬라이드</b><span>참고용 (지난 기록 보기)</span></div>
+ <a class="role" href="#links"><b>🎨 캔바</b><span>모둠 발표 + 내 페이지 · 바로 가기 ›</span></a>
+ <a class="role main" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener"><b>💻 내 코랩 노트북</b><span>내 보고서 = <b>채점 근거</b> · 틀 열기 ›</span></a>
+ <a class="role" href="#links"><b>📄 구글 슬라이드</b><span>참고용 (지난 기록 보기) · 바로 가기 ›</span></a>
 </div>
+
 <nav class="toc" aria-label="이 쪽 차례">
- <a href="#flow">① 세 차시</a><a href="#refine">② 다듬기 4단계</a><a href="#maker">③ 문장 만들기</a><a href="#talk">④ 발표 파트</a><a href="#canva">⑤ 캔바로</a><a href="#grade">⑥ 채점 근거</a><a href="#links">바로 가기</a>
+ <a href="#flow">① 세 차시</a><a href="#refine">② 다듬기 4단계</a><a href="#maker">③ 문장 만들기</a><a href="#talk">④ 발표 방식</a><a href="#canva">⑤ 캔바로</a><a href="#grade">⑥ 채점 근거</a><a href="#links">바로 가기</a>
 </nav>
 
 <!-- 1. 세 차시 -->
@@ -154,16 +163,16 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
   <div class="ses due"><span class="s">S2</span>
    <h3>비교 · 개선 · 생활 적용 + 구술 ①</h3>
    <dl><dt>무엇을</dt><dd>기준선 · 비교표 → 내 개선 실험 → 다듬기 ③ ④ → 판단 근거 · AI 활용. 그동안 선생님이 돌며 <b>구술 ①</b>(내 셀 하나 설명)</dd>
-   <dt>어디에</dt><dd>노트북 4 ~ 10절 → 캔바 8 ~ 12쪽</dd></dl>
+   <dt>어디에</dt><dd>노트북 4 ~ 10절 → 캔바 8 · 9쪽 + «내 페이지» · 출처와 AI 기록 쪽</dd></dl>
    <div class="d">A 11/12 (목) · D 11/13 (금) · E 11/12 (목)</div></div>
   <div class="ses"><span class="s">S3</span>
    <h3>모둠 발표 + 구술 ②</h3>
-   <dl><dt>무엇을</dt><dd>모두가 자기 파트를 발표 → 한 사람씩 무작위 구술 1문항(약 30초) → 상호평가</dd>
-   <dt>어디에</dt><dd>🎨 캔바 발표 양식</dd></dl>
+   <dl><dt>무엇을</dt><dd>모둠 공통 쪽(약 1분) → 한 사람씩 «내 페이지» 30 ~ 40초 + 바로 무작위 구술 1문항(약 30초) → 상호평가</dd>
+   <dt>어디에</dt><dd>🎨 캔바 발표 양식 — 공통 2 · 3 · 6 · 9쪽 + 내 페이지</dd></dl>
    <div class="d">A 11/13 (금) · D 11/16 (월) · E 11/16 (월)</div></div>
  </div>
- <div class="dead">⏰ <b>마감 = S2 날 23:59</b> — 그 시각의 노트북으로 <b>자동 채점본</b>이 만들어져요. 그 뒤에 고친 것은 들어가지 않아요.<br>
-  <b>A반 11/12 (목)</b> · <b>D반 11/13 (금)</b> · <b>E반 11/12 (목)</b></div>
+ <div class="dead">⏰ <b>마감 = 발표(S3) 다음 날 오전 8시 전</b> — 8시에 그 시각의 노트북으로 <b>자동 채점본</b>이 만들어져요. 그 뒤에 고친 것은 들어가지 않아요.<br>
+  <b>A반 11/14 (토) 07:59</b> · <b>D반 11/17 (화) 07:59</b> · <b>E반 11/17 (화) 07:59</b></div>
 </section>
 
 <!-- 2. 다듬기 4단계 -->
@@ -188,7 +197,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
    <li>그 사람은 <b>언제 · 어디서</b> 무엇을 몰라서 곤란한가요?</li></ol>
   <span class="lab">약수터 안심이 예시</span>
   <div class="ba"><div class="b"><em>전</em>물을 깨끗하게 하는 AI</div><span class="ar">→</span><div class="a"><em>후</em>체육 시간 뒤 약수터 물을 마셔도 되는지 체육부장이 알고 싶다</div></div>
-  <div class="where"><span class="chip c-nb">💻 노트북 2절 단계 ①</span><span class="chip c-cv">🎨 캔바 3쪽</span></div>
+  <div class="where"><a class="chip c-nb" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">💻 노트북 2절 단계 ① ›</a><a class="chip c-cv" href="#canva">🎨 캔바 3쪽 ›</a></div>
  </div>
 
  <div class="step">
@@ -199,7 +208,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
    <li>우리 데이터는 <b>어디 · 언제 · 누구</b> 것인가요? 장면과 어긋나는 곳은?</li></ol>
   <span class="lab">약수터 안심이 예시</span>
   <div class="ba"><div class="b"><em>전</em>체육 시간 뒤 약수터 물을 마셔도 되는지 체육부장이 알고 싶다</div><span class="ar">→</span><div class="a"><em>후</em>정답 열 «판정»(적합 · 부적합), 입력 열 = 측정값 6개. 측정값은 <b>검사 뒤</b>에 나오므로 장면을 «구청 검사 결과가 올라온 날, 체육부장이 학교 뒤 약수터 안내를 정한다»로 고쳤다</div></div>
-  <div class="where"><span class="chip c-nb">💻 노트북 2절 단계 ②</span><span class="chip c-cv">🎨 캔바 3쪽</span></div>
+  <div class="where"><a class="chip c-nb" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">💻 노트북 2절 단계 ② ›</a><a class="chip c-cv" href="#canva">🎨 캔바 3쪽 ›</a></div>
  </div>
 
  <div class="step">
@@ -210,7 +219,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
    <li>어떤 값을 놓치면 가장 큰일인가요? 왜 그런가요?</li></ol>
   <span class="lab">약수터 안심이 예시</span>
   <div class="ba"><div class="b"><em>전</em>AI로 약수터 판정 앱을 만든다</div><span class="ar">→</span><div class="a"><em>후</em>모델이 «부적합»이라고 하면 → 체육부장이 약수터에 «마시지 마세요» 안내를 붙이고 보건 선생님께 알린다. 놓치면 안 되는 값 = «부적합»(놓치면 친구들이 마신다)</div></div>
-  <div class="where"><span class="chip c-nb">💻 노트북 6절 단계 ③</span><span class="chip c-cv">🎨 캔바 10쪽</span></div>
+  <div class="where"><a class="chip c-nb" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">💻 노트북 6절 단계 ③ ›</a><a class="chip c-cv" href="#canva">🎨 캔바 9쪽 · 내 페이지 ③ ›</a></div>
  </div>
 
  <div class="step">
@@ -221,7 +230,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
    <li>모델이 틀리면 누가 피해를 보나요? 우리 데이터와 우리 생활은 어디가 다른가요(어느 편향)?</li></ol>
   <span class="lab">약수터 안심이 예시</span>
   <div class="ba"><div class="b"><em>전</em>정확도가 높아서 좋다</div><span class="ar">→</span><div class="a"><em>후</em>«부적합» 재현율 0.90 — 실제 부적합 10건 중 9건을 미리 찾는다(기준선 재현율 0). 놓친 1건은 친구가 마실 수 있으니 «안전» 표시는 «재검사 순서가 뒤»라는 뜻으로만 쓰고, 마지막 확인은 보건 선생님이 한다. 한 지역 · 한 기간 자료라 선택 편향이 있다</div></div>
-  <div class="where"><span class="chip c-nb">💻 노트북 6절 단계 ④</span><span class="chip c-cv">🎨 캔바 10쪽</span></div>
+  <div class="where"><a class="chip c-nb" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_template.ipynb" target="_blank" rel="noopener">💻 노트북 6절 단계 ④ ›</a><a class="chip c-cv" href="#canva">🎨 캔바 9쪽 · 내 페이지 ③ ›</a></div>
  </div>
 </section>
 
@@ -254,24 +263,25 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
   </div>
   <div class="out" id="mkOut" aria-live="polite"></div>
  </div>
- <div class="ok">✍ 만든 문장을 <b>내 말로 고쳐서</b> 노트북 <b>6절</b>과 캔바 <b>10쪽</b>에 써요. 그대로 붙여 넣는 것이 아니라 «초안»이에요 — 우리 장면에 맞는 낱말로 바꾸고, 왜 그 행동인지 한 줄을 더해요.</div>
+ <div class="ok">✍ 만든 문장을 <b>내 말로 고쳐서</b> 노트북 <b>6절</b>과 캔바 <b>9쪽</b>(모둠) · <b>내 페이지 ③</b>에 써요. 그대로 붙여 넣는 것이 아니라 «초안»이에요 — 우리 장면에 맞는 낱말로 바꾸고, 왜 그 행동인지 한 줄을 더해요.</div>
 </section>
 
 <!-- 4. 발표 -->
 <section id="talk">
- <div class="lhead"><h2>🎤 발표 — 모두가 자기 파트</h2><span class="tag">S3</span></div>
+ <div class="lhead"><h2>🎤 발표 — 공통 쪽 + 내 페이지</h2><span class="tag">S3 · 모둠당 약 5분</span></div>
  <div class="grid4">
-  <div class="part"><span class="pn">파트 1</span><h3>문제 · 바꾼 것</h3><p>🎨 캔바 3 · 6쪽</p><p>누가 · 언제 · 어디서 곤란한가, 피드백을 받고 무엇을 왜 바꿨나</p><span class="t">⏱ 30 ~ 40초</span></div>
-  <div class="part"><span class="pn">파트 2</span><h3>데이터 · 오렌지3</h3><p>🎨 캔바 4 · 5쪽</p><p>데이터 출처(기관) · 정답 열 · 오렌지3 워크플로와 1차 점수</p><span class="t">⏱ 30 ~ 40초</span></div>
-  <div class="part"><span class="pn">파트 3</span><h3>코랩 · 성능 비교</h3><p>🎨 캔바 7 · 8쪽</p><p>위젯이 어떤 코드가 됐나, 기준선 · 오렌지3 · 코랩을 같은 지표로</p><span class="t">⏱ 30 ~ 40초</span></div>
-  <div class="part"><span class="pn">파트 4</span><h3>실생활 적용 · 해결안</h3><p>🎨 캔바 10쪽</p><p>행동 규칙 · 확인할 숫자 · 틀리면 누가 확인하나</p><span class="t">⏱ 30 ~ 40초</span></div>
+  <div class="part"><span class="pn">① 공통 쪽</span><h3>우리 모둠 이야기</h3><p>🎨 캔바 2 · 3 · 6 · 9쪽 중심</p><p>누구의 어떤 장면인가, 피드백을 받고 무엇을 왜 바꿨나, 우리 모델을 쓰는 장면(해결안)</p><span class="t">⏱ 약 1분</span></div>
+  <div class="part"><span class="pn">② 내 페이지</span><h3>한 사람씩 내 쪽</h3><p>🎨 캔바 10 ~ 13쪽 (3명 모둠은 10 ~ 12쪽)</p><p>① 내 코랩 결과 ② 내 개선 실험 ③ 생활 적용 ④ 내 판단 · 질문 대비</p><span class="t">⏱ 30 ~ 40초</span></div>
+  <div class="part"><span class="pn">③ 구술</span><h3>바로 이어 1문항</h3><p>🎤 무작위 1문항</p><p>내 페이지가 끝나면 그 자리에서 바로. 우리 숫자 · 열 이름으로 답해요</p><span class="t">⏱ 약 30초</span></div>
+  <div class="part"><span class="pn">④ 다음 사람</span><h3>② → ③ 되풀이</h3><p>🎨 다음 «내 페이지»</p><p>모둠원 모두가 끝나면 다음 모둠. 출처와 AI 기록 쪽 · 감사합니다 쪽은 넘기기만 해요</p><span class="t">⏱ 모둠당 약 5분</span></div>
  </div>
  <div class="card" style="margin-top:12px">
   <ul style="margin:0">
-   <li><b>모두</b> 자기 파트 끝에 9쪽 <b>«내 개선 실험»</b>을 한 문장 덧붙여요. 예) «저는 트리 깊이를 3으로 줄였더니 괜한 경보가 4건에서 2건으로 줄었어요.»</li>
-   <li><b>3명 모둠</b>은 파트 2와 3을 한 사람이 이어서 맡아요.</li>
-   <li>캔바 <b>2쪽 «맡은 발표 장»</b>에 <code>이름 — 파트 번호 (캔바 ○ · ○쪽)</code>처럼 써요. 예) «예시 학생 B — 파트 3 (7 · 8쪽)».</li>
-   <li>발표가 끝나면 모둠원 <b>한 사람씩 무작위 구술 1문항(약 30초)</b>. 문항은 <a href="unit4.html#oralBank">🎤 구술 문항 은행</a>에 미리 공개돼 있어요 — 우리 숫자 · 열 이름으로 답하면 «근거»예요.</li>
+   <li><b>공통 쪽</b>은 파트 1 담당이 이끌어요. 2쪽 «맡은 발표 장»에 적은 대로 공통 쪽을 나눠 말해도 돼요.</li>
+   <li><b>«내 페이지»</b>는 모둠원 한 사람에 한 쪽이에요. 같은 모둠이어도 내 코랩 결과 · 내 개선 실험 · 내 판단은 <b>달라요</b> — 노트북 4 · 9절, 5절, 6절, 7절에서 그대로 옮겨요.</li>
+   <li><b>3명 모둠</b>은 «내 페이지»가 10 ~ 12쪽, 출처와 AI 기록이 13쪽이에요(4명 모둠은 14쪽). 남는 내 페이지 한 쪽은 지워요.</li>
+   <li>캔바 <b>2쪽 «맡은 발표 장»</b>에 <code>이름 — 공통 쪽 맡은 곳 · 내 페이지 ○쪽</code>처럼 써요. 예) «예시 학생 B — 공통 6쪽 · 내 페이지 11쪽».</li>
+   <li>구술 문항은 <a href="unit4.html#oralBank">🎤 구술 문항 은행</a>에 미리 공개돼 있어요 — 우리 숫자 · 열 이름으로 답하면 «근거»예요.</li>
   </ul>
  </div>
 </section>
@@ -282,14 +292,14 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
  <p class="ink2">노트북 칸마다 붙은 <b>📋 캔바 ○쪽</b> 표시대로 옮겨요. 캔바 숫자는 노트북 숫자와 <b>똑같아야</b> 해요.</p>
  <div class="tw"><table>
   <tr><th style="width:44%">💻 노트북 절</th><th style="width:22%">🎨 캔바</th><th>무엇을</th></tr>
-  <tr><td>👤 1. 나의 계획</td><td><b>2 · 3쪽</b></td><td>맡은 위젯 · 발표 파트, 문제 · SDG</td></tr>
+  <tr><td>👤 1. 나의 계획</td><td><b>2 · 3쪽</b></td><td>맡은 위젯 · 맡은 발표 장, 문제 · SDG</td></tr>
   <tr><td>🏡 2. 아이디어 다듬기 — 생활 장면</td><td><b>3쪽</b></td><td>좁힌 장면 한 문장</td></tr>
   <tr><td>💻 3. 코랩 재구현</td><td><b>7쪽</b></td><td>위젯 ↔ 코드 · 점수</td></tr>
-  <tr><td>📊 4. 기준선 · 비교표</td><td><b>8쪽</b></td><td>기준선 · 오렌지3 · 코랩 (같은 지표)</td></tr>
-  <tr><td>🧪 5. 내 개선 실험</td><td><b>9쪽 내 줄</b></td><td>바꾼 것 하나 · 전 → 후</td></tr>
-  <tr><td>🏡 6. 결과 → 실생활 적용</td><td><b>10쪽</b></td><td>행동 규칙 · 확인할 숫자 · 위험</td></tr>
-  <tr><td>📝 7. 판단 근거 다섯 칸</td><td><b>12쪽 내 칸</b></td><td>느낀 점 · 내 판단</td></tr>
-  <tr><td>🤖 8. AI 활용 내역</td><td><b>11쪽</b></td><td>출처 · AI 활용</td></tr>
+  <tr><td>📊 4. 기준선 · 비교표</td><td><b>8쪽 + 내 페이지 ①</b></td><td>기준선 · 오렌지3 · 코랩 (같은 지표) · 내 코랩 결과</td></tr>
+  <tr><td>🧪 5. 내 개선 실험</td><td><b>내 페이지 ②</b></td><td>바꾼 것 하나 · 전 → 후</td></tr>
+  <tr><td>🏡 6. 결과 → 실생활 적용</td><td><b>9쪽(모둠) + 내 페이지 ③</b></td><td>우리 모델 쓰는 장면 · 행동 규칙 · 확인할 숫자 · 위험</td></tr>
+  <tr><td>📝 7. 판단 근거 다섯 칸</td><td><b>내 페이지 ④</b></td><td>내 판단 · 질문 대비</td></tr>
+  <tr><td>🤖 8. AI 활용 내역</td><td><b>출처와 AI 기록 쪽</b></td><td>출처 · AI 활용 (4명 14쪽 · 3명 13쪽)</td></tr>
  </table></div>
  <div class="tip">📋 <b>노트북 9절 요약 셀</b>을 실행하면 캔바에 옮길 숫자가 한 번에 나와요. 맨 위 <code>오렌지3_점수</code>에 오렌지3 Test and Score 점수(코랩과 같은 지표)만 적고 ▶.</div>
  <div class="grid2" style="margin-top:12px">
@@ -338,7 +348,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
  </div>
 
  <div class="el"><h3>요소 ④ 보고서 · 구술</h3>
-  <p class="src">📍 근거 — 노트북 <b>6 · 7 · 8절</b> (판단 근거 «왜» · 적용 · AI 활용 내역) + <b>구술 ① ②</b> + 발표(내 파트)</p>
+  <p class="src">📍 근거 — 노트북 <b>6 · 7 · 8절</b> (판단 근거 «왜» · 적용 · AI 활용 내역) + <b>구술 ① ②</b> + 발표(내 페이지)</p>
   <div class="lv top"><i>25</i><span>판단 근거 <b>다섯 칸</b>(문제 정의 · 데이터 · 모델 · 평가 · 개선과 적용)이 모두 «왜»와 함께 + AI 활용 표 세 칸(신호등 · 요청 · 채택)이 다 있거나 «AI 안 씀» + 구술 ① ② <b>모두 «근거»</b></span></div>
   <div class="lv"><i>20</i><span>판단 근거 · AI 활용 내역 둘 다 있음(일부여도) + 구술 ① ② 모두 «근거» 또는 «부분»</span></div>
   <div class="lv"><i>15</i><span>판단 근거 · AI 활용 내역 중 하나 이상 + 구술 중 하나 이상 답함</span></div>
@@ -350,7 +360,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
  <h3 style="font-size:18px;margin:18px 0 8px">🤝 공통 약속</h3>
  <ul class="rules">
   <li><b>👤 점수는 한 사람씩</b>모둠 활동이어도 내 노트북 · 내 구술만 내 점수의 근거예요.</li>
-  <li><b>⏰ 채점본은 S2 날 23:59</b>그 시각의 노트북 사본으로 채점해요. 마감 뒤에 고친 것은 들어가지 않아요.</li>
+  <li><b>⏰ 채점본은 발표 다음 날 오전 8시</b>그 시각의 노트북 사본으로 채점해요. 마감 뒤에 고친 것은 들어가지 않아요.</li>
   <li><b>✎ 빈 칸은 5점</b>수업에 참여했는데 비어 있으면 0점이 아니라 그 요소의 가장 낮은 단계(5점). 0점은 스스로 참여하지 않은 경우만이에요. 하나라도 써 두세요.</li>
   <li><b>🤖 AI 그대로는 최하점</b>AI가 만든 문장 · 코드를 그대로 내면 그 요소는 최하점(5점)이에요. AI는 자료 검색 · 요약에만 써요.</li>
   <li><b>🧑‍🏫 코랩 안내는 감점 없음</b>수업 중 선생님 · 친구에게 코랩 안내를 받아도 감점하지 않아요. 대신 내 셀은 내 말로 설명할 수 있게.</li>
@@ -439,5 +449,6 @@ if(typeof document!=='undefined')(function(){
   if(IDS.some(function(i){return el(i).value;}))build();
 })();
 </script>
+
 </body>
 </html>
