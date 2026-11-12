@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3차시 오늘 할 일 · 빔 화면</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d2433;--ink2:#4a5468;--line:#d7dce6;--bg:#f4f6fa;--card:#fff;--blue:#2b6cb0;--blue2:#e8f1fb;--star:#f2b705;--star2:#fff6d6;--red:#c53030;--red2:#fdecec;--green:#2f855a;--green2:#e6f4ec;--code:#f7f8fa}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif}
+.page{width:100%;max-width:1900px;margin:0 auto;padding:18px 22px 14px;min-height:100vh;display:flex;flex-direction:column;gap:12px}
+header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{margin:0;font-size:34px;font-weight:900;letter-spacing:-.5px}
+header .sub{font-size:19px;color:var(--ink2)}
+header .goal{margin-left:auto;background:var(--star2);border:2px solid var(--star);border-radius:999px;padding:6px 16px;font-size:19px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card.star{border:4px solid var(--star);box-shadow:0 0 0 4px var(--star2)}
+.top{display:flex;align-items:center;gap:10px}
+.no{flex:none;width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;font-size:26px;font-weight:900;display:grid;place-items:center}
+.star .no{background:var(--star);color:#3a2b00}
+.top h2{margin:0;font-size:26px;font-weight:900;line-height:1.15}
+.top .t{margin-left:auto;font-size:18px;font-weight:700;color:var(--blue);white-space:nowrap}
+.star .top .t{color:#8a6500}
+.vis{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.key{font-size:19px;line-height:1.45;margin:0;padding-left:20px}
+.key li{margin:1px 0}
+.key b{color:var(--red)}
+/* 코랩 흉내 */
+.colab{border:1px solid #c9ced8;border-radius:8px;overflow:hidden;background:#fff}
+.colab .bar{background:#f1f3f4;font-size:14px;color:#555;padding:4px 8px;border-bottom:1px solid #dadce0;display:flex;gap:12px}
+.colab .bar b{color:#1a73e8}
+pre{margin:0;padding:8px 10px;font-family:'Noto Sans Mono',monospace;font-size:15px;line-height:1.45;background:var(--code);white-space:pre;overflow:hidden}
+.hl{background:#fff2a8;outline:2px solid var(--star);border-radius:3px}
+.md{padding:8px 10px;font-size:16px;line-height:1.5}
+.md h4{margin:0 0 4px;font-size:16px}
+.arrow{text-align:center;font-size:20px;font-weight:900;color:var(--blue);margin:-2px 0}
+.menu{display:flex;gap:6px;align-items:center;font-size:16px;flex-wrap:wrap}
+.pill{border:2px solid var(--blue);border-radius:999px;padding:3px 10px;font-weight:700;background:var(--blue2)}
+.redbox{background:var(--red2);border:2px solid var(--red);border-radius:10px;padding:6px 10px;font-size:15px}
+.redbox b{color:var(--red)}
+.img{width:100%;border:1px solid var(--line);border-radius:8px;display:block}
+table.mini{border-collapse:collapse;width:100%;font-size:15px}
+table.mini th,table.mini td{border:1px solid #cfd5df;padding:4px 6px;text-align:left}
+table.mini th{background:#eef1f6}
+.bub{border-radius:14px;padding:8px 12px;font-size:16.5px;line-height:1.45}
+.bub.me{background:var(--blue2);border:2px solid var(--blue)}
+.bub.t{background:var(--green2);border:2px solid var(--green);align-self:flex-start}
+.bub small{display:block;color:var(--ink2);font-size:13.5px}
+footer{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap}
+footer .box{background:#fff;border:2px solid var(--line);border-radius:14px;padding:8px 14px;font-size:19px;line-height:1.45}
+footer .box b{color:var(--blue)}
+footer .help{flex:1 1 640px}
+footer .no-copy{flex:0 1 auto;background:var(--red2);border-color:var(--red)}
+.sign{text-align:center;color:var(--ink2);font-size:13px}.sign img{display:inline-block;width:56px;height:auto;vertical-align:middle;border:0}
+@media (max-width:1100px){.grid{grid-template-columns:1fr 1fr}header h1{font-size:28px}}
+@media (max-width:720px){.grid{grid-template-columns:1fr}.page{padding:12px 16px}pre{font-size:13px}}
+@media print{@page{size:A3 landscape;margin:8mm}body{background:#fff}.page{min-height:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+ <header>
+  <h1>🧒 3차시 오늘 할 일</h1>
+  <span class="sub">이 순서대로만 하면 돼요 · 예시 = 건강검진 «혈압 지킴이»(숫자는 실제로 돌린 값)</span>
+  <span class="goal">⭐ 오늘 가장 중요한 건 ③ 하나만 바꿔 보기</span>
+ </header>
+
+ <div class="grid">
+  <!-- 1 -->
+  <section class="card">
+   <div class="top"><span class="no">1</span><h2>열기</h2><span class="t">0–3분</span></div>
+   <div class="vis">
+    <div class="menu"><span class="pill">🔑 내 링크</span>→<span class="pill">💻 ② 내 노트북</span>→<span class="pill">런타임 ▸ 모두 실행</span></div>
+    <div class="redbox"><b>📋 다음 시간 먼저 — 내 노트북 점검</b><br>🔑 화면에 이 빨간 상자가 있으면 <b>이것부터</b> 해요.</div>
+    <div class="colab"><div class="bar"><span>3절 맨 아래 칸</span><b>④ Test and Score</b></div>
+<pre>🧮 혼동 행렬 (Confusion Matrix)
+       예측 위험  예측 정상
+실제 위험      8    662
+실제 정상     12   2992</pre></div>
+   </div>
+   <ul class="key"><li>혼동 행렬이 <b>보이면</b> → 자리에서 2번으로</li><li>혼동 행렬이 <b>안 보이면</b> → 노트북 들고 <b>뒤쪽 도움 자리</b>로 (감점 없어요)</li></ul>
+  </section>
+
+  <!-- 2 -->
+  <section class="card">
+   <div class="top"><span class="no">2</span><h2>숫자 하나 찾기</h2><span class="t">3–8분 · 5분만</span></div>
+   <div class="vis">
+    <div class="colab"><div class="bar"><span>3절 ④ 칸 출력</span></div>
+<pre>정확도 (CA)        : 0.817
+<span class="hl">«위험» 재현율 (Recall) : 0.012</span>  ← 670개 중 8개 찾음
+«위험» 정밀도      : 0.400</pre></div>
+    <div class="arrow">⬇ 7절 «평가» 첫 줄에 옮겨 쓰기</div>
+    <div class="colab"><div class="md"><h4>📝 7. 판단 근거 — 평가</h4>✎ 우리 모델의 ‹위험› <span class="hl">재현율은 0.012</span>이다.</div></div>
+   </div>
+   <ul class="key"><li>분류 = <b>«놓치면 안 되는 값» 재현율</b> · 예측 = <b>MAE</b></li><li>이 숫자가 실험의 <b>«전»</b>이에요 (4절 표는 나중에)</li></ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="card star">
+   <div class="top"><span class="no">3</span><h2>하나만 바꿔 보기</h2><span class="t">8–25분 · 17분 ⭐</span></div>
+   <div class="vis">
+    <div class="colab"><div class="md"><h4>🧪 5. 내 개선 실험</h4>
+     가설: 클래스 균형을 켜면 ‹위험›을 더 찾을 것이다<br>
+     바꾼 것 <b>하나</b>: <code>class_weight='balanced'</code><br>
+     결과: 재현율 <span class="hl">0.012 → 0.624</span> (8명 → 418명)<br>
+     해석 · 편향: 정상이 82 %라 치우침(선택 편향)</div></div>
+    <div class="colab"><div class="bar"><span>«개선 실험» 칸 출력</span></div>
+<pre>«위험» 재현율: 전 0.012 → 후 0.624
+정확도      : 전 0.817 → 후 0.633</pre></div>
+   </div>
+   <ul class="key"><li>🔑 <b>💡 선생님 피드백</b>대로 <b>딱 하나만</b> · <b>같은 지표</b>로 다시 재기</li><li><b>나빠지거나 그대로여도 좋은 결과</b> — 숫자를 좋게 바꿔 적지 않기</li></ul>
+  </section>
+
+  <!-- 4 -->
+  <section class="card">
+   <div class="top"><span class="no">4</span><h2>캔바 «내 페이지»</h2><span class="t">25–35분</span></div>
+   <div class="vis"><img class="img" src="img/pa2ex/p10.jpg" alt="예시 내 페이지 — 네 칸에 노트북 숫자를 옮긴 모습"></div>
+   <ul class="key"><li>① 내 점수 ② <b>개선 전 → 후 (주인공)</b> ③ 생활 적용 ④ 내 판단</li><li>칸마다 2~4줄 · 숫자는 <b>노트북 숫자 그대로</b></li></ul>
+  </section>
+
+  <!-- 5 -->
+  <section class="card">
+   <div class="top"><span class="no">5</span><h2>마무리</h2><span class="t">35–43분</span></div>
+   <div class="vis">
+    <div class="colab"><div class="md"><h4>📊 4. 오렌지3 · 코랩 비교표 (혼자 3분)</h4>
+     <table class="mini"><tr><th>지표</th><th>오렌지3</th><th>코랩</th><th>다르면 왜?</th></tr>
+     <tr><td>«위험» 재현율</td><td>0.012</td><td>0.012</td><td>같아요</td></tr></table></div></div>
+    <div class="colab"><pre># [오렌지3] Logistic Regression · <span class="hl">담당: 내 이름</span></pre></div>
+    <div class="menu"><span class="pill">👥 모둠 캔바 빈 쪽 한 사람씩</span><span>7쪽 코드 · 8쪽 성능 · 9쪽 해결안 · 출처와 AI 기록</span></div>
+   </div>
+   <ul class="key"><li>7절 «평가» 둘째 · 셋째 줄도 채우기</li><li>셀 첫 줄 <b>«담당: 내 이름»</b> = 다음 시간 구술 ①의 내 위젯</li></ul>
+  </section>
+
+  <!-- 6 -->
+  <section class="card">
+   <div class="top"><span class="no">6</span><h2>발표 날 연습</h2><span class="t">43–50분</span></div>
+   <div class="vis">
+    <div class="bub me"><small>🎨 내 페이지 30초 끝에 — 🎤 구술 ① 내 담당 위젯 한 문장</small>«제가 맡은 <b>Select Columns</b>는 코드에서 <b>‹입력_열 · 정답_열›</b> 줄이고, 혈압 숫자는 <b>정답을 만든 열이라</b> 뺐어요.»</div>
+    <div class="bub t"><small>👩‍🏫 선생님</small>«<b>3번</b>이에요.»</div>
+    <div class="bub me"><small>🎤 구술 ② 30초 — 문항 은행 그 번호에 우리 숫자로</small>«입력에서 뺀 열은 수축기 · 이완기 혈압이고, 그 이유는 …»</div>
+   </div>
+   <ul class="key"><li>짝 연습 1분씩 — <b>위젯 이름 · 코드 줄 · 왜</b> 셋 다 나왔나?</li><li>마지막 1분: <b>런타임 ▸ 모두 실행</b> → 오류 없음 → 끝</li></ul>
+  </section>
+ </div>
+
+ <footer>
+  <div class="box help">😵 막히면 <b>📌 예시 한 벌</b>(사이트 «수행평가 ② 길잡이») → <b>짝</b> → <b>모둠</b> → <b>선생님</b> 순서로 · 다음 시간 = 바로 발표 · 마감은 <b>발표 날 23:59</b></div>
+  <div class="box no-copy">⚠ 예시는 <b>«어디에 · 무엇을»</b>만 보기 — 내 데이터 · 내 숫자 · 내 말로</div>
+ </footer>
+ <div class="sign"><img src="img/bun.gif" alt=""> made by ptp 🐰</div>
+</div>
+</body>
+</html>
