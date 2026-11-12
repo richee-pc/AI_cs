@@ -126,6 +126,7 @@ td b{color:var(--ink)}
 .go a span{display:block;font-size:13px;color:var(--ink2)}
 a{color:var(--blue)}
 code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(--bg);border-radius:6px;padding:0 4px}
+.exgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:8px}.exgal figure{margin:0;background:var(--card,#fff);border:1px solid #ddd;border-radius:10px;overflow:hidden}.exgal img{display:block;width:100%;height:auto}.exgal figcaption{font-size:13px;padding:4px 8px;color:#444}.exgal .star{outline:3px solid #f2b705}
 .sign{text-align:center;color:var(--ink2);font-size:13px;margin-top:40px}.sign img{display:inline-block;width:120px;height:auto;border:0}
 @media (max-width:700px){.grid4{grid-template-columns:1fr 1fr}.f{grid-template-columns:1fr 1fr}.f .wide{grid-column:1/-1}}
 @media (max-width:600px){h1{font-size:22px}.lhead h2{font-size:19.5px}.roles,.grid3,.grid2,.rules{grid-template-columns:1fr}
@@ -148,7 +149,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
 </div>
 
 <nav class="toc" aria-label="이 쪽 차례">
- <a href="#flow">① 네 차시</a><a href="#refine">② 다듬기 4단계</a><a href="#maker">③ 문장 만들기</a><a href="#talk">④ 발표 방식</a><a href="#canva">⑤ 캔바로</a><a href="#grade">⑥ 채점 근거</a><a href="#links">바로 가기</a>
+ <a href="#flow">① 네 차시</a><a href="#refine">② 다듬기 4단계</a><a href="#maker">③ 문장 만들기</a><a href="#talk">④ 발표 방식</a><a href="#canva">⑤ 캔바로</a><a href="#ex">📌 예시 한 벌</a><a href="#grade">⑥ 채점 근거</a><a href="#links">바로 가기</a>
 </nav>
 
 <!-- 1. 네 차시 -->
@@ -305,7 +306,7 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
  <div class="tw"><table>
   <tr><th style="width:44%">💻 노트북 절</th><th style="width:22%">🎨 캔바</th><th>무엇을</th></tr>
   <tr><td>👤 1. 나의 계획</td><td><b>2 · 3쪽</b></td><td>맡은 위젯 · 맡은 발표 장, 문제 · SDG</td></tr>
-  <tr><td>🏡 2. 아이디어 다듬기 — 생활 장면</td><td><b>3쪽</b></td><td>좁힌 장면 한 문장</td></tr>
+  <tr><td>(노트북 2절 없음) 생활 장면</td><td><b>3쪽</b></td><td>좁힌 장면 한 문장 — 캔바에 모둠이 바로 써요</td></tr>
   <tr><td>💻 3. 코랩 재구현</td><td><b>7쪽</b></td><td>위젯 ↔ 코드 · 점수</td></tr>
   <tr><td>📊 4. 비교표 (+ 3절 ④ 혼동 행렬)</td><td><b>8쪽 + 내 페이지 ①</b></td><td>평가 지표 · 혼동 행렬 해석 · 오렌지3 · 코랩 (같은 지표) — 기준선 비교는 안 해요</td></tr>
   <tr><td>🧪 5. 내 개선 실험</td><td><b>내 페이지 ② (중심)</b></td><td>내 개선 아이디어 · 코랩에서 바꾼 것 하나 · 같은 지표 전 → 후</td></tr>
@@ -324,6 +325,31 @@ code{font-family:"D2Coding",Consolas,monospace;font-size:14.5px;background:var(-
     <li>워크플로 전체(캔바 5쪽)는 창을 크게 해서 한 번에</li>
     <li>Test and Score · Confusion Matrix는 <b>숫자가 보이게</b> 잘라요.</li></ul></div>
  </div>
+</section>
+
+<!-- 5-2. 예시 한 벌 -->
+<section id="ex">
+ <div class="lhead"><h2>📌 예시 한 벌 — 혈압 지킴이</h2><span class="tag">노트북 2개 + 캔바 12쪽</span></div>
+ <p class="ink2">가상의 «예시 모둠»이 <b>건강검진 자료</b>로 «혈압 위험인 사람 먼저 찾기»를 끝까지 해 본 결과예요. 숫자는 모두 <b>실제로 돌린 값</b>(코랩 · 오렌지3 둘 다)이에요.</p>
+ <div class="warn">⚠ <b>베끼면 점수가 안 돼요.</b> 내 데이터 · 내 숫자 · 내 말로 써야 해요. 예시에서는 <b>«어디에 · 무엇을 · 어떤 말투로»</b>만 보세요.</div>
+ <div class="grid2" style="margin-top:12px">
+  <div class="card"><h3>💻 ① 완성본 노트북</h3><p>3절 ④ 점수까지 나오고 4 · 6 · 7 · 8 · 9절을 채운 모습 <small>(5절 개선 실험 전)</small></p>
+   <p><a class="btn" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_example_bp_1_complete.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 완성본</a></p>
+   <ul><li>정확도 <b>0.817</b> — 높아 보여요</li><li>그런데 혼동 행렬: 실제 위험 670명 중 <b>8명</b>만 찾음(재현율 0.012)</li><li>→ «정확도만 보면 속는다»가 7절 «평가»에 들어가요</li></ul></div>
+  <div class="card"><h3>🧪 ② 개선본 노트북</h3><p>① + <b>5절 내 개선 실험</b> + 6 · 7절을 개선 결과로 고친 모습</p>
+   <p><a class="btn" href="https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/05_project_example_bp_2_improved.ipynb" target="_blank" rel="noopener">▶ 코랩에서 열기 — 개선본</a></p>
+   <ul><li>바꾼 것 <b>하나</b>: Logistic Regression «클래스 균형 맞추기» 켜기</li><li>«위험» 재현율 <b>0.012 → 0.624</b> (8명 → 418명)</li><li>정확도는 0.817 → 0.633으로 떨어짐 → 그래도 쓰는 «이유»를 씀</li></ul></div>
+ </div>
+ <h3 style="margin-top:18px">🎨 캔바 예시본 12쪽 <small>(그림을 누르면 크게 보여요 · ★ = 내 페이지)</small></h3>
+ <div class="exgal"><figure class="exfig"><a href="img/pa2ex/p01.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p01.jpg" alt="예시본 1쪽 표지" loading="lazy"></a><figcaption>1쪽 표지</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p02.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p02.jpg" alt="예시본 2쪽 모둠 소개" loading="lazy"></a><figcaption>2쪽 모둠 소개</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p03.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p03.jpg" alt="예시본 3쪽 실생활 문제" loading="lazy"></a><figcaption>3쪽 실생활 문제</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p04.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p04.jpg" alt="예시본 4쪽 데이터" loading="lazy"></a><figcaption>4쪽 데이터</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p05.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p05.jpg" alt="예시본 5쪽 오렌지3" loading="lazy"></a><figcaption>5쪽 오렌지3</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p06.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p06.jpg" alt="예시본 6쪽 그래서 바꾼 것" loading="lazy"></a><figcaption>6쪽 그래서 바꾼 것</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p07.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p07.jpg" alt="예시본 7쪽 코랩 재구현" loading="lazy"></a><figcaption>7쪽 코랩 재구현</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p08.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p08.jpg" alt="예시본 8쪽 성능 비교" loading="lazy"></a><figcaption>8쪽 성능 비교</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p09.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p09.jpg" alt="예시본 9쪽 해결안" loading="lazy"></a><figcaption>9쪽 해결안</figcaption></figure><figure class="exfig star"><a href="img/pa2ex/p10.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p10.jpg" alt="예시본 ★ 내 페이지" loading="lazy"></a><figcaption>★ 내 페이지</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p11.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p11.jpg" alt="예시본 출처와 AI 기록" loading="lazy"></a><figcaption>출처와 AI 기록</figcaption></figure><figure class="exfig"><a href="img/pa2ex/p12.jpg" target="_blank" rel="noopener"><img src="img/pa2ex/p12.jpg" alt="예시본 마지막 쪽" loading="lazy"></a><figcaption>마지막 쪽</figcaption></figure></div>
+ <div class="tw" style="margin-top:12px"><table>
+  <tr><th style="width:26%">캔바 쪽</th><th style="width:30%">노트북 어디서 가져왔나</th><th>예시에 쓴 것</th></tr>
+  <tr><td>★ 내 페이지 ①</td><td>3절 ④ · 4절 · 9절</td><td>재현율 오렌지3 0.012 → 코랩 0.012 · 670명 중 8명</td></tr>
+  <tr><td>★ 내 페이지 ②</td><td>5절 · 개선 실험 칸</td><td>가설 → 바꾼 것 하나 → 0.012 → 0.624 → 편향(선택)</td></tr>
+  <tr><td>★ 내 페이지 ③</td><td>6절</td><td>«위험» → 간호사 → 재검 문자 · 418명 안내 · 252명 놓침</td></tr>
+  <tr><td>★ 내 페이지 ④</td><td>7절</td><td>정확도가 떨어져도 쓰는 이유 · 받을 질문과 내 답</td></tr>
+  <tr><td>7 · 8 · 9쪽 (모둠)</td><td>3절 · 4절 + 7절 · 6절</td><td>위젯 ↔ 코드 · 담당 / 같은 지표 표 · 가장 위험한 틀림 / 행동 규칙</td></tr>
+ </table></div>
 </section>
 
 <!-- 6. 채점 근거 -->
