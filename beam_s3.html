@@ -58,6 +58,22 @@ footer .no-copy{flex:0 1 auto;background:var(--red2);border-color:var(--red)}
 @media (max-width:1100px){.grid{grid-template-columns:1fr 1fr}header h1{font-size:28px}}
 @media (max-width:720px){.grid{grid-template-columns:1fr}.page{padding:12px 16px}pre{font-size:13px}}
 @media print{@page{size:A3 landscape;margin:8mm}body{background:#fff}.page{min-height:auto}}
+#bank{display:none;position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto}
+#bank:target{display:block}
+#bank .in{max-width:1900px;margin:0 auto;padding:18px 26px;display:flex;flex-direction:column;gap:14px}
+#bank .hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#bank h1{margin:0;font-size:36px;font-weight:900}
+#bank .x{margin-left:auto;font-size:22px;font-weight:700;color:#fff;background:var(--ink2);border-radius:999px;padding:6px 18px;text-decoration:none}
+#bank .o1{background:var(--blue2);border:3px solid var(--blue);border-radius:16px;padding:12px 18px;font-size:29px;line-height:1.5}
+#bank .o1 small{display:block;font-size:23px;color:var(--ink2)}
+#bank ol{margin:0;padding:0 0 0 2.4em;columns:2;column-gap:48px;font-size:31px;line-height:1.45}
+#bank ol li{break-inside:avoid;margin:0 0 26px;padding-left:4px}
+#bank ol li::marker{font-weight:900;color:var(--blue)}
+#bank .tg{display:inline-block;font-size:20px;font-weight:700;background:#fff;border:2px solid var(--line);border-radius:8px;padding:0 8px;margin-right:8px;vertical-align:2px}
+#bank .ft{font-size:25px;background:var(--green2);border:2px solid var(--green);border-radius:14px;padding:8px 16px}
+footer a.bk{flex:0 1 auto;text-decoration:none;color:var(--ink);background:var(--blue2);border-color:var(--blue);font-weight:700}
+@media (max-width:1100px){#bank ol{columns:1}}
+@media print{#bank{display:none!important}footer a.bk{display:none}}
 </style>
 </head>
 <body>
@@ -142,15 +158,35 @@ footer .no-copy{flex:0 1 auto;background:var(--red2);border-color:var(--red)}
     <div class="bub t"><small>👩‍🏫 선생님</small>«<b>3번</b>이에요.»</div>
     <div class="bub me"><small>🎤 구술 ② 30초 — 문항 은행 그 번호에 우리 숫자로</small>«입력에서 뺀 열은 수축기 · 이완기 혈압이고, 그 이유는 …»</div>
    </div>
-   <ul class="key"><li>짝 연습 1분씩 — <b>위젯 이름 · 코드 줄 · 왜</b> 셋 다 나왔나?</li><li>마지막 1분: <b>런타임 ▸ 모두 실행</b> → 오류 없음 → 끝</li></ul>
+   <ul class="key"><li>내 위젯 = 3절 <b>«담당: 내 이름»</b> 셀 하나</li><li>짝 연습 1분씩 — <b>위젯 · 코드 줄 · 왜</b> 셋 다? (<a href="#bank">문항</a>)</li><li>마지막 1분: <b>런타임 ▸ 모두 실행</b> → 오류 없음 → 끝</li></ul>
   </section>
  </div>
 
  <footer>
   <div class="box help">😵 막히면 <b>📌 예시 한 벌</b>(사이트 «수행평가 ② 길잡이») → <b>짝</b> → <b>모둠</b> → <b>선생님</b> 순서로 · 다음 시간 = 바로 발표 · 마감은 <b>발표 날 23:59</b></div>
+  <a class="box bk" href="#bank">🎤 구술 문항 은행 크게 보기 →</a>
   <div class="box no-copy">⚠ 예시는 <b>«어디에 · 무엇을»</b>만 보기 — 내 데이터 · 내 숫자 · 내 말로</div>
  </footer>
  <div class="sign"><img src="img/bun.gif" alt=""> made by ptp 🐰</div>
 </div>
+<div id="bank"><div class="in">
+ <div class="hd"><h1>🎤 구술 문항 은행</h1><span class="sub" style="font-size:20px;color:var(--ink2)">발표 날 «내 페이지» 바로 뒤 · 미리 공개 · 답은 <b>우리 숫자 · 열 이름</b>으로</span><a class="x" href="#">✕ 닫기</a></div>
+ <div class="o1"><b>구술 ① 내 담당 위젯 한 문장</b> — «제가 맡은 <b>○○ 위젯</b>은 코드에서 <b>○○ 줄</b>이고, 우리 데이터에서 <b>○○ 때문에</b> 이렇게 했어요.»
+  <small>내 위젯 = 노트북 3절에서 <b>«담당: 내 이름»</b>이 적힌 셀 하나 · 여러 개면 하나 고르기 · 없으면 모둠에서 겹치지 않게 지금 정하기</small></div>
+ <div style="font-size:30px;font-weight:900;margin-top:8px">구술 ② 선생님이 «○번이에요» → 그 문항에 30초</div>
+ <ol>
+   <li><span class="tg">데이터</span>우리 데이터는 어디(기관)에서 왔고, <b>정답 열 · 입력 열</b>은? 분류? 예측?</li>
+   <li><span class="tg">전처리</span>빈칸 · 글자 열을 <b>어떻게 처리</b>했고, 몇 행이 남았나요? 왜?</li>
+   <li><span class="tg">전처리</span>입력에서 <b>뺀 열</b>은 무엇이고, 왜 뺐나요?</li>
+   <li><span class="tg">코드</span>훈련 · 테스트를 <b>왜 나눴고</b>, 코드 어디서 비율을 정했나요?</li>
+   <li><span class="tg">코드</span><b>fit</b>과 <b>predict</b>는 각각 무슨 일? 우리 코드에서 짚어 보세요.</li>
+   <li><span class="tg">모델</span>이 모델을 <b>고른 이유</b>는? 오렌지3 · 코랩 점수가 같나요, 다르면 왜?</li>
+   <li><span class="tg">결과</span>혼동 행렬에서 <b>가장 많이 틀린 칸</b>은 어디 · 몇 개? 우리 장면에서 무슨 뜻?</li>
+   <li><span class="tg">결과</span>정확도 말고 본 <b>지표</b>와 그 숫자의 뜻은? («10건 중 몇 건»으로)</li>
+   <li><span class="tg">판단</span>내 개선 실험에서 <b>무엇을 바꿨고</b>, 전 → 후가 어떻게? 왜?</li>
+   <li><span class="tg">판단</span>틀리면 <b>누가 피해</b>? 편향 · 한계 하나와 사람이 확인할 일은?</li>
+ </ol>
+ <div class="ft">짝 연습: 한 사람이 번호를 불러 주면 30초 답하기 → 짝이 «우리 숫자 · 열 이름이 나왔나?» 확인</div>
+</div></div>
 </body>
 </html>
