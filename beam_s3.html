@@ -119,13 +119,13 @@ footer a.bk{flex:0 1 auto;text-decoration:none;color:var(--ink);background:var(-
    <div class="top"><span class="no">3</span><h2>하나만 바꿔 보기</h2><span class="t">8–25분 · 17분 ⭐</span></div>
    <div class="vis">
     <div class="colab"><div class="md"><h4>🧪 5. 내 개선 실험</h4>
-     가설: 클래스 균형을 켜면 ‹위험›을 더 찾을 것이다<br>
-     바꾼 것 <b>하나</b>: <code>class_weight='balanced'</code><br>
-     결과: 재현율 <span class="hl">0.012 → 0.624</span> (8명 → 418명)<br>
+     가설: 모델을 Tree로 바꾸면 ‹위험›을 더 찾을 것이다<br>
+     바꾼 것 <b>하나</b>: 모델 <code>Logistic Regression</code> → <code>Tree</code><br>
+     결과: 재현율 <span class="hl">0.012 → 0.285</span> (8명 → 191명)<br>
      해석 · 편향: 정상이 82 %라 치우침(선택 편향)</div></div>
     <div class="colab"><div class="bar"><span>«개선 실험» 칸 출력</span></div>
-<pre>«위험» 재현율: 전 0.012 → 후 0.624
-정확도      : 전 0.817 → 후 0.633</pre></div>
+<pre>«위험» 재현율: 전 0.012 → 후 0.285
+정확도      : 전 0.817 → 후 0.703</pre></div>
    </div>
    <ul class="key"><li>🔑 <b>💡 선생님 피드백</b>대로 <b>딱 하나만</b> · <b>같은 지표</b>로 다시 재기</li><li><b>나빠지거나 그대로여도 좋은 결과</b> — 숫자를 좋게 바꿔 적지 않기</li></ul>
   </section>
