@@ -3,39 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>코랩 채울 곳 예시</title>
+<title>내 코랩 채우기</title>
 <meta name="description" content="수행평가 ② — 내 코랩 노트북에서 채울 곳을 예시 모둠(혈압 지킴이) 노트북으로 한 칸씩 보여 주는 쪽">
 <style>
-:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--red:#C0392B;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE;--ybg:#FFF6DD;--mark:#FFE58A;--markink:#1D2433;--code:#F7F8FA;--codeline:#E4E7EC;--cmt:#6A7385;--str:#B3261E;--out:#FBFBFC}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--ybg:#3A3220;--mark:#6B5A12;--markink:#FFF4C2;--code:#181B22;--codeline:#2C313C;--cmt:#8E97A8;--str:#F28B82;--out:#1A1D24}}
-:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--ybg:#3A3220;--mark:#6B5A12;--markink:#FFF4C2;--code:#181B22;--codeline:#2C313C;--cmt:#8E97A8;--str:#F28B82;--out:#1A1D24}
+:root{--bg:#F6F4EF;--card:#fff;--ink:#1D2433;--ink2:#46506A;--line:#E3DED3;--blue:#2F6FEC;--green:#1F7A45;--red:#C0392B;--amber:#B87900;--rbg:#FDECEA;--gbg:#E9F7EF;--bbg:#EAF1FE;--ybg:#FFF6DD;--mark:#FFE58A;--markink:#1D2433;--code:#F7F8FA;--codeline:#E4E7EC;--cmt:#6A7385;--str:#B3261E;--out:#FBFBFC;--kakao:#FEE500;--kakaoink:#191600;--onblue:#fff;--shadow:0 1px 2px rgba(29,36,51,.06),0 4px 14px rgba(29,36,51,.06)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--blue:#7AA6FF;--green:#5BC48A;--red:#F28B82;--amber:#F2C14E;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--ybg:#3A3220;--mark:#6B5A12;--markink:#FFF4C2;--code:#181B22;--codeline:#2C313C;--cmt:#8E97A8;--str:#F28B82;--out:#1A1D24;--onblue:#0E1526;--shadow:none}}
+:root[data-theme="dark"]{--bg:#15181F;--card:#1E222B;--ink:#ECEEF3;--ink2:#B4BBCB;--line:#323847;--blue:#7AA6FF;--green:#5BC48A;--red:#F28B82;--amber:#F2C14E;--rbg:#3D2422;--gbg:#1F3528;--bbg:#1F2B44;--ybg:#3A3220;--mark:#6B5A12;--markink:#FFF4C2;--code:#181B22;--codeline:#2C313C;--cmt:#8E97A8;--str:#F28B82;--out:#1A1D24;--onblue:#0E1526;--shadow:none}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
-.wrap{max-width:900px;margin:0 auto;padding:22px 16px 60px}
-h1{font-size:27px;line-height:1.3;margin:0 0 6px}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 90px}
+h1{font-size:28px;line-height:1.3;margin:0 0 6px;letter-spacing:-.01em}
 h2{font-size:21px;margin:0 0 8px;line-height:1.35}
 h3{font-size:17px;margin:14px 0 6px}
 .sub{color:var(--ink2);margin:0 0 12px;font-size:15.5px}
+.lead{font-size:15.5px;color:var(--ink2);margin:0 0 10px}
 a{color:var(--blue)}
-section{margin:0 0 34px;scroll-margin-top:10px}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-.toc a{font-size:14px;font-weight:700;background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:3px 11px;color:var(--ink);text-decoration:none}
-.box{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 15px;margin:0 0 12px}
+section{margin:0 0 40px;scroll-margin-top:62px}
+.eyebrow{display:inline-block;font-size:13.5px;font-weight:800;color:var(--blue);background:var(--bbg);border-radius:99px;padding:2px 11px;margin:0 0 8px}
+.duechip{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:15px;background:var(--ink);color:var(--bg);border-radius:99px;padding:4px 14px;margin:0 0 16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px;padding:0;list-style:none;counter-reset:st}
+.steps li{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px 13px;box-shadow:var(--shadow);counter-increment:st;display:flex;flex-direction:column;gap:6px}
+.steps li:before{content:counter(st);width:28px;height:28px;border-radius:50%;background:var(--blue);color:var(--onblue);font-weight:800;display:grid;place-items:center;font-size:15px;flex:none}
+.steps .txt{display:flex;flex-direction:column;gap:4px;flex:1}
+.steps .txt>b{font-size:17px}
+.steps .txt span{font-size:14.5px;color:var(--ink2);line-height:1.55}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:15.5px;font-weight:800;text-decoration:none;border-radius:10px;padding:8px 14px;border:0;cursor:pointer;line-height:1.3;text-align:center}
+.btn.blue{background:var(--blue);color:var(--onblue)}
+.btn.line{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn.kakao{background:var(--kakao);color:var(--kakaoink)}
+.btn:focus-visible,.me input:focus-visible,.toc a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.ask{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;background:var(--ybg);border-radius:14px;padding:11px 15px;margin:0 0 22px;font-size:15px}
+.ask p{margin:0;flex:1 1 260px;color:var(--ink2)}
+.ask p b{color:var(--ink)}
+.box{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:13px 16px;margin:0 0 12px}
 .due{border-color:var(--green);background:var(--gbg)}
 .due table{width:100%;border-collapse:collapse;font-size:15.5px}
-.due td,.due th{padding:5px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.due td,.due th{padding:6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
 .due th{white-space:nowrap}
-.warn{background:var(--rbg);border-radius:12px;padding:10px 14px;font-size:15.5px;margin:0 0 12px}
-.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:14.5px;color:var(--ink2);margin:0 0 16px}
+.warn{background:var(--rbg);border-radius:12px;padding:10px 14px;font-size:15.5px;margin:0 0 18px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:14.5px;color:var(--ink2);margin:0 0 14px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 mark,.m{background:var(--mark);color:var(--markink);border-radius:4px;padding:0 3px}
-/* 코랩처럼 보이는 칸 */
+.toc{position:sticky;top:0;z-index:5;display:flex;gap:6px;margin:0 -16px 16px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:14px;font-weight:700;background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:3px 11px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.toc a.me-l{background:var(--blue);border-color:var(--blue);color:var(--onblue)}
+.back{font-size:14.5px;margin:12px 0 0;text-align:right}
 .nb{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:8px 0 6px}
 .nbbar{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink2)}
 .nbbar b{color:var(--ink)}
 .cell{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:10px 12px 10px 6px}
 .cell+.cell{border-top:1px dashed var(--line)}
+.cell>div{min-width:0}
 .run{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--cmt);display:grid;place-items:center;font-size:11px;color:var(--cmt);margin-top:3px}
 .cell.text .run{border:0}
 pre{margin:0;background:var(--code);border:1px solid var(--codeline);border-radius:6px;padding:9px 11px;font-family:Consolas,"D2Coding","Courier New",monospace;font-size:13.5px;line-height:1.6;white-space:pre-wrap;word-break:break-all;overflow-x:auto}
@@ -48,7 +68,7 @@ pre .skip{display:block;color:var(--cmt);font-style:italic}
 .md li{margin:3px 0}
 .md table{border-collapse:collapse;font-size:14.5px;margin:4px 0;width:100%}
 .md td,.md th{border:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
-.tip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 0}
+.tip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 0}
 .tip>div{border-radius:10px;padding:8px 12px;font-size:15px}
 .tip .ok{background:var(--gbg)}
 .tip .no{background:var(--rbg)}
@@ -59,30 +79,74 @@ pre .skip{display:block;color:var(--cmt);font-style:italic}
 .cmp th,.cmp td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;background:var(--card)}
 .cmp th{background:var(--bbg)}
 .chk{list-style:none;padding:0;margin:0}
-.chk li{padding:5px 0 5px 28px;position:relative;border-top:1px solid var(--line);font-size:15.5px}
-.chk li:before{content:"☐";position:absolute;left:4px;top:4px;font-size:17px}
+.chk li{padding:6px 0 6px 28px;position:relative;border-top:1px solid var(--line);font-size:15.5px}
+.chk li:first-child{border-top:0}
+.chk li:before{content:"☐";position:absolute;left:4px;top:5px;font-size:17px}
 .sign{text-align:center;color:var(--ink2);font-size:14px;margin-top:40px}
-.me{border-color:var(--blue);background:var(--bbg)}
-.me form{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-.me input{font:inherit;font-size:16px;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);width:9.5em;max-width:100%}
-.me button{font:inherit;font-size:16px;font-weight:700;padding:7px 16px;border:0;border-radius:9px;background:var(--blue);color:#fff;cursor:pointer}
-.me button:disabled{opacity:.6;cursor:wait}
-.res{list-style:none;padding:0;margin:8px 0 0}
-.res li{background:var(--card);border-radius:10px;padding:7px 12px;margin:0 0 6px;font-size:15.5px;border-left:5px solid var(--line)}
+.me{border-color:var(--blue);background:var(--bbg);padding:16px 16px 14px;scroll-margin-top:12px;margin-bottom:22px}
+.me h2{margin:0 0 2px}
+.me form{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.me input{font:inherit;font-size:16px;padding:8px 11px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);flex:1 1 130px;min-width:0}
+.me #meB{flex:0 0 auto;font-size:16px}
+.me #meB:disabled{opacity:.6;cursor:wait}
+.meta{font-size:14px;color:var(--ink2);margin:4px 0 0}
+.sum{display:none;margin:12px 0 4px}
+.sum.on{display:block}
+.sum .bar{height:10px;border-radius:99px;background:var(--card);overflow:hidden;border:1px solid var(--line)}
+.sum .bar i{display:block;height:100%;background:var(--green);width:0;transition:width .5s}
+.sum p{margin:6px 0 0;font-weight:800;font-size:16px}
+.grp{font-size:14px;font-weight:800;color:var(--ink2);margin:12px 0 5px}
+.res{list-style:none;padding:0;margin:0}
+.res li{background:var(--card);border-radius:10px;padding:8px 12px;margin:0 0 6px;font-size:15.5px;border-left:5px solid var(--line);line-height:1.55}
 .res li.ok{border-left-color:var(--green)}
 .res li.todo{border-left-color:var(--red)}
-.res li.warn{border-left-color:#D99A00}
-.res li small{display:block;color:var(--ink2);font-size:14px}
+.res li.warn{border-left-color:var(--amber)}
+.res li small{display:block;color:var(--ink2);font-size:14px;margin-top:2px}
+.res li a{font-size:14px;font-weight:700}
 .res .msg{background:var(--rbg)}
-.meta{font-size:14px;color:var(--ink2);margin:6px 0 0}
-@media (max-width:640px){.tip{grid-template-columns:1fr}.cell{grid-template-columns:24px 1fr;padding-left:2px}.run{width:20px;height:20px;font-size:9px}h1{font-size:23px}}
+details.oks summary{cursor:pointer;font-size:14.5px;font-weight:700;color:var(--green);margin:8px 0 6px}
+.next{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.next[hidden]{display:none}
+.next .btn{flex:1 1 220px}
+.foot{font-size:13.5px;color:var(--ink2);margin:10px 0 0}
+.dock{display:none}
+@media (max-width:640px){
+ .steps{grid-template-columns:1fr}
+ .steps li{display:grid;grid-template-columns:28px 1fr;column-gap:10px;row-gap:8px;align-items:start}
+ .steps li .btn{grid-column:2;justify-self:start}
+ .tip{grid-template-columns:1fr}
+ .cell{grid-template-columns:24px 1fr;padding-left:2px}
+ .run{width:20px;height:20px;font-size:9px}
+ h1{font-size:24px}
+ .dock{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--card);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+ .dock .btn{font-size:14px;padding:9px 4px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
 
-<h1>✍ 코랩 채울 곳 — 예시 화면</h1>
-<p class="sub">수행평가 ② · 가상의 «예시 모둠»이 <b>혈압 지킴이</b>(건강검진 자료로 혈압 위험인 사람 먼저 찾기)를 끝까지 채운 노트북에서, <b>내가 채워야 하는 칸만</b> 순서대로 모았어요. 숫자는 모두 실제로 돌린 값이에요.</p>
+<span class="eyebrow">수행평가 ② · 내 코랩 노트북</span>
+<h1>✍ 집에서는 이 쪽 하나로</h1>
+<p class="sub">빈 곳을 점검하고 → 내 노트북을 열어 → 아래 예시를 보며 채워요. 예시는 가상의 «예시 모둠»이 <b>혈압 지킴이</b>(건강검진 자료로 혈압 위험인 사람 먼저 찾기)를 끝까지 채운 노트북이에요. 숫자는 모두 실제로 돌린 값이에요.</p>
+<div class="duechip">🗓 마감 11/22(일) 밤 11시 59분 · 세 반 같아요</div>
+
+<ol class="steps">
+ <li><span class="txt"><b>🔎 빈 곳 찾기</b><span>학번 · 이름을 넣으면 내 노트북에서 아직 안 된 칸을 알려 줘요.</span></span><a class="btn blue" href="#me">점검하러 가기</a></li>
+ <li><span class="txt"><b>📓 내 노트북 열기</b><span>🔑 내 링크에서 열어요. 빨간 상자의 <b>선생님 피드백</b>도 거기 있어요.</span></span><a class="btn line" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">🔑 내 링크 열기</a></li>
+ <li><span class="txt"><b>✍ 채우고 저장</b><span>아래 예시로 칸마다 채우고 <b>Ctrl + S</b> → 다시 점검해서 모두 ✅면 끝.</span></span><a class="btn line" href="#how">예시 보기</a></li>
+</ol>
+
+<div class="ask"><p>💬 <b>하다가 모르는 게 있으면</b> 선생님 오픈채팅으로 물어봐요. <b>학번 · 이름</b>과 <b>막힌 칸 화면(캡처)</b>을 같이 보내면 빨라요. 비밀번호는 보내지 마세요.</p><a class="btn kakao" href="https://open.kakao.com/me/pcteach" target="_blank" rel="noopener">💬 다은t 오픈채팅</a></div>
+
+<section class="box me" id="me" aria-labelledby="meH">
+ <h2 id="meH">🔎 내 노트북 점검</h2>
+ <p class="meta">코랩에서 <b>Ctrl + S</b>로 저장한 뒤 눌러요. 학번 · 이름은 이 화면에 남지 않아요.</p>
+ <form id="meF" autocomplete="off"><input id="meId" inputmode="numeric" maxlength="5" placeholder="학번 (예: 20114)" aria-label="학번"><input id="meNm" placeholder="이름" aria-label="이름"><button class="btn blue" id="meB">점검하기</button></form>
+ <div class="sum" id="meS"><div class="bar" aria-hidden="true"><i id="meBar"></i></div><p id="meP"></p></div>
+ <div id="meR" aria-live="polite"></div>
+ <div class="next" id="meN" hidden><a class="btn blue" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">📓 🔑 내 링크에서 노트북 열기</a><a class="btn kakao" href="https://open.kakao.com/me/pcteach" target="_blank" rel="noopener">💬 모르겠으면 오픈채팅</a></div>
+</section>
 
 <div class="box due">
  <b>🗓 언제까지? (11/14 바뀜 · 세 반 모두 같아요)</b>
@@ -95,18 +159,11 @@ pre .skip{display:block;color:var(--cmt);font-style:italic}
 
 <div class="warn">⚠ <b>베끼면 점수가 안 돼요.</b> 예시 숫자 · 낱말을 바꿔 끼우기만 하거나 AI가 쓴 문장을 그대로 붙이면 그 요소는 5점이에요. <b>«어느 칸에 · 무엇을 · 어떤 말투로»</b>만 보고, 내 데이터 · 내 숫자 · 내 말로 써요.</div>
 
-<div class="box me" id="me">
- <b>🔎 내 노트북 점검 — 어디가 아직 비었는지 바로 봐요</b>
- <p class="meta" style="margin:2px 0 0">학번과 이름을 넣으면 <b>지금 내 노트북</b>을 읽어서 칸마다 됐는지 알려 줘요. 코랩에서 <b>Ctrl + S</b>로 저장한 뒤 눌러요.</p>
- <form id="meF" autocomplete="off"><input id="meId" inputmode="numeric" placeholder="학번 (예: 20114)" aria-label="학번"><input id="meNm" placeholder="이름" aria-label="이름"><button id="meB">점검하기</button></form>
- <ul class="res" id="meR" aria-live="polite"></ul>
-</div>
+<nav class="toc" aria-label="이 쪽 차례">
+ <a class="me-l" href="#me">🔎 점검</a><a href="#how">글 칸 쓰는 법</a><a href="#s3">💻 3절 코드</a><a href="#s1">1절 계획</a><a href="#s4">4절 비교표</a><a href="#s5">5절 개선 실험</a><a href="#s6">6절 생활 적용</a><a href="#s7">7절 판단 근거</a><a href="#check">마지막 확인</a>
+</nav>
 
 <div class="legend"><span><mark>노란 칸</mark> = 예시 학생이 채운 곳 (내가 채울 곳)</span><span><span class="run">▶</span> = 코드 칸</span><span>회색 글 = 원래 틀에 있던 말 (그대로 둬요)</span></div>
-
-<nav class="toc" aria-label="이 쪽 차례">
- <a href="#me">🔎 내 노트북 점검</a><a href="#how">글 칸 쓰는 법</a><a href="#s3">💻 3절 코드</a><a href="#s1">1절 계획</a><a href="#s4">4절 비교표</a><a href="#s5">5절 개선 실험</a><a href="#s6">6절 생활 적용</a><a href="#s7">7절 판단 근거</a><a href="#check">마감 전 점검</a>
-</nav>
 
 <section id="how">
  <h2>✏ 글 칸은 이렇게 써요</h2>
@@ -181,6 +238,7 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
  </div>
  <div class="tip"><div class="ok"><b>✔ 이게 나오면 3절 끝</b>혼동 행렬 + 정확도 + <b>«놓치면 안 되는 값» 재현율</b>. 예측 문제면 MAE · RMSE가 나와요.</div><div class="no"><b>✘ 자주 하는 실수</b>놓치면_안되는_값이 None이라 재현율이 안 나옴 / 모델_이름이 'Constant' / 런타임이 끊겨 CSV가 사라짐 → 📁에 다시 올리고 모두 실행</div></div>
  <p style="font-size:15px;color:var(--ink2)">🎤 구술 ① 예: «제가 맡은 <b>Select Columns</b> 위젯은 코드에서 <b>입력_열 줄</b>이고, 우리 데이터에서 <b>혈압 숫자가 정답을 만든 열이라서 뺐어요</b>.» — 위젯 이름 · 코드 줄 · 왜, 셋 다.</p>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="s1">
@@ -196,6 +254,7 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
   </ul></div></div>
  </div>
  <div class="tip"><div class="ok"><b>✔ 25점 조건</b>SDG <b>점 아래 번호</b>(3.4) · 사용자 · 문제 · 데이터 + <b>출처 기관 이름</b> · 내 안이 채택 · 수정 · 빠진 <b>이유</b> 한 문장</div><div class="no"><b>✘ 자주 하는 실수</b>SDG «3번»만 씀 / 출처에 링크 주소만 붙임 / 이유 칸이 빔</div></div>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="s4">
@@ -208,6 +267,7 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
   </div></div>
  </div>
  <div class="tip"><div class="ok"><b>✔ 핵심</b>오렌지3 칸 = 오렌지3 Test and Score 숫자 · 코랩 칸 = 3절 ④ 출력 숫자. <b>같은 지표</b>끼리. 다르면 «무작위로 나눈 행이 달라서»처럼 이유 한 줄.</div><div class="no"><b>✘ 자주 하는 실수</b>오렌지3는 정확도, 코랩은 재현율처럼 다른 지표를 나란히 / Target class가 달라서 재현율이 안 맞음</div></div>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="s5">
@@ -228,6 +288,7 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
   </ul></div></div>
  </div>
  <div class="tip"><div class="ok"><b>✔ 25점 조건</b>가설 · 조작 · 결과(숫자) · 해석 <b>넷 다</b> + 편향 하나를 짚고 <b>바꾼 것이 그 편향을 겨냥</b>. 나빠지거나 그대로여도 좋은 결과예요.</div><div class="no"><b>✘ 자주 하는 실수</b>두 개를 한꺼번에 바꿈 / 전 · 후를 다른 지표로 잼 / 돌리지 않고 예상 숫자를 씀</div></div>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="s6">
@@ -247,6 +308,7 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
   </div></div>
  </div>
  <div class="tip"><div class="ok"><b>✔ 핵심 두 줄</b>«모델이 ○○라고 하면 → <b>누가</b> → <b>무엇을</b>» + «틀리면 <b>누가</b> 피해 · <b>사람이</b> 확인할 일». 이 두 줄은 캔바 내 페이지 ③에도 그대로 써요.</div><div class="no"><b>✘ 자주 하는 실수</b>«사람들이 편해진다»처럼 누가 · 무엇을이 없음 / 효과 문장에 내 숫자가 없음</div></div>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="s7">
@@ -268,10 +330,12 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
   <tr><td>모델</td><td>Tree가 좋아서 골랐다.</td><td>Tree가 «위험» 재현율 0.285로 Logistic Regression 0.012보다 많이 찾아서 골랐다.</td></tr>
   <tr><td>평가</td><td>정확도가 높아서 잘 맞힌다.</td><td>정확도 0.817이지만 위험 670명 중 8명만 찾아서 정확도만 보면 속는다.</td></tr>
  </table>
+ <p class="back"><a href="#me">🔎 다 채웠으면 다시 점검</a> · <a href="#top">↑ 맨 위</a></p>
 </section>
 
 <section id="check">
- <h2>✅ 마감 전 점검 (11/22 일요일 밤까지)</h2>
+ <h2>✅ 마감 전 마지막 확인 (11/22 일요일 밤까지)</h2>
+ <p class="lead">위 <a href="#me">🔎 내 노트북 점검</a>이 모두 ✅여도, 아래는 <b>내 눈으로</b> 한 번 더 봐요 — 점검은 빈칸만 세고 글 내용은 못 봐요.</p>
  <div class="box"><ul class="chk">
   <li>런타임 ▸ 모두 실행 → 3절 맨 아래에 혼동 행렬 · 점수가 오류 없이 나온다 <b>(발표 전까지)</b></li>
   <li>코드 칸마다 맨 윗줄 «# [오렌지3] 위젯 이름 · 담당: 내 이름» · <code>____</code> 빈칸이 하나도 없다</li>
@@ -287,41 +351,53 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
 
 <div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
 </div>
+
+<nav class="dock" aria-label="바로 가기"><a class="btn blue" href="#me">🔎 점검</a><a class="btn line" href="https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec" target="_blank" rel="noopener">📓 내 노트북</a><a class="btn kakao" href="https://open.kakao.com/me/pcteach" target="_blank" rel="noopener">💬 질문</a></nav>
 <script>
 (function(){
 var API='https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec';
-var F=document.getElementById('meF'),B=document.getElementById('meB'),R=document.getElementById('meR');
+var F=document.getElementById('meF'),B=document.getElementById('meB'),R=document.getElementById('meR'),S=document.getElementById('meS'),N=document.getElementById('meN');
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-function li(k,h,d,a){return '<li class="'+k+'">'+(k=='ok'?'✅ ':k=='todo'?'❌ ':'⚠ ')+h+(a?' <a href="#'+a+'">예시 보기</a>':'')+(d?'<small>'+d+'</small>':'')+'</li>';}
+var L=[];
+function add(k,h,d,a){L.push({k:k,h:'<li class="'+k+'">'+(k=='ok'?'✅ ':k=='todo'?'❌ ':'⚠ ')+h+(a?' · <a href="#'+a+'">예시 보기 ↓</a>':'')+(d?'<small>'+d+'</small>':'')+'</li>'});}
 function blank(n,title,a,tip){
- if(n==='-'||n==='') return li('warn',title+' — 칸을 못 찾았어요','제목 줄(## …)을 지웠거나 바꿨는지 봐요.',a);
- n=Number(n); return n===0?li('ok',title):li('todo',title+' — 빈칸(____) '+n+'개 남음',tip,a);}
+ if(n==='-'||n==='') return add('warn',title+' — 칸을 못 찾았어요','제목 줄(## …)을 지웠거나 바꿨는지 봐요.',a);
+ n=Number(n); if(n===0) add('ok',title); else add('todo',title+' — 빈칸(____) '+n+'개 남음',tip,a);}
+function fail(m){S.classList.remove('on');N.hidden=false;R.innerHTML='<ul class="res"><li class="todo msg">'+esc(m||'연결이 안 돼요. 잠시 뒤 다시 눌러 주세요.')+'</li></ul>';}
 function show(r){
- if(!r||!r.ok){R.innerHTML='<li class="todo msg">'+esc(r&&r.msg||'연결이 안 돼요. 잠시 뒤 다시 눌러 주세요.')+'</li>';return;}
- var s=r.s,h='',ran=String(s.ran||'0/0').split('/'),nums=String(s.nums||'');
- if(Number(ran[0])===0) h+=li('todo','아직 한 번도 실행하지 않았어요','데이터 파일을 왼쪽 폴더에 올리고 런타임 ▸ 모두 실행','s3');
- if(!s.file||/_{2,}/.test(s.file)) h+=li('todo','3절 데이터 파일 이름 칸이 비었어요','파일_이름 = \'우리 데이터.csv\' — 올린 파일 이름 그대로','s3');
- if(Number(s.err)>0) h+=li('todo','빨간 오류 칸 '+esc(s.err)+'개','그 칸을 «코랩 오류 응급처치»에서 찾아봐요 → <a href="colab.html">응급처치</a>');
- h+=Number(s.stage)>=4?li('ok','3절 코드 네 단계(불러오기 · 전처리 · 모델 · 학습) 다 돌아감'):li('todo','3절 코드 '+esc(s.stage)+' / 4단계','____ 빈칸이 남았거나 실행 안 된 칸이 있어요','s3');
- h+=nums?li('ok','점수 나옴',esc(nums)):li('todo','점수가 아직 안 나와요','맨 아래 Test and Score 칸까지 실행되면 나와요','s3');
- if(/정확도 1\.000/.test(nums)) h+=li('warn','정확도 1.000 — 정답을 만든 열이 들어가 있지 않나요?','🔑 빨간 상자에 «정답을 만든 열»이 적혀 있으면 그 열을 빼고 다시 재요');
- h+=(s.widget&&s.widget!=='(빈칸)')?li('ok','모델 위젯 이름: '+esc(s.widget)):li('todo','모델 칸 맨 윗줄 위젯 이름이 비었어요','# [오렌지3] Logistic Regression · 담당: … 처럼','s3');
+ if(!r||!r.ok) return fail(r&&r.msg);
+ L=[];var s=r.s,ran=String(s.ran||'0/0').split('/'),nums=String(s.nums||'');
+ if(Number(ran[0])===0) add('todo','아직 한 번도 실행하지 않았어요','데이터 파일을 왼쪽 📁에 올리고 런타임 ▸ 모두 실행','s3');
+ if(!s.file||/_{2,}/.test(s.file)) add('todo','3절 데이터 파일 이름 칸이 비었어요','파일_이름 = \'우리 데이터.csv\' — 올린 파일 이름 그대로','s3');
+ if(Number(s.err)>0) add('todo','빨간 오류 칸 '+esc(s.err)+'개','그 칸의 빨간 글을 <a href="colab.html" target="_blank" rel="noopener">코랩 오류 응급처치</a>에서 찾아봐요');
+ if(Number(s.stage)>=4) add('ok','3절 코드 네 단계(불러오기 · 전처리 · 모델 · 학습) 다 돌아감'); else add('todo','3절 코드 '+esc(s.stage)+' / 4단계','____ 빈칸이 남았거나 실행 안 된 칸이 있어요','s3');
+ if(nums) add('ok','점수 나옴',esc(nums)); else add('todo','점수가 아직 안 나와요','맨 아래 Test and Score 칸까지 실행되면 나와요','s3');
+ if(/정확도 1\.000/.test(nums)) add('warn','정확도 1.000 — 정답을 만든 열이 들어가 있지 않나요?','🔑 빨간 상자에 «정답을 만든 열»이 적혀 있으면 그 열을 빼고 다시 재요','s3');
+ if(s.widget&&s.widget!=='(빈칸)') add('ok','모델 위젯 이름: '+esc(s.widget)); else add('todo','모델 칸 맨 윗줄 위젯 이름이 비었어요','# [오렌지3] Logistic Regression · 담당: … 처럼','s3');
  var d=Number(s.duty)||0;
- h+=d>=8?li('ok','«담당: 내 이름» 줄 '+d+'칸'):d>0?li('warn','«담당: 내 이름» 줄 '+d+'칸만 있어요','코드 칸마다 맨 윗줄에 넣어요','s3'):li('todo','«담당: 내 이름» 줄이 없어요','구술 ① «내 담당 위젯 한 문장»에 써요','s3');
- h+=blank(s.b1,'1절 나의 계획','s1','SDG 번호 · 사용자 · 문제 · 출처 기관 · 내 위젯 · 이유');
- var n4=Number(s.n4)||0; h+=n4>=2?li('ok','4절 비교표 숫자 '+n4+'개'):li('todo','4절 비교표 숫자가 '+(s.n4==='-'?'—':n4+'개')+'예요','오렌지3 · 코랩 숫자를 같은 지표로 두 개 이상','s4');
- h+=blank(s.b5,'5절 내 개선 실험','s5','가설 · 바꾼 것 하나 · 전 → 후 숫자 · 해석');
- h+=blank(s.b6,'6절 생활 적용','s6','모델이 ○○ → 누가 → 무엇을 + 틀리면 누가');
- h+=blank(s.b7,'7절 판단 근거 다섯 칸','s7','다섯 칸 모두 우리 숫자 · 열 이름으로 «왜»');
- h+='<li><small>8절 AI 활용은 안 써도 돼요.</small></li>';
- R.innerHTML=h+'<li><small>노트북 마지막 저장 '+esc(r.at)+' · 점검 '+esc(r.now)+(r.due?' · 마감 '+esc(r.due):'')+'<br>빈칸(____)이 없어졌는지만 봐요 — 글이 좋은지, 내 말로 썼는지는 선생님이 봐요. 고친 뒤에는 저장하고 30초쯤 뒤 다시 눌러요.</small></li>';
+ if(d>=8) add('ok','«담당: 내 이름» 줄 '+d+'칸'); else if(d>0) add('warn','«담당: 내 이름» 줄 '+d+'칸만 있어요','코드 칸마다 맨 윗줄에 넣어요','s3'); else add('todo','«담당: 내 이름» 줄이 없어요','구술 ① «내 담당 위젯 한 문장»에 써요','s3');
+ blank(s.b1,'1절 나의 계획','s1','SDG 번호 · 사용자 · 문제 · 출처 기관 · 내 위젯 · 이유');
+ var n4=Number(s.n4)||0; if(n4>=2) add('ok','4절 비교표 숫자 '+n4+'개'); else add('todo','4절 비교표 숫자가 '+(s.n4==='-'?'없어요':n4+'개예요'),'오렌지3 · 코랩 숫자를 같은 지표로 두 개 이상','s4');
+ blank(s.b5,'5절 내 개선 실험','s5','가설 · 바꾼 것 하나 · 전 → 후 숫자 · 해석');
+ blank(s.b6,'6절 생활 적용','s6','모델이 ○○ → 누가 → 무엇을 + 틀리면 누가');
+ blank(s.b7,'7절 판단 근거 다섯 칸','s7','다섯 칸 모두 우리 숫자 · 열 이름으로 «왜»');
+ function pick(k){return L.filter(function(x){return x.k==k;}).map(function(x){return x.h;}).join('');}
+ var todo=L.filter(function(x){return x.k=='todo';}).length,warn=L.filter(function(x){return x.k=='warn';}).length,ok=L.length-todo-warn;
+ S.classList.add('on');document.getElementById('meBar').style.width=Math.round(ok/L.length*100)+'%';
+ document.getElementById('meP').textContent=(todo+warn)?('남은 일 '+todo+'개'+(warn?' · 확인할 것 '+warn+'개':'')+' · 된 일 '+ok+'개 / 모두 '+L.length+'개'):'🎉 빈 곳이 없어요! 아래 «마지막 확인»으로 글 내용을 한 번 더 봐요.';
+ var h='';
+ if(todo) h+='<p class="grp">❌ 이것부터 해요</p><ul class="res">'+pick('todo')+'</ul>';
+ if(warn) h+='<p class="grp">⚠ 확인해 봐요</p><ul class="res">'+pick('warn')+'</ul>';
+ if(ok) h+=(todo+warn)?'<details class="oks"><summary>✅ 된 일 '+ok+'개 보기</summary><ul class="res">'+pick('ok')+'</ul></details>':'<ul class="res">'+pick('ok')+'</ul>';
+ h+='<p class="foot">노트북 마지막 저장 '+esc(r.at)+' · 점검 '+esc(r.now)+(r.due?' · 마감 '+esc(r.due):'')+' · 8절은 안 써도 돼요.<br>빈칸(____)이 없어졌는지만 봐요 — 글이 좋은지, 내 말로 썼는지는 선생님이 봐요. 고친 뒤에는 저장하고 30초쯤 뒤 다시 눌러요.</p>';
+ R.innerHTML=h;N.hidden=false;
 }
 F.addEventListener('submit',function(e){
  e.preventDefault();var id=document.getElementById('meId').value.trim(),nm=document.getElementById('meNm').value.trim();
- if(!id||!nm){show({ok:false,msg:'학번과 이름을 둘 다 넣어 주세요.'});return;}
- B.disabled=true;B.textContent='읽는 중…';R.innerHTML='<li><small>내 노트북을 읽고 있어요 (5초쯤)…</small></li>';
+ if(!id||!nm) return fail('학번과 이름을 둘 다 넣어 주세요.');
+ B.disabled=true;B.textContent='읽는 중…';S.classList.remove('on');N.hidden=true;R.innerHTML='<p class="foot">내 노트북을 읽고 있어요 (5초쯤)…</p>';
  fetch(API,{method:'POST',body:JSON.stringify({nb:1,id:id,name:nm})}).then(function(x){return x.json();}).then(show)
-  .catch(function(){show(null);}).then(function(){B.disabled=false;B.textContent='점검하기';});
+  .catch(function(){fail();}).then(function(){B.disabled=false;B.textContent='다시 점검';});
 });
 })();
 </script>
