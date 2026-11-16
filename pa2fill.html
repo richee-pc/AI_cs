@@ -62,6 +62,19 @@ pre .skip{display:block;color:var(--cmt);font-style:italic}
 .chk li{padding:5px 0 5px 28px;position:relative;border-top:1px solid var(--line);font-size:15.5px}
 .chk li:before{content:"☐";position:absolute;left:4px;top:4px;font-size:17px}
 .sign{text-align:center;color:var(--ink2);font-size:14px;margin-top:40px}
+.me{border-color:var(--blue);background:var(--bbg)}
+.me form{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.me input{font:inherit;font-size:16px;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);width:9.5em;max-width:100%}
+.me button{font:inherit;font-size:16px;font-weight:700;padding:7px 16px;border:0;border-radius:9px;background:var(--blue);color:#fff;cursor:pointer}
+.me button:disabled{opacity:.6;cursor:wait}
+.res{list-style:none;padding:0;margin:8px 0 0}
+.res li{background:var(--card);border-radius:10px;padding:7px 12px;margin:0 0 6px;font-size:15.5px;border-left:5px solid var(--line)}
+.res li.ok{border-left-color:var(--green)}
+.res li.todo{border-left-color:var(--red)}
+.res li.warn{border-left-color:#D99A00}
+.res li small{display:block;color:var(--ink2);font-size:14px}
+.res .msg{background:var(--rbg)}
+.meta{font-size:14px;color:var(--ink2);margin:6px 0 0}
 @media (max-width:640px){.tip{grid-template-columns:1fr}.cell{grid-template-columns:24px 1fr;padding-left:2px}.run{width:20px;height:20px;font-size:9px}h1{font-size:23px}}
 </style>
 </head>
@@ -82,10 +95,17 @@ pre .skip{display:block;color:var(--cmt);font-style:italic}
 
 <div class="warn">⚠ <b>베끼면 점수가 안 돼요.</b> 예시 숫자 · 낱말을 바꿔 끼우기만 하거나 AI가 쓴 문장을 그대로 붙이면 그 요소는 5점이에요. <b>«어느 칸에 · 무엇을 · 어떤 말투로»</b>만 보고, 내 데이터 · 내 숫자 · 내 말로 써요.</div>
 
+<div class="box me" id="me">
+ <b>🔎 내 노트북 점검 — 어디가 아직 비었는지 바로 봐요</b>
+ <p class="meta" style="margin:2px 0 0">학번과 이름을 넣으면 <b>지금 내 노트북</b>을 읽어서 칸마다 됐는지 알려 줘요. 코랩에서 <b>Ctrl + S</b>로 저장한 뒤 눌러요.</p>
+ <form id="meF" autocomplete="off"><input id="meId" inputmode="numeric" placeholder="학번 (예: 20114)" aria-label="학번"><input id="meNm" placeholder="이름" aria-label="이름"><button id="meB">점검하기</button></form>
+ <ul class="res" id="meR" aria-live="polite"></ul>
+</div>
+
 <div class="legend"><span><mark>노란 칸</mark> = 예시 학생이 채운 곳 (내가 채울 곳)</span><span><span class="run">▶</span> = 코드 칸</span><span>회색 글 = 원래 틀에 있던 말 (그대로 둬요)</span></div>
 
 <nav class="toc" aria-label="이 쪽 차례">
- <a href="#how">글 칸 쓰는 법</a><a href="#s3">💻 3절 코드</a><a href="#s1">1절 계획</a><a href="#s4">4절 비교표</a><a href="#s5">5절 개선 실험</a><a href="#s6">6절 생활 적용</a><a href="#s7">7절 판단 근거</a><a href="#check">마감 전 점검</a>
+ <a href="#me">🔎 내 노트북 점검</a><a href="#how">글 칸 쓰는 법</a><a href="#s3">💻 3절 코드</a><a href="#s1">1절 계획</a><a href="#s4">4절 비교표</a><a href="#s5">5절 개선 실험</a><a href="#s6">6절 생활 적용</a><a href="#s7">7절 판단 근거</a><a href="#check">마감 전 점검</a>
 </nav>
 
 <section id="how">
@@ -267,5 +287,43 @@ pred = model.<mark>predict</mark>(X_test)   <span class="c"># ✍ ⑥ 예측</sp
 
 <div class="sign"><img src="img/bun.gif" width="120" height="101" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" onerror="this.remove()"><br>made by ptp 🐰</div>
 </div>
+<script>
+(function(){
+var API='https://script.google.com/macros/s/AKfycbxVMja-DpoAkc77dJZ3bWilCqd9NyF7oJC-U2IJf86QzSf6KZ38-6ukc3FfqSvoiqMiMw/exec';
+var F=document.getElementById('meF'),B=document.getElementById('meB'),R=document.getElementById('meR');
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function li(k,h,d,a){return '<li class="'+k+'">'+(k=='ok'?'✅ ':k=='todo'?'❌ ':'⚠ ')+h+(a?' <a href="#'+a+'">예시 보기</a>':'')+(d?'<small>'+d+'</small>':'')+'</li>';}
+function blank(n,title,a,tip){
+ if(n==='-'||n==='') return li('warn',title+' — 칸을 못 찾았어요','제목 줄(## …)을 지웠거나 바꿨는지 봐요.',a);
+ n=Number(n); return n===0?li('ok',title):li('todo',title+' — 빈칸(____) '+n+'개 남음',tip,a);}
+function show(r){
+ if(!r||!r.ok){R.innerHTML='<li class="todo msg">'+esc(r&&r.msg||'연결이 안 돼요. 잠시 뒤 다시 눌러 주세요.')+'</li>';return;}
+ var s=r.s,h='',ran=String(s.ran||'0/0').split('/'),nums=String(s.nums||'');
+ if(Number(ran[0])===0) h+=li('todo','아직 한 번도 실행하지 않았어요','데이터 파일을 왼쪽 폴더에 올리고 런타임 ▸ 모두 실행','s3');
+ if(!s.file||/_{2,}/.test(s.file)) h+=li('todo','3절 데이터 파일 이름 칸이 비었어요','파일_이름 = \'우리 데이터.csv\' — 올린 파일 이름 그대로','s3');
+ if(Number(s.err)>0) h+=li('todo','빨간 오류 칸 '+esc(s.err)+'개','그 칸을 «코랩 오류 응급처치»에서 찾아봐요 → <a href="colab.html">응급처치</a>');
+ h+=Number(s.stage)>=4?li('ok','3절 코드 네 단계(불러오기 · 전처리 · 모델 · 학습) 다 돌아감'):li('todo','3절 코드 '+esc(s.stage)+' / 4단계','____ 빈칸이 남았거나 실행 안 된 칸이 있어요','s3');
+ h+=nums?li('ok','점수 나옴',esc(nums)):li('todo','점수가 아직 안 나와요','맨 아래 Test and Score 칸까지 실행되면 나와요','s3');
+ if(/정확도 1\.000/.test(nums)) h+=li('warn','정확도 1.000 — 정답을 만든 열이 들어가 있지 않나요?','🔑 빨간 상자에 «정답을 만든 열»이 적혀 있으면 그 열을 빼고 다시 재요');
+ h+=(s.widget&&s.widget!=='(빈칸)')?li('ok','모델 위젯 이름: '+esc(s.widget)):li('todo','모델 칸 맨 윗줄 위젯 이름이 비었어요','# [오렌지3] Logistic Regression · 담당: … 처럼','s3');
+ var d=Number(s.duty)||0;
+ h+=d>=8?li('ok','«담당: 내 이름» 줄 '+d+'칸'):d>0?li('warn','«담당: 내 이름» 줄 '+d+'칸만 있어요','코드 칸마다 맨 윗줄에 넣어요','s3'):li('todo','«담당: 내 이름» 줄이 없어요','구술 ① «내 담당 위젯 한 문장»에 써요','s3');
+ h+=blank(s.b1,'1절 나의 계획','s1','SDG 번호 · 사용자 · 문제 · 출처 기관 · 내 위젯 · 이유');
+ var n4=Number(s.n4)||0; h+=n4>=2?li('ok','4절 비교표 숫자 '+n4+'개'):li('todo','4절 비교표 숫자가 '+(s.n4==='-'?'—':n4+'개')+'예요','오렌지3 · 코랩 숫자를 같은 지표로 두 개 이상','s4');
+ h+=blank(s.b5,'5절 내 개선 실험','s5','가설 · 바꾼 것 하나 · 전 → 후 숫자 · 해석');
+ h+=blank(s.b6,'6절 생활 적용','s6','모델이 ○○ → 누가 → 무엇을 + 틀리면 누가');
+ h+=blank(s.b7,'7절 판단 근거 다섯 칸','s7','다섯 칸 모두 우리 숫자 · 열 이름으로 «왜»');
+ h+='<li><small>8절 AI 활용은 안 써도 돼요.</small></li>';
+ R.innerHTML=h+'<li><small>노트북 마지막 저장 '+esc(r.at)+' · 점검 '+esc(r.now)+(r.due?' · 마감 '+esc(r.due):'')+'<br>빈칸(____)이 없어졌는지만 봐요 — 글이 좋은지, 내 말로 썼는지는 선생님이 봐요. 고친 뒤에는 저장하고 30초쯤 뒤 다시 눌러요.</small></li>';
+}
+F.addEventListener('submit',function(e){
+ e.preventDefault();var id=document.getElementById('meId').value.trim(),nm=document.getElementById('meNm').value.trim();
+ if(!id||!nm){show({ok:false,msg:'학번과 이름을 둘 다 넣어 주세요.'});return;}
+ B.disabled=true;B.textContent='읽는 중…';R.innerHTML='<li><small>내 노트북을 읽고 있어요 (5초쯤)…</small></li>';
+ fetch(API,{method:'POST',body:JSON.stringify({nb:1,id:id,name:nm})}).then(function(x){return x.json();}).then(show)
+  .catch(function(){show(null);}).then(function(){B.disabled=false;B.textContent='점검하기';});
+});
+})();
+</script>
 </body>
 </html>
