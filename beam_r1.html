@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>학습 ① 빔 화면</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* 학습 ① 빔 화면 — 한 장면에 한 화면 · ← → 로 넘기기 · 답은 가려 두고 «답 보기»로 하나씩
+   교사 대본: 주소 끝 ?t=1 또는 T 키 → 화면 아래에 «선생님 대본» 칸이 열림 */
+:root{--ink:#1d2433;--ink2:#4a5468;--line:#d7dce6;--bg:#f4f6fa;--card:#fff;--blue:#2b6cb0;--blue2:#e8f1fb;--star:#f2b705;--star2:#fff6d6;--red:#c53030;--red2:#fdecec;--green:#2f855a;--green2:#e6f4ec;--vio:#6b46c1;--vio2:#f1ebfd}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif}
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#1f3a5f;color:#fff;padding:8px 18px}
+.bar b{font-size:18px}
+.bar .dots{display:flex;gap:6px;flex-wrap:wrap}
+.bar .dots button{font:inherit;font-size:14px;font-weight:700;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:999px;padding:2px 10px;cursor:pointer}
+.bar .dots button[aria-current="true"]{background:var(--star);color:#3a2b00;border-color:var(--star)}
+.bar .sp{flex:1}
+.bar .tb{font:inherit;font-size:15px;font-weight:700;border:0;border-radius:8px;padding:5px 12px;cursor:pointer;background:#fff;color:#1f3a5f}
+.bar .tb.yel{background:var(--star);color:#3a2b00}
+.stage{max-width:1880px;margin:0 auto;padding:16px 22px 10px}
+.scene{display:none;flex-direction:column;gap:14px}
+.scene.on{display:flex}
+.hd{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.hd h1{margin:0;font-size:42px;font-weight:900;letter-spacing:-.5px}
+.hd .tag{font-size:20px;font-weight:700;color:var(--blue);background:var(--blue2);border-radius:999px;padding:3px 14px}
+.hd .t{margin-left:auto;font-size:20px;font-weight:700;color:var(--ink2)}
+.ask{font-size:30px;font-weight:700;line-height:1.45;background:var(--star2);border:3px solid var(--star);border-radius:16px;padding:12px 20px}
+.ask small{display:block;font-size:20px;font-weight:400;color:var(--ink2)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px 18px;font-size:25px;line-height:1.5;min-width:0}
+.card h3{margin:0 0 6px;font-size:27px}
+.card .n{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;font-size:22px;margin-right:8px;vertical-align:middle}
+.ans{visibility:hidden;color:var(--red);font-weight:700}
+.ans.show{visibility:visible}
+.ansbox{visibility:hidden;background:var(--green2);border:2px solid var(--green);border-radius:12px;padding:8px 14px;font-size:24px;line-height:1.5}
+.ansbox.show{visibility:visible}
+.big{font-size:56px;font-weight:900;font-family:'Noto Sans Mono',monospace;letter-spacing:2px}
+table.t{border-collapse:collapse;width:100%;font-size:25px}
+table.t th,table.t td{border:2px solid #cfd5df;padding:8px 12px;text-align:center}
+table.t th{background:#eef1f6}
+table.t.nw th,table.t.nw td{white-space:nowrap}
+.map{display:grid;grid-template-columns:repeat(9,1fr);gap:8px}
+.map div{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 8px;font-size:21px;line-height:1.35;text-align:center}
+.map div b{display:block;font-size:24px}
+.map .today{border:4px solid var(--star);background:var(--star2)}
+.map .iv{border-color:var(--vio);background:var(--vio2)}
+.hand{font-size:24px;color:var(--ink2)}
+svg text{font-family:'Noto Sans KR',sans-serif}
+.tip{font-size:22px;color:var(--ink2)}
+.tip b{color:var(--red)}
+.tnote{display:none;margin-top:6px;background:#fffdf3;border:2px dashed #c9a400;border-radius:14px;padding:12px 18px;font-size:17px;line-height:1.65}
+body.t .tnote{display:block}
+.tnote h4{margin:0 0 4px;font-size:18px;color:#7a5c00}
+.tnote .say{background:#fff3c4;border-left:5px solid #e0b100;border-radius:0 8px 8px 0;padding:6px 10px;margin:6px 0}
+.tnote .say::before{content:"말하기  ";font-weight:700;color:#7a5c00;font-size:14px}
+.tnote ul{margin:4px 0;padding-left:20px}
+.tnote .d{color:var(--blue);font-weight:700}
+.sign{display:flex;align-items:center;justify-content:flex-end;gap:8px;font-size:14px;color:var(--ink2);padding:6px 22px 14px}
+.sign img{height:28px}
+@media (max-width:1100px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.map{grid-template-columns:repeat(3,1fr)}.hd h1{font-size:30px}.ask{font-size:22px}.card{font-size:19px}table.t{font-size:18px}}
+@media print{.bar{display:none}.scene{display:flex!important;page-break-after:always;min-height:0}.ans,.ansbox{visibility:visible}}
+</style>
+</head>
+<body>
+<div class="bar">
+ <b>학습 ① · 10월에 빠르게 지난 곳</b>
+ <div class="dots" id="dots"></div>
+ <span class="sp"></span>
+ <button class="tb yel" id="bAns" type="button" title="답 하나씩 (스페이스)">🙈 답 보기 ▶</button>
+ <button class="tb" id="bAll" type="button">답 모두</button>
+ <button class="tb" id="bT" type="button" title="선생님 대본 (T)">📜 대본</button>
+</div>
+<main class="stage">
+
+<!-- 0 · 시작 -->
+<section class="scene" data-k="시작">
+ <div class="hd"><h1>2차 정기고사까지 함께 복습 — 학습 ①</h1><span class="tag">Ⅱ-01 · 03 · 04</span><span class="t">50분</span></div>
+ <div class="ask">시험 범위는 <b>Ⅱ단원 일곱 소단원 + Ⅳ단원 두 소단원</b>이에요.<small>소단원마다 자신 있는 정도를 손가락으로 — 1(처음 보는 것 같다) ~ 5(친구에게 설명할 수 있다)</small></div>
+ <div class="map">
+  <div class="today"><b>Ⅱ-01</b>기계학습과<br>데이터 수집<br>⭐ 오늘</div>
+  <div><b>Ⅱ-02</b>데이터 가공 ·<br>핵심 속성<br>학습 ②</div>
+  <div class="today"><b>Ⅱ-03</b>기계학습의<br>유형<br>⭐ 오늘</div>
+  <div class="today"><b>Ⅱ-04</b>기계학습<br>알고리즘<br>⭐ 오늘</div>
+  <div><b>Ⅱ-05</b>모델 구현 ·<br>평가 지표<br>학습 ②</div>
+  <div><b>Ⅱ-06</b>인공신경망 ·<br>딥러닝<br>학습 ③</div>
+  <div><b>Ⅱ-07</b>딥러닝<br>모델 구현<br>학습 ③</div>
+  <div class="iv"><b>Ⅳ-01</b>지속가능<br>발전목표<br>학습 ④</div>
+  <div class="iv"><b>Ⅳ-02</b>인공지능<br>프로젝트<br>학습 ④</div>
+ </div>
+ <div class="grid g3">
+  <div class="card"><h3>📒 오늘 준비물</h3>공책 · 연필 · (계산기 없이)</div>
+  <div class="card"><h3>🔁 오늘 리듬</h3>질문 → <b>30초 혼자</b> → 짝과 맞추기 → 답 공개</div>
+  <div class="card"><h3>🎯 오늘 끝에</h3>나가기 3문항 · 짝이 채점</div>
+ </div>
+ <aside class="tnote"><h4>📜 대본 · 0–5′ <span class="d">(D반: 0–10′ 수행평가 ② 점수 확인 → 10–12′ 이 장면)</span></h4>
+  <div class="say">오늘부터 네 시간은 시험 범위를 선생님이랑 같이 복습해요. 화면 아홉 칸이 시험 범위 전부예요. 하나씩 짚을 테니 손가락으로 자신감을 보여 줘요. 1은 처음 보는 것 같다, 5는 친구한테 설명할 수 있다.</div>
+  <ul><li>아홉 칸을 차례로 짚으며 손가락 수를 눈으로 훑기(기록 안 함). 낮은 칸 둘을 소리 내어 말해 두면 학습 ②~④에서 다시 짚기 좋아요.</li>
+  <li>«⭐ 오늘» 세 칸 = 10월 둘째 주에 하루 만에 지나간 곳 — «5주 넘게 지났으니 잊었어도 괜찮아요.»</li>
+  <li>리듬 약속: 질문 → 30초 혼자 공책 → 짝 → 답 공개. 정답을 먼저 말하지 않기.</li></ul>
+ </aside>
+</section>
+
+<!-- 1 · 기계학습인가 · 학습 유형 -->
+<section class="scene" data-k="사례 판정">
+ <div class="hd"><h1>이건 기계학습일까? 어떤 학습일까?</h1><span class="tag">Ⅱ-01 · Ⅱ-03</span><span class="t">6분</span></div>
+ <div class="ask">공책에 번호마다 <b>지</b>(지도) · <b>비</b>(비지도) · <b>강</b>(강화) · <b>X</b>(기계학습 아님) 중 하나를 적어요.<small>«셋, 둘, 하나» 하면 손가락으로 동시에 — 지 1 · 비 2 · 강 3 · X 주먹</small></div>
+ <div class="grid g3">
+  <div class="card"><span class="n">1</span>지난 2년 급식 기록으로 <b>내일 잔반량(kg)</b>을 맞힌다<br><span class="ans">지도 — 예측(숫자)</span></div>
+  <div class="card"><span class="n">2</span>도서관 대출 기록으로 <b>독서 성향이 비슷한 학생끼리</b> 묶는다(묶음 이름은 없음)<br><span class="ans">비지도 — 군집</span></div>
+  <div class="card"><span class="n">3</span>출석부를 <b>번호 순서대로 정렬</b>한다<br><span class="ans">X — 절차가 분명한 규칙(정렬)</span></div>
+  <div class="card"><span class="n">4</span>손으로 쓴 숫자 사진에 <b>0~9 정답</b>을 붙여 학습해 새 사진을 알아본다<br><span class="ans">지도 — 분류</span></div>
+  <div class="card"><span class="n">5</span>로봇 청소기가 <b>부딪히면 점수를 잃고</b> 구석까지 닦으면 점수를 얻으며 길을 배운다<br><span class="ans">강화 — 보상</span></div>
+  <div class="card"><span class="n">6</span>게시판에 <b>같은 글을 10번 넘게 올리면</b> 자동으로 막도록 선생님이 정해 둔다<br><span class="ans">X — 사람이 정한 규칙</span></div>
+ </div>
+ <div class="ansbox"><b>정리</b> — 기계학습은 <b>사람이 규칙을 짜는 대신 데이터에서 규칙을 찾는 것</b>. 정답이 있으면 <b>지도</b>(분류 = 종류 · 예측 = 숫자), 정답 없이 묶으면 <b>비지도</b>(군집), 보상으로 행동을 배우면 <b>강화</b>.</div>
+ <aside class="tnote"><h4>📜 대본 · 5–11′ <span class="d">(D반 12–16′ · 카드 1 · 2 · 5만)</span></h4>
+  <div class="say">여섯 개를 보고 공책에 지, 비, 강, 아니면 X를 적어요. 30초. … 짝이랑 맞춰 봐요. … 셋, 둘, 하나!</div>
+  <ul><li>카드마다 손가락 확인 → «답 보기»로 하나씩. 갈린 카드는 «왜 그렇게 생각했어?» 한 명씩.</li>
+  <li>예상 오답: <b>6번을 지도</b>로 고름 → «정답 데이터에서 배웠나, 선생님이 숫자 10을 정했나?» / <b>2번을 지도</b>로 → «‹소설파› 같은 이름을 미리 줬나?» / <b>1번을 분류</b>로 → «답이 kg 숫자면?»</li>
+  <li>마지막 정리 상자를 함께 읽기. «분류 = 종류, 예측 = 숫자»를 소리 내어.</li></ul>
+ </aside>
+</section>
+
+<!-- 2 · 좋은 데이터 -->
+<section class="scene" data-k="좋은 데이터">
+ <div class="hd"><h1>이 데이터, 무엇이 부족할까?</h1><span class="tag">Ⅱ-01 좋은 데이터 네 기준 · 편향</span><span class="t">4분</span></div>
+ <div class="ask">네 기준 — <b>정확성 · 관련성 · 시의성 · 다양성</b> — 가운데 무엇을 지키지 못했을까요?</div>
+ <div class="grid g2">
+  <div class="card"><span class="n">가</span>키를 어떤 반은 <b>cm</b>, 어떤 반은 <b>m</b>로 적어서 160과 1.6이 섞였다<br><span class="ans">정확성</span></div>
+  <div class="card"><span class="n">나</span>학생 <b>수면 시간</b>을 예측하는데 입력에 <b>신발 사이즈</b>를 넣었다<br><span class="ans">관련성</span></div>
+  <div class="card"><span class="n">다</span>올해 매점 인기 메뉴를 <b>10년 전 판매 기록</b>으로 예측했다<br><span class="ans">시의성</span></div>
+  <div class="card"><span class="n">라</span>자율 주행 카메라를 <b>맑은 날 낮 사진</b>으로만 학습시켰다<br><span class="ans">다양성</span></div>
+ </div>
+ <div class="ansbox"><b>⚠ 함정</b> — «무조건 가장 최신 데이터가 좋다» → <b>X</b>. 너무 최근 것만 있으면 오히려 성능이 떨어져요(시의성 = 시기가 <b>알맞은</b> 것). <b>편향</b>도 기억 — 현실의 편향이 데이터에 그대로 담기거나, 표본을 한쪽에서만 뽑으면 생겨요.</div>
+ <aside class="tnote"><h4>📜 대본 · 11–15′ <span class="d">(D반 16–19′)</span></h4>
+  <div class="say">좋은 데이터의 네 기준, 기억나는 사람? … 정확성, 관련성, 시의성, 다양성. 네 카드가 하나씩 어긋났어요. 30초 동안 짝지어 봐요.</div>
+  <ul><li>(가)를 «다양성»으로 고르는 학생이 많아요 → «여러 상황이 부족한가, 값이 틀렸나?»</li>
+  <li>함정 상자: 시험에 «무조건 최신»이 자주 나온다는 말은 하지 않고, «알맞은 시기»로만 강조.</li>
+  <li>편향 두 가지(교과서 66쪽 결): 현실의 편향 반영 · 잘못 뽑은 표본 — 한 줄씩만.</li></ul>
+ </aside>
+</section>
+
+<!-- 3 · kNN -->
+<section class="scene" data-k="k-최근접 이웃">
+ <div class="hd"><h1>k-최근접 이웃 — k가 바뀌면 답도 바뀐다</h1><span class="tag">Ⅱ-04 · 분류</span><span class="t">7분</span></div>
+ <div class="grid g2" style="align-items:start">
+  <div class="card" style="padding:8px">
+   <svg viewBox="0 0 520 420" width="100%" role="img" aria-label="좌표 평면 위 고양이 세 마리, 강아지 네 마리, 새 동물 X">
+    <g stroke="#e3e7ee" stroke-width="1">
+     <line x1="60" y1="30" x2="60" y2="380"/><line x1="110" y1="30" x2="110" y2="380"/><line x1="160" y1="30" x2="160" y2="380"/><line x1="210" y1="30" x2="210" y2="380"/><line x1="260" y1="30" x2="260" y2="380"/><line x1="310" y1="30" x2="310" y2="380"/><line x1="360" y1="30" x2="360" y2="380"/><line x1="410" y1="30" x2="410" y2="380"/><line x1="460" y1="30" x2="460" y2="380"/><line x1="510" y1="30" x2="510" y2="380"/>
+     <line x1="60" y1="380" x2="510" y2="380"/><line x1="60" y1="330" x2="510" y2="330"/><line x1="60" y1="280" x2="510" y2="280"/><line x1="60" y1="230" x2="510" y2="230"/><line x1="60" y1="180" x2="510" y2="180"/><line x1="60" y1="130" x2="510" y2="130"/><line x1="60" y1="80" x2="510" y2="80"/><line x1="60" y1="30" x2="510" y2="30"/>
+    </g>
+    <g font-size="15" fill="#6b7385" text-anchor="middle">
+     <text x="60" y="402">0</text><text x="110" y="402">1</text><text x="160" y="402">2</text><text x="210" y="402">3</text><text x="260" y="402">4</text><text x="310" y="402">5</text><text x="360" y="402">6</text><text x="410" y="402">7</text><text x="460" y="402">8</text><text x="510" y="402">9</text>
+     <text x="44" y="385">0</text><text x="44" y="335">1</text><text x="44" y="285">2</text><text x="44" y="235">3</text><text x="44" y="185">4</text><text x="44" y="135">5</text><text x="44" y="85">6</text><text x="44" y="35">7</text>
+    </g>
+    <g class="ans" fill="none" stroke-width="3" stroke-dasharray="8 6">
+     <circle cx="310" cy="230" r="56" stroke="#c53030"/>
+    </g>
+    <g class="ans" fill="none" stroke-width="3" stroke-dasharray="8 6">
+     <circle cx="310" cy="230" r="106" stroke="#2b6cb0"/>
+    </g>
+    <g class="ans" fill="none" stroke-width="3" stroke-dasharray="8 6">
+     <circle cx="310" cy="230" r="164" stroke="#2f855a"/>
+    </g>
+    <g fill="#1d2433">
+     <circle cx="310" cy="180" r="10"/><circle cx="410" cy="180" r="10"/><circle cx="460" cy="80" r="10"/>
+    </g>
+    <g fill="none" stroke="#1d2433" stroke-width="3">
+     <polygon points="360,270 351,287 369,287"/><polygon points="210,220 201,237 219,237"/><polygon points="260,70 251,87 269,87"/><polygon points="160,320 151,337 169,337"/>
+     <rect x="300" y="220" width="20" height="20" stroke="#c53030" stroke-width="4"/>
+    </g>
+    <g font-size="17" font-weight="700" fill="#1d2433">
+     <text x="322" y="175">A</text><text x="422" y="175">D</text><text x="472" y="75">G</text>
+     <text x="372" y="292">B</text><text x="186" y="225">C</text><text x="236" y="75">E</text><text x="136" y="325">F</text>
+     <text x="326" y="252" fill="#c53030">X</text>
+    </g>
+   </svg>
+   <div class="tip">● 고양이 · △ 강아지 · <b>□ 새 동물 X(5, 3)</b> · 거리는 두 점 사이 직선 거리</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+   <div class="ask" style="font-size:26px">X와 가까운 순서대로 이웃을 세어 <b>다수결</b>. k = 1, 3, 5일 때 X는?</div>
+   <table class="t">
+    <tr><th>k</th><th>가까운 이웃</th><th>결과</th></tr>
+    <tr><td>1</td><td><span class="ans">A(1)</span></td><td><span class="ans">● 고양이</span></td></tr>
+    <tr><td>3</td><td><span class="ans">A · B(√2 ≈ 1.4) · C(2)</span></td><td><span class="ans">△ 강아지 (2 : 1)</span></td></tr>
+    <tr><td>5</td><td><span class="ans">+ D(√5 ≈ 2.2) · E(√10 ≈ 3.2)</span></td><td><span class="ans">△ 강아지 (3 : 2)</span></td></tr>
+   </table>
+   <div class="ansbox">거리 = √(가로 차² + 세로 차²). X–B: √(1² + 1²) = √2 · X–D: √(2² + 1²) = √5. <b>k를 바꾸면 결과가 바뀔 수 있어요.</b></div>
+  </div>
+ </div>
+ <aside class="tnote"><h4>📜 대본 · 15–22′ <span class="d">(D반 19–25′)</span></h4>
+  <div class="say">새 동물 X가 들어왔어요. 고양이일까요, 강아지일까요? 가장 가까운 이웃 k마리에게 물어봐서 많은 쪽으로 정하는 게 k-최근접 이웃이에요. 먼저 k = 1, 제일 가까운 한 마리는?</div>
+  <ul><li><b>시범</b>: k = 1은 선생님이(A, 바로 위 1칸). 원 하나 보여 주기(답 보기 ①).</li>
+  <li><b>학생</b>: k = 3, 5는 30초 혼자 → 짝. 거리를 손으로 구하게: X–B 대각선 √2, X–C 왼쪽 2칸.</li>
+  <li>예상 오답: k = 5에서 G를 넣음 → «G까지 거리는? √18 ≈ 4.2 · E는 √10 ≈ 3.2» / F(√13 ≈ 3.6)와 E 순서 헷갈림.</li>
+  <li>마무리 한 줄: «k가 작으면 바로 옆 하나에 휘둘리고, k를 바꾸면 결과가 달라질 수 있다.»</li></ul>
+ </aside>
+</section>
+
+<!-- 4 · k-평균 -->
+<section class="scene" data-k="k-평균">
+ <div class="hd"><h1>k-평균 — 할당하고, 평균으로 옮기고, 멈출 때까지</h1><span class="tag">Ⅱ-04 · 군집(비지도)</span><span class="t">9분</span></div>
+ <div class="ask">데이터 <span class="big" style="font-size:40px">1, 2, 6, 7, 8, 15</span> 를 k = 2로 묶어요. 처음 두 중심은 <b>1</b>과 <b>2</b>.<small>① 각 값을 더 가까운 중심에 할당 → ② 중심을 그 묶음의 평균으로 옮기기 → 중심이 안 바뀔 때까지 되풀이</small></div>
+ <table class="t">
+  <tr><th>단계</th><th>중심</th><th>묶음 1</th><th>묶음 2</th><th>새 중심(평균)</th></tr>
+  <tr><td>1번째</td><td>1 · 2</td><td><span class="ans">1</span></td><td><span class="ans">2, 6, 7, 8, 15</span></td><td><span class="ans">1 · 38 ÷ 5 = 7.6</span></td></tr>
+  <tr><td>2번째</td><td><span class="ans">1 · 7.6</span></td><td><span class="ans">1, 2</span></td><td><span class="ans">6, 7, 8, 15</span></td><td><span class="ans">1.5 · 36 ÷ 4 = 9</span></td></tr>
+  <tr><td>3번째</td><td><span class="ans">1.5 · 9</span></td><td><span class="ans">1, 2</span></td><td><span class="ans">6, 7, 8, 15</span></td><td><span class="ans">1.5 · 9 → 그대로 = 멈춤</span></td></tr>
+ </table>
+ <div class="ansbox">2번째에 <b>2</b>가 묶음을 옮겨요 — 2와 1 사이 거리 1, 2와 7.6 사이 거리 5.6. 중심이 더 이상 안 바뀌면 끝(수렴): <b>1.5와 9</b>.</div>
+ <aside class="tnote"><h4>📜 대본 · 22–31′ <span class="d">(D반 25–33′)</span></h4>
+  <div class="say">k-평균은 정답이 없어요. 그냥 가까운 것끼리 두 묶음으로 나눠요. 순서는 딱 두 개 — 할당, 평균. 첫 줄은 선생님이 할게요.</div>
+  <ul><li><b>시범</b>(1번째 줄): 1은 중심 1에, 2부터는 중심 2가 더 가까움 → 평균 1과 7.6. 칠판에 수직선 그리기.</li>
+  <li><b>학생</b>(2 · 3번째 줄): 1분 혼자 → 짝. «2는 어느 중심이 더 가까워졌지?»를 꼭 묻기.</li>
+  <li>예상 오답: 새 중심을 «가운데 값»으로(중앙값 7.5 등) → «평균 = 다 더해서 개수로 나누기» / 1번째에서 바로 멈춤.</li>
+  <li>마무리: «k-평균 = 비지도 · 군집, k-최근접 이웃 = 지도 · 분류 — 이름이 비슷해도 다른 것.»</li></ul>
+ </aside>
+</section>
+
+<!-- 5 · 로지스틱 · 선형 회귀 MSE -->
+<section class="scene" data-k="회귀 · MSE">
+ <div class="hd"><h1>로지스틱 회귀의 기준값 · 선형 회귀의 MSE</h1><span class="tag">Ⅱ-04 · 분류 / 예측</span><span class="t">7분</span></div>
+ <div class="grid g2">
+  <div class="card"><h3>① 로지스틱 회귀 — 확률을 내고, 기준값으로 «1 / 0»</h3>
+   어느 줄넘기 모델이 학생 다섯 명의 <b>«2단 뛰기 성공 확률»</b>을 냈어요.
+   <table class="t" style="margin:8px 0"><tr><th>학생</th><th>가</th><th>나</th><th>다</th><th>라</th><th>마</th></tr><tr><td>확률</td><td>0.72</td><td>0.55</td><td>0.38</td><td>0.61</td><td>0.49</td></tr></table>
+   기준값 <b>0.5</b>일 때 «성공»은 몇 명? <span class="ans">3명(가 · 나 · 라)</span><br>
+   기준값 <b>0.6</b>으로 올리면? <span class="ans">2명(가 · 라) — 기준을 올리면 «성공»은 줄거나 같다</span></div>
+  <div class="card"><h3>② 선형 회귀 — 틀린 정도를 MSE로</h3>
+   <table class="t" style="margin:8px 0"><tr><th></th><th>1번</th><th>2번</th><th>3번</th></tr><tr><td>실제</td><td>3</td><td>5</td><td>8</td></tr><tr><td>예측</td><td>4</td><td>5</td><td>6</td></tr><tr><td>오차²</td><td><span class="ans">1</span></td><td><span class="ans">0</span></td><td><span class="ans">4</span></td></tr></table>
+   MSE = 오차 제곱의 평균 = <span class="ans">(1 + 0 + 4) ÷ 3 = 5/3 ≈ 1.67</span><br>
+   MSE는 작을수록? <span class="ans">좋다(덜 틀림)</span></div>
+ </div>
+ <div class="ansbox">로지스틱 회귀는 이름은 «회귀»지만 <b>분류</b>에 써요(확률 → 기준값). 선형 회귀는 <b>예측</b>(숫자) — 직선 y = ax + b로 예측하고, MSE가 작은 직선이 더 잘 맞아요.</div>
+ <aside class="tnote"><h4>📜 대본 · 31–38′ <span class="d">(D반 33–39′)</span></h4>
+  <div class="say">로지스틱 회귀는 «성공할 확률 0.72»처럼 확률을 줘요. 그걸 몇부터 성공으로 볼지, 그 기준값은 우리가 정해요.</div>
+  <ul><li>① 30초 → 손가락으로 명 수. 0.5 → 3명, 0.6 → 2명. «기준을 올리면 1로 보는 사람이 많아질까 적어질까?»</li>
+  <li>② 오차는 «실제 − 예측», 제곱하면 부호가 사라짐. 1번 −1 → 1, 3번 2 → 4. 나누기 3까지 꼭.</li>
+  <li>예상 오답: 오차를 제곱 안 하고 더함(−1 + 0 + 2 = 1) / 3으로 안 나눔(5).</li>
+  <li>«로지스틱 = 이름만 회귀, 하는 일은 분류»를 한 번 더.</li></ul>
+ </aside>
+</section>
+
+<!-- 6 · 의사결정트리 -->
+<section class="scene" data-k="의사결정트리">
+ <div class="hd"><h1>의사결정트리 따라가기</h1><span class="tag">Ⅱ-04 · 분류</span><span class="t">5분</span></div>
+ <div class="grid g2" style="align-items:start;grid-template-columns:.9fr 1.1fr">
+  <div class="card" style="padding:8px">
+   <svg viewBox="0 0 620 380" width="100%" role="img" aria-label="체육복 추천 의사결정트리">
+    <g stroke="#4a5468" stroke-width="2.5" fill="none">
+     <line x1="310" y1="62" x2="170" y2="140"/><line x1="310" y1="62" x2="470" y2="140"/>
+     <line x1="170" y1="182" x2="90" y2="252"/><line x1="170" y1="182" x2="270" y2="252"/>
+     <line x1="270" y1="292" x2="200" y2="330"/><line x1="270" y1="292" x2="350" y2="330"/>
+    </g>
+    <g font-size="17" font-weight="700">
+     <rect x="200" y="20" width="220" height="44" rx="10" fill="#e8f1fb" stroke="#2b6cb0" stroke-width="2"/><text x="310" y="49" text-anchor="middle">기온이 15 ℃ 이상?</text>
+     <text x="215" y="100" fill="#2f855a">예</text><text x="400" y="100" fill="#c53030">아니요</text>
+     <rect x="80" y="140" width="180" height="44" rx="10" fill="#e8f1fb" stroke="#2b6cb0" stroke-width="2"/><text x="170" y="169" text-anchor="middle">실내 수업?</text>
+     <rect x="410" y="140" width="120" height="44" rx="22" fill="#fdecec" stroke="#c53030" stroke-width="2"/><text x="470" y="169" text-anchor="middle">긴팔</text>
+     <text x="105" y="225" fill="#2f855a">예</text><text x="230" y="225" fill="#c53030">아니요</text>
+     <rect x="30" y="252" width="120" height="44" rx="22" fill="#e6f4ec" stroke="#2f855a" stroke-width="2"/><text x="90" y="281" text-anchor="middle">반팔</text>
+     <rect x="170" y="252" width="200" height="40" rx="10" fill="#e8f1fb" stroke="#2b6cb0" stroke-width="2"/><text x="270" y="278" text-anchor="middle">바람 5 m/s 이상?</text>
+     <text x="205" y="318" fill="#2f855a" font-size="15">예</text><text x="320" y="318" fill="#c53030" font-size="15">아니요</text>
+     <rect x="140" y="330" width="120" height="40" rx="20" fill="#fdecec" stroke="#c53030" stroke-width="2"/><text x="200" y="357" text-anchor="middle">긴팔</text>
+     <rect x="290" y="330" width="120" height="40" rx="20" fill="#e6f4ec" stroke="#2f855a" stroke-width="2"/><text x="350" y="357" text-anchor="middle">반팔</text>
+    </g>
+   </svg>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+   <div class="ask" style="font-size:25px">«오늘 체육복 추천» 트리예요. 세 학생에게 무엇을 추천할까요?<small>지난 기록의 속성: 기온 · 실내 수업 여부 · 바람 세기 · 요일</small></div>
+   <table class="t nw">
+    <tr><th>학생</th><th>기온</th><th>수업</th><th>바람</th><th>추천</th></tr>
+    <tr><td>가</td><td>18 ℃</td><td>실외</td><td>7 m/s</td><td><span class="ans">긴팔</span></td></tr>
+    <tr><td>나</td><td>12 ℃</td><td>실내</td><td>1 m/s</td><td><span class="ans">긴팔</span></td></tr>
+    <tr><td>다</td><td>15 ℃</td><td>실외</td><td>2 m/s</td><td><span class="ans">반팔 (15 ℃ «이상» → 예)</span></td></tr>
+   </table>
+   <div class="card" style="font-size:23px">이 트리에서 <b>기준으로 쓰이지 않은</b> 속성은? <span class="ans">요일</span></div>
+  </div>
+ </div>
+ <aside class="tnote"><h4>📜 대본 · 38–43′ <span class="d">(D반 39–43′ · 학생 «다»만 함께)</span></h4>
+  <div class="say">의사결정트리는 스무고개처럼 질문을 따라 내려가요. 맨 위 질문부터 손가락으로 길을 짚어 봐요.</div>
+  <ul><li>(가)는 같이, (나)(다)는 30초 혼자 → 짝.</li>
+  <li>예상 오답: (나)를 «실내니까 반팔» → 맨 위 질문(12 ℃ → 아니요)에서 이미 끝 / (다) 15 ℃를 «아니요»로 → «이상»은 같은 값 포함.</li>
+  <li>«쓰이지 않은 속성» — 데이터에 있어도 트리가 고르지 않은 열이 있을 수 있어요.</li></ul>
+ </aside>
+</section>
+
+<!-- 7 · 나가기 -->
+<section class="scene" data-k="나가기">
+ <div class="hd"><h1>나가기 3문항 — 공책에 · 짝이 채점</h1><span class="tag">오늘 확인</span><span class="t">5분 + 정리 2분</span></div>
+ <div class="grid g3">
+  <div class="card"><span class="n">1</span>쇼핑몰이 <b>정답 없이</b> 구매 기록만으로 «비슷한 손님끼리» 묶었다. 학습 유형과 하는 일은?<br><span class="ans">비지도 학습 · 군집</span></div>
+  <div class="card"><span class="n">2</span>데이터 <b>2, 3, 10, 11</b> · k = 2 · 처음 중심 2와 3. 첫 번째 갱신 뒤 두 중심과, 멈췄을 때 두 중심은?<br><span class="ans">2와 8 → 2.5와 10.5</span></div>
+  <div class="card"><span class="n">3</span>실제 <b>10, 12</b> · 예측 <b>11, 14</b>. MSE는?<br><span class="ans">(1 + 4) ÷ 2 = 2.5</span></div>
+ </div>
+ <div class="ansbox"><b>오늘 한 줄</b> — 분류 = 종류 · 예측 = 숫자 · 군집 = 정답 없이 묶기 / kNN은 이웃 다수결, k-평균은 할당 → 평균 반복, 로지스틱은 확률 → 기준값, MSE는 오차 제곱의 평균.<br><b>다음 시간(학습 ②)</b> — 여러분이 프로젝트에서 직접 한 전처리 · 오렌지3 ↔ 코드 · 오분류표가 시험 범위예요.</div>
+ <aside class="tnote"><h4>📜 대본 · 43–50′</h4>
+  <div class="say">세 문제를 공책에 풀어요. 3분. … 짝과 공책을 바꿔서 채점해요. … 몇 개 맞았는지 손가락으로.</div>
+  <ul><li>손가락 수를 눈으로 보고 <b>많이 틀린 번호</b>를 기억 → 학습 ⑤(D) · 자습 ①에서 다시.</li>
+  <li>2번: 첫 갱신에서 3이 중심 3 쪽에 남는지(2와 3 거리 1, 3과 3 거리 0) 헷갈림 → 중심 3에 할당이 맞음.</li>
+  <li>마지막 2분: «오늘 한 줄» 함께 읽기 → 다음 시간 예고(«내 수행평가 노트북을 열 수 있게 와요»).</li></ul>
+ </aside>
+</section>
+
+</main>
+<div class="sign"><img src="img/bun.gif" alt=""> made by ptp 🐰</div>
+<script>
+(function(){
+ var S = [].slice.call(document.querySelectorAll('.scene')), cur = 0;
+ var dots = document.getElementById('dots');
+ S.forEach(function(s, i){
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = (i + 1) + ' ' + s.dataset.k;
+  b.onclick = function(){ go(i); }; dots.appendChild(b);
+ });
+ function go(i){
+  cur = Math.max(0, Math.min(S.length - 1, i));
+  S.forEach(function(s, j){ s.classList.toggle('on', j === cur); });
+  [].forEach.call(dots.children, function(b, j){ b.setAttribute('aria-current', j === cur ? 'true' : 'false'); });
+  try{ history.replaceState(null, '', location.pathname + location.search + '#' + (cur + 1)); }catch(e){}
+  window.scrollTo(0, 0);
+  fit();
+ }
+ /* 화면 높이에 맞춰 장면을 키우거나 줄임(대본 칸은 그대로) */
+ function fit(){
+  var s = S[cur]; if(!s) return;
+  var kids = [].filter.call(s.children, function(c){ return !c.classList.contains('tnote'); });
+  kids.forEach(function(k){ k.style.zoom = 1; });
+  var h = kids.reduce(function(a, k){ return a + k.getBoundingClientRect().height; }, 0) + 14 * (kids.length - 1);
+  var avail = window.innerHeight - document.querySelector('.bar').offsetHeight - 70;
+  var z = Math.max(.6, Math.min(1.8, avail / h));
+  /* 키우면 줄이 더 접혀 높아지므로, 넘치면 조금씩 줄이며 다시 잼 */
+  for(var i = 0; i < 12; i++){
+   kids.forEach(function(k){ k.style.zoom = z; });
+   var hz = kids.reduce(function(a, k){ return a + k.getBoundingClientRect().height; }, 0) + 14 * (kids.length - 1);
+   if(hz <= avail || z <= .6) break;
+   z = Math.max(.6, z * Math.max(.9, avail / hz));
+  }
+ }
+ window.addEventListener('resize', fit);
+ if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+ function hidden(){ return [].slice.call(S[cur].querySelectorAll('.ans:not(.show), .ansbox:not(.show)')); }
+ function next(){ var h = hidden(); if(h.length) h[0].classList.add('show'); }
+ function all(){ var h = S[cur].querySelectorAll('.ans, .ansbox'), any = hidden().length;
+  [].forEach.call(h, function(x){ x.classList.toggle('show', !!any); }); }
+ function teacher(){ document.body.classList.toggle('t'); }
+ document.getElementById('bAns').onclick = next;
+ document.getElementById('bAll').onclick = all;
+ document.getElementById('bT').onclick = teacher;
+ document.addEventListener('keydown', function(e){
+  if(e.target.closest && e.target.closest('input,textarea')) return;
+  if(e.key === 'ArrowRight' || e.key === 'PageDown'){ go(cur + 1); e.preventDefault(); }
+  else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ go(cur - 1); e.preventDefault(); }
+  else if(e.key === ' '){ next(); e.preventDefault(); }
+  else if(e.key === 't' || e.key === 'T'){ teacher(); }
+  else if(e.key === 'a' || e.key === 'A'){ all(); }
+ });
+ if(/[?&]t=1(&|$)/.test(location.search)) document.body.classList.add('t');
+ var h = parseInt((location.hash || '').slice(1), 10);
+ go(h > 0 ? h - 1 : 0);
+})();
+</script>
+</body>
+</html>
