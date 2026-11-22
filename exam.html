@@ -1210,7 +1210,7 @@ body.hub #today .empty{border-color:#F5A9C6}
 <section id="cards"><div class="wrap">
   <div class="hubh"><h2>📚 시간마다 볼 곳</h2><span>단추를 누르면 그 시간 자료만 보여요</span></div>
   <div id="exCards"></div>
-  <p class="ex-note">자료 쪽 맨 위 «📘 시험 범위 학습» 줄에서 다른 시간으로 옮겨 갈 수 있어요. 수업 자료 전체는 «전체 수업 보기»를 누르세요.</p>
+  <p class="ex-note">자습 시간은 따로 정한 학습 없이 각자 가져온 공부를 해요 — 시험 범위 공부는 학습 시간에 모두 끝나요. 자료 쪽 맨 위 «📘 시험 범위 학습» 줄에서 다른 시간으로 옮겨 갈 수 있어요. 수업 자료 전체는 «전체 수업 보기»를 누르세요.</p>
 </div></section>
 
 <footer><div class="wrap">
@@ -1221,7 +1221,7 @@ body.hub #today .empty{border-color:#F5A9C6}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=26d5d5b7"></script>
+<script src="lessons.js?v=de544b39"></script>
 <script>
 (function(){
 'use strict';
@@ -1241,7 +1241,7 @@ function draw(){
       var L = LES[x.id], self = /^J/.test(x.id), past = +x.d < +t0, td = +x.d === +t0;
       rows.push('<a class="ex-row' + (self ? ' self' : '') + (past ? ' past' : '') + (td ? ' today' : '') + '" href="' + openX(x.id) + '">' +
         '<span class="d">' + x.md + '<i>' + WD[x.d.getDay()] + '요일' + (td ? ' · 오늘' : '') + '</i></span>' +
-        '<span><b>' + esc(L.tag) + '</b><span>' + esc(L.title) + '</span></span><em>' + (self ? '자습 자료 ▶' : '이 시간 자료 ▶') + '</em></a>');
+        '<span><b>' + esc(L.tag) + '</b><span>' + esc(L.title) + '</span></span><em>' + (self ? '각자 공부' : '이 시간 자료 ▶') + '</em></a>');
     });
     var nR = mine.filter(function(x){ return /^R/.test(x.id); }).length, nJ = mine.length - nR;
     $('planSub').textContent = A.NAME[cls] + ' · 학습 ' + nR + '번 · 자습 ' + nJ + '번';
