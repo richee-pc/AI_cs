@@ -236,8 +236,10 @@ function flowHtml(L){
 }
 function datesOf(c, id){ return list(c).filter(function(x){ return x.id === id; }); }
 function home(id){ return LES[id].steps[0][0]; }
-function stepUrl(id, s){ return PAGES[s[0]] + '?l=' + id + (s[1] === 'top' ? '' : '#' + s[1]); }
-function openUrl(id){ return PAGES[home(id)] + '?l=' + id; }
+/* 시험 범위 학습 · 자습(R · J)은 어디서 열든 «시험 범위만 보기»(x=1)로 */
+function exq(id){ return /^(R|J)\d$/.test(id) ? '&x=1' : ''; }
+function stepUrl(id, s){ return PAGES[s[0]] + '?l=' + id + exq(id) + (s[1] === 'top' ? '' : '#' + s[1]); }
+function openUrl(id){ return PAGES[home(id)] + '?l=' + id + exq(id); }
 
 var W1 = new Date(2026, 7, 10);
 function weekNo(d){ return Math.floor((d - W1) / 864e5 / 7) + 1; }
@@ -360,8 +362,8 @@ function mount(){
   function isEx(id){ return /^(R|J)\d$/.test(id); }
   var ids = EX ? ORDER.filter(function(id){ return isEx(id) && LES[id] && (!cls || datesOf(cls, id).length); })
                : ORDER.filter(function(id){ return home(id) === page; });
-  function sUrl(id, s){ var u = stepUrl(id, s); return EX ? u.replace(/(\?l=[A-Za-z0-9]+)/, '$1&x=1') : u; }
-  function oUrl(id){ return openUrl(id) + (EX ? '&x=1' : ''); }
+  function sUrl(id, s){ var u = stepUrl(id, s); return EX && !/[?&]x=1/.test(u) ? u.replace(/(\?l=[A-Za-z0-9]+)/, '$1&x=1') : u; }
+  function oUrl(id){ var u = openUrl(id); return EX && !/[?&]x=1/.test(u) ? u + '&x=1' : u; }
   function goBtn(id, label){ return home(id) === page ? '<button type="button" data-id="' + id + '">' + label + '</button>' : '<a href="' + oUrl(id) + '">' + label + '</a>'; }
   var panel = document.createElement('div'); panel.className = 'lpanel'; panel.id = 'lessonPanel'; panel.hidden = true;
   host.parentNode.insertBefore(panel, host.nextSibling);

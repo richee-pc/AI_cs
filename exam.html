@@ -1221,7 +1221,7 @@ body.hub #today .empty{border-color:#F5A9C6}
     <span class="ptp">made by ptp <span>🐰</span></span>
   </div>
 </div></footer>
-<script src="lessons.js?v=06249c44"></script>
+<script src="lessons.js?v=beacb9dc"></script>
 <script>
 (function(){
 'use strict';
@@ -1229,7 +1229,7 @@ var A = window.AIL, LES = A.LES, WD = A.WD;
 function $(id){ return document.getElementById(id); }
 function esc(x){ return String(x == null ? '' : x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 var EXIDS = A.ORDER.filter(function(id){ return /^(R|J)\d$/.test(id); });
-function xurl(u){ return u.replace(/(\?l=[A-Za-z0-9]+)/, '$1&x=1'); }
+function xurl(u){ return /[?&]x=1(&|#|$)/.test(u) ? u : u.replace(/(\?l=[A-Za-z0-9]+)/, '$1&x=1'); }
 function openX(id){ return xurl(A.openUrl(id)); }
 var cls = A.getCls();
 function draw(){
