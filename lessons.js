@@ -350,8 +350,15 @@ function mount(){
   var host = document.getElementById('lessonBar'); if(!host) return;
   var page = host.getAttribute('data-page');
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
-  var ids = ORDER.filter(function(id){ return home(id) === page; });
   var cls = getCls(), t0 = today(), cur = null;
+  /* 📘 시험 범위 학습만 보기 — 주소에 x=1 (수업 홈 «시험 범위 학습» → exam.html 에서 들어옴) */
+  var EX = /[?&]x=1(&|$)/.test(location.search);
+  function isEx(id){ return /^(R|J)\d$/.test(id); }
+  var ids = EX ? ORDER.filter(function(id){ return isEx(id) && LES[id] && (!cls || datesOf(cls, id).length); })
+               : ORDER.filter(function(id){ return home(id) === page; });
+  function sUrl(id, s){ var u = stepUrl(id, s); return EX ? u.replace(/(\?l=[A-Za-z0-9]+)/, '$1&x=1') : u; }
+  function oUrl(id){ return openUrl(id) + (EX ? '&x=1' : ''); }
+  function goBtn(id, label){ return home(id) === page ? '<button type="button" data-id="' + id + '">' + label + '</button>' : '<a href="' + oUrl(id) + '">' + label + '</a>'; }
   var panel = document.createElement('div'); panel.className = 'lpanel'; panel.id = 'lessonPanel'; panel.hidden = true;
   host.parentNode.insertBefore(panel, host.nextSibling);
 
@@ -373,16 +380,17 @@ function mount(){
     var tid = todayId(), nid = nextId();
     var past = function(id){ var ds = datesOf(cls, id); return cls && ds.length && ds.every(function(x){ return +x.d < +t0; }); };
     host.className = 'lbar';
-    host.innerHTML = '<div class="wrap"><div class="lbhead"><b>📌 차시별로 열기</b>' +
+    host.innerHTML = '<div class="wrap"><div class="lbhead"><b>' + (EX ? '📘 시험 범위 학습' : '📌 차시별로 열기') + '</b>' +
       '<span class="pick" id="lbCls">' + ['A','D','E'].map(function(c){
         return '<button type="button" data-c="' + c + '" aria-pressed="' + (c === cls ? 'true' : 'false') + '">' + NAME[c] + '</button>'; }).join('') + '</span>' +
       '<span class="hintx">' + (cls ? (tid && home(tid) === page ? '노란 테두리가 오늘 수업입니다' : (nid ? '다음 수업 — <a href="' + (home(nid) === page ? '?l=' + nid : openUrl(nid)) + '" style="font-weight:800">' + LES[nid].tag + ' (' + datesOf(cls, nid).filter(function(x){ return +x.d >= +t0; })[0].md + ') 열기</a>' : '')): '우리 반을 고르면 날짜가 나옵니다') + '</span></div>' +
       '<div class="ltabs" role="tablist" aria-label="차시">' +
-      '<button type="button" class="ltab all" role="tab" data-id="" aria-selected="' + (cur ? 'false' : 'true') + '"><b>전체 보기</b></button>' +
+      (EX ? '<a class="ltab all" href="https://richee-pc.github.io/AI_cs/exam.html"><b>📘 시험 범위 학습 홈</b></a>' :
+      '<button type="button" class="ltab all" role="tab" data-id="" aria-selected="' + (cur ? 'false' : 'true') + '"><b>전체 보기</b></button>') +
       (function(){ var last = -1, wNow = weekNo(t0); return ids.map(function(id){
         var L = LES[id], ds = cls ? datesOf(cls, id) : [], w = ds.length ? weekNo(ds[0].d) : -1, sep = '';
         if(w > 0 && w !== last){ sep = '<span class="lwk ' + weekCls(w) + (w === wNow ? ' now' : '') + '" title="' + weekRange(w) + '"><b>' + w + '주</b><i>' + (w === wNow ? '이번 주' : (ds[0].d.getMonth()+1) + '월') + '</i></span>'; last = w; }
-        return sep + '<button type="button" class="ltab' + (w > 0 ? ' ' + weekCls(w) : '') + (id === tid ? ' today' : '') + (past(id) ? ' past' : '') + '" role="tab" data-id="' + id + '" aria-selected="' + (id === cur ? 'true' : 'false') + '">' +
+        return sep + '<button type="button" class="ltab' + (w > 0 ? ' ' + weekCls(w) : '') + (id === tid ? ' today' : '') + (past(id) ? ' past' : '') + '" role="tab" data-id="' + id + '"' + (home(id) !== page ? ' data-href="' + oUrl(id) + '"' : '') + ' aria-selected="' + (id === cur ? 'true' : 'false') + '">' +
           '<i>' + (whenOf(id) || '&nbsp;') + '</i><b>' + (L.short || L.tag) + '</b></button>';
       }).join(''); })() + '</div></div>';
   }
@@ -437,13 +445,13 @@ function mount(){
       '<div class="lprog2"><span>오늘 진행</span><i><s></s></i><b class="lpn"></b><button type="button" class="lpreset">처음부터</button></div>' +
       '<div class="lsteps">' + L.steps.map(function(s, si){
         var here = s[0] === page;
-        return '<a class="lstep' + (doneOf(cur).indexOf(si) >= 0 ? ' done' : '') + '" data-i="' + si + '" href="' + (here ? '#' + s[1] : stepUrl(cur, s)) + '"' + (here ? ' data-go="' + s[1] + '"' : '') + '><span><b>' + s[2] + '</b><span>' + s[3] + '</span></span>' +
+        return '<a class="lstep' + (doneOf(cur).indexOf(si) >= 0 ? ' done' : '') + '" data-i="' + si + '" href="' + (here ? '#' + s[1] : sUrl(cur, s)) + '"' + (here ? ' data-go="' + s[1] + '"' : '') + '><span><b>' + s[2] + '</b><span>' + s[3] + '</span></span>' +
           (here ? '' : '<em>' + (PNAME[s[0]] || '안내 쪽') + ' ↗' + '</em>') + '</a>'; }).join('') + '</div>' +
       (L.ext ? '<div class="lext">' + L.ext.map(function(e){ return '<a href="' + e[0] + '" target="_blank" rel="noopener">' + e[1] + ' ↗</a>'; }).join('') + '</div>' : '') +
       '<div class="linfo"><div><b>준비물</b>교과서 · 충전한 노트북' + (L.bring ? ' · ' + L.bring : '') + '</div>' + (L.out ? '<div><b>끝나면 낼 것</b>' + L.out + '</div>' : '') + '</div>' +
-      '<div class="lpfoot">' + (nOf[0] ? '<button type="button" data-id="' + nOf[0] + '">◀ ' + LES[nOf[0]].tag + '</button>' : '') +
-        '<button type="button" data-id="">전체 보기</button>' +
-        (nOf[1] ? '<button type="button" data-id="' + nOf[1] + '">' + (LES[nOf[1]].short || LES[nOf[1]].tag) + ' ▶</button>' : '') +
+      '<div class="lpfoot">' + (nOf[0] ? goBtn(nOf[0], '◀ ' + LES[nOf[0]].tag) : '') +
+        (EX ? '<a href="https://richee-pc.github.io/AI_cs/exam.html">📘 시험 범위 학습 홈</a><a href="' + location.pathname + '?l=all">전체 수업 보기</a>' : '<button type="button" data-id="">전체 보기</button>') +
+        (nOf[1] ? goBtn(nOf[1], (LES[nOf[1]].short || LES[nOf[1]].tag) + ' ▶') : '') +
         '<a href="https://richee-pc.github.io/AI_cs/plan.html">🏠 수업 홈</a></div></div>';
     flowFeet(L, nOf[1]);
     drawProg();
@@ -476,11 +484,11 @@ function mount(){
       if(s[0] !== page) return;
       var hostEl = footHost(s[1]); if(!hostEl) return;
       var nx = L.steps[i + 1], pv = L.steps[i - 1], h = '';
-      if(pv){ var sp = pv[0] === page; h += '<a class="lff-prev" href="' + (sp ? '#' + pv[1] : stepUrl(cur, pv)) + '"' + (sp ? ' data-go="' + pv[1] + '"' : '') + '>◀ 이전 · ' + pv[2] + '</a>'; }
+      if(pv){ var sp = pv[0] === page; h += '<a class="lff-prev" href="' + (sp ? '#' + pv[1] : sUrl(cur, pv)) + '"' + (sp ? ' data-go="' + pv[1] + '"' : '') + '>◀ 이전 · ' + pv[2] + '</a>'; }
       h += '<span class="lff-n">오늘 순서 <b>' + (i + 1) + '</b> / ' + N + '</span>';
       if(nx){
         var same = nx[0] === page;
-        h += '<a class="lff-next" href="' + (same ? '#' + nx[1] : stepUrl(cur, nx)) + '"' + (same ? ' data-go="' + nx[1] + '"' : '') + '>다음 ▶ ' + nx[2] + (same ? '' : ' <em>' + (PNAME[nx[0]] || '') + ' ↗</em>') + '</a>';
+        h += '<a class="lff-next" href="' + (same ? '#' + nx[1] : sUrl(cur, nx)) + '"' + (same ? ' data-go="' + nx[1] + '"' : '') + '>다음 ▶ ' + nx[2] + (same ? '' : ' <em>' + (PNAME[nx[0]] || '') + ' ↗</em>') + '</a>';
       } else {
         h += '<span class="lff-end">🎉 <b>오늘 순서 끝!</b>' + (L.out ? ' 낼 것 — ' + L.out : '') + '</span>' +
              (nextLes ? '<button type="button" class="lff-next" data-les="' + nextLes + '">다음 차시 ▶ ' + (LES[nextLes].short || LES[nextLes].tag) + '</button>' : '');
@@ -493,15 +501,18 @@ function mount(){
   document.addEventListener('click', function(e){
     var nxt = e.target.closest('.lflowfoot .lff-next'); if(nxt){ markDone(+nxt.closest('.lflowfoot').getAttribute('data-i')); }
     var t = e.target.closest('.lflowfoot .lff-top'); if(t){ panel.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
-    var n = e.target.closest('.lflowfoot [data-les]'); if(n){ choose(n.getAttribute('data-les')); window.scrollTo({ top:0, behavior:'smooth' }); return; }
+    var n = e.target.closest('.lflowfoot [data-les]'); if(n){ var nl = n.getAttribute('data-les'); if(home(nl) !== page){ location.href = oUrl(nl); return; } choose(nl); window.scrollTo({ top:0, behavior:'smooth' }); return; }
     var g = e.target.closest('.lflowfoot a[data-go]');
     if(g){ var el = document.getElementById(g.getAttribute('data-go')); if(el){ e.preventDefault(); reveal(el.id); el.classList.remove('lstepflash'); void el.offsetWidth; el.classList.add('lstepflash'); } }
   });
   function choose(id, push){
     cur = id && LES[id] ? id : null;
-    drawBar(); apply();
-    if(push !== false){
-      var u = location.pathname + (cur ? '?l=' + cur : '?l=all');
+    if(EX && !cur){ var mineEx = ids.filter(function(x){ return home(x) === page; }), nx0 = nextId(); cur = (nx0 && mineEx.indexOf(nx0) >= 0) ? nx0 : (mineEx[0] || null); }
+    drawBar();
+    if(EX){ var hx = host.querySelector('.hintx'); if(hx) hx.innerHTML = '시험 범위 학습 자료만 보는 중 · <a href="' + location.pathname + '?l=all" style="font-weight:800">전체 수업 보기</a>'; }
+    apply();
+    if(push !== false || EX){
+      var u = location.pathname + (cur ? '?l=' + cur : '?l=all') + (EX ? '&x=1' : '');
       try{ history.replaceState(null, '', u); }catch(e){}
     }
     /* 고른 탭이 없으면 «이번 주» 딱지가 보이게 가로로 굴림 */
@@ -510,8 +521,8 @@ function mount(){
   }
   host.addEventListener('click', function(e){
     var c = e.target.closest('#lbCls button[data-c]');
-    if(c){ cls = c.getAttribute('data-c'); setCls(cls); var tid = todayId(); choose(tid && home(tid) === page ? tid : cur); return; }
-    var b = e.target.closest('.ltab'); if(b){ choose(b.getAttribute('data-id')); window.scrollTo({ top:0, behavior:'smooth' }); }
+    if(c){ cls = c.getAttribute('data-c'); setCls(cls); if(EX) ids = ORDER.filter(function(id){ return isEx(id) && LES[id] && datesOf(cls, id).length; }); var tid = todayId(); choose(tid && home(tid) === page ? tid : cur); return; }
+    var b = e.target.closest('.ltab'); if(b){ if(b.tagName === 'A') return; var hr = b.getAttribute('data-href'); if(hr){ location.href = hr; return; } choose(b.getAttribute('data-id')); window.scrollTo({ top:0, behavior:'smooth' }); }
   });
   panel.addEventListener('click', function(e){
     if(e.target.closest('.lpreset')){ setDone(cur, []); drawProg(); return; }
