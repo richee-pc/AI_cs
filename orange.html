@@ -330,6 +330,21 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 .bun-gif{width:120px; height:auto}
 .ptp{display:inline-flex; align-items:center; gap:8px; font-size:16px; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 16px}
 .ptp span{font-size:19px; line-height:1}
+/* ⑥ 평가 해석(선생님 화면) */
+.ev h4 .evs{font-size:12.5px; font-weight:500; color:var(--muted); margin-left:6px}
+.evline{display:flex; flex-wrap:wrap; gap:5px; margin:8px 0}
+.evp{display:inline-flex; flex-direction:column; align-items:center; min-width:52px; border-radius:8px; padding:4px 6px; font-family:var(--font-mono); font-size:13px; border:1.5px solid transparent}
+.evp i{font-style:normal; font-size:14px; line-height:1}
+.evp small{font-family:var(--font-ui); font-size:11px; color:var(--ink-2)}
+.evp.tp,.evcm td.tp{background:var(--ok-bg)} .evp.tn,.evcm td.tn{background:color-mix(in srgb,var(--ok-bg) 55%,var(--surface))}
+.evp.fp,.evcm td.fp{background:var(--warn-bg)} .evp.fn,.evcm td.fn{background:var(--bad-bg)}
+.evp.fn{border-color:var(--bad)} .evp.fp{border-color:var(--warn)}
+.evgrid{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:12px; align-items:start}
+@media (max-width:760px){ .evgrid{grid-template-columns:1fr} }
+.evcm td{font-weight:700; font-size:15px; text-align:center!important}
+.evcm td small{display:block; font-weight:500; font-size:11px; color:var(--ink-2)}
+.evq .fb{color:var(--ok)}
+#metricView.evbig .ev{zoom:1.22}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -347,6 +362,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
     <button class="tab" role="tab" data-t="impl" aria-selected="false">🧭 구현 · 해석</button>
     <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 정리 퀴즈</button>
   </div>
+  <p class="howto" style="margin:10px 0 0">🧹 데이터 전처리(교과서 72~79쪽 · 합치기 · 중복 · 결측치 · 이상치 · 열 빼기)는 <a href="prep.html"><b>전처리 실습 창</b></a>에서 같은 방식으로 연습해요.</p>
 </div></header>
 
 <main class="wrap">
@@ -377,7 +393,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
       <h2>📏 모델 평가 지표 — 무엇을 재고, 어떻게 계산하나 <small>교과서 106~112쪽 · 오렌지3 Test and Score 표 읽기</small></h2>
       <p class="howto">모든 지표는 <b>시험용(테스트) 데이터</b>에서 <b>진짜 정답 y</b> 와 <b>모델의 예측 ŷ</b>(와이 햇)을 견주어 냅니다. 학습에 쓴 데이터로 재면 «외운 문제로 본 시험»이라 점수가 부풀려져요.
         <b>예측(숫자) 모델</b>과 <b>분류(무엇인지) 모델</b>은 쓰는 지표가 다릅니다.</p>
-      <nav class="mnav"><a href="#m-abbr">⓪ 약자 풀이</a><a href="#m-reg">① 예측 모델 지표</a><a href="#m-cls">② 분류 모델 지표</a><a href="#m-multi">③ 세 종류 이상(붓꽃)</a><a href="#m-orange">④ 오렌지3 표 한눈에</a><a href="#m-pick">⑤ 어떤 지표를 볼까</a></nav>
+      <nav class="mnav"><a href="#m-abbr">⓪ 약자 풀이</a><a href="#m-reg">① 예측 모델 지표</a><a href="#m-cls">② 분류 모델 지표</a><a href="#m-multi">③ 세 종류 이상(붓꽃)</a><a href="#m-orange">④ 오렌지3 표 한눈에</a><a href="#m-pick">⑤ 어떤 지표를 볼까</a><a href="#m-eval">⑥ 평가 해석(선생님 화면)</a></nav>
 
 
       <h3 class="mh" id="m-abbr">⓪ 약자 풀이 — 왜 이런 이름일까? <span class="tm">풀 영어를 쪼개 보면 계산 방법이 보여요</span></h3>
@@ -478,6 +494,49 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
         <p><b>숫자를 맞히는 모델</b> → 모델끼리 견줄 때 <b>MSE · RMSE</b>, 사람에게 설명할 때 <b>MAE · RMSE</b>(«평균 ○명 빗나감»), 얼마나 설명하는지 <b>R²</b>.</p>
         <p><b>무엇인지 가려내는 모델</b> → 양쪽 개수가 비슷하면 <b>정확도</b>, <b>놓치면 큰일</b>이면 <b>재현율</b>, <b>헛경보가 곤란</b>하면 <b>정밀도</b>, 둘 다 중요하면 <b>F1</b>, 한쪽이 아주 적으면 <b>MCC · F1</b>.</p>
         <p><b>지표 하나만 보지 않기</b> — 정확도 99.9%여도 환자를 한 명도 못 찾을 수 있어요. 그리고 모델끼리는 <b>같은 데이터 · 같은 나누기 · 같은 지표</b>로 견줍니다.</p>
+      </div>
+      <h3 class="mh" id="m-eval">⑥ 평가 해석 — 보여 주며 설명하기 <span class="tm">선생님 화면 · 2차 정기고사 범위</span>
+        <button type="button" class="btn" id="evBig" style="margin-left:8px">🖥 글자 크게</button></h3>
+      <p class="howto" style="margin-top:-2px">순서: <b>❶ 기준값 바꿔 보기</b> → <b>❷ 무엇을 놓치면 안 되나</b> → <b>❸ 정확도의 함정</b> → <b>❹ 어떤 데이터로 채점했나</b> → <b>❺ 개선 실험 원칙</b> · 답은 가려져 있어요 — 먼저 묻고 <b>👀 답 보기</b>.</p>
+
+      <div class="tool2 ev" id="evTh">
+        <h4>❶ 기준값(임계값)을 바꾸면 — 병 찾는 모델, 12명 <small class="evs">오분류표 · 정확도 · 정밀도 · 재현율이 함께 바뀌어요</small></h4>
+        <p class="hint" style="margin:0 0 6px">모델은 사람마다 <b>«환자일 확률»</b>을 내요. 확률이 <b>기준값 이상</b>이면 «환자», 아니면 «건강»이라고 답해요. ● 진짜 환자 · ○ 진짜 건강</p>
+        <div class="row"><label for="thR"><b>기준값</b></label><input type="range" id="thR" min="0.05" max="0.95" step="0.05" value="0.5"><b class="mono" id="thV">0.50</b>
+          <span class="presets row" style="margin:0"><button type="button" class="btn" data-th="0.3">0.3</button><button type="button" class="btn" data-th="0.5">0.5</button><button type="button" class="btn" data-th="0.65">0.65</button><button type="button" class="btn" data-th="0.7">0.7</button></span></div>
+        <div class="evline" id="thLine"></div>
+        <div class="evgrid"><div id="thCm"></div><div id="thMx"></div></div>
+        <div class="mcard" style="margin:8px 0 0"><b>읽는 법</b> — 기준값을 <b>낮추면</b> «환자»라고 답하는 사람이 늘어요 → 놓친 환자(FN)가 줄어 <b>재현율은 같거나 올라가요</b>. 대신 헛경보(FP)도 늘 수 있어서 <b>정밀도는 오를 수도, 내릴 수도</b> 있어요(0.7 → 0.65 → 0.5 로 내려 보세요: 정밀도 0.75 → 0.8 → 0.667). 기준값을 <b>높이면</b> 그 반대.</div>
+      </div>
+
+      <div class="tool2 ev">
+        <h4>❷ 무엇을 놓치면 안 되나 — 재현율이냐 정밀도냐 <small class="evs">상황을 읽고 먼저 골라 보기</small></h4>
+        <div class="evq" id="evSit"></div>
+      </div>
+
+      <div class="tool2 ev">
+        <h4>❸ 정확도의 함정 — 1,000명 중 환자 10명 <small class="evs">한쪽이 아주 적은 데이터</small></h4>
+        <div class="encg two">
+          <div><b>모델 A · 무조건 «건강»</b><table class="calc enc"><tr><th>실제 ↓ · 예측 →</th><th>환자</th><th>건강</th></tr><tr><th>환자</th><td>0</td><td>10</td></tr><tr><th>건강</th><td>0</td><td>990</td></tr></table>
+            <p class="hint">정확도 <b>990 / 1000 = 0.99</b> · 재현율 <b class="evhide" data-a="0 / 10 = 0">?</b></p></div>
+          <div><b>모델 B · 조금 덜 정확</b><table class="calc enc"><tr><th>실제 ↓ · 예측 →</th><th>환자</th><th>건강</th></tr><tr><th>환자</th><td>8</td><td>2</td></tr><tr><th>건강</th><td>40</td><td>950</td></tr></table>
+            <p class="hint">정확도 <b>958 / 1000 = 0.958</b> · 재현율 <b class="evhide" data-a="8 / 10 = 0.8">?</b> · 정밀도 <b class="evhide" data-a="8 / 48 ≈ 0.17">?</b></p></div>
+        </div>
+        <p class="hint" style="margin:6px 0 0">❓ 병원에서 쓸 모델은? <button type="button" class="btn evbtn" data-show="evTrap">👀 답 보기</button></p>
+        <div class="mcard pick" id="evTrap" hidden>정확도는 A가 더 높지만 A는 <b>환자를 한 명도 못 찾아요</b>(재현율 0). 한쪽이 아주 적은 데이터에서는 <b>정확도만 믿지 말고</b> 재현율 · 정밀도(F1)를 함께 봐요. B는 헛경보 40명이 있지만 2차 검사로 걸러 낼 수 있어요.</div>
+      </div>
+
+      <div class="tool2 ev">
+        <h4>❹ 어떤 데이터로 채점했나 — 훈련 점수 vs 테스트 점수 <small class="evs">오렌지3 Test on train data · 과적합</small></h4>
+        <table class="calc enc" style="max-width:520px"><tr><th>모델 (예시 숫자)</th><th>훈련 데이터 정확도</th><th>테스트 데이터 정확도</th></tr><tr><th>트리 (깊이 제한 없음)</th><td>1.00</td><td>0.71</td></tr><tr><th>트리 (깊이 3)</th><td>0.86</td><td>0.83</td></tr></table>
+        <p class="hint">❓ 어느 모델이 더 좋을까? 훈련 점수 1.00 은 믿어도 될까? <button type="button" class="btn evbtn" data-show="evTrain">👀 답 보기</button></p>
+        <div class="mcard pick" id="evTrain" hidden>공부한 문제로 다시 시험을 보면 <b>외운 답</b>이라 점수가 부풀려져요(오렌지3 <b>Test on train data</b>, 코드 <code>model.score(x_train, y_train)</code>). 성능은 학습에 쓰지 않은 <b>테스트 데이터</b>로 재요 → <b>깊이 3 트리</b>가 새 데이터에서 더 잘해요. 훈련 점수만 아주 높고 테스트 점수가 낮으면 <b>과적합</b>.</div>
+      </div>
+
+      <div class="tool2 ev">
+        <h4>❺ 개선 실험 원칙 — 무엇 때문에 좋아졌는지 알 수 있게 <small class="evs">수행평가 ② 노트북 5절과 같은 원칙</small></h4>
+        <div class="mcard" style="margin:0 0 8px"><b>① 한 번에 하나만 바꾸기</b> · <b>② 같은 테스트 데이터</b>(같은 나누기 · random_state) · <b>③ 같은 지표</b>로 견주기 · <b>④ 기준선</b>(가장 많은 쪽만 찍기 · 바꾸기 전 모델)과 비교하기</div>
+        <div class="evq" id="evExp"></div>
       </div>
     </div>
   </div>
@@ -1865,7 +1924,57 @@ function drawMulti(){
     '<div class="steps2"><div><b>정확도</b> = ' + frac('대각선 합', '전체') + ' = ' + frac(M[0][0] + ' + ' + M[1][1] + ' + ' + M[2][2], N) + ' = <b class="v">' + fx(cs.acc, 3) + '</b></div>' +
     '<div><b>가중 평균</b> = Σ (종의 값 × ' + frac('그 종 실제 개수', '전체') + ') — 개수가 많은 종이 평균에 더 크게 반영됩니다. 다중 분류에서 <b>가중 평균 재현율은 정확도와 같아져요</b>(' + fx(cs.wRec, 3) + ').</div></div>';
 }
-function drawMetric(){ drawRegCalc(); drawRegOurs(); drawClsCalc(); drawMulti(); }
+/* ── ⑥ 평가 해석(선생님 화면) ───────────────────────────── */
+var EVP = [[0.96,1],[0.87,1],[0.82,0],[0.73,1],[0.67,1],[0.56,0],[0.48,1],[0.41,0],[0.34,1],[0.27,0],[0.18,0],[0.08,0]];   /* [환자일 확률, 진짜(1 환자 · 0 건강)] · 확률이 0.05 눈금과 겹치지 않게 */
+var EVS = [
+  ['🩺 암 1차 검진 — 의심되는 사람을 골라 2차 정밀 검사를 받게 해요.', '재현율', '환자를 <b>놓치면</b> 치료 시기를 잃어요. 헛경보는 2차 검사에서 걸러져요 → <b>재현율</b>(기준값을 낮춰 놓치는 사람을 줄이기).'],
+  ['📧 스팸 메일 자동 삭제 — «스팸»이라고 하면 바로 지워 버려요.', '정밀도', '진짜 중요한 메일을 스팸이라고 <b>잘못 지우면</b> 곤란해요 → «스팸이야!» 한 것 중 진짜 스팸의 비율 = <b>정밀도</b>(기준값을 높여 확실한 것만).'],
+  ['🍎 사과 · 배 고르기 — 두 과일이 반반쯤 있고, 어느 쪽 실수나 손해가 같아요.', '정확도', '두 쪽 개수가 비슷하고 실수의 무게가 같으면 전체 중 맞힌 비율 = <b>정확도</b>로 충분해요(둘 다 보려면 F1).']
+];
+var EVX = [
+  ['k를 5 → 7로 바꾸면서 <b>동시에</b> 입력 열 2개를 더 넣었더니 정확도가 0.91 → 0.94 가 되었다. «k = 7 이 더 좋다»', '두 가지를 한꺼번에 바꿔서 <b>무엇 때문에</b> 좋아졌는지 몰라요 → 한 번에 하나만(①).'],
+  ['바꾸기 전 모델은 <b>테스트 데이터</b>로, 바꾼 모델은 <b>훈련 데이터</b>로 정확도를 재서 비교했다.', '채점한 데이터가 달라요. 훈련 데이터 점수는 부풀려져요 → 같은 테스트 데이터(②).'],
+  ['A 모델은 <b>정확도 0.90</b>, B 모델은 <b>재현율 0.92</b> 이므로 B가 더 좋다.', '서로 다른 지표라 견줄 수 없어요 → 같은 지표(③).'],
+  ['random_state 를 바꿔 데이터를 <b>다시 나눈 뒤</b> 기준값만 0.5 → 0.3 으로 바꾸었더니 재현율이 올랐다.', '나누기가 달라져 시험 문제가 바뀌었어요 → 같은 나누기(②). 기준값만 바꿨다고 말할 수 없어요.']
+];
+function evCount(th){ var r = { tp:0, fn:0, fp:0, tn:0 }; EVP.forEach(function(p){ var pr = p[0] >= th; if(p[1]) pr ? r.tp++ : r.fn++; else pr ? r.fp++ : r.tn++; }); return r; }
+function evF(a, b){ return b ? frac(a, b) + ' = <b class="v">' + fx(a / b, 3) + '</b>' : '<b class="v">—</b> <small>(«환자»라고 한 사람이 없어 계산 안 됨)</small>'; }
+function drawEvTh(){
+  var th = +document.getElementById('thR').value, r = evCount(th), n = EVP.length;
+  document.getElementById('thV').textContent = th.toFixed(2);
+  document.getElementById('thLine').innerHTML = EVP.map(function(p){
+    var pr = p[0] >= th, k = p[1] ? (pr ? 'tp' : 'fn') : (pr ? 'fp' : 'tn');
+    return '<span class="evp ' + k + '" title="' + (p[1] ? '진짜 환자' : '진짜 건강') + '"><i>' + (p[1] ? '●' : '○') + '</i>' + p[0].toFixed(2) + '<small>' + (pr ? '환자' : '건강') + '</small></span>';
+  }).join('');
+  document.getElementById('thCm').innerHTML = '<table class="calc enc evcm"><tr><th>실제 ↓ · 예측 →</th><th>환자</th><th>건강</th></tr>' +
+    '<tr><th>환자</th><td class="tp">TP ' + r.tp + '</td><td class="fn">FN ' + r.fn + '<small>놓침</small></td></tr>' +
+    '<tr><th>건강</th><td class="fp">FP ' + r.fp + '<small>헛경보</small></td><td class="tn">TN ' + r.tn + '</td></tr></table>';
+  document.getElementById('thMx').innerHTML = '<div class="steps2"><div>정확도 = (TP + TN) / 전체 = ' + evF(r.tp + r.tn, n) + '</div>' +
+    '<div>정밀도 = TP / (TP + FP) = ' + evF(r.tp, r.tp + r.fp) + '<small>«환자야!» 한 사람 중 진짜 환자</small></div>' +
+    '<div>재현율 = TP / (TP + FN) = ' + evF(r.tp, r.tp + r.fn) + '<small>진짜 환자 중 찾아낸 사람</small></div></div>';
+}
+function evQs(id, list, pick){
+  document.getElementById(id).innerHTML = list.map(function(x, i){
+    return '<div class="q"><div class="qh"><b>' + (i + 1) + '</b>' + x[0] + '</div>' +
+      (pick ? '<div class="picks" data-evp="' + i + '">' + ['정확도', '정밀도', '재현율'].map(function(m){ return '<button type="button" data-m="' + m + '">' + m + '</button>'; }).join('') + '</div>' : '<p class="hint" style="margin:0">❓ 무엇이 잘못됐을까?</p>') +
+      '<div class="pact"><button type="button" class="btn evbtn" data-show="' + id + i + '">👀 답 보기</button></div><div class="fb" id="' + id + i + '" hidden>✅ ' + (pick ? '<b>' + x[1] + '</b> — ' + x[2] : x[1]) + '</div></div>';
+  }).join('');
+}
+function drawEval(){ drawEvTh(); evQs('evSit', EVS, true); evQs('evExp', EVX, false); }
+(function(){
+  var sec = document.getElementById('metricView');
+  sec.addEventListener('input', function(e){ if(e.target.id === 'thR') drawEvTh(); });
+  sec.addEventListener('click', function(e){
+    var t = e.target.closest('[data-th]'); if(t){ document.getElementById('thR').value = t.dataset.th; drawEvTh(); return; }
+    var s = e.target.closest('[data-show]'); if(s && s.classList.contains('evbtn')){ var el = document.getElementById(s.dataset.show); if(el){ el.hidden = !el.hidden; s.textContent = el.hidden ? '👀 답 보기' : '🙈 답 가리기'; }
+      [].forEach.call(s.closest('.tool2').querySelectorAll('.evhide'), function(h){ if(!el.hidden) h.textContent = h.dataset.a; else h.textContent = '?'; }); return; }
+    var m = e.target.closest('[data-evp] button'); if(m){ var i = +m.parentNode.dataset.evp, ok = m.dataset.m === EVS[i][1];
+      [].forEach.call(m.parentNode.children, function(b){ b.className = ''; }); m.className = ok ? 'ok' : 'no';
+      if(ok){ var f = document.getElementById('evSit' + i); f.hidden = false; } return; }
+    if(e.target.id === 'evBig'){ var on = sec.classList.toggle('evbig'); e.target.textContent = on ? '🖥 글자 보통' : '🖥 글자 크게'; }
+  });
+})();
+function drawMetric(){ drawRegCalc(); drawRegOurs(); drawClsCalc(); drawMulti(); drawEval(); }
 document.getElementById('metricView').addEventListener('input', function(e){
   if(e.target.id === 'mY' || e.target.id === 'mP') drawRegCalc();
   if(/^c(TP|FN|FP|TN)$/.test(e.target.id)) drawClsCalc();
@@ -1990,10 +2099,12 @@ function drawSteps(){
     mk('model', '모델 고르기', cur === 'reg' ? 'Linear Regression' : 'kNN') + '<i>→</i>' + mk('eval', '② 학습 · ③ 평가', 'Test and Score') + '<i>→</i>' + mk('eval', '③ 예측', 'Predictions') +
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
 }
-var hashT = (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
+var hashEval = /^#(eval|m-eval)$/.test(location.hash);
+var hashT = hashEval ? 'metric' : (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
 (function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); MODE = m && MODES[m] ? m : 'blank'; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
+if(hashEval) setTimeout(function(){ var e = document.getElementById('m-eval'); if(e) e.scrollIntoView({ block:'start' }); }, 60);
 </script>
 </body>
 </html>

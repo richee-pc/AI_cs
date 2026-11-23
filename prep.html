@@ -1,0 +1,874 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════
+     prep · 오렌지3 블록 ↔ 코랩 파이썬, 데이터 전처리
+     ─────────────────────────────────────────────────────────────────────
+     고2 「인공지능 기초」 Ⅱ-02 데이터 전처리 실습(교과서 72~79쪽) 수업 도구
+     orange.html(모델 만들기)과 짝 — 같은 모양, 이번에는 전처리 위젯 ↔ 코드
+     file1.csv · file2.csv 는 파일 안에 들어 있어 인터넷 없이도 동작합니다(글꼴만 바깥).
+     표 · 상관계수는 실제 pandas 결과와 똑같이 계산합니다.
+     ══════════════════════════════════════════════════════════════════════ -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>전처리 실습 창 · 오렌지3에서 코랩까지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="교과서 72~79쪽 데이터 전처리(합치기 · 중복 · 결측치 · 이상치 · 열 빼기 · 상관)를 오렌지3 위젯과 코랩 코드로 짝지어 실습하는 창">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧹</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --font-ui:'IBM Plex Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-mono:'IBM Plex Mono','D2Coding','Consolas',monospace;
+  --bg:#EDF0F4; --surface:#FFFFFF; --canvas:#F7F5F0; --dot:#DDD6CA;
+  --line:#D5DCE5; --line-soft:#E5EAF1;
+  --ink:#171C24; --ink-2:#3F4856; --muted:#6B7685;
+  --code-bg:#FBFCFE; --code-line:#EEF2F7; --code-gutter:#98A4B5;
+  --syn-kw:#8A3FFC; --syn-fn:#0F62FE; --syn-str:#0E7C5A; --syn-num:#B45309; --syn-com:#8B97A8;
+  --ok:#127A56; --ok-bg:#E2F4EC; --bad:#C0392F; --bad-bg:#FBEBE9; --warn:#9A6608; --warn-bg:#FDF2DE;
+  --hl:#FFC53D; --hl-soft:#FFF3D2;
+  --orange:#E8731C; --orange-d:#B9560D; --orange-wash:#E8731C14;
+  --colab:#F9AB00;
+  --w-data:#FFD39F; --w-model:#FAC1D9; --w-eval:#C3F3F3; --w-pred:#C3F3F3;
+  --w-data-s:#E89A3C; --w-model-s:#D9709B; --w-eval-s:#3FB3B3;
+  --r-s:6px; --r-m:10px; --r-l:14px;
+  --sh:0 1px 2px rgba(23,28,36,.06),0 4px 14px rgba(23,28,36,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+    --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+    --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+    --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+    --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+    --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+    --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+  --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+  --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+  --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+  --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+  --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+  --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--font-ui); font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%}
+button,input,select{font:inherit; color:inherit}
+code,.mono{font-family:var(--font-mono)}
+.wrap{max-width:1320px; margin:0 auto; padding:0 16px}
+
+/* 머리 */
+.head{background:var(--surface); border-bottom:1px solid var(--line)}
+.head .wrap{padding-top:18px; padding-bottom:14px}
+.kicker{display:inline-flex; gap:6px; align-items:center; font-size:12.5px; font-weight:700; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:3px 11px; margin:0 0 6px}
+h1{margin:0; font-size:clamp(22px,3.2vw,30px); line-height:1.3; letter-spacing:-.01em}
+h1 em{font-style:normal; color:var(--orange)}
+.lede{margin:6px 0 0; color:var(--ink-2); max-width:68em}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px}
+.tab{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:7px 15px; font-weight:600; cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.tab:focus-visible,.wg:focus-visible,.cell:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* 구현 과정 띠 */
+.steps{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:16px 0 4px; font-size:13px}
+.steps span{background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:3px 11px; color:var(--ink-2)}
+.steps span b{color:var(--ink)}
+.steps i{font-style:normal; color:var(--muted)}
+.howto{margin:6px 0 14px; font-size:13.5px; color:var(--muted)}
+.howto b{color:var(--ink-2)}
+
+/* 작업대 */
+.bench{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:14px; align-items:start}
+@media (max-width:980px){ .bench{grid-template-columns:1fr} }
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); overflow:hidden; min-width:0}
+.panel-hd{display:flex; align-items:center; gap:8px; padding:9px 14px; border-bottom:1px solid var(--line-soft); font-weight:700; font-size:14px}
+.panel-hd .dot{width:10px; height:10px; border-radius:50%}
+.panel-hd .sp{flex:1}
+.panel-hd small{font-weight:500; color:var(--muted); font-size:12.5px}
+.btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:5px 12px; font-weight:600; cursor:pointer; font-size:13.5px}
+.btn.pri{background:var(--colab); border-color:var(--colab); color:#2B1D00}
+.btn:hover{filter:brightness(.97)}
+
+/* 오렌지3 캔버스 */
+.canvas{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px; position:relative}
+.canvas svg{display:block; width:100%; height:auto}
+/* 오렌지3식 연결선: 출력 귀 → 입력 귀를 잇는 부드러운 곡선 */
+.lk{fill:none; stroke:#8E959E; stroke-width:2.4; stroke-linecap:round}
+.lk.on{stroke:var(--orange); stroke-width:3.2}
+.lkl{font-size:14px; fill:var(--orange-d); font-weight:600; paint-order:stroke; stroke:var(--canvas); stroke-width:4px; font-family:var(--font-ui)}
+/* 오렌지3식 위젯: 분류 색 원판 + 양옆 연결 고리(왼쪽 입력 · 오른쪽 출력) + 가운데 선 그림 + 아래 이름 */
+.wg{cursor:pointer}
+.wg .halo{fill:none; stroke:transparent; stroke-width:4}
+.wg .disc{stroke-width:1.5}
+.wg.data .disc{fill:var(--w-data); stroke:var(--w-data-s)}
+.wg.model .disc{fill:var(--w-model); stroke:var(--w-model-s)}
+.wg.eval .disc{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.wg .anc{fill:none; stroke:#A7ADB5; stroke-width:3.2; stroke-linecap:round}
+.wg .anc.on{stroke:#7D848D}
+.wg .adot{fill:#7D848D}
+.wg .ico{fill:none; stroke:#3A3F47; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+.wg .ico .f{fill:#3A3F47; stroke:none}
+.wg .ico .w{fill:#FFFFFF; fill-opacity:.85}
+.wg text.nm{font-size:15px; font-weight:600; fill:var(--ink); font-family:var(--font-ui)}
+.wg text.bd{font-size:14px; font-weight:700; fill:var(--orange-d); font-family:var(--font-mono)}
+.wg.sel .halo{stroke:var(--orange)}
+.wg.sel text.nm{fill:var(--orange-d)}
+.wg.warn .halo{stroke:var(--bad); stroke-dasharray:4 3}
+.wg:hover .halo{stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .wg .ico{stroke:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .f{fill:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .w{fill:#000; fill-opacity:.25} }
+:root[data-theme="dark"] .wg .ico{stroke:#F1F3F6} :root[data-theme="dark"] .wg .ico .f{fill:#F1F3F6} :root[data-theme="dark"] .wg .ico .w{fill:#000; fill-opacity:.25}
+.wset{border-top:1px solid var(--line-soft); padding:12px 14px 14px; min-height:150px}
+.wset h3{margin:0 0 2px; font-size:15px; display:flex; gap:8px; align-items:center}
+.wset .map{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:8px; padding:6px 10px; margin:8px 0 10px}
+.wset .map code{font-size:12.5px}
+.wset .hint{font-size:13px; color:var(--muted); margin:6px 0 0}
+.row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:6px 0}
+.row label{font-size:13.5px}
+.roles{width:100%; border-collapse:collapse; font-size:13.5px}
+.roles th,.roles td{border-bottom:1px solid var(--line-soft); padding:5px 6px; text-align:left}
+.roles th{font-size:12px; color:var(--muted); font-weight:600}
+.roles select{border:1px solid var(--line); border-radius:6px; padding:2px 6px; background:var(--surface)}
+.roles tr.tg td:first-child{font-weight:700}
+.scores{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+.scores th,.scores td{border:1px solid var(--line-soft); padding:5px 8px; text-align:right}
+.scores th:first-child,.scores td:first-child{text-align:left}
+.scores th{background:var(--code-line); font-size:12px}
+.alert{background:var(--bad-bg); color:var(--bad); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+.okmsg{background:var(--ok-bg); color:var(--ok); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+input[type=range]{accent-color:var(--orange); width:180px}
+.chip{display:inline-block; font-size:11.5px; font-weight:700; border-radius:99px; padding:1px 8px; white-space:nowrap}
+.chip.data{background:var(--w-data); color:#6A3D06}
+.chip.model{background:var(--w-model); color:#6E1F44}
+.chip.eval{background:var(--w-eval); color:#0D4F4F}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .chip{color:var(--ink)} }
+
+/* 코랩 */
+.nb{background:var(--code-bg); padding:8px 0 10px}
+.cell{display:grid; grid-template-columns:44px minmax(0,1fr); gap:0; margin:6px 10px 6px 4px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:background .15s,border-color .15s}
+.cell:hover{border-color:var(--line)}
+.cell.hl{background:var(--hl-soft); border-color:var(--hl)}
+.gut{display:flex; flex-direction:column; align-items:center; gap:2px; padding-top:7px}
+.run{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:var(--surface); cursor:pointer; display:grid; place-items:center; font-size:11px; padding:0}
+.run:hover{border-color:var(--ink-2)}
+.cnt{font-family:var(--font-mono); font-size:11px; color:var(--code-gutter)}
+.src{min-width:0}
+.ctag{display:flex; gap:6px; align-items:center; padding:6px 0 2px; flex-wrap:wrap}
+.ctag small{color:var(--muted); font-size:12px}
+pre.code{margin:0 0 4px; background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; padding:8px 11px; font-family:var(--font-mono); font-size:13px; line-height:1.55; overflow-x:auto; white-space:pre}
+.k{color:var(--syn-kw)} .f{color:var(--syn-fn)} .s{color:var(--syn-str)} .n{color:var(--syn-num)} .c{color:var(--syn-com); font-style:italic}
+.chg{background:color-mix(in srgb,var(--orange) 22%,transparent); border-radius:3px; box-shadow:0 0 0 1px color-mix(in srgb,var(--orange) 45%,transparent)}
+.out{font-family:var(--font-mono); font-size:12.5px; white-space:pre; overflow-x:auto; padding:4px 11px 6px; margin:0 0 4px; color:var(--ink)}
+.out.err{color:var(--bad); background:var(--bad-bg); border-radius:6px; white-space:pre-wrap}
+.out.stale{opacity:.45}
+.out .note{font-family:var(--font-ui); color:var(--warn); font-size:12px; white-space:normal}
+table.df{border-collapse:collapse; font-size:12px; margin:2px 0}
+table.df th,table.df td{border-bottom:1px solid var(--line-soft); padding:2px 9px; text-align:right}
+table.df th{font-weight:600}
+
+/* 견주기 · 연습 */
+.sect{margin:18px 0 0}
+.sect h2{font-size:18px; margin:0 0 8px}
+.cmp{width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--r-m); overflow:hidden; font-size:14px; font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{border:1px solid var(--line-soft); padding:8px 10px; text-align:center}
+.cmp th{background:var(--code-line); font-size:13px}
+.cmp td:first-child{text-align:left; font-weight:600}
+.cmp input{width:90px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; text-align:center; background:var(--surface)}
+.why{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:var(--r-m); padding:10px 14px; margin:10px 0 0; font-size:14px; color:var(--ink-2)}
+.why b{color:var(--ink)}
+.qz{display:grid; gap:10px}
+.q{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m); padding:11px 14px}
+.q .qh{display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-bottom:6px}
+.q .qh b{display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--surface); font-size:12px}
+.q pre{margin:0; font-family:var(--font-mono); font-size:13.5px; white-space:pre-wrap}
+.q input.bl{font-family:var(--font-mono); font-size:13.5px; width:13ch; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:1px 5px; border-radius:4px 4px 0 0}
+.q .fb{font-size:13px; margin-top:6px; min-height:1.2em}
+.q .fb.ok{color:var(--ok)} .q .fb.no{color:var(--bad)}
+.q.done{border-color:var(--ok); background:color-mix(in srgb,var(--ok-bg) 60%,var(--surface))}
+.picks{display:flex; gap:6px; flex-wrap:wrap}
+.picks button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:4px 12px; cursor:pointer; font-size:13.5px}
+.picks button.ok{background:var(--ok-bg); border-color:var(--ok); color:var(--ok)}
+.picks button.no{background:var(--bad-bg); border-color:var(--bad); color:var(--bad)}
+.qsum{font-weight:700; margin:0 0 10px}
+
+/* 연습 단계 */
+.modebar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface)}
+.modebar .mode{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 13px; font-weight:600; font-size:13.5px; cursor:pointer}
+.modebar .mode.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.modebar .mode:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+.modebar small{margin-left:auto; color:var(--muted); font-size:12.5px}
+.modebar small b{color:var(--ink)}
+.tcell{margin:10px 14px 4px 48px; font-size:14px; color:var(--ink-2); line-height:1.65}
+.tcell.sm{font-size:13.5px; margin:14px 14px 2px 48px; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--syn-fn); border-radius:0 8px 8px 0; padding:7px 11px; color:var(--ink-2)}
+.tcell .tag{display:inline-block; font-size:11.5px; font-weight:700; color:var(--syn-fn); margin-right:6px}
+.lex{margin:2px 0 6px; background:color-mix(in srgb,var(--syn-fn) 6%,var(--surface)); border:1px solid color-mix(in srgb,var(--syn-fn) 22%,var(--line)); border-radius:7px; padding:5px 10px; font-size:13px}
+.lex summary{cursor:pointer; font-weight:700; color:var(--syn-fn); list-style:none}
+.lex summary::-webkit-details-marker{display:none}
+.lex summary::before{content:'▸ '} .lex[open] summary::before{content:'▾ '}
+.lex summary small{font-weight:500; color:var(--muted)}
+.lex ol{margin:5px 0 2px; padding:0; list-style:none; display:grid; grid-template-columns:minmax(0,max-content) minmax(0,1fr); gap:5px 12px; align-items:baseline}
+.lex li{display:contents; color:var(--ink-2); line-height:1.55}
+.lex li > span:last-child{color:var(--ink-2)}
+.lex li code{font-size:12px; background:var(--surface); border:1px solid var(--line-soft); border-radius:4px; padding:0 5px; white-space:pre-wrap; overflow-wrap:break-word; max-width:36ch; justify-self:start}
+.lex li .ln{font-size:12px; color:var(--muted); white-space:nowrap}
+.lex li b{color:var(--ink)}
+@media (max-width:640px){ .lex ol{grid-template-columns:1fr; gap:2px} .lex li > span:last-child{margin-bottom:5px} .lex li code{max-width:none} }
+.modebar .lexbtn{font-weight:500}
+.tcell h4{margin:4px 0 4px; font-size:15.5px; color:var(--ink)}
+.tcell p{margin:0}
+.tcell b{color:var(--ink)}
+.tcell code,.read code,.mission code,.pfb code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+.read{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:7px; padding:7px 11px; margin:2px 0 6px; line-height:1.6; white-space:normal}
+.read b{color:var(--ink)}
+.cell.lock .run{opacity:.45}
+pre.code.ghost{opacity:.62; user-select:none; -webkit-user-select:none}
+pre.code.solved{border-color:var(--ok)}
+pre.code input.bl{font-family:var(--font-mono); font-size:13px; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:0 3px; border-radius:4px 4px 0 0; min-width:4ch; color:var(--ink)}
+pre.code input.bl.bad{border-bottom-color:var(--bad); background:var(--bad-bg)}
+pre.code input.bl:focus{outline:2px solid var(--orange); outline-offset:1px}
+textarea.type{display:block; width:100%; font-family:var(--font-mono); font-size:13px; line-height:1.55; border:1px solid var(--line); border-radius:7px; padding:8px 11px; background:var(--surface); resize:vertical; tab-size:4}
+textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-color:transparent}
+.mission{font-size:13.5px; background:var(--warn-bg); color:var(--ink); border-radius:7px; padding:8px 11px; margin:0 0 6px; line-height:1.6}
+.pact{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 2px}
+.pact .chk{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.pact .kb{color:var(--muted); font-size:12px}
+.pfb{font-size:13px; margin:4px 0 6px}
+.pfb:empty{display:none}
+.pfb.ok{color:var(--ok)} .pfb.no{color:var(--bad)} .pfb.hint{color:var(--warn)} .pfb.info{color:var(--muted)}
+
+/* 평가 지표 */
+.sect.mt h2 small{font-size:13px; font-weight:500; color:var(--muted); margin-left:6px}
+.mnav{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 6px}
+.mnav a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:4px 12px}
+.mnav a:hover{border-color:var(--orange); color:var(--orange-d)}
+.mh{font-size:17px; margin:26px 0 8px; scroll-margin-top:12px}
+.mh .tm{font-size:12px; font-weight:600; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:2px 9px; margin-left:6px; vertical-align:2px}
+.mcard{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:0 var(--r-m) var(--r-m) 0; padding:9px 13px; margin:0 0 10px; font-size:14px; color:var(--ink-2); line-height:1.7}
+.mcard b{color:var(--ink)} .mcard p{margin:0 0 6px} .mcard p:last-child{margin:0}
+.warnline{display:block; color:var(--warn); font-size:13px; margin-top:2px}
+.mtbl{overflow-x:auto; margin:0 0 10px}
+.mt-def{min-width:760px; font-size:13.5px}
+.mt-def td{text-align:left!important; vertical-align:top; line-height:1.6}
+.mt-def td:first-child{font-family:var(--font-mono); white-space:nowrap}
+.mt-def.kor{min-width:600px} .mt-def.kor td:first-child{font-family:var(--font-ui); font-weight:600}
+.eq{font-family:var(--font-mono); font-size:13px; white-space:nowrap; display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap}
+.fr{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 2px}
+.fr > span{padding:0 4px; line-height:1.35}
+.fr > span:first-child{border-bottom:1.5px solid currentColor}
+.tool2{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); padding:12px 14px; margin:0 0 12px}
+.tool2 h4{margin:0 0 8px; font-size:15px}
+.tool2 .row label{min-width:68px; font-weight:600; font-size:13.5px}
+.mi{flex:1; min-width:200px; font-family:var(--font-mono); font-size:13.5px; border:1px solid var(--line); border-radius:7px; padding:5px 9px; background:var(--surface)}
+.calc{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; margin:8px 0}
+.calc th,.calc td{border:1px solid var(--line-soft); padding:4px 8px; text-align:right}
+.calc th{background:var(--code-line); font-size:12px}
+.calc tr.sum td{font-weight:700; background:var(--hl-soft)}
+.steps2{display:grid; gap:6px; margin:6px 0 0}
+.steps2 div{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:7px 11px; font-size:13.5px; line-height:1.7}
+.steps2 div b.v{font-family:var(--font-mono); color:var(--orange-d); font-size:15px}
+.steps2 small{color:var(--muted); display:block}
+.cmgrid{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:620px; margin:0 0 12px}
+.cmgrid .h,.cmgrid .h0{font-size:12.5px; font-weight:700; color:var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; padding:4px}
+.cmgrid .cc{border-radius:10px; padding:9px 11px; font-size:13.5px; line-height:1.45}
+.cmgrid .cc small{display:block; color:var(--ink-2); font-size:12px}
+.tp{background:var(--ok-bg)} .tn{background:color-mix(in srgb,var(--ok-bg) 55%,var(--surface))} .fp{background:var(--warn-bg)} .fn{background:var(--bad-bg)}
+.cmin{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:520px; align-items:center; margin:8px 0}
+.cmin > b{font-size:12.5px; color:var(--muted); text-align:center}
+.cmin label{display:flex; gap:6px; align-items:center; border-radius:8px; padding:6px 9px; font-weight:700; font-size:13px}
+.cmin input{width:100%; min-width:0; font-family:var(--font-mono); font-size:14px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.presets{gap:6px}
+.mcard.pick{border-left-color:var(--ok)}
+@media (max-width:640px){ .cmgrid,.cmin{grid-template-columns:62px 1fr 1fr} }
+
+/* 구현 · 해석 */
+.ipk{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 10px}
+.ipk button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 11px; font-size:13px; font-weight:600; cursor:pointer}
+.ipk button[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.ipb h4{margin:0 0 4px; font-size:16px}
+.ipb .row2{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:10px; margin-top:8px}
+.ipb .box{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:8px 11px; font-size:13.5px; line-height:1.6}
+.ipb .box b.l{display:block; font-size:12px; color:var(--muted); margin-bottom:2px}
+.ipb .warn2{background:var(--warn-bg)}
+.ipb .nav2{display:flex; justify-content:space-between; margin-top:10px}
+@media (max-width:720px){ .ipb .row2{grid-template-columns:1fr} }
+.encg{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.encg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.encg .tool2{margin:0}
+@media (max-width:900px){ .encg,.encg.two{grid-template-columns:1fr} }
+table.enc td,table.enc th{text-align:center}
+.say{font-size:15px; line-height:2.1}
+.say i{display:inline-block; min-width:64px; border-bottom:1.5px solid var(--ink-2); margin:0 3px}
+.hint code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
+/* 다음 단계 안내 · 정리 퀴즈 */
+.nextstep{margin:14px 12px 6px 48px; background:var(--ok-bg); border:1.5px solid var(--ok); border-radius:12px; padding:12px 14px; font-size:14.5px; line-height:1.7; color:var(--ink)}
+.nextstep .btn{display:inline-block; margin:8px 8px 0 0}
+.modebar .mode small{font-size:11px; font-weight:600; color:var(--muted); margin-left:2px}
+.modebar .mode.on small{color:inherit; opacity:.75}
+textarea.qsin{min-height:38px; margin-top:4px}
+pre.ghost2{margin:6px 0 0; background:var(--hl-soft); border-radius:6px; padding:5px 9px; font-family:var(--font-mono); font-size:13px; white-space:pre-wrap}
+.q .qh code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
+/* 약자 풀이 */
+.abh{margin:14px 0 6px; font-size:15px}
+.mt-def.abbr td:nth-child(2){font-family:var(--font-ui); white-space:normal; min-width:150px}
+.mt-def.abbr td:nth-child(2) b{color:var(--orange-d); font-size:15px}
+.mt-def.abbr td:nth-child(2) small,.mt-def.abbr td small{display:block; color:var(--muted); font-size:12px}
+.mt-def.abbr tr.key td{background:color-mix(in srgb,var(--orange) 7%,var(--surface))}
+.mt-def.abbr tr.key td:first-child{font-weight:700; color:var(--orange-d)}
+.mt-def.abbr td:last-child{white-space:nowrap}
+.mcard .rem{display:block; margin-top:6px; color:var(--ink)}
+
+footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
+.sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
+.bun-gif{width:120px; height:auto}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-size:16px; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 16px}
+.ptp span{font-size:19px; line-height:1}
+[hidden]{display:none!important}
+/* 전처리 창에만 쓰는 것 */
+.canvas svg .wg text.nm{font-size:17px}
+.canvas svg .wg text.bd{font-size:15px}
+.trail{display:flex; flex-wrap:wrap; gap:5px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface); font-size:12.5px}
+.trail > b{font-size:12.5px; margin-right:4px}
+.trail span{border:1px solid var(--line); border-radius:99px; padding:2px 9px; color:var(--muted); white-space:nowrap}
+.trail span code{font-size:12px; color:var(--muted)}
+.trail span.on{border-color:var(--orange); background:var(--orange-wash); color:var(--ink)}
+.trail span.on code{color:var(--orange-d); font-weight:600}
+.trail i{font-style:normal; color:var(--muted)}
+.wset .set{font-size:13px; background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:6px 10px; margin:0 0 8px}
+.wset .set b{color:var(--ink)}
+.wset .outbox{overflow-x:auto}
+.plot{display:block; max-width:340px; width:100%; height:auto; background:#fff; border-radius:6px}
+.plot text{font-family:'DejaVu Sans','Malgun Gothic',sans-serif; font-size:11px; fill:#222}
+.plot .ax{stroke:#222; stroke-width:1; fill:none}
+.plot .bx{stroke:#222; stroke-width:1.2; fill:none}
+.plot .md{stroke:#ff7f0e; stroke-width:1.6}
+.plot .fl{fill:none; stroke:#222; stroke-width:1}
+.plot .pt{fill:#1f77b4}
+.pairs{border-collapse:collapse; font-size:12.5px; font-variant-numeric:tabular-nums}
+.pairs td{border-bottom:1px solid var(--line-soft); padding:3px 10px}
+.pairs td:first-child{font-family:var(--font-mono); text-align:right; font-weight:600}
+.toplinks{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.toplinks a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:5px 13px}
+.toplinks a.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.toplinks a:hover{border-color:var(--orange)}
+</style>
+</head>
+<body>
+
+<header class="head"><div class="wrap">
+  <p class="kicker">🧹 Ⅱ-02 데이터 전처리 · 교과서 72~79쪽</p>
+  <h1>오렌지3 블록 → <em>코랩 파이썬</em>, 전처리 짝지어 실습하기</h1>
+  <p class="lede">왼쪽은 <b>블록(오렌지3)</b>, 오른쪽은 <b>코드(코랩)</b>예요. 왼쪽 위젯을 누르면 <b>같은 일을 하는 코드</b>에 노란 불이 들어와요.
+    <b>🟢 빈칸</b>을 채우고, 같은 코드를 <b>🟡 따라 적으면</b> ▶로 실행돼요. 칸을 실행할 때마다 <b>표의 모양(줄, 열)</b>이 어떻게 바뀌는지 따라가 보세요!</p>
+  <nav class="toplinks" aria-label="실습 창">
+    <a class="on" href="prep.html">🧹 전처리 · 보험 고객 표</a>
+    <a href="orange.html">🍊 모델 만들기 · 청년 인구 · 붓꽃 · 평가 지표</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="steps" id="stepBar">
+    <span><b>살펴보기</b> File</span><i>→</i><span><b>표기 맞추기</b> Edit Domain</span><i>→</i><span><b>합치기</b> Concatenate</span><i>→</i><span><b>중복</b> Unique</span><i>→</i><span><b>결측치</b> Impute</span><i>→</i><span><b>이상치</b> Box Plot · Select Rows</span><i>→</i><span><b>저장</b> Save Data</span><i>→</i><span><b>열 빼기</b> Select Columns</span><i>→</i><span><b>관계 보기</b> Scatter Plot · Correlations</span>
+  </div>
+  <p class="howto"><b>오늘 순서</b> <b>🟢 빈칸</b>(선생님과 함께) → <b>🟡 따라 적기</b> · 실행하기 전에 <b>(줄, 열)</b>을 먼저 예상해 보세요 · 칸을 다 채우면 맨 아래에 <b>다음 단계 안내</b>가 떠요 · 막히면 <b>📘 설명</b>과 왼쪽 <b>위젯</b>을 눌러 보세요.</p>
+  <div class="bench">
+    <section class="panel" aria-label="오렌지3 캔버스">
+      <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>오렌지3 캔버스<span class="sp"></span><small>위젯을 누르면 그 위젯의 결과가 아래에</small></div>
+      <div class="canvas"><svg id="cv" viewBox="0 0 900 400" role="group" aria-label="오렌지3 워크플로"></svg></div>
+      <div class="wset" id="wset"></div>
+    </section>
+    <section class="panel" aria-label="코랩 노트북">
+      <div class="panel-hd"><span class="dot" style="background:var(--colab)"></span><span class="mono">01_preprocess.ipynb · 72~79쪽</span><span class="sp"></span>
+        <button class="btn" id="resetRt" type="button">런타임 초기화</button><button class="btn pri" id="runAll" type="button">▶ 모두 실행</button></div>
+      <div class="modebar" id="modeBar" role="group" aria-label="연습 단계"></div>
+      <div class="trail" id="trail" aria-live="polite"></div>
+      <div class="nb" id="nb"></div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <span>2026학년도 2학기 「인공지능 기초」 · 교과서 「인공지능 기초」(미래엔) Ⅱ-02 데이터 전처리 실습(72~79쪽)을 바탕으로 만들었습니다.</span>
+  <span>이 창의 «오렌지3»와 «코랩»은 연습용 흉내입니다 — 표의 숫자는 교과서 파일(file1.csv · file2.csv)로 실제 pandas와 똑같이 계산했어요.</span>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+'use strict';
+/* ── 교과서 파일 두 개(파일 안에 넣음) ───────────────────────────── */
+var RAW = {
+  file1: `계약번호,나이,성별,BMI,자녀수,흡연여부,연락처,의료비
+1,19,여,17.9,0,x,095-8195-1656,3460974
+2,19,남,23.5,0,x,095-6263-9637,10000200
+3,288,남,19.5,0,x,095-0289-7648,6972519
+4,24,여,28.3,3,x,095-5759-3496,7236257
+5,22,여,26.7,2,x,095-1480-1533,7630011
+6,51,여,23.2,2,o,095-5215-9893,6927669`,
+  file2: `계약번호,나이,성별,BMI,자녀수,흡연여부,연락처,의료비
+6,51,여,23.2,2,o,095-5215-9893,6927669
+7,18,남자,18.6,0,x,095-6225-2851,4422477
+8,38,여자,24.3,1,x,095-6943-0732,8789729
+9,37,남자,27.2,1,o,095-7737-5747,8671239
+10,32,남자,19.9,1,o,095-9750-9270,3282874
+11,21,남자,,2,x,095-0300-0439,8504725
+12,33,여자,20.3,1,o,095-7661-2708,1999980`
+};
+/* 표 = { cols:[열 이름], rows:[{ i:줄 번호(인덱스), v:[값] }] } · 빈칸은 null(NaN) */
+function parse(txt){
+  var L = txt.trim().split('\n'), cols = L[0].split(',');
+  return { cols: cols, rows: L.slice(1).map(function(l, i){
+    return { i: i, v: l.split(',').map(function(s){ return s === '' ? null : /^-?\d+(\.\d+)?$/.test(s) ? +s : s; }) }; }) };
+}
+function copyF(F){ return { cols: F.cols.slice(), rows: F.rows.map(function(r){ return { i: r.i, v: r.v.slice() }; }) }; }
+function ci(F, c){ return F.cols.indexOf(c); }
+function shp(F){ return '(' + F.rows.length + ', ' + F.cols.length + ')'; }
+function replaceVals(F, col, map){ var G = copyF(F), j = ci(G, col); G.rows.forEach(function(r){ if(r.v[j] in map) r.v[j] = map[r.v[j]]; }); return G; }
+function concatF(A, B){ var G = copyF(A); B.rows.forEach(function(r){ G.rows.push({ i: r.i, v: B.cols.map(function(c, k){ return r.v[k]; }) }); }); return G; }
+function dupMask(F, col){ var j = ci(F, col), seen = {}; return F.rows.map(function(r){ var k = String(r.v[j]); if(seen[k]) return true; seen[k] = 1; return false; }); }
+function dedup(F, col){ var G = copyF(F), m = dupMask(F, col); G.rows = G.rows.filter(function(r, k){ return !m[k]; }); return G; }
+function nullCount(F){ return F.cols.map(function(c, j){ return F.rows.filter(function(r){ return r.v[j] === null; }).length; }); }
+function dropna(F){ var G = copyF(F); G.rows = G.rows.filter(function(r){ return r.v.every(function(x){ return x !== null; }); }); return G; }
+function filterLE(F, col, lim){ var G = copyF(F), j = ci(G, col); G.rows = G.rows.filter(function(r){ return r.v[j] !== null && r.v[j] <= lim; }); return G; }
+function dropCols(F, names){ var G = copyF(F), keep = G.cols.map(function(c){ return names.indexOf(c) < 0; });
+  G.cols = G.cols.filter(function(c, j){ return keep[j]; }); G.rows.forEach(function(r){ r.v = r.v.filter(function(x, j){ return keep[j]; }); }); return G; }
+function colVals(F, c){ var j = ci(F, c); return F.rows.map(function(r){ return r.v[j]; }).filter(function(x){ return x !== null; }); }
+function numCols(F){ return F.cols.filter(function(c, j){ return F.rows.every(function(r){ return r.v[j] === null || typeof r.v[j] === 'number'; }); }); }
+function pearson(a, b){
+  var n = a.length, ma = 0, mb = 0, i; for(i = 0; i < n; i++){ ma += a[i]; mb += b[i]; } ma /= n; mb /= n;
+  var sab = 0, saa = 0, sbb = 0; for(i = 0; i < n; i++){ sab += (a[i] - ma) * (b[i] - mb); saa += (a[i] - ma) * (a[i] - ma); sbb += (b[i] - mb) * (b[i] - mb); }
+  return sab / Math.sqrt(saa * sbb);
+}
+function corrM(F){
+  var C = numCols(F), J = C.map(function(c){ return ci(F, c); });
+  return { cols: C, m: C.map(function(c, a){ return C.map(function(d, b){
+    var x = [], y = []; F.rows.forEach(function(r){ var u = r.v[J[a]], w = r.v[J[b]]; if(u !== null && w !== null){ x.push(u); y.push(w); } });
+    return pearson(x, y); }); }) };
+}
+function pct(sorted, p){ var h = (sorted.length - 1) * p, lo = Math.floor(h), hi = Math.ceil(h); return sorted[lo] + (sorted[hi] - sorted[lo]) * (h - lo); }
+
+/* ── 화면용 ───────────────────────────── */
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function hl(code){
+  return code.split('\n').map(function(line){
+    var out = '', i = 0, m;
+    while(i < line.length){
+      var rest = line.slice(i);
+      if(rest[0] === '#'){ out += '<span class="c">' + esc(rest) + '</span>'; break; }
+      if((m = rest.match(/^'[^']*'/))){ out += '<span class="s">' + esc(m[0]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^⟦([^⟧]*)⟧/))){ out += '<span class="chg">' + hl(m[1]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^(import|from|as|print|None|True|False)\b/))){ out += '<span class="k">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^\d+(\.\d+)?/))){ out += '<span class="n">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^([A-Za-z_가-힣][\w가-힣]*)(?=\()/))){ out += '<span class="f">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^[A-Za-z_가-힣][\w가-힣.]*/))){ out += esc(m[0]); i += m[0].length; continue; }
+      out += esc(rest[0]); i++;
+    }
+    return out;
+  }).join('\n');
+}
+function cellTxt(x){ return x === null ? 'NaN' : String(x); }
+function dfTable(F){
+  return '<table class="df"><tr><th></th>' + F.cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>' +
+    F.rows.map(function(r){ return '<tr><th>' + r.i + '</th>' + r.v.map(function(x){ return '<td>' + esc(cellTxt(x)) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+}
+function seriesTxt(names, vals, dtype){
+  var w = Math.max.apply(null, names.map(function(n){ return n.length; })), vw = Math.max.apply(null, vals.map(function(v){ return String(v).length; }));
+  return names.map(function(n, k){ var s = n; while(s.length < w) s += ' '; var v = String(vals[k]); while(v.length < vw) v = ' ' + v; return s + '    ' + v; }).join('\n') + '\ndtype: ' + dtype;
+}
+function corrTable(R){
+  return '<table class="df"><tr><th></th>' + R.cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>' +
+    R.cols.map(function(c, a){ return '<tr><th>' + esc(c) + '</th>' + R.m[a].map(function(v){ return '<td>' + v.toFixed(6) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+}
+function niceTicks(lo, hi, n){
+  var span = hi - lo || 1, raw = span / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / mag;
+  var step = (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * mag, t = [], s = Math.ceil(lo / step) * step;
+  for(var v = s; v <= hi + step * 1e-9; v += step) t.push(Math.round(v / step) * step);
+  return t;
+}
+function fmtTick(v, scale){ var x = v / scale; return Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : String(+x.toFixed(2)); }
+/* matplotlib 처럼: 상자(Q1~Q3) · 주황 중앙값 · 수염(1.5 × IQR 안의 가장 먼 값) · 동그라미(이상치) */
+function boxSvg(vals){
+  var s = vals.slice().sort(function(a, b){ return a - b; }), q1 = pct(s, .25), md = pct(s, .5), q3 = pct(s, .75), iqr = q3 - q1;
+  var inn = s.filter(function(v){ return v >= q1 - 1.5 * iqr && v <= q3 + 1.5 * iqr; }), wl = inn[0], wh = inn[inn.length - 1];
+  var fl = s.filter(function(v){ return v < wl || v > wh; });
+  var lo = s[0], hi = s[s.length - 1], pad = (hi - lo) * .06 || 1; lo -= pad; hi += pad;
+  var W = 320, H = 230, L = 46, R = 12, T = 12, B = 26, y = function(v){ return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); }, cx = (L + W - R) / 2, bw = 56;
+  var g = '<rect class="ax" x="' + L + '" y="' + T + '" width="' + (W - L - R) + '" height="' + (H - T - B) + '"/>';
+  niceTicks(lo, hi, 6).forEach(function(t){ var yy = y(t).toFixed(1); g += '<path class="ax" d="M' + (L - 4) + ',' + yy + ' h4"/><text x="' + (L - 7) + '" y="' + (+yy + 4) + '" text-anchor="end">' + fmtTick(t, 1) + '</text>'; });
+  g += '<path class="ax" d="M' + cx + ',' + (H - B) + ' v4"/><text x="' + cx + '" y="' + (H - B + 16) + '" text-anchor="middle">1</text>';
+  g += '<path class="bx" d="M' + cx + ',' + y(q3) + ' V' + y(wh) + ' M' + cx + ',' + y(q1) + ' V' + y(wl) + ' M' + (cx - bw / 4) + ',' + y(wh) + ' h' + (bw / 2) + ' M' + (cx - bw / 4) + ',' + y(wl) + ' h' + (bw / 2) + '"/>';
+  g += '<rect class="bx" x="' + (cx - bw / 2) + '" y="' + y(q3) + '" width="' + bw + '" height="' + (y(q1) - y(q3)) + '"/>';
+  g += '<path class="md" d="M' + (cx - bw / 2) + ',' + y(md) + ' h' + bw + '"/>';
+  fl.forEach(function(v){ g += '<circle class="fl" cx="' + cx + '" cy="' + y(v) + '" r="4"/>'; });
+  return { svg: '<svg class="plot" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="나이 상자 그림">' + g + '</svg>', q1: q1, md: md, q3: q3, fl: fl };
+}
+function scatterSvg(xs, ys, xl, yl){
+  var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+  var px = (x1 - x0) * .06, py = (y1 - y0) * .06; x0 -= px; x1 += px; y0 -= py; y1 += py;
+  var W = 340, H = 240, L = 46, R = 12, T = 22, B = 38, sc = y1 >= 1e6 ? Math.pow(10, Math.floor(Math.log10(y1))) : 1;
+  var X = function(v){ return L + (W - L - R) * (v - x0) / (x1 - x0); }, Y = function(v){ return T + (H - T - B) * (1 - (v - y0) / (y1 - y0)); };
+  var g = '<rect class="ax" x="' + L + '" y="' + T + '" width="' + (W - L - R) + '" height="' + (H - T - B) + '"/>';
+  niceTicks(x0, x1, 6).forEach(function(t){ var xx = X(t).toFixed(1); g += '<path class="ax" d="M' + xx + ',' + (H - B) + ' v4"/><text x="' + xx + '" y="' + (H - B + 16) + '" text-anchor="middle">' + fmtTick(t, 1) + '</text>'; });
+  niceTicks(y0, y1, 5).forEach(function(t){ var yy = Y(t).toFixed(1); g += '<path class="ax" d="M' + (L - 4) + ',' + yy + ' h4"/><text x="' + (L - 7) + '" y="' + (+yy + 4) + '" text-anchor="end">' + fmtTick(t, sc) + '</text>'; });
+  if(sc > 1) g += '<text x="' + L + '" y="' + (T - 6) + '">1e' + Math.round(Math.log10(sc)) + '</text>';
+  xs.forEach(function(v, k){ g += '<circle class="pt" cx="' + X(v).toFixed(1) + '" cy="' + Y(ys[k]).toFixed(1) + '" r="4"/>'; });
+  g += '<text x="' + ((L + W - R) / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(xl) + '</text>';
+  g += '<text transform="translate(12,' + ((T + H - B) / 2) + ') rotate(-90)" text-anchor="middle">' + esc(yl) + '</text>';
+  return '<svg class="plot" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(xl) + '와 ' + esc(yl) + '의 산점도">' + g + '</svg>';
+}
+
+/* ══════════ 오렌지3 쪽: 연결하면 바로 계산 ══════════ */
+var F1 = parse(RAW.file1), F2 = parse(RAW.file2), O = {};
+O.file1 = F1; O.file2 = F2; O.edit = replaceVals(F2, '성별', { '남자':'남', '여자':'여' });
+O.concat = concatF(F1, O.edit); O.unique = dedup(O.concat, '계약번호'); O.impute = dropna(O.unique);
+O.rows = filterLE(O.impute, '나이', 200); O.save = O.rows; O.cols = dropCols(O.rows, ['연락처', '계약번호']);
+var WID = [
+  { id:'file1', nm:'file1.csv', em:'File', kind:'data', x:55, y:75, ico:'file' },
+  { id:'file2', nm:'file2.csv', em:'File', kind:'data', x:55, y:235, ico:'file' },
+  { id:'edit', nm:'Edit Domain', kind:'data', x:170, y:235 },
+  { id:'concat', nm:'Concatenate', kind:'data', x:285, y:155 },
+  { id:'unique', nm:'Unique', kind:'data', x:400, y:155 },
+  { id:'impute', nm:'Impute', kind:'data', x:515, y:155 },
+  { id:'box', nm:'Box Plot', kind:'model', x:625, y:62 },
+  { id:'rows', nm:'Select Rows', kind:'data', x:625, y:235 },
+  { id:'save', nm:'Save Data', kind:'data', x:735, y:330 },
+  { id:'cols', nm:'Select Columns', kind:'data', x:735, y:175 },
+  { id:'scatter', nm:'Scatter Plot', kind:'model', x:835, y:85 },
+  { id:'corr', nm:'Correlations', kind:'data', x:840, y:260 }
+];
+var LINKS = [['file1','concat','Data'],['file2','edit','Data'],['edit','concat','Data'],['concat','unique','Data'],['unique','impute','Data'],['impute','box','Data'],['impute','rows','Data'],
+  ['rows','save','Matching Data'],['rows','cols','Matching Data'],['cols','scatter','Data'],['cols','corr','Data']];
+var ICON = {
+  file:   '<path d="M-9,-14 h11 l7,7 v21 h-18 z" class="w"/><path d="M2,-14 v7 h7"/><path d="M-5,0 h10 M-5,5 h10 M-5,10 h6"/>',
+  edit:   '<rect x="-13" y="-12" width="17" height="24" rx="2" class="w"/><path d="M-9,-6 h9 M-9,0 h9 M-9,6 h5"/><path d="M3,12 l1.5,-5 l9,-9 l3.5,3.5 l-9,9 z" class="w"/>',
+  concat: '<rect x="-13" y="-13" width="18" height="11" rx="1.5" class="w"/><rect x="-13" y="2" width="18" height="11" rx="1.5" class="w"/><path d="M11,-4 v10 M6,1 h10" stroke-width="2.6"/>',
+  unique: '<rect x="-13" y="-12" width="26" height="24" rx="2" class="w"/><path d="M-13,-4 h26 M-13,4 h26"/><path d="M-9,-8 h18 M-9,0 h18" stroke-width="3" opacity=".55"/><path d="M-5,6 l10,4 M5,6 l-10,4" stroke-width="2.4"/>',
+  impute: '<rect x="-13" y="-12" width="26" height="24" rx="2" class="w"/><path d="M-13,-4 h26 M-13,4 h26 M-4.5,-12 v24 M4.5,-12 v24"/><rect x="-3" y="-2.5" width="6" height="5" class="f" opacity=".85"/>',
+  box:    '<path d="M-13,14 h27"/><path d="M0,-14 v6 M0,7 v5 M-4,-14 h8 M-4,12 h8"/><rect x="-7" y="-8" width="14" height="15" class="w"/><path d="M-7,1 h14" stroke-width="2.6"/>',
+  rows:   '<path d="M-13,-12 h26 l-10,12 v11 l-6,-3 v-8 z" class="w"/>',
+  save:   '<path d="M-12,-12 h19 l5,5 v19 h-24 z" class="w"/><rect x="-7" y="-12" width="12" height="7"/><rect x="-7" y="2" width="14" height="10"/>',
+  cols:   '<rect x="-13" y="-12" width="26" height="24" rx="2" class="w"/><path d="M-4.5,-12 v24 M4.5,-12 v24"/><path d="M6.5,-8 l5,5 M11.5,-8 l-5,5" stroke-width="2.4"/>',
+  scatter:'<path d="M-13,-14 v27 h27"/><circle class="f" cx="-7" cy="5" r="2"/><circle class="f" cx="-2" cy="-3" r="2"/><circle class="f" cx="3" cy="4" r="2"/><circle class="f" cx="8" cy="-8" r="2"/><circle class="f" cx="10" cy="1" r="2"/>',
+  corr:   '<rect x="-13" y="-13" width="26" height="26" rx="2" class="w"/><rect class="f" x="-12" y="-12" width="8" height="8" opacity=".8"/><rect class="f" x="-4" y="-4" width="8" height="8" opacity=".8"/><rect class="f" x="4" y="4" width="8" height="8" opacity=".8"/><rect class="f" x="4" y="-12" width="8" height="8" opacity=".35"/><rect class="f" x="-12" y="4" width="8" height="8" opacity=".35"/>'
+};
+function badgeOf(id){
+  if(id === 'save') return '';
+  if(id === 'cols') return O.cols.cols.length + '열';
+  if(O[id] && id !== 'box') return O[id].rows.length + '행';
+  return '';
+}
+/* 위젯 ↔ 코드 짝 · 오렌지3 설정 · 결과 */
+var WINFO = {
+  file1:  ['File (file1.csv)', "<code>df1 = pd.read_csv(… 'file1.csv')</code>", '파일: <b>file1.csv</b> · 6 instances · 8 variables'],
+  file2:  ['File (file2.csv)', "<code>df2 = pd.read_csv(… 'file2.csv')</code>", '파일: <b>file2.csv</b> · 7 instances · BMI 에 <b>missing 1개</b>'],
+  edit:   ['Edit Domain', "<code>df2['성별'] = df2['성별'].replace({'남자':'남', '여자':'여'})</code>", '<b>성별</b>을 골라 값 이름 바꾸기: 남자 → <b>남</b>, 여자 → <b>여</b>'],
+  concat: ['Concatenate', '<code>df = pd.concat([df1, df2])</code>', '두 표를 위아래로 이어 붙이기(열은 합집합)'],
+  unique: ['Unique', "<code>df['계약번호'].duplicated().any()</code> · <code>df = df.drop_duplicates(subset='계약번호', keep='first')</code>", 'Group by: <b>계약번호</b> · Item to keep: <b>First instance</b>'],
+  impute: ['Impute', '<code>df.isnull().sum()</code> · <code>df = df.dropna()</code>', 'Default method: <b>Remove instances with unknown values</b>(빈칸 있는 줄 지우기) · 평균으로 채우기 등도 고를 수 있어요(<code>fillna</code>)'],
+  box:    ['Box Plot', "<code>plt.boxplot(df['나이'])</code>", 'Variable: <b>나이</b>'],
+  rows:   ['Select Rows', "<code>condition = df['나이'] &lt;= 200</code> · <code>df = df[condition]</code>", 'Condition: <b>나이 · is at most · 200</b> → 맞는 줄은 Matching Data 로'],
+  save:   ['Save Data', "<code>df.to_csv('combined_file.csv', index=False)</code>", '파일 이름: <b>combined_file.csv</b>'],
+  cols:   ['Select Columns', "<code>df = df.drop('연락처', axis=1)</code> · <code>df = df.drop('계약번호', axis=1)</code>", '<b>연락처 · 계약번호</b>를 Ignored 칸으로 옮기기(식별용 열 빼기)'],
+  scatter:['Scatter Plot', "<code>plt.scatter(df['나이'], df['의료비'])</code>", 'Axis x: <b>나이</b> · Axis y: <b>의료비</b>'],
+  corr:   ['Correlations', '<code>corr = df.corr(numeric_only=True)</code>', 'Pearson correlation · 숫자 열끼리 짝을 지어 큰 것부터 보여 줘요']
+};
+var WKIND = {}; WID.forEach(function(w){ WKIND[w.id] = w.kind; });
+function wpos(id){ return WID.filter(function(w){ return w.id === id; })[0]; }
+var selW = null;
+function drawCanvas(){
+  var svg = document.getElementById('cv'), h = '', R = 30, A = 37, hasIn = {}, hasOut = {};
+  LINKS.forEach(function(L){ hasOut[L[0]] = 1; hasIn[L[1]] = 1; });
+  LINKS.forEach(function(L){
+    var a = wpos(L[0]), b = wpos(L[1]), x1 = a.x + A, y1 = a.y, x2 = b.x - A, y2 = b.y, dx = Math.max(30, Math.abs(x2 - x1) * 0.5);
+    var c1x = x1 + dx, c2x = x2 - dx, on = selW && (L[0] === selW || L[1] === selW);
+    h += '<path class="lk' + (on ? ' on' : '') + '" d="M' + x1 + ',' + y1 + ' C' + c1x + ',' + y1 + ' ' + c2x + ',' + y2 + ' ' + x2 + ',' + y2 + '"/>';
+  });
+  var arcL = 'M' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 0 ' + (-A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
+  var arcR = 'M' + (A * Math.cos(0.7)).toFixed(1) + ',' + (-A * Math.sin(0.7)).toFixed(1) + ' A' + A + ',' + A + ' 0 0 1 ' + (A * Math.cos(0.7)).toFixed(1) + ',' + (A * Math.sin(0.7)).toFixed(1);
+  WID.forEach(function(w){
+    var bd = badgeOf(w.id);
+    h += '<g class="wg ' + w.kind + (selW === w.id ? ' sel' : '') + '" data-w="' + w.id + '" tabindex="0" role="button" aria-label="' + w.nm + (w.em ? ' ' + w.em : '') + ' 위젯" transform="translate(' + w.x + ',' + w.y + ')">' +
+      '<circle class="halo" r="' + (A + 6) + '"/>' +
+      (hasIn[w.id] ? '<path class="anc on" d="' + arcL + '"/><circle class="adot" cx="' + (-A) + '" cy="0" r="3"/>' : '') +
+      (hasOut[w.id] ? '<path class="anc on" d="' + arcR + '"/><circle class="adot" cx="' + A + '" cy="0" r="3"/>' : '') +
+      '<circle class="disc" r="' + R + '"/><g class="ico">' + ICON[w.ico || w.id] + '</g>' +
+      '<text class="nm" x="0" y="' + (A + 22) + '" text-anchor="middle">' + w.nm + '</text>' +
+      (bd ? '<text class="bd" x="0" y="' + (-A - 9) + '" text-anchor="middle">' + bd + '</text>' : '') + '</g>';
+  });
+  svg.innerHTML = h;
+}
+function pairList(R){
+  var P = [];
+  for(var a = 0; a < R.cols.length; a++) for(var b = a + 1; b < R.cols.length; b++) P.push([R.m[a][b], R.cols[a] + ' — ' + R.cols[b]]);
+  P.sort(function(p, q){ return Math.abs(q[0]) - Math.abs(p[0]); });
+  return '<table class="pairs">' + P.map(function(p){ return '<tr><td>' + (p[0] >= 0 ? '+' : '−') + Math.abs(p[0]).toFixed(3) + '</td><td>' + esc(p[1]) + '</td></tr>'; }).join('') + '</table>';
+}
+function drawSet(){
+  var el = document.getElementById('wset');
+  if(!selW){ el.innerHTML = '<h3>👆 위젯을 하나 눌러 보세요</h3><p class="hint">맨 왼쪽 두 위젯은 <b>File</b> 위젯 두 개(이름을 파일 이름으로 바꿔 둠)예요. 오렌지3는 위젯을 <b>잇는 순간 바로 계산</b>해요. 위젯 위의 숫자가 그 위젯에서 나오는 <b>줄 수</b>예요 — 6 + 7 = 13 → 12 → 11 → 10. 줄이 하나씩 줄어드는 까닭을 오른쪽 코드에서 찾아보세요. 위젯을 누르면 <b>같은 일을 하는 코드 칸</b>에 노란 불이 들어와요.</p>'; return; }
+  var I = WINFO[selW], h = '<h3><span class="chip ' + WKIND[selW] + '">' + (WKIND[selW] === 'model' ? '시각화' : '데이터') + '</span>' + I[0] + '</h3>' +
+    '<div class="map">↔ 코드: ' + I[1] + '</div><div class="set">⚙ 설정 — ' + I[2] + '</div><div class="outbox">';
+  if(selW === 'box'){ var bx = boxSvg(colVals(O.impute, '나이')); h += bx.svg + '<p class="hint">중앙값 ' + bx.md + ' · 상자 ' + bx.q1 + ' ~ ' + bx.q3 + ' · 동그라미(이상치) <b>' + bx.fl.join(', ') + '</b></p>'; }
+  else if(selW === 'scatter') h += scatterSvg(colVals(O.cols, '나이'), colVals(O.cols, '의료비'), '나이', '의료비');
+  else if(selW === 'corr') h += pairList(corrM(O.cols)) + '<p class="hint">코드의 <code>df.corr()</code>는 같은 값을 <b>표(행렬)</b>로 보여 줘요.</p>';
+  else { var F = O[selW]; h += '<p class="hint" style="margin:0 0 4px">결과(Data Table로 열어 본 모습) · <b>' + F.rows.length + '줄 × ' + F.cols.length + '열</b></p>' + dfTable(F); }
+  el.innerHTML = h + '</div>';
+}
+
+/* ══════════ 코랩 쪽 ══════════ */
+var ADDR = "주소 = 'https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/'";
+var CELLS = [
+  { text: true, html: '<h4>교과서 72~79쪽 · 보험 고객 표 정리하기</h4><p>보험 회사의 고객 표가 <b>두 파일</b>로 나뉘어 있어요. 그런데 <b>표기가 다르고</b>, <b>겹치는 줄 · 빈칸 · 말이 안 되는 값</b>이 섞여 있어요. 모델에 넣기 전에 깨끗하게 정리(<b>전처리</b>)해 봐요.<br>' +
+    '칸을 실행할 때마다 위 <b>«df 모양 따라가기»</b>에 (줄 수, 열 수)가 채워져요. <b>실행하기 전에 먼저 예상</b>해 보세요!</p>' },
+  { ws:['file1','file2'], run:'load', code: "import pandas as pd\nimport matplotlib.pyplot as plt\n\n" + ADDR + "\ndf1 = pd.⟦read_csv⟧(주소 + 'file1.csv')\ndf2 = pd.⟦read_csv⟧(주소 + 'file2.csv')",
+    blanks: ['read_csv', 'read_csv'],
+    md: '<b>① 도구 · 재료 꺼내기</b> — <code>pandas</code>(표 다루는 도구)와 <code>matplotlib</code>(그래프 도구)를 꺼내고 표 파일 두 개를 열어요. 표 파일(csv)을 <b>읽는(read)</b> 명령이에요. 오렌지3의 <b>File</b> 위젯 두 개와 같아요. (교과서는 <code>files.upload()</code>로 파일을 올리고, 여기서는 인터넷 주소로 바로 열어요.)',
+    after: '아무것도 안 보여도 괜찮아요. 표를 <code>df1</code> · <code>df2</code> 라는 <b>이름표(변수)</b>에 담기만 했거든요.' },
+  { ws:['file1'], given: true, run:'show1', code: 'df1',
+    md: '<b>② 표 살펴보기</b> — 변수 이름만 쓰고 실행하면 표가 보여요. <b>이상한 곳</b>을 찾아보세요!',
+    after: '<b>나이 288</b>? 사람 나이로는 말이 안 되죠 → <b>이상치</b>. 계약번호 <b>6번</b>도 기억해 두세요.' },
+  { ws:['file2'], given: true, run:'show2', code: 'df2',
+    md: '이번엔 두 번째 표. df1 과 <b>다른 점 세 가지</b>를 찾아보세요.',
+    after: '① 성별이 «남자 · 여자»(df1 은 «남 · 여») → <b>표기가 달라요</b> ② 계약번호 <b>6번</b>이 df1 에도 있어요 → <b>중복</b> ③ 11번의 BMI 가 <b>NaN</b>(비어 있음) → <b>결측치</b>' },
+  { ws:['edit'], run:'replace', code: "df2['성별'] = df2['성별'].⟦replace⟧({'남자':⟦'남'⟧, '여자':⟦'여'⟧})\ndf2",
+    blanks: ['replace', "'남'", "'여'"],
+    md: '<b>③ 표기 맞추기</b> — «남자»는 «남»으로, «여자»는 «여»로 <b>바꿔요(replace)</b>. <code>{바꿀 것: 바뀔 것}</code> 모양을 <b>사전(딕셔너리)</b>이라고 해요. 오렌지3에서는 <b>Edit Domain</b> 위젯에서 값 이름을 바꿔요.',
+    after: '성별이 모두 «남 · 여»가 됐어요. 맨 앞의 <code>df2[\'성별\'] =</code> 로 <b>바꾼 결과를 다시 담는 것</b>이 중요해요. 안 담으면 화면에만 바뀌고 표는 그대로예요!' },
+  { ws:['concat'], run:'concat', code: "df = pd.⟦concat⟧(⟦[df1, df2]⟧)\ndf", blanks: ['concat', '[df1, df2]'],
+    md: '<b>④ 두 표 합치기</b> — 위아래로 이어 붙여요(concatenate). 합칠 표들을 <b>대괄호 [ ]</b>로 묶어서 넣어요. 오렌지3 <b>Concatenate</b> 위젯.',
+    after: '6줄 + 7줄 = <b>13줄</b>. 왼쪽 번호(인덱스)가 0~5, 0~6 으로 겹쳐 보이는 건 원래 표의 줄 번호를 그대로 가져왔기 때문이에요.' },
+  { ws:['unique'], run:'dupAny', code: "df['계약번호'].⟦duplicated⟧().⟦any⟧()", blanks: ['duplicated', 'any'],
+    md: '<b>⑤ 중복 확인</b> — «계약번호가 앞에 나온 것과 <b>같은(duplicated)</b> 줄이 <b>하나라도(any)</b> 있나?»',
+    after: '<code>True</code> = 중복이 <b>있어요</b>(계약번호 6번). <code>duplicated()</code>는 줄마다 True/False 를 내고, <code>any()</code>는 «하나라도 True 면 True».' },
+  { ws:['unique'], run:'dedup', code: "⟦df =⟧ df.⟦drop_duplicates⟧(subset='계약번호', keep=⟦'first'⟧)\ndf.shape", blanks: ['df =', 'drop_duplicates', "'first'"],
+    md: '<b>⑥ 중복 지우기</b> — 계약번호가 같으면 <b>처음 것(first)</b>만 남겨요. 오렌지3 <b>Unique</b> 위젯(Group by 계약번호 · 처음 것 남기기).',
+    after: '<code>(12, 8)</code> → 13줄에서 1줄이 빠졌어요. ⚠ 맨 앞 <code>df =</code> 를 빼먹으면 표가 그대로예요 — 2단원에서 <b>가장 많이 하는 실수</b>!' },
+  { ws:['impute'], run:'nullSum', code: "df.⟦isnull⟧().⟦sum⟧()", blanks: ['isnull', 'sum'],
+    md: '<b>⑦ 결측치 세기</b> — 칸마다 <b>비어 있는(null)</b> 곳이 몇 개인지 <b>더해요(sum)</b>.',
+    after: 'BMI 에 <b>1개</b>. <code>isnull()</code>은 빈칸이면 True, <code>sum()</code>은 True 를 1로 세어 더해요.' },
+  { ws:['impute'], run:'dropna', code: "print(df.⟦shape⟧)\ndf = df.⟦dropna⟧()\nprint(df.shape)", blanks: ['shape', 'dropna'],
+    md: '<b>⑧ 결측치 지우기</b> — 빈칸이 있는 <b>줄</b>을 통째로 지워요(drop + na = not available, 값 없음). 앞뒤로 표의 모양(shape)을 찍어 비교해요. 오렌지3 <b>Impute</b> 위젯의 «Remove instances with unknown values».',
+    after: '<code>(12, 8)</code> → <code>(11, 8)</code>. <b>shape = (줄 수, 열 수)</b>. 지우는 대신 평균 · 중앙값으로 <b>채우는</b> 방법(<code>fillna</code>)도 있어요 — 데이터가 적을 때는 채우는 쪽이 나을 수 있어요.' },
+  { ws:['box'], run:'box1', code: "plt.⟦boxplot⟧(df['나이'])\nplt.show()", blanks: ['boxplot'],
+    md: '<b>⑨ 이상치 눈으로 찾기</b> — 나이로 <b>상자 그림(box plot)</b>을 그려요. 오렌지3 <b>Box Plot</b> 위젯.',
+    after: '상자는 가운데 50%(Q1~Q3), 상자 안 주황 선은 <b>중앙값</b>. 홀로 멀리 떨어진 <b>동그라미</b>가 이상치예요 → <b>288살</b>! 상자 높이(IQR)의 1.5배보다 더 멀리 떨어지면 이상치로 봐요.' },
+  { ws:['rows'], run:'filter', code: "condition = df['나이'] ⟦<=⟧ 200\ndf = df⟦[condition]⟧\nplt.boxplot(df['나이'])\nplt.show()", blanks: ['<=', '[condition]'],
+    md: '<b>⑩ 이상치 거르기</b> — «나이가 200 <b>이하</b>인 줄만» 남겨요. 조건(True/False)을 먼저 <code>condition</code> 에 담고, <code>df[…]</code> 로 True 인 줄만 골라요. 오렌지3 <b>Select Rows</b>(나이 is at most 200).',
+    after: '<b>10줄</b>이 남고 동그라미가 사라졌어요. 이상치를 꼭 지워야 하는 건 아니에요 — <b>입력 실수</b>면 지우거나 고치고, <b>진짜 특이한 값</b>이면 남길지 따져 봐요.' },
+  { ws:['save'], run:'save', code: "df.⟦to_csv⟧('combined_file.csv', ⟦index=False⟧)", blanks: ['to_csv', 'index=False'],
+    md: '<b>⑪ 저장하기</b> — 정리한 표를 csv 파일로 저장해요. <code>index=False</code> 는 «왼쪽 줄 번호는 빼고». 오렌지3 <b>Save Data</b>.',
+    after: '코랩 왼쪽 <b>📁 파일</b> 칸에 <code>combined_file.csv</code> 가 생겨요(런타임이 끊기면 사라지니 꼭 내려받기!).' },
+  { ws:['cols'], given: true, run:'dropErr', errOk: true, code: "df.drop('연락처')      # axis=1 을 일부러 빼 보기",
+    md: '<b>⑫ 열 빼기 전에 — 일부러 오류 내 보기.</b> <code>drop</code>은 아무 말 안 하면 <b>줄</b>을 지우려고 해요. 그대로 ▶ 실행!',
+    after: '<code>KeyError</code> — «연락처라는 <b>줄 이름</b>은 없어요». 열을 지우려면 <code>axis=1</code>(열 방향)을 꼭 넣어요. <b>axis=0 은 줄, axis=1 은 열!</b>' },
+  { ws:['cols'], run:'dropCols', code: "df = df.⟦drop⟧('연락처', ⟦axis=1⟧)\ndf = df.drop(⟦'계약번호'⟧, axis=1)\ndf", blanks: ['drop', 'axis=1', "'계약번호'"],
+    md: '<b>⑬ 필요 없는 열 빼기</b> — 연락처 · 계약번호는 <b>사람마다 다른 번호</b>일 뿐, 의료비를 맞히는 데 도움이 안 돼요(<b>식별용 열</b>). 오렌지3 <b>Select Columns</b>에서 Ignored 칸으로 옮기기.',
+    after: '<code>(10, 6)</code> — 열 8개 → 6개. 이 칸을 <b>두 번</b> 실행하면? 이미 지운 열을 또 지우려 해서 KeyError 가 나요 → <b>▶ 모두 실행</b>으로 처음부터.' },
+  { ws:['scatter'], run:'scatter', code: "plt.⟦scatter⟧(df['나이'], df['의료비'])\nplt.xlabel('age')\nplt.ylabel('cost')\nplt.show()", blanks: ['scatter'],
+    md: '<b>⑭ 두 열의 관계 보기</b> — 나이(x)와 의료비(y)를 <b>점(scatter)</b>으로 찍어요. 오렌지3 <b>Scatter Plot</b>.',
+    after: '점들이 한 방향으로 모여 있지 않죠? 나이와 의료비는 <b>관계가 약해</b> 보여요. 다음 칸에서 숫자로 확인! (세로축 위 <code>1e7</code> 은 «× 1000만»)' },
+  { ws:['corr'], run:'corr', code: "corr = df.⟦corr⟧(⟦numeric_only = True⟧)\ncorr", blanks: ['corr', 'numeric_only = True'],
+    md: '<b>⑮ 상관계수</b> — 두 열이 함께 움직이는 정도를 −1 ~ 1 로 나타내요(correlation). <code>numeric_only=True</code> 는 «<b>숫자 열만</b>»(성별 · 흡연여부 같은 글자 열은 빼고). 오렌지3 <b>Correlations</b>.',
+    after: '<b>BMI ↔ 의료비 0.75</b> — 강한 양의 상관(BMI 가 크면 의료비도 큰 편). <b>나이 ↔ 의료비 0.10</b> — 거의 관계없음(산점도와 같아요). <b>부호는 방향, 절댓값은 세기</b>. 대각선 1.0 은 자기 자신과의 상관이에요. ⚠ 상관이 높다고 <b>원인</b>이라는 뜻은 아니에요.' },
+  { text: true, html: '<h4>🔁 생각해 보기 — 정답을 만든 열이 입력에 있으면?</h4><p>이 표로 <b>의료비를 맞히는 모델</b>을 만든다고 해 봐요. 그런데 표에 <b>«의료비 등급(상 · 중 · 하)»</b> 열이 있다면, 입력(x)에 넣어도 될까요?<br>' +
+    '→ 안 돼요! 의료비로 <b>만든</b> 열이라 시험 전에 답을 미리 보는 셈이에요(<b>데이터 누설</b>). 점수는 아주 높게 나오지만 새 고객에게는 쓸 수 없어요. 상관계수가 <b>지나치게 높은 열</b>은 «혹시 정답으로 만든 열 아닐까?» 의심해 보기!</p>' }
+];
+var TRAIL = [['df1', 'df1'], ['df2', 'df2'], ['concat', '합치기'], ['dedup', '중복 지우기'], ['dropna', '결측 지우기'], ['filter', '이상치 거르기'], ['dropCols', '열 빼기']];
+var RT = null;
+function newRt(){ return { n: 0, V: {}, outs: {}, cnt: {}, mark: {} }; }
+function nameErr(nm){ return { err: "NameError: name '" + nm + "' is not defined\n→ 위 칸을 먼저 실행하세요. 코랩은 «실행한 칸»만 기억합니다." }; }
+function need(V, names){ for(var i = 0; i < names.length; i++) if(!(names[i] in V)) return nameErr(names[i]); return null; }
+function keyErr(col, F){ return { err: "KeyError: \"['" + col + "'] not found in axis\"" + (F && F.cols.indexOf(col) < 0 ? '\n→ 이미 지운 열이에요. ▶ 모두 실행 으로 처음부터 다시 해 보세요.' : '') }; }
+function exec(c){
+  var V = RT.V, M = RT.mark, e;
+  switch(c.run){
+    case 'load': V.pd = V.plt = V['주소'] = 1; V.df1 = copyF(F1); V.df2 = copyF(F2); M.df1 = shp(V.df1); M.df2 = shp(V.df2); return { text: '' };
+    case 'show1': if((e = need(V, ['df1']))) return e; return { html: dfTable(V.df1) };
+    case 'show2': if((e = need(V, ['df2']))) return e; return { html: dfTable(V.df2) };
+    case 'replace': if((e = need(V, ['df2']))) return e; V.df2 = replaceVals(V.df2, '성별', { '남자':'남', '여자':'여' }); M.df2 = shp(V.df2); return { html: dfTable(V.df2) };
+    case 'concat': if((e = need(V, ['pd', 'df1', 'df2']))) return e; V.df = concatF(V.df1, V.df2); M.concat = shp(V.df); delete M.dedup; delete M.dropna; delete M.filter; delete M.dropCols; return { html: dfTable(V.df) };
+    case 'dupAny': if((e = need(V, ['df']))) return e; if(ci(V.df, '계약번호') < 0) return { err: "KeyError: '계약번호'" }; return { text: dupMask(V.df, '계약번호').some(Boolean) ? 'True' : 'False' };
+    case 'dedup': if((e = need(V, ['df']))) return e; if(ci(V.df, '계약번호') < 0) return { err: "KeyError: Index(['계약번호'], dtype='object')" }; V.df = dedup(V.df, '계약번호'); M.dedup = shp(V.df); return { text: shp(V.df) };
+    case 'nullSum': if((e = need(V, ['df']))) return e; return { text: seriesTxt(V.df.cols, nullCount(V.df), 'int64') };
+    case 'dropna': if((e = need(V, ['df']))) return e; var a = shp(V.df); V.df = dropna(V.df); M.dropna = shp(V.df); return { text: a + '\n' + shp(V.df) };
+    case 'box1': if((e = need(V, ['plt', 'df']))) return e; if(ci(V.df, '나이') < 0) return { err: "KeyError: '나이'" }; return { html: boxSvg(colVals(V.df, '나이')).svg };
+    case 'filter': if((e = need(V, ['plt', 'df']))) return e; V.condition = 1; V.df = filterLE(V.df, '나이', 200); M.filter = shp(V.df); return { html: boxSvg(colVals(V.df, '나이')).svg };
+    case 'save': if((e = need(V, ['df']))) return e; return { text: '', note: '📁 combined_file.csv 저장 · ' + V.df.rows.length + '줄 × ' + V.df.cols.length + '열' };
+    case 'dropErr': if((e = need(V, ['df']))) return e; return { err: "KeyError: \"['연락처'] not found in axis\"" };
+    case 'dropCols': if((e = need(V, ['df']))) return e;
+      if(ci(V.df, '연락처') < 0) return keyErr('연락처', V.df); if(ci(V.df, '계약번호') < 0) return keyErr('계약번호', V.df);
+      V.df = dropCols(V.df, ['연락처', '계약번호']); M.dropCols = shp(V.df); return { html: dfTable(V.df) };
+    case 'scatter': if((e = need(V, ['plt', 'df']))) return e; return { html: scatterSvg(colVals(V.df, '나이'), colVals(V.df, '의료비'), 'age', 'cost') };
+    case 'corr': if((e = need(V, ['df']))) return e; V.corr = corrM(V.df); return { html: corrTable(V.corr) };
+  }
+  return { text: '' };
+}
+
+/* ── 연습 단계(보기 · 빈칸 · 따라 적기) ───────────────────────────── */
+var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기' };
+function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+var MODE = TEACH ? 'view' : (MODES[store('prep_mode')] ? store('prep_mode') : 'blank');
+var ANS = {}, SOLVED = {};
+function akey(i){ return MODE + '|' + i; }
+function plain(code){ return code.replace(/[⟦⟧]/g, ''); }
+function normCode(s){
+  var out = '', qch = null, depth = 0;
+  for(var i = 0; i < s.length; i++){
+    var ch = s[i];
+    if(qch){ out += ch === '"' ? "'" : ch; if(ch === qch) qch = null; continue; }
+    if(ch === '"' || ch === "'"){ qch = ch; out += "'"; continue; }
+    if(ch === '#'){ while(i < s.length && s[i] !== '\n') i++; i--; continue; }
+    if(ch === '(' || ch === '[' || ch === '{') depth++;
+    if(ch === ')' || ch === ']' || ch === '}') depth = Math.max(0, depth - 1);
+    if(ch === '\n'){ if(depth === 0) out += '\n'; continue; }
+    if(ch === ' ' || ch === '\t' || ch === '\r' || ch === ' ') continue;
+    out += ch;
+  }
+  return out.split('\n').filter(function(l){ return l; }).join('\n');
+}
+function sameTok(v, tok){ return normCode(String(v)) === normCode(tok); }
+function isSolved(i, c){ return MODE === 'view' || c.given || SOLVED[akey(i)] === plain(c.code); }
+function blankParts(c){
+  var code = plain(c.code), parts = [], at = 0;
+  (c.blanks || []).forEach(function(tok){ var k = code.indexOf(tok, at); if(k < 0) return; parts.push(code.slice(at, k)); parts.push({ tok: tok }); at = k + tok.length; });
+  parts.push(code.slice(at)); return parts;
+}
+function codeEditor(i, c){
+  var key = akey(i), a = ANS[key];
+  if(MODE === 'view' || c.given) return '<pre class="code">' + hl(c.code) + '</pre>' + (c.given && MODE !== 'view' ? '<div class="pfb info">이 칸은 그대로 ▶ 실행하세요.</div>' : '');
+  if(isSolved(i, c)) return '<pre class="code solved">' + hl(plain(c.code)) + '</pre><div class="pfb ok">✅ 완성! ▶ 로 실행해 결과를 보세요.</div>';
+  var fb = '<div class="pfb" id="pfb' + i + '"></div>', btn = '<div class="pact"><button class="btn chk" type="button" data-chk="' + i + '">✓ 확인</button>';
+  if(MODE === 'blank'){
+    var bi = 0, h = blankParts(c).map(function(p){
+      if(typeof p === 'string') return hl(p);
+      var v = a && a[bi] != null ? a[bi] : '';
+      return '<input class="bl" data-cell="' + i + '" data-b="' + (bi++) + '" style="width:' + Math.max(4, p.tok.length + 2) + 'ch" value="' + esc(v) + '" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="빈칸">';
+    }).join('');
+    return '<pre class="code">' + h + '</pre>' + btn + '<small class="kb">빈칸 사이는 Tab · 다 채우면 Enter</small></div>' + fb;
+  }
+  return '<pre class="code ghost">' + hl(plain(c.code)) + '</pre><textarea class="type" data-cell="' + i + '" rows="' + Math.max(2, plain(c.code).split('\n').length + 1) + '" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="위 코드를 그대로 따라 적어 보세요">' + esc(a || '') + '</textarea>' + btn + '<small class="kb">Shift + Enter 로 확인</small></div>' + fb;
+}
+function check(i){
+  var c = CELLS[i], key = akey(i), fb = document.getElementById('pfb' + i), want = plain(c.code), ok = false, msg = '';
+  if(MODE === 'blank'){
+    var vals = ANS[key] || [], wrong = [];
+    blankParts(c).filter(function(p){ return typeof p !== 'string'; }).forEach(function(p, k){ if(!sameTok(vals[k] || '', p.tok)) wrong.push(k); });
+    ok = !wrong.length;
+    if(!ok){ msg = '🤔 ' + wrong.length + '군데를 다시 보세요. 📘 설명의 <b>굵은 글자</b>와 왼쪽 <b>' + WINFO[c.ws[0]][0] + '</b> 위젯이 힌트예요.';
+      [].forEach.call(document.querySelectorAll('input.bl[data-cell="' + i + '"]'), function(inp, k){ inp.classList.toggle('bad', wrong.indexOf(k) >= 0); }); }
+  } else {
+    var got = normCode(ANS[key] || ''), exp = normCode(want);
+    ok = got === exp;
+    if(!ok){
+      var gl = got.split('\n'), el = exp.split('\n'), n = 0; while(n < el.length && gl[n] === el[n]) n++;
+      var hit = ''; if(n < el.length) want.split('\n').some(function(l){ var nl = normCode(l); if(nl && el[n].indexOf(nl) === 0){ hit = l.trim(); return true; } return false; });
+      msg = !got ? '✍️ 아직 비어 있어요. 위 코드를 한 줄씩 따라 적어 보세요.' :
+        n >= gl.length ? '✍️ 거의 다 왔어요 — <code>' + esc(hit || '다음 줄') + '</code> 부터 이어서 적어 보세요.' :
+        '🤔 <code>' + esc(hit || ((n + 1) + '번째 줄')) + '</code> 줄을 다시 보세요. 철자 · 대괄호 · 따옴표 · 열 이름을 확인!';
+    }
+  }
+  if(ok){ SOLVED[key] = want; runCell(i); var nx = document.querySelector('.cell[data-i="' + (i + 1) + '"] input.bl, .cell[data-i="' + (i + 1) + '"] textarea'); if(nx) nx.focus(); return; }
+  if(fb){ fb.className = 'pfb no'; fb.innerHTML = msg; }
+}
+function runCell(i, quiet){
+  var c = CELLS[i]; if(!c || c.text) return true;
+  if(!isSolved(i, c)){ if(!quiet){ var fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '✋ 먼저 칸을 완성하고 <b>✓ 확인</b>을 누르세요. 맞으면 저절로 실행돼요.'; } } return false; }
+  if(!RT) RT = newRt();
+  var res = exec(c); RT.n++; RT.cnt[i] = RT.n; RT.outs[i] = res;
+  if(!quiet) drawNb();
+  return true;
+}
+function runAll(){
+  RT = newRt(); var stop = -1;
+  for(var i = 0; i < CELLS.length; i++){ if(!runCell(i, true)){ stop = i; break; } }
+  drawNb();
+  if(stop >= 0){ var fb = document.getElementById('pfb' + stop); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '⏸ 여기까지 실행했어요. 이 칸을 완성하면 이어서 실행됩니다.'; }
+    var el = document.querySelector('.cell[data-i="' + stop + '"]'); if(el) el.scrollIntoView({ behavior:'smooth', block:'center' }); }
+}
+function drawTrail(){
+  var M = RT ? RT.mark : {};
+  document.getElementById('trail').innerHTML = '<b>📐 df 모양 따라가기</b>' + TRAIL.map(function(t, k){
+    return (k === 2 ? '<i>→</i>' : k > 2 ? '<i>→</i>' : k === 1 ? '<i>+</i>' : '') + '<span' + (M[t[0]] ? ' class="on"' : '') + '>' + t[1] + ' <code>' + (M[t[0]] || '( ?, ? )') + '</code></span>';
+  }).join('');
+}
+function counts(){ var n = 0, N = 0; CELLS.forEach(function(c, i){ if(c.text || c.given) return; N++; if(SOLVED[akey(i)] === plain(c.code)) n++; }); return [n, N]; }
+function drawModeBar(){
+  var k = counts();
+  document.getElementById('modeBar').innerHTML = Object.keys(MODES).map(function(m){
+    return '<button type="button" class="mode' + (m === MODE ? ' on' : '') + '" data-mode="' + m + '" aria-pressed="' + (m === MODE) + '">' + MODES[m] + '</button>'; }).join('') +
+    (MODE === 'view' ? '<small>선생님 화면 · 완성 코드를 보며 설명 · ▶ 실행</small>' : '<small>완성 <b>' + k[0] + ' / ' + k[1] + '</b>칸' + (k[0] === k[1] ? ' 🎉' : '') + '</small>');
+}
+function nextStepHtml(){
+  if(MODE === 'view') return '';
+  var k = counts(); if(k[0] < k[1]) return '';
+  if(MODE === 'blank') return '<div class="nextstep">🎉 <b>빈칸 완성!</b> 이번엔 같은 코드를 <b>직접 따라 적어</b> 볼까요? 특히 <code>df = df.…</code> 처럼 <b>다시 담는 줄</b>을 빼먹지 않는지 보세요.<br><button class="btn pri" type="button" data-gomode="copy">🟡 따라 적기로 →</button></div>';
+  return '<div class="nextstep">🎉 <b>따라 적기까지 끝!</b> 왼쪽 위젯을 하나씩 눌러 오렌지3 결과와 코드 결과가 같은지 비교해 보세요. 그다음은 모델 만들기 — <a class="btn" href="orange.html">🍊 청년 인구 · 붓꽃 실습 창 →</a></div>';
+}
+function drawNb(){
+  var nb = document.getElementById('nb');
+  nb.innerHTML = CELLS.map(function(c, i){
+    if(c.text) return '<div class="tcell">' + c.html + '</div>';
+    var o = RT && RT.outs[i], out = '';
+    if(o){
+      if(o.err) out = '<div class="out err">' + esc(o.err) + '</div>';
+      else if(o.html) out = '<div class="out">' + o.html + '</div>';
+      else if(o.text || o.note) out = '<div class="out">' + esc(o.text || '') + (o.note ? (o.text ? '\n' : '') + '<span class="note">' + esc(o.note) + '</span>' : '') + '</div>';
+      if((!o.err || c.errOk) && c.after) out += '<div class="read">📖 ' + c.after + '</div>';
+    }
+    var lock = !isSolved(i, c), on = selW && c.ws.indexOf(selW) >= 0;
+    return (c.md ? '<div class="tcell sm"><span class="tag">📘 설명</span>' + c.md + '</div>' : '') +
+      '<div class="cell' + (on ? ' hl' : '') + (lock ? ' lock' : '') + '" data-i="' + i + '" data-w="' + c.ws[0] + '" tabindex="0">' +
+      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행"' + (lock ? ' title="칸을 먼저 완성하세요"' : '') + '>▶</button><span class="cnt">[' + (RT && RT.cnt[i] ? RT.cnt[i] : ' ') + ']</span></div>' +
+      '<div class="src"><div class="ctag">' + c.ws.map(function(w){ return '<span class="chip ' + WKIND[w] + '">' + WINFO[w][0] + '</span>'; }).join('') + '</div>' +
+      codeEditor(i, c) + out + '</div></div>';
+  }).join('') + nextStepHtml();
+  drawModeBar(); drawTrail();
+}
+function pick(id){
+  selW = selW === id ? null : id; drawCanvas(); drawSet(); drawNb();
+  var c = document.querySelector('.cell.hl'); if(c) c.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ── 이벤트 ───────────────────────────── */
+document.getElementById('cv').addEventListener('click', function(e){ var g = e.target.closest('.wg'); if(g) pick(g.dataset.w); });
+document.getElementById('cv').addEventListener('keydown', function(e){ var g = e.target.closest('.wg'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); pick(g.dataset.w); } });
+document.getElementById('nb').addEventListener('click', function(e){
+  var r = e.target.closest('[data-run]'); if(r){ runCell(+r.dataset.run); return; }
+  var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
+  var gm = e.target.closest('[data-gomode]'); if(gm){ MODE = gm.dataset.gomode; store('prep_mode', MODE); RT = null; drawNb(); document.getElementById('modeBar').scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  if(e.target.closest('input, textarea, .pact, .pfb, .read, .tcell, .nextstep, .out')) return;
+  var c = e.target.closest('.cell'); if(c){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
+});
+document.getElementById('nb').addEventListener('input', function(e){
+  var tg = e.target, i = tg.dataset && tg.dataset.cell; if(i == null) return;
+  var key = akey(+i);
+  if(tg.matches('input.bl')){ var a = ANS[key] || (ANS[key] = []); a[+tg.dataset.b] = tg.value; tg.classList.remove('bad'); }
+  else if(tg.matches('textarea.type')) ANS[key] = tg.value;
+});
+document.getElementById('nb').addEventListener('keydown', function(e){
+  var tg = e.target;
+  if(tg.matches && tg.matches('input.bl') && e.key === 'Enter'){ e.preventDefault(); check(+tg.dataset.cell); return; }
+  if(tg.matches && tg.matches('textarea.type')){
+    if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); check(+tg.dataset.cell); return; }
+    if(e.key === 'Tab' && !e.shiftKey){ e.preventDefault(); var s0 = tg.selectionStart; tg.value = tg.value.slice(0, s0) + '    ' + tg.value.slice(tg.selectionEnd); tg.selectionStart = tg.selectionEnd = s0 + 4; ANS[akey(+tg.dataset.cell)] = tg.value; }
+    return;
+  }
+  var c = tg.closest && tg.closest('.cell'); if(!c || tg.closest('button')) return;
+  if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); runCell(+c.dataset.i); var nx = document.querySelector('.cell[data-i="' + (+c.dataset.i + 1) + '"]'); if(nx) nx.focus(); }
+});
+document.getElementById('modeBar').addEventListener('click', function(e){ var b = e.target.closest('[data-mode]'); if(!b) return; if(b.dataset.mode !== MODE) RT = null; MODE = b.dataset.mode; store('prep_mode', MODE); drawNb(); });
+document.getElementById('runAll').addEventListener('click', runAll);
+document.getElementById('resetRt').addEventListener('click', function(){ RT = null; drawNb(); });
+drawCanvas(); drawSet(); drawNb();
+</script>
+</body>
+</html>
