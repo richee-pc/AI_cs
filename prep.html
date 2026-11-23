@@ -342,6 +342,8 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 .trail i{font-style:normal; color:var(--muted)}
 .wset .set{font-size:13px; background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:6px 10px; margin:0 0 8px}
 .wset .set b{color:var(--ink)}
+.wdesc{font-size:13px; color:var(--ink-2); background:color-mix(in srgb,var(--orange) 7%,var(--surface)); border:1px solid color-mix(in srgb,var(--orange) 25%,var(--line)); border-radius:8px; padding:6px 10px; margin:6px 0 0; line-height:1.6}
+.wdesc b{color:var(--ink)}
 .wset .outbox{overflow-x:auto}
 .plot{display:block; max-width:340px; width:100%; height:auto; background:#fff; border-radius:6px}
 .plot text{font-family:'DejaVu Sans','Malgun Gothic',sans-serif; font-size:11px; fill:#222}
@@ -581,6 +583,21 @@ var WINFO = {
   scatter:['Scatter Plot', "<code>plt.scatter(df['나이'], df['의료비'])</code>", 'Axis x: <b>나이</b> · Axis y: <b>의료비</b>'],
   corr:   ['Correlations', '<code>corr = df.corr(numeric_only=True)</code>', 'Pearson correlation · 숫자 열끼리 짝을 지어 큰 것부터 보여 줘요']
 };
+/* 위젯 설명(오렌지3에서 이 위젯이 하는 일) */
+var WDESC = {
+  file1:  'CSV · 엑셀 같은 <b>표 파일을 불러와요</b>. 열마다 Type(numeric 숫자 · categorical 범주 · text 글자)과 Role(feature · target · meta · skip)을 정해요. 연락처처럼 글자로 된 열은 보통 meta(설명용)로 읽혀요.',
+  edit:   '열 이름 · 자료형 · <b>범주 값의 이름을 고치는</b> 위젯이에요. 여기서는 성별 값 «남자 · 여자»를 «남 · 여»로 바꿔 두 표의 표기를 맞춰요.',
+  concat: '여러 표를 <b>위아래로 이어 붙여요</b>. 열은 두 표의 열을 모두 모으기(union) 또는 겹치는 열만(intersection) 중에서 골라요.',
+  unique: '고른 열(Group by)의 값이 같은 줄이 여러 개면 <b>하나만 남겨요</b>. 어느 줄을 남길지(Item to keep: 첫 번째 · 마지막 등) 고를 수 있어요.',
+  impute: '<b>빈칸(결측치)을 처리</b>해요. 평균 · 가장 많은 값으로 채우기, 정한 값으로 채우기, <b>빈칸 있는 줄 지우기</b> 등에서 골라요.',
+  box:    '한 열의 값을 <b>상자 그림</b>으로 보여 줘요. 상자 = 가운데 50%, 상자 안 선 = 중앙값. 상자에서 멀리 떨어진 값(<b>이상치</b>)을 찾기 좋아요.',
+  rows:   '<b>조건에 맞는 줄만</b> 골라요. 맞는 줄은 Matching Data, 안 맞는 줄은 Unmatched Data 로 따로 나와요.',
+  save:   '받은 표를 csv · 엑셀 같은 <b>파일로 저장</b>해요.',
+  cols:   '열의 역할을 정해요 — <b>Features</b>(입력) · <b>Target</b>(정답) · <b>Metas</b>(설명용) · <b>Ignored</b>(쓰지 않음). 쓰지 않을 열은 Ignored 칸으로 끌어다 놓아요.',
+  scatter:'두 열을 가로축 · 세로축에 놓고 <b>점을 찍어</b> 관계를 봐요. 점 색을 다른 열로 칠할 수도 있어요.',
+  corr:   '숫자 열을 두 개씩 짝지어 <b>상관계수</b>(−1 ~ 1)를 구하고, 큰 것부터 차례로 보여 줘요.'
+};
+WDESC.file2 = WDESC.file1;
 var WKIND = {}; WID.forEach(function(w){ WKIND[w.id] = w.kind; });
 function wpos(id){ return WID.filter(function(w){ return w.id === id; })[0]; }
 var selW = null;
@@ -616,7 +633,7 @@ function drawSet(){
   var el = document.getElementById('wset');
   if(!selW){ el.innerHTML = '<h3>👆 위젯을 하나 눌러 보세요</h3><p class="hint">맨 왼쪽 두 위젯은 <b>File</b> 위젯 두 개(이름을 파일 이름으로 바꿔 둠)예요. 오렌지3는 위젯을 <b>잇는 순간 바로 계산</b>해요. 위젯 위의 숫자가 그 위젯에서 나오는 <b>줄 수</b>예요 — 6 + 7 = 13 → 12 → 11 → 10. 줄이 하나씩 줄어드는 까닭을 오른쪽 코드에서 찾아보세요. 위젯을 누르면 <b>같은 일을 하는 코드 칸</b>에 노란 불이 들어와요.</p>'; return; }
   var I = WINFO[selW], h = '<h3><span class="chip ' + WKIND[selW] + '">' + (WKIND[selW] === 'model' ? '시각화' : '데이터') + '</span>' + I[0] + '</h3>' +
-    '<div class="map">↔ 코드: ' + I[1] + '</div><div class="set">⚙ 설정 — ' + I[2] + '</div><div class="outbox">';
+    '<div class="wdesc">🍊 <b>' + I[0] + ' 위젯은?</b> ' + WDESC[selW] + '</div>' + '<div class="map">↔ 코드: ' + I[1] + '</div><div class="set">⚙ 설정 — ' + I[2] + '</div><div class="outbox">';
   if(selW === 'box'){ var bx = boxSvg(colVals(O.impute, '나이')); h += bx.svg + '<p class="hint">중앙값 ' + bx.md + ' · 상자 ' + bx.q1 + ' ~ ' + bx.q3 + ' · 동그라미(이상치) <b>' + bx.fl.join(', ') + '</b></p>'; }
   else if(selW === 'scatter') h += scatterSvg(colVals(O.cols, '나이'), colVals(O.cols, '의료비'), '나이', '의료비');
   else if(selW === 'corr') h += pairList(corrM(O.cols)) + '<p class="hint">코드의 <code>df.corr()</code>는 같은 값을 <b>표(행렬)</b>로 보여 줘요.</p>';

@@ -349,6 +349,9 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 .toplinks a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:5px 13px}
 .toplinks a.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
 .toplinks a:hover{border-color:var(--orange)}
+.wdesc{font-size:13px; color:var(--ink-2); background:color-mix(in srgb,var(--orange) 7%,var(--surface)); border:1px solid color-mix(in srgb,var(--orange) 25%,var(--line)); border-radius:8px; padding:6px 10px; margin:6px 0 0; line-height:1.6}
+.wdesc b{color:var(--ink)}
+.tbadge{display:inline-block; font-size:12px; font-weight:700; color:var(--ok); background:var(--ok-bg); border-radius:99px; padding:2px 10px; margin-left:6px}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -1512,11 +1515,22 @@ function drawCanvas(){
 }
 
 /* ── 그리기: 위젯 설정 창 ───────────────────────────── */
+/* 위젯 설명(오렌지3에서 이 위젯이 하는 일) */
+var WDESC = {
+  file:   'CSV · 엑셀 같은 <b>표 파일을 불러와요</b>. 열마다 <b>Type</b>(numeric 숫자 / categorical 범주)과 <b>Role</b>(feature 힌트 · target 정답 · skip 안 씀)을 정해요. 출력: Data',
+  sampler:'데이터를 <b>훈련용(Data Sample)</b>과 <b>시험용(Remaining Data)</b>으로 나눠요. Fixed proportion = 훈련용 비율, Replicable = 다시 해도 똑같이 나누기. 입력 Data → 출력 두 개',
+  lin:    '점들 사이를 지나는 <b>가장 덜 틀리는 직선</b>을 찾는 <b>예측(회귀)</b> 모델이에요. Test and Score 에 <b>Learner</b>로 꽂으면 그 안에서 학습하고, 데이터를 받으면 학습한 <b>Model</b>을 내보내요(Predictions 로).',
+  knn:    '새 데이터와 <b>가장 가까운 이웃 k개</b>의 다수결로 종류를 정하는 <b>분류</b> 모델이에요. Number of neighbors = k(사람이 정하는 <b>하이퍼파라미터</b>). Learner · Model 두 가지를 내보내요.',
+  score:  'Learner(모델)를 받아 <b>학습시키고 점수</b>를 매겨요. <b>Test on test data</b>(따로 둔 시험용으로) · <b>Cross validation</b>(나눠 가며 여러 번) · <b>Test on train data</b>(공부한 데이터로 — 점수가 부풀어요). 예측이면 MSE · RMSE · MAE · R2, 분류면 CA · Prec · Recall · F1 등을 보여 줘요.',
+  pred:   '학습한 <b>Model</b>과 시험용 데이터를 받아 <b>줄마다 예측값</b>을 보여 줘요. 진짜 답 열과 나란히 놓고 하나씩 비교할 수 있어요.',
+  cm:     'Test and Score 의 결과(Evaluation Results)를 받아 <b>오분류표</b>를 그려요. <b>행 = 실제(Actual), 열 = 예측(Predicted)</b>. 대각선이 맞힌 개수예요.'
+};
+function wdescOf(t, id){ return id === 'model' ? (t === 'reg' ? WDESC.lin : WDESC.knn) : WDESC[id]; }
 function drawSet(){
   var t = cur, st = S[t], box = document.getElementById('wset'), w = selW && wpos(t, selW), h = '';
   if(!w){ box.innerHTML = '<h3>👆 위젯을 하나 눌러 보세요</h3><p class="hint">그 위젯과 같은 일을 하는 코드가 오른쪽에서 <b style="background:var(--hl-soft)">노랗게</b> 표시됩니다. 거꾸로 코드 칸을 눌러도 위젯이 골라져요.</p>' + orangeScoreHtml(); return; }
   var mp = MAPTXT[w.id];
-  h += '<h3><span class="chip ' + w.kind + '">' + w.nm + '</span>' + mp[0] + '</h3><div class="map">코드에서는 → ' + mp[1] + '</div>';
+  h += '<h3><span class="chip ' + w.kind + '">' + w.nm + '</span>' + mp[0] + '</h3><div class="wdesc">🍊 <b>' + w.nm + ' 위젯은?</b> ' + wdescOf(t, w.id) + '</div><div class="map">코드에서는 → ' + mp[1] + '</div>';
   if(w.id === 'file'){
     var D = DATA[DS[t]];
     h += '<table class="roles"><tr><th>열 이름</th><th>Type</th><th>Role</th></tr>' + D.cols.map(function(c){
@@ -2107,6 +2121,14 @@ function drawSteps(){
   document.getElementById('stepBar').innerHTML = mk('data', '데이터 준비', 'File') + '<i>→</i>' + mk('data', '① 분리', 'Data Sampler') + '<i>→</i>' +
     mk('model', '모델 고르기', cur === 'reg' ? 'Linear Regression' : 'kNN') + '<i>→</i>' + mk('eval', '② 학습 · ③ 평가', 'Test and Score') + '<i>→</i>' + mk('eval', '③ 예측', 'Predictions') +
     (cur === 'cls' ? '<i>→</i>' + mk('eval', '오분류표', 'Confusion Matrix') : '');
+}
+/* 교사용(?t=1): 정리 퀴즈 · 구현 · 해석의 답을 모두 채워 둠 */
+if(TEACH){
+  QZ.forEach(function(z, i){ qdone['b' + i] = 1; }); QP.forEach(function(z, i){ qdone['p' + i] = 1; }); QS.forEach(function(z, i){ qdone['s' + i] = 1; });
+  IQ.forEach(function(it, i){ IA[i] = it[2]; });
+  var SAY = ['kNN, k = 5', '30', '정확도', '0.967', '가장 많은 종으로 찍기 0.433', '0.53', 'versicolor · virginica 경계', 'k'];
+  [].forEach.call(document.querySelectorAll('.say > i'), function(el, k){ if(SAY[k]){ el.textContent = SAY[k]; el.style.color = 'var(--orange-d)'; el.style.fontStyle = 'normal'; el.style.fontWeight = '700'; } });
+  [].forEach.call(document.querySelectorAll('#quizView h2, #implView h2'), function(h){ h.insertAdjacentHTML('beforeend', '<span class="tbadge">교사용 · 답 채움</span>'); });
 }
 var hashEval = /^#(eval|m-eval)$/.test(location.hash);
 var hashT = hashEval ? 'metric' : (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
