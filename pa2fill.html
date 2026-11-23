@@ -376,11 +376,11 @@ function show(r){
  if(s.widget&&s.widget!=='(빈칸)') add('ok','모델 위젯 이름: '+esc(s.widget)); else add('todo','모델 칸 맨 윗줄 위젯 이름이 비었어요','# [오렌지3] Logistic Regression · 담당: … 처럼','s3');
  var d=Number(s.duty)||0;
  if(d>=8) add('ok','«담당: 내 이름» 줄 '+d+'칸'); else if(d>0) add('warn','«담당: 내 이름» 줄 '+d+'칸만 있어요','코드 칸마다 맨 윗줄에 넣어요','s3'); else add('todo','«담당: 내 이름» 줄이 없어요','구술 ① «내 담당 위젯 한 문장»에 써요','s3');
- blank(s.b1,'1절 나의 계획','s1','SDG 번호 · 사용자 · 문제 · 출처 기관 · 내 위젯 · 이유');
+ blank(s.b1,'1절 나의 계획','s1','SDG는 «3.9»처럼 점 아래 세부 번호까지 · 사용자 · 문제 · 출처 기관 · 내 위젯 · 이유');
  var n4=Number(s.n4)||0; if(n4>=2) add('ok','4절 비교표 — 오렌지3 · 코랩 숫자 둘 다 있음'); else add('todo','4절 비교표 '+(s.n4==='-'?'칸을 못 찾았어요':n4===1?'— 오렌지3 · 코랩 중 한 칸에만 숫자가 있어요':'— 숫자가 없어요'),'같은 지표 한 줄에 오렌지3 칸 · 코랩 칸 숫자를 하나씩(안내 글 말고 실제 숫자)','s4');
- blank(s.b5,'5절 내 개선 실험','s5','가설 · 바꾼 것 하나 · 전 → 후 숫자 · 해석');
+ blank(s.b5,'5절 내 개선 실험','s5','가설 · 바꾼 것 하나 · 결과는 «0.82 → 0.85»처럼 전 · 후 숫자 둘 다 · 해석');
  blank(s.b6,'6절 생활 적용','s6','모델이 ○○ → 누가 → 무엇을 + 틀리면 누가');
- blank(s.b7,'7절 판단 근거 다섯 칸','s7','다섯 칸 모두 우리 숫자 · 열 이름으로 «왜»(«Tree» · «0.977»처럼 한 단어만 쓰면 빈 칸)');
+ blank(s.b7,'7절 판단 근거 다섯 칸','s7','다섯 칸 모두 우리 숫자 · 열 이름으로 «왜» — 한 칸에 열 글자 넘게(«랜덤 포레스트» · «정확도 0.916»처럼 이름 · 숫자만 쓰면 빈 칸)');
  function pick(k){return L.filter(function(x){return x.k==k;}).map(function(x){return x.h;}).join('');}
  var todo=L.filter(function(x){return x.k=='todo';}).length,warn=L.filter(function(x){return x.k=='warn';}).length,ok=L.length-todo-warn;
  S.classList.add('on');document.getElementById('meBar').style.width=Math.round(ok/L.length*100)+'%';
