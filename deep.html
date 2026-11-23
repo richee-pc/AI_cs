@@ -873,6 +873,11 @@ document.getElementById('gq').addEventListener('click', function(e){
   f.className = 'fb ' + (ok ? 'ok' : 'no'); f.innerHTML = ok ? '✅ ' + GQ[i][2] : '🤔 다시! 파란 선(훈련)과 주황 선(테스트)이 <b>어디서 갈라지는지</b> 보세요.';
 });
 drawCanvas(); drawSet(); drawNb(); drawPc(); drawEp(); drawGraphs();
+/* 교사용(?t=1): 손실 그래프 읽기 답도 채워 둠 */
+if(TEACH){
+  GQ.forEach(function(q, i){ var bt = document.querySelector('[data-gq="' + i + '"] [data-g="' + q[1] + '"]'); if(bt) bt.click(); });
+  [].forEach.call(document.querySelectorAll('.sect h2'), function(h){ if(/손실 그래프 읽기/.test(h.textContent)) h.insertAdjacentHTML('beforeend', ' <span style="display:inline-block; font-size:12px; font-weight:700; color:var(--ok); background:var(--ok-bg); border-radius:99px; padding:2px 10px">교사용 · 답 채움</span>'); });
+}
 </script>
 </body>
 </html>
