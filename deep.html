@@ -1,0 +1,878 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════
+     deep · 층을 쌓아 딥러닝 모델 만들기(독버섯)
+     ─────────────────────────────────────────────────────────────────────
+     고2 「인공지능 기초」 Ⅱ-06 · 07(교과서 116~138쪽, 코드는 126~130쪽) 수업 도구
+     prep.html · orange.html 과 같은 모양 — 왼쪽 신경망 그림 ↔ 오른쪽 코랩 칸
+     데이터 모양 · 인코딩 · 정규화 결과는 실제 계산값, 학습 기록은 교과서 실행 결과.
+     ══════════════════════════════════════════════════════════════════════ -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>딥러닝 실습 창 · 독버섯 가려내기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="교과서 126~130쪽 독버섯 이진 분류 딥러닝 코드를 신경망 그림과 짝지어 빈칸 · 따라 적기로 익히고, 퍼셉트론 · 에포크 계산기와 손실 그래프 읽기로 복습하는 창">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --font-ui:'IBM Plex Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-mono:'IBM Plex Mono','D2Coding','Consolas',monospace;
+  --bg:#EDF0F4; --surface:#FFFFFF; --canvas:#F7F5F0; --dot:#DDD6CA;
+  --line:#D5DCE5; --line-soft:#E5EAF1;
+  --ink:#171C24; --ink-2:#3F4856; --muted:#6B7685;
+  --code-bg:#FBFCFE; --code-line:#EEF2F7; --code-gutter:#98A4B5;
+  --syn-kw:#8A3FFC; --syn-fn:#0F62FE; --syn-str:#0E7C5A; --syn-num:#B45309; --syn-com:#8B97A8;
+  --ok:#127A56; --ok-bg:#E2F4EC; --bad:#C0392F; --bad-bg:#FBEBE9; --warn:#9A6608; --warn-bg:#FDF2DE;
+  --hl:#FFC53D; --hl-soft:#FFF3D2;
+  --orange:#E8731C; --orange-d:#B9560D; --orange-wash:#E8731C14;
+  --colab:#F9AB00;
+  --w-data:#FFD39F; --w-model:#FAC1D9; --w-eval:#C3F3F3; --w-pred:#C3F3F3;
+  --w-data-s:#E89A3C; --w-model-s:#D9709B; --w-eval-s:#3FB3B3;
+  --r-s:6px; --r-m:10px; --r-l:14px;
+  --sh:0 1px 2px rgba(23,28,36,.06),0 4px 14px rgba(23,28,36,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+    --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+    --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+    --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+    --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+    --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+    --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F14; --surface:#141920; --canvas:#12161C; --dot:#262E39;
+  --line:#28313D; --line-soft:#1F2731; --ink:#E8EDF3; --ink-2:#B8C2CF; --muted:#8C97A6;
+  --code-bg:#0F141A; --code-line:#1A222C; --code-gutter:#5D6878;
+  --syn-kw:#C6A0FF; --syn-fn:#78A9FF; --syn-str:#6FD3A6; --syn-num:#F5B76B; --syn-com:#6E7A8B;
+  --ok:#5FD3A3; --ok-bg:#12302A; --bad:#FF8A80; --bad-bg:#3A1A1A; --warn:#F5C26B; --warn-bg:#33270F;
+  --hl:#E0A62A; --hl-soft:#3A2F14; --orange-wash:#E8731C26;
+  --w-data:#6B4A22; --w-model:#6A3550; --w-eval:#1E5555;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--font-ui); font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%}
+button,input,select{font:inherit; color:inherit}
+code,.mono{font-family:var(--font-mono)}
+.wrap{max-width:1320px; margin:0 auto; padding:0 16px}
+
+/* 머리 */
+.head{background:var(--surface); border-bottom:1px solid var(--line)}
+.head .wrap{padding-top:18px; padding-bottom:14px}
+.kicker{display:inline-flex; gap:6px; align-items:center; font-size:12.5px; font-weight:700; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:3px 11px; margin:0 0 6px}
+h1{margin:0; font-size:clamp(22px,3.2vw,30px); line-height:1.3; letter-spacing:-.01em}
+h1 em{font-style:normal; color:var(--orange)}
+.lede{margin:6px 0 0; color:var(--ink-2); max-width:68em}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px}
+.tab{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:7px 15px; font-weight:600; cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.tab:focus-visible,.wg:focus-visible,.cell:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* 구현 과정 띠 */
+.steps{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:16px 0 4px; font-size:13px}
+.steps span{background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:3px 11px; color:var(--ink-2)}
+.steps span b{color:var(--ink)}
+.steps i{font-style:normal; color:var(--muted)}
+.howto{margin:6px 0 14px; font-size:13.5px; color:var(--muted)}
+.howto b{color:var(--ink-2)}
+
+/* 작업대 */
+.bench{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:14px; align-items:start}
+@media (max-width:980px){ .bench{grid-template-columns:1fr} }
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); overflow:hidden; min-width:0}
+.panel-hd{display:flex; align-items:center; gap:8px; padding:9px 14px; border-bottom:1px solid var(--line-soft); font-weight:700; font-size:14px}
+.panel-hd .dot{width:10px; height:10px; border-radius:50%}
+.panel-hd .sp{flex:1}
+.panel-hd small{font-weight:500; color:var(--muted); font-size:12.5px}
+.btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:5px 12px; font-weight:600; cursor:pointer; font-size:13.5px}
+.btn.pri{background:var(--colab); border-color:var(--colab); color:#2B1D00}
+.btn:hover{filter:brightness(.97)}
+
+/* 오렌지3 캔버스 */
+.canvas{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px; position:relative}
+.canvas svg{display:block; width:100%; height:auto}
+/* 오렌지3식 연결선: 출력 귀 → 입력 귀를 잇는 부드러운 곡선 */
+.lk{fill:none; stroke:#8E959E; stroke-width:2.4; stroke-linecap:round}
+.lk.on{stroke:var(--orange); stroke-width:3.2}
+.lkl{font-size:14px; fill:var(--orange-d); font-weight:600; paint-order:stroke; stroke:var(--canvas); stroke-width:4px; font-family:var(--font-ui)}
+/* 오렌지3식 위젯: 분류 색 원판 + 양옆 연결 고리(왼쪽 입력 · 오른쪽 출력) + 가운데 선 그림 + 아래 이름 */
+.wg{cursor:pointer}
+.wg .halo{fill:none; stroke:transparent; stroke-width:4}
+.wg .disc{stroke-width:1.5}
+.wg.data .disc{fill:var(--w-data); stroke:var(--w-data-s)}
+.wg.model .disc{fill:var(--w-model); stroke:var(--w-model-s)}
+.wg.eval .disc{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.wg .anc{fill:none; stroke:#A7ADB5; stroke-width:3.2; stroke-linecap:round}
+.wg .anc.on{stroke:#7D848D}
+.wg .adot{fill:#7D848D}
+.wg .ico{fill:none; stroke:#3A3F47; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+.wg .ico .f{fill:#3A3F47; stroke:none}
+.wg .ico .w{fill:#FFFFFF; fill-opacity:.85}
+.wg text.nm{font-size:15px; font-weight:600; fill:var(--ink); font-family:var(--font-ui)}
+.wg text.bd{font-size:14px; font-weight:700; fill:var(--orange-d); font-family:var(--font-mono)}
+.wg.sel .halo{stroke:var(--orange)}
+.wg.sel text.nm{fill:var(--orange-d)}
+.wg.warn .halo{stroke:var(--bad); stroke-dasharray:4 3}
+.wg:hover .halo{stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .wg .ico{stroke:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .f{fill:#F1F3F6} :root:not([data-theme="light"]) .wg .ico .w{fill:#000; fill-opacity:.25} }
+:root[data-theme="dark"] .wg .ico{stroke:#F1F3F6} :root[data-theme="dark"] .wg .ico .f{fill:#F1F3F6} :root[data-theme="dark"] .wg .ico .w{fill:#000; fill-opacity:.25}
+.wset{border-top:1px solid var(--line-soft); padding:12px 14px 14px; min-height:150px}
+.wset h3{margin:0 0 2px; font-size:15px; display:flex; gap:8px; align-items:center}
+.wset .map{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:8px; padding:6px 10px; margin:8px 0 10px}
+.wset .map code{font-size:12.5px}
+.wset .hint{font-size:13px; color:var(--muted); margin:6px 0 0}
+.row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:6px 0}
+.row label{font-size:13.5px}
+.roles{width:100%; border-collapse:collapse; font-size:13.5px}
+.roles th,.roles td{border-bottom:1px solid var(--line-soft); padding:5px 6px; text-align:left}
+.roles th{font-size:12px; color:var(--muted); font-weight:600}
+.roles select{border:1px solid var(--line); border-radius:6px; padding:2px 6px; background:var(--surface)}
+.roles tr.tg td:first-child{font-weight:700}
+.scores{width:100%; border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
+.scores th,.scores td{border:1px solid var(--line-soft); padding:5px 8px; text-align:right}
+.scores th:first-child,.scores td:first-child{text-align:left}
+.scores th{background:var(--code-line); font-size:12px}
+.alert{background:var(--bad-bg); color:var(--bad); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+.okmsg{background:var(--ok-bg); color:var(--ok); border-radius:8px; padding:7px 10px; font-size:13px; margin:8px 0}
+input[type=range]{accent-color:var(--orange); width:180px}
+.chip{display:inline-block; font-size:11.5px; font-weight:700; border-radius:99px; padding:1px 8px; white-space:nowrap}
+.chip.data{background:var(--w-data); color:#6A3D06}
+.chip.model{background:var(--w-model); color:#6E1F44}
+.chip.eval{background:var(--w-eval); color:#0D4F4F}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .chip{color:var(--ink)} }
+
+/* 코랩 */
+.nb{background:var(--code-bg); padding:8px 0 10px}
+.cell{display:grid; grid-template-columns:44px minmax(0,1fr); gap:0; margin:6px 10px 6px 4px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:background .15s,border-color .15s}
+.cell:hover{border-color:var(--line)}
+.cell.hl{background:var(--hl-soft); border-color:var(--hl)}
+.gut{display:flex; flex-direction:column; align-items:center; gap:2px; padding-top:7px}
+.run{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:var(--surface); cursor:pointer; display:grid; place-items:center; font-size:11px; padding:0}
+.run:hover{border-color:var(--ink-2)}
+.cnt{font-family:var(--font-mono); font-size:11px; color:var(--code-gutter)}
+.src{min-width:0}
+.ctag{display:flex; gap:6px; align-items:center; padding:6px 0 2px; flex-wrap:wrap}
+.ctag small{color:var(--muted); font-size:12px}
+pre.code{margin:0 0 4px; background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; padding:8px 11px; font-family:var(--font-mono); font-size:13px; line-height:1.55; overflow-x:auto; white-space:pre}
+.k{color:var(--syn-kw)} .f{color:var(--syn-fn)} .s{color:var(--syn-str)} .n{color:var(--syn-num)} .c{color:var(--syn-com); font-style:italic}
+.chg{background:color-mix(in srgb,var(--orange) 22%,transparent); border-radius:3px; box-shadow:0 0 0 1px color-mix(in srgb,var(--orange) 45%,transparent)}
+.out{font-family:var(--font-mono); font-size:12.5px; white-space:pre; overflow-x:auto; padding:4px 11px 6px; margin:0 0 4px; color:var(--ink)}
+.out.err{color:var(--bad); background:var(--bad-bg); border-radius:6px; white-space:pre-wrap}
+.out.stale{opacity:.45}
+.out .note{font-family:var(--font-ui); color:var(--warn); font-size:12px; white-space:normal}
+table.df{border-collapse:collapse; font-size:12px; margin:2px 0}
+table.df th,table.df td{border-bottom:1px solid var(--line-soft); padding:2px 9px; text-align:right}
+table.df th{font-weight:600}
+
+/* 견주기 · 연습 */
+.sect{margin:18px 0 0}
+.sect h2{font-size:18px; margin:0 0 8px}
+.cmp{width:100%; border-collapse:collapse; background:var(--surface); border-radius:var(--r-m); overflow:hidden; font-size:14px; font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{border:1px solid var(--line-soft); padding:8px 10px; text-align:center}
+.cmp th{background:var(--code-line); font-size:13px}
+.cmp td:first-child{text-align:left; font-weight:600}
+.cmp input{width:90px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; text-align:center; background:var(--surface)}
+.why{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:var(--r-m); padding:10px 14px; margin:10px 0 0; font-size:14px; color:var(--ink-2)}
+.why b{color:var(--ink)}
+.qz{display:grid; gap:10px}
+.q{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-m); padding:11px 14px}
+.q .qh{display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-bottom:6px}
+.q .qh b{display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--surface); font-size:12px}
+.q pre{margin:0; font-family:var(--font-mono); font-size:13.5px; white-space:pre-wrap}
+.q input.bl{font-family:var(--font-mono); font-size:13.5px; width:13ch; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:1px 5px; border-radius:4px 4px 0 0}
+.q .fb{font-size:13px; margin-top:6px; min-height:1.2em}
+.q .fb.ok{color:var(--ok)} .q .fb.no{color:var(--bad)}
+.q.done{border-color:var(--ok); background:color-mix(in srgb,var(--ok-bg) 60%,var(--surface))}
+.picks{display:flex; gap:6px; flex-wrap:wrap}
+.picks button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:4px 12px; cursor:pointer; font-size:13.5px}
+.picks button.ok{background:var(--ok-bg); border-color:var(--ok); color:var(--ok)}
+.picks button.no{background:var(--bad-bg); border-color:var(--bad); color:var(--bad)}
+.qsum{font-weight:700; margin:0 0 10px}
+
+/* 연습 단계 */
+.modebar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface)}
+.modebar .mode{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 13px; font-weight:600; font-size:13.5px; cursor:pointer}
+.modebar .mode.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.modebar .mode:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+.modebar small{margin-left:auto; color:var(--muted); font-size:12.5px}
+.modebar small b{color:var(--ink)}
+.tcell{margin:10px 14px 4px 48px; font-size:14px; color:var(--ink-2); line-height:1.65}
+.tcell.sm{font-size:13.5px; margin:14px 14px 2px 48px; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--syn-fn); border-radius:0 8px 8px 0; padding:7px 11px; color:var(--ink-2)}
+.tcell .tag{display:inline-block; font-size:11.5px; font-weight:700; color:var(--syn-fn); margin-right:6px}
+.lex{margin:2px 0 6px; background:color-mix(in srgb,var(--syn-fn) 6%,var(--surface)); border:1px solid color-mix(in srgb,var(--syn-fn) 22%,var(--line)); border-radius:7px; padding:5px 10px; font-size:13px}
+.lex summary{cursor:pointer; font-weight:700; color:var(--syn-fn); list-style:none}
+.lex summary::-webkit-details-marker{display:none}
+.lex summary::before{content:'▸ '} .lex[open] summary::before{content:'▾ '}
+.lex summary small{font-weight:500; color:var(--muted)}
+.lex ol{margin:5px 0 2px; padding:0; list-style:none; display:grid; grid-template-columns:minmax(0,max-content) minmax(0,1fr); gap:5px 12px; align-items:baseline}
+.lex li{display:contents; color:var(--ink-2); line-height:1.55}
+.lex li > span:last-child{color:var(--ink-2)}
+.lex li code{font-size:12px; background:var(--surface); border:1px solid var(--line-soft); border-radius:4px; padding:0 5px; white-space:pre-wrap; overflow-wrap:break-word; max-width:36ch; justify-self:start}
+.lex li .ln{font-size:12px; color:var(--muted); white-space:nowrap}
+.lex li b{color:var(--ink)}
+@media (max-width:640px){ .lex ol{grid-template-columns:1fr; gap:2px} .lex li > span:last-child{margin-bottom:5px} .lex li code{max-width:none} }
+.modebar .lexbtn{font-weight:500}
+.tcell h4{margin:4px 0 4px; font-size:15.5px; color:var(--ink)}
+.tcell p{margin:0}
+.tcell b{color:var(--ink)}
+.tcell code,.read code,.mission code,.pfb code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+.read{font-size:13px; color:var(--ink-2); background:var(--hl-soft); border-radius:7px; padding:7px 11px; margin:2px 0 6px; line-height:1.6; white-space:normal}
+.read b{color:var(--ink)}
+.cell.lock .run{opacity:.45}
+pre.code.ghost{opacity:.62; user-select:none; -webkit-user-select:none}
+pre.code.solved{border-color:var(--ok)}
+pre.code input.bl{font-family:var(--font-mono); font-size:13px; border:0; border-bottom:2px solid var(--orange); background:var(--orange-wash); padding:0 3px; border-radius:4px 4px 0 0; min-width:4ch; color:var(--ink)}
+pre.code input.bl.bad{border-bottom-color:var(--bad); background:var(--bad-bg)}
+pre.code input.bl:focus{outline:2px solid var(--orange); outline-offset:1px}
+textarea.type{display:block; width:100%; font-family:var(--font-mono); font-size:13px; line-height:1.55; border:1px solid var(--line); border-radius:7px; padding:8px 11px; background:var(--surface); resize:vertical; tab-size:4}
+textarea.type:focus{outline:2px solid var(--orange); outline-offset:1px; border-color:transparent}
+.mission{font-size:13.5px; background:var(--warn-bg); color:var(--ink); border-radius:7px; padding:8px 11px; margin:0 0 6px; line-height:1.6}
+.pact{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 2px}
+.pact .chk{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.pact .kb{color:var(--muted); font-size:12px}
+.pfb{font-size:13px; margin:4px 0 6px}
+.pfb:empty{display:none}
+.pfb.ok{color:var(--ok)} .pfb.no{color:var(--bad)} .pfb.hint{color:var(--warn)} .pfb.info{color:var(--muted)}
+
+/* 평가 지표 */
+.sect.mt h2 small{font-size:13px; font-weight:500; color:var(--muted); margin-left:6px}
+.mnav{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 6px}
+.mnav a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:4px 12px}
+.mnav a:hover{border-color:var(--orange); color:var(--orange-d)}
+.mh{font-size:17px; margin:26px 0 8px; scroll-margin-top:12px}
+.mh .tm{font-size:12px; font-weight:600; color:var(--orange-d); background:var(--orange-wash); border-radius:99px; padding:2px 9px; margin-left:6px; vertical-align:2px}
+.mcard{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:0 var(--r-m) var(--r-m) 0; padding:9px 13px; margin:0 0 10px; font-size:14px; color:var(--ink-2); line-height:1.7}
+.mcard b{color:var(--ink)} .mcard p{margin:0 0 6px} .mcard p:last-child{margin:0}
+.warnline{display:block; color:var(--warn); font-size:13px; margin-top:2px}
+.mtbl{overflow-x:auto; margin:0 0 10px}
+.mt-def{min-width:760px; font-size:13.5px}
+.mt-def td{text-align:left!important; vertical-align:top; line-height:1.6}
+.mt-def td:first-child{font-family:var(--font-mono); white-space:nowrap}
+.mt-def.kor{min-width:600px} .mt-def.kor td:first-child{font-family:var(--font-ui); font-weight:600}
+.eq{font-family:var(--font-mono); font-size:13px; white-space:nowrap; display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap}
+.fr{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 2px}
+.fr > span{padding:0 4px; line-height:1.35}
+.fr > span:first-child{border-bottom:1.5px solid currentColor}
+.tool2{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-l); box-shadow:var(--sh); padding:12px 14px; margin:0 0 12px}
+.tool2 h4{margin:0 0 8px; font-size:15px}
+.tool2 .row label{min-width:68px; font-weight:600; font-size:13.5px}
+.mi{flex:1; min-width:200px; font-family:var(--font-mono); font-size:13.5px; border:1px solid var(--line); border-radius:7px; padding:5px 9px; background:var(--surface)}
+.calc{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; margin:8px 0}
+.calc th,.calc td{border:1px solid var(--line-soft); padding:4px 8px; text-align:right}
+.calc th{background:var(--code-line); font-size:12px}
+.calc tr.sum td{font-weight:700; background:var(--hl-soft)}
+.steps2{display:grid; gap:6px; margin:6px 0 0}
+.steps2 div{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:7px 11px; font-size:13.5px; line-height:1.7}
+.steps2 div b.v{font-family:var(--font-mono); color:var(--orange-d); font-size:15px}
+.steps2 small{color:var(--muted); display:block}
+.cmgrid{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:620px; margin:0 0 12px}
+.cmgrid .h,.cmgrid .h0{font-size:12.5px; font-weight:700; color:var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; padding:4px}
+.cmgrid .cc{border-radius:10px; padding:9px 11px; font-size:13.5px; line-height:1.45}
+.cmgrid .cc small{display:block; color:var(--ink-2); font-size:12px}
+.tp{background:var(--ok-bg)} .tn{background:color-mix(in srgb,var(--ok-bg) 55%,var(--surface))} .fp{background:var(--warn-bg)} .fn{background:var(--bad-bg)}
+.cmin{display:grid; grid-template-columns:auto 1fr 1fr; gap:6px; max-width:520px; align-items:center; margin:8px 0}
+.cmin > b{font-size:12.5px; color:var(--muted); text-align:center}
+.cmin label{display:flex; gap:6px; align-items:center; border-radius:8px; padding:6px 9px; font-weight:700; font-size:13px}
+.cmin input{width:100%; min-width:0; font-family:var(--font-mono); font-size:14px; border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.presets{gap:6px}
+.mcard.pick{border-left-color:var(--ok)}
+@media (max-width:640px){ .cmgrid,.cmin{grid-template-columns:62px 1fr 1fr} }
+
+/* 구현 · 해석 */
+.ipk{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 10px}
+.ipk button{border:1px solid var(--line); background:var(--surface); border-radius:99px; padding:5px 11px; font-size:13px; font-weight:600; cursor:pointer}
+.ipk button[aria-selected="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.ipb h4{margin:0 0 4px; font-size:16px}
+.ipb .row2{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:10px; margin-top:8px}
+.ipb .box{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:8px 11px; font-size:13.5px; line-height:1.6}
+.ipb .box b.l{display:block; font-size:12px; color:var(--muted); margin-bottom:2px}
+.ipb .warn2{background:var(--warn-bg)}
+.ipb .nav2{display:flex; justify-content:space-between; margin-top:10px}
+@media (max-width:720px){ .ipb .row2{grid-template-columns:1fr} }
+.encg{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.encg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.encg .tool2{margin:0}
+@media (max-width:900px){ .encg,.encg.two{grid-template-columns:1fr} }
+table.enc td,table.enc th{text-align:center}
+.say{font-size:15px; line-height:2.1}
+.say i{display:inline-block; min-width:64px; border-bottom:1.5px solid var(--ink-2); margin:0 3px}
+.hint code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
+/* 다음 단계 안내 · 정리 퀴즈 */
+.nextstep{margin:14px 12px 6px 48px; background:var(--ok-bg); border:1.5px solid var(--ok); border-radius:12px; padding:12px 14px; font-size:14.5px; line-height:1.7; color:var(--ink)}
+.nextstep .btn{display:inline-block; margin:8px 8px 0 0}
+.modebar .mode small{font-size:11px; font-weight:600; color:var(--muted); margin-left:2px}
+.modebar .mode.on small{color:inherit; opacity:.75}
+textarea.qsin{min-height:38px; margin-top:4px}
+pre.ghost2{margin:6px 0 0; background:var(--hl-soft); border-radius:6px; padding:5px 9px; font-family:var(--font-mono); font-size:13px; white-space:pre-wrap}
+.q .qh code{font-size:12.5px; background:var(--code-line); border-radius:4px; padding:0 4px}
+
+/* 약자 풀이 */
+.abh{margin:14px 0 6px; font-size:15px}
+.mt-def.abbr td:nth-child(2){font-family:var(--font-ui); white-space:normal; min-width:150px}
+.mt-def.abbr td:nth-child(2) b{color:var(--orange-d); font-size:15px}
+.mt-def.abbr td:nth-child(2) small,.mt-def.abbr td small{display:block; color:var(--muted); font-size:12px}
+.mt-def.abbr tr.key td{background:color-mix(in srgb,var(--orange) 7%,var(--surface))}
+.mt-def.abbr tr.key td:first-child{font-weight:700; color:var(--orange-d)}
+.mt-def.abbr td:last-child{white-space:nowrap}
+.mcard .rem{display:block; margin-top:6px; color:var(--ink)}
+
+footer{margin:28px 0 0; padding:20px 0 26px; border-top:1px solid var(--line); background:var(--surface); color:var(--muted); font-size:13px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text-align:center}
+.sign{flex-basis:100%; display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px}
+.bun-gif{width:120px; height:auto}
+.ptp{display:inline-flex; align-items:center; gap:8px; font-size:16px; color:var(--ink-2); background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 16px}
+.ptp span{font-size:19px; line-height:1}
+/* ⑥ 평가 해석(선생님 화면) */
+.ev h4 .evs{font-size:12.5px; font-weight:500; color:var(--muted); margin-left:6px}
+.evline{display:flex; flex-wrap:wrap; gap:5px; margin:8px 0}
+.evp{display:inline-flex; flex-direction:column; align-items:center; min-width:52px; border-radius:8px; padding:4px 6px; font-family:var(--font-mono); font-size:13px; border:1.5px solid transparent}
+.evp i{font-style:normal; font-size:14px; line-height:1}
+.evp small{font-family:var(--font-ui); font-size:11px; color:var(--ink-2)}
+.evp.tp,.evcm td.tp{background:var(--ok-bg)} .evp.tn,.evcm td.tn{background:color-mix(in srgb,var(--ok-bg) 55%,var(--surface))}
+.evp.fp,.evcm td.fp{background:var(--warn-bg)} .evp.fn,.evcm td.fn{background:var(--bad-bg)}
+.evp.fn{border-color:var(--bad)} .evp.fp{border-color:var(--warn)}
+.evgrid{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:12px; align-items:start}
+@media (max-width:760px){ .evgrid{grid-template-columns:1fr} }
+.evcm td{font-weight:700; font-size:15px; text-align:center!important}
+.evcm td small{display:block; font-weight:500; font-size:11px; color:var(--ink-2)}
+.evq .fb{color:var(--ok)}
+#metricView.evbig .ev{zoom:1.22}
+[hidden]{display:none!important}
+/* 딥러닝 창에만 쓰는 것 */
+.trail{display:flex; flex-wrap:wrap; gap:5px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line-soft); background:var(--surface); font-size:12.5px}
+.trail > b{font-size:12.5px; margin-right:4px}
+.trail span{border:1px solid var(--line); border-radius:99px; padding:2px 9px; color:var(--muted); white-space:nowrap}
+.trail span code{font-size:12px; color:var(--muted)}
+.trail span.on{border-color:var(--orange); background:var(--orange-wash); color:var(--ink)}
+.trail span.on code{color:var(--orange-d); font-weight:600}
+.trail i{font-style:normal; color:var(--muted)}
+.net{background-color:var(--canvas); background-image:radial-gradient(var(--dot) 1px,transparent 1.2px); background-size:16px 16px}
+.net svg{display:block; width:100%; height:auto}
+.net .ed{stroke:#9AA3AE; stroke-width:.7; opacity:.55}
+.net .lay{cursor:pointer}
+.net .lay .bg{fill:transparent; stroke:transparent; stroke-width:2.5; rx:14}
+.net .lay:hover .bg{stroke:color-mix(in srgb,var(--orange) 55%,transparent)}
+.net .lay.sel .bg{stroke:var(--orange); fill:var(--orange-wash)}
+.net .nd{stroke-width:1.6}
+.net .in .nd{fill:var(--w-data); stroke:var(--w-data-s)}
+.net .hid .nd{fill:var(--w-model); stroke:var(--w-model-s)}
+.net .out .nd{fill:var(--w-eval); stroke:var(--w-eval-s)}
+.net text{font-family:var(--font-ui); fill:var(--ink)}
+.net text.t1{font-size:16px; font-weight:700}
+.net text.t2{font-size:13.5px; fill:var(--ink-2)}
+.net text.dots{font-size:20px; fill:var(--muted)}
+.net .pill rect{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+.net .pill.sel rect{stroke:var(--orange); fill:var(--orange-wash)}
+.net .pill text{font-size:14.5px; font-weight:700}
+.net .pill{cursor:pointer}
+.net .arr{stroke:var(--muted); stroke-width:1.6; fill:none; marker-end:url(#ah)}
+.wset .set{font-size:13px; background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:6px 10px; margin:0 0 8px}
+.plot{display:block; max-width:360px; width:100%; height:auto; background:#fff; border-radius:6px}
+.plot text{font-family:'DejaVu Sans','Malgun Gothic',sans-serif; font-size:11px; fill:#222}
+.plot .ax{stroke:#222; stroke-width:1; fill:none}
+.plot .ln{stroke:#1f77b4; stroke-width:1.8; fill:none}
+.plot .ln2{stroke:#ff7f0e; stroke-width:1.8; fill:none}
+.toplinks{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.toplinks a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:5px 13px}
+.toplinks a.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.toplinks a:hover{border-color:var(--orange)}
+.tools{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+@media (max-width:900px){ .tools{grid-template-columns:1fr} }
+.tools .tool2{margin:0}
+.tool2 .row input[type=number]{width:86px; font-family:var(--font-mono); border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.tool2 select{border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.pcgrid{display:grid; grid-template-columns:auto repeat(3,minmax(0,1fr)); gap:6px 8px; align-items:center; max-width:460px; font-size:13.5px}
+.pcgrid b{font-size:12.5px; color:var(--muted); text-align:center}
+.pcgrid input{width:100%; min-width:0; font-family:var(--font-mono); border:1px solid var(--line); border-radius:6px; padding:3px 6px; background:var(--surface)}
+.gpick{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px}
+@media (max-width:760px){ .gpick{grid-template-columns:1fr} }
+.gpick > div{background:var(--code-bg); border:1px solid var(--line-soft); border-radius:8px; padding:6px}
+.lgd{font-size:12px; color:var(--muted); margin:4px 0 0}
+.lgd i{display:inline-block; width:14px; height:3px; vertical-align:middle; margin:0 4px 0 8px}
+</style>
+</head>
+<body>
+
+<header class="head"><div class="wrap">
+  <p class="kicker">🧠 Ⅱ-06 · 07 인공신경망과 딥러닝 · 교과서 116~138쪽</p>
+  <h1>층을 쌓아 <em>딥러닝 모델</em> 만들기 — 독버섯 가려내기</h1>
+  <p class="lede">왼쪽은 <b>신경망 그림</b>, 오른쪽은 <b>코드(코랩)</b>예요. 왼쪽 층을 누르면 <b>그 층을 만드는 코드</b>에 노란 불이 들어와요.
+    <b>🟢 빈칸</b>을 채우고, 같은 코드를 <b>🟡 따라 적으면</b> ▶로 실행돼요. 아래에는 <b>퍼셉트론 · 에포크 계산기</b>와 <b>손실 그래프 읽기</b>가 있어요.</p>
+  <nav class="toplinks" aria-label="실습 창">
+    <a href="prep.html">🧹 전처리 · 보험 고객 표</a>
+    <a href="orange.html">🍊 모델 만들기 · 청년 인구 · 붓꽃 · 평가 지표</a>
+    <a class="on" href="deep.html">🧠 딥러닝 · 독버섯</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="steps">
+    <span><b>① 데이터</b> 불러오기 · 살펴보기</span><i>→</i><span><b>② 글자 → 숫자</b> LabelEncoder</span><i>→</i><span><b>③ 나누기</b> train_test_split</span><i>→</i><span><b>④ 층 쌓기</b> Sequential · Dense</span><i>→</i><span><b>⑤ 학습 방법 정하기</b> compile</span><i>→</i><span><b>⑥ 학습</b> fit · 손실 그래프</span><i>→</i><span><b>⑦ 평가</b> evaluate</span><i>→</i><span><b>더 알아보기</b> 정규화</span>
+  </div>
+  <p class="howto"><b>오늘 순서</b> <b>🧮 퍼셉트론 계산기</b>(아래) → 코드 <b>🟢 빈칸</b>(선생님과 함께) → <b>🧮 에포크 계산기</b> → <b>📉 손실 그래프 읽기</b> → <b>🎯 출력층 · 손실 함수 짝</b> · 막히면 <b>📘 설명</b>과 왼쪽 <b>층 그림</b>을 눌러 보세요.</p>
+  <div class="bench">
+    <section class="panel" aria-label="신경망 그림">
+      <div class="panel-hd"><span class="dot" style="background:var(--orange)"></span>신경망 그림<span class="sp"></span><small>층이나 단추를 누르면 설명과 짝 코드가</small></div>
+      <div class="net"><svg id="cv" viewBox="0 0 700 420" role="group" aria-label="독버섯 딥러닝 모델 구조"></svg></div>
+      <div class="wset" id="wset"></div>
+    </section>
+    <section class="panel" aria-label="코랩 노트북">
+      <div class="panel-hd"><span class="dot" style="background:var(--colab)"></span><span class="mono">03_deeplearning.ipynb · 126~130쪽</span><span class="sp"></span>
+        <button class="btn" id="resetRt" type="button">런타임 초기화</button><button class="btn pri" id="runAll" type="button">▶ 모두 실행</button></div>
+      <div class="modebar" id="modeBar" role="group" aria-label="연습 단계"></div>
+      <div class="trail" id="trail" aria-live="polite"></div>
+      <div class="nb" id="nb"></div>
+    </section>
+  </div>
+
+  <div class="sect">
+    <h2>🧮 계산해 보기 <small style="font-size:13px; font-weight:500; color:var(--muted)">숫자를 바꾸면 바로 다시 계산해요</small></h2>
+    <div class="tools">
+      <div class="tool2" id="pc">
+        <h4>🧮 퍼셉트론 계산기 — 가중합 · 활성화 함수</h4>
+        <div class="pcgrid">
+          <span></span><b>x₁</b><b>x₂</b><b>x₃</b>
+          <span>입력 x</span><input type="number" step="any" id="x1" value="1"><input type="number" step="any" id="x2" value="0"><input type="number" step="any" id="x3" value="1">
+          <span>가중치 w</span><input type="number" step="any" id="w1" value="0.7"><input type="number" step="any" id="w2" value="0.2"><input type="number" step="any" id="w3" value="-0.6">
+        </div>
+        <div class="row"><label>편향 b</label><input type="number" step="any" id="bb" value="0.1">
+          <label>활성화</label><select id="act"><option value="relu">렐루(ReLU)</option><option value="step">계단(0보다 크면 1)</option><option value="sig">시그모이드</option></select>
+          <label>임계값</label><input type="number" step="any" id="thr" value="0.3"></div>
+        <div class="steps2" id="pcOut"></div>
+        <div class="row" style="margin-top:8px"><label>거꾸로 묻기</label><select id="inv"><option value="1">w₁</option><option value="2">w₂</option><option value="3">w₃</option></select>
+          <span class="hint" style="margin:0">이 가중치 말고 나머지는 그대로일 때, 결과가 임계값을 넘으려면?</span></div>
+        <div class="steps2" id="pcInv"></div>
+      </div>
+      <div class="tool2" id="ep">
+        <h4>🧮 1 에포크에 가중치를 몇 번 고칠까?</h4>
+        <div class="row"><label>전체 데이터</label><input type="number" id="eN" value="8124" min="1"><label>test_size</label><input type="number" id="eT" value="0.2" step="0.05" min="0" max="0.95"></div>
+        <div class="row"><label>batch_size</label><input type="number" id="eB" value="256" min="1"><label>epochs</label><input type="number" id="eE" value="15" min="1"></div>
+        <div class="steps2" id="epOut"></div>
+        <p class="hint">교과서 값(8124개 · 0.2 · 256 · 15)이 들어 있어요. 오른쪽 코드 ⑥ 칸 결과의 <b>26/26</b> 과 견주어 보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h2>📉 손실 그래프 읽기 — 과적합을 찾아라 <small style="font-size:13px; font-weight:500; color:var(--muted)">파란 선 = 훈련 데이터 손실 · 주황 선 = 테스트(검증) 데이터 손실 · 예시 그래프</small></h2>
+    <div class="gpick" id="gpick"></div>
+    <div class="qz" id="gq" style="margin-top:10px"></div>
+  </div>
+
+  <div class="sect">
+    <h2>🎯 출력층 · 손실 함수 짝 — 무엇을 맞히나에 따라</h2>
+    <div class="mtbl"><table class="cmp">
+      <tr><th>맞히는 것</th><th>예</th><th>출력층</th><th>손실 함수(loss)</th></tr>
+      <tr><td>둘 중 하나(이진 분류)</td><td>독버섯이다 / 아니다</td><td><code>Dense(1, activation='sigmoid')</code><br><small>0~1 확률 하나</small></td><td><code>binary_crossentropy</code><br><small>이진 교차 엔트로피</small></td></tr>
+      <tr><td>셋 이상 중 하나(다중 분류)</td><td>붓꽃 세 종류 · 손글씨 숫자 0~9</td><td><code>Dense(종류 수, activation='softmax')</code><br><small>종류마다 확률 · 합은 1</small></td><td><code>categorical_crossentropy</code><br><small>범주형 교차 엔트로피</small></td></tr>
+      <tr><td>숫자(회귀)</td><td>집값 · 기온</td><td><code>Dense(1)</code><br><small>활성화 함수 없이 숫자 그대로</small></td><td><code>mse</code><br><small>평균 제곱 오차</small></td></tr>
+    </table></div>
+    <div class="mcard" style="margin-top:10px"><b>꼭 기억</b> — 손실(loss)은 «틀린 정도»라서 <b>작을수록</b> 좋아요. 학습은 손실이 줄어드는 쪽으로 가중치를 조금씩 고치는 것(<b>경사하강법</b>)이고, 고칠 양은 출력층에서 입력층 쪽으로 <b>거꾸로</b> 전해져요(<b>오차 역전파</b>). 퍼셉트론 하나는 <b>직선 하나</b>로만 나눌 수 있어서 XOR 같은 문제를 못 풀어요 → 층을 여러 겹 쌓은 <b>다층 퍼셉트론(은닉층)</b>.</div>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <span>2026학년도 2학기 「인공지능 기초」 · 교과서 「인공지능 기초」(미래엔) Ⅱ-07 이진 분류를 위한 딥러닝 모델(126~130쪽)을 바탕으로 만들었습니다.</span>
+  <span>이 창의 «코랩»은 연습용 흉내입니다 — 데이터 모양 · 인코딩 · 정규화는 실제 계산과 같고, 학습 기록(loss · accuracy)은 교과서 실행 결과를 그대로 보여 줘요. 실제 코랩에서는 처음 가중치가 무작위라 할 때마다 조금씩 달라요.</span>
+  <div class="sign">
+    <img class="bun-gif" src="img/bun.gif" width="200" height="169" alt="깡충거리며 다가오는 하얀 토끼" loading="lazy" decoding="async">
+    <span class="ptp">made by ptp <span>🐰</span></span>
+  </div>
+</div></footer>
+
+<script>
+'use strict';
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function hl(code){
+  return code.split('\n').map(function(line){
+    var out = '', i = 0, m;
+    while(i < line.length){
+      var rest = line.slice(i);
+      if(rest[0] === '#'){ out += '<span class="c">' + esc(rest) + '</span>'; break; }
+      if((m = rest.match(/^'[^']*'/))){ out += '<span class="s">' + esc(m[0]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^⟦([^⟧]*)⟧/))){ out += '<span class="chg">' + hl(m[1]) + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^(import|from|as|print|for|in|None|True|False)\b/))){ out += '<span class="k">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^\d+(\.\d+)?/))){ out += '<span class="n">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^([A-Za-z_가-힣][\w가-힣]*)(?=\()/))){ out += '<span class="f">' + m[0] + '</span>'; i += m[0].length; continue; }
+      if((m = rest.match(/^[A-Za-z_가-힣][\w가-힣.]*/))){ out += esc(m[0]); i += m[0].length; continue; }
+      out += esc(rest[0]); i++;
+    }
+    return out;
+  }).join('\n');
+}
+function fx(v, d){ if(!isFinite(v)) return '—'; return String(+v.toFixed(d)); }
+function niceTicks(lo, hi, n){
+  var span = hi - lo || 1, raw = span / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / mag;
+  var step = (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * mag, t = [], s = Math.ceil(lo / step) * step;
+  for(var v = s; v <= hi + step * 1e-9; v += step) t.push(Math.round(v / step) * step);
+  return t;
+}
+/* 선 그래프(matplotlib 처럼 x 는 0부터) */
+function lineSvg(series, xl, yl, x0){
+  x0 = x0 || 0;
+  var n = series[0].v.length, all = [].concat.apply([], series.map(function(s){ return s.v; })), y0 = Math.min.apply(null, all), y1 = Math.max.apply(null, all), py = (y1 - y0) * .06;
+  y0 -= py; y1 += py; var xa = x0 - (n - 1) * .05, xb = x0 + (n - 1) * 1.05;
+  var W = 360, H = 240, L = 46, R = 12, T = 12, B = 38;
+  var X = function(v){ return L + (W - L - R) * (v - xa) / (xb - xa); }, Y = function(v){ return T + (H - T - B) * (1 - (v - y0) / (y1 - y0)); };
+  var g = '<rect class="ax" x="' + L + '" y="' + T + '" width="' + (W - L - R) + '" height="' + (H - T - B) + '"/>';
+  niceTicks(x0, x0 + n - 1, 6).forEach(function(t){ if(t !== Math.round(t)) return; var xx = X(t).toFixed(1); g += '<path class="ax" d="M' + xx + ',' + (H - B) + ' v4"/><text x="' + xx + '" y="' + (H - B + 16) + '" text-anchor="middle">' + t + '</text>'; });
+  niceTicks(y0, y1, 5).forEach(function(t){ var yy = Y(t).toFixed(1); g += '<path class="ax" d="M' + (L - 4) + ',' + yy + ' h4"/><text x="' + (L - 7) + '" y="' + (+yy + 4) + '" text-anchor="end">' + String(+t.toFixed(3)) + '</text>'; });
+  series.forEach(function(s){ g += '<path class="' + s.c + '" d="' + s.v.map(function(v, k){ return (k ? 'L' : 'M') + X(x0 + k).toFixed(1) + ',' + Y(v).toFixed(1); }).join(' ') + '"/>'; });
+  g += '<text x="' + ((L + W - R) / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(xl) + '</text>';
+  g += '<text transform="translate(12,' + ((T + H - B) / 2) + ') rotate(-90)" text-anchor="middle">' + esc(yl) + '</text>';
+  return '<svg class="plot" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(yl) + ' 그래프">' + g + '</svg>';
+}
+
+/* ══════════ 교과서 결과(126~130쪽) ══════════ */
+var INFO = "<class 'pandas.core.frame.DataFrame'>\nRangeIndex: 8124 entries, 0 to 8123\nData columns (total 23 columns):\n #   Column                    Non-Null Count  Dtype \n---  ------                    --------------  ----- \n" +
+  ['class','cap-shape','cap-surface','cap-color','bruises','odor','gill-attachment','gill-spacing','gill-size','gill-color','stalk-shape','stalk-root','stalk-surface-above-ring','stalk-surface-below-ring','stalk-color-above-ring','stalk-color-below-ring','veil-type','veil-color','ring-number','ring-type','spore-print-color','population','habitat']
+  .map(function(c, i){ var a = String(i); while(a.length < 3) a = ' ' + a; var b = c; while(b.length < 26) b += ' '; return a + '  ' + b + '8124 non-null   object'; }).join('\n') + '\ndtypes: object(23)\nmemory usage: 1.4+ MB';
+var HIST = { loss: [0.7563, 0.4049, 0.3158, 0.2734, 0.2453, 0.2232, 0.2044, 0.1880, 0.1740, 0.1599, 0.1485, 0.1365, 0.1265, 0.1145, 0.1048],
+             acc:  [0.5949, 0.8404, 0.8772, 0.8983, 0.9060, 0.9149, 0.9214, 0.9280, 0.9360, 0.9421, 0.9463, 0.9525, 0.9580, 0.9638, 0.9697] };
+var X0MM = "array([1.        , 1.        , 0.22222222, 1.        , 0.625     ,\n       1.        , 0.        , 0.        , 0.90909091, 1.        ,\n       0.25      , 0.66666667, 0.66666667, 0.75      , 0.75      ,\n       0.        , 0.66666667, 0.5       , 1.        , 0.25      ,\n       0.8       , 0.        ])";
+
+/* ══════════ 신경망 그림 ══════════ */
+var LAY = [
+  { id:'in',  cls:'in',  x:95,  n:6, more:true, t1:'입력층', t2:'22개 특징' },
+  { id:'h1',  cls:'hid', x:265, n:8, more:true, t1:'은닉층 64', t2:'relu' },
+  { id:'h2',  cls:'hid', x:435, n:8, more:false, t1:'은닉층 8', t2:'relu' },
+  { id:'out', cls:'out', x:595, n:1, more:false, t1:'출력층 1', t2:'sigmoid' }
+];
+var PILLS = [{ id:'data', t:'① ~ ③ 데이터', x:20 }, { id:'compile', t:'⑤ compile', x:200 }, { id:'fit', t:'⑥ fit', x:360 }, { id:'eval', t:'⑦ evaluate', x:500 }];
+var INFOW = {
+  data:    ['① ~ ③ 데이터 준비', "<code>pd.read_csv</code> · <code>LabelEncoder</code> · <code>train_test_split</code>", '버섯 8124개 · 특징 22개(모두 글자 → 숫자로) · 정답 class(e 먹을 수 있음 = 0, p 독 = 1) · 공부용 6499 / 시험용 1625'],
+  in:      ['입력층 — 특징 22개', '<code>x = df.iloc[:, 1:]</code> → <code>x.shape</code> = (8124, <b>22</b>)', '입력층은 따로 만들지 않아요. 첫 <code>Dense</code> 층이 데이터를 받을 때 입력 개수(22)가 저절로 정해져요.'],
+  h1:      ['은닉층 ① — 노드 64개 · 렐루', "<code>model.add(keras.layers.Dense(64, activation='relu'))</code>", '가중치 22 × 64 = 1408개 + 편향 64개 = <b>1472개</b>. 렐루: 0보다 작으면 0, 크면 그대로 → <code>max(0, 값)</code>'],
+  h2:      ['은닉층 ② — 노드 8개 · 렐루', "<code>model.add(keras.layers.Dense(8, activation='relu'))</code>", '가중치 64 × 8 = 512개 + 편향 8개 = <b>520개</b>. 층이 여러 겹이라 «깊은(deep)» 학습'],
+  out:     ['출력층 — 노드 1개 · 시그모이드', "<code>model.add(keras.layers.Dense(1, activation='sigmoid'))</code>", '가중치 8개 + 편향 1개 = <b>9개</b> → 모두 1472 + 520 + 9 = <b>2001개</b>를 학습해요. 시그모이드는 0~1 사이 <b>확률</b> 하나를 내요 → 0.5 이상이면 독버섯(1).'],
+  compile: ['⑤ 학습 방법 정하기', "<code>model.compile(optimizer='adam', loss='binary_crossentropy', metrics='accuracy')</code>", '<b>optimizer</b> 가중치를 고치는 방법(adam = 경사하강법을 개선한 것) · <b>loss</b> 틀린 정도를 재는 식(둘 중 하나 → 이진 교차 엔트로피) · <b>metrics</b> 사람이 볼 점수'],
+  fit:     ['⑥ 학습', '<code>history = model.fit(x_train, y_train, epochs=15, batch_size=256)</code>', '<b>batch_size 256</b> — 256개를 볼 때마다 가중치를 한 번 고쳐요. <b>epochs 15</b> — 공부용 데이터 전체를 15바퀴. 1 에포크 = 6499 ÷ 256 → 올림 <b>26번</b>, 모두 26 × 15 = <b>390번</b>'],
+  eval:    ['⑦ 평가', '<code>model.evaluate(x_test, y_test)</code>', '공부에 쓰지 않은 <b>시험용 1625개</b>로 손실과 정확도를 재요.']
+};
+var selW = null;
+function nodeYs(n, more){ var top = 70, bot = 300, k = more ? n + 1 : n; if(k === 1) return [185]; var ys = []; for(var i = 0; i < n; i++) ys.push(top + (bot - top) * (more && i >= n / 2 ? i + 1 : i) / (k - 1)); return ys; }
+function drawCanvas(){
+  var h = '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8C97A6"/></marker></defs>';
+  for(var a = 0; a < LAY.length - 1; a++){ var A = LAY[a], B = LAY[a + 1], ya = nodeYs(A.n, A.more), yb = nodeYs(B.n, B.more);
+    ya.forEach(function(p){ yb.forEach(function(q){ h += '<line class="ed" x1="' + (A.x + 12) + '" y1="' + p + '" x2="' + (B.x - 12) + '" y2="' + q + '"/>'; }); }); }
+  LAY.forEach(function(L){
+    var ys = nodeYs(L.n, L.more);
+    h += '<g class="lay ' + L.cls + (selW === L.id ? ' sel' : '') + '" data-w="' + L.id + '" tabindex="0" role="button" aria-label="' + L.t1 + ' ' + L.t2 + '">' +
+      '<rect class="bg" x="' + (L.x - 46) + '" y="42" width="92" height="296" rx="14"/>' +
+      ys.map(function(y){ return '<circle class="nd" cx="' + L.x + '" cy="' + y + '" r="11"/>'; }).join('') +
+      (L.more ? '<text class="dots" x="' + L.x + '" y="' + (185 + 7) + '" text-anchor="middle">⋮</text>' : '') +
+      '<text class="t1" x="' + L.x + '" y="360" text-anchor="middle">' + L.t1 + '</text><text class="t2" x="' + L.x + '" y="378" text-anchor="middle">' + L.t2 + '</text>' +
+      (L.id === 'out' ? '<text class="t2" x="' + (L.x + 20) + '" y="190">→ 독일 확률</text>' : '') + '</g>';
+  });
+  PILLS.forEach(function(P, k){
+    h += '<g class="pill' + (selW === P.id ? ' sel' : '') + '" data-w="' + P.id + '" tabindex="0" role="button" aria-label="' + P.t + '"><rect x="' + P.x + '" y="12" width="' + (k ? 128 : 150) + '" height="28" rx="14"/><text x="' + (P.x + (k ? 64 : 75)) + '" y="31" text-anchor="middle">' + P.t + '</text></g>';
+  });
+  document.getElementById('cv').innerHTML = h;
+}
+function drawSet(){
+  var el = document.getElementById('wset');
+  if(!selW){ el.innerHTML = '<h3>👆 층이나 단추를 하나 눌러 보세요</h3><p class="hint">동그라미 하나가 <b>퍼셉트론(노드)</b> 하나예요. 선 하나마다 <b>가중치</b>가 하나씩 있어요. 이 모델은 22 → 64 → 8 → 1 로 이어지고, 학습할 가중치 · 편향은 모두 <b>2001개</b>예요. 층을 눌러 몇 개인지 확인해 보세요.</p>' +
+    '<div class="set">🍊 오렌지3로는 — <b>Neural Network</b> 위젯 한 개: Neurons in hidden layers <b>64, 8</b> · Activation <b>ReLu</b> · Solver <b>Adam</b> · Maximal number of iterations(≈ epochs). File → Data Sampler → Neural Network → Test and Score 로 이으면 같은 일을 해요.</div>'; return; }
+  var I = INFOW[selW];
+  el.innerHTML = '<h3>' + I[0] + '</h3><div class="map">↔ 코드: ' + I[1] + '</div><div class="set">' + I[2] + '</div>' + (selW === 'fit' ? lineSvg([{ v: HIST.loss, c:'ln' }], 'epoch', 'loss') : '');
+}
+
+/* ══════════ 코랩 쪽 ══════════ */
+var ADDR = "주소 = 'https://raw.githubusercontent.com/richee-pc/AI_cs/main/data/'";
+var CELLS = [
+  { text: true, html: '<h4>교과서 126~130쪽 · 독버섯을 가려내는 딥러닝 모델</h4><p>버섯 <b>8124개</b>의 갓 모양 · 냄새 · 색깔 같은 <b>특징 22개</b>를 보고 <b>먹을 수 있는 버섯(e)</b>인지 <b>독버섯(p)</b>인지 맞혀요 — 둘 중 하나를 고르는 <b>이진 분류</b>.<br>' +
+    '딥러닝도 순서는 똑같아요: 데이터 준비 → <b>나누기</b> → 모델 만들기(<b>층 쌓기</b>) → <b>공부시키기</b> → <b>시험 보기</b>. 다른 점은 모델을 <b>층을 쌓아서</b> 직접 만든다는 것!</p>' },
+  { ws:['data'], run:'imp', code: "import pandas as pd\nfrom tensorflow import ⟦keras⟧\nimport matplotlib.pyplot as plt", blanks: ['keras'],
+    md: '<b>도구 꺼내기</b> — 딥러닝 도구 상자 <b>텐서플로(tensorflow)</b> 안의 <b>keras</b>(케라스)를 꺼내요. 층을 블록처럼 쌓게 해 주는 도구예요.' },
+  { ws:['data'], run:'load', code: ADDR + "\ndf = pd.⟦read_csv⟧(주소 + 'mushrooms.csv')\ndf.⟦info⟧()", blanks: ['read_csv', 'info'],
+    md: '<b>① 데이터 살펴보기</b> — 표를 열고 <b>건강검진</b>(몇 줄 · 빈칸 · 자료형)을 해요.',
+    after: '<b>8124줄 · 23열</b>, 빈칸 없음. 그런데 Dtype 이 모두 <b>object</b>(글자)예요 → 모델은 숫자만 계산할 수 있어서 <b>숫자로 바꿔야</b> 해요.' },
+  { ws:['data', 'in'], run:'enc', code: "from sklearn.preprocessing import LabelEncoder\nle = ⟦LabelEncoder⟧()\nx_values = list(df.columns.values)\nfor i in x_values:\n    df[i] = le.⟦fit_transform⟧(df[i])\nx = df.iloc[⟦:, 1:⟧]\ny = df.iloc[⟦:, 0⟧]\n\nx.shape, y.shape",
+    blanks: ['LabelEncoder', 'fit_transform', ':, 1:', ':, 0'],
+    md: '<b>② 글자 → 숫자(레이블 인코딩)</b> — 열마다 글자에 번호를 붙여요(알파벳 순서로 0, 1, 2, …). <code>for</code> 는 «열 이름을 하나씩 꺼내 같은 일을 반복». 그다음 <code>iloc[행, 열]</code>로 문제(x)와 답(y)을 나눠요.',
+    after: '<code>((8124, 22), (8124,))</code>. <code>iloc[:, 1:]</code> = «모든 행, 1번 열부터 끝까지» → class 를 뺀 <b>특징 22개</b>. <code>iloc[:, 0]</code> = 0번 열 class → e 는 <b>0</b>, p(독)는 <b>1</b>. (번호는 순서일 뿐 크기 뜻은 없어요)' },
+  { ws:['data'], run:'split', code: "from sklearn.model_selection import train_test_split\nx_train, x_test, y_train, y_test = ⟦train_test_split⟧(x, y, test_size = ⟦0.2⟧, random_state = 10)\n\nx_train.shape, x_test.shape",
+    blanks: ['train_test_split', '0.2'],
+    md: '<b>③ 공부용 · 시험용 나누기</b> — 🍊 실습 창과 <b>똑같은 한 줄</b>! 시험용 20%.',
+    after: '<code>((6499, 22), (1625, 22))</code>. 8124 × 0.2 = 1624.8 → 시험용은 <b>올림해서 1625</b>개, 공부용은 나머지 <b>6499</b>개.' },
+  { ws:['h1', 'h2', 'out'], run:'model', code: "model = keras.⟦Sequential⟧()\nmodel.add(keras.layers.⟦Dense⟧(64, activation = ⟦'relu'⟧))\nmodel.add(keras.layers.Dense(⟦8⟧, activation = 'relu'))\nmodel.add(keras.layers.Dense(⟦1⟧, activation = ⟦'sigmoid'⟧))",
+    blanks: ['Sequential', 'Dense', "'relu'", '8', '1', "'sigmoid'"],
+    md: '<b>④ 층 쌓기</b> — <code>Sequential</code> 은 «층을 차례로(sequence) 쌓는 빈 틀». <code>add</code> 로 층을 하나씩 얹어요. <code>Dense</code> 는 앞 층의 모든 노드와 빽빽하게(dense) 이어진 층. 괄호 안 숫자는 <b>노드 수</b>.',
+    after: '은닉층 64 → 8 은 <b>렐루</b>, 출력층은 노드 <b>1개 · 시그모이드</b> — 0~1 사이 «독일 확률» 하나를 내요. <b>이진 분류의 출력층 = Dense(1, sigmoid)</b>. 층 그림의 은닉층 · 출력층을 눌러 가중치 개수도 확인!' },
+  { ws:['compile'], run:'compile', code: "model.⟦compile⟧(optimizer = ⟦'adam'⟧, loss = ⟦'binary_crossentropy'⟧, metrics = 'accuracy')",
+    blanks: ['compile', "'adam'", "'binary_crossentropy'"],
+    md: '<b>⑤ 학습 방법 정하기(compile)</b> — <b>optimizer</b>: 가중치를 고치는 방법 · <b>loss</b>: 틀린 정도를 재는 식 · <b>metrics</b>: 사람이 볼 점수.',
+    after: '둘 중 하나를 맞히는 <b>이진 분류</b>라서 손실 함수는 <code>binary_crossentropy</code>(이진 교차 엔트로피). 셋 이상이면 <code>categorical_crossentropy</code>, 숫자면 <code>mse</code> — 아래 <b>🎯 짝 표</b>를 보세요.' },
+  { ws:['fit'], run:'fit', code: "history = model.⟦fit⟧(x_train, y_train, ⟦epochs⟧ = 15, ⟦batch_size⟧ = 256)",
+    blanks: ['fit', 'epochs', 'batch_size'],
+    md: '<b>⑥ 공부시키기(fit)</b> — 🍊 실습 창의 <code>model.fit(x_train, y_train)</code> 와 같은 이름! 딥러닝은 <b>몇 바퀴(epochs)</b> 공부할지, <b>몇 개씩 묶어서(batch_size)</b> 볼지를 정해 줘요. 결과를 <code>history</code> 에 담아 두면 나중에 그래프로 볼 수 있어요.',
+    after: '<b>26/26</b> = 1 에포크 동안 가중치를 <b>26번</b> 고쳤다는 뜻(6499 ÷ 256 = 25.4… → 올림). 15 에포크면 모두 <b>390번</b>. 에포크가 지날수록 <b>loss ↓ · accuracy ↑</b>. 아래 <b>🧮 에포크 계산기</b>로 직접 계산해 보세요.' },
+  { ws:['fit'], run:'plot', code: "plt.⟦plot⟧(history.⟦history⟧['loss'])\nplt.xlabel('epoch')\nplt.ylabel('loss')\nplt.show()", blanks: ['plot', 'history'],
+    md: '<b>손실 그래프</b> — 에포크마다 기록한 손실을 <b>선(plot)</b>으로 그려요. <code>history.history</code> 는 «학습 기록 안의 기록 사전».',
+    after: '손실이 꾸준히 줄어들어요 → 학습이 잘 되고 있어요. 가로축이 0부터인 건 파이썬이 0부터 세기 때문(0 = 1 에포크). 이 그래프는 <b>훈련 데이터</b> 손실만이라, 과적합인지 보려면 <b>테스트(검증) 손실</b>도 함께 그려야 해요 → 아래 <b>📉 손실 그래프 읽기</b>.' },
+  { ws:['eval'], run:'eval', code: "model.⟦evaluate⟧(⟦x_test⟧, ⟦y_test⟧)", blanks: ['evaluate', 'x_test', 'y_test'],
+    md: '<b>⑦ 시험 보기(evaluate)</b> — 숨겨 둔 <b>시험용</b> 데이터로 손실과 정확도를 재요.',
+    after: '시험용 정확도 <b>0.975</b>(1625개 중 약 1584개 정답). 훈련 마지막 정확도 0.970 과 비슷해서 <b>과적합은 아니에요</b>. <b>51/51</b> 은 1625 ÷ 32(evaluate 의 기본 묶음) → 올림 51.' },
+  { text: true, html: '<h4>🔁 더 알아보기 — 정규화(교과서 129쪽)</h4><p>특징마다 숫자 범위가 달라요(어떤 열은 0~1, 어떤 열은 0~11). 범위가 큰 열이 학습에 <b>지나치게 큰 영향</b>을 주지 않게 모든 열을 <b>0~1</b>로 맞춰요 — <b>최소-최대 정규화</b>.</p>' },
+  { ws:['data'], run:'mm', code: "from sklearn.preprocessing import MinMaxScaler\nscaler = ⟦MinMaxScaler⟧()\nscaler.⟦fit⟧(x_train)\nx_train = scaler.⟦transform⟧(x_train)\nx_test = scaler.transform(x_test)\n\nx_train[0]",
+    blanks: ['MinMaxScaler', 'fit', 'transform'],
+    md: '<b>정규화하기</b> — <code>fit</code> 으로 <b>공부용 데이터</b>의 열마다 최솟값 · 최댓값을 재고, <code>transform</code> 으로 <code>(값 − 최솟값) ÷ (최댓값 − 최솟값)</code> 을 계산해 바꿔요. 시험용도 <b>같은 기준</b>으로 바꿔요.',
+    after: '첫 버섯의 22개 값이 모두 0~1 이 되었어요. 예) 5번째 odor(냄새)는 5, 이 열의 최솟값 0 · 최댓값 8 → (5 − 0) ÷ (8 − 0) = <b>0.625</b>. veil-type 처럼 값이 모두 같은 열은 0. 정규화한 뒤에는 <b>④ 층 쌓기부터 다시</b> 학습해요. (교과서 129쪽은 x 전체에 <code>fit_transform</code> 을 써요 — 여기서는 시험용 데이터를 미리 보지 않도록 공부용으로만 fit)' }
+];
+var TRAIL = [['df', 'df'], ['x', 'x'], ['xtr', 'x_train'], ['xte', 'x_test'], ['model', '층'], ['fit', '학습'], ['acc', '시험 정확도']];
+var RT = null;
+function newRt(){ return { n: 0, V: {}, outs: {}, cnt: {}, mark: {} }; }
+function nameErr(nm){ return { err: "NameError: name '" + nm + "' is not defined\n→ 위 칸을 먼저 실행하세요. 코랩은 «실행한 칸»만 기억합니다." }; }
+function need(V, names){ for(var i = 0; i < names.length; i++) if(!(names[i] in V)) return nameErr(names[i]); return null; }
+function exec(c){
+  var V = RT.V, M = RT.mark, e;
+  switch(c.run){
+    case 'imp': V.pd = V.keras = V.plt = 1; return { text: '' };
+    case 'load': if((e = need(V, ['pd']))) return e; V['주소'] = 1; V.df = 'raw'; M.df = '(8124, 23)'; delete V.x; return { text: INFO };
+    case 'enc': if((e = need(V, ['df']))) return e; V.le = 1; V.df = 'num'; V.x = V.y = 1; M.x = '(8124, 22)'; return { text: '((8124, 22), (8124,))' };
+    case 'split': if((e = need(V, ['x', 'y']))) return e; V.x_train = V.x_test = V.y_train = V.y_test = 1; V.scaled = false; M.xtr = '(6499, 22)'; M.xte = '(1625, 22)'; return { text: '((6499, 22), (1625, 22))' };
+    case 'model': if((e = need(V, ['keras']))) return e; V.model = { compiled: false, fitted: false }; M.model = '22 → 64 → 8 → 1'; delete M.fit; delete M.acc; delete V.history; return { text: '' };
+    case 'compile': if((e = need(V, ['model']))) return e; V.model.compiled = true; return { text: '' };
+    case 'fit': if((e = need(V, ['model', 'x_train', 'y_train']))) return e;
+      if(!V.model.compiled) return { err: 'RuntimeError: You must compile your model before training/testing. Use `model.compile(optimizer, loss)`.\n→ ⑤ compile 칸을 먼저 실행하세요.' };
+      if(V.model.fitted) return { text: '', note: '⚠ 이미 공부한 모델을 15바퀴 더 공부시켰어요(이어서 학습). 처음부터 하려면 ④ 층 쌓기 칸부터 다시 실행하세요.' };
+      V.model.fitted = true; V.history = 1; M.fit = '15 에포크 · 390번';
+      return { text: HIST.loss.map(function(l, k){ return 'Epoch ' + (k + 1) + '/15\n26/26 [==============================] - 0s 3ms/step - loss: ' + l.toFixed(4) + ' - accuracy: ' + HIST.acc[k].toFixed(4); }).join('\n') + (V.scaled ? '' : ''),
+        note: V.scaled ? '정규화한 데이터로 다시 학습했어요. 숫자는 교과서 기록을 그대로 보여 줘요 — 실제 코랩에서는 할 때마다 조금씩 달라요.' : '' };
+    case 'plot': if((e = need(V, ['plt', 'history']))) return e; return { html: lineSvg([{ v: HIST.loss, c:'ln' }], 'epoch', 'loss') };
+    case 'eval': if((e = need(V, ['model', 'x_test', 'y_test']))) return e;
+      if(!V.model.fitted) return { err: '⚠ 아직 fit 으로 공부시키지 않은 모델이에요 — 무작위 가중치라 찍기 수준(정확도 약 0.5)이 나와요.\n→ ⑥ fit 칸을 먼저 실행하세요.' };
+      M.acc = '0.975'; return { text: '51/51 [==============================] - 0s 2ms/step - loss: 0.0976 - accuracy: 0.9748\n[0.09763062745332718, 0.9747692346572876]' };
+    case 'mm': if((e = need(V, ['x_train', 'x_test']))) return e; V.scaler = 1; V.scaled = true; return { text: X0MM };
+  }
+  return { text: '' };
+}
+
+/* ── 연습 단계(보기 · 빈칸 · 따라 적기) ───────────────────────────── */
+var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기' };
+function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+if(TEACH) [].forEach.call(document.querySelectorAll('.toplinks a'), function(a){ a.href = a.getAttribute('href') + '?t=1'; });   /* 교사용 화면끼리 오가기 */
+if(!TEACH) delete MODES.view;     /* 학생 화면에는 정답(👀 보기)을 두지 않음 */
+var MODE = TEACH ? 'view' : (MODES[store('deep_mode')] ? store('deep_mode') : 'blank');
+var ANS = {}, SOLVED = {};
+function akey(i){ return MODE + '|' + i; }
+function plain(code){ return code.replace(/[⟦⟧]/g, ''); }
+function normCode(s){
+  var out = '', qch = null, depth = 0;
+  for(var i = 0; i < s.length; i++){
+    var ch = s[i];
+    if(qch){ out += ch === '"' ? "'" : ch; if(ch === qch) qch = null; continue; }
+    if(ch === '"' || ch === "'"){ qch = ch; out += "'"; continue; }
+    if(ch === '#'){ while(i < s.length && s[i] !== '\n') i++; i--; continue; }
+    if(ch === '(' || ch === '[' || ch === '{') depth++;
+    if(ch === ')' || ch === ']' || ch === '}') depth = Math.max(0, depth - 1);
+    if(ch === '\n'){ if(depth === 0) out += '\n'; continue; }
+    if(ch === ' ' || ch === '\t' || ch === '\r' || ch === ' ') continue;
+    out += ch;
+  }
+  return out.split('\n').filter(function(l){ return l; }).join('\n');
+}
+function sameTok(v, tok){ return normCode(String(v)) === normCode(tok); }
+function isSolved(i, c){ return MODE === 'view' || c.given || SOLVED[akey(i)] === plain(c.code); }
+function blankParts(c){
+  var code = plain(c.code), parts = [], at = 0;
+  (c.blanks || []).forEach(function(tok){ var k = code.indexOf(tok, at); if(k < 0) return; parts.push(code.slice(at, k)); parts.push({ tok: tok }); at = k + tok.length; });
+  parts.push(code.slice(at)); return parts;
+}
+function codeEditor(i, c){
+  var key = akey(i), a = ANS[key];
+  if(MODE === 'view' || c.given) return '<pre class="code">' + hl(c.code) + '</pre>';
+  if(isSolved(i, c)) return '<pre class="code solved">' + hl(plain(c.code)) + '</pre><div class="pfb ok">✅ 완성! ▶ 로 실행해 결과를 보세요.</div>';
+  var fb = '<div class="pfb" id="pfb' + i + '"></div>', btn = '<div class="pact"><button class="btn chk" type="button" data-chk="' + i + '">✓ 확인</button>';
+  if(MODE === 'blank'){
+    var bi = 0, h = blankParts(c).map(function(p){
+      if(typeof p === 'string') return hl(p);
+      var v = a && a[bi] != null ? a[bi] : '';
+      return '<input class="bl" data-cell="' + i + '" data-b="' + (bi++) + '" style="width:' + Math.max(4, p.tok.length + 2) + 'ch" value="' + esc(v) + '" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="빈칸">';
+    }).join('');
+    return '<pre class="code">' + h + '</pre>' + btn + '<small class="kb">빈칸 사이는 Tab · 다 채우면 Enter</small></div>' + fb;
+  }
+  return '<pre class="code ghost">' + hl(plain(c.code)) + '</pre><textarea class="type" data-cell="' + i + '" rows="' + Math.max(2, plain(c.code).split('\n').length + 1) + '" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="위 코드를 그대로 따라 적어 보세요">' + esc(a || '') + '</textarea>' + btn + '<small class="kb">Shift + Enter 로 확인</small></div>' + fb;
+}
+function check(i){
+  var c = CELLS[i], key = akey(i), fb = document.getElementById('pfb' + i), want = plain(c.code), ok = false, msg = '';
+  if(MODE === 'blank'){
+    var vals = ANS[key] || [], wrong = [];
+    blankParts(c).filter(function(p){ return typeof p !== 'string'; }).forEach(function(p, k){ if(!sameTok(vals[k] || '', p.tok)) wrong.push(k); });
+    ok = !wrong.length;
+    if(!ok){ msg = '🤔 ' + wrong.length + '군데를 다시 보세요. 📘 설명의 <b>굵은 글자</b>와 왼쪽 <b>' + INFOW[c.ws[0]][0] + '</b>이 힌트예요.';
+      [].forEach.call(document.querySelectorAll('input.bl[data-cell="' + i + '"]'), function(inp, k){ inp.classList.toggle('bad', wrong.indexOf(k) >= 0); }); }
+  } else {
+    var got = normCode(ANS[key] || ''), exp = normCode(want);
+    ok = got === exp;
+    if(!ok){
+      var gl = got.split('\n'), el = exp.split('\n'), n = 0; while(n < el.length && gl[n] === el[n]) n++;
+      var hit = ''; if(n < el.length) want.split('\n').some(function(l){ var nl = normCode(l); if(nl && el[n].indexOf(nl) === 0){ hit = l.trim(); return true; } return false; });
+      msg = !got ? '✍️ 아직 비어 있어요. 위 코드를 한 줄씩 따라 적어 보세요.' :
+        n >= gl.length ? '✍️ 거의 다 왔어요 — <code>' + esc(hit || '다음 줄') + '</code> 부터 이어서 적어 보세요.' :
+        '🤔 <code>' + esc(hit || ((n + 1) + '번째 줄')) + '</code> 줄을 다시 보세요. 철자 · 대소문자 · 괄호 · 따옴표를 확인!';
+    }
+  }
+  if(ok){ SOLVED[key] = want; runCell(i); var nx = document.querySelector('.cell[data-i="' + (i + 1) + '"] input.bl, .cell[data-i="' + (i + 1) + '"] textarea'); if(nx) nx.focus(); return; }
+  if(fb){ fb.className = 'pfb no'; fb.innerHTML = msg; }
+}
+function runCell(i, quiet){
+  var c = CELLS[i]; if(!c || c.text) return true;
+  if(!isSolved(i, c)){ if(!quiet){ var fb = document.getElementById('pfb' + i); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '✋ 먼저 칸을 완성하고 <b>✓ 확인</b>을 누르세요. 맞으면 저절로 실행돼요.'; } } return false; }
+  if(!RT) RT = newRt();
+  var res = exec(c); RT.n++; RT.cnt[i] = RT.n; RT.outs[i] = res;
+  if(!quiet) drawNb();
+  return true;
+}
+function runAll(){
+  RT = newRt(); var stop = -1;
+  for(var i = 0; i < CELLS.length; i++){ if(!runCell(i, true)){ stop = i; break; } }
+  drawNb();
+  if(stop >= 0){ var fb = document.getElementById('pfb' + stop); if(fb){ fb.className = 'pfb no'; fb.innerHTML = '⏸ 여기까지 실행했어요. 이 칸을 완성하면 이어서 실행됩니다.'; }
+    var el = document.querySelector('.cell[data-i="' + stop + '"]'); if(el) el.scrollIntoView({ behavior:'smooth', block:'center' }); }
+}
+function drawTrail(){
+  var M = RT ? RT.mark : {};
+  document.getElementById('trail').innerHTML = '<b>📐 따라가기</b>' + TRAIL.map(function(t, k){
+    return (k ? '<i>→</i>' : '') + '<span' + (M[t[0]] ? ' class="on"' : '') + '>' + t[1] + ' <code>' + (M[t[0]] || '?') + '</code></span>';
+  }).join('');
+}
+function counts(){ var n = 0, N = 0; CELLS.forEach(function(c, i){ if(c.text || c.given) return; N++; if(SOLVED[akey(i)] === plain(c.code)) n++; }); return [n, N]; }
+function drawModeBar(){
+  var k = counts();
+  document.getElementById('modeBar').innerHTML = Object.keys(MODES).map(function(m){
+    return '<button type="button" class="mode' + (m === MODE ? ' on' : '') + '" data-mode="' + m + '" aria-pressed="' + (m === MODE) + '">' + MODES[m] + '</button>'; }).join('') +
+    (MODE === 'view' ? '<small>선생님 화면 · 완성 코드를 보며 설명 · ▶ 실행</small>' : '<small>완성 <b>' + k[0] + ' / ' + k[1] + '</b>칸' + (k[0] === k[1] ? ' 🎉' : '') + '</small>');
+}
+function nextStepHtml(){
+  if(MODE === 'view') return '';
+  var k = counts(); if(k[0] < k[1]) return '';
+  if(MODE === 'blank') return '<div class="nextstep">🎉 <b>빈칸 완성!</b> 이번엔 같은 코드를 <b>직접 따라 적어</b> 볼까요? 아니면 아래 <b>🧮 에포크 계산기</b>와 <b>📉 손실 그래프 읽기</b>로!<br><button class="btn pri" type="button" data-gomode="copy">🟡 따라 적기로 →</button></div>';
+  return '<div class="nextstep">🎉 <b>따라 적기까지 끝!</b> 아래 <b>📉 손실 그래프 읽기</b>와 <b>🎯 출력층 · 손실 함수 짝</b>으로 마무리해요.</div>';
+}
+function drawNb(){
+  var nb = document.getElementById('nb');
+  nb.innerHTML = CELLS.map(function(c, i){
+    if(c.text) return '<div class="tcell">' + c.html + '</div>';
+    var o = RT && RT.outs[i], out = '';
+    if(o){
+      if(o.err) out = '<div class="out err">' + esc(o.err) + '</div>';
+      else if(o.html) out = '<div class="out">' + o.html + '</div>';
+      else if(o.text || o.note) out = '<div class="out">' + esc(o.text || '') + (o.note ? (o.text ? '\n' : '') + '<span class="note">' + esc(o.note) + '</span>' : '') + '</div>';
+      if(!o.err && c.after) out += '<div class="read">📖 ' + c.after + '</div>';
+    }
+    var lock = !isSolved(i, c), on = selW && c.ws.indexOf(selW) >= 0;
+    return (c.md ? '<div class="tcell sm"><span class="tag">📘 설명</span>' + c.md + '</div>' : '') +
+      '<div class="cell' + (on ? ' hl' : '') + (lock ? ' lock' : '') + '" data-i="' + i + '" data-w="' + c.ws[0] + '" tabindex="0">' +
+      '<div class="gut"><button class="run" type="button" data-run="' + i + '" aria-label="' + (i + 1) + '번 칸 실행"' + (lock ? ' title="칸을 먼저 완성하세요"' : '') + '>▶</button><span class="cnt">[' + (RT && RT.cnt[i] ? RT.cnt[i] : ' ') + ']</span></div>' +
+      '<div class="src"><div class="ctag">' + c.ws.map(function(w){ return '<span class="chip ' + (w === 'data' || w === 'in' ? 'data' : w === 'compile' || w === 'fit' || w === 'eval' ? 'eval' : 'model') + '">' + INFOW[w][0].split(' — ')[0] + '</span>'; }).join('') + '</div>' +
+      codeEditor(i, c) + out + '</div></div>';
+  }).join('') + nextStepHtml();
+  drawModeBar(); drawTrail();
+}
+function pick(id){
+  selW = selW === id ? null : id; drawCanvas(); drawSet(); drawNb();
+  var c = document.querySelector('.cell.hl'); if(c) c.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ══════════ 계산기 ══════════ */
+function num(id){ var v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : 0; }
+function actF(z, k){ return k === 'relu' ? Math.max(0, z) : k === 'step' ? (z > 0 ? 1 : 0) : 1 / (1 + Math.exp(-z)); }
+function actName(k){ return k === 'relu' ? '렐루 max(0, z)' : k === 'step' ? '계단(z > 0 이면 1, 아니면 0)' : '시그모이드 1 ÷ (1 + e<sup>−z</sup>)'; }
+function r4(v){ return String(+v.toFixed(4)); }
+function drawPc(){
+  var x = [num('x1'), num('x2'), num('x3')], w = [num('w1'), num('w2'), num('w3')], b = num('bb'), k = document.getElementById('act').value, th = num('thr');
+  var terms = x.map(function(xi, i){ return xi * w[i]; }), z = terms.reduce(function(s, t){ return s + t; }, 0) + b, y = actF(z, k), ok = y > th;
+  document.getElementById('pcOut').innerHTML =
+    '<div>① 가중합 z = ' + x.map(function(xi, i){ return xi + '×(' + w[i] + ')'; }).join(' + ') + ' + (' + b + ') = <b class="v">' + r4(z) + '</b></div>' +
+    '<div>② ' + actName(k) + ' → <b class="v">' + r4(y) + '</b></div>' +
+    '<div>③ 임계값 ' + th + ' 을 넘나? → <b class="v">' + (ok ? '참(1)' : '거짓(0)') + '</b></div>';
+  var j = +document.getElementById('inv').value - 1, rest = z - terms[j], h = '';
+  if(x[j] === 0) h = '<div>x<sub>' + (j + 1) + '</sub> 가 0 이라 w<sub>' + (j + 1) + '</sub> 를 아무리 바꿔도 결과가 그대로예요(0 × 무엇 = 0).</div>';
+  else if(k === 'sig' && (th <= 0 || th >= 1)) h = '<div>시그모이드 결과는 0~1 사이라 임계값을 0~1 안에서 정해 주세요.</div>';
+  else {
+    var zNeed = k === 'relu' ? (th >= 0 ? th : null) : k === 'step' ? (th >= 1 ? Infinity : th >= 0 ? 0 : null) : Math.log(th / (1 - th));
+    if(zNeed === null) h = '<div>임계값이 음수라 렐루 · 계단 결과(0 이상)는 언제나 넘어요.</div>';
+    else if(zNeed === Infinity) h = '<div>계단 함수의 결과는 0 또는 1 이라 임계값 ' + th + ' 을 넘을 수 없어요.</div>';
+    else { var lim = (zNeed - rest) / x[j], dir = x[j] > 0 ? '보다 커야' : '보다 작아야';
+      h = '<div>z 가 <b>' + r4(zNeed) + '</b> 보다 커야 해요 → 나머지 합 ' + r4(rest) + ' + x<sub>' + (j + 1) + '</sub>(' + x[j] + ') × w<sub>' + (j + 1) + '</sub> &gt; ' + r4(zNeed) +
+        ' → <b>w<sub>' + (j + 1) + '</sub> 가 <span class="v" style="font-family:var(--font-mono); color:var(--orange-d)">' + r4(lim) + '</span> ' + dir + '</b> 참이에요.</div>'; }
+  }
+  document.getElementById('pcInv').innerHTML = h;
+}
+function drawEp(){
+  var N = Math.max(1, Math.floor(num('eN'))), T = num('eT'), B = Math.max(1, Math.floor(num('eB'))), E = Math.max(1, Math.floor(num('eE')));
+  var nTest = Math.ceil(N * T - 1e-9), nTr = N - nTest, step = Math.ceil(nTr / B);
+  document.getElementById('epOut').innerHTML =
+    '<div>① 시험용 = ' + N + ' × ' + T + ' = ' + r4(N * T) + ' → 올림 <b class="v">' + nTest + '</b>개 · 공부용 = ' + N + ' − ' + nTest + ' = <b class="v">' + nTr + '</b>개</div>' +
+    '<div>② 1 에포크 = 공부용 ÷ batch_size = ' + nTr + ' ÷ ' + B + ' = ' + r4(nTr / B) + ' → 올림 <b class="v">' + step + '번</b><small>마지막 묶음은 ' + B + '개보다 적어도 한 번으로 셈</small></div>' +
+    '<div>③ 전체 = ' + step + ' × ' + E + ' 에포크 = <b class="v">' + step * E + '번</b> 가중치를 고쳐요</div>';
+}
+/* 손실 그래프 읽기 — 예시 세 장 */
+var GR = [
+  { nm:'가', tr:[0.68,0.52,0.42,0.35,0.30,0.26,0.23,0.20,0.18,0.16,0.14,0.13,0.11,0.10,0.09,0.08,0.07,0.06,0.05,0.05], te:[0.69,0.55,0.46,0.40,0.36,0.33,0.31,0.30,0.30,0.31,0.32,0.34,0.36,0.38,0.40,0.42,0.44,0.46,0.48,0.50] },
+  { nm:'나', tr:[0.69,0.67,0.66,0.64,0.63,0.62,0.61,0.60,0.59,0.58,0.57,0.56,0.55,0.55,0.54,0.53,0.52,0.52,0.51,0.50], te:[0.69,0.68,0.66,0.65,0.64,0.63,0.62,0.61,0.60,0.59,0.58,0.57,0.57,0.56,0.55,0.54,0.54,0.53,0.52,0.52] },
+  { nm:'다', tr:[0.66,0.48,0.37,0.29,0.24,0.20,0.17,0.15,0.14,0.13,0.12,0.11,0.11,0.10,0.10,0.09,0.09,0.09,0.08,0.08], te:[0.67,0.50,0.39,0.32,0.27,0.23,0.21,0.19,0.18,0.17,0.17,0.16,0.16,0.16,0.15,0.15,0.15,0.15,0.15,0.15] }
+];
+var GQ = [
+  ['과적합이 일어난 그래프는?', '가', '훈련 손실은 계속 줄어드는데 <b>테스트 손실이 8~9 에포크쯤부터 다시 커져요</b> → 훈련 데이터를 외워 버려 새 데이터에서 못 맞히는 <b>과적합</b>. 테스트 손실이 가장 작을 때 멈추는 게 좋아요(조기 종료).'],
+  ['아직 덜 배운(학습이 부족한) 그래프는?', '나', '두 손실이 함께 천천히 줄고 있지만 아직 <b>0.5 근처로 높아요</b> → 에포크를 늘리거나 모델을 키워 더 배우게 해요.'],
+  ['알맞게 배운 그래프는?', '다', '두 손실이 함께 줄어 <b>낮은 곳에서 나란히</b> 멈춰요 → 새 데이터에서도 잘 맞혀요.']
+];
+function drawGraphs(){
+  document.getElementById('gpick').innerHTML = GR.map(function(g){
+    return '<div><b>(' + g.nm + ')</b>' + lineSvg([{ v: g.tr, c:'ln' }, { v: g.te, c:'ln2' }], 'epoch', 'loss', 1) + '<p class="lgd"><i style="background:#1f77b4"></i>훈련<i style="background:#ff7f0e"></i>테스트</p></div>';
+  }).join('');
+  document.getElementById('gq').innerHTML = GQ.map(function(q, i){
+    return '<div class="q"><div class="qh"><b>' + (i + 1) + '</b>' + q[0] + '</div><div class="picks" data-gq="' + i + '">' + GR.map(function(g){ return '<button type="button" data-g="' + g.nm + '">(' + g.nm + ')</button>'; }).join('') + '</div><div class="fb" id="gqf' + i + '"></div></div>';
+  }).join('');
+}
+
+/* ── 이벤트 ───────────────────────────── */
+document.getElementById('cv').addEventListener('click', function(e){ var g = e.target.closest('[data-w]'); if(g) pick(g.dataset.w); });
+document.getElementById('cv').addEventListener('keydown', function(e){ var g = e.target.closest('[data-w]'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); pick(g.dataset.w); } });
+document.getElementById('nb').addEventListener('click', function(e){
+  var r = e.target.closest('[data-run]'); if(r){ runCell(+r.dataset.run); return; }
+  var k = e.target.closest('[data-chk]'); if(k){ check(+k.dataset.chk); return; }
+  var gm = e.target.closest('[data-gomode]'); if(gm){ MODE = gm.dataset.gomode; store('deep_mode', MODE); RT = null; drawNb(); document.getElementById('modeBar').scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  if(e.target.closest('input, textarea, .pact, .pfb, .read, .tcell, .nextstep, .out')) return;
+  var c = e.target.closest('.cell'); if(c){ selW = c.dataset.w; drawCanvas(); drawSet(); drawNb(); }
+});
+document.getElementById('nb').addEventListener('input', function(e){
+  var tg = e.target, i = tg.dataset && tg.dataset.cell; if(i == null) return;
+  var key = akey(+i);
+  if(tg.matches('input.bl')){ var a = ANS[key] || (ANS[key] = []); a[+tg.dataset.b] = tg.value; tg.classList.remove('bad'); }
+  else if(tg.matches('textarea.type')) ANS[key] = tg.value;
+});
+document.getElementById('nb').addEventListener('keydown', function(e){
+  var tg = e.target;
+  if(tg.matches && tg.matches('input.bl') && e.key === 'Enter'){ e.preventDefault(); check(+tg.dataset.cell); return; }
+  if(tg.matches && tg.matches('textarea.type')){
+    if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); check(+tg.dataset.cell); return; }
+    if(e.key === 'Tab' && !e.shiftKey){ e.preventDefault(); var s0 = tg.selectionStart; tg.value = tg.value.slice(0, s0) + '    ' + tg.value.slice(tg.selectionEnd); tg.selectionStart = tg.selectionEnd = s0 + 4; ANS[akey(+tg.dataset.cell)] = tg.value; }
+    return;
+  }
+  var c = tg.closest && tg.closest('.cell'); if(!c || tg.closest('button')) return;
+  if(e.key === 'Enter' && e.shiftKey){ e.preventDefault(); runCell(+c.dataset.i); var nx = document.querySelector('.cell[data-i="' + (+c.dataset.i + 1) + '"]'); if(nx) nx.focus(); }
+});
+document.getElementById('modeBar').addEventListener('click', function(e){ var b = e.target.closest('[data-mode]'); if(!b) return; if(b.dataset.mode !== MODE) RT = null; MODE = b.dataset.mode; store('deep_mode', MODE); drawNb(); });
+document.getElementById('runAll').addEventListener('click', runAll);
+document.getElementById('resetRt').addEventListener('click', function(){ RT = null; drawNb(); });
+document.getElementById('pc').addEventListener('input', drawPc);
+document.getElementById('ep').addEventListener('input', drawEp);
+document.getElementById('gq').addEventListener('click', function(e){
+  var b = e.target.closest('[data-g]'); if(!b) return; var i = +b.parentNode.dataset.gq, ok = b.dataset.g === GQ[i][1], f = document.getElementById('gqf' + i);
+  [].forEach.call(b.parentNode.children, function(x){ x.className = ''; }); b.className = ok ? 'ok' : 'no';
+  f.className = 'fb ' + (ok ? 'ok' : 'no'); f.innerHTML = ok ? '✅ ' + GQ[i][2] : '🤔 다시! 파란 선(훈련)과 주황 선(테스트)이 <b>어디서 갈라지는지</b> 보세요.';
+});
+drawCanvas(); drawSet(); drawNb(); drawPc(); drawEp(); drawGraphs();
+</script>
+</body>
+</html>

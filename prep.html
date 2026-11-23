@@ -369,6 +369,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
   <nav class="toplinks" aria-label="실습 창">
     <a class="on" href="prep.html">🧹 전처리 · 보험 고객 표</a>
     <a href="orange.html">🍊 모델 만들기 · 청년 인구 · 붓꽃 · 평가 지표</a>
+    <a href="deep.html">🧠 딥러닝 · 독버섯</a>
   </nav>
 </div></header>
 
@@ -716,6 +717,8 @@ function exec(c){
 var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기' };
 function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
 var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+if(TEACH) [].forEach.call(document.querySelectorAll('.toplinks a'), function(a){ a.href = a.getAttribute('href') + '?t=1'; });   /* 교사용 화면끼리 오가기 */
+if(!TEACH) delete MODES.view;     /* 학생 화면에는 정답(👀 보기)을 두지 않음 */
 var MODE = TEACH ? 'view' : (MODES[store('prep_mode')] ? store('prep_mode') : 'blank');
 var ANS = {}, SOLVED = {};
 function akey(i){ return MODE + '|' + i; }

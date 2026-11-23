@@ -345,6 +345,10 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
 .evcm td small{display:block; font-weight:500; font-size:11px; color:var(--ink-2)}
 .evq .fb{color:var(--ok)}
 #metricView.evbig .ev{zoom:1.22}
+.toplinks{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.toplinks a{font-size:13px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--surface); border:1px solid var(--line); border-radius:99px; padding:5px 13px}
+.toplinks a.on{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.toplinks a:hover{border-color:var(--orange)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -362,7 +366,11 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; text
     <button class="tab" role="tab" data-t="impl" aria-selected="false">🧭 구현 · 해석</button>
     <button class="tab" role="tab" data-t="quiz" aria-selected="false">✏️ 정리 퀴즈</button>
   </div>
-  <p class="howto" style="margin:10px 0 0">🧹 데이터 전처리(교과서 72~79쪽 · 합치기 · 중복 · 결측치 · 이상치 · 열 빼기)는 <a href="prep.html"><b>전처리 실습 창</b></a>에서 같은 방식으로 연습해요.</p>
+  <nav class="toplinks" aria-label="실습 창">
+    <a href="prep.html">🧹 전처리 · 보험 고객 표</a>
+    <a class="on" href="orange.html">🍊 모델 만들기 · 청년 인구 · 붓꽃 · 평가 지표</a>
+    <a href="deep.html">🧠 딥러닝 · 독버섯</a>
+  </nav>
 </div></header>
 
 <main class="wrap">
@@ -1559,6 +1567,7 @@ var MODE = 'blank';
 var MODES = { view:'👀 보기', blank:'🟢 빈칸', copy:'🟡 따라 적기', self:'🔴 스스로 적기 <small>복습</small>' };
 /* 👀 보기(완성 코드)는 선생님 링크(?mode=view 또는 ?t=1)로 열었을 때만 — 학생 화면에는 🟢 🟡 🔴 세 단계 */
 var TEACH = /[?&](mode=view|t=1)\b/.test(location.search);
+if(TEACH) [].forEach.call(document.querySelectorAll('.toplinks a'), function(a){ a.href = a.getAttribute('href') + '?t=1'; });   /* 교사용 화면끼리 오가기 */
 if(!TEACH) delete MODES.view;
 var ANS = {}, SOLVED = {}, TRIES = {}, SHOWN = {};
 function akey(i){ return cur + '|' + MODE + '|' + i; }
@@ -2101,7 +2110,7 @@ function drawSteps(){
 }
 var hashEval = /^#(eval|m-eval)$/.test(location.hash);
 var hashT = hashEval ? 'metric' : (location.hash.match(/^#(reg|cls|quiz|metric|impl)$/) || [])[1];
-(function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || store('o2c_mode'); MODE = m && MODES[m] ? m : 'blank'; })();
+(function(){ var m = (location.search.match(/[?&]mode=(view|blank|copy|self)\b/) || [])[1] || (TEACH ? 'view' : store('o2c_mode')); MODE = m && MODES[m] ? m : 'blank'; })();
 drawSteps(); refresh();
 if(hashT && hashT !== 'reg') document.querySelector('.tab[data-t="' + hashT + '"]').click();
 if(hashEval) setTimeout(function(){ var e = document.getElementById('m-eval'); if(e) e.scrollIntoView({ block:'start' }); }, 60);
