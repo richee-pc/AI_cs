@@ -166,6 +166,12 @@ var LES = {
     steps:[['u2','pipeSteps','전처리 단계 한눈에','변환 · 통합 · 정제 · 축소 순서를 보고, 🧹 실습 창에서 concat · drop_duplicates · dropna · drop(axis=1) 뒤의 shape를 따라갑니다'],['u2','learn02','Ⅱ-02 이상치 · 상관','IQR로 이상치를 찾고, 상관이 아주 높은 열이 정답을 만든 열인지 따져 봅니다'],['u2','blocks','오렌지3 ↔ 코드','위젯과 코드 줄을 짝짓고, 오류가 나는 줄을 찾아봅니다'],['u2','implement','평가 해석','오분류표로 정확도 · 정밀도 · 재현율을 구하고 상황에 맞는 지표를 고릅니다']],
     ext:[['https://richee-pc.github.io/AI_cs/prep.html','🧹 전처리 실습 창(교과서 72~79쪽 · 오렌지3 ↔ 코드 빈칸)'],['https://richee-pc.github.io/AI_cs/orange.html','🍊 오렌지3 ↔ 코드 실습 창(① 청년 인구 · ② 붓꽃)'],['https://richee-pc.github.io/AI_cs/orange.html#eval','📏 평가 해석(선생님 화면 · 기준값 · 상황 셋 · 정확도의 함정)'],['https://colab.research.google.com/github/richee-pc/AI_cs/blob/main/notebooks/13_unit2_02_preprocessing.ipynb','코랩 13 · 전처리(더 해 보기)']],
     out:'df 모양 따라가기 · 오분류표 계산 2문항 · 지표 고르기 한 줄' },
+  R6:{ short:'학습 ②+ 모델 만들기 ②', kind:'u2', tag:'시험 범위 학습 ②+ (D반)', title:'오렌지3 ↔ 코랩 모델 만들기 ② 종류 맞히기 — 붓꽃 kNN을 처음부터 끝까지 · 띵커벨 퀴즈', page:'교과서 100~115쪽 · 학습 ②에서 함께 본 ② 탭을 이번에는 내 손으로 · 선생님과 함께',
+    goal:'오렌지3 위젯(File · Data Sampler · kNN · Test and Score · Predictions · Confusion Matrix)과 파이썬 코드 줄을 짝지어 붓꽃 분류 모델을 처음부터 끝까지 만들고, 정확도를 기준선(Constant)과 비교해 해석할 수 있다.',
+    flow:[[2,'수행평가 ② 늦은 제출 마감(오늘 23:59) 안내 — 노트북 점검 화면에서 🎉 확인'],[8,'① 숫자 맞히기 다시 보기 — 위젯 ↔ 코드 짝(File = read_csv · Data Sampler = train_test_split · 학습 위젯 = 모델 정의 · fit · Predictions = predict)'],[25,'🍊 ② 종류 맞히기(붓꽃) 내 손으로 — 열 역할(feature → x · target → y) · 나누기(120 · 30) · KNeighborsClassifier() 한 줄만 바뀜 · fit(x_train, y_train) · predict(x_test) · 정확도 · 정밀도 · 재현율 · 오답 정리표 · Constant 기준선과 비교 → 평가 해석 문장 한 줄'],[13,'🔔 띵커벨 퀴즈 12문항 — 모델 만들기 7(위젯 ↔ 코드 · 열 역할 · 나누기 계산 · fit은 훈련용 · predict · kNN의 k) + 평가 지표 5(정확도 계산 · 정확도의 함정 · 정밀도 · 재현율 계산 · 상황에 맞는 지표)'],[2,'많이 틀린 문항 한 줄 다시']],
+    steps:[['u2','blocks','오렌지3 ↔ 코드','위젯과 코드 줄을 짝짓고, 오류가 나는 줄을 찾아봅니다'],['u2','implement','평가 해석','정확도를 기준선과 비교해 한 문장으로 씁니다']],
+    ext:[['https://richee-pc.github.io/orange2colab/','🍊 orange2colab — 오렌지3 ↔ 코랩 실습 창(② 종류 맞히기)'],['https://richee-pc.github.io/AI_cs/orange.html','🍊 오렌지3 ↔ 코드 실습 창(수업 사이트 · 같은 내용 + 정리 퀴즈)']],
+    out:'② 종류 맞히기 완성 · 평가 해석 문장 한 줄 · 띵커벨 점수', bring:'노트북(실습 창은 로그인 없이 열려요)' },
   R3:{ short:'학습 ③ Ⅱ-06·07', kind:'u2', tag:'시험 범위 학습 ③', title:'인공신경망과 딥러닝 모델 구현 — 퍼셉트론 계산 · 층 쌓기 · 에포크 · 손실 그래프', page:'교과서 116~138쪽 · Ⅱ-07 구현은 이 시간이 처음 · 선생님과 함께',
     goal:'퍼셉트론의 가중합과 렐루를 계산하고, 코랩에서 층을 쌓은 딥러닝 모델의 출력층 · 손실 함수 · 에포크 · 배치를 설명하며, 손실 그래프로 과적합을 판단하고 정규화의 효과를 말할 수 있다.',
     flow:[[10,'🧮 퍼셉트론 계산기(🧠 딥러닝 실습 창 아래) — 가중합 → 렐루 · 시그모이드 · 임계값 · «이 가중치가 얼마보다 커야 참?» 거꾸로 묻기 · XOR와 은닉층 한 줄'],[25,'🧠 딥러닝 실습 창(교과서 126~130쪽 독버섯) — 선생님은 ?t=1 보기 화면으로 시범 → 학생은 🟢 빈칸 · 신경망 그림을 눌러 층마다 가중치 개수(모두 2001개) · LabelEncoder · iloc · Sequential · Dense(64 relu → 8 relu → 1 sigmoid) · compile(adam · binary_crossentropy) · fit(epochs · batch_size) · 26/26 = 1 에포크에 가중치를 고치는 횟수 · evaluate · 정규화(MinMaxScaler)'],[10,'🧮 에포크 계산기(«1 에포크에 가중치를 몇 번 고칠까?» = 훈련 데이터 수 ÷ batch_size 올림) · 📉 손실 그래프 읽기 — 과적합 · 학습 부족 · 알맞음 고르기'],[5,'🎯 출력층 · 손실 함수 짝 — 이진 분류 binary_crossentropy · 다중 분류 categorical_crossentropy · 숫자 예측 MSE · 손실은 작을수록 좋음 · 오차 역전파는 출력층 → 입력층']],
@@ -198,14 +204,14 @@ var LES = {
 };
 var CAL = {
   A:'10/14 U00|10/15 U01|10/16 U05|10/21 U67|10/22 D1|10/23 D2|10/28 D3|10/29 D4|10/30 P1|11/4 P2|11/5 P3|11/6 P4|11/11 S1|11/12 S2|11/13 S3|11/25 S4|11/26 S5|11/27 R1|12/2 R2|12/3 R3|12/4 R4|12/9 J1|12/16 MK|12/17 MK|12/18 MK|12/23 MF|12/24 MF|12/30 END',
-  D:'10/12 U00|10/13 U01|10/16 U05|10/19 U67|10/23 D1x|10/26 D2x|10/27 D3|10/30 D4|11/2 P1|11/3 P2|11/6 P3|11/9 P4|11/10 S1|11/13 S2|11/16 S3|11/17 S4|11/20 S5|11/23 R1|11/24 R2|11/27 R3|11/30 R4|12/1 R5|12/4 J1|12/7 J2|12/8 J3|12/18 MK|12/21 MF|12/22 MF|12/28 END|12/29 END',
+  D:'10/12 U00|10/13 U01|10/16 U05|10/19 U67|10/23 D1x|10/26 D2x|10/27 D3|10/30 D4|11/2 P1|11/3 P2|11/6 P3|11/9 P4|11/10 S1|11/13 S2|11/16 S3|11/17 S4|11/20 S5|11/23 R1|11/24 R2|11/27 R6|11/30 R3|12/1 R4|12/4 J1|12/7 J2|12/8 J3|12/18 MK|12/21 MF|12/22 MF|12/28 END|12/29 END',
   E:'10/12 U00|10/13 U01|10/15 U05|10/19 U67|10/22 D1x|10/26 D2x|10/27 D3|10/29 D4|11/2 P1|11/3 P2|11/5 P3|11/9 P4|11/10 S1|11/12 S2|11/16 S3|11/17 S4|11/23 S5|11/24 R1|11/26 R2|11/30 R3|12/1 R4|12/3 J1|12/7 J2|12/8 J3|12/17 MK|12/21 MF|12/22 MF|12/24 MF|12/28 END|12/29 END'
 };
 var OFF = { '10/20':'전국연합학력평가', '11/18':'수능 전날(수업 결손 예상)', '11/19':'대학수학능력시험', '12/10':'2차 정기고사', '12/11':'2차 정기고사', '12/14':'2차 정기고사', '12/15':'2차 정기고사' };
 var PAGES = { ds:'https://richee-pc.github.io/AI_cs/datasites.html', u2:'https://richee-pc.github.io/AI_cs/unit2.html', u4:'https://richee-pc.github.io/AI_cs/unit4.html', ix:'https://richee-pc.github.io/AI_cs/index.html',
   lb:'https://richee-pc.github.io/AI_cs/labs.html', md:'https://richee-pc.github.io/AI_cs/models.html', dg:'https://richee-pc.github.io/AI_cs/datagen.html' };
 var PNAME = { ds:'데이터 찾는 곳', u2:'Ⅱ단원 쪽', u4:'Ⅳ단원 쪽', ix:'안내 쪽', lb:'코랩 실습실', md:'모델 도감', dg:'데이터 공방' };
-var ORDER = ['U00','U01','U05','U67','D1','D2','D1x','D2x','D3','D4','P1','P2','P3','P4','S1','S2','S3','S4','S5','R1','R2','R3','R4','R5','J1','J2','J3','U07b','UR','UX','EX','MK','MF','END'];
+var ORDER = ['U00','U01','U05','U67','D1','D2','D1x','D2x','D3','D4','P1','P2','P3','P4','S1','S2','S3','S4','S5','R1','R2','R6','R3','R4','R5','J1','J2','J3','U07b','UR','UX','EX','MK','MF','END'];
 var NAME = { A:'인기A', D:'인기D', E:'인기E' }, BACK = { '인기A':'A', '인기D':'D', '인기E':'E' };
 var WD = '일월화수목금토';
 
